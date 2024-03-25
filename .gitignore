@@ -8,6 +8,7 @@ vendor
 .gitpod.yml
 .DS_Store
 /.idea
+node_modules
 
 # Secrets
 .vercel

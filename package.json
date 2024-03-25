@@ -1,0 +1,15 @@
+{
+  "name": "ercs",
+  "version": "1.0.0",
+  "description": "*Please note that ERCs were recently separated from the [EIPs](https://github.com/ethereum/eips) repo.*",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  }
+}

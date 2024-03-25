@@ -19,7 +19,7 @@ description: >-
   platform, including core protocol specifications, client APIs, and contract
   standards.
 url: "https://eips.ethereum.org"
-github_username:  ethereum
+github_username: ethereum
 repository: ethereum/EIPs
 
 header_pages:

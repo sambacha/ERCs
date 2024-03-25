@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Simple Staking Interface | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Simple Staking Interface | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-900" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-900" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Simple Staking Interface</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The following standard describes a common staking interface allowing for easy to use staking systems. The interface is kept simple allowing for various use cases to be implemented. This standard describes the common functionality for staking as well as providing information on stakes.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>As we move to more token models, having a common staking interface which is familiar to users can be useful. The common interface can be used by a variety of applications, this common interface could be beneficial especially to things like Token curated registries which have recently gained popularity.</p>
+
+<h2 id="specification">Specification</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">Staking</span> <span class="p">{</span>
+
+    <span class="k">event</span> <span class="n">Staked</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">user</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">total</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">data</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Unstaked</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">user</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">total</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">data</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">stake</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">stakeFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">user</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">unstake</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">totalStakedFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">totalStaked</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">token</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">supportsHistory</span><span class="p">()</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">// optional
+</span>    <span class="k">function</span> <span class="n">lastStakedFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">totalStakedForAt</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">blockNumber</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">totalStakedAt</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">blockNumber</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="stake">stake</h3>
+
+<p>Stakes a certain amount of tokens, this MUST transfer the given amount from the user.</p>
+
+<p><em>The data field can be used to add signalling information in more complex staking applications</em></p>
+
+<p>MUST trigger <code class="language-plaintext highlighter-rouge">Staked</code> event.</p>
+
+<h3 id="stakefor">stakeFor</h3>
+
+<p>Stakes a certain amount of tokens, this MUST transfer the given amount from the caller.</p>
+
+<p><em>The data field can be used to add signalling information in more complex staking applications</em></p>
+
+<p>MUST trigger <code class="language-plaintext highlighter-rouge">Staked</code> event.</p>
+
+<h3 id="unstake">unstake</h3>
+
+<p>Unstakes a certain amount of tokens, this SHOULD return the given amount of tokens to the user, if unstaking is currently not possible the function MUST revert.</p>
+
+<p><em>The data field can be used to remove signalling information in more complex staking applications</em></p>
+
+<p>MUST trigger <code class="language-plaintext highlighter-rouge">Unstaked</code> event.</p>
+
+<h3 id="totalstakedfor">totalStakedFor</h3>
+
+<p>Returns the current total of tokens staked for an address.</p>
+
+<h3 id="totalstaked">totalStaked</h3>
+
+<p>Returns the current total of tokens staked.</p>
+
+<h3 id="token">token</h3>
+
+<p>Address of the token being used by the staking interface.</p>
+
+<h3 id="supportshistory">supportsHistory</h3>
+
+<p>MUST return true if the optional history functions are implemented, otherwise false.</p>
+
+<h3 id="laststakedfor">lastStakedFor</h3>
+
+<p><em><strong>OPTIONAL:</strong> As not all staking systems require a complete history, this function is optional.</em></p>
+
+<p>Returns last block address staked at.</p>
+
+<h3 id="totalstakedforat">totalStakedForAt</h3>
+
+<p><em><strong>OPTIONAL:</strong> As not all staking systems require a complete history, this function is optional.</em></p>
+
+<p>Returns total amount of tokens staked at block for address.</p>
+
+<h3 id="totalstakedat">totalStakedAt</h3>
+
+<p><em><strong>OPTIONAL:</strong> As not all staking systems require a complete history, this function is optional.</em></p>
+
+<p>Returns the total tokens staked at block.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<ul>
+  <li><a href="https://github.com/HarbourProject/stakebank">Stakebank</a></li>
+  <li><a href="https://github.com/aragon/aragon-apps/pull/101">Aragon</a></li>
+  <li><a href="https://github.com/maticnetwork/contracts/blob/master/contracts/StakeManager.sol">PoS Staking</a></li>
+  <li><a href="https://github.com/codex-protocol/contract.erc-900">BasicStakeContract</a></li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Non-Fungible Key Bound Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Non-Fungible Key Bound Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6809" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6809" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Non-Fungible Key Bound Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>A standard interface for Non-Fungible Key Bound Tokens (<strong>NFKBT/s</strong>), a subset of the more general Key Bound Tokens (<strong>KBT/s</strong>).</p>
+
+<p>The following standardizes an API for tokens within smart contracts and provides basic functionality to the <a href="#addbindings-function">addBindings</a> function. This function designates <strong>Key Wallets</strong><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, which are responsible for conducting a <strong>Safe Transfer</strong><sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>. During this process, <strong>NFKBT’s</strong> are safely approved so they can be spent by the user or an on-chain third-party entity.</p>
+
+<p>The premise of <strong>NFKBT’s</strong> is to provide fully optional security features built directly into the non-fungible asset, via the concept of <em>allow</em> found in the <a href="#allowtransfer-function">allowTransfer</a> and <a href="#allowapproval-function">allowApproval</a> functions. These functions are called by one of the <strong>Key Wallets</strong><sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> and <em>allow</em> the <strong>Holding Wallet</strong><sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> to either call the already familiar <code class="language-plaintext highlighter-rouge">transferFrom</code> and <code class="language-plaintext highlighter-rouge">approve</code> function found in <a href="./eip-721.md">ERC-721</a>. Responsibility for the <strong>NFKBT</strong> is therefore split. The <strong>Holding Wallet</strong> contains the asset and <strong>Key Wallets</strong> have authority over how the assets can be spent or approved. <strong>Default Behaviors</strong><sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup> of a traditional non-fungible ERC-721 can be achieved by simply never using the <a href="#addbindings-function">addBindings</a> function.</p>
+
+<p>We considered <strong>NFKBTs</strong> being used by every individual who wishes to add additional security to their non-fungible assets, as well as consignment to third-party wallets/brokers/banks/insurers/galleries. <strong>NFKBTs</strong> are resilient to attacks/thefts, by providing additional protection to the asset itself on a self-custodial level.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>In this fast-paced technologically advancing world, people learn and mature at different speeds. The goal of global adoption must take into consideration the target demographic is of all ages and backgrounds. Unfortunately for self-custodial assets, one of the greatest pros is also one of its greatest cons. The individual is solely responsible for their actions and adequately securing their assets. If a mistake is made leading to a loss of funds, no one is able to guarantee their return.</p>
+
+<p>From January 2021 through March 2022, the United States Federal Trade Commission received more than 46,000<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup> crypto scam reports. This directly impacted crypto users and resulted in a net consumer loss exceeding $1 Billion<sup id="fnref:6" role="doc-noteref"><a href="#fn:6" class="footnote" rel="footnote">6</a></sup>. Theft and malicious scams are an issue in any financial sector and oftentimes lead to stricter regulation. However, government-imposed regulation goes against one of this space’s core values. Efforts have been made to increase security within the space through centralized and decentralized means. Up until now, no one has offered a solution that holds onto the advantages of both whilst eliminating their disadvantages.</p>
+
+<p>We asked ourselves the same question as many have in the past, “How does one protect the wallet?”. After a while, realizing the question that should be asked is “How does one protect the asset?”. Creating the wallet is free, the asset is what has value and is worth protecting. This question led to the development of <strong>KBT’s</strong>. A solution that is fully optional and can be tailored so far as the user is concerned. Individual assets remain protected even if the seed phrase or private key is publicly released, as long as the security feature was activated.</p>
+
+<p><strong>NFKBTs</strong> saw the need to improve on the widely used non-fungible ERC-721 token standard. The security of non-fungible assets is a topic that concerns every entity in the crypto space, as their current and future use cases are continuously explored. <strong>NFKBTs</strong> provide a scalable decentralized security solution that takes security one step beyond wallet security, focusing on the token’s ability to remain secure. The security is on the blockchain itself, which allows every demographic that has access to the internet to secure their assets without the need for current hardware or centralized solutions. Made to be a promising alternative, <strong>NFKBTs</strong> inherit all the characteristics of an ERC-721. This was done so <strong>NFKBTs</strong> could be used on every dApp that is configured to use traditional non-fungible tokens.</p>
+
+<p>During the development process, the potential advantages <strong>KBT’s</strong> explored were the main motivation factors leading to their creation;</p>
+
+<ol>
+  <li>
+    <p><strong>Completely Decentralized:</strong> The security features are fully decentralized meaning no third-party will have access to user funds when activated. This was done to truly stay in line with the premise of self-custodial assets, responsibility and values.</p>
+  </li>
+  <li>
+    <p><strong>Limitless Scalability:</strong> Centralized solutions require the creation of an account and their availability may be restricted based on location. <strong>NFKBT’s</strong> do not face regional restrictions or account creation. Decentralized security solutions such as hardware options face scalability issues requiring transport logistics, secure shipping and vendor. <strong>NFKBT’s</strong> can be used anywhere around the world by anyone who so wishes, provided they have access to the internet.</p>
+  </li>
+  <li>
+    <p><strong>Fully Optional Security:</strong> Security features are optional, customizable and removable. It’s completely up to the user to decide the level of security they would like when using <strong>NFKBT’s</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Default Functionality:</strong> If the user would like to use <strong>NFKBT’s</strong> as a traditional ERC-721, the security features do not have to be activated. As the token inherits all of the same characteristics, it results in the token acting with traditional non-fungible <strong>Default Behaviors</strong><sup id="fnref:4:1" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>. However, even when the security features are activated, the user will still have the ability to customize the functionality of the various features based on their desired outcome. The user can pass a set of custom and or <strong>Default Values</strong><sup id="fnref:7" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">7</a></sup> manually or through a dApp.</p>
+  </li>
+  <li>
+    <p><strong>Unmatched Security:</strong> By calling the <a href="#addbindings-function">addBindings</a> function a <strong>Key Wallet</strong><sup id="fnref:1:2" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> is now required for the <a href="#allowtransfer-function">allowTransfer</a> or <a href="#allowapproval-function">allowApproval</a> function. The <a href="#allowtransfer-function">allowTransfer</a> function requires 4 parameters, <code class="language-plaintext highlighter-rouge">_tokenId</code><sup id="fnref:8" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">8</a></sup>, <code class="language-plaintext highlighter-rouge">_time</code><sup id="fnref:9" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">9</a></sup>, <code class="language-plaintext highlighter-rouge">_address</code><sup id="fnref:10" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup>, and <code class="language-plaintext highlighter-rouge">_anyToken</code><sup id="fnref:11" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup>, where as the <a href="#allowapproval-function">allowApproval</a> function has 2 parameters, <code class="language-plaintext highlighter-rouge">_time</code><sup id="fnref:12" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">12</a></sup> and <code class="language-plaintext highlighter-rouge">_numberOfTransfers</code><sup id="fnref:13" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>. In addition to this, <strong>NFKBT’s</strong> have a <a href="#safefallback-function">safeFallback</a> and <a href="#resetbindings-function">resetBindings</a> function. The combination of all these prevent and virtually cover every single point of failure that is present with a traditional ERC-721, when properly used.</p>
+  </li>
+  <li>
+    <p><strong>Security Fail-Safes:</strong> With <strong>NFKBTs</strong>, users can be confident that their tokens are safe and secure, even if the <strong>Holding Wallet</strong><sup id="fnref:3:1" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> or one of the <strong>Key Wallets</strong><sup id="fnref:1:3" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> has been compromised. If the owner suspects that the <strong>Holding Wallet</strong> has been compromised or lost access, they can call the <a href="#safefallback-function">safeFallback</a> function from one of the <strong>Key Wallets</strong>. This moves the assets to the other <strong>Key Wallet</strong> preventing a single point of failure. If the owner suspects that one of the <strong>Key Wallets</strong> has been comprised or lost access, the owner can call the <a href="#resetbindings-function">resetBindings</a> function from <code class="language-plaintext highlighter-rouge">_keyWallet1</code><sup id="fnref:15" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">14</a></sup> or <code class="language-plaintext highlighter-rouge">_keyWallet2</code><sup id="fnref:16" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">15</a></sup>. This resets the <strong>NFKBT’s</strong> security feature and allows the <strong>Holding Wallet</strong> to call the <a href="#addbindings-function">addBindings</a> function again. New <strong>Key Wallets</strong> can therefore be added and a single point of failure can be prevented.</p>
+  </li>
+  <li>
+    <p><strong>Anonymous Security:</strong> Frequently, centralized solutions ask for personal information that is stored and subject to prying eyes. Purchasing decentralized hardware solutions are susceptible to the same issues e.g. a shipping address, payment information, or a camera recording during a physical cash pick-up. This may be considered by some as infringing on their privacy and asset anonymity. <strong>NFKBT’s</strong> ensure user confidentially as everything can be done remotely under a pseudonym on the blockchain.</p>
+  </li>
+  <li>
+    <p><strong>Low-Cost Security:</strong> The cost of using <strong>NFKBT’s</strong> security features correlate to on-chain fees, the current <em>GWEI</em> at the given time. As a standalone solution, they are a viable cost-effective security measure feasible to the majority of the population.</p>
+  </li>
+  <li>
+    <p><strong>Environmentally Friendly:</strong> Since the security features are coded into the <strong>NFKBT</strong>, there is no need for centralized servers, shipping, or the production of physical object/s. Thus leading to a minimal carbon footprint by the use of <strong>NFKBT’s</strong>, working hand in hand with Ethereum’s change to a <em>PoS</em><sup id="fnref:14" role="doc-noteref"><a href="#fn:14" class="footnote" rel="footnote">16</a></sup> network.</p>
+  </li>
+  <li>
+    <p><strong>User Experience:</strong> The security feature can be activated by a simple call to the <a href="#addbindings-function">addBindings</a> function. The user will only need two other wallets, which will act as <code class="language-plaintext highlighter-rouge">_keyWallet1</code><sup id="fnref:15:1" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">14</a></sup> and <code class="language-plaintext highlighter-rouge">_keyWallet2</code><sup id="fnref:16:1" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">15</a></sup>, to gain access to all of the benefits <strong>NFKBT’s</strong> offer. The optional security features improve the overall user experience and Ethereum ecosystem by ensuring a safety net for those who decide to use it. Those that do not use the security features are not hindered in any way. This safety net can increase global adoption as people can remain confident in the security of their assets, even in the scenario of a compromised wallet.</p>
+  </li>
+</ol>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="ikbt721-token-contract"><code class="language-plaintext highlighter-rouge">IKBT721</code> (Token Contract)</h3>
+
+<p><strong>NOTES</strong>:</p>
+
+<ul>
+  <li>The following specifications use syntax from Solidity <code class="language-plaintext highlighter-rouge">0.8.17</code> (or above)</li>
+  <li>Callers MUST handle <code class="language-plaintext highlighter-rouge">false</code> from <code class="language-plaintext highlighter-rouge">returns (bool success)</code>. Callers MUST NOT assume that <code class="language-plaintext highlighter-rouge">false</code> is never returned!</li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IKBT721</span> <span class="p">{</span>
+    <span class="k">event</span> <span class="n">AccountSecured</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_noOfTokens</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">AccountResetBinding</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_account</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">SafeFallbackActivated</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_account</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">AccountEnabledTransfer</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_account</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_time</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">_anyToken</span>
+    <span class="p">);</span>
+    <span class="k">event</span> <span class="n">AccountEnabledApproval</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_account</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_time</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_numberOfTransfers</span>
+    <span class="p">);</span>
+    <span class="k">event</span> <span class="n">Ingress</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Egress</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">);</span>
+
+    <span class="k">struct</span> <span class="n">AccountHolderBindings</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">firstWallet</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">secondWallet</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">FirstAccountBindings</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">accountHolderWallet</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">secondWallet</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">SecondAccountBindings</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">accountHolderWallet</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">firstWallet</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">TransferConditions</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">time</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="n">anyToken</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">ApprovalConditions</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">time</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">numberOfTransfers</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">addBindings</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_keyWallet1</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_keyWallet2</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getBindings</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_account</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">AccountHolderBindings</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">resetBindings</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">safeFallback</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">allowTransfer</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_time</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">_allTokens</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getTransferableFunds</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_account</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">TransferConditions</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">allowApproval</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">_time</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_numberOfTransfers</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getApprovalConditions</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">account</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">ApprovalConditions</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getNumberOfTransfersAllowed</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_account</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_spender</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">isSecureWallet</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">isSecureToken</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="events">Events</h3>
+
+<h4 id="accountsecured-event"><code class="language-plaintext highlighter-rouge">AccountSecured</code> event</h4>
+
+<p>Emitted when the <code class="language-plaintext highlighter-rouge">_account</code> is securing his account by calling the <code class="language-plaintext highlighter-rouge">addBindings</code> function.</p>
+
+<p><code class="language-plaintext highlighter-rouge">_amount</code> is the current balance of the <code class="language-plaintext highlighter-rouge">_account</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">AccountSecured</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="accountresetbinding-event"><code class="language-plaintext highlighter-rouge">AccountResetBinding</code> event</h4>
+
+<p>Emitted when the holder is resetting his <code class="language-plaintext highlighter-rouge">keyWallets</code> by calling the <code class="language-plaintext highlighter-rouge">resetBindings</code> function.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">AccountResetBinding</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="safefallbackactivated-event"><code class="language-plaintext highlighter-rouge">SafeFallbackActivated</code> event</h4>
+
+<p>Emitted when the holder is choosing to move all the funds to one of the <code class="language-plaintext highlighter-rouge">keyWallets</code> by calling the <code class="language-plaintext highlighter-rouge">safeFallback</code> function.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">SafeFallbackActivated</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="accountenabledtransfer-event"><code class="language-plaintext highlighter-rouge">AccountEnabledTransfer</code> event</h4>
+
+<p>Emitted when the <code class="language-plaintext highlighter-rouge">_account</code> has allowed for transfer <code class="language-plaintext highlighter-rouge">_amount</code> of tokens for the <code class="language-plaintext highlighter-rouge">_time</code> amount of <code class="language-plaintext highlighter-rouge">block</code> seconds for <code class="language-plaintext highlighter-rouge">_to</code> address (or if
+the <code class="language-plaintext highlighter-rouge">_account</code> has allowed for transfer all funds though <code class="language-plaintext highlighter-rouge">_anyToken</code> set to <code class="language-plaintext highlighter-rouge">true</code>) by calling the <code class="language-plaintext highlighter-rouge">allowTransfer</code> function.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">AccountEnabledTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_time</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_allFunds</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="accountenabledapproval-event"><code class="language-plaintext highlighter-rouge">AccountEnabledApproval</code> event</h4>
+
+<p>Emitted when <code class="language-plaintext highlighter-rouge">_account</code> has allowed approval for the <code class="language-plaintext highlighter-rouge">_time</code> amount of <code class="language-plaintext highlighter-rouge">block</code> seconds by calling the <code class="language-plaintext highlighter-rouge">allowApproval</code> function.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">AccountEnabledApproval</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_time</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="ingress-event"><code class="language-plaintext highlighter-rouge">Ingress</code> event</h4>
+
+<p>Emitted when <code class="language-plaintext highlighter-rouge">_account</code> becomes a holder. <code class="language-plaintext highlighter-rouge">_amount</code> is the current balance of the <code class="language-plaintext highlighter-rouge">_account</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">Ingress</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="egress-event"><code class="language-plaintext highlighter-rouge">Egress</code> event</h4>
+
+<p>Emitted when <code class="language-plaintext highlighter-rouge">_account</code> transfers all his tokens and is no longer a holder. <code class="language-plaintext highlighter-rouge">_amount</code> is the previous balance of the <code class="language-plaintext highlighter-rouge">_account</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">Egress</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="interface-functions"><strong>Interface functions</strong></h3>
+
+<p>The functions detailed below MUST be implemented.</p>
+
+<h4 id="addbindings-function"><code class="language-plaintext highlighter-rouge">addBindings</code> function</h4>
+
+<p>Secures the sender account with other two wallets called <code class="language-plaintext highlighter-rouge">_keyWallet1</code> and <code class="language-plaintext highlighter-rouge">_keyWallet2</code> and MUST fire the <code class="language-plaintext highlighter-rouge">AccountSecured</code> event.</p>
+
+<p>The function SHOULD <code class="language-plaintext highlighter-rouge">revert</code> if:</p>
+
+<ul>
+  <li>the sender account is not a holder</li>
+  <li>or the sender is already secured</li>
+  <li>or the keyWallets are the same</li>
+  <li>or one of the keyWallets is the same as the sender</li>
+  <li>or one or both keyWallets are zero address (<code class="language-plaintext highlighter-rouge">0x0</code>)</li>
+  <li>or one or both keyWallets are already keyWallets to another holder account</li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">addBindings</span> <span class="p">(</span><span class="kt">address</span> <span class="n">_keyWallet1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_keyWallet2</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="getbindings-function"><code class="language-plaintext highlighter-rouge">getBindings</code> function</h4>
+
+<p>The function returns the <code class="language-plaintext highlighter-rouge">keyWallets</code> for the <code class="language-plaintext highlighter-rouge">_account</code> in a <code class="language-plaintext highlighter-rouge">struct</code> format.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">AccountHolderBindings</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">firstWallet</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">secondWallet</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getBindings</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">AccountHolderBindings</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="resetbindings-function"><code class="language-plaintext highlighter-rouge">resetBindings</code> function</h4>
+
+<p><strong>Note:</strong> This function is helpful when one of the two <code class="language-plaintext highlighter-rouge">keyWallets</code> is compromised.</p>
+
+<p>Called from a <code class="language-plaintext highlighter-rouge">keyWallet</code>, the function resets the <code class="language-plaintext highlighter-rouge">keyWallets</code> for the <code class="language-plaintext highlighter-rouge">holder</code> account. MUST fire the <code class="language-plaintext highlighter-rouge">AccountResetBinding</code> event.</p>
+
+<p>The function SHOULD <code class="language-plaintext highlighter-rouge">revert</code> if the sender is not a <code class="language-plaintext highlighter-rouge">keyWallet</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">resetBindings</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="safefallback-function"><code class="language-plaintext highlighter-rouge">safeFallback</code> function</h4>
+
+<p><strong>Note:</strong> This function is helpful when the <code class="language-plaintext highlighter-rouge">holder</code> account is compromised.</p>
+
+<p>Called from a <code class="language-plaintext highlighter-rouge">keyWallet</code>, this function transfers all the tokens from the <code class="language-plaintext highlighter-rouge">holder</code> account to the other <code class="language-plaintext highlighter-rouge">keyWallet</code> and MUST fire the <code class="language-plaintext highlighter-rouge">SafeFallbackActivated</code> event.</p>
+
+<p>The function SHOULD <code class="language-plaintext highlighter-rouge">revert</code> if the sender is not a <code class="language-plaintext highlighter-rouge">keyWallet</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">safeFallback</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="allowtransfer-function"><code class="language-plaintext highlighter-rouge">allowTransfer</code> function</h4>
+
+<p>Called from a <code class="language-plaintext highlighter-rouge">keyWallet</code>, this function is called before a <code class="language-plaintext highlighter-rouge">transferFrom</code> or <code class="language-plaintext highlighter-rouge">safeTransferFrom</code> functions are called.</p>
+
+<p>It allows to transfer a tokenId, for a specific time frame, to a specific address.</p>
+
+<p>If the tokenId is 0 then there will be no restriction on the tokenId.
+If the time is 0 then there will be no restriction on the time.
+If the to address is zero address then there will be no restriction on the to address.
+Or if <code class="language-plaintext highlighter-rouge">_anyToken</code> is <code class="language-plaintext highlighter-rouge">true</code>, regardless of the other params, it allows any token, whenever, to anyone to be transferred of the holder.</p>
+
+<p>The function MUST fire <code class="language-plaintext highlighter-rouge">AccountEnabledTransfer</code> event.</p>
+
+<p>The function SHOULD <code class="language-plaintext highlighter-rouge">revert</code> if the sender is not a <code class="language-plaintext highlighter-rouge">keyWallet</code> for a holder or if the owner of the <code class="language-plaintext highlighter-rouge">_tokenId</code> is different than the <code class="language-plaintext highlighter-rouge">holder</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">allowTransfer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_time</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_anyToken</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="gettransferablefunds-function"><code class="language-plaintext highlighter-rouge">getTransferableFunds</code> function</h4>
+
+<p>The function returns the transfer conditions for the <code class="language-plaintext highlighter-rouge">_account</code> in a <code class="language-plaintext highlighter-rouge">struct</code> format.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">TransferConditions</span> <span class="p">{</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">time</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">to</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">anyToken</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getTransferableFunds</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">TransferConditions</span> <span class="k">memory</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="allowapproval-function"><code class="language-plaintext highlighter-rouge">allowApproval</code> function</h4>
+
+<p>Called from a <code class="language-plaintext highlighter-rouge">keyWallet</code>, this function is called before <code class="language-plaintext highlighter-rouge">approve</code> or <code class="language-plaintext highlighter-rouge">setApprovalForAll</code> functions are called.</p>
+
+<p>It allows the <code class="language-plaintext highlighter-rouge">holder</code> for a specific amount of <code class="language-plaintext highlighter-rouge">_time</code> to do an <code class="language-plaintext highlighter-rouge">approve</code> or <code class="language-plaintext highlighter-rouge">setApprovalForAll</code> and limit the number of transfers the spender is allowed to do through <code class="language-plaintext highlighter-rouge">_numberOfTransfers</code> (0 - unlimited number of transfers in the allowance limit).</p>
+
+<p>The function MUST fire <code class="language-plaintext highlighter-rouge">AccountEnabledApproval</code> event.</p>
+
+<p>The function SHOULD <code class="language-plaintext highlighter-rouge">revert</code> if the sender is not a <code class="language-plaintext highlighter-rouge">keyWallet</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">allowApproval</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_time</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="getapprovalconditions-function"><code class="language-plaintext highlighter-rouge">getApprovalConditions</code> function</h4>
+
+<p>The function returns the approval conditions in a struct format. Where <code class="language-plaintext highlighter-rouge">time</code> is the <code class="language-plaintext highlighter-rouge">block.timestamp</code> until the <code class="language-plaintext highlighter-rouge">approve</code> or <code class="language-plaintext highlighter-rouge">setApprovalForAll</code> functions can be called, and <code class="language-plaintext highlighter-rouge">numberOfTransfers</code> is the number of transfers the spender will be allowed.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">ApprovalConditions</span> <span class="p">{</span>
+    <span class="kt">uint256</span> <span class="n">time</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">numberOfTransfers</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getApprovalConditions</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">ApprovalConditions</span> <span class="k">memory</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="transferfrom-function"><code class="language-plaintext highlighter-rouge">transferFrom</code> function</h4>
+
+<p>The function transfers from <code class="language-plaintext highlighter-rouge">_from</code> address to <code class="language-plaintext highlighter-rouge">_to</code> address the <code class="language-plaintext highlighter-rouge">_tokenId</code> token.</p>
+
+<p>Each time a spender calls the function the contract subtracts and checks if the number of allowed transfers of that spender has reached 0,
+and when that happens, the approval is revoked using a set approval for all to <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<p>The function MUST fire the <code class="language-plaintext highlighter-rouge">Transfer</code> event.</p>
+
+<p>The function SHOULD <code class="language-plaintext highlighter-rouge">revert</code> if:</p>
+
+<ul>
+  <li>the sender is not the owner or is not approved to transfer the <code class="language-plaintext highlighter-rouge">_tokenId</code></li>
+  <li>or if the <code class="language-plaintext highlighter-rouge">_from</code> address is not the owner of the <code class="language-plaintext highlighter-rouge">_tokenId</code></li>
+  <li>or if the sender is a secure account and it has not allowed for transfer this <code class="language-plaintext highlighter-rouge">_tokenId</code> through <code class="language-plaintext highlighter-rouge">allowTransfer</code> function.</li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="safetransferfrom-function"><code class="language-plaintext highlighter-rouge">safeTransferFrom</code> function</h4>
+
+<p>The function transfers from <code class="language-plaintext highlighter-rouge">_from</code> address to <code class="language-plaintext highlighter-rouge">_to</code> address the <code class="language-plaintext highlighter-rouge">_tokenId</code> token.</p>
+
+<p>The function MUST fire the <code class="language-plaintext highlighter-rouge">Transfer</code> event.</p>
+
+<p>The function SHOULD <code class="language-plaintext highlighter-rouge">revert</code> if:</p>
+
+<ul>
+  <li>the sender is not the owner or is not approved to transfer the <code class="language-plaintext highlighter-rouge">_tokenId</code></li>
+  <li>or if the <code class="language-plaintext highlighter-rouge">_from</code> address is not the owner of the <code class="language-plaintext highlighter-rouge">_tokenId</code></li>
+  <li>or if the sender is a secure account and it has not allowed for transfer this <code class="language-plaintext highlighter-rouge">_tokenId</code> through <code class="language-plaintext highlighter-rouge">allowTransfer</code> function.</li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="safetransferfrom-function-with-data-parameter"><code class="language-plaintext highlighter-rouge">safeTransferFrom</code> function, with data parameter</h4>
+
+<p>This works identically to the other function with an extra data parameter, except this function just sets data to “”.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="approve-function"><code class="language-plaintext highlighter-rouge">approve</code> function</h4>
+
+<p>The function allows <code class="language-plaintext highlighter-rouge">_to</code> account to transfer the <code class="language-plaintext highlighter-rouge">_tokenId</code> from the sender account.</p>
+
+<p>The function also limits the <code class="language-plaintext highlighter-rouge">_to</code> account to the specific number of transfers set in the <code class="language-plaintext highlighter-rouge">ApprovalConditions</code> for that <code class="language-plaintext highlighter-rouge">holder</code> account. If the value is <code class="language-plaintext highlighter-rouge">0</code> then the <code class="language-plaintext highlighter-rouge">_spender</code> can transfer multiple times.</p>
+
+<p>The function MUST fire an <code class="language-plaintext highlighter-rouge">Approval</code> event.</p>
+
+<p>If the function is called again it overrides the number of transfers allowed with <code class="language-plaintext highlighter-rouge">_numberOfTransfers</code>, set in <code class="language-plaintext highlighter-rouge">allowApproval</code> function.</p>
+
+<p>The function SHOULD <code class="language-plaintext highlighter-rouge">revert</code> if:</p>
+
+<ul>
+  <li>the sender is not the current NFT owner, or an authorized operator of the current owner</li>
+  <li>the NFT owner is secured and has not called <code class="language-plaintext highlighter-rouge">allowApproval</code> function</li>
+  <li>or if the <code class="language-plaintext highlighter-rouge">_time</code>, set in the <code class="language-plaintext highlighter-rouge">allowApproval</code> function, has elapsed.</li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span><span class="p">(</span><span class="n">ERC721</span><span class="p">,</span> <span class="n">IERC721</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="setapprovalforall-function"><code class="language-plaintext highlighter-rouge">setApprovalForAll</code> function</h4>
+
+<p>The function enables or disables approval for another account <code class="language-plaintext highlighter-rouge">_operator</code> to manage all of sender assets.</p>
+
+<p>The function also limits the <code class="language-plaintext highlighter-rouge">_to</code> account to the specific number of transfers set in the <code class="language-plaintext highlighter-rouge">ApprovalConditions</code> for that <code class="language-plaintext highlighter-rouge">holder</code> account. If the value is <code class="language-plaintext highlighter-rouge">0</code> then the <code class="language-plaintext highlighter-rouge">_spender</code> can transfer multiple times.</p>
+
+<p>The function Emits an <code class="language-plaintext highlighter-rouge">Approval</code> event indicating the updated allowance.</p>
+
+<p>If the function is called again it overrides the number of transfers allowed with <code class="language-plaintext highlighter-rouge">_numberOfTransfers</code>, set in <code class="language-plaintext highlighter-rouge">allowApproval</code> function.</p>
+
+<p>The function SHOULD <code class="language-plaintext highlighter-rouge">revert</code> if:</p>
+
+<ul>
+  <li>the sender account is secured and has not called <code class="language-plaintext highlighter-rouge">allowApproval</code> function</li>
+  <li>or if the <code class="language-plaintext highlighter-rouge">_spender</code> is a zero address (<code class="language-plaintext highlighter-rouge">0x0</code>)</li>
+  <li>or if the <code class="language-plaintext highlighter-rouge">_time</code>, set in the <code class="language-plaintext highlighter-rouge">allowApproval</code> function, has elapsed.</li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_approved</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span><span class="p">(</span><span class="n">ERC721</span><span class="p">,</span> <span class="n">IERC721</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The intent from individual technical decisions made during the development of <strong>NFKBTs</strong> focused on maintaining consistency and backward compatibility with ERC-721s, all the while offering self-custodial security features to the user. It was important that <strong>NFKBT’s</strong> inherited all of ERC-721s characteristics to comply with requirements found in dApps which use non-fungible tokens on their platform. In doing so, it allowed for flawless backward compatibility to take place and gave the user the choice to decide if they want their <strong>NFKBTs</strong> to act with <strong>Default Behaviors</strong><sup id="fnref:4:2" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>. We wanted to ensure that wide-scale implementation and adoption of <strong>NFKBTs</strong> could take place immediately, without the greater collective needing to adapt and make changes to the already flourishing decentralized ecosystem.</p>
+
+<p>For developers and users alike, the <a href="#allowtransfer-function">allowTransfer</a> and <a href="#allowapproval-function">allowApproval</a> functions both return bools on success and revert on failures. This decision was done purposefully, to keep consistency with the already familiar ERC-721. Additional technical decisions related to self-custodial security features are broken down and located within the <a href="#security-considerations">Security Considerations</a> section.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p><strong>KBT’s</strong> are designed to be backward-compatible with existing token standards and wallets. Existing tokens and wallets will continue to function as normal, and will not be affected by the implementation of <strong>NFKBT’s</strong>.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>The <a href="../assets/eip-6809/README.md">assets</a> directory has all the <a href="../assets/eip-6809/test/kbt721.js">tests</a>.</p>
+
+<p>Average Gas used (<em>GWEI</em>):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">addBindings</code> - 155,096</li>
+  <li><code class="language-plaintext highlighter-rouge">resetBindings</code> - 30,588</li>
+  <li><code class="language-plaintext highlighter-rouge">safeFallback</code> - 72,221 (depending on how many NFTs the holder has)</li>
+  <li><code class="language-plaintext highlighter-rouge">allowTransfer</code> - 50,025</li>
+  <li><code class="language-plaintext highlighter-rouge">allowApproval</code> - 44,983</li>
+</ul>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The implementation is located in the <a href="../assets/eip-6809/README.md">assets</a> directory. There’s also a <a href="../assets/eip-6809/Contract%20Interactions%20diagram.svg">diagram</a> with the contract interactions.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p><strong>NFKBT’s</strong> were designed with security in mind every step of the way. Below are some design decisions that were rigorously discussed and thought through during the development process.</p>
+
+<p><strong>Key Wallets</strong><sup id="fnref:1:4" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>: When calling the <a href="#addbindings-function">addBindings</a> function for an <strong>NFKBT</strong>, the user must input 2 wallets that will then act as <code class="language-plaintext highlighter-rouge">_keyWallet1</code><sup id="fnref:15:2" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">14</a></sup> and <code class="language-plaintext highlighter-rouge">_keyWallet2</code><sup id="fnref:16:2" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">15</a></sup>. They are added simultaneously to reduce user fees, minimize the chance of human error and prevent a pitfall scenario. If the user had the ability to add multiple wallets it would not only result in additional fees and avoidable confusion but would enable a potentially disastrous <a href="#safefallback-function">safeFallback</a> situation to occur. For this reason, all <strong>KBT’s</strong> work under a 3-wallet system when security features are activated.</p>
+
+<p>Typically if a wallet is compromised, the non-fungible assets within are at risk. With <strong>NFKBT’s</strong> there are two different functions that can be called from a <strong>Key Wallet</strong><sup id="fnref:1:5" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> depending on which wallet has been compromised.</p>
+
+<p>Scenario: <strong>Holding Wallet</strong><sup id="fnref:3:2" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> has been compromised, call <a href="#safefallback-function">safeFallback</a>.</p>
+
+<p><a href="#safefallback-function">safeFallback</a>: This function was created in the event that the owner believes the <strong>Holding Wallet</strong><sup id="fnref:3:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> has been compromised. It can also be used if the owner losses access to the <strong>Holding Wallet</strong>. In this scenario, the user has the ability to call <a href="#safefallback-function">safeFallback</a> from one of the <strong>Key Wallets</strong><sup id="fnref:1:6" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>. <strong>NFKBT’s</strong> are then redirected from the <strong>Holding Wallet</strong> to the other <strong>Key Wallet</strong>.</p>
+
+<p>By redirecting the <strong>NFKBT’s</strong> it prevents a single point of failure. If an attacker were to call <a href="#safefallback-function">safeFallback</a> and the <strong>NFKBT’s</strong> redirected to the <strong>Key Wallet</strong><sup id="fnref:1:7" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> that called the function, they would gain access to all the <strong>NFKBT’s</strong>.</p>
+
+<p>Scenario: <strong>Key Wallet</strong><sup id="fnref:1:8" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> has been compromised, call <a href="#resetbindings-function">resetBindings</a>.</p>
+
+<p><a href="#resetbindings-function">resetBindings</a>: This function was created in the event that the owner believes <code class="language-plaintext highlighter-rouge">_keyWallet1</code><sup id="fnref:15:3" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">14</a></sup> or <code class="language-plaintext highlighter-rouge">_keyWallet2</code><sup id="fnref:16:3" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">15</a></sup> has been compromised. It can also be used if the owner losses access to one of the <strong>Key Wallets</strong><sup id="fnref:1:9" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>. In this instance, the user has the ability to call <a href="#resetbindings-function">resetBindings</a>, removing the bound <strong>Key Wallets</strong> and resetting the security features. The <strong>NFKBT’s</strong> will now function as a traditional ERC-721 until <a href="#addbindings-function">addBindings</a> is called again and a new set of <strong>Key Wallets</strong> are added.</p>
+
+<p>The reason why <code class="language-plaintext highlighter-rouge">_keyWallet1</code><sup id="fnref:15:4" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">14</a></sup> or <code class="language-plaintext highlighter-rouge">_keyWallet2</code><sup id="fnref:16:4" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">15</a></sup> are required to call the <a href="#resetbindings-function">resetBindings</a> function is because a <strong>Holding Wallet</strong><sup id="fnref:3:4" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> having the ability to call <a href="#resetbindings-function">resetBindings</a> could result in an immediate loss of <strong>NFKBT’s</strong>. The attacker would only need to gain access to the <strong>Holding Wallet</strong> and call <a href="#resetbindings-function">resetBindings</a>.</p>
+
+<p>In the scenario that 2 of the 3 wallets have been compromised, there is nothing the owner of the <strong>NFKBT’s</strong> can do if the attack is malicious. However, by allowing 1 wallet to be compromised, holders of non-fungible tokens built using the <strong>NFKBT</strong> standard are given a second chance, unlike other current standards.</p>
+
+<p>The <a href="#allowtransfer-function">allowTransfer</a> function is in place to guarantee a <strong>Safe Transfer</strong><sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>, but can also have <strong>Default Values</strong><sup id="fnref:7:1" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">7</a></sup> set by a dApp to emulate <strong>Default Behaviors</strong><sup id="fnref:3:5" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> of a traditional ERC-721. It enables the user to highly specify the type of transfer they are about to conduct, whilst simultaneously allowing the user to unlock all the <strong>NFKBT’s</strong> to anyone for an unlimited amount of time. The desired security is completely up to the user.</p>
+
+<p>This function requires 4 parameters to be filled and different combinations of these result in different levels of security;</p>
+
+<p>Parameter 1 <code class="language-plaintext highlighter-rouge">_tokenId</code><sup id="fnref:8:1" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">8</a></sup>: This is the ID of the <strong>NFKBT</strong> that will be spent on a transfer.</p>
+
+<p>Parameter 2 <code class="language-plaintext highlighter-rouge">_time</code><sup id="fnref:9:1" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">9</a></sup>: The number of blocks the <strong>NFKBT</strong> can be transferred starting from the current block timestamp.</p>
+
+<p>Parameter 3 <code class="language-plaintext highlighter-rouge">_address</code><sup id="fnref:10:1" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup>: The destination the <strong>NFKBT</strong> will be sent to.</p>
+
+<p>Parameter 4 <code class="language-plaintext highlighter-rouge">_anyToken</code><sup id="fnref:11:1" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup>: This is a boolean value. When false, the <code class="language-plaintext highlighter-rouge">transferFrom</code> function takes into consideration Parameters 1, 2 and 3. If the value is true, the <code class="language-plaintext highlighter-rouge">transferFrom</code> function will revert to a <strong>Default Behavior</strong><sup id="fnref:4:3" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>, the same as a traditional ERC-721.</p>
+
+<p>The <a href="#allowtransfer-function">allowTransfer</a> function requires <code class="language-plaintext highlighter-rouge">_keyWallet1</code><sup id="fnref:15:5" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">14</a></sup> or <code class="language-plaintext highlighter-rouge">_keyWallet2</code><sup id="fnref:16:5" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">15</a></sup> and enables the <strong>Holding Wallet</strong><sup id="fnref:3:6" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> to conduct a <code class="language-plaintext highlighter-rouge">transferFrom</code> within the previously specified parameters. These parameters were added in order to provide additional security by limiting the <strong>Holding Wallet</strong> in case it was compromised without the user’s knowledge.</p>
+
+<p>The <a href="#allowapproval-function">allowApproval</a> function provides extra security when allowing on-chain third parties to use your <strong>NFKBT’s</strong> on your behalf. This is especially useful when a user is met with common malicious attacks e.g. draining dApp.</p>
+
+<p>This function requires 2 parameters to be filled and different combinations of these result in different levels of security;</p>
+
+<p>Parameter 1 <code class="language-plaintext highlighter-rouge">_time</code><sup id="fnref:12:1" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">12</a></sup>: The number of blocks that the approval of a third-party service can take place, starting from the current block timestamp.</p>
+
+<p>Parameter 2 <code class="language-plaintext highlighter-rouge">_numberOfTransfers_</code><sup id="fnref:13:1" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>: The number of transactions a third-party service can conduct on the user’s behalf.</p>
+
+<p>The <a href="#allowapproval-function">allowApproval</a> function requires <code class="language-plaintext highlighter-rouge">_keyWallet1</code><sup id="fnref:15:6" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">14</a></sup> or <code class="language-plaintext highlighter-rouge">_keyWallet2</code><sup id="fnref:16:6" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">15</a></sup> and enables the <strong>Holding Wallet</strong><sup id="fnref:3:7" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> to allow a third-party service by using the <code class="language-plaintext highlighter-rouge">approve</code> function. These parameters were added to provide extra security when granting permission to a third-party that uses assets on the user’s behalf. Parameter 1, <code class="language-plaintext highlighter-rouge">_time</code><sup id="fnref:12:2" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">12</a></sup>, is a limitation to when the <strong>Holding Wallet</strong> can <code class="language-plaintext highlighter-rouge">approve</code> a third-party service. Parameter 2, <code class="language-plaintext highlighter-rouge">_numberOfTransfers</code><sup id="fnref:13:2" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>, is a limitation to the number of transactions the approved third-party service can conduct on the user’s behalf before revoking approval.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>The <strong>Key Wallet/s</strong> refers to <code class="language-plaintext highlighter-rouge">_keyWallet1</code> or <code class="language-plaintext highlighter-rouge">_keyWallet2</code> which can call the <code class="language-plaintext highlighter-rouge">safeFallback</code>, <code class="language-plaintext highlighter-rouge">resetBindings</code>, <code class="language-plaintext highlighter-rouge">allowTransfer</code> and <code class="language-plaintext highlighter-rouge">allowApproval</code> functions. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:1:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:1:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:1:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a> <a href="#fnref:1:4" class="reversefootnote" role="doc-backlink">&#8617;<sup>5</sup></a> <a href="#fnref:1:5" class="reversefootnote" role="doc-backlink">&#8617;<sup>6</sup></a> <a href="#fnref:1:6" class="reversefootnote" role="doc-backlink">&#8617;<sup>7</sup></a> <a href="#fnref:1:7" class="reversefootnote" role="doc-backlink">&#8617;<sup>8</sup></a> <a href="#fnref:1:8" class="reversefootnote" role="doc-backlink">&#8617;<sup>9</sup></a> <a href="#fnref:1:9" class="reversefootnote" role="doc-backlink">&#8617;<sup>10</sup></a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>A <strong>Safe Transfer</strong> is when 1 of the <strong>Key Wallets</strong> safely approved the use of the <strong>NFKBT’s</strong>. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:2:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>The <strong>Holding Wallet</strong> refers to the wallet containing the <strong>NFKBT’s</strong>. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:3:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:3:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:3:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a> <a href="#fnref:3:4" class="reversefootnote" role="doc-backlink">&#8617;<sup>5</sup></a> <a href="#fnref:3:5" class="reversefootnote" role="doc-backlink">&#8617;<sup>6</sup></a> <a href="#fnref:3:6" class="reversefootnote" role="doc-backlink">&#8617;<sup>7</sup></a> <a href="#fnref:3:7" class="reversefootnote" role="doc-backlink">&#8617;<sup>8</sup></a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>A <strong>Default Behavior/s</strong> refers to behavior/s present in the preexisting non-fungible ERC-721 standard. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:4:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:4:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:4:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p>The number of crypto scam reports the United States Federal Trade Commission received, from January 2021 through March 2022. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:6" role="doc-endnote">
+      <p>The amount stolen via crypto scams according to the United States Federal Trade Commission, from January 2021 through March 2022. <a href="#fnref:6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:7" role="doc-endnote">
+      <p>A <strong>Default Value/s</strong> refer to a value/s that emulates the non-fungible ERC-721 <strong>Default Behavior/s</strong>. <a href="#fnref:7" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:7:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:8" role="doc-endnote">
+      <p>The <code class="language-plaintext highlighter-rouge">_tokenId</code> represents the ID of the <strong>NFKBT</strong> intended to be spent. <a href="#fnref:8" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:8:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:9" role="doc-endnote">
+      <p>The <code class="language-plaintext highlighter-rouge">_time</code> in <code class="language-plaintext highlighter-rouge">allowTransfer</code> represents the number of blocks a <code class="language-plaintext highlighter-rouge">transferFrom</code> can take place in. <a href="#fnref:9" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:9:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:10" role="doc-endnote">
+      <p>The <code class="language-plaintext highlighter-rouge">_address</code> represents the address that the <strong>NFKBT</strong> will be sent to. <a href="#fnref:10" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:10:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:11" role="doc-endnote">
+      <p>The <code class="language-plaintext highlighter-rouge">_anyToken</code> is a bool that can be set to true or false. <a href="#fnref:11" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:11:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:12" role="doc-endnote">
+      <p>The <code class="language-plaintext highlighter-rouge">_time</code> in <code class="language-plaintext highlighter-rouge">allowApproval</code> represents the number of blocks an <code class="language-plaintext highlighter-rouge">approve</code> can take place in. <a href="#fnref:12" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:12:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:12:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+    </li>
+    <li id="fn:13" role="doc-endnote">
+      <p>The <code class="language-plaintext highlighter-rouge">_numberOfTransfers</code> is the number of transfers a third-party entity can conduct via <code class="language-plaintext highlighter-rouge">transferFrom</code> on the user’s behalf. <a href="#fnref:13" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:13:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:13:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+    </li>
+    <li id="fn:15" role="doc-endnote">
+      <p>The <code class="language-plaintext highlighter-rouge">_keyWallet1</code> is 1 of the 2 <strong>Key Wallets</strong> set when calling the <code class="language-plaintext highlighter-rouge">addBindings</code> function. <a href="#fnref:15" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:15:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:15:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:15:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a> <a href="#fnref:15:4" class="reversefootnote" role="doc-backlink">&#8617;<sup>5</sup></a> <a href="#fnref:15:5" class="reversefootnote" role="doc-backlink">&#8617;<sup>6</sup></a> <a href="#fnref:15:6" class="reversefootnote" role="doc-backlink">&#8617;<sup>7</sup></a></p>
+    </li>
+    <li id="fn:16" role="doc-endnote">
+      <p>The <code class="language-plaintext highlighter-rouge">_keyWallet2</code> is 1 of the 2 <strong>Key Wallets</strong> set when calling the <code class="language-plaintext highlighter-rouge">addBindings</code> function. <a href="#fnref:16" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:16:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:16:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a> <a href="#fnref:16:3" class="reversefootnote" role="doc-backlink">&#8617;<sup>4</sup></a> <a href="#fnref:16:4" class="reversefootnote" role="doc-backlink">&#8617;<sup>5</sup></a> <a href="#fnref:16:5" class="reversefootnote" role="doc-backlink">&#8617;<sup>6</sup></a> <a href="#fnref:16:6" class="reversefootnote" role="doc-backlink">&#8617;<sup>7</sup></a></p>
+    </li>
+    <li id="fn:14" role="doc-endnote">
+      <p>A <em>PoS</em> protocol, Proof-of-Stake protocol, is a cryptocurrency consensus mechanism for processing transactions and creating new blocks in a blockchain. <a href="#fnref:14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

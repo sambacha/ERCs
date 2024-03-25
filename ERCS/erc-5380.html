@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>ERC-721 Entitlement Extension | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="ERC-721 Entitlement Extension | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5380" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5380" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">ERC-721 Entitlement Extension</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP proposes a new interface that allows <a href="./eip-721.md">ERC-721</a> token owners to grant limited usage of those tokens to other addresses.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There are many scenarios in which it makes sense for the owner of a token to grant certain properties to another address. One use case is renting tokens. If the token in question represents a trading card in an on-chain TCG (trading card game), one might want to be able to use that card in the game without having to actually buy it. Therefore, the owner might grant the renter the “property” of it being able to be played in the TCG. However, this property should only be able to be assigned to one person at a time, otherwise a contract could simply “rent” the card to everybody. If the token represents usage rights instead, the property of being allowed to use the associated media does not need such a restriction, and there is no reason that the property should be as scarce as the token.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<h3 id="base">Base</h3>
+
+<p>Compliant entitlement contracts MUST implement the following Solidity interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">ERC5380Entitlement</span> <span class="k">is</span> <span class="n">ERC165</span> <span class="p">{</span>
+    <span class="c1">/// @notice Emitted when the amount of entitlement a user has changes. If user is the zero address, then the user is the owner
+</span>    <span class="k">event</span> <span class="n">EntitlementChanged</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">user</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="k">contract</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">);</span>
+
+    <span class="c1">/// @notice             Set the user associated with the given ERC-721 token as long as the owner is msg.sender.
+</span>    <span class="c1">/// @dev                SHOULD NOT revert if the owner is not msg.sender.
+</span>    <span class="c1">/// @param  user        The user to grant the entitlement to
+</span>    <span class="c1">/// @param  contract    The property to grant
+</span>    <span class="c1">/// @param  tokenId     The tokenId to grant the properties of
+</span>    <span class="k">function</span> <span class="n">entitle</span><span class="p">(</span><span class="kt">address</span> <span class="n">user</span><span class="p">,</span> <span class="kt">address</span> <span class="k">contract</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice             Get the maximum number of users that can receive this entitlement
+</span>    <span class="c1">/// @param  contract    The contract to query
+</span>    <span class="c1">/// @param  tokenId     The tokenId to query
+</span>    <span class="k">function</span> <span class="n">maxEntitlements</span><span class="p">(</span><span class="kt">address</span> <span class="k">contract</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">max</span><span class="p">);</span>
+
+    <span class="c1">/// @notice             Get the user associated with the given contract and tokenId.
+</span>    <span class="c1">/// @dev                Defaults to maxEntitlements(contract, tokenId) assigned to contract.ownerOf(tokenId)
+</span>    <span class="c1">/// @param  user        The user to query
+</span>    <span class="c1">/// @param  contract    The contract to query
+</span>    <span class="c1">/// @param  tokenId     The tokenId to query
+</span>    <span class="k">function</span> <span class="n">entitlementOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">user</span><span class="p">,</span> <span class="kt">address</span> <span class="k">contract</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">amt</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">supportsInterface</code> MUST return true when called with <code class="language-plaintext highlighter-rouge">ERC5380Entitlement</code>’s interface ID.</p>
+
+<h3 id="enumerable-extension">Enumerable Extension</h3>
+
+<p>This OPTIONAL Solidity interface is RECOMMENDED.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">ERC5380EntitlementEnumerable</span> <span class="k">is</span> <span class="n">ERC5380Entitlement</span> <span class="p">{</span> <span class="c1">// Also implicitly supports ERC-165
+</span>    <span class="c1">/// @notice         Enumerate tokens with nonzero entitlement assigned to a user
+</span>    <span class="c1">/// @dev            Throws if the index is out of bounds or if user == address(0)
+</span>    <span class="c1">/// @param  user    The user to query
+</span>    <span class="c1">/// @param  index   A counter
+</span>    <span class="k">function</span> <span class="n">entitlementOfUserByIndex</span><span class="p">(</span><span class="kt">address</span> <span class="n">user</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">index</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="k">contract</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">supportsInterface</code> MUST return true when called with <code class="language-plaintext highlighter-rouge">ERC5380EntitlementEnumerable</code>’s interface ID.</p>
+
+<h3 id="metadata-extension">Metadata Extension</h3>
+
+<p>This OPTIONAL Solidity interface is RECOMMENDED.</p>
+
+<p>This extension uses <a href="./eip-1046.md">ERC-1046</a> for <code class="language-plaintext highlighter-rouge">tokenURI</code> compatibility.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">ERC5380EntitlementMetadata</span> <span class="k">is</span> <span class="n">ERC5380Entitlement</span> <span class="p">{</span> <span class="c1">// Also implicitly supports ERC-165
+</span>    <span class="c1">/// @notice             ERC-1046 token URI
+</span>    <span class="c1">/// @dev                See ERC-1046 and the metadata schema below
+</span>    <span class="k">function</span> <span class="n">tokenURI</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">supportsInterface</code> MUST return true when called with <code class="language-plaintext highlighter-rouge">ERC5380EntitlementMetadata</code>’s interface ID.</p>
+
+<h4 id="interoperability-metadata-extension">Interoperability Metadata Extension</h4>
+
+<p>ERC-1046’s <code class="language-plaintext highlighter-rouge">InteroperabilityMetadata</code> is extended with the following TypeScript interface:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * ERC-5380's extension to ERC-1046's Interoperability metadata.
+ */</span>
+<span class="kr">interface</span> <span class="nx">ERC5380InteroperabilityMetadata</span> <span class="k">is</span> <span class="nx">InteroperabilityMetadata</span> <span class="p">{</span>
+    <span class="cm">/**
+     * This MUST be true if this is ERC-5380 Token Metadata, otherwise, this MUST be omitted.
+     * Setting this to true indicates to wallets that the address should be treated as an ERC-5380 entitlement.
+     **/</span>
+    <span class="nl">erc5380</span><span class="p">?:</span> <span class="nx">boolean</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="tokenuri-metadata-schema"><code class="language-plaintext highlighter-rouge">tokenURI</code> Metadata Schema</h4>
+
+<p>The resolved <code class="language-plaintext highlighter-rouge">tokenURI</code> data MUST conform to the following TypeScript interface:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * ERC-5380 Asset Metadata
+ * Can be extended
+ */</span>
+<span class="kr">interface</span> <span class="nx">ERC5380TokenMetadata</span> <span class="p">{</span>
+    <span class="cm">/**
+     * Interoperabiliy, to differentiate between different types of tokens and their corresponding URIs.
+     **/</span>
+    <span class="nl">interop</span><span class="p">:</span> <span class="nx">ERC5380InteroperabilityMetadata</span><span class="p">;</span>
+    
+    <span class="cm">/**
+     * The name of the ERC-5380 token. 
+     */</span>
+    <span class="nl">name</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+    
+    <span class="cm">/**
+     * The symbol of the ERC-5380 token. 
+     */</span>
+    <span class="nl">symbol</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+    
+    <span class="cm">/**
+     * Provides a short one-paragraph description of the ERC-5380 token, without any markup or newlines.
+     */</span>
+    <span class="nl">description</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+    
+    <span class="cm">/**
+     * One or more URIs each pointing to a resource with mime type `image/*` that represents this token.
+     * If an image is a bitmap, it SHOULD have a width between 320 and 1080 pixels
+     * Images SHOULD have an aspect ratio between 1.91:1 and 4:5 inclusive.
+     */</span>
+    <span class="nl">images</span><span class="p">?:</span> <span class="kr">string</span><span class="p">[];</span>
+    
+    <span class="cm">/**
+     * One or more URIs each pointing to a resource with mime type `image/*` that represent an icon for this token.
+     * If an image is a bitmap, it SHOULD have a width between 320 and 1080 pixels, and MUST have a height equal to its width
+     * Images MUST have an aspect ratio of 1:1, and use a transparent background
+     */</span>
+    <span class="nl">icons</span><span class="p">?:</span> <span class="kr">string</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p><a href="./eip-20.md">ERC-20</a> and <a href="./eip-1155.md">ERC-1155</a> are unsupported as partial ownership is much more complex to track than boolean ownership.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues were found.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The security considerations of <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1046.md">ERC-1046</a> apply.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Standard for Insurance Policies as ERC-721 Non Fungible Tokens | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Standard for Insurance Policies as ERC-721 Non Fungible Tokens | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1523" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1523" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Standard for Insurance Policies as ERC-721 Non Fungible Tokens</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard interface for insurance policies, based on ERC 721.</p>
+
+<h2 id="abstract">Abstract</h2>
+<p>The following standard allows for the implementation of a standard API for insurance policies within smart contracts.
+Insurance policies are financial assets which are unique in some aspects, as they are connected to a customer, a specific risk, or have other unique properties like premium, period, carrier, underwriter etc.
+Nevertheless, there are many potential applications where insurance policies can be traded, transferred or otherwise treated as an asset.
+The ERC 721 standard already provides the standard and technical means to handle policies as a specific class of non fungible tokens.
+insurance In this proposal, we define a minimum metadata structure with properties which are common to the greatest possible class of policies.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>For a decentralized insurance protocol, a standard for insurance policies is crucial for interoperability of the involved services and application.
+It allows policies to be bundled, securitized, traded in a uniform and flexible way by many independent actors like syndicates, brokers, and insurance companies.</p>
+
+<h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>An ERC-1523 compliant insurance policy is a non-fungible token which <strong>MUST adhere to the ERC-721 token standard</strong> and <strong>MUST implement theERC721Metadata and the ERC721Enumerable interface</strong>:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title ERC-1523 Insurance Policy Standard
+///  Note: the ERC-165 identifier for this interface is 0x5a04be32
+</span><span class="k">interface</span> <span class="n">ERC1523</span> <span class="cm">/* is ERC721, ERC721Metadata, ERC721Enumerable */</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The implementor MAY choose values for the <code class="language-plaintext highlighter-rouge">name</code> and <code class="language-plaintext highlighter-rouge">symbol</code>.</p>
+
+<p>The <strong>policy metadata extension</strong> is <strong>RECOMMENDED</strong> for ERC-1523 smart contracts. 
+This allows your smart contract to be interrogated for policy metadata.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title ERC-1523 Insurance Policy Standard, optional policy metadata extension
+/// @dev See ...
+///  Note: the ERC-165 identifier for this interface is 0x5a04be32
+</span><span class="k">interface</span> <span class="n">ERC1523PolicyMetadata</span> <span class="cm">/* is ERC1523 */</span> <span class="p">{</span>
+
+    <span class="c1">/// @notice Metadata string for a given property.
+</span>    <span class="c1">/// Properties are identified via hash of their property path.
+</span>    <span class="c1">/// e.g. the property "name" in the ERC721 Metadata JSON Schema has the path /properties/name
+</span>    <span class="c1">/// and the property path hash is the keccak256() of this property path. 
+</span>    <span class="c1">/// this allows for efficient addressing of arbitrary properties, as the set of properties is potentially unlimited.
+</span>    <span class="c1">/// @dev Throws if `_propertyPathHash` is not a valid property path hash. 
+</span>    <span class="k">function</span> <span class="n">policyMetadata</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">_propertyPathHash</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="n">_property</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In analogy to the “ERC721 Metadata JSON Schema”, the tokenURI <strong>MUST</strong> point to a JSON file with the following properties:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Asset Metadata"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Identifies the asset to which this NFT represents"</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Describes the asset to which this NFT represents"</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">\</span><span class="p">[</span><span class="err">additional</span><span class="w"> </span><span class="err">parameters</span><span class="w"> </span><span class="err">according</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">following</span><span class="w"> </span><span class="err">table\</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="additional-parameters-for-the-metadata-json-schema">Additional parameters for the metadata JSON Schema</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Mandatory</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>carrier</td>
+      <td>string</td>
+      <td>yes</td>
+      <td>Describes the carrier which takes the primary risk</td>
+    </tr>
+    <tr>
+      <td>risk</td>
+      <td>string</td>
+      <td>yes</td>
+      <td>Describes the risk</td>
+    </tr>
+    <tr>
+      <td>status</td>
+      <td>string</td>
+      <td>yes</td>
+      <td>Describes the status of the policy, e.g. applied for, underwritten, expired</td>
+    </tr>
+    <tr>
+      <td>parameters</td>
+      <td>string</td>
+      <td>no</td>
+      <td>Describes further parameters characterizing the risk</td>
+    </tr>
+    <tr>
+      <td>terms</td>
+      <td>string</td>
+      <td>no</td>
+      <td>Describes legal terms &amp; conditions which apply for this policy</td>
+    </tr>
+    <tr>
+      <td>premium</td>
+      <td>string</td>
+      <td>no</td>
+      <td>A string representation of the premium, <strong>MAY</strong> contain currency denominator</td>
+    </tr>
+    <tr>
+      <td>sum_insured</td>
+      <td>string</td>
+      <td>no</td>
+      <td>A string representation of the sum insured, <strong>MAY</strong> contain currency denominator</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Parameters which are mandatory <strong>MUST</strong> be included in the metadata JSON. Other parameters <strong>MAY</strong> be included. However, the proposed optional parameters <strong>SHOULD</strong> be used for the intended purpose, so e.g. if the premium amount would be included in the metadata, the parameter name <strong>SHOULD</strong> be “premium”.
+All parameters <strong>MAY</strong> be plain text or <strong>MAY</strong> also be URIs pointing to resources which contain the respective information, and which <strong>MAY</strong> be protected by an authentication mechanism.</p>
+
+<h2 id="rationale">Rationale</h2>
+<p>Insurance policies form an important class of financial assets, and it is natural to express those assets as a class of non-fungible tokens which adhere to the established ERC-721 standard.
+We propose a standard for the accompanying metadata structures which are needed to uniquely define an insurance policy. Standardization is key because we expect decentralized insurance to receive widespread adoption and it is crucial to establish a unified standard to enable composability and the creation of universal toolsets. 
+We therefore propose a standardized naming scheme for the different parameters describing an insurance policy. We propose three mandatory parameters which need to be included in every NFT and further parameters which <strong>MAY</strong> be used, and for which we only standardize the naming conventions.</p>
+<h3 id="mandatory-parameters">Mandatory parameters</h3>
+<p>While policies can have a multitude of possible properties, it is common that policies are issued by some entity, which is basically the entity responsible for paying out claims.
+Second, an insurance policy is typically related to a specific risk. Some risks are unique, but there are cases where many policies share the same risk
+(e.g. all flight delay policies for the same flight).
+In general, the relation of policies to risks is a many-to-one relation with the special case of a one-to-one relation.
+Third, a policy has a lifecycle of different statuses. Therefore the NFT 
+We believe that those four properties are necessary to describe a policy. For many applications, those properties may be even sufficient.</p>
+
+<h3 id="optional-parameters">Optional parameters</h3>
+<p>Most policies need more parameters to characterize the risk and other features, like premium, period etc. The naming conventions are listed in the above table.
+However, any implementation <strong>MAY</strong> chose to implement more properties.</p>
+
+<h3 id="on-chain-vs-off-chain-metadata">On-chain vs. off-chain metadata</h3>
+<p>For some applications it will be sufficient to store the metadata in an off-chain repository or database which can be addressed by the tokenURI resource locator.
+For more advanced applications, it can be desirable to have metadata available on-chain. 
+Therefore, we require that the <code class="language-plaintext highlighter-rouge">tokenURI</code> <strong>MUST</strong> point to a JSON with the above structure, while the implementation of the <code class="language-plaintext highlighter-rouge">policyMetadata</code> function is <strong>OPTIONAL</strong>.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<h2 id="implementation">Implementation</h2>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

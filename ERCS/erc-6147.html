@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Guard of NFT/SBT, an Extension of ERC-721 | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Guard of NFT/SBT, an Extension of ERC-721 | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6147" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6147" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Guard of NFT/SBT, an Extension of ERC-721</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard is an extension of <a href="./eip-721.md">ERC-721</a>. It separates the holding right and transfer right of non-fungible tokens (NFTs) and Soulbound Tokens (SBTs) and defines a new role, <code class="language-plaintext highlighter-rouge">guard</code> with <code class="language-plaintext highlighter-rouge">expires</code>. The flexibility of the <code class="language-plaintext highlighter-rouge">guard</code> setting enables the design of NFT anti-theft, NFT lending, NFT leasing, SBT, etc.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>NFTs are assets that possess both use and financial value.</p>
+
+<p>Many cases of NFT theft currently exist, and current NFT anti-theft schemes, such as transferring NFTs to cold wallets, make NFTs inconvenient to be used.</p>
+
+<p>In current NFT lending, the NFT owner needs to transfer the NFT to the NFT lending contract, and the NFT owner no longer has the right to use the NFT while he has obtained the loan. In the real world, for example, if a person takes out a mortgage on his own house, he still has the right to use that house.</p>
+
+<p>For SBT, the current mainstream view is that an SBT is not transferable, which makes an SBT bound to an Ether address. However, when the private key of the user address is leaked or lost, retrieving SBT will become a complicated task and there is no corresponding standard. The SBTs essentially realizes the separation of NFT holding right and transfer right. When the wallet where SBT is located is stolen or unavailable, SBT should be able to be recoverable.</p>
+
+<p>In addition, SBTs still need to be managed in use. For example, if a university issues diploma-based SBTs to its graduates, and if the university later finds that a graduate has committed academic misconduct or jeopardized the reputation of the university, it should have the ability to retrieve the diploma-based SBTs.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>ERC-721 compliant contracts MAY implement this EIP.</p>
+
+<p>A guard Must be valid only before expires.</p>
+
+<p>When a token has no guard or the guard is expired, <code class="language-plaintext highlighter-rouge">guardInfo</code> MUST return <code class="language-plaintext highlighter-rouge">(address(0), 0)</code>.</p>
+
+<p>When a token has no guard or the guard is expired, owner, authorised operators and approved address of the token MUST have permission to set guard and expires.</p>
+
+<p>When a token has a valid guard, owner, authorised operators and approved address of the token MUST NOT be able to change guard and expires, and they MUST NOT be able to transfer the token.</p>
+
+<p>When a token has a valid guard, <code class="language-plaintext highlighter-rouge">guardInfo</code> MUST return the address and expires of the guard.</p>
+
+<p>When a token has a valid guard, the guard MUST be able to remove guard and expires, change guard and expires, and transfer the token.</p>
+
+<p>When a token has a valid guard, if the token burns, the guard MUST be deleted.</p>
+
+<p>If issuing or minting SBTs, the guard MAY be uniformly set to the designated address to facilitate management.</p>
+
+<h3 id="contract-interface">Contract Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">interface</span> <span class="n">IERC6147</span> <span class="p">{</span>
+
+    <span class="c1">/// Logged when the guard of an NFT is changed or expires is changed
+</span>    <span class="c1">/// @notice Emitted when the `guard` is changed or the `expires` is changed
+</span>    <span class="c1">///         The zero address for `newGuard` indicates that there currently is no guard address
+</span>    <span class="k">event</span> <span class="n">UpdateGuardLog</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">newGuard</span><span class="p">,</span> <span class="kt">address</span> <span class="n">oldGuard</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">expires</span><span class="p">);</span>
+    
+    <span class="c1">/// @notice Owner, authorised operators and approved address of the NFT can set guard and expires of the NFT and
+</span>    <span class="c1">///         valid guard can modifiy guard and expires of the NFT
+</span>    <span class="c1">///         If the NFT has a valid guard role, the owner, authorised operators and approved address of the NFT
+</span>    <span class="c1">///         cannot modify guard and expires
+</span>    <span class="c1">/// @dev The `newGuard` can not be zero address
+</span>    <span class="c1">///      The `expires` need to be valid
+</span>    <span class="c1">///      Throws if `tokenId` is not valid NFT
+</span>    <span class="c1">/// @param tokenId The NFT to get the guard address for
+</span>    <span class="c1">/// @param newGuard The new guard address of the NFT
+</span>    <span class="c1">/// @param expires UNIX timestamp, the guard could manage the token before expires
+</span>    <span class="k">function</span> <span class="n">changeGuard</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newGuard</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">expires</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Remove the guard and expires of the NFT
+</span>    <span class="c1">///         Only guard can remove its own guard role and expires
+</span>    <span class="c1">/// @dev The guard address is set to 0 address
+</span>    <span class="c1">///      The expires is set to 0
+</span>    <span class="c1">///      Throws if `tokenId` is not valid NFT
+</span>    <span class="c1">/// @param tokenId The NFT to remove the guard and expires for
+</span>    <span class="k">function</span> <span class="n">removeGuard</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    
+    <span class="c1">/// @notice Transfer the NFT and remove its guard and expires
+</span>    <span class="c1">/// @dev The NFT is transferred to `to` and the guard address is set to 0 address
+</span>    <span class="c1">///      Throws if `tokenId` is not valid NFT
+</span>    <span class="c1">/// @param from The address of the previous owner of the NFT
+</span>    <span class="c1">/// @param to The address of NFT recipient 
+</span>    <span class="c1">/// @param tokenId The NFT to get transferred for
+</span>    <span class="k">function</span> <span class="n">transferAndRemove</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Get the guard address and expires of the NFT
+</span>    <span class="c1">/// @dev The zero address indicates that there is no guard
+</span>    <span class="c1">/// @param tokenId The NFT to get the guard address and expires for
+</span>    <span class="c1">/// @return The guard address and expires for the NFT
+</span>   <span class="k">function</span> <span class="n">guardInfo</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">uint64</span><span class="p">);</span>   
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">changeGuard(uint256 tokenId, address newGuard, uint64 expires)</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">removeGuard(uint256 tokenId)</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">transferAndRemove(address from,address to,uint256 tokenId)</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">guardInfo(uint256 tokenId)</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">UpdateGuardLog</code> event MUST be emitted when a guard is changed.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">supportsInterface</code> method MUST return <code class="language-plaintext highlighter-rouge">true</code> when called with <code class="language-plaintext highlighter-rouge">0xb61d1057</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="universality">Universality</h3>
+
+<p>There are many application scenarios for NFT/SBT, and there is no need to propose a dedicated EIP for each one, which would make the overall number of EIPS inevitably increase and add to the burden of developers. The standard is based on the analysis of the right attached to assets in the real world, and abstracts the right attached to NFT/SBT into holding right and transfer right making the standard more universal.</p>
+
+<p>For example, the standard has more than the following use cases:</p>
+
+<p>SBTs. The SBTs issuer can assign a uniform role of <code class="language-plaintext highlighter-rouge">guard</code> to the SBTs before they are minted, so that the SBTs cannot be transferred by the corresponding holders and can be managed by the SBTs issuer through the <code class="language-plaintext highlighter-rouge">guard</code>.</p>
+
+<p>NFT anti-theft. If an NFT holder sets a <code class="language-plaintext highlighter-rouge">guard</code> address of an NFT as his or her own cold wallet address, the NFT can still be used by the NFT holder, but the risk of theft is greatly reduced.</p>
+
+<p>NFT lending. The borrower sets the <code class="language-plaintext highlighter-rouge">guard</code> of his or her own NFT as the lender’s address, the borrower still has the right to use the NFT while obtaining the loan, but at the same time cannot transfer or sell the NFT. If the borrower defaults on the loan, the lender can transfer and sell the NFT.</p>
+
+<p>Additionally, by setting an <code class="language-plaintext highlighter-rouge">expires</code> for the <code class="language-plaintext highlighter-rouge">guard</code>, the scalability of the protocol is further enhanced, as demonstrated in the following examples:</p>
+
+<p>More flexible NFT issuance. During NFT minting, discounts can be offered for NFTs that are locked for a certain period of time, without affecting the NFTs’ usability.</p>
+
+<p>More secure NFT management. Even if the <code class="language-plaintext highlighter-rouge">guard</code> address becomes inaccessible due to lost private keys, the <code class="language-plaintext highlighter-rouge">owner</code> can still retrieve the NFT after the <code class="language-plaintext highlighter-rouge">guard</code> has expired.</p>
+
+<p>Valid SBTs. Some SBTs have a period of use. More effective management can be achieved through <code class="language-plaintext highlighter-rouge">guard</code> and <code class="language-plaintext highlighter-rouge">expires</code>.</p>
+
+<h3 id="extensibility">Extensibility</h3>
+
+<p>This standard only defines a <code class="language-plaintext highlighter-rouge">guard</code> and its <code class="language-plaintext highlighter-rouge">expires</code>. For complex functions needed by NFTs and SBTs, such as social recovery and multi-signature, the <code class="language-plaintext highlighter-rouge">guard</code> can be set as a third-party protocol address. Through the third-party protocol, more flexible and diverse functions can be achieved based on specific application scenarios.</p>
+
+<h3 id="naming">Naming</h3>
+
+<p>The alternative names are <code class="language-plaintext highlighter-rouge">guardian</code> and <code class="language-plaintext highlighter-rouge">guard</code>, both of which basically match the permissions corresponding to the role: protection of NFT or necessary management according to its application scenarios. The <code class="language-plaintext highlighter-rouge">guard</code> has fewer characters than the <code class="language-plaintext highlighter-rouge">guardian</code> and is more concise.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard can be fully ERC-721 compatible by adding an extension function set.</p>
+
+<p>If an NFT issued based on the above standard does not set a <code class="language-plaintext highlighter-rouge">guard</code>, then it is no different in the existing functions from the current NFT issued based on the ERC-721 standard.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">8</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/ERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC6147.sol"</span><span class="p">;</span>
+
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC6147</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">IERC6147</span> <span class="p">{</span>
+
+    <span class="c1">/// @dev A structure representing a token of guard address and expires
+</span>    <span class="c1">/// @param guard address of guard role
+</span>    <span class="c1">/// @param expirs UNIX timestamp, the guard could manage the token before expires
+</span>    <span class="k">struct</span> <span class="n">GuardInfo</span><span class="p">{</span>
+        <span class="kt">address</span> <span class="n">guard</span><span class="p">;</span>
+        <span class="kt">uint64</span> <span class="n">expires</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">GuardInfo</span><span class="p">)</span> <span class="k">internal</span> <span class="n">_guardInfo</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Owner, authorised operators and approved address of the NFT can set guard and expires of the NFT and
+</span>    <span class="c1">///         valid guard can modifiy guard and expires of the NFT
+</span>    <span class="c1">///         If the NFT has a valid guard role, the owner, authorised operators and approved address of the NFT
+</span>    <span class="c1">///         cannot modify guard and expires
+</span>    <span class="c1">/// @dev The `newGuard` can not be zero address
+</span>    <span class="c1">///      The `expires` need to be valid
+</span>    <span class="c1">///      Throws if `tokenId` is not valid NFT
+</span>    <span class="c1">/// @param tokenId The NFT to get the guard address for
+</span>    <span class="c1">/// @param newGuard The new guard address of the NFT
+</span>    <span class="c1">/// @param expires UNIX timestamp, the guard could manage the token before expires
+</span>    <span class="k">function</span> <span class="n">changeGuard</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newGuard</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">expires</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span><span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">expires</span> <span class="o">&gt;</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="s">"ERC6147: invalid expires"</span><span class="p">);</span>
+        <span class="n">_updateGuard</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">newGuard</span><span class="p">,</span> <span class="n">expires</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice Remove the guard and expires of the NFT
+</span>    <span class="c1">///         Only guard can remove its own guard role and expires
+</span>    <span class="c1">/// @dev The guard address is set to 0 address
+</span>    <span class="c1">///      The expires is set to 0
+</span>    <span class="c1">///      Throws if `tokenId` is not valid NFT
+</span>    <span class="c1">/// @param tokenId The NFT to remove the guard and expires for
+</span>    <span class="k">function</span> <span class="n">removeGuard</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span>  <span class="p">{</span>
+        <span class="n">_updateGuard</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="c1">/// @notice Transfer the NFT and remove its guard and expires
+</span>    <span class="c1">/// @dev The NFT is transferred to `to` and the guard address is set to 0 address
+</span>    <span class="c1">///      Throws if `tokenId` is not valid NFT
+</span>    <span class="c1">/// @param from The address of the previous owner of the NFT
+</span>    <span class="c1">/// @param to The address of NFT recipient 
+</span>    <span class="c1">/// @param tokenId The NFT to get transferred for
+</span>    <span class="k">function</span> <span class="n">transferAndRemove</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+        <span class="n">removeGuard</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="c1">/// @notice Get the guard address and expires of the NFT
+</span>    <span class="c1">/// @dev The zero address indicates that there is no guard
+</span>    <span class="c1">/// @param tokenId The NFT to get the guard address and expires for
+</span>    <span class="c1">/// @return The guard address and expires for the NFT
+</span>    <span class="k">function</span> <span class="n">guardInfo</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">uint64</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">_guardInfo</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">expires</span> <span class="o">&gt;=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">){</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">_guardInfo</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">guard</span><span class="p">,</span> <span class="n">_guardInfo</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">expires</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice Update the guard of the NFT
+</span>    <span class="c1">/// @dev Delete function: set guard to 0 address and set expires to 0; 
+</span>    <span class="c1">///      and update function: set guard to new address and set expires
+</span>    <span class="c1">///      Throws if `tokenId` is not valid NFT
+</span>    <span class="c1">/// @param tokenId The NFT to update the guard address for
+</span>    <span class="c1">/// @param newGuard The newGuard address
+</span>    <span class="c1">/// @param expires UNIX timestamp, the guard could manage the token before expires
+</span>    <span class="c1">/// @param allowNull Allow 0 address
+</span>    <span class="k">function</span> <span class="n">_updateGuard</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newGuard</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">allowNull</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="p">(</span><span class="kt">address</span> <span class="n">guard</span><span class="p">,)</span> <span class="o">=</span> <span class="n">guardInfo</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">allowNull</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">newGuard</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERC6147: new guard can not be null"</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">guard</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span> 
+            <span class="nb">require</span><span class="p">(</span><span class="n">guard</span> <span class="o">==</span> <span class="n">_msgSender</span><span class="p">(),</span> <span class="s">"ERC6147: only guard can change it self"</span><span class="p">);</span> 
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
+            <span class="nb">require</span><span class="p">(</span><span class="n">_isApprovedOrOwner</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC6147: caller is not owner nor approved"</span><span class="p">);</span>
+        <span class="p">}</span> 
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">guard</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="n">newGuard</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">_guardInfo</span><span class="p">[</span><span class="n">tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">GuardInfo</span><span class="p">(</span><span class="n">newGuard</span><span class="p">,</span><span class="n">expires</span><span class="p">);</span>
+            <span class="k">emit</span> <span class="n">UpdateGuardLog</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">newGuard</span><span class="p">,</span> <span class="n">guard</span><span class="p">,</span> <span class="n">expires</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="c1">/// @notice Check the guard address
+</span>    <span class="c1">/// @dev The zero address indicates there is no guard
+</span>    <span class="c1">/// @param tokenId The NFT to check the guard address for
+</span>    <span class="c1">/// @return The guard address
+</span>    <span class="k">function</span> <span class="n">_checkGuard</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">(</span><span class="kt">address</span> <span class="n">guard</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">guardInfo</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+        <span class="kt">address</span> <span class="n">sender</span> <span class="o">=</span> <span class="n">_msgSender</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">guard</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">guard</span> <span class="o">==</span> <span class="n">sender</span><span class="p">,</span> <span class="s">"ERC6147: sender is not guard of the token"</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">guard</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+ 
+    <span class="c1">/// @dev Before transferring the NFT, need to check the gurard address
+</span>    <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">guard</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">new_from</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">from</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">guard</span> <span class="o">=</span> <span class="n">_checkGuard</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+            <span class="n">new_from</span> <span class="o">=</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">guard</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nb">require</span><span class="p">(</span>
+                <span class="n">_isApprovedOrOwner</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="n">tokenId</span><span class="p">),</span>
+                <span class="s">"ERC721: transfer caller is not owner nor approved"</span>
+            <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">_transfer</span><span class="p">(</span><span class="n">new_from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @dev Before safe transferring the NFT, need to check the gurard address
+</span>    <span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_data</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">guard</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">new_from</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">from</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">guard</span> <span class="o">=</span> <span class="n">_checkGuard</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+            <span class="n">new_from</span> <span class="o">=</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">guard</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nb">require</span><span class="p">(</span>
+                <span class="n">_isApprovedOrOwner</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="n">tokenId</span><span class="p">),</span>
+                <span class="s">"ERC721: transfer caller is not owner nor approved"</span>
+            <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">_safeTransfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">_data</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @dev When burning, delete `token_guard_map[tokenId]`
+</span>    <span class="c1">/// This is an internal function that does not check if the sender is authorized to operate on the token.
+</span>    <span class="k">function</span> <span class="n">_burn</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="p">(</span><span class="kt">address</span> <span class="n">guard</span><span class="p">,</span> <span class="p">)</span><span class="o">=</span><span class="n">guardInfo</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+        <span class="nb">super</span><span class="p">.</span><span class="n">_burn</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+        <span class="k">delete</span> <span class="n">_guardInfo</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+        <span class="k">emit</span> <span class="n">UpdateGuardLog</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">guard</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @dev See {IERC165-supportsInterface}.
+</span>    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC6147</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span> <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceId</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Make sure to set an appropriate <code class="language-plaintext highlighter-rouge">expires</code> for the <code class="language-plaintext highlighter-rouge">guard</code>, based on the specific application scenario.</p>
+
+<p>When an NFT has a valid guard, even if an address is authorized as an operator through <code class="language-plaintext highlighter-rouge">approve</code> or <code class="language-plaintext highlighter-rouge">setApprovalForAll</code>, the operator still has no right to transfer the NFT.</p>
+
+<p>When an NFT has a valid guard, the <code class="language-plaintext highlighter-rouge">owner</code> cannot sell the NFT. Some trading platforms list NFTs through <code class="language-plaintext highlighter-rouge">setApprovalForAll</code> and owners’ signature. It is recommended to prevent listing these NFTs by checking <code class="language-plaintext highlighter-rouge">guardInfo</code>.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

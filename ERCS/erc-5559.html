@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Cross Chain Write Deferral Protocol | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Cross Chain Write Deferral Protocol | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5559" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5559" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Cross Chain Write Deferral Protocol</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+<p>The following standard provides a mechanism in which smart contracts can request various tasks to be resolved by an external handler. This provides a mechanism in which protocols can reduce the gas fees associated with storing data on mainnet by deferring the handling of it to another system/network. These external handlers act as an extension to the core L1 contract.</p>
+
+<p>This standard outlines a set of handler types that can be used for managing the execution and storage of mutations (tasks), as well as their corresponding tradeoffs. Each handler type has associated operational costs, finality guarantees, and levels of decentralization. By further specifying the type of handler that the mutation is deferred to, the protocol can better define how to permission and secure their system.</p>
+
+<p>This standard can be implemented in conjunction with <a href="./eip-3668">EIP-3668</a> to provide a mechanism in which protocols can reside on and be interfaced through an L1 contract on mainnet, while being able to resolve and mutate data stored in external systems.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p><a href="./eip-3668">EIP-3668</a> provides a mechanism by which off-chain lookups can be defined inside smart contracts in a transparent manner. In addition, it provides a scheme in which the resolved data can be verified on-chain. However, there lacks a standard by which mutations can be requested through the native contract, to be performed on the off-chain data. Furthermore, with the increase in L2 solutions, smart contract engineers have additional tools that can be used to reduce the storage and transaction costs of performing mutations on the Ethereum mainnet.</p>
+
+<p>A specification that allows smart contracts to defer the storage and resolution of data to external handlers facilitates writing clients agnostic to the storage solution being used, enabling new applications that can operate without knowledge of the underlying handlers associated with the contracts they interact with.</p>
+
+<p>Examples of this include:</p>
+<ul>
+  <li>Allowing the management of ENS domains externally resolved on an L2 solution or off-chain database as if they were native L1 tokens.</li>
+  <li>Allowing the management of digital identities stored on external handlers as if they were in the stored in the native L1 smart contract.</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+<h3 id="overview">Overview</h3>
+<p>There are two main handler classifications: L2 Contract and Off-Chain Database. These are determined based off of where the handler is deployed. The handler classifications are used to better define the different security guarantees and requirements associated with its deployment.</p>
+
+<p>From a high level:</p>
+<ul>
+  <li>Handlers hosted on an L2 solution are EVM compatible and can use attributes native to the Ethereum ecosystem (such as address) to permission access.</li>
+  <li>Handlers hosted on an Off-Chain Database require additional parameters and signatures to correctly enforce the authenticity and check the validity of a request.</li>
+</ul>
+
+<p>A deferred mutation can be handled in as little as two steps. However, in some cases the mutation might be deferred multiple times.</p>
+
+<ol>
+  <li>Querying or sending a transaction to the contract</li>
+  <li>Querying or sending a transaction to the handler using the parameters provided in step 1</li>
+</ol>
+
+<p>In step 1, a standard blockchain call operation is made to the contract. The contract either performs the operation as intended or reverts with an error that specifies the type of handler that the mutation is being deferred to and the corresponding parameters required to perform the subsequent mutation. There are two types of errors that the contract can revert with, but more may be defined in other EIPs:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">StorageHandledByL2(chainId, contractAddress)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">StorageHandledByOffChainDatabase(sender, url, data)</code></li>
+</ul>
+
+<p>In step 2, the client builds and performs a new request based off of the type of error received in (1). These handshakes are outlined in the sections below:</p>
+
+<ul>
+  <li><a href="#data-stored-in-an-l2">StorageHandledByL2</a></li>
+  <li><a href="#data-stored-in-an-off-chain-database">StorageHandledByOffChainDatabase</a></li>
+</ul>
+
+<p>In some cases, the mutation may be deferred multiple times</p>
+<ul>
+  <li><a href="#data-stored-in-an-l2--an-off-chain-database">Storage Deferred Twice L1 &gt; L2 &gt; Off-Chain</a></li>
+</ul>
+
+<h3 id="data-stored-in-an-l1">Data Stored in an L1</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────┐                ┌───────────┐ 
+│Client│                │L1 Contract│ 
+└──┬───┘                └─────┬─────┘ 
+   │                          │       
+   │ somefunc(...)            │       
+   ├─────────────────────────►│       
+   │                          │       
+   │ response                 │       
+   │◄─────────────────────────┤       
+   │                          │       
+</code></pre></div></div>
+
+<p>In the case in which no reversion occurs, data is stored in the L1 contract when the transaction is executed.</p>
+
+<h3 id="data-stored-in-an-l2">Data Stored in an L2</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────┐                                           ┌───────────┐  ┌─────────────┐
+│Client│                                           │L1 Contract│  │ L2 Contract │
+└──┬───┘                                           └─────┬─────┘  └──────┬──────┘
+   │                                                     │               │       
+   │ somefunc(...)                                       │               │       
+   ├────────────────────────────────────────────────────►│               │       
+   │                                                     │               │       
+   │ revert StorageHandledByL2(chainId, contractAddress) │               │       
+   │◄────────────────────────────────────────────────────┤               │       
+   │                                                     │               │       
+   │ Execute Tx [chainId] [contractAddress] [callData]   │               │       
+   ├─────────────────────────────────────────────────────┼──────────────►│       
+   │                                                     │               │       
+   │ response                                            │               │       
+   │◄────────────────────────────────────────────────────┼───────────────┤       
+   │                                                     │               │       
+</code></pre></div></div>
+
+<p>The call or transaction to the L1 contract reverts with the <code class="language-plaintext highlighter-rouge">StorageHandledByL2(chainId, contractAddress)</code> error.</p>
+
+<p>In this case, the client builds a new transaction for <code class="language-plaintext highlighter-rouge">contractAddress</code> with the original <code class="language-plaintext highlighter-rouge">callData</code> and sends it to a RPC of their choice for the corresponding <code class="language-plaintext highlighter-rouge">chainId</code>. The <code class="language-plaintext highlighter-rouge">chainId</code> parameter corresponds to an L2 Solution that is EVM compatible.</p>
+
+<h4 id="example">Example</h4>
+
+<p>Suppose a contract has the following method:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setAddr</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">node</span><span class="p">,</span> <span class="kt">address</span> <span class="n">a</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Data for this mutations is stored and tracked on an EVM compatible L2. The contract author wants to reduce the gas fees associated with the contract, while maintaining the interoperability and decentralization of the protocol. Therefore, the mutation is deferred to a off-chain handler by reverting with the <code class="language-plaintext highlighter-rouge">StorageHandledByL2(chainId, contractAddress)</code> error.</p>
+
+<p>One example of a valid implementation of <code class="language-plaintext highlighter-rouge">setAddr</code> would be:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setAddr</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">node</span><span class="p">,</span> <span class="kt">address</span> <span class="n">a</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+   <span class="nb">revert</span> <span class="n">StorageHandledByL2</span><span class="p">(</span>
+      <span class="mi">10</span><span class="p">,</span>
+      <span class="n">_l2HandlerContractAddress</span>
+   <span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>For example, if a contract returns the following data in an <code class="language-plaintext highlighter-rouge">StorageHandledByL2</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chainId = 10
+contractAddress = 0x0000111122223333444455556666777788889999aaaabbbbccccddddeeeeffff
+</code></pre></div></div>
+
+<p>The user, receiving this error, creates a new transaction for the corresponding <code class="language-plaintext highlighter-rouge">chainId</code>, and builds a transaction with the original <code class="language-plaintext highlighter-rouge">callData</code> to send to <code class="language-plaintext highlighter-rouge">contractAddress</code>. The user will have to choose an RPC of their choice to send the transaction to for the corresponding <code class="language-plaintext highlighter-rouge">chainId</code>.</p>
+
+<h3 id="data-stored-in-an-off-chain-database">Data Stored in an Off-Chain Database</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────┐                                           ┌───────────┐  ┌────────────────────┐
+│Client│                                           │L1 Contract│  │ Off-Chain Database │
+└──┬───┘                                           └─────┬─────┘  └──────────┬─────────┘
+   │                                                     │                   │ 
+   │ somefunc(...)                                       │                   │ 
+   ├────────────────────────────────────────────────────►│                   │ 
+   │                                                     │                   │ 
+   │ revert StorageHandledByOffChainDatabase(sender,     |                   │ 
+   │                               urls, requestParams)  │                   │ 
+   │◄────────────────────────────────────────────────────┤                   │ 
+   │                                                     │                   │ 
+   │ HTTP Request [requestParams, signature]             │                   │ 
+   ├─────────────────────────────────────────────────────┼──────────────────►│ 
+   │                                                     │                   │ 
+   │ response                                            │                   │ 
+   │◄────────────────────────────────────────────────────┼───────────────────┤ 
+   │                                                     │                   │ 
+</code></pre></div></div>
+
+<p>The call or transaction to the L1 contract reverts with the <code class="language-plaintext highlighter-rouge">StorageHandledByOffChainDatabase(sender, url, data)</code> error.</p>
+
+<p>In this case, the client performs a HTTP POST request to the gateway service. The gateway service is defined by <code class="language-plaintext highlighter-rouge">url</code>. The body attached to the request is a JSON object that includes <code class="language-plaintext highlighter-rouge">sender</code>, <code class="language-plaintext highlighter-rouge">data</code>, and a signed copy of <code class="language-plaintext highlighter-rouge">data</code> denoted <code class="language-plaintext highlighter-rouge">signature</code>. The signature is generated according to a <a href="./eip-712">EIP-712</a>, in which a typed data signature is generated using domain definition, <code class="language-plaintext highlighter-rouge">sender</code>, and the message context, <code class="language-plaintext highlighter-rouge">data</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">sender</code> ia an ABI-encoded struct defined as:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+* @notice Struct used to define the domain of the typed data signature, defined in EIP-712.
+* @param name The user friendly name of the contract that the signature corresponds to.
+* @param version The version of domain object being used.
+* @param chainId The ID of the chain that the signature corresponds to (ie Ethereum mainnet: 1, Goerli testnet: 5, ...). 
+* @param verifyingContract The address of the contract that the signature pertains to.
+*/</span>
+<span class="k">struct</span> <span class="n">domainData</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">version</span><span class="p">;</span>
+    <span class="kt">uint64</span> <span class="n">chainId</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">verifyingContract</span><span class="p">;</span>
+<span class="p">}</span>    
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">data</code> ia an abi encoded struct defined as:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+* @notice Struct used to define the message context used to construct a typed data signature, defined in EIP-712, 
+* to authorize and define the deferred mutation being performed.
+* @param functionSelector The function selector of the corresponding mutation.
+* @param sender The address of the user performing the mutation (msg.sender).
+* @param parameter[] A list of &lt;key, value&gt; pairs defining the inputs used to perform the deferred mutation.
+*/</span>
+<span class="k">struct</span> <span class="n">messageData</span> <span class="p">{</span>
+    <span class="kt">bytes4</span> <span class="n">functionSelector</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">sender</span><span class="p">;</span>
+    <span class="n">parameter</span><span class="p">[]</span> <span class="n">parameters</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">expirationTimestamp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+* @notice Struct used to define a parameter for Off-Chain Database Handler deferral.
+* @param name The variable name of the parameter.
+* @param value The string encoded value representation of the parameter.
+*/</span>
+<span class="k">struct</span> <span class="n">parameter</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">signature</code> is generated by using the <code class="language-plaintext highlighter-rouge">sender</code> &amp; <code class="language-plaintext highlighter-rouge">data</code> parameters to construct an <a href="./eip-712">EIP-712</a> typed data signature.</p>
+
+<p>The body used in the HTTP POST request is defined as:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"sender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;abi encoded domainData (sender)&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;abi encoded messageData (data)&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;EIP-712 typed data signature of corresponding message data &amp; domain definition&gt;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="example-1">Example</h4>
+
+<p>Suppose a contract has the following method:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setAddr</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">node</span><span class="p">,</span> <span class="kt">address</span> <span class="n">a</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Data for this mutations is stored and tracked in some kind of off-chain database. The contract author wants the user to be able to authorize and make modifications to their <code class="language-plaintext highlighter-rouge">Addr</code> without having to pay a gas fee. Therefore, the mutation is deferred to a off-chain handler by reverting with the <code class="language-plaintext highlighter-rouge">StorageHandledByOffChainDatabase(sender, url, data)</code> error.</p>
+
+<p>One example of a valid implementation of <code class="language-plaintext highlighter-rouge">setAddr</code> would be:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setAddr</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">node</span><span class="p">,</span> <span class="kt">address</span> <span class="n">a</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+    <span class="n">IWriteDeferral</span><span class="p">.</span><span class="n">parameter</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IWriteDeferral</span><span class="p">.</span><span class="n">parameter</span><span class="p">[](</span><span class="mi">3</span><span class="p">);</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">name</span> <span class="o">=</span> <span class="s">"node"</span><span class="p">;</span>
+    <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="n">BytesToString</span><span class="p">.</span><span class="kt">bytes32</span><span class="n">ToString</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">name</span> <span class="o">=</span> <span class="s">"coin_type"</span><span class="p">;</span>
+    <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="n">Strings</span><span class="p">.</span><span class="n">toString</span><span class="p">(</span><span class="n">coinType</span><span class="p">);</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">name</span> <span class="o">=</span> <span class="s">"address"</span><span class="p">;</span>
+    <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">value</span> <span class="o">=</span> <span class="n">BytesToString</span><span class="p">.</span><span class="n">bytesToString</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+
+    <span class="nb">revert</span> <span class="n">StorageHandledByOffChainDatabase</span><span class="p">(</span>
+        <span class="n">IWriteDeferral</span><span class="p">.</span><span class="n">domainData</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="n">name</span><span class="o">:</span> <span class="n">WRITE_DEFERRAL_DOMAIN_NAME</span><span class="p">,</span>
+                <span class="n">version</span><span class="o">:</span> <span class="n">WRITE_DEFERRAL_DOMAIN_VERSION</span><span class="p">,</span>
+                <span class="n">chainId</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">verifyingContract</span><span class="o">:</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">),</span>
+        <span class="n">_offChainDatabaseUrl</span><span class="p">,</span>
+        <span class="n">IWriteDeferral</span><span class="p">.</span><span class="n">messageData</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="n">functionSelector</span><span class="o">:</span> <span class="n">msg</span><span class="p">.</span><span class="n">sig</span><span class="p">,</span>
+                <span class="n">sender</span><span class="o">:</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span>
+                <span class="n">parameters</span><span class="o">:</span> <span class="n">params</span><span class="p">,</span>
+                <span class="n">expirationTimestamp</span><span class="o">:</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span> <span class="o">+</span> <span class="n">_offChainDatabaseTimeoutDuration</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>For example, if a contract reverts with the following:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>StorageHandledByOffChainDatabase(
+    (
+        "CoinbaseResolver", 
+        "1", 
+        1, 
+        0x32f94e75cde5fa48b6469323742e6004d701409b
+    ), 
+    "https://example.com/r/{sender}", 
+    (
+        0xd5fa2b00, 
+        0x727f366727d3c9cc87f05d549ee2068f254b267c, 
+        [
+            ("node", "0x418ae76a9d04818c7a8001095ad01a78b9cd173ee66fe33af2d289b5dc5f4cba"), 
+            ("coin_type", "60"), 
+            ("address", "0x727f366727d3c9cc87f05d549ee2068f254b267c")
+        ], 
+        181
+    )
+)
+</code></pre></div></div>
+
+<p>The user, receiving this error, constructs the typed data signature, signs it, and performs that request via a HTTP POST to <code class="language-plaintext highlighter-rouge">url</code>.</p>
+
+<p>Example HTTP POST request body including <code class="language-plaintext highlighter-rouge">requestParams</code> and <code class="language-plaintext highlighter-rouge">signature</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"sender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;abi encoded domainData (sender)&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;abi encoded messageData (data)&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;EIP-712 typed data signature of corresponding message data &amp; domain definition&gt;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Note that the message could be altered could be altered in any way, shape, or form prior to signature and request. It is the backend’s responsibility to correctly permission and process these mutations. From a security standpoint, this is no different then a user being able to call a smart contract with any params they want, as it is the smart contract’s responsibility to permission and handle those requests.</p>
+
+<h3 id="data-stored-in-an-l2--an-off-chain-database">Data Stored in an L2 &amp; an Off-Chain Database</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────┐                                           ┌───────────┐  ┌─────────────┐  ┌────────────────────┐
+│Client│                                           │L1 Contract│  │ L2 Contract │  │ Off-Chain Database │
+└──┬───┘                                           └─────┬─────┘  └──────┬──────┘  └──────────┬─────────┘
+   │                                                     │               │                    │
+   │ somefunc(...)                                       │               │                    │
+   ├────────────────────────────────────────────────────►│               │                    │
+   │                                                     │               │                    │
+   │ revert StorageHandledByL2(chainId, contractAddress) │               │                    │
+   │◄────────────────────────────────────────────────────┤               │                    │
+   │                                                     │               │                    │
+   │ Execute Tx [chainId] [contractAddress] [callData]   │               │                    │
+   ├─────────────────────────────────────────────────────┼──────────────►│                    │
+   │                                                     │               │                    │
+   │ revert StorageHandledByOffChainDatabase(sender, url, data)          │                    │
+   │◄────────────────────────────────────────────────────┼───────────────┤                    │
+   │                                                     │               │                    │
+   │ HTTP Request {requestParams, signature}             │               │                    │
+   ├─────────────────────────────────────────────────────┼───────────────┼───────────────────►│
+   │                                                     │               │                    │
+   │ response                                            │               │                    │
+   │◄────────────────────────────────────────────────────┼───────────────┼────────────────────┤
+   │                                                     │               │                    │
+</code></pre></div></div>
+
+<p>The call or transaction to the L1 contract reverts with the <code class="language-plaintext highlighter-rouge">StorageHandledByL2(chainId, contractAddress)</code> error.</p>
+
+<p>In this case, the client builds a new transaction for <code class="language-plaintext highlighter-rouge">contractAddress</code> with the original <code class="language-plaintext highlighter-rouge">callData</code> and sends it to a RPC of their choice for the corresponding <code class="language-plaintext highlighter-rouge">chainId</code>.</p>
+
+<p>That call or transaction to the L2 contract then reverts with the <code class="language-plaintext highlighter-rouge">StorageHandledByOffChainDatabase(sender, url, data)</code> error.</p>
+
+<p>In this case, the client then performs a HTTP POST request against the gateway service. The gateway service is defined by <code class="language-plaintext highlighter-rouge">url</code>. The body attached to the request is a JSON object that includes <code class="language-plaintext highlighter-rouge">sender</code>, <code class="language-plaintext highlighter-rouge">data</code>, and <code class="language-plaintext highlighter-rouge">signature</code> – a typed data signature corresponding to <a href="./eip-712">EIP-712</a>.</p>
+
+<h3 id="events">Events</h3>
+
+<p>When making changes to core variables of the handler, the corresponding event MUST be emitted. This increases the transparency associated with different managerial actions. Core variables include <code class="language-plaintext highlighter-rouge">chainId</code> and <code class="language-plaintext highlighter-rouge">contractAddress</code> for L2 solutions and <code class="language-plaintext highlighter-rouge">url</code> for Off-Chain Database solutions. The events are outlined below in the WriteDeferral Interface.</p>
+
+<h3 id="write-deferral-interface">Write Deferral Interface</h3>
+
+<p>Below is a basic interface that defines and describes all of the reversion types and their corresponding parameters.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">13</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IWriteDeferral</span> <span class="p">{</span>
+    <span class="cm">/*//////////////////////////////////////////////////////////////
+                                 EVENTS
+    //////////////////////////////////////////////////////////////*/</span>
+
+    <span class="c1">/// @notice Event raised when the default chainId is changed for the corresponding L2 handler.
+</span>    <span class="k">event</span> <span class="n">L2HandlerDefaultChainIdChanged</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">previousChainId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">newChainId</span><span class="p">);</span>
+    <span class="c1">/// @notice Event raised when the contractAddress is changed for the L2 handler corresponding to chainId.
+</span>    <span class="k">event</span> <span class="n">L2HandlerContractAddressChanged</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">chainId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">previousContractAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">newContractAddress</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Event raised when the url is changed for the corresponding Off-Chain Database handler.
+</span>    <span class="k">event</span> <span class="n">OffChainDatabaseHandlerURLChanged</span><span class="p">(</span><span class="kt">string</span> <span class="k">indexed</span> <span class="n">previousUrl</span><span class="p">,</span> <span class="kt">string</span> <span class="k">indexed</span> <span class="n">newUrl</span><span class="p">);</span>
+
+    <span class="cm">/*//////////////////////////////////////////////////////////////
+                                 STRUCTS
+    //////////////////////////////////////////////////////////////*/</span>
+
+    <span class="cm">/**
+     * @notice Struct used to define the domain of the typed data signature, defined in EIP-712.
+     * @param name The user friendly name of the contract that the signature corresponds to.
+     * @param version The version of domain object being used.
+     * @param chainId The ID of the chain that the signature corresponds to (ie Ethereum mainnet: 1, Goerli testnet: 5, ...). 
+     * @param verifyingContract The address of the contract that the signature pertains to.
+     */</span>
+    <span class="k">struct</span> <span class="n">domainData</span> <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+        <span class="kt">string</span> <span class="n">version</span><span class="p">;</span>
+        <span class="kt">uint64</span> <span class="n">chainId</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">verifyingContract</span><span class="p">;</span>
+    <span class="p">}</span>    
+
+    <span class="cm">/**
+     * @notice Struct used to define the message context used to construct a typed data signature, defined in EIP-712, 
+     * to authorize and define the deferred mutation being performed.
+     * @param functionSelector The function selector of the corresponding mutation.
+     * @param sender The address of the user performing the mutation (msg.sender).
+     * @param parameter[] A list of &lt;key, value&gt; pairs defining the inputs used to perform the deferred mutation.
+     */</span>
+    <span class="k">struct</span> <span class="n">messageData</span> <span class="p">{</span>
+        <span class="kt">bytes4</span> <span class="n">functionSelector</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">sender</span><span class="p">;</span>
+        <span class="n">parameter</span><span class="p">[]</span> <span class="n">parameters</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">expirationTimestamp</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Struct used to define a parameter for off-chain Database Handler deferral.
+     * @param name The variable name of the parameter.
+     * @param value The string encoded value representation of the parameter.
+     */</span>
+    <span class="k">struct</span> <span class="n">parameter</span> <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+        <span class="kt">string</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/*//////////////////////////////////////////////////////////////
+                                 ERRORS
+    //////////////////////////////////////////////////////////////*/</span>
+
+    <span class="cm">/**
+     * @dev Error to raise when mutations are being deferred to an L2.
+     * @param chainId Chain ID to perform the deferred mutation to.
+     * @param contractAddress Contract Address at which the deferred mutation should transact with.
+     */</span>
+    <span class="n">error</span> <span class="n">StorageHandledByL2</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span> 
+        <span class="kt">address</span> <span class="n">contractAddress</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Error to raise when mutations are being deferred to an Off-Chain Database.
+     * @param sender the EIP-712 domain definition of the corresponding contract performing the off-chain database, write 
+     * deferral reversion.
+     * @param url URL to request to perform the off-chain mutation.
+     * @param data the EIP-712 message signing data context used to authorize and instruct the mutation deferred to the 
+     * off-chain database handler. 
+     * In order to authorize the deferred mutation to be performed, the user must use the domain definition (sender) and message data 
+     * (data) to construct a type data signature request defined in EIP-712. This signature, message data (data), and domainData (sender) 
+     * are then included in the HTTP POST request, denoted sender, data, and signature.
+     * 
+     * Example HTTP POST request:
+     *  {
+     *      "sender": &lt;abi encoded domainData (sender)&gt;,
+     *      "data": &lt;abi encoded message data (data)&gt;,
+     *      "signature": &lt;EIP-712 typed data signature of corresponding message data &amp; domain definition&gt;
+     *  }
+     * 
+     */</span>
+    <span class="n">error</span> <span class="n">StorageHandledByOffChainDatabase</span><span class="p">(</span>
+        <span class="n">domainData</span> <span class="n">sender</span><span class="p">,</span> 
+        <span class="kt">string</span> <span class="n">url</span><span class="p">,</span> 
+        <span class="n">messageData</span> <span class="n">data</span>
+    <span class="p">);</span>     
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="use-of-transactions-with-storage-deferral-reversions">Use of transactions with storage-deferral reversions</h3>
+<p>In some cases the contract might conditionally defer and handle mutations, in which case a transaction may be required. It is simple to use this method for sending transactions that may result in deferral reversions, as a client should receive the corresponding reversion while <code class="language-plaintext highlighter-rouge">preflighting</code> the transaction.</p>
+
+<p>This functionality is ideal for applications that want to allow their users to define the security guarantees and costs associated with their actions. For example, in the case of a decentralized identity profile, a user might not care if their data is decentralized and chooses to defer the handling of their records to the off-chain handler to reduce gas fees and on-chain transactions.</p>
+
+<h2 id="rationale">Rationale</h2>
+<h3 id="use-of-revert-to-convey-call-information">Use of <code class="language-plaintext highlighter-rouge">revert</code> to convey call information</h3>
+<p><a href="./eip-3668">EIP-3668</a> adopted the idea of using a <code class="language-plaintext highlighter-rouge">revert</code> to convey call information. It was proposed as a simple mechanism in which any pre-existing interface or function signature could be satisfied while maintain a mechanism to instruct and trigger an off-chain lookup.</p>
+
+<p>This is very similar for the write deferral protocol, defined in this EIP; without any modifications to the ABI or underlying EVM, <code class="language-plaintext highlighter-rouge">revert</code> provides a clean mechanism in which we can “return” a typed instruction - and the corresponding elements to complete that action - without modifying the signature of the corresponding function. This makes it easy to comply with pre-existing interfaces and infrastructure.</p>
+
+<h3 id="use-of-multiple-reversion--handler-types-to-better-define-security-guarantees">Use of multiple reversion &amp; handler types to better define security guarantees</h3>
+<p>By further defining the class of the handler, it gives the developer increased granularity to define the characteristics and different guarantees associated storing the data off-chain. In addition, different handlers require different parameters and verification mechanisms. This is very important for the transparency of the protocol, as they store data outside of the native ethereum ecosystem. Common implementations of this protocol could include storing non-operational data in L2 solutions and off-chain databases to reduce gas fees, while maintaining open interoperability.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Existing contracts that do not wish to use this specification are unaffected. Clients can add support for Cross Chain Write Deferrals to all contract calls without introducing any new overhead or incompatibilities.</p>
+
+<p>Contracts that require Cross Chain Write Deferrals will not function in conjunction with clients that do not implement this specification. Attempts to call these contracts from non-compliant clients will result in the contract throwing an exception that is propagated to the user.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+<p>Deferred mutations should never resolve to mainnet ethereum. Such attempts to defer the mutation back to ETH could include hijacking attempts in which the contract developer is trying to get the user to sign and send a malicious transaction. Furthermore, when a transaction is deferred to an L2 system, it must use the original <code class="language-plaintext highlighter-rouge">calldata</code>, this prevents against potentially malicious contextual changes in the transaction.</p>
+
+<h3 id="fingerprinting-attacks">Fingerprinting attacks</h3>
+<p>As all deferred mutations will include the <code class="language-plaintext highlighter-rouge">msg.sender</code> parameter in <code class="language-plaintext highlighter-rouge">data</code>, it is possible that <code class="language-plaintext highlighter-rouge">StorageHandledByOffChainDatabase</code> reversions could fingerprint wallet addresses and the corresponding IP address used to make the HTTP request. The impact of this is application-specific and something the user should understand is a risk associated with off-chain handlers. To minimize the security impact of this, we make the following recommendations:</p>
+
+<ol>
+  <li>Smart contract developers should provide users with the option to resolve data directly on the network. Allowing them to enable on-chain storage provides the user with a simple cost-benefit analysis of where they would like their data to resolve and different guarantees / risks associated with the resolution location.</li>
+  <li>Client libraries should provide clients with a hook to override Cross Chain Write Deferral <code class="language-plaintext highlighter-rouge">StorageHandledByOffChainDatabase</code> calls - either by rewriting them to use a proxy service, or by denying them entirely. This mechanism or another should be written so as to easily facilitate adding domains to allowlists or blocklists.</li>
+</ol>
+
+<p>We encourage applications to be as transparent as possible with their setup and different precautions put in place.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

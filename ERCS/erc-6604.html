@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Abstract Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Abstract Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6604" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6604" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Abstract Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>Abstract tokens provide a standard interface to:</p>
+
+<ul>
+  <li>Mint tokens off-chain as messages</li>
+  <li>Reify tokens on-chain via smart contract</li>
+  <li>Dereify tokens back into messages</li>
+</ul>
+
+<p>Abstract tokens can comply with existing standards like <a href="./eip-20.md">ERC-20</a>, <a href="./eip-721.md">ERC-721</a>, and <a href="./eip-1155.md">ERC-1155</a>. The standard allows wallets and other applications to better handle <em>potential</em> tokens before any consensus-dependent events occur on-chain.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Abstract tokens enable zero-cost token minting, facilitating high-volume applications by allowing token holders to reify tokens (place the tokens on-chain) as desired. Example use cases:</p>
+
+<ul>
+  <li>airdrops</li>
+  <li>POAPs / receipts</li>
+  <li>identity / access credentials</li>
+</ul>
+
+<p>Merkle trees are often used for large token distributions to spread mint/claim costs to participants, but they require participants to provide a markle proof when claiming tokens. This standard aims to improve the claims proces for similar distributions:</p>
+
+<ul>
+  <li>Generic: compatible with merkle trees, digital signatures, or other eligibility proofs</li>
+  <li>Legible: users can query an abstract token contract to understand their potential tokens (e.g. token id, quantity, or uri)</li>
+  <li>Contained: users do not need to understand the proof mechanism used by the particular token implementation contract</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="data-types">Data Types</h3>
+
+<h4 id="token-messages">Token Messages</h4>
+
+<p>A token message defines one or more tokens along with the context needed to reify the token(s) using a smart contract.</p>
+
+<p><code class="language-plaintext highlighter-rouge">chainId</code> &amp; <code class="language-plaintext highlighter-rouge">implementation</code>: set the domain of the token message to a specific chain and contract: this is where the token can be reified
+<code class="language-plaintext highlighter-rouge">owner</code>: the address that owns the tokens defined in the messages when reified
+<code class="language-plaintext highlighter-rouge">meta</code>: implementation-specific context necessary to reify the defined token(s), such as id, amount, or uri.
+<code class="language-plaintext highlighter-rouge">proof</code>: implementation-specific authorization to reify the defined token(s).
+<code class="language-plaintext highlighter-rouge">nonce</code>: counter that may be incremented when multiple otherwise-identical abstract token messages are needed</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">AbstractTokenMessage</span> <span class="p">{</span>
+  <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">;</span>
+  <span class="kt">address</span> <span class="n">implementation</span><span class="p">;</span>
+  <span class="kt">address</span> <span class="n">owner</span><span class="p">;</span>
+  <span class="kt">bytes</span> <span class="n">meta</span><span class="p">;</span>
+  <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">;</span>
+  <span class="kt">bytes</span> <span class="n">proof</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="message-status">Message Status</h4>
+
+<p>A message status may be defined for every (abstract token contract, abstract token message) pair.
+<code class="language-plaintext highlighter-rouge">invalid</code>: the contract cannot interact with the message
+<code class="language-plaintext highlighter-rouge">valid</code>: the contract can interact with the message
+<code class="language-plaintext highlighter-rouge">used</code>: the contract has already interacted with the message</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">AbstractTokenMessageStatus</span> <span class="p">{</span>
+  <span class="n">invalid</span><span class="p">,</span>
+  <span class="n">valid</span><span class="p">,</span>
+  <span class="n">used</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="methods">Methods</h3>
+
+<h4 id="reify">reify</h4>
+
+<p>Moves token(s) from a message to a contract
+<code class="language-plaintext highlighter-rouge">function reify(AbstractTokenMessage calldata message) external;</code></p>
+
+<p>The token contract MUST reify a valid token message.</p>
+
+<p>Reification MUST be idempotent: a particular token message may be used to reify tokens at most once. Calling <code class="language-plaintext highlighter-rouge">reify</code> with an already used token message MAY succeed or revert.</p>
+
+<h4 id="status">status</h4>
+
+<p>Returns the status of a particular message
+<code class="language-plaintext highlighter-rouge">function status(AbstractTokenMessage calldata message) external view returns (AbstractTokenMessageStatus status);</code></p>
+
+<h4 id="dereify">dereify</h4>
+
+<p>Moves token(s) from a contract to a message intended for another contract and/or chain.
+<code class="language-plaintext highlighter-rouge">function dereify(AbstractTokenMessage calldata message) external;</code></p>
+
+<p>OPTIONAL - allows tokens to be moved between contracts and/or chains by dereifying them from one context and reifying them in another.
+Dereification MUST be idempotent: a particular token message must be used to dereify tokens at most once.</p>
+
+<p>If implemented, dereification:</p>
+
+<ul>
+  <li>MUST burn the exact tokens from the holder as defined in the token message</li>
+  <li>MUST NOT dereify token messages scoped to the same contract and chain.</li>
+  <li>MAY succeed or revert if the token message is already used.</li>
+  <li>MUST emit the <code class="language-plaintext highlighter-rouge">Reify</code> event on only the first <code class="language-plaintext highlighter-rouge">reify</code> call with a specific token message</li>
+</ul>
+
+<h4 id="id">id</h4>
+
+<p>Return the id of token(s) defined in a token message.
+<code class="language-plaintext highlighter-rouge">function id(AbstractTokenMessage calldata message) external view returns (uint256);</code></p>
+
+<p>OPTIONAL - abstract token contracts without a well-defined token ID (e.g. ERC-20) MAY return <code class="language-plaintext highlighter-rouge">0</code> or not implement this method.</p>
+
+<h4 id="amount">amount</h4>
+
+<p>Return the amount of token(s) defined in a token message.
+<code class="language-plaintext highlighter-rouge">function amount(AbstractTokenMessage calldata message) external view returns (uint256);</code></p>
+
+<p>OPTIONAL - abstract token contracts without a well-defined token amount (e.g. ERC-721) MAY return <code class="language-plaintext highlighter-rouge">0</code> or not implement this method.</p>
+
+<h4 id="uri">uri</h4>
+
+<p>Return the amount of token(s) defined in a token message.
+<code class="language-plaintext highlighter-rouge">function uri(AbstractTokenMessage calldata message) external view returns (string memory);</code></p>
+
+<p>OPTIONAL - abstract token contracts without a well-defined uri (e.g. ERC-20) MAY return <code class="language-plaintext highlighter-rouge">""</code> or not implement this method.</p>
+
+<h4 id="supportsinterface">supportsInterface</h4>
+
+<p>All abstract token contracts must support <a href="./eip-165.md">ERC-165</a> and include the Abstract Token interface ID in their supported interfaces.</p>
+
+<h3 id="events">Events</h3>
+
+<h4 id="reify-1">Reify</h4>
+
+<p>The Reify event MUST be emitted when a token message is reified into tokens
+<code class="language-plaintext highlighter-rouge">event Reify(AbstractTokenMessage);</code></p>
+
+<h4 id="dereify-1">Dereify</h4>
+
+<p>The Dereify event MUST be emitted when tokens are dereified into a message
+<code class="language-plaintext highlighter-rouge">event Dereify(AbstractTokenMessage);</code></p>
+
+<h3 id="application-to-existing-token-standards">Application to existing token standards</h3>
+
+<p>Abstract tokens compatible with existing token standards MUST overload existing token transfer functions to allow transfers from abstract token messages.</p>
+
+<h3 id="abstract-erc-20">Abstract ERC-20</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IAbstractERC20</span> <span class="k">is</span> <span class="n">IAbstractToken</span><span class="p">,</span> <span class="n">IERC20</span><span class="p">,</span> <span class="n">IERC165</span> <span class="p">{</span>
+  <span class="c1">// reify the message and then transfer tokens
+</span>  <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+    <span class="n">AbstractTokenMessage</span> <span class="k">calldata</span> <span class="n">message</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+  <span class="c1">// reify the message and then transferFrom tokens
+</span>  <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+    <span class="n">AbstractTokenMessage</span> <span class="k">calldata</span> <span class="n">message</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="abstract-erc-721">Abstract ERC-721</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IAbstractERC721</span> <span class="k">is</span> <span class="n">IAbstractToken</span><span class="p">,</span> <span class="n">IERC721</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_data</span><span class="p">,</span>
+    <span class="n">AbstractTokenMessage</span> <span class="k">calldata</span> <span class="n">message</span>
+  <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="n">AbstractTokenMessage</span> <span class="k">calldata</span> <span class="n">message</span>
+  <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="abstract-erc-1155">Abstract ERC-1155</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>interface IAbstractERC1155 is IAbstractToken, IERC1155 {
+  function safeTransferFrom(
+    address from,
+    address to,
+    uint256 id,
+    uint256 amount,
+    bytes calldata data,
+    AbstractTokenMessage calldata message
+  ) external;
+
+  function safeBatchTransferFrom(
+    address from,
+    address to,
+    uint256[] calldata ids,
+    uint256[] calldata amounts,
+    bytes calldata data,
+    AbstractTokenMessage[] calldata messages
+  ) external;
+}
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="meta-format">Meta format</h3>
+
+<p>The abstract token message <code class="language-plaintext highlighter-rouge">meta</code> field is simply a byte array to preserve the widest possible accesibility.</p>
+
+<ul>
+  <li>Applications handling abstract tokens can interact with the implementation contract for token metadata rather than parsing this field, so legibility is of secondary importance</li>
+  <li>A byte array can be decoded as a struct and checked for errors within the implementation contract</li>
+  <li>Future token standards will include unpredictable metadata</li>
+</ul>
+
+<h3 id="proof-format">Proof format</h3>
+
+<p>Similar considerations went into defining the <code class="language-plaintext highlighter-rouge">proof</code> field as a plain byte array:</p>
+
+<ul>
+  <li>The contents of this field may vary, e.g. an array of <code class="language-plaintext highlighter-rouge">bytes32</code> merkle tree nodes or a 65 byte signature.</li>
+  <li>a byte array handles all potential use cases at the expense of increased message size.</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues found.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>See <a href="../assets/eip-6604/README.md">here</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Several concerns are highlighted.</p>
+
+<h3 id="message-loss">Message Loss</h3>
+
+<p>Because token messages are not held on-chain, loss of the message may result in loss of the token. Applications that issue abstract tokens to their users can store the messages themselves, but ideally users would be able to store and interact with abstract token messages within their crypto wallets.</p>
+
+<h3 id="authorizing-reification">Authorizing Reification</h3>
+
+<p>Token messages may only be reified if they include a validity proof. While the proof mechanism itself is out of scope for this standard, those designing proof mechanisms should consider:</p>
+
+<ul>
+  <li>Does total supply need to audited on-chain and/or off-chain?</li>
+  <li>Does the mechanism require ongoing access to a secret (e.g. digital signature) or is it immutable (e.g. merkle proof)?</li>
+  <li>Is there any way for an attacker to prevent the reification of an otherwise valid token message?</li>
+</ul>
+
+<h3 id="non-owner-dereification">Non-owner (De)Reification</h3>
+
+<p>Can non-owners (de)reify a token message on behalf of the owner?</p>
+
+<p>Pro: supporting apps should be able to handle this because once a valid message exists, the owner could (de)reify the message at any time
+Con: if the token contract reverts upon (de)reification of a used message, an attacker could grief the owner by front-running the transaction</p>
+
+<h3 id="abstract-token-bridge-double-spend">Abstract Token Bridge Double Spend</h3>
+
+<p>Abstract tokens could be used for a token-specific bridge:</p>
+
+<ul>
+  <li>Dereify the token from chain A to with message M</li>
+  <li>Reify the token on chain B with message M</li>
+</ul>
+
+<p>Because the abstract token standard does not specify any cross-chain message passing, the abstract token contracts on chains A and B cannot know whether a (de)reification of message M has occurred on the other chain.</p>
+
+<p>A naive bridge would be subject to double spend attacks:</p>
+
+<ul>
+  <li>An attacker requests bridging tokens they hold on chain A to chain B</li>
+  <li>A bridging mechanism creates an abstract token message M</li>
+  <li>The attacker reifies message M on chain B but <em>does not</em> dereify message M on chain A</li>
+  <li>The attacker continues to use tokens</li>
+</ul>
+
+<p>Some oracle mechanism is necessary to prevent the reification of message M on chain B until the corresponding tokens on chain A are dereified.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Scoped Approval Interface | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Scoped Approval Interface | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1761" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1761" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Scoped Approval Interface</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A standard interface to permit restricted approval in token contracts by defining “scopes” of one or more Token IDs.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>This interface is designed for use with token contracts that have an “ID” domain, such as ERC-1155 or ERC-721. This enables restricted approval of one or more Token IDs to a specific “scope”. When considering a smart contract managing tokens from multiple different domains, it makes sense to limit approvals to those domains. Scoped approval is a generalization of this idea. Implementors can define scopes as needed.</p>
+
+<p>Sample use cases for scopes:</p>
+
+<ul>
+  <li>A company may represent its fleet of vehicles on the blockchain and it could create a scope for each regional office.</li>
+  <li>Game developers could share an <a href="./eip-1155.md">ERC-1155</a> contract where each developer manages tokens under a specified scope.</li>
+  <li>Tokens of different value could be split into separate scopes. High-value tokens could be kept in smaller separate scopes while low-value tokens might be kept in a shared scope. Users would approve the entire low-value token scope to a third-party smart contract, exchange, or other application without concern about losing their high-value tokens in the event of a problem.</li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>It may be desired to restrict approval in some applications. Restricted approval can prevent losses in cases where users do not audit the contracts they’re approving. No standard API is supplied to manage scopes as this is implementation specific. Some implementations may opt to offer a fixed number of scopes, or assign a specific set of scopes to certain types. Other implementations may open up scope configuration to its users and offer methods to create scopes and assign IDs to them.</p>
+
+<h1 id="specification">Specification</h1>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">2</span><span class="p">;</span>
+
+<span class="cm">/**
+    Note: The ERC-165 identifier for this interface is 0x30168307.
+*/</span>
+<span class="k">interface</span> <span class="n">ScopedApproval</span> <span class="p">{</span>
+    <span class="cm">/**
+        @dev MUST emit when approval changes for scope.
+    */</span>
+    <span class="k">event</span> <span class="n">ApprovalForScope</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">_scope</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_approved</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @dev MUST emit when the token IDs are added to the scope.
+        By default, IDs are in no scope.
+        The range is inclusive: _idStart, _idEnd, and all IDs in between have been added to the scope.
+        _idStart must be lower than or equal to _idEnd.
+    */</span>
+    <span class="k">event</span> <span class="n">IdsAddedToScope</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_idStart</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_idEnd</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">_scope</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @dev MUST emit when the token IDs are removed from the scope.
+        The range is inclusive: _idStart, _idEnd, and all IDs in between have been removed from the scope.
+        _idStart must be lower than or equal to _idEnd.
+    */</span>
+    <span class="k">event</span> <span class="n">IdsRemovedFromScope</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_idStart</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_idEnd</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">_scope</span><span class="p">);</span>
+
+    <span class="cm">/** @dev MUST emit when a scope URI is set or changes.
+        URIs are defined in RFC 3986.
+        The URI MUST point a JSON file that conforms to the "Scope Metadata JSON Schema".
+    */</span>
+    <span class="k">event</span> <span class="n">ScopeURI</span><span class="p">(</span><span class="kt">string</span> <span class="n">_value</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">_scope</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice     Returns the number of scopes that contain _id.
+        @param _id  The token ID
+        @return     The number of scopes containing the ID
+    */</span>
+    <span class="k">function</span> <span class="n">scopeCountForId</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint32</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice             Returns a scope that contains _id.
+        @param _id          The token ID
+        @param _scopeIndex  The scope index to  query (valid values are 0 to scopeCountForId(_id)-1)
+        @return             The Nth scope containing the ID
+    */</span>
+    <span class="k">function</span> <span class="n">scopeForId</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">uint32</span> <span class="n">_scopeIndex</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Returns a URI that can be queried to get scope metadata. This URI should return a JSON document containing, at least the scope name and description. Although supplying a URI for every scope is recommended, returning an empty string "" is accepted for scopes without a URI.
+        @param  _scope  The queried scope
+        @return         The URI describing this scope.
+    */</span>
+    <span class="k">function</span> <span class="n">scopeUri</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_scope</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Enable or disable approval for a third party ("operator") to manage the caller's tokens in the specified scope.
+        @dev MUST emit the ApprovalForScope event on success.
+        @param _operator    Address to add to the set of authorized operators
+        @param _scope       Approval scope (can be identified by calling scopeForId)
+        @param _approved    True if the operator is approved, false to revoke approval
+    */</span>
+    <span class="k">function</span> <span class="n">setApprovalForScope</span><span class="p">(</span><span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">_scope</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_approved</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+        @notice Queries the approval status of an operator for a given owner, within the specified scope.
+        @param _owner       The owner of the Tokens
+        @param _operator    Address of authorized operator
+        @param _scope       Scope to test for approval (can be identified by calling scopeForId)
+        @return             True if the operator is approved, false otherwise
+    */</span>
+    <span class="k">function</span> <span class="n">isApprovedForScope</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">_scope</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="scope-metadata-json-schema">Scope Metadata JSON Schema</h2>
+
+<p>This schema allows for localization. <code class="language-plaintext highlighter-rouge">{id}</code> and <code class="language-plaintext highlighter-rouge">{locale}</code> should be replaced with the appropriate values by clients.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Scope Metadata"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"name"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Identifies the scope in a human-readable way."</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Describes the scope to allow users to make informed approval decisions."</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"localization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"uri"</span><span class="p">,</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w"> </span><span class="s2">"locales"</span><span class="p">],</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"uri"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The URI pattern to fetch localized data from. This URI should contain the substring `{locale}` which will be replaced with the appropriate locale value before sending the request."</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The locale of the default data within the base JSON"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"locales"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The list of locales for which data is available. These locales should conform to those defined in the Unicode Common Locale Data Repository (http://cldr.unicode.org/)."</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="localization">Localization</h3>
+
+<p>Metadata localization should be standardized to increase presentation uniformity across all languages. As such, a simple overlay method is proposed to enable localization. If the metadata JSON file contains a <code class="language-plaintext highlighter-rouge">localization</code> attribute, its content may be used to provide localized values for fields that need it. The <code class="language-plaintext highlighter-rouge">localization</code> attribute should be a sub-object with three attributes: <code class="language-plaintext highlighter-rouge">uri</code>, <code class="language-plaintext highlighter-rouge">default</code> and <code class="language-plaintext highlighter-rouge">locales</code>. If the string <code class="language-plaintext highlighter-rouge">{locale}</code> exists in any URI, it MUST be replaced with the chosen locale by all client software.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The initial design was proposed as an extension to ERC-1155: <a href="https://github.com/ethereum/EIPs/issues/1155#issuecomment-459505728">Discussion Thread - Comment 1</a>. After some discussion: <a href="https://github.com/ethereum/EIPs/issues/1155#issuecomment-460603439">Comment 2</a> and suggestions by the community to implement this approval mechanism in an external contract <a href="https://github.com/ethereum/EIPs/issues/1155#issuecomment-461758755">Comment 3</a>, it was decided that as an interface standard, this design would allow many different token standards such as ERC-721 and ERC-1155 to implement scoped approvals without forcing the system into all implementations of the tokens.</p>
+
+<h3 id="metadata-json">Metadata JSON</h3>
+
+<p>The Scope Metadata JSON Schema was added in order to support human-readable scope names and descriptions in more than one language.</p>
+
+<h2 id="references">References</h2>
+
+<p><strong>Standards</strong></p>
+<ul>
+  <li><a href="./eip-1155.md">ERC-1155 Multi Token Standard</a></li>
+  <li><a href="./eip-165.md">ERC-165 Standard Interface Detection</a></li>
+  <li><a href="https://json-schema.org/">JSON Schema</a></li>
+</ul>
+
+<p><strong>Implementations</strong></p>
+<ul>
+  <li><a href="https://enjincoin.io">Enjin Coin</a> (<a href="https://github.com/enjin">github</a>)</li>
+</ul>
+
+<p><strong>Articles &amp; Discussions</strong></p>
+<ul>
+  <li><a href="https://github.com/ethereum/EIPs/issues/1761">GitHub - Original Discussion Thread</a></li>
+  <li><a href="https://github.com/ethereum/EIPs/issues/1155">GitHub - ERC-1155 Discussion Thread</a></li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

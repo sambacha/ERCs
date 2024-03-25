@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Time Locks Maturity | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Time Locks Maturity | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7444" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7444" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Time Locks Maturity</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP defines a standardized method to communicate the date on which a time-locked system will become unlocked. This allows for the determination of maturities for a wide variety of asset classes and increases the ease with which these assets may be valued.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Time-locks are ubiquitous, yet no standard on how to determine the date upon which they unlock exists. Time-locked assets experience theta-decay, where the time remaining until they become unlocked dictates their value. Providing a universal standard to view what date they mature on allows for improved on-chain valuations of the rights to these illiquid assets, particularly useful in cases where the rights to these illiquid assets may be passed between owners through semi-liquid assets such as <a href="./eip-721.md">ERC-721</a> or <a href="./eip-1155.md">ERC-1155</a>.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p><strong>Every <a href="./eip-7444.md">ERC-7444</a> compliant contract must implement <a href="./eip-165.md">ERC-165</a> interface detection</strong></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">7444</span> <span class="p">{</span>
+    <span class="o">/</span>
+     <span class="o">*</span> <span class="err">@</span><span class="n">notice</span>      <span class="n">This</span> <span class="k">function</span> <span class="k">returns</span> <span class="n">the</span> <span class="n">timestamp</span> <span class="n">that</span> <span class="n">the</span> <span class="n">time</span> <span class="n">lock</span> <span class="n">specified</span> <span class="n">by</span> <span class="err">`</span><span class="n">id</span><span class="err">`</span> <span class="n">unlocks</span> <span class="n">at</span>
+     <span class="o">*</span> <span class="err">@</span><span class="n">param</span>       <span class="n">id</span> <span class="n">The</span> <span class="n">identifier</span> <span class="n">which</span> <span class="n">describes</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">time</span> <span class="n">lock</span>
+     <span class="o">*</span> <span class="err">@</span><span class="k">return</span>      <span class="n">maturity</span> <span class="n">The</span> <span class="n">timestamp</span> <span class="kr">of</span> <span class="n">the</span> <span class="n">time</span> <span class="n">lock</span> <span class="n">when</span> <span class="n">it</span> <span class="n">unlocks</span>
+     <span class="err">*/</span>
+    <span class="k">function</span> <span class="n">getMaturity</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">id</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">maturity</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The maturity return parameter should be implemented in the Unix timestamp standard, which has been used widely in solidity. For example, <code class="language-plaintext highlighter-rouge">block.timestamp</code> represents the Unix timestamp when a block is mined in 256-bit value.</p>
+
+<p>For singleton implementations on fungible assets, values passed to <code class="language-plaintext highlighter-rouge">id</code> SHOULD be ignored, and queries to such implementations should pass in <code class="language-plaintext highlighter-rouge">0x0</code></p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="universal-maturities-on-locked-assets">Universal Maturities on Locked Assets</h3>
+
+<p>Locked Assets have become increasingly popular and used in different parts of defi, such as yield farming and vested escrow concept. This has increased the need to formalize and define an universal interface for all these timelocked assets.</p>
+
+<h3 id="valuation-of-locked-assets-via-the-black-scholes-model">Valuation of Locked Assets via the Black-Scholes Model</h3>
+
+<p>Locked Assets cannot be valued normally since the value of these assets can be varied through time and many other different factors throughout the locking time. For instance, The Black-Scholes Model or Black-Scholes-Merton model is an example of a suitable model to estimate the theoretical value of asset with the consideration of impact of time and other potential risks.</p>
+
+<p><img src="../assets/eip-7444/equation.png" alt="Black-Sholes Model" /></p>
+
+<ul>
+  <li>$C=\text{call option price}$</li>
+  <li>$N=\text{CDF of the normal distribution}$</li>
+  <li>$S_t=\text{spot price of an asset}$</li>
+  <li>$K=\text{strike price}$</li>
+  <li>$r=\text{risk-free interest rate}$</li>
+  <li>$t=\text{time to maturity}$</li>
+  <li>$\sigma=\text{volatility of the asset}$</li>
+</ul>
+
+<p>Time to maturity plays an important role in evaluating the price of timelocked assets, thus the demand to have a common interface for retrieving the data is inevitable.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard can be implemented as an extension to <a href="./eip-721.md">ERC-721</a> and/or <a href="./eip-1155.md">ERC-1155</a> tokens with time-locked functionality, many of which can be retrofitted with a designated contract to determine the point at which their time locks release.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<h3 id="locked-erc-20-implementation">Locked <a href="./eip-20.md">ERC-20</a> implementation</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/ERC20.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">LockedERC20ExampleContract</span> <span class="kr">implements</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">7444</span><span class="p">{</span>
+    <span class="n">ERC20</span> <span class="k">public</span> <span class="kr">immutable</span> <span class="n">token</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">totalLocked</span><span class="p">;</span>
+
+    <span class="c1">//Timelock struct
+</span>    <span class="k">struct</span> <span class="n">TimeLock</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">maturity</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">lockId</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">//maps lockId to balance of the lock
+</span>    <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">TimeLock</span><span class="p">)</span> <span class="k">public</span> <span class="n">idToLock</span><span class="p">;</span>    
+
+    <span class="k">function</span> <span class="k">constructor</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_token</span><span class="p">,</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">ERC20</span><span class="p">(</span><span class="n">_token</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//Maturity is not appropriate
+</span>    <span class="n">error</span> <span class="n">LockPeriodOngoing</span><span class="p">();</span>
+    <span class="n">error</span> <span class="n">InvalidReceiver</span><span class="p">();</span>
+    <span class="n">error</span> <span class="n">TransferFailed</span><span class="p">();</span>
+
+    <span class="c1">/// @dev Deposit tokens to be locked in the requested locking period
+</span>    <span class="c1">/// @param amount The amount of tokens to deposit
+</span>    <span class="c1">/// @param lockingPeriod length of locking period for the tokens to be locked
+</span>    <span class="k">function</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">lockingPeriod</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">lockId</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">maturity</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span> <span class="o">+</span> <span class="n">lockingPeriod</span><span class="p">;</span>
+        <span class="n">lockId</span> <span class="o">=</span> <span class="n">keccack256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">maturity</span><span class="p">));</span>
+
+        <span class="nb">require</span><span class="p">(</span><span class="n">idToLock</span><span class="p">[</span><span class="n">lockId</span><span class="p">].</span><span class="n">maturity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"lock already exists"</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">token</span><span class="p">.</span><span class="n">transferFrom</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">amount</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nb">revert</span> <span class="n">TransferFailed</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="n">TimeLock</span> <span class="k">memory</span> <span class="n">newLock</span> <span class="o">=</span> <span class="n">TimeLock</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">lockedId</span><span class="p">);</span>
+
+        <span class="n">totalLocked</span> <span class="o">+=</span> <span class="n">amount</span><span class="p">;</span>
+
+        <span class="n">idToLock</span><span class="p">[</span><span class="n">lockId</span><span class="p">]</span> <span class="o">=</span> <span class="n">newLock</span><span class="p">;</span>
+        
+    <span class="p">}</span>
+
+    <span class="c1">/// @dev Withdraw tokens in the lock after the end of the locking period
+</span>    <span class="c1">/// @param lockId id of the lock that user have deposited in
+</span>    <span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">lockId</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="n">TimeLock</span> <span class="k">memory</span> <span class="n">lock</span> <span class="o">=</span> <span class="n">idToLock</span><span class="p">[</span><span class="n">lockId</span><span class="p">];</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">!=</span> <span class="n">lock</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nb">revert</span> <span class="n">InvalidReceiver</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">block</span><span class="p">.</span><span class="n">timestamp</span> <span class="o">&gt;</span> <span class="n">lock</span><span class="p">.</span><span class="n">maturity</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nb">revert</span> <span class="n">LockPeriodOngoing</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="n">totalLocked</span> <span class="o">-=</span> <span class="n">lock</span><span class="p">.</span><span class="n">amount</span><span class="p">;</span>
+
+        <span class="c1">//State cleanup
+</span>        <span class="k">delete</span> <span class="n">idToLock</span><span class="p">[</span><span class="n">lockId</span><span class="p">];</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">token</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">lock</span><span class="p">.</span><span class="n">amount</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nb">revert</span> <span class="n">TransferFailed</span><span class="p">();</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getMaturity</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">maturity</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">idToLock</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">maturity</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="extendable-time-locks">Extendable Time Locks</h3>
+
+<p>Users or developers should be aware of potential extendable timelocks, where the returned timestamp can be modified through protocols. Users or protocols should check the timestamp carefully before trading or lending with others.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Dual Layer Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Dual Layer Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6960" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6960" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Dual Layer Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The dual-layer token combines the functionalities of <a href="./eip-20.md">ERC-20</a>, <a href="./eip-721.md">ERC-721</a>, and <a href="./eip-1155.md">ERC-1155</a> while adding a classification layer that uses <code class="language-plaintext highlighter-rouge">mainId</code> as the main asset type identifier and <code class="language-plaintext highlighter-rouge">subId</code> as the unique attributes or variations of the main asset.
+<img src="../assets/eip-6960/eip-6960-dual-layer-token-dlt.png" alt="Dual Layer Token" /></p>
+
+<p>The proposed token aims to offer more granularity in token management, facilitating a well-organized token ecosystem and simplifying the process of tracking tokens within a contract. This standard is particularly useful for tokenizing and enabling the fractional ownership of Real World Assets (RWAs). It also allows for efficient and flexible management of both fungible and non-fungible assets.</p>
+
+<p>The following are examples of assets that the DLT standard can represent fractional ownership of:</p>
+
+<ul>
+  <li>Invoices</li>
+  <li>Company stocks</li>
+  <li>Digital collectibles</li>
+  <li>Real estate</li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The <a href="./eip-1155.md">ERC-1155</a> standard has experienced considerable adoption within the Ethereum ecosystem; however, its design exhibits constraints when handling tokens with multiple classifications, particularly in relation to Real World Assets (RWAs) and fractionalization of assets.</p>
+
+<p>This EIP strives to overcome this limitation by proposing a token standard incorporating a dual-layer classification system, allowing for enhanced organization and management of tokens, especially in situations where additional sub-categorization of token types is necessary.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="dlt-interface">DLT Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">17</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title DLT token standard interface
+ * @dev Interface for any contract that wants to implement the DLT standard
+ */</span>
+<span class="k">interface</span> <span class="n">IDLT</span> <span class="p">{</span>
+
+    <span class="cm">/**
+     * @dev MUST emit when `subId` token is transferred from `sender` to `recipient`
+     * @param sender is the address of the previous holder whose balance is decreased
+     * @param recipient is the address of the new holder whose balance is increased
+     * @param mainId is the main token type ID to be transferred
+     * @param subId is the token subtype ID to be transferred
+     * @param amount is the amount to be transferred of the token subtype
+     */</span>
+    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">sender</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">recipient</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">mainId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">subId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev MUST emit when `subIds` token array is transferred from `sender` to `recipient`
+     * @param sender is the address of the previous holder whose balance is decreased
+     * @param recipient is the address of the new holder whose balance is increased
+     * @param mainIds is the main token type ID array to be transferred
+     * @param subIds is the token subtype ID array to be transferred
+     * @param amounts is the amount array to be transferred of the token subtype                
+    */</span>
+    <span class="k">event</span> <span class="n">TransferBatch</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">sender</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">recipient</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="n">mainIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="n">subIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="n">amounts</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev MUST emit when `owner` enables `operator` to manage the `subId` token
+     * @param owner is the address of the token owner
+     * @param operator is the authorized address to manage the allocated amount for an owner address 
+     * @param mainId is the main token type ID to be approved
+     * @param subId is the token subtype ID to be approved
+     * @param amount is the amount to be approved of the token subtype
+     */</span>
+    <span class="k">event</span> <span class="n">Approval</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">mainId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">subId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev MUST emit when `owner` enables or disables (`approved`) `operator` to manage all of its assets
+     * @param owner is the address of the token owner
+     * @param operator is the authorized address to manage all tokens for an owner address
+     * @param approved true if the operator is approved, false to revoke approval
+     */</span>
+    <span class="k">event</span> <span class="n">ApprovalForAll</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">approved</span>
+    <span class="p">);</span>
+    
+    <span class="cm">/**
+     * @dev MUST emit when the URI is updated for a main token type ID.
+     * URIs are defined in RFC 3986.
+     * The URI MUST point to a JSON file that conforms to the "DLT Metadata URI JSON Schema".
+     * @param oldValue is the old URI value
+     * @param newValue is the new URI value
+     * @param mainId is the main token type ID
+     */</span>
+    <span class="k">event</span> <span class="n">URI</span><span class="p">(</span><span class="kt">string</span> <span class="n">oldValue</span><span class="p">,</span> <span class="kt">string</span> <span class="n">newValue</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">mainId</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Approve or remove `operator` as an operator for the caller.
+     * Operators can call {transferFrom} or {safeTransferFrom} for any subId owned by the caller.
+     * The `operator` MUST NOT be the caller.
+     * MUST emit an {ApprovalForAll} event.     
+     * @param operator is the authorized address to manage all tokens for an owner address
+     * @param approved true if the operator is approved, false to revoke approval
+     */</span>
+    <span class="k">function</span> <span class="n">setApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">approved</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Moves `amount` tokens from `sender` to `recipient` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     * MUST revert if `sender` or `recipient` is the zero address.
+     * MUST revert if balance of holder for token `subId` is lower than the `amount` sent.
+     * MUST emit a {Transfer} event.
+     * @param sender is the address of the previous holder whose balance is decreased
+     * @param recipient is the address of the new holder whose balance is increased
+     * @param mainId is the main token type ID to be transferred
+     * @param subId is the token subtype ID to be transferred
+     * @param amount is the amount to be transferred of the token subtype
+     * @param data is additional data with no specified format
+     * @return True if the operation succeeded, false if operation failed
+     */</span>
+    <span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">sender</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">mainId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">subId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     * The `operator` MUST NOT be the caller.
+     * MUST revert if `operator` is the zero address.
+     * MUST emit an {Approval} event.
+     * @param operator is the authorized address to manage tokens for an owner address
+     * @param mainId is the main token type ID to be approved
+     * @param subId is the token subtype ID to be approved
+     * @param amount is the amount to be approved of the token subtype
+     * @return True if the operation succeeded, false if operation failed
+     */</span>
+    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">mainId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">subId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the token with a particular subId balance of an `account`
+     * @param account is the address of the token holder
+     * @param mainId is the main token type ID
+     * @param subId is the token subtype ID
+     * @return The amount of tokens owned by `account` in subId
+     */</span>
+    <span class="k">function</span> <span class="n">subBalanceOf</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">account</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">mainId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">subId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the tokens with a particular subIds balance of an `accounts` array
+     * @param accounts is the address array of the token holder
+     * @param mainIds is the main token type ID array
+     * @param subIds is the token subtype ID array
+     * @return The amount of tokens owned by `accounts` in subIds
+     */</span>
+    <span class="k">function</span> <span class="n">balanceOfBatch</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">accounts</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">mainIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">subIds</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span><span class="p">);</span>
+
+    <span class="cm">/** 
+     * @notice Get the allowance allocated to an `operator`
+     * @dev This value changes when {approve} or {transferFrom} are called
+     * @param owner is the address of the token owner
+     * @param operator is the authorized address to manage assets for an owner address
+     * @param mainId is the main token type ID
+     * @param subId is the token subtype ID
+     * @return The remaining number of tokens that `operator` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     */</span>
+    <span class="k">function</span> <span class="n">allowance</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">mainId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">subId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the approval status of an `operator` to manage assets
+     * @param owner is the address of the token owner
+     * @param operator is the authorized address to manage assets for an owner address
+     * @return True if the `operator` is allowed to manage all of the assets of `owner`, false if approval is revoked
+     * See {setApprovalForAll}
+     */</span>
+    <span class="k">function</span> <span class="n">isApprovedForAll</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">operator</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="dltreceiver-interface"><code class="language-plaintext highlighter-rouge">DLTReceiver</code> Interface</h3>
+
+<p>Smart contracts MUST implement all the functions in the <code class="language-plaintext highlighter-rouge">DLTReceiver</code> interface to accept transfers.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">17</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title DLT token receiver interface
+ * @dev Interface for any contract that wants to support safeTransfers
+ * from DLT asset contracts.
+ */</span>
+<span class="k">interface</span> <span class="n">IDLTReceiver</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Handle the receipt of a single DLT token type.
+     * @dev Whenever an {DLT} `subId` token is transferred to this contract via {IDLT-safeTransferFrom}
+     * by `operator` from `sender`, this function is called.
+     * MUST return its Solidity selector to confirm the token transfer.
+     * MUST revert if any other value is returned or the interface is not implemented by the recipient.
+     * The selector can be obtained in Solidity with `IDLTReceiver.onDLTReceived.selector`.
+     * @param operator is the address which initiated the transfer
+     * @param from is the address which previously owned the token
+     * @param mainId is the main token type ID being transferred
+     * @param subId subId is the token subtype ID being transferred
+     * @param amount is the amount of tokens being transferred
+     * @param data is additional data with no specified format
+     * @return `IDLTReceiver.onDLTReceived.selector`
+     */</span>
+    <span class="k">function</span> <span class="n">onDLTReceived</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">mainId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">subId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Handle the receipts of a DLT token type array.
+     * @dev Whenever an {DLT} `subIds` token is transferred to this contract via {IDLT-safeTransferFrom}
+     * by `operator` from `sender`, this function is called.
+     * MUST return its Solidity selector to confirm the token transfers.
+     * MUST revert if any other value is returned or the interface is not implemented by the recipient.
+     * The selector can be obtained in Solidity with `IDLTReceiver.onDLTReceived.selector`.
+     * @param operator is the address which initiated the transfer
+     * @param from is the address which previously owned the token
+     * @param mainIds is the main token type ID being transferred
+     * @param subIds subId is the token subtype ID being transferred
+     * @param amounts is the amount of tokens being transferred
+     * @param data is additional data with no specified format
+     * @return `IDLTReceiver.onDLTReceived.selector`
+     */</span>
+    <span class="k">function</span> <span class="n">onDLTBatchReceived</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">mainIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">subIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">amounts</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The two-level classification system introduced in this EIP allows for a more organized token ecosystem, enabling users to manage and track tokens with greater granularity. It is particularly useful for projects that require token classifications beyond the capabilities of the current ERC-1155 standard.</p>
+
+<p>As assets can have various properties or variations, our smart contract design reflects this by assigning a mainId to each asset category and a unique subId to each derivative or sub-category. This approach expands the capabilities of ERC-1155 to support a broader range of assets with complex requirements. Additionally, it enables tracking of mainBalance for the main asset and subBalance for its sub-assets individual accounts.</p>
+
+<p>The contract can be extended to support the use of subIds in two ways:</p>
+
+<ul>
+  <li>Shared SubIds: where all mainIds share the same set of subIds.</li>
+  <li>Mixed SubIds: where mainIds have unique sets of subIds.</li>
+</ul>
+
+<p>DLT provides a more versatile solution compared to other token standards such as ERC-20, ERC-721, and ERC-1155 by effectively managing both fungible and non-fungible assets within the same contract.</p>
+
+<p>The following are questions that we considered during the design process:</p>
+
+<ul>
+  <li>How to name the proposal?
+The standard introduces a two-level classification to tokens where one main asset (layer 1) can be further sub-divided into several sub-assets (layer 2) hence we decided to name it as “Dual-layer” token to reflect the hierarchical structure of the token classification.</li>
+  <li>Should we limit the classification to two levels?
+The standard’s implementation maintains a mapping to track the total supply of each sub-asset. If we allow sub-assets to have their own children, it would be necessary to introduce additional methods to track each sub-asset, which would be impractical and increases the complexity of the contract.</li>
+  <li>Should we extend the ERC-1155 standard?
+As the ERC-1155 standard is not designed to support a layered classification and requires significant modifications to do so, we concluded that it would not be appropriate to extend it for the dual-layer token standard. Hence, a standalone implementation would be a more suitable approach.</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues found.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Needs discussion.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

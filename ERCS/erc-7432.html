@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Non-Fungible Token Roles | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Non-Fungible Token Roles | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7432" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7432" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Non-Fungible Token Roles</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard introduces role management for NFTs. Each role assignment is associated with a single NFT and expires
+automatically at a given timestamp. Roles are defined as <code class="language-plaintext highlighter-rouge">bytes32</code> and feature a custom <code class="language-plaintext highlighter-rouge">_data</code> field of arbitrary size
+to allow customization.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The NFT Roles interface aims to establish a standard for role management in NFTs. Tracking on-chain roles enables
+decentralized applications (dApps) to implement access control for privileged actions, e.g., minting tokens with a role
+(airdrop claim rights).</p>
+
+<p>NFT roles can be deeply integrated with dApps to create a utility-sharing mechanism. A good example is in digital real
+estate. A user can create a digital property NFT and grant a <code class="language-plaintext highlighter-rouge">keccak256("PROPERTY_MANAGER")</code> role to another user,
+allowing them to delegate specific utility without compromising ownership. The same user could also grant multiple
+<code class="language-plaintext highlighter-rouge">keccak256("PROPERTY_TENANT")</code> roles, allowing the grantees to access and interact with the digital property.</p>
+
+<p>There are also interesting use cases in decentralized finance (DeFi). Insurance policies could be issued as NFTs, and 
+the beneficiaries, insured, and insurer could all be on-chain roles tracked using this standard.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”,
+“NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC-2119 and RFC-8174.</p>
+
+<p>Compliant contracts MUST implement the following interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title ERC-7432 Non-Fungible Token Roles
+/// @dev See https://eips.ethereum.org/EIPS/eip-7432
+/// Note: the ERC-165 identifier for this interface is 0x04984ac8.
+</span><span class="k">interface</span> <span class="n">IERC7432</span> <span class="cm">/* is ERC165 */</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">RoleData</span> <span class="p">{</span>
+        <span class="kt">uint64</span> <span class="n">expirationDate</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="n">revocable</span><span class="p">;</span>
+        <span class="kt">bytes</span> <span class="n">data</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">RoleAssignment</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">role</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">tokenAddress</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">grantor</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">grantee</span><span class="p">;</span>
+        <span class="kt">uint64</span> <span class="n">expirationDate</span><span class="p">;</span>
+        <span class="kt">bytes</span> <span class="n">data</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/** Events **/</span>
+
+    <span class="c1">/// @notice Emitted when a role is granted.
+</span>    <span class="c1">/// @param _role The role identifier.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _tokenId The token identifier.
+</span>    <span class="c1">/// @param _grantor The user assigning the role.
+</span>    <span class="c1">/// @param _grantee The user receiving the role.
+</span>    <span class="c1">/// @param _expirationDate The expiration date of the role.
+</span>    <span class="c1">/// @param _revocable Whether the role is revocable or not.
+</span>    <span class="c1">/// @param _data Any additional data about the role.
+</span>    <span class="k">event</span> <span class="n">RoleGranted</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">_role</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantor</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantee</span><span class="p">,</span>
+        <span class="kt">uint64</span> <span class="n">_expirationDate</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">_revocable</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="n">_data</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice Emitted when a role is revoked.
+</span>    <span class="c1">/// @param _role The role identifier.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _tokenId The token identifier.
+</span>    <span class="c1">/// @param _revoker The user revoking the role.
+</span>    <span class="c1">/// @param _grantee The user that receives the role revocation.
+</span>    <span class="k">event</span> <span class="n">RoleRevoked</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">_role</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_revoker</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantee</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice Emitted when a user is approved to manage any role on behalf of another user.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _operator The user approved to grant and revoke roles.
+</span>    <span class="c1">/// @param _isApproved The approval status.
+</span>    <span class="k">event</span> <span class="n">RoleApprovalForAll</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_operator</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">_isApproved</span>
+    <span class="p">);</span>
+
+    <span class="cm">/** External Functions **/</span>
+
+    <span class="c1">/// @notice Grants a role on behalf of a user.
+</span>    <span class="c1">/// @param _roleAssignment The role assignment data.
+</span>    <span class="k">function</span> <span class="n">grantRoleFrom</span><span class="p">(</span><span class="n">RoleAssignment</span> <span class="k">calldata</span> <span class="n">_roleAssignment</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Grants a role on behalf of a user.
+</span>    <span class="c1">/// @param _roleAssignment The role assignment data.
+</span>    <span class="k">function</span> <span class="n">grantRevocableRoleFrom</span><span class="p">(</span><span class="n">RoleAssignment</span> <span class="k">calldata</span> <span class="n">_roleAssignment</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Revokes a role on behalf of a user.
+</span>    <span class="c1">/// @param _role The role identifier.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _tokenId The token identifier.
+</span>    <span class="c1">/// @param _revoker The user revoking the role.
+</span>    <span class="c1">/// @param _grantee The user that receives the role revocation.
+</span>    <span class="k">function</span> <span class="n">revokeRoleFrom</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">_role</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_revoker</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantee</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Approves operator to grant and revoke any roles on behalf of another user.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _operator The user approved to grant and revoke roles.
+</span>    <span class="c1">/// @param _approved The approval status.
+</span>    <span class="k">function</span> <span class="n">setRoleApprovalForAll</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">_approved</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/** View Functions **/</span>
+
+    <span class="c1">/// @notice Checks if a user has a role.
+</span>    <span class="c1">/// @param _role The role identifier.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _tokenId The token identifier.
+</span>    <span class="c1">/// @param _grantor The user that assigned the role.
+</span>    <span class="c1">/// @param _grantee The user that received the role.
+</span>    <span class="k">function</span> <span class="n">hasNonUniqueRole</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">_role</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantor</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantee</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Checks if a user has a unique role.
+</span>    <span class="c1">/// @param _role The role identifier.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _tokenId The token identifier.
+</span>    <span class="c1">/// @param _grantor The user that assigned the role.
+</span>    <span class="c1">/// @param _grantee The user that received the role.
+</span>    <span class="k">function</span> <span class="n">hasRole</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">_role</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantor</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantee</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Returns the custom data of a role assignment.
+</span>    <span class="c1">/// @param _role The role identifier.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _tokenId The token identifier.
+</span>    <span class="c1">/// @param _grantor The user that assigned the role.
+</span>    <span class="c1">/// @param _grantee The user that received the role.
+</span>    <span class="k">function</span> <span class="n">roleData</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">_role</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantor</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantee</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">RoleData</span> <span class="k">memory</span> <span class="n">data_</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Returns the expiration date of a role assignment.
+</span>    <span class="c1">/// @param _role The role identifier.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _tokenId The token identifier.
+</span>    <span class="c1">/// @param _grantor The user that assigned the role.
+</span>    <span class="c1">/// @param _grantee The user that received the role.
+</span>    <span class="k">function</span> <span class="n">roleExpirationDate</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">_role</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantor</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantee</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint64</span> <span class="n">expirationDate_</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Checks if the grantor approved the operator for all NFTs.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _grantor The user that approved the operator.
+</span>    <span class="c1">/// @param _operator The user that can grant and revoke roles.
+</span>    <span class="k">function</span> <span class="n">isRoleApprovedForAll</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantor</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_operator</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Returns the last user to receive a role.
+</span>    <span class="c1">/// @param _role The role identifier.
+</span>    <span class="c1">/// @param _tokenAddress The token address.
+</span>    <span class="c1">/// @param _tokenId The token identifier.
+</span>    <span class="c1">/// @param _grantor The user that granted the role.
+</span>    <span class="k">function</span> <span class="n">lastGrantee</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">_role</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_tokenAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_grantor</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="metadata-extension">Metadata Extension</h3>
+
+<p>The Roles Metadata extension extends the traditional JSON-based metadata schema of NFTs. Therefore, DApps supporting
+this feature MUST also implement the metadata extension of <a href="./eip-721.md">ERC-721</a> or <a href="./eip-1155.md">ERC-1155</a>. This
+extension is <strong>optional</strong> and allows developers to provide additional information for roles.</p>
+
+<p>Updated Metadata Schema:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  
+  <span class="cm">/** Existing NFT Metadata **/</span>
+
+  <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Asset Metadata</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">properties</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Identifies the asset to which this NFT represents</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Describes the asset to which this NFT represents</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">image</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">A URI pointing to a resource with mime type image/* representing the asset to which this NFT represents. Consider making any images at a width between 320 and 1080 pixels and aspect ratio between 1.91:1 and 4:5 inclusive</span><span class="dl">"</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  
+  <span class="cm">/** Additional fields for Roles **/</span>
+
+  <span class="dl">"</span><span class="s2">roles</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">bytes32</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Identifies the role</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Human-readable name of the role</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Describes the role</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">isUniqueRole</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">boolean</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Whether the role supports simultaneous assignments or not</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">inputs</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Human-readable name of the argument</span><span class="dl">"</span>
+          <span class="p">},</span>
+          <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Solidity type, e.g., uint256 or address</span><span class="dl">"</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+  
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The following JSON is an example of <a href="./eip-7432.md">ERC-7432</a> Metadata:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// ... Existing NFT Metadata</span>
+  
+  <span class="dl">"</span><span class="s2">roles</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="c1">// keccak256("PROPERTY_MANAGER")</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0x5cefc88e2d50f91b66109b6bb76803f11168ca3d1cee10cbafe864e4749970c7</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Property Manager</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">The manager of the property is responsible for furnishing it and ensuring its good condition.</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">isUniqueRole</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">inputs</span><span class="dl">"</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="c1">// keccak256("PROPERTY_TENANT")</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0x06a3b33b0a800805559ee9c64f55afd8a43a05f8472feb6f6b77484ff5ac9c26</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Property Tenant</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">The tenant of the property is responsible for paying the rent and keeping the property in good condition.</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">isUniqueRole</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">inputs</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rent</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+  
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">roles</code> array properties are SUGGESTED, and developers should add any other relevant information as necessary (e.g.,
+an image for the role). However, it’s highly RECOMMENDED to include the <code class="language-plaintext highlighter-rouge">isUniqueRole</code> property, as this field is
+used to determine if the <code class="language-plaintext highlighter-rouge">hasRole</code> or <code class="language-plaintext highlighter-rouge">hasNonUniqueRole</code> function should be called (refer to 
+<a href="#unique-and-non-unique-roles">Unique and Non-Unique Roles</a>).</p>
+
+<p>It’s also important to highlight the importance of the <code class="language-plaintext highlighter-rouge">inputs</code> property. This field describes the parameters that
+should be encoded and passed to the <code class="language-plaintext highlighter-rouge">grantRole</code> function. It’s RECOMMENDED to use the properties <code class="language-plaintext highlighter-rouge">type</code> and <code class="language-plaintext highlighter-rouge">components</code>
+defined on the Solidity ABI Specification, where <code class="language-plaintext highlighter-rouge">type</code> is the canonical type of the parameter, and <code class="language-plaintext highlighter-rouge">components</code> is used
+for complex tuple types.</p>
+
+<h3 id="caveats">Caveats</h3>
+
+<ul>
+  <li>Compliant contracts MUST implement the <code class="language-plaintext highlighter-rouge">IERC7432</code> interface.</li>
+  <li>A role is represented by a <code class="language-plaintext highlighter-rouge">bytes32</code>, and it’s RECOMMENDED to use the <code class="language-plaintext highlighter-rouge">keccak256</code> of the role’s name for this purpose:
+<code class="language-plaintext highlighter-rouge">bytes32 role = keccak256("ROLE_NAME")</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">grantRoleFrom</code> and <code class="language-plaintext highlighter-rouge">grantRevocableRoleFrom</code> functions MUST revert if the <code class="language-plaintext highlighter-rouge">_expirationDate</code> is in the past or if
+the <code class="language-plaintext highlighter-rouge">msg.sender</code> is not approved to grant roles on behalf of the <code class="language-plaintext highlighter-rouge">_grantor</code>. It MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or
+ <code class="language-plaintext highlighter-rouge">external</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">revokeRole</code> and <code class="language-plaintext highlighter-rouge">revokeRoleFrom</code> functions SHOULD revert if <code class="language-plaintext highlighter-rouge">_revocable</code> is <code class="language-plaintext highlighter-rouge">false</code>. They MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">revokeRoleFrom</code> function MUST revert if the <code class="language-plaintext highlighter-rouge">msg.sender</code> is not approved to revoke roles on behalf of the <code class="language-plaintext highlighter-rouge">_revoker</code> or the <code class="language-plaintext highlighter-rouge">_grantee</code>.
+It MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">setRoleApprovalForAll</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">hasNonUniqueRole</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code> and SHOULD only confirm if the role assignment 
+exists and is not expired.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">hasRole</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code> and SHOULD check if the assignment exists, is not
+expired and is the last one granted (does not support simultaneous role assignments).</li>
+  <li>The <code class="language-plaintext highlighter-rouge">roleData</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code>, and SHOULD return an empty struct if the role
+assignment does not exist.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">roleExpirationDate</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code>, and SHOULD return zero if the role
+assignment does not exist.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">isRoleApprovedForAll</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code> and SHOULD only return <code class="language-plaintext highlighter-rouge">true</code> if the
+<code class="language-plaintext highlighter-rouge">_operator</code> is approved to grant and revoke roles for all NFTs on behalf of the <code class="language-plaintext highlighter-rouge">_grantor</code>.</li>
+  <li>Compliant contracts SHOULD support <a href="./eip-165.md">ERC-165</a>.</li>
+</ul>
+
+<h2 id="rationale">Rationale</h2>
+
+<p><a href="./eip-7432.md">ERC-7432</a> IS NOT an extension of <a href="./eip-721.md">ERC-721</a>. The main reason behind this decision is to
+keep the standard agnostic of any NFT implementation. This approach also enables the standard to be implemented
+externally or on the same contract as the NFT, and allow dApps to use roles with immutable NFTs.</p>
+
+<h3 id="automatic-expiration">Automatic Expiration</h3>
+
+<p>Automatic expiration is implemented via the <code class="language-plaintext highlighter-rouge">grantRole</code> and <code class="language-plaintext highlighter-rouge">hasRole</code> functions. <code class="language-plaintext highlighter-rouge">grantRole</code> is responsible for setting
+the expiration date, and <code class="language-plaintext highlighter-rouge">hasRole</code> checks if the role is expired by comparing with the current block timestamp
+(<code class="language-plaintext highlighter-rouge">block.timestamp</code>). Since <code class="language-plaintext highlighter-rouge">uint256</code> is not natively supported by most programming languages, dates are represented as
+<code class="language-plaintext highlighter-rouge">uint64</code> on this standard. The maximum UNIX timestamp represented by a <code class="language-plaintext highlighter-rouge">uint64</code> is about the year <code class="language-plaintext highlighter-rouge">584,942,417,355</code>,
+which should be enough to be considered “permanent”. For this reason, it’s RECOMMENDED using <code class="language-plaintext highlighter-rouge">type(uint64).max</code> when
+calling the <code class="language-plaintext highlighter-rouge">grantRole</code> function to support use cases that require an assignment never to expire.</p>
+
+<h3 id="revocable-roles">Revocable Roles</h3>
+
+<p>In certain scenarios, the grantor may need to revoke a role before its expiration date, while in others, the grantee
+requires assurance that the grantor cannot revoke the role. The <code class="language-plaintext highlighter-rouge">_revocable</code> parameter was introduced to the <code class="language-plaintext highlighter-rouge">grantRole</code>
+function to support both use cases and specify whether the <code class="language-plaintext highlighter-rouge">grantor</code> can revoke assigned roles.</p>
+
+<p>Regardless of the value of <code class="language-plaintext highlighter-rouge">_revocable</code>, it’s RECOMMENDED always to enable the <code class="language-plaintext highlighter-rouge">grantee</code> to revoke received roles,
+allowing recipients to eliminate undesirable assignments.</p>
+
+<h3 id="unique-and-non-unique-roles">Unique and Non-Unique Roles</h3>
+
+<p>The standard supports both unique and non-unique roles. Unique roles can be assigned to only one account at a time,
+while non-unique roles can be granted to multiple accounts simultaneously. The roles extension metadata can be used to
+specify if roles are unique or not, and if the contract does not implement it, all roles should be considered unique.</p>
+
+<p>To verify the validity of a unique role, dApps SHOULD use the <code class="language-plaintext highlighter-rouge">hasRole</code> function, which also checks if no other
+assignment was granted afterward. In other words, for unique roles, each new assignment invalidates the previous one,
+and only the last one can be valid.</p>
+
+<h3 id="custom-data">Custom Data</h3>
+
+<p>DApps can customize roles using the <code class="language-plaintext highlighter-rouge">_data</code> parameter of the <code class="language-plaintext highlighter-rouge">grantRole</code> function. <code class="language-plaintext highlighter-rouge">_data</code>  is implemented using the
+generic type <code class="language-plaintext highlighter-rouge">bytes</code> to enable dApps to encode any role-specific information when creating a role assignment. The custom
+data is retrievable using the <code class="language-plaintext highlighter-rouge">roleData</code> function and is emitted with the <code class="language-plaintext highlighter-rouge">RoleGranted</code> event. With this approach, 
+developers can integrate this information into their applications, both on-chain and off-chain.</p>
+
+<h3 id="role-approval">Role Approval</h3>
+
+<p>Similar to <a href="./eip-721.md">ERC-721</a>, this standard enables users to approve other accounts to grant and revoke roles on
+its behalf. This functionality was introduced to allow third-parties to interact with ERC-7432 without requiring NFT
+ownership. Compliant contracts MUST implement the functions <code class="language-plaintext highlighter-rouge">setRoleApprovalForAll</code> and <code class="language-plaintext highlighter-rouge">isRoleApprovedForAll</code> to 
+deliver this feature.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>On all functions and events, the standard requires both the <code class="language-plaintext highlighter-rouge">tokenAddress</code> and <code class="language-plaintext highlighter-rouge">tokenId</code> to be provided. This 
+requirement enables dApps to use a standalone <a href="./eip-7432.md">ERC-7432</a> contract as the authoritative source for the
+roles of immutable NFTs. It also helps with backward compatibility as NFT-specific functions such as <code class="language-plaintext highlighter-rouge">ownerOf</code> are no
+longer required. Consequently, this design ensures a more straightforward integration with different implementations of
+NFTs.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>See <a href="../assets/eip-7432/ERC7432.sol">ERC-7432.sol</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Developers integrating the Non-Fungible Token Roles interface should consider the following on their implementations:</p>
+
+<ul>
+  <li>Ensure proper access controls are in place to prevent unauthorized role assignments or revocations.</li>
+  <li>Take into account potential attack vectors such as reentrancy and ensure appropriate safeguards are in place.</li>
+  <li>Since this standard does not check NFT ownership, it’s the responsibility of the dApp to query for the NFT Owner and
+pass the correct <code class="language-plaintext highlighter-rouge">_grantor</code> to the <code class="language-plaintext highlighter-rouge">hasRole</code> function.</li>
+  <li>It’s the responsibility of the dApp to confirm if the role is unique or non-unique. When the role is unique, the dApp
+SHOULD use the <code class="language-plaintext highlighter-rouge">hasRole</code> function to check for the validity of the assignment. <code class="language-plaintext highlighter-rouge">hasNonUniqueRole</code> SHOULD be used when
+the role can be granted to multiple accounts simultaneously (hence, non-unique).</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

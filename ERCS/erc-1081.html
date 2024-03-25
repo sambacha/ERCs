@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Standard Bounties | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Standard Bounties | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1081" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1081" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Standard Bounties</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard contract and interface for issuing bounties on Ethereum, usable for any type of task, paying in any ERC20 token or in ETH.</p>
+
+<h2 id="abstract">Abstract</h2>
+<p>In order to encourage cross-platform interoperability of bounties on Ethereum, and for easier reputational tracking, StandardBounties can facilitate the administration of funds in exchange for deliverables corresponding to a completed task, in a publicly auditable and immutable fashion.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>In the absence of a standard for bounties on Ethereum, it would be difficult for platforms to collaborate and share the bounties which users create (thereby recreating the walled gardens which currently exist on Web2.0 task outsourcing platforms). A standardization of these interactions across task types also makes it far easier to track various reputational metrics (such as how frequently you pay for completed submissions, or how frequently your work gets accepted).</p>
+
+<h2 id="specification">Specification</h2>
+<p>After studying bounties as they’ve existed for thousands of years (and after implementing and processing over 300 of them on main-net in beta), we’ve discovered that there are 3 core steps to every bounty:</p>
+<ul>
+  <li>a bounty is <strong>issued</strong>: an <code class="language-plaintext highlighter-rouge">issuer</code> specifies the requirements for the task, describing the desired outcome, and how much they would be willing to pay for the completion of that task (denoted in one or several tokens).</li>
+  <li>a bounty is <strong>fulfilled</strong>: a bounty <code class="language-plaintext highlighter-rouge">fulfiller</code> may see the bounty, complete the task, and produce a deliverable which is itself the desired outcome of the task, or simply a record that it was completed. Hashes of these deliverables should be stored immutably on-chain, to serve as proof after the fact.</li>
+  <li>a fulfillment is <strong>accepted</strong>: a bounty <code class="language-plaintext highlighter-rouge">issuer</code> or <code class="language-plaintext highlighter-rouge">arbiter</code> may select one or more submissions to be accepted, thereby releasing payment to the bounty fulfiller(s), and transferring ownership over the given deliverable to the <code class="language-plaintext highlighter-rouge">issuer</code>.</li>
+</ul>
+
+<p>To implement these steps, a number of functions are needed:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">initializeBounty(address _issuer, address _arbiter, string _data, uint _deadline)</code>: This is used when deploying a new StandardBounty contract, and is particularly useful when applying the proxy design pattern, whereby bounties cannot be initialized in their constructors. Here, the data string should represent an IPFS hash, corresponding to a JSON object which conforms to the schema (described below).</li>
+  <li><code class="language-plaintext highlighter-rouge">fulfillBounty(address[] _fulfillers, uint[] _numerators, uint _denomenator, string _data)</code>: This is called to submit a fulfillment, submitting a string representing an IPFS hash which contains the deliverable for the bounty. Initially fulfillments could only be submitted by one individual at a time, however users consistently told us they desired to be able to collaborate on fulfillments, thereby allowing the credit for submissions to be shared by several parties. The lines along which eventual payouts are split are determined by the fractions of the submission credited to each fulfiller (using the array of numerators and single denominator). Here, a bounty platform may also include themselves as a collaborator to collect a small fee for matching the bounty with fulfillers.</li>
+  <li><code class="language-plaintext highlighter-rouge">acceptFulfillment(uint _fulfillmentId, StandardToken[] _payoutTokens, uint[] _tokenAmounts)</code>: This is called by the <code class="language-plaintext highlighter-rouge">issuer</code> or the <code class="language-plaintext highlighter-rouge">arbiter</code> to pay out a given fulfillment, using an array of tokens, and an array of amounts of each token to be split among the contributors. This allows for the bounty payout amount to move as it needs to based on incoming contributions (which may be transferred directly to the contract address). It also allows for the easy splitting of a given bounty’s balance among several fulfillments, if the need should arise.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">drainBounty(StandardToken[] _payoutTokens)</code>: This may be called by the <code class="language-plaintext highlighter-rouge">issuer</code> to drain a bounty of it’s funds, if the need should arise.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">changeBounty(address _issuer, address _arbiter, string _data, uint _deadline)</code>: This may be called by the <code class="language-plaintext highlighter-rouge">issuer</code> to change the <code class="language-plaintext highlighter-rouge">issuer</code>, <code class="language-plaintext highlighter-rouge">arbiter</code>, <code class="language-plaintext highlighter-rouge">data</code>, and <code class="language-plaintext highlighter-rouge">deadline</code> fields of their bounty.</li>
+  <li><code class="language-plaintext highlighter-rouge">changeIssuer(address _issuer)</code>: This may be called by the <code class="language-plaintext highlighter-rouge">issuer</code> to change to a new <code class="language-plaintext highlighter-rouge">issuer</code> if need be</li>
+  <li><code class="language-plaintext highlighter-rouge">changeArbiter(address _arbiter)</code>: This may be called by the <code class="language-plaintext highlighter-rouge">issuer</code> to change to a new <code class="language-plaintext highlighter-rouge">arbiter</code> if need be</li>
+  <li><code class="language-plaintext highlighter-rouge">changeData(string _data)</code>: This may be called by the <code class="language-plaintext highlighter-rouge">issuer</code> to change just the <code class="language-plaintext highlighter-rouge">data</code></li>
+  <li><code class="language-plaintext highlighter-rouge">changeDeadline(uint _deadline)</code>: This may be called by the <code class="language-plaintext highlighter-rouge">issuer</code> to change just the <code class="language-plaintext highlighter-rouge">deadline</code></li>
+</ul>
+
+<p>Optional Functions:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">acceptAndFulfill(address[] _fulfillers, uint[] _numerators, uint _denomenator, string _data, StandardToken[] _payoutTokens, uint[] _tokenAmounts)</code>: During the course of the development of this standard, we discovered the desire for fulfillers to avoid paying gas fees on their own, entrusting the bounty’s <code class="language-plaintext highlighter-rouge">issuer</code> to make the submission for them, and at the same time accept it. This is useful since it still immutably stores the exchange of tokens for completed work, but avoids the need for new bounty fulfillers to have any ETH to pay for gas costs in advance of their earnings.</li>
+  <li><code class="language-plaintext highlighter-rouge">changeMasterCopy(StandardBounty _masterCopy)</code>: For <code class="language-plaintext highlighter-rouge">issuer</code>s to be able to change the masterCopy which their proxy contract relies on, if the proxy design pattern is being employed.</li>
+  <li><code class="language-plaintext highlighter-rouge">refundableContribute(uint[] _amounts, StandardToken[] _tokens)</code>: While non-refundable contributions may be sent to a bounty simply by transferring those tokens to the address where it resides, one may also desire to contribute to a bounty with the option to refund their contribution, should the bounty never receive a correct submission which is paid out.
+<code class="language-plaintext highlighter-rouge">refundContribution(uint _contributionId)</code>: If a bounty hasn’t yet paid out to any correct submissions and is past it’s deadline, those individuals who employed the <code class="language-plaintext highlighter-rouge">refundableContribute</code> function may retrieve their funds from the contract.</li>
+</ul>
+
+<p><strong>Schemas</strong>
+Persona Schema:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+   name: // optional - A string representing the name of the persona
+   email: // optional - A string representing the preferred contact email of the persona
+   githubUsername: // optional - A string representing the github username of the persona
+   address: // required - A string web3 address of the persona
+}
+</code></pre></div></div>
+<p>Bounty issuance <code class="language-plaintext highlighter-rouge">data</code> Schema:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  payload: {
+    title: // A string representing the title of the bounty
+    description: // A string representing the description of the bounty, including all requirements
+    issuer: {
+       // persona for the issuer of the bounty
+    },
+    funders:[
+       // array of personas of those who funded the issue.
+    ],
+    categories: // an array of strings, representing the categories of tasks which are being requested
+    tags: // an array of tags, representing various attributes of the bounty
+    created: // the timestamp in seconds when the bounty was created
+    tokenSymbol: // the symbol for the token which the bounty pays out
+    tokenAddress: // the address for the token which the bounty pays out (0x0 if ETH)
+
+    // ------- add optional fields here -------
+    sourceFileName: // A string representing the name of the file
+    sourceFileHash: // The IPFS hash of the file associated with the bounty
+    sourceDirectoryHash: // The IPFS hash of the directory which can be used to access the file
+    webReferenceURL: // The link to a relevant web reference (ie github issue)
+  },
+  meta: {
+    platform: // a string representing the original posting platform (ie 'gitcoin')
+    schemaVersion: // a string representing the version number (ie '0.1')
+    schemaName: // a string representing the name of the schema (ie 'standardSchema' or 'gitcoinSchema')
+  }
+}
+</code></pre></div></div>
+<p>Bounty <code class="language-plaintext highlighter-rouge">fulfillment</code> data Schema:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  payload: {
+    description: // A string representing the description of the fulfillment, and any necessary links to works
+    sourceFileName: // A string representing the name of the file being submitted
+    sourceFileHash: // A string representing the IPFS hash of the file being submitted
+    sourceDirectoryHash: // A string representing the IPFS hash of the directory which holds the file being submitted
+    fulfillers: {
+      // personas for the individuals whose work is being submitted
+    }
+
+    // ------- add optional fields here -------
+  },
+  meta: {
+    platform: // a string representing the original posting platform (ie 'gitcoin')
+    schemaVersion: // a string representing the version number (ie '0.1')
+    schemaName: // a string representing the name of the schema (ie 'standardSchema' or 'gitcoinSchema')
+  }
+}
+</code></pre></div></div>
+<h2 id="rationale">Rationale</h2>
+<p>The development of this standard began a year ago, with the goal of encouraging interoperability among bounty implementations on Ethereum. The initial version had significantly more restrictions: a bounty’s <code class="language-plaintext highlighter-rouge">data</code> could not be changed after issuance (it seemed unfair for bounty <code class="language-plaintext highlighter-rouge">issuer</code>s to change the requirements after work is underway), and the bounty payout could not be changed (all funds needed to be deposited in the bounty contract before it could accept submissions).</p>
+
+<p>The initial version was also far less extensible, and only allowed for fixed payments to a given set of fulfillments. This new version makes it possible for funds to be split among several correct submissions, for submissions to be shared among several contributors, and for payouts to not only be in a single token as before, but in as many tokens as the <code class="language-plaintext highlighter-rouge">issuer</code> of the bounty desires. These design decisions were made after the 8+ months which Gitcoin, the Bounties Network, and Status Open Bounty have been live and meaningfully facilitating bounties for repositories in the Web3.0 ecosystem.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+<p>Tests for our implementation can be found here: https://github.com/Bounties-Network/StandardBounties/tree/develop/test</p>
+
+<h2 id="implementation">Implementation</h2>
+<p>A reference implementation can be found here: https://github.com/Bounties-Network/StandardBounties/blob/develop/contracts/StandardBounty.sol
+<strong>Although this code has been tested, it has not yet been audited or bug-bountied, so we cannot make any assertions about it’s correctness, nor can we presently encourage it’s use to hold funds on the Ethereum mainnet.</strong></p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

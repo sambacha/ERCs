@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Base Security Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Base Security Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1462" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1462" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Base Security Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>An extension to ERC-20 standard token that provides compliance with securities regulations and legal enforceability.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>This EIP defines a minimal set of additions to the default token standard such as <a href="./eip-20.md">ERC-20</a>, that allows for compliance with domestic and international legal requirements. Such requirements include KYC (Know Your Customer) and AML (Anti Money Laundering) regulations, and the ability to lock tokens for an account, and restrict them from transfer due to a legal dispute. Also the ability to attach additional legal documentation, in order to set up a dual-binding relationship between the token and off-chain legal entities.</p>
+
+<p>The scope of this standard is being kept as narrow as possible to avoid restricting potential use-cases of this base security token. Any additional functionality and limitations not defined in this standard may be enforced on per-project basis.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There are several security token standards that have been proposed recently. Examples include <a href="https://github.com/ethereum/EIPs/issues/1411">ERC-1400</a>, also <a href="https://eips.ethereum.org/EIPS/eip-1450">ERC-1450</a>. We have concerns about each of them, mostly because the scope of each of these EIPs contains many project-specific or market-specific details. Since many EIPs are coming from the respective backing companies, they capture many niche requirements that are excessive for a general case.</p>
+
+<p>For instance, ERC-1411 uses dependency on <a href="https://github.com/ethereum/eips/issues/1410">ERC-1410</a> but it falls out of the “security tokens” scope. Also its dependency on <a href="./eip-777.md">ERC-777</a> will block the adoption for a quite period of time before ERC-777 is finalized, but the integration guidelines for existing ERC-20 workflows are not described in that EIP, yet. Another attempt to make a much simpler base standard <a href="https://github.com/ethereum/EIPs/issues/1404">ERC-1404</a> is missing a few important points, specifically it doesn’t provide enough granularity to distinguish between different ERC-20 transfer functions such as <code class="language-plaintext highlighter-rouge">transfer</code> and <code class="language-plaintext highlighter-rouge">transferFrom</code>. It also doesn’t provide a way to bind legal documentation to the issued tokens.</p>
+
+<p>What we propose in this EIP is a simple and very modular solution for creating a base security token for the widest possible scope of applications, so it can be used by other issuers to build upon. The issuers should be able to add more restrictions and policies to the token, using the functions and implementation proposed below, but they must not be limited in any way while using this ERC.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The ERC-20 token provides the following basic features:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">ERC20</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">totalSupply</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This will be extended as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">BaseSecurityToken</span> <span class="cm">/* is ERC-20 */</span> <span class="p">{</span>
+    <span class="c1">// Checking functions
+</span>    <span class="k">function</span> <span class="n">checkTransferAllowed</span> <span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">checkTransferFromAllowed</span> <span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">checkMintAllowed</span> <span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">checkBurnAllowed</span> <span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span><span class="p">);</span>
+
+    <span class="c1">// Documentation functions
+</span>    <span class="k">function</span> <span class="n">attachDocument</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_name</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_uri</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">_contentHash</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">lookupDocument</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_name</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="transfer-checking-functions">Transfer Checking Functions</h3>
+
+<p>We introduce four new functions that should be used to check that the actions are allowed for the provided inputs. The implementation details of each function are left for the token issuer, it is the issuer’s responsibility to add all necessary checks that will validate an operation in accordance with KYC/AML policies and legal requirements set for a specific token asset.</p>
+
+<p>Each function must return a status code from the common set of Ethereum status codes (ESC), according to <a href="./eip-1066.md">ERC-1066</a>. Localization of these codes is out of the scope of this proposal and may be optionally solved by adopting <a href="./eip-1444.md">ERC-1444</a> on the application level. If the operation is allowed by a checking function, the return status code must be <code class="language-plaintext highlighter-rouge">0x11</code> (Allowed) or an issuer-specific code with equivalent but more precise meaning. If the operation is not allowed by a checking function, the status must be <code class="language-plaintext highlighter-rouge">0x10</code> (Disallowed) or an issuer-specific code with equivalent but more precise meaning. Upon an internal error, the function must return the most relevant code from the general code table or an issuer-specific equivalent, example: <code class="language-plaintext highlighter-rouge">0xF0</code> (Off-Chain Failure).</p>
+
+<p><strong>For <a href="./eip-20.md">ERC-20</a> based tokens,</strong></p>
+<ul>
+  <li>It is required that transfer function must be overridden with logic that checks the corresponding checkTransferAllowed return status code.</li>
+  <li>It is required that <code class="language-plaintext highlighter-rouge">transferFrom</code> function must be overridden with logic that checks the corresponding <code class="language-plaintext highlighter-rouge">checkTransferFromAllowed</code> return status code.</li>
+  <li>It is required that <code class="language-plaintext highlighter-rouge">approve</code> function must be overridden with logic that checks the corresponding <code class="language-plaintext highlighter-rouge">checkTransferFromAllowed</code> return status code.</li>
+  <li>Other functions such as <code class="language-plaintext highlighter-rouge">mint</code> and <code class="language-plaintext highlighter-rouge">burn</code> must be overridden, if they exist in the token implementation, they should check <code class="language-plaintext highlighter-rouge">checkMintAllowed</code> and <code class="language-plaintext highlighter-rouge">checkBurnAllowed</code> status codes accordingly.</li>
+</ul>
+
+<p><strong>For <a href="./eip-777.md">ERC-777</a> based tokens,</strong></p>
+<ul>
+  <li>It is required that <code class="language-plaintext highlighter-rouge">send</code> function must be overridden with logic that checks the corresponding return status codes:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">checkTransferAllowed</code> return status code, if transfer happens on behalf of the tokens owner;</li>
+      <li><code class="language-plaintext highlighter-rouge">checkTransferFromAllowed</code> return status code, if transfer happens on behalf of an operator (i.e. delegated transfer).</li>
+    </ul>
+  </li>
+  <li>It is required that <code class="language-plaintext highlighter-rouge">burn</code> function must be overridden with logic that checks the corresponding <code class="language-plaintext highlighter-rouge">checkBurnAllowed</code> return status code.</li>
+  <li>Other functions, such as <code class="language-plaintext highlighter-rouge">mint</code> must be overridden, if they exist in the token implementation, e.g. if the security token is mintable. <code class="language-plaintext highlighter-rouge">mint</code> function must call <code class="language-plaintext highlighter-rouge">checkMintAllowed</code> ad check it return status code.</li>
+</ul>
+
+<p>For both cases,</p>
+
+<ul>
+  <li>It is required for guaranteed compatibility with ERC-20 and ERC-777 wallets that each checking function returns <code class="language-plaintext highlighter-rouge">0x11</code> (Allowed) if not overridden with the issuer’s custom logic.</li>
+  <li>It is required that all overridden checking functions must revert if the action is not allowed or an error occurred, according to the returned status code.</li>
+</ul>
+
+<p>Inside checker functions the logic is allowed to use any feature available on-chain: perform calls to registry contracts with whitelists/blacklists, use built-in checking logic that is defined on the same contract, or even run off-chain queries through an oracle.</p>
+
+<h3 id="documentation-functions">Documentation Functions</h3>
+
+<p>We also introduce two new functions that should be used for document management purposes. Function <code class="language-plaintext highlighter-rouge">attachDocument</code> adds a reference pointing to an off-chain document, with specified name, URI and contents hash. The hashing algorithm is not specified within this standard, but the resulting hash must not be longer than 32 bytes. Function <code class="language-plaintext highlighter-rouge">lookupDocument</code> gets the referenced document by its name.</p>
+
+<ul>
+  <li>It is not required to use documentation functions, they are optional and provided as a part of a legal framework.</li>
+  <li>It is required that if <code class="language-plaintext highlighter-rouge">attachDocument</code> function has been used, the document reference must have a unique name, overwriting the references under same name is not allowed. All implementations must check if the reference under the given name is already existing.</li>
+</ul>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This EIP targets both ERC-20 and ERC-777 based tokens, although the most emphasis is given to ERC-20 due to its widespread adoption. However, this extension is designed to be compatible with the forthcoming ERC-777 standard, as well.</p>
+
+<p>All checking functions are named with prefixes <code class="language-plaintext highlighter-rouge">check</code> since they return check status code, not booleans, because that is important to facilitate the debugging and tracing process. It is responsibility of the issuer to implement the logic that will handle the return codes appropriately. Some handlers will simply throw errors, other handlers would log information for future process mining. More rationale for status codes can be seen in <a href="./eip-1066.md">ERC-1066</a>.</p>
+
+<p>We require two different transfer validation functions: <code class="language-plaintext highlighter-rouge">checkTransferAllowed</code> and <code class="language-plaintext highlighter-rouge">checkTransferFromAllowed</code> since the corresponding <code class="language-plaintext highlighter-rouge">transfer</code> and <code class="language-plaintext highlighter-rouge">transferFrom</code> are usually called in different contexts. Some token standards such as <a href="./eip-1450.md">ERC-1450</a> explicitly disallow use of <code class="language-plaintext highlighter-rouge">transfer</code>, while allowing only <code class="language-plaintext highlighter-rouge">transferFrom</code>. There might be also different complex scenarios, where <code class="language-plaintext highlighter-rouge">transfer</code> and <code class="language-plaintext highlighter-rouge">transferFrom</code> should be treated differently. ERC-777 is relying on its own <code class="language-plaintext highlighter-rouge">send</code> for transferring tokens, so it is reasonable to switch between checker functions based on its call context. We decided to omit the <code class="language-plaintext highlighter-rouge">checkApprove</code> function since it would be used in exactly the same context as <code class="language-plaintext highlighter-rouge">checkTransferFromAllowed</code>. In many cases it is required not only regulate securities transfers, but also restrict burn and <code class="language-plaintext highlighter-rouge">mint</code> operations, and additional checker functions have been added for that.</p>
+
+<p>The documentation functions that we propose here are a must-have tool to create dual-bindings with off-chain legal documents, a great example of this can be seen in <a href="https://medium.com/@ZoeAdamovicz/37376fd0384a">Neufund’s Employee Incentive Options Plan</a> legal framework that implements full legal enforceability: the smart contract refers to printed ESOP Terms &amp; Conditions Document, which itself refers back to smart contract. This is becoming a widely adopted practice even in cases where there are no legal requirements to reference the documents within the security token. However they’re almost always required, and it’s a good way to attach useful documentation of various types.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This EIP is fully backwards compatible as its implementation extends the functionality of ERC-20 and ERC-777 tokens.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<ul>
+  <li>https://github.com/AtlantPlatform/BaseSecurityToken</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

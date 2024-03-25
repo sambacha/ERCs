@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Cross-Chain Token States Synchronization | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Cross-Chain Token States Synchronization | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6358" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6358" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Cross-Chain Token States Synchronization</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This ERC standardizes an interface for contract-layer consensus-agnostic verifiable cross-chain bridging, through which we can define a new global token inherited from <a href="./eip-20.md">ERC-20</a>/<a href="./eip-721.md">ERC-721</a> over multi-chains.</p>
+
+<h3 id="figure1-architecture">Figure.1 Architecture</h3>
+
+<p><img src="../assets/eip-6358/img/o-dlt.png" alt="img" /></p>
+
+<p>With this ERC, we can create a global token protocol, that leverages smart contracts or similar mechanisms on existing blockchains to record the token states synchronously. The synchronization could be made by trustless off-chain synchronizers.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<ul>
+  <li>The current paradigm of token bridges makes assets fragment.</li>
+  <li>If ETH was transferred to another chain through the current token bridge, if the chain broke down, ETH will be lost for users.</li>
+</ul>
+
+<p>The core of this ERC is synchronization instead of transferring, even if all the other chains break down, as long as Ethereum is still running, user’s assets will not be lost.</p>
+
+<ul>
+  <li>The fragment problem will be solved.</li>
+  <li>The security of users’ multi-chain assets can be greatly enhanced.</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="omniverse-account">Omniverse Account</h3>
+
+<p>There SHOULD be a global user identifier of this ERC, which is RECOMMENDED to be referred to as Omniverse Account (<code class="language-plaintext highlighter-rouge">o-account</code> for short) in this article.<br />
+The <code class="language-plaintext highlighter-rouge">o-account</code> is RECOMMENDED to be expressed as a public key created by the elliptic curve <code class="language-plaintext highlighter-rouge">secp256k1</code>. A <a href="#mapping-mechanism-for-different-environments">mapping mechanism</a> is RECOMMENDED for different environments.</p>
+
+<h3 id="data-structure">Data Structure</h3>
+
+<p>An Omniverse Transaction (<code class="language-plaintext highlighter-rouge">o-transaction</code> for short) MUST be described with the following data structure:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @notice Omniverse transaction data structure
+ * @member nonce: The number of the o-transactions. If the current nonce of an omniverse account is `k`, the valid nonce of this o-account in the next o-transaction is `k+1`. 
+ * @member chainId: The chain where the o-transaction is initiated
+ * @member initiateSC: The contract address from which the o-transaction is first initiated
+ * @member from: The Omniverse account which signs the o-transaction
+ * @member payload: The encoded bussiness logic data, which is maintained by the developer
+ * @member signature: The signature of the above informations. 
+ */</span>
+<span class="k">struct</span> <span class="n">ERC6358TransactionData</span> <span class="p">{</span>
+    <span class="kt">uint128</span> <span class="n">nonce</span><span class="p">;</span>
+    <span class="kt">uint32</span> <span class="n">chainId</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="n">initiateSC</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="n">from</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="n">payload</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="n">signature</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The data structure <code class="language-plaintext highlighter-rouge">ERC6358TransactionData</code> MUST be defined as above.</li>
+  <li>The member <code class="language-plaintext highlighter-rouge">nonce</code> MUST be defined as <code class="language-plaintext highlighter-rouge">uint128</code> due to better compatibility for more tech stacks of blockchains.</li>
+  <li>The member <code class="language-plaintext highlighter-rouge">chainId</code> MUST be defined as <code class="language-plaintext highlighter-rouge">uint32</code>.</li>
+  <li>The member <code class="language-plaintext highlighter-rouge">initiateSC</code> MUST be defined as <code class="language-plaintext highlighter-rouge">bytes</code>.</li>
+  <li>The member <code class="language-plaintext highlighter-rouge">from</code> MUST be defined as <code class="language-plaintext highlighter-rouge">bytes</code>.</li>
+  <li>The member <code class="language-plaintext highlighter-rouge">payload</code> MUST be defined as <code class="language-plaintext highlighter-rouge">bytes</code>. It is encoded from a user-defined data related to the o-transaction. For example:
+    <ul>
+      <li>
+        <p>For fungible tokens it is RECOMMENDED as follows:</p>
+
+        <div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cm">/**
+  * @notice Fungible token data structure, from which the field `payload` in `ERC6358TransactionData` will be encoded
+  *
+  * @member op: The operation type
+  * NOTE op: 0-31 are reserved values, 32-255 are custom values
+  *           op: 0 - omniverse account `from` transfers `amount` tokens to omniverse account `exData`, `from` have at least `amount` tokens
+  *           op: 1 - omniverse account `from` mints `amount` tokens to omniverse account `exData`
+  *           op: 2 - omniverse account `from` burns `amount` tokens from his own, `from` have at least `amount` tokens
+  * @member exData: The operation data. This sector could be empty and is determined by `op`. For example: 
+              when `op` is 0 and 1, `exData` stores the omniverse account that receives.
+              when `op` is 2, `exData` is empty.
+  * @member amount: The amount of tokens being operated
+  */</span>
+  <span class="k">struct</span> <span class="n">Fungible</span> <span class="p">{</span>
+      <span class="kt">uint8</span> <span class="n">op</span><span class="p">;</span>
+      <span class="kt">bytes</span> <span class="n">exData</span><span class="p">;</span>
+      <span class="kt">uint256</span> <span class="n">amount</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>        </div>
+
+        <ul>
+          <li>The related raw data for <code class="language-plaintext highlighter-rouge">signature</code> in <code class="language-plaintext highlighter-rouge">o-transaction</code> is RECOMMENDED to be the concatenation of the raw bytes of <code class="language-plaintext highlighter-rouge">op</code>, <code class="language-plaintext highlighter-rouge">exData</code>, and <code class="language-plaintext highlighter-rouge">amount</code>.</li>
+        </ul>
+      </li>
+      <li>
+        <p>For non-fungible tokens it is RECOMMENDED as follows:</p>
+
+        <div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cm">/**
+  * @notice Non-Fungible token data structure, from which the field `payload` in `ERC6358TransactionData` will be encoded
+  *
+  * @member op: The operation type
+  * NOTE op: 0-31 are reserved values, 32-255 are custom values
+  *           op: 0 omniverse account `from` transfers token `tokenId` to omniverse account `exData`, `from` have the token with `tokenId`
+  *           op: 1 omniverse account `from` mints token `tokenId` to omniverse account `exData`
+  *           op: 2 omniverse account `from` burns token `tokenId`, `from` have the token with `tokenId`
+  * @member exData: The operation data. This sector could be empty and is determined by `op`
+  *           when `op` is 0 and 1, `exData` stores the omniverse account that receives.
+              when `op` is 2, `exData` is empty.
+  * @member tokenId: The tokenId of the non-fungible token being operated
+  */</span>
+  <span class="k">struct</span> <span class="n">NonFungible</span> <span class="p">{</span>
+      <span class="kt">uint8</span> <span class="n">op</span><span class="p">;</span>
+      <span class="kt">bytes</span> <span class="n">exData</span><span class="p">;</span>
+      <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>        </div>
+
+        <ul>
+          <li>The related raw data for <code class="language-plaintext highlighter-rouge">signature</code> in <code class="language-plaintext highlighter-rouge">o-transaction</code> is RECOMMENDED to be the concatenation of the raw bytes of <code class="language-plaintext highlighter-rouge">op</code>, <code class="language-plaintext highlighter-rouge">exData</code>, and <code class="language-plaintext highlighter-rouge">tokenId</code>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>The member <code class="language-plaintext highlighter-rouge">signature</code> MUST be defined as <code class="language-plaintext highlighter-rouge">bytes</code>. It is RECOMMENDED to be created as follows.
+    <ul>
+      <li>
+        <p>It is OPTIONAL that concating the sectors in <code class="language-plaintext highlighter-rouge">ERC6358TransactionData</code> as below (take Fungible token for example) and calculate the hash with <code class="language-plaintext highlighter-rouge">keccak256</code>:</p>
+
+        <div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cm">/**
+  * @notice Decode `_data` from bytes to Fungible
+  * @return A `Fungible` instance
+  */</span>
+  <span class="k">function</span> <span class="n">decodeData</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_data</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Fungible</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+      <span class="p">(</span><span class="kt">uint8</span> <span class="n">op</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">exData</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">_data</span><span class="p">,</span> <span class="p">(</span><span class="kt">uint8</span><span class="p">,</span> <span class="kt">bytes</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">));</span>
+      <span class="k">return</span> <span class="n">Fungible</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">exData</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+  <span class="p">}</span>
+        
+  <span class="cm">/**
+  * @notice Get the hash of a transaction
+  * @return Hash value of the raw data of an `ERC6358TransactionData` instance
+  */</span>
+  <span class="k">function</span> <span class="n">getTransactionHash</span><span class="p">(</span><span class="n">ERC6358TransactionData</span> <span class="k">memory</span> <span class="n">_data</span><span class="p">)</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">Fungible</span> <span class="k">memory</span> <span class="n">fungible</span> <span class="o">=</span> <span class="n">decodeData</span><span class="p">(</span><span class="n">_data</span><span class="p">.</span><span class="n">payload</span><span class="p">);</span>
+      <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">payload</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">fungible</span><span class="p">.</span><span class="n">op</span><span class="p">,</span> <span class="n">fungible</span><span class="p">.</span><span class="n">exData</span><span class="p">,</span> <span class="n">fungible</span><span class="p">.</span><span class="n">amount</span><span class="p">);</span>
+      <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">rawData</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">_data</span><span class="p">.</span><span class="n">nonce</span><span class="p">,</span> <span class="n">_data</span><span class="p">.</span><span class="n">chainId</span><span class="p">,</span> <span class="n">_data</span><span class="p">.</span><span class="n">initiateSC</span><span class="p">,</span> <span class="n">_data</span><span class="p">.</span><span class="n">from</span><span class="p">,</span> <span class="n">payload</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">rawData</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li>It is OPTIONAL that encapsulating the sectors in <code class="language-plaintext highlighter-rouge">ERC6358TransactionData</code> according to <code class="language-plaintext highlighter-rouge">EIP-712</code>.</li>
+      <li>Sign the hash value.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="smart-contract-interface">Smart Contract Interface</h3>
+
+<ul>
+  <li>
+    <p>Every <a href="./eip-6358.md">ERC-6358</a> compliant contract MUST implement the <code class="language-plaintext highlighter-rouge">IERC6358</code></p>
+
+    <div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cm">/**
+  * @notice Interface of the ERC-6358
+  */</span>
+  <span class="k">interface</span> <span class="n">IERC6358</span> <span class="p">{</span>
+      <span class="cm">/**
+      * @notice Emitted when a o-transaction which has nonce `nonce` and was signed by user `pk` is sent by calling {sendOmniverseTransaction}
+      */</span>
+      <span class="k">event</span> <span class="n">TransactionSent</span><span class="p">(</span><span class="kt">bytes</span> <span class="n">pk</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">);</span>
+
+      <span class="cm">/**
+      * @notice Sends an `o-transaction` 
+      * @dev 
+      * Note: MUST implement the validation of the `_data.signature`
+      * Note: A map maintaining the  `o-account` and the related transaction nonce is RECOMMENDED  
+      * Note: MUST implement the validation of the `_data.nonce` according to the current account nonce
+      * Note: MUST implement the validation of the `_data. payload`
+      * Note: This interface is just for sending an `o-transaction`, and the execution MUST NOT be within this interface 
+      * Note: The actual execution of an `o-transaction` is RECOMMENDED to be in another function and MAY be delayed for a time
+      * @param _data: the `o-transaction` data with type {ERC6358TransactionData}
+      * See more information in the defination of {ERC6358TransactionData}
+      *
+      * Emit a {TransactionSent} event
+      */</span>
+      <span class="k">function</span> <span class="n">sendOmniverseTransaction</span><span class="p">(</span><span class="n">ERC6358TransactionData</span> <span class="k">calldata</span> <span class="n">_data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+      <span class="cm">/**
+      * @notice Get the number of omniverse transactions sent by user `_pk`, 
+      * which is also the valid `nonce` of a new omniverse transactions of user `_pk` 
+      * @param _pk: Omniverse account to be queried
+      * @return The number of omniverse transactions sent by user `_pk`
+      */</span>
+      <span class="k">function</span> <span class="n">getTransactionCount</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_pk</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+      <span class="cm">/**
+      * @notice Get the transaction data `txData` and timestamp `timestamp` of the user `_use` at a specified nonce `_nonce`
+      * @param _user Omniverse account to be queried
+      * @param _nonce The nonce to be queried
+      * @return Returns the transaction data `txData` and timestamp `timestamp` of the user `_use` at a specified nonce `_nonce`
+      */</span>
+      <span class="k">function</span> <span class="n">getTransactionData</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_user</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_nonce</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">ERC6358TransactionData</span> <span class="k">memory</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">);</span>
+
+      <span class="cm">/**
+      * @notice Get the chain ID
+      * @return Returns the chain ID
+      */</span>
+      <span class="k">function</span> <span class="n">getChainId</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint32</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">sendOmniverseTransaction</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code></li>
+      <li>The <code class="language-plaintext highlighter-rouge">getTransactionCount</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code></li>
+      <li>The <code class="language-plaintext highlighter-rouge">getTransactionData</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code></li>
+      <li>The <code class="language-plaintext highlighter-rouge">getChainId</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code></li>
+      <li>The <code class="language-plaintext highlighter-rouge">TransactionSent</code> event MUST be emitted when <code class="language-plaintext highlighter-rouge">sendOmniverseTransaction</code> function is called</li>
+    </ul>
+  </li>
+  <li>
+    <p>Optional Extension: Fungible Token</p>
+
+    <div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// import "{IERC6358.sol}";
+</span>
+  <span class="cm">/**
+  * @notice Interface of the ERC-6358 fungible token, which inherits {IERC6358}
+  */</span>
+  <span class="k">interface</span> <span class="n">IERC6358Fungible</span> <span class="k">is</span> <span class="n">IERC6358</span> <span class="p">{</span>
+      <span class="cm">/**
+      * @notice Get the omniverse balance of a user `_pk`
+      * @param _pk `o-account` to be queried
+      * @return Returns the omniverse balance of a user `_pk`
+      */</span>
+      <span class="k">function</span> <span class="n">omniverseBalanceOf</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_pk</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">omniverseBalanceOf</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>Optional Extension: NonFungible Token</p>
+
+    <div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">import</span> <span class="s">"{IERC6358.sol}"</span><span class="p">;</span>
+
+  <span class="cm">/**
+  * @notice Interface of the ERC-6358 non fungible token, which inherits {IERC6358}
+  */</span>
+  <span class="k">interface</span> <span class="n">IERC6358NonFungible</span> <span class="k">is</span> <span class="n">IERC6358</span> <span class="p">{</span>
+      <span class="cm">/**
+      * @notice Get the number of omniverse NFTs in account `_pk`
+      * @param _pk `o-account` to be queried
+      * @return Returns the number of omniverse NFTs in account `_pk`
+      */</span>
+      <span class="k">function</span> <span class="n">omniverseBalanceOf</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_pk</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+      <span class="cm">/**
+      * @notice Get the owner of an omniverse NFT with `tokenId`
+      * @param _tokenId Omniverse NFT id to be queried
+      * @return Returns the owner of an omniverse NFT with `tokenId`
+      */</span>
+      <span class="k">function</span> <span class="n">omniverseOwnerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">omniverseBalanceOf</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code></li>
+      <li>The <code class="language-plaintext highlighter-rouge">omniverseOwnerOf</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="architecture">Architecture</h3>
+
+<p>As shown in <a href="#figure1-architecture">Figure.1</a>, smart contracts deployed on multi-chains execute <code class="language-plaintext highlighter-rouge">o-transactions</code> of ERC-6358 tokens synchronously through the trustless off-chain synchronizers.</p>
+
+<ul>
+  <li>The ERC-6358 smart contracts are referred to as <strong>Abstract Nodes</strong>. The states recorded by the Abstract Nodes that are deployed on different blockchains respectively could be considered as copies of the global state, and they are ultimately consistent.</li>
+  <li><strong>Synchronizer</strong> is an off-chain execution program responsible for carrying published  <code class="language-plaintext highlighter-rouge">o-transactions</code> from the ERC-6358 smart contracts on one blockchain to the others. The synchronizers work trustless as they just deliver <code class="language-plaintext highlighter-rouge">o-transactions</code> with others’ signatures, and details could be found in the <a href="#workflow">workflow</a>.</li>
+</ul>
+
+<h3 id="principle">Principle</h3>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">o-account</code> has been mentioned <a href="#omniverse-account">above</a>.</li>
+  <li>
+    <p>The synchronization of the <code class="language-plaintext highlighter-rouge">o-transactions</code> guarantees the ultimate consistency of token states across all chains. The related data structure is <a href="#data-structure">here</a>.</p>
+
+    <ul>
+      <li>A <code class="language-plaintext highlighter-rouge">nonce</code> mechanism is brought in to make the states consistent globally.</li>
+      <li>The <code class="language-plaintext highlighter-rouge">nonce</code> appears in two places, the one is <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> data structure, and the other is <code class="language-plaintext highlighter-rouge">account nonce</code> maintained by on-chain ERC-6358 smart contracts.</li>
+      <li>When synchronizing, the <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> data will be checked by comparing it to the <code class="language-plaintext highlighter-rouge">account nonce</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="workflow">Workflow</h4>
+
+<ul>
+  <li>Suppose a common user <code class="language-plaintext highlighter-rouge">A</code> and her related operation <code class="language-plaintext highlighter-rouge">account nonce</code> is $k$.</li>
+  <li><code class="language-plaintext highlighter-rouge">A</code> initiates an <code class="language-plaintext highlighter-rouge">o-transaction</code> on Ethereum by calling <code class="language-plaintext highlighter-rouge">IERC6358::sendOmniverseTransaction</code>. The current <code class="language-plaintext highlighter-rouge">account nonce</code> of <code class="language-plaintext highlighter-rouge">A</code> in the ERC-6358 smart contracts deployed on Ethereum is $k$ so the valid value of <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> needs to be $k+1$.</li>
+  <li>The ERC-6358 smart contracts on Ethereum verify the signature of the <code class="language-plaintext highlighter-rouge">o-transaction</code> data. If the verification succeeds, the <code class="language-plaintext highlighter-rouge">o-transaction</code> data will be published by the smart contracts on the Ethereum side. The verification includes:
+    <ul>
+      <li>whether the balance (FT) or the ownership (NFT) is valid</li>
+      <li>and whether the <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> is $k+1$</li>
+    </ul>
+  </li>
+  <li>The <code class="language-plaintext highlighter-rouge">o-transaction</code> SHOULD NOT be executed on Ethereum immediately, but wait for a time.</li>
+  <li>Now, <code class="language-plaintext highlighter-rouge">A</code>’s latest submitted <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> on Ethereum is $k+1$, but still $k$ on other chains.</li>
+  <li>The off-chain synchronizers will find a newly published <code class="language-plaintext highlighter-rouge">o-transaction</code> on Ethereum but not on other chains.</li>
+  <li>Next synchronizers will rush to deliver this message because of a rewarding mechanism. (The strategy of the reward could be determined by the deployers of ERC-6358 tokens. For example, the reward could come from the service fee or a mining mechanism.)</li>
+  <li>Finally, the ERC-6358 smart contracts deployed on other chains will all receive the <code class="language-plaintext highlighter-rouge">o-transaction</code> data, verify the signature and execute it when the <strong>waiting time is up</strong>.</li>
+  <li>After execution, the <code class="language-plaintext highlighter-rouge">account nonce</code> on all chains will add 1. Now all the <code class="language-plaintext highlighter-rouge">account nonce</code> of account <code class="language-plaintext highlighter-rouge">A</code> will be $k+1$, and the state of the balances of the related account will be the same too.</li>
+</ul>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<h3 id="omniverse-account-1">Omniverse Account</h3>
+
+<ul>
+  <li>An Omniverse Account example: <code class="language-plaintext highlighter-rouge">3092860212ceb90a13e4a288e444b685ae86c63232bcb50a064cb3d25aa2c88a24cd710ea2d553a20b4f2f18d2706b8cc5a9d4ae4a50d475980c2ba83414a796</code>
+    <ul>
+      <li>The Omniverse Account is a public key of the elliptic curve <code class="language-plaintext highlighter-rouge">secp256k1</code></li>
+      <li>The related private key of the example is:  <code class="language-plaintext highlighter-rouge">cdfa0e50d672eb73bc5de00cc0799c70f15c5be6b6fca4a1c82c35c7471125b6</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="mapping-mechanism-for-different-environments">Mapping Mechanism for Different Environments</h4>
+
+<p>In the simplest implementation, we can just build two mappings to get it. One is like <code class="language-plaintext highlighter-rouge">pk based on sece256k1 =&gt; account address in the special environment</code>, and the other is the reverse mapping.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">Account System</code> on <code class="language-plaintext highlighter-rouge">Flow</code> is a typical example.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Flow</code> has a built-in mechanism for <code class="language-plaintext highlighter-rouge">account address =&gt; pk</code>. The public key can be bound to an account (a special built-in data structure) and the public key can be got from the <code class="language-plaintext highlighter-rouge">account address</code> directly.</li>
+  <li>A mapping from <code class="language-plaintext highlighter-rouge">pk</code> to the <code class="language-plaintext highlighter-rouge">account address</code> on Flow can be built by creating a mapping <code class="language-plaintext highlighter-rouge">{String: Address}</code>, in which <code class="language-plaintext highlighter-rouge">String</code> denotes the data type to express the public key and the <code class="language-plaintext highlighter-rouge">Address</code> is the data type of the <code class="language-plaintext highlighter-rouge">account address</code> on Flow.</li>
+</ul>
+
+<h3 id="erc-6358-token">ERC-6358 Token</h3>
+
+<p>The ERC-6358 Token could be implemented with the <a href="#smart-contract-interface">interfaces mentioned above</a>. It can also be used with the combination of <a href="./eip-20.md">ERC-20</a>/<a href="./eip-721.md">ERC-721</a>.</p>
+
+<ul>
+  <li>
+    <p>The implementation examples of the interfaces can be found at:</p>
+
+    <ul>
+      <li><a href="../assets/eip-6358/src/contracts/interfaces/IERC6358.sol">Interface <code class="language-plaintext highlighter-rouge">IERC6358</code></a>, the basic ERC-6358 interface mentioned <a href="#smart-contract-interface">above</a></li>
+      <li><a href="../assets/eip-6358/src/contracts/interfaces/IERC6358Fungible.sol">Interface <code class="language-plaintext highlighter-rouge">IERC6358Fungible</code></a>, the interface for ERC-6358 fungible token</li>
+      <li><a href="../assets/eip-6358/src/contracts/interfaces/IERC6358NonFungible.sol">Interface <code class="language-plaintext highlighter-rouge">IERC6358NonFungible</code></a>, the interface for ERC-6358 non-fungible token</li>
+    </ul>
+  </li>
+  <li>
+    <p>The implementation example of some common tools to operate ERC-6358 can be found at:</p>
+
+    <ul>
+      <li><a href="../assets/eip-6358/src/contracts/libraries/OmniverseProtocolHelper.sol">Common Tools</a>.</li>
+    </ul>
+  </li>
+  <li>
+    <p>The implementation examples of ERC-6358 Fungible Token and ERC-6358 Non-Fungible Token can be found at:</p>
+
+    <ul>
+      <li><a href="../assets/eip-6358/src/contracts/ERC6358FungibleExample.sol">ERC-6358 Fungible Token Example</a></li>
+      <li><a href="../assets/eip-6358/src/contracts/ERC6358NonFungibleExample.sol">ERC-6358 Non-Fungible Token Example</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="attack-vector-analysis">Attack Vector Analysis</h3>
+
+<p>According to the above, there are two roles:</p>
+
+<ul>
+  <li><strong>common users</strong> are who initiate an <code class="language-plaintext highlighter-rouge">o-transaction</code></li>
+  <li><strong>synchronizers</strong> are who just carry the <code class="language-plaintext highlighter-rouge">o-transaction</code> data if they find differences between different chains.</li>
+</ul>
+
+<p>The two roles might be where the attack happens:</p>
+
+<h4 id="will-the-synchronizers-cheat"><strong>Will the <em>synchronizers</em> cheat?</strong></h4>
+
+<ul>
+  <li>Simply speaking, it’s none of the <strong>synchronizer</strong>’s business as <strong>they cannot create other users’ signatures</strong> unless some <strong>common users</strong> tell him, but at this point, we think it’s a problem with the role <strong>common user</strong>.</li>
+  <li>The <strong>synchronizer</strong> has no will and cannot do evil because the <code class="language-plaintext highlighter-rouge">o-transaction</code> data that they deliver is verified by the related <strong>signature</strong> of other <strong>common users</strong>.</li>
+  <li>The <strong>synchronizers</strong> would be rewarded as long as they submit valid <code class="language-plaintext highlighter-rouge">o-transaction</code> data, and <em>valid</em> only means that the signature and the amount are both valid. This will be detailed and explained later when analyzing the role of <strong>common user</strong>.</li>
+  <li>The <strong>synchronizers</strong> will do the delivery once they find differences between different chains:
+    <ul>
+      <li>If the current <code class="language-plaintext highlighter-rouge">account nonce</code> on one chain is smaller than a published <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> on another chain</li>
+      <li>If the transaction data related to a specific <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> on one chain is different from another published <code class="language-plaintext highlighter-rouge">o-transaction</code> data with the same <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> on another chain</li>
+    </ul>
+  </li>
+  <li><strong>Conclusion: The <em>synchronizers</em> won’t cheat because there are no benefits and no way for them to do so.</strong></li>
+</ul>
+
+<h4 id="will-the-common-user-cheat"><strong>Will the <em>common user</em> cheat?</strong></h4>
+
+<ul>
+  <li>Simply speaking, <strong>maybe they will</strong>, but fortunately, <strong>they can’t succeed</strong>.</li>
+  <li>Suppose the current <code class="language-plaintext highlighter-rouge">account nonce</code> of a <strong>common user</strong> <code class="language-plaintext highlighter-rouge">A</code> is $k$ on all chains. <code class="language-plaintext highlighter-rouge">A</code> has 100 token <code class="language-plaintext highlighter-rouge">X</code>, which is an instance of the ERC-6358 token.</li>
+  <li>Common user <code class="language-plaintext highlighter-rouge">A</code> initiates an <code class="language-plaintext highlighter-rouge">o-transaction</code> on a Parachain of Polkadot first, in which <code class="language-plaintext highlighter-rouge">A</code> transfers <code class="language-plaintext highlighter-rouge">10</code> <code class="language-plaintext highlighter-rouge">X</code>s to an <code class="language-plaintext highlighter-rouge">o-account</code> of a <strong>common user</strong> <code class="language-plaintext highlighter-rouge">B</code>. The <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> needs to be $k+1$. After signature and data verification, the <code class="language-plaintext highlighter-rouge">o-transaction</code> data(<code class="language-plaintext highlighter-rouge">ot-P-ab</code> for short) will be published on Polkadot.</li>
+  <li>At the same time, <code class="language-plaintext highlighter-rouge">A</code> initiates an <code class="language-plaintext highlighter-rouge">o-transaction</code> with the <strong>same nonce</strong> $k+1$ but <strong>different data</strong>(transfer <code class="language-plaintext highlighter-rouge">10</code> <code class="language-plaintext highlighter-rouge">X</code>s to another <code class="language-plaintext highlighter-rouge">o-account</code> <code class="language-plaintext highlighter-rouge">C</code> for example) on Ethereum. This <code class="language-plaintext highlighter-rouge">o-transaction</code> (named <code class="language-plaintext highlighter-rouge">ot-E-ac</code> for short) will pass the verification on Ethereum first, and be published.</li>
+  <li>At this point, it seems <code class="language-plaintext highlighter-rouge">A</code> finished a <strong><em>double spend attack</em></strong> and the states on Polkadot and Ethereum are different.</li>
+  <li><strong>Response strategy</strong>:
+    <ul>
+      <li>As we mentioned above, the synchronizers will deliver <code class="language-plaintext highlighter-rouge">ot-P-ab</code> to Ethereum and deliver <code class="language-plaintext highlighter-rouge">ot-E-ac</code> to Polkadot because they are different although with the same nonce. The synchronizer who submits the <code class="language-plaintext highlighter-rouge">o-transaction</code> first will be rewarded as the signature is valid.</li>
+      <li>Both the ERC-6358 smart contracts or similar mechanisms on Polkadot and Ethereum will find that <code class="language-plaintext highlighter-rouge">A</code> did cheating after they received both <code class="language-plaintext highlighter-rouge">ot-E-ac</code> and <code class="language-plaintext highlighter-rouge">ot-P-ab</code> respectively as the signature of <code class="language-plaintext highlighter-rouge">A</code> is non-deniable.</li>
+      <li>We have mentioned that the execution of an <code class="language-plaintext highlighter-rouge">o-transaction</code> will not be done immediately and instead there needs to be a fixed waiting time. So the <code class="language-plaintext highlighter-rouge">double spend attack</code> caused by <code class="language-plaintext highlighter-rouge">A</code> won’t succeed.</li>
+      <li>There will be many synchronizers waiting for delivering o-transactions to get rewards. So although it’s almost impossible that a <strong>common user</strong> can submit two <code class="language-plaintext highlighter-rouge">o-transactions</code> to two chains, but none of the synchronizers deliver the <code class="language-plaintext highlighter-rouge">o-transactions</code> successfully because of a network problem or something else, we still provide a solution:
+        <ul>
+          <li>The synchronizers will connect to several native nodes of every public chain to avoid the malicious native nodes.</li>
+          <li>If it indeed happened that all synchronizers’ network break, the <code class="language-plaintext highlighter-rouge">o-transactions</code> will be synchronized when the network recovered. If the waiting time is up and the cheating <code class="language-plaintext highlighter-rouge">o-transaction</code> has been executed, we are still able to revert it from where the cheating happens according to the <code class="language-plaintext highlighter-rouge">nonce in o-transaction</code> and <code class="language-plaintext highlighter-rouge">account nonce</code>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">A</code> couldn’t escape punishment in the end (For example, lock his account or something else, and this is about the certain tokenomics determined by developers according to their own situation).</p>
+  </li>
+  <li><strong>Conclusion: The <em>common user</em> maybe cheat but won’t succeed.</strong></li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

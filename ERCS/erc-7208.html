@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>On-Chain Data Container | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="On-Chain Data Container | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7208" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7208" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">On-Chain Data Container</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>On-chain Data Containers are smart contracts that inherit from <a href="./eip-721.md">ERC-721</a> to store on-chain data in structures called “Properties”. Information stored in Properties can be accessed and modified by the implementation of smart contracts called “Property Managers”. This ERC defines a series of interfaces for the separation of the storage from the interface implementing the functions that govern the data. We introduce the interface for “Restrictions”, structures associated with Properties that apply limitations in the capabilities of Property Managers to access or modify the data stored within Properties.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>As the Ethereum ecosystem continues to grow, it is becoming increasingly important to enable more flexible and sophisticated on-chain data management solutions, as well as off-chain assets and their on-chain representation. We have seen too many times where the market hype has driven an explosion of new standard token proposals, most of them targeting a specific business use-case rather than increasing interoperability.</p>
+
+<p>This ERC defines several interface for ODCs (On-Chain Data Containers) that together allow for the storage and retrieval of additional on-chain data, referred to as “Properties”. This provides an interoperable solution for dynamic data management across various token standards, enabling them to hold mutable states and reflect changes over time.</p>
+
+<p>ODCs aim to address the limitations of both previous and future ERCs by enabling on-chain data aggregation, providing an interface for standardized, interoperable, and composable data management solutions.</p>
+
+<p>ODCs address some of the existing limitations with previous ERC token contracts by separating the logic from the storage.</p>
+
+<p>This ERC defines a standard interface for interacting with the concept of “Restrictions” for data stored within an ODC (“Properties”). This enables greater flexibility, interoperability, and utility for multiple ERCs to work together.</p>
+
+<p>This proposal is motivated by the need to extend the capabilities of on-chain stored data beyond the static nature of each ERC, enabling complex logic to be abstracted away from the stored variables. This is particularly relevant for use cases where the state of the NFT needs to change in response to certain events or conditions, as well as when the storage and the logic must be separated. For instance, NFTs representing Account Abstraction contracts, Smart Wallets, or the digital representation of Real World Assets, all of which require dynamic and secure storage.</p>
+
+<p>NFTs conforming to standards such as <a href="./eip-721.md">ERC-721</a> have often faced limitations when representing complex digital assets. The Ethereum ecosystem hosts a rich diversity of token standards, each designed to cater to specific use cases. While such diversity spurs innovation, it also results in a highly fragmented landscape, especially for Non-Fungible Tokens (NFTs). Different projects might implement their own ways of managing mutable states, incurring further fragmentation and interoperability issues. While each standard serves its purpose, they often lack the flexibility needed to manage additional on-chain data associated with the utility of these tokens.</p>
+
+<p>Real-world assets have multiple ways in which they can be represented as on-chain tokens by utilizing different standard interfaces. However, for those assets to be exchanged, traded or interacted with, the marketplace is required to implement each of those standards in order to be able to access and modify the on-chain data.</p>
+
+<p>Therefore, there is a need for standardization to manage these mutable states for tokenization in a manner that abstracts the on-chain data handling from the logical accounting. Such standard would provide all ERCs, regardless of their specific use case, with the mechanisms for interacting with each other in a consistent and predictable way.</p>
+
+<p>This EIP proposes a series of interfaces for storing and accessing data on-chain, codifying information as generic Properties associated with Restrictions specific to use cases. This enhancement is designed to work by extending existing token standards, providing a flexible, efficient, and coherent way to manage the data associated with:</p>
+
+<ul>
+  <li>
+    <p><strong>Standard Neutrality</strong>: The standard aims to separate the data logic from the token standard. This neutral approach would allow ERCs to transition seamlessly between different token standards, promoting interactions with platforms or marketplaces designed for those standards. This could significantly improve interoperability among different standards, reducing fragmentation in the landscape.</p>
+  </li>
+  <li>
+    <p><strong>Consistent Interface</strong>: A uniform interface abstracts the data storage from the use case, irrespective of the underlying token standard. This consistent interface simplifies interoperability, enabling platforms and marketplaces to interact with a uniform data interface, regardless of individual token standards. This common ground for all tokenization could reduce fragmentation in the ecosystem.</p>
+  </li>
+  <li>
+    <p><strong>Simplified Upgrades</strong>: A standard interface for representing the utility of the on-chain data would simplify the process of integrating new token standards. This could help to reduce fragmentation caused by outdated standards, facilitating easier transition to new, more efficient, or feature-rich implementations.</p>
+  </li>
+  <li>
+    <p><strong>Data Abstraction</strong>: A standardized interface would allow developers to separate the data storage code from the underlying token utility logic, reducing the need for off-chain services to implement multiple interfaces and promoting greater unity in the ecosystem.</p>
+  </li>
+  <li>
+    <p><strong>Actionable data</strong>: Current practices often store token metadata off-chain, rendering it inaccessible for smart contracts without the use of oracles. Moreover, metadata is often used to store information that could otherwise be considered data relevant to the token’s inherent identity. This ERC seeks to rectify this issue by introducing a standardized interface for reading and storing additional on-chain data related to ODC.</p>
+  </li>
+</ul>
+
+<p>A case-by-case limited analysis is provided in the compatibility appendix.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+<h3 id="terms">Terms</h3>
+
+<p><strong>ODC</strong>: A uniquely identifiable non-fungible token. An ODC MAY store information within Properties.</p>
+
+<p><strong>Property</strong>: A modifiable information unit stored within an ODC. Properties SHOULD be capable of undergoing modifications and MUST be able to act as an indexed data container.</p>
+
+<p><strong>Restriction</strong>: A configuration stored within the <strong>ODC</strong>, that SHOULD describe under which conditions a certain <strong>Property Manager</strong> is allowed to modify the information stored within a certain <strong>Property</strong>.</p>
+
+<p><strong>Property Manager</strong>: A type of Smart Contract that MUST implement a <strong>PM interface</strong> in order to manage data stored within the <strong>ODC</strong>.</p>
+
+<p><strong>Category</strong>: <strong>Property Managers</strong> MUST be grouped in Categories that SHOULD represent access to <strong>Properties</strong>. Each <strong>Property Manager</strong> MAY be part of one or more <strong>Categories</strong>. The assignment of categories SHOULD be managed by Governance.</p>
+
+<h3 id="odc-interface">ODC Interface</h3>
+
+<p>An ODC MUST extend the functionality of <a href="./eip-721.md">ERC-721</a> through the incorporation of <strong>Properties</strong> in its internal storage. The <strong>Properties</strong> MAY have <strong>Restrictions</strong>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Queries whether a given ODC token has a specific property
+  * @param mtid ODC token ID
+  * @param prop property ID (property to inquire)
+  * @return bool true if the token has the property, false if not
+  */</span>
+  <span class="k">function</span> <span class="n">hasProperty</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">prop</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Adds a given property to an existing ODC token
+  * @param mtid ODC token ID
+  * @param prop property ID (property to add)
+  * @param restrictions An array of restrictions to be associated with the property
+  * @return An array with the respective restriction indexes
+  */</span>
+  <span class="k">function</span> <span class="n">addProperty</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">prop</span><span class="p">,</span>
+        <span class="n">IMetaRestrictions</span><span class="p">.</span><span class="n">Restriction</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">restrictions</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Removes an existing property from an existing ODC
+  * @param mtid ODC token ID
+  * @param prop property ID (property to remove)
+  */</span>
+  <span class="k">function</span> <span class="n">removeProperty</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">prop</span><span class="p">)</span> <span class="k">external</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Retrieves all the properties of a given category
+  * @param category category ID to consult
+  * @return An array with all the respective property IDs
+  */</span>
+  <span class="k">function</span> <span class="n">propertiesOfCategory</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">category</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Retrieves all enabled properties of a given ODC
+  * @param mtid ODC token ID
+  * @return An array with all the enabled property IDs
+  */</span>
+  <span class="k">function</span> <span class="n">propertiesOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">mtid</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Retrieves a given user's ODC token ID that has a specific property attached
+  * @param account user's account address
+  * @param prop property ID
+  * @return uint256 the ODC token ID, or 0 if such a user's token doesn't exist
+  */</span>
+  <span class="k">function</span> <span class="n">getToken</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">prop</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Retrieves all the ODC token IDs owned by a given user that have a specific property attached
+  * @param account user's account address
+  * @param prop property ID to inquire
+  * @return An array with all the ODC token IDs that have the property attached
+  */</span>
+  <span class="k">function</span> <span class="n">tokensWithProperty</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">prop</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Checks if a specific property exists in a given ODC token
+  * @param mtid ODC token ID
+  * @param prop property ID
+  * @return bool true if the property is attached to the given token, false if not
+  */</span>
+  <span class="k">function</span> <span class="n">exists</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">prop</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Merges the given categories' related properties from one ODC token to another
+  * @param from origin ODC token ID
+  * @param to target ODC token ID
+  * @param categories An array with all the category IDs to merge
+  */</span>
+  <span class="k">function</span> <span class="n">merge</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">to</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">categories</span><span class="p">)</span> <span class="k">external</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Splits an ODC token from its specific categories and mints a new one with the related properties attached
+  * @param mtid origin ODC token ID
+  * @param categories category IDs to split
+  * @return newMtid the resulting (newly minted) ODC token ID
+  */</span>
+  <span class="k">function</span> <span class="n">split</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">categories</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">newMtid</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Adds a new restriction to a given ODC property
+  * @param mtid ODC token ID
+  * @param prop property ID
+  * @param restr the restriction to add
+  * @return uint256 The restriction's id
+  */</span>
+  <span class="k">function</span> <span class="n">addRestriction</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">prop</span><span class="p">,</span>
+        <span class="n">Restriction</span> <span class="k">calldata</span> <span class="n">restr</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Removes a restriction identified by its index from a given ODC's property
+  * @param mtid ODC token ID
+  * @param prop property ID
+  * @param ridx restriction index
+  */</span>
+  <span class="k">function</span> <span class="n">removeRestriction</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">prop</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">ridx</span>
+    <span class="p">)</span> <span class="k">external</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Retrieves all restrictions attached to a given ODC's property
+  * @param mtid ODC token ID
+  * @param prop property ID
+  * @return An array with all the requested restrictions (of type Restriction)
+  */</span>
+  <span class="k">function</span> <span class="n">restrictionsOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">prop</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Restriction</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="properties">Properties</h3>
+
+<p><strong>Properties</strong> are modifiable information units stored within an ODC. Properties SHOULD be capable of undergoing modifications and MUST be able to act as an indexed data container.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Gets a Property Data point of the ODC.
+  * @dev This function allows anyone to get a property of the ODC.
+  * @param tokenId The ID of the ODC.
+  * @param propertyKey The key of the property to be retrieved.
+  * @param dataKey The key of the data inside of Property.
+  * @return The value of the data point within the Property.
+  */</span>
+  <span class="k">function</span> <span class="n">getPropertyData</span><span class="p">(</span>
+      <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+      <span class="kt">bytes32</span> <span class="n">propertyKey</span><span class="p">,</span>
+      <span class="kt">bytes32</span> <span class="n">dataKey</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Sets a Property Data point within the ODC.
+  * @dev This function allows the owner or an authorized operator to set a property of the ODC.
+  * @param tokenId The ID of the ODC.
+  * @param propertyKey The key of the property to be set.
+  * @param dataKey The Key of the property to be set.
+  * @param dataValue The value of the data point to be set within the Property.
+  */</span>
+  <span class="k">function</span> <span class="n">setPropertyData</span><span class="p">(</span>
+      <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+      <span class="kt">bytes32</span> <span class="n">propertyKey</span><span class="p">,</span>
+      <span class="kt">bytes32</span> <span class="n">dataKey</span><span class="p">,</span>
+      <span class="kt">bytes32</span> <span class="n">dataValue</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><strong>getProperty</strong>: This function MUST retrieve a specific <code class="language-plaintext highlighter-rouge">dataValue</code> of an ODC, identifiable through the <code class="language-plaintext highlighter-rouge">tokenId</code>, <code class="language-plaintext highlighter-rouge">propertyKey</code>, and <code class="language-plaintext highlighter-rouge">dataKey</code> parameters.</p>
+  </li>
+  <li>
+    <p><strong>setProperty</strong>: This function MUST set or update a specific Property data point within an ODC. This operation is REQUIRED to be executed solely by the owner of the ODC or an approved Smart Contract. This function MUST set the <code class="language-plaintext highlighter-rouge">dataValue</code> within the <code class="language-plaintext highlighter-rouge">dataKey</code> of <code class="language-plaintext highlighter-rouge">propertyKey</code> for the <code class="language-plaintext highlighter-rouge">tokenId</code>.</p>
+  </li>
+</ul>
+
+<h3 id="restrictions">Restrictions</h3>
+<p><strong>Restrictions</strong> serve as a protective measure, ensuring that changes to <strong>Properties</strong> adhere to predefined rules, thereby maintaining the integrity and intended use of the information stored within the ODC. The <strong>Restrictions</strong> structure provides a layer of governance over the mutable <strong>Properties</strong>. <strong>Property Managers</strong> can check <strong>Restrictions</strong> applied to <strong>Properties</strong> before modifying the data stored within them. This further abstract the logic away from the storage, ensuring that mutability can be achieved and preserving the overall stability and reliability of the ODC.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @dev ridxCounter Utilized to give continuous indices (ridxs) to restrictions
+  * @dev restrictions Mapping of restrictions' ridxs to the respective restriction data
+  * @dev byProperty Mapping of properties' unique identifiers to the respective set of ridxs (restrictions' indices)
+  * @dev byType Mapping of restrictions' unique types to the respective set of ridxs (restrictions' indices)
+  */</span>
+  <span class="k">struct</span> <span class="n">TokenRestrictions</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">ridxCounter</span><span class="p">;</span>
+        <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">IMetaRestrictions</span><span class="p">.</span><span class="n">Restriction</span><span class="p">)</span> <span class="n">restrictions</span><span class="p">;</span>
+        <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">EnumerableSet</span><span class="p">.</span><span class="n">UintSet</span><span class="p">)</span> <span class="n">byProperty</span><span class="p">;</span>
+        <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">EnumerableSet</span><span class="p">.</span><span class="n">UintSet</span><span class="p">)</span> <span class="n">byType</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @dev Adds a restriction to a given ODC's property
+  * @param l storage layout
+  * @param mtid ODC token ID
+  * @param property identifier for the property
+  * @param r the restriction to add
+  * @return uint256 The index of the newly added restriction
+  */</span>
+  <span class="k">function</span> <span class="n">addRestriction</span><span class="p">(</span>
+        <span class="n">Layout</span> <span class="k">storage</span> <span class="n">l</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">property</span><span class="p">,</span>
+        <span class="n">IMetaRestrictions</span><span class="p">.</span><span class="n">Restriction</span> <span class="k">memory</span> <span class="n">r</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @dev Removes a restriction identified by its index from a given ODC's property
+  * @param l storage layout
+  * @param mtid ODC token ID
+  * @param property identifier for the property
+  * @param ridx restriction index
+  */</span>
+  <span class="k">function</span> <span class="n">removeRestriction</span><span class="p">(</span>
+        <span class="n">Layout</span> <span class="k">storage</span> <span class="n">l</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">property</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">ridx</span>
+    <span class="p">)</span> <span class="k">internal</span>
+</code></pre></div></div>
+
+<h3 id="propertymanagers">PropertyManagers</h3>
+<p>Both <strong>Properties</strong> and <strong>Restrictions</strong> within the <strong>ODC</strong> SHALL be stored on-chain and made accessible though <strong>Property Managers</strong>. The interface defining this interaction is as follows:</p>
+
+<h3 id="categories-and-registry">Categories and Registry</h3>
+
+<p>Although the owner of ODCs can decide to implement an <code class="language-plaintext highlighter-rouge">allow list</code> for <em>Property Managers</em> that are enabled for interacting with the <em>Properties</em> and <em>Restrictions</em> stored within it, there are security considerations to be had regarding which <em>Property Managers</em> are allowed to interact with the ODCs internal storage.</p>
+
+<p>The <em>Registry</em> is a smart contract for managing the internal governance by managing roles and permissions for <em>Property Managers</em>. This component is the single reference point for organizing <em>Property Managers</em> in <em>Categories</em>. As such, this system increases security by defining who has access to what, mitigating the possibility of unauthorized transactions or modifications.</p>
+
+<p>The <em>Registry</em> keeps track of all the <em>Categories</em> as well as the <em>Properties</em> and <em>Restrictions</em> that the <em>Property Managers</em> have access to within those <em>Categories</em>.</p>
+
+<h4 id="registry-management-functions">Registry Management Functions</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Retrieves the category info of a given property
+  * @param property property ID
+  * @return category The category ID of the property
+  * @return splitAllowed true if splitting is allowed, false if not
+  */</span>
+  <span class="k">function</span> <span class="n">getCategoryInfoForProperty</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">property</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">category</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">splitAllowed</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Retrieves the info of a given category
+  * @param category category ID
+  * @return properties Array of property IDs included within the category
+  * @return splitAllowed true if splitting is allowed, false if not
+  */</span>
+  <span class="k">function</span> <span class="n">getCategoryInfo</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">category</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">properties</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">splitAllowed</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Consults if a given address is a manager for a given category
+  * @param category category ID
+  * @param manager the address to inquire
+  * @return bool true if the address is manager for the category, false if not
+  */</span>
+  <span class="k">function</span> <span class="n">isCategoryManager</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">category</span><span class="p">,</span> <span class="kt">address</span> <span class="n">manager</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Consults if a given address is a registered manager for a given property
+  * @param property property ID
+  * @param manager the address to inquire
+  * @return bool true if the address is manager for the property, false if not
+  */</span>
+  <span class="k">function</span> <span class="n">isPropertyManager</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">property</span><span class="p">,</span> <span class="kt">address</span> <span class="n">manager</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Consults if a given address has been granted ODC minter role
+  * @param manager the address to inquire
+  * @return bool true if the address has been granted minter role, false if not
+  */</span>
+  <span class="k">function</span> <span class="n">isMinter</span><span class="p">(</span><span class="kt">address</span> <span class="n">manager</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="metadata-structure">Metadata structure</h3>
+<p>Non-fungible tokens (NFTs) have rapidly gained prominence in the Ethereum ecosystem, serving as a foundation for various digital assets, ranging from art pieces to real estate tokens, to Identity-based systems. These tokens require metadata: information describing the properties of the token, which provides context and enriches the token’s functionality within its ecosystem.
+More often than not, developers manually generate NFT metadata for their respective projects, often leading to inconsistent structures and formats across different projects. This inconsistency hampers interoperability between NFT platforms and applications, slightly impeding the growth and development of the Ethereum NFT ecosystem.
+Moreover, many protocols and standards rely on Metadata to store actual information that is not actionable by Smart Contracts. This generates a segregated model where NFTs as data-containers are not a self-contained unit, but a digital entity that lives fragmented between on-chain and off-chain storage.
+The current EIP introduces a Metadata library that is designed to standardize the generation and handling of ODC metadata, promoting consistency, interoperability, and upgradeability.
+The Metadata library includes base properties for <a href="./eip-721.md">ERC-721</a> tokens and allows for the addition of extra <strong>Properties</strong>. These are flexible and extendable, covering <code class="language-plaintext highlighter-rouge">string</code>, <code class="language-plaintext highlighter-rouge">date</code>, <code class="language-plaintext highlighter-rouge">integer</code>, and <code class="language-plaintext highlighter-rouge">decimal</code> <strong>Properties</strong>. This broad range of property types caters to the diverse metadata needs across different use cases.
+The Metadata library includes functions to generate metadata, add extra <strong>Properties</strong> to the metadata, merge two sets of <strong>Properties</strong>, and encode the metadata in a format compatible with popular NFT platforms like OpenSea. The library promotes reusability and reduces the amount of boilerplate code developers need to write. It is backwards compatible so that previous metadata models can also be implemented by generating a constant metadata link that always points to the same URI, as regular NFTs.</p>
+
+<h4 id="odc-metadata-functions">ODC Metadata Functions</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Generates metadata for a given property of a ODC token
+  * @param prop property ID of ODC token
+  * @param mtid ODC token ID
+  * @return The generated metadata
+  */</span>
+  <span class="k">function</span> <span class="n">getMetadata</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">prop</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">mtid</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Metadata</span><span class="p">.</span><span class="n">ExtraProperties</span> <span class="k">memory</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The decision to encode Properties as bytes32 data containers in the ODC Interface is primarily driven by flexibility and future-proofing. Encoding as bytes32 allows for a wide range of data types to be stored, including but not limited to strings, integers, addresses, and more complex data structures, providing the developer with flexibility to accommodate diverse use cases. Furthermore, as Ethereum and its standards continue to evolve, encoding as bytes32 ensures that the ODC standard can support future data types or structures without requiring significant changes to the standard itself.</p>
+
+<p>Having a 2-layer data structure of <code class="language-plaintext highlighter-rouge">propertyKey</code> =&gt; <code class="language-plaintext highlighter-rouge">dataKey</code> =&gt; <code class="language-plaintext highlighter-rouge">dataValue</code> allows different applications to have their own address space. Implementations can manage access to this space using different <code class="language-plaintext highlighter-rouge">propertyKey</code> for different applications.</p>
+
+<p>A case-by-case example on potential Properties encodings was performed and summarized is provided in the appendix.</p>
+
+<p>The inclusion of Properties within an ODC provides the capability to associate a richer set of on-chain accessible information within the storage. This enables a wide array of complex, dynamic, and interactive use cases to be implemented with multiple ERCs as well as other smart contracts.</p>
+
+<p>Properties in an ODC offer flexibility in storing mutable on-chain data that can be modified as per the requirements of the token’s use case. This allows the ODC to hold mutable states and reflect changes over time, providing a dynamic layer to the otherwise static nature of storage through a standardized interface.</p>
+
+<p>By leveraging Properties within the ODC, this standard delivers a powerful framework that amplifies the potential of all ERCs (present and future). In particular, ODCs can be leveraged to represent Account Abstraction contracts, abstracting the data-storage from the logic that consumes it, enabling for a single data-point to have multiple representations depending on the implementation.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This ERC is intended to augment the functionality of existing token standards without introducing breaking changes. As such, it does not present any backwards compatibility issues. Already deployed ERCs can be wrapped as Properties, with the application of on-chain data relevant to each use-case.</p>
+
+<p>It offers an extension that allows for the storage and retrieval of Properties within an ODC while maintaining compatibility with existing ERCs related to tokenization.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<h3 id="the-datastorage-library-odc-storage-example">The DataStorage Library (ODC storage example)</h3>
+<p>This library implementation allows the creation of On-chain Data Containers that can store various data types, handle versions of data, and efficiently manage stored data. The <code class="language-plaintext highlighter-rouge">DataStorageLib</code> provides a system for handling data that is both efficient and flexible. The <code class="language-plaintext highlighter-rouge">struct DataStorageInternal</code> includes mappings that enable the storage of different data types.
+These are:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">keyValueData</code> for <code class="language-plaintext highlighter-rouge">bytes32</code> key-value pairs,</li>
+  <li><code class="language-plaintext highlighter-rouge">keyBytesData</code> for storing <code class="language-plaintext highlighter-rouge">bytes</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">keySetData</code> for sets of <code class="language-plaintext highlighter-rouge">bytes32</code> values,</li>
+  <li><code class="language-plaintext highlighter-rouge">keyMapData</code> for mappings of <code class="language-plaintext highlighter-rouge">bytes32 =&gt; bytes32</code> values.</li>
+</ul>
+
+<p>Dynamic Data Versions:
+The library handles versioning of data. The <code class="language-plaintext highlighter-rouge">DataStorage</code> struct contains a ‘current’ version and a mapping that links versions to specific indexes in the storage. This allows the smart contract to maintain a historical record of state changes, as well as revert to previous versions if necessary.</p>
+
+<p>Clearing and Relocation:
+Several functions, such as <code class="language-plaintext highlighter-rouge">clear()</code>, <code class="language-plaintext highlighter-rouge">wipe()</code>, and <code class="language-plaintext highlighter-rouge">moveData()</code> are dedicated to clearing and relocating stored data. This functionality allows efficient management of stored data.</p>
+
+<p>Addition and Removal of Data:
+The library includes functions to set and get values of different data types. Functions such as <code class="language-plaintext highlighter-rouge">setValue()</code> and <code class="language-plaintext highlighter-rouge">getBytes32Value()</code> facilitate this functionality. The addition or removal of data is reflected in the respective set (e.g., <code class="language-plaintext highlighter-rouge">kvKeys</code>, <code class="language-plaintext highlighter-rouge">kbKeys</code>, <code class="language-plaintext highlighter-rouge">ksKeys</code>, <code class="language-plaintext highlighter-rouge">kmKeys</code>) to ensure that the library correctly keeps track of all existing keys.</p>
+
+<p>Efficient Data Retrieval:
+There are several getter functions to facilitate data retrieval from these storage structures. These include getting all keys (<code class="language-plaintext highlighter-rouge">getAllKeys()</code>), checking if a set contains a value (<code class="language-plaintext highlighter-rouge">getSetContainsValue()</code>), and getting all entries from a mapping (<code class="language-plaintext highlighter-rouge">getMapAllEntries()</code>).</p>
+
+<p>Data Deletion:
+The library provides efficient ways to delete data, like <code class="language-plaintext highlighter-rouge">deleteAllFromEnumerableSet()</code> and <code class="language-plaintext highlighter-rouge">deleteAllFromEnumerableMap()</code>.</p>
+
+<h4 id="examples-of-properties-and-restrictions">Examples of Properties and Restrictions</h4>
+
+<p><strong>On-chain Metadata</strong>: This could include the name, description, image URL, and other metadata associated with the ODC. For example, in the case of an art NFT, the <code class="language-plaintext highlighter-rouge">setProperty</code> function could be used to set the artist’s name, the creation date, the medium, and other relevant information. Afterwards, the implementation could include a <code class="language-plaintext highlighter-rouge">tokenUri()</code> function that procedurally exposes the <code class="language-plaintext highlighter-rouge">Property Data</code>, directly rendered from within the ODC.</p>
+
+<p><strong>Locking Restrictions</strong>: They are utilized when an asset needs to be prevented from <code class="language-plaintext highlighter-rouge">transfer()</code> events or activity that would potentially change its internal storage. For example, when staking an asset or when locking for Fractionalization.</p>
+
+<p><strong>Ownership History</strong>: The <code class="language-plaintext highlighter-rouge">setProperty</code> function could be used to record the ownership history of the ODC. For example, each time the ODC is transferred, a new entry could be added to the ownership history property.</p>
+
+<p><strong>Royalties</strong>: The <code class="language-plaintext highlighter-rouge">setProperty</code> function could be used to set a royalties property for the ODC. This could specify a percentage of future sales that should be paid to the original creator.</p>
+
+<p><strong>Zero-Knowledge Proofs</strong>: The <code class="language-plaintext highlighter-rouge">setProperty</code> function could be used to store Identity information related to the ODCs owner and signed by KYC provider. This is combined with <em>Transfer Restrictions</em> to achieve identity-based Recovery of assets.</p>
+
+<p><strong>Oracle Subscription</strong>: An oracle system can stream data periodically into the Property (i.e. asset price, weather condition, metrics, etc)</p>
+
+<p><strong>Storage Abstraction</strong>: Multiple ERCs can make use of the same ODC for storing variables. For example, in a DeFi protocol, a Property with a stored value of <code class="language-plaintext highlighter-rouge">100</code> could signify <code class="language-plaintext highlighter-rouge">either USDT or USDC</code>, provided that the logic is connected to both USDT and USDC protocols.</p>
+
+<h3 id="wrapping-of-assets-example-property-manager">Wrapping of Assets (Example Property Manager)</h3>
+
+<p>The Wrapper addresses challenges and requirements that have emerged in the Ethereum ecosystem, specifically regarding the handling and manipulation of assets from different standards. The Wrapper component provides Backwards Compatibility by:</p>
+
+<p>Standardization: With the proliferation of various token standards on Ethereum, there is a need for a universal interface that can handle these token types uniformly. The Wrapper provides standardization, enabling a consistent approach to dealing with various token types, regardless of their implementation.
+By allowing different token types to be bundled together into a single entity (ODC), this approach increases the composability and interoperability between various protocols and platforms. A more efficient and flexible asset management is achieved, allowing users to bundle multiple assets into a single ODC and reducing the complexity of handling individual assets. Furthermore, the capability to ‘unwrap’ these bundled assets as needed, provides users with granular control over their digital assets.
+The transferring or interaction with multiple individual tokens often leads to a high accumulation of gas fees. However, by wrapping these assets into a single entity, users can perform operations in a more cost-effective manner.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice This struct is used to receive all parameter for wrap function
+  * @param tokens The token addresses of the assets.
+  * @param amounts The amount of each asset to wrap (if applicable).
+  * @param ids The id of each asset to wrap (if applicable).
+  * @param types The type of each asset to wrap.
+  * @param unlockTimestamps The unlocking timestamps of wrapped assets.
+  * @param existingMtidToUse If different than 0, it represents the ODC to wrap assets on. If 0, new mNFT is minted.
+  */</span>
+  <span class="k">struct</span> <span class="n">WrapData</span> <span class="p">{</span>
+      <span class="kt">address</span><span class="p">[]</span> <span class="n">tokens</span><span class="p">;</span>
+      <span class="kt">uint256</span><span class="p">[]</span> <span class="n">amounts</span><span class="p">;</span>
+      <span class="kt">uint256</span><span class="p">[]</span> <span class="n">ids</span><span class="p">;</span>
+      <span class="kt">uint256</span><span class="p">[]</span> <span class="n">types</span><span class="p">;</span>
+      <span class="kt">uint256</span><span class="p">[]</span> <span class="n">unlockTimestamps</span><span class="p">;</span>
+      <span class="kt">uint256</span> <span class="n">existingMtidToUse</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice This function is called by the users to wrap assets inside an ODC
+  * @param data The data used when wrapping.
+  */</span>
+  <span class="k">function</span> <span class="n">wrap</span><span class="p">(</span><span class="n">WrapData</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Rewrap
+  * @dev This function is called by the users to be able to extend fungible assets' amounts.
+  * @param data The data used when rewrapping.
+  */</span>
+  <span class="k">function</span> <span class="n">rewrap</span><span class="p">(</span><span class="n">RewrapData</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice Unwrap
+  * @dev This function is called by the users to unwrap assets from a ODC.
+  * @dev This function is called by the users to unwrap assets from a ODC.
+  * @param mtid The ODC id associated.
+  * @param restrictionIds The restriction ids of the properties.
+  * @param tokens The token addresses of the assets.
+  * @param types The type of each asset to unwrap.
+  * @param ids The ids of each asset to unwrap if applicable
+  */</span>
+  <span class="k">function</span> <span class="n">unwrap</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">restrictionIds</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">tokens</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">types</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">ids</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice RegisterNewType
+  * @dev This function is called by the owner to register a new type of asset.
+  * @param propertyManager The property manager address that is handling this specific type.
+  * @param isFungible true if the asset is fungible and false otherwise.
+  */</span>
+  <span class="k">function</span> <span class="n">registerNewType</span><span class="p">(</span><span class="n">IExternalTokenPropertyManager</span> <span class="n">propertyManager</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isFungible</span><span class="p">)</span> <span class="k">external</span>
+</code></pre></div></div>
+
+<h3 id="fractionalization-example-property-manager">Fractionalization (Example Property Manager)</h3>
+
+<p>Fractionalizer is a Property Manager that enables the creation of fraction tokens for a specific ODC. As an ODC can be the repository of information for multiple types of assets, the Fractionalization process may require of a special contract ruling the governance of said assets. For example, if the ODC represents a piece of art, and the fractions represent a percentage of the ownership over it, a governor Property Manager contract would be required to implement the logic detailing under which conditions the full ownership of the ODC is transferable.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice createNewErc20Fractions
+  * @param name The name of the erc20 token.
+  * @param symbol The symbol of the erc20 token.
+  * @param amountToMint Amount of erc20 fractions to mint to the msg.sender.
+  * @param mtid The id of ODC to lock.
+  * @param governor The governor of the fractions, if it's empty, governor is created.
+  * @param data The governance data to use if the governor is empty.
+  */</span>
+  <span class="k">function</span> <span class="n">createNewErc20Fractions</span><span class="p">(</span>
+      <span class="kt">string</span> <span class="k">calldata</span> <span class="n">name</span><span class="p">,</span>
+      <span class="kt">string</span> <span class="k">calldata</span> <span class="n">symbol</span><span class="p">,</span>
+      <span class="kt">uint256</span> <span class="n">amountToMint</span><span class="p">,</span>
+      <span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span>
+      <span class="kt">address</span> <span class="n">governor</span><span class="p">,</span>
+      <span class="n">GovernanceDeployer</span><span class="p">.</span><span class="n">GovernanceData</span> <span class="k">calldata</span> <span class="n">data</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+  * @notice createNewErc721Fractions
+  * @param name The name of the erc721 token.
+  * @param symbol The symbol of the erc721 token.
+  * @param baseUri The baseUri of the erc721 token.
+  * @param idsToMint ids of erc721 fractions to mint to the msg.sender.
+  * @param mtid The id of ODC to lock.
+  * @param governor The governor of the fractions, if it's empty, msg.sender is used.
+  */</span>
+  <span class="k">function</span> <span class="n">createNewErc721Fractions</span><span class="p">(</span>
+      <span class="kt">string</span> <span class="k">calldata</span> <span class="n">name</span><span class="p">,</span>
+      <span class="kt">string</span> <span class="k">calldata</span> <span class="n">symbol</span><span class="p">,</span>
+      <span class="kt">string</span> <span class="k">calldata</span> <span class="n">baseUri</span><span class="p">,</span>
+      <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">idsToMint</span><span class="p">,</span>
+      <span class="kt">uint256</span> <span class="n">mtid</span><span class="p">,</span>
+      <span class="kt">address</span> <span class="n">governor</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<ol>
+  <li>The management of Properties should be handled securely, with appropriate access control mechanisms in place to prevent unauthorized modifications.</li>
+  <li>Storing enriched metadata on-chain could potentially lead to higher gas costs. This should be considered during the design and implementation of ODCs.</li>
+  <li>Increased on-chain data storage could also lead to potential privacy concerns. It’s important to ensure that no sensitive or personally identifiable information is stored within ODC metadata.</li>
+  <li>Ensuring decentralized control over the selection of Property Managers is critical to maintain the decentralization ethos of Ethereum.</li>
+  <li>Developers must also be cautious of potential interoperability and compatibility issues with systems that have not yet adapted to this new standard.</li>
+</ol>
+
+<p>The presence of mutable Properties can be used to implement security measures. In the context of preventing unauthorized access and modifications, an ODC-based system could implement the following strategies, adapted to each use-case:</p>
+
+<p><strong>Role-Based Access Control (RBAC)</strong>: Only accounts assigned to specific roles at a Property level can perform certain actions on a Property. For instance, only an ‘owner’ might be able to call setProperty functions.</p>
+
+<p><strong>Time Locks</strong>: Time locks can be used to delay certain actions, giving the community or a governance mechanism time to react if something malicious is happening. For instance, changes to Properties could be delayed depending on the use-case.</p>
+
+<p><strong>Multi-Signature (Multisig) Properties</strong>: Multisig Properties could be implemented in a way that require more than one account to approve an action performed on the Property. This could be used as an additional layer of security for critical functions. For instance, changing certain properties might require approval from multiple trusted signers.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>ERC-721 Utilities Information Extension | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="ERC-721 Utilities Information Extension | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6785" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6785" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">ERC-721 Utilities Information Extension</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This specification defines standard functions and an extension of the metadata schema that outlines what a 
+token’s utility entails and how the utility may be used and/or accessed.
+This specification is an optional extension of <a href="./eip-721.md">ERC-721</a>.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>This specification aims to clarify what the utility associated with an NFT is and how to access this utility.
+Relying on third-party platforms to obtain information regarding the utility of the NFT that one owns can lead to scams,
+phishing or other forms of fraud.</p>
+
+<p>Currently, utilities that are offered with NFTs are not captured on-chain. We want the utility of an NFT to be part of
+the metadata of an NFT. The metadata information would include: a) type of utility, b) description
+of utility, c) frequency and duration of utility, and d) expiration of utility. This will provide transparency as to the
+utility terms, and greater accountability on the creator to honor these utilities.</p>
+
+<p>As the instructions on how to access a given utility may change over time, there should be a historical record of these
+changes for transparency.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and
+“OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Every contract compliant with <a href="./eip-6785.md">ERC-6785</a> MUST implement the interface defined as follows:</p>
+
+<h3 id="contract-interface">Contract Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @title NFT Utility description
+///  Note: the EIP-165 identifier for this interface is ed231d73
+</span>
+<span class="k">interface</span> <span class="n">IERC6785</span> <span class="p">{</span>
+
+    <span class="c1">// Logged when the utility description URL of an NFT is changed
+</span>    <span class="c1">/// @notice Emitted when the utilityURL of an NFT is changed
+</span>    <span class="c1">/// The empty string for `utilityUri` indicates that there is no utility associated
+</span>    <span class="k">event</span> <span class="n">UpdateUtility</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="n">utilityUri</span><span class="p">);</span>
+
+    <span class="c1">/// @notice set the new utilityUri - remember the date it was set on
+</span>    <span class="c1">/// @dev The empty string indicates there is no utility
+</span>    <span class="c1">/// Throws if `tokenId` is not valid NFT
+</span>    <span class="c1">/// @param utilityUri  The new utility description of the NFT
+</span>    <span class="c1">/// 4a048176
+</span>    <span class="k">function</span> <span class="n">setUtilityUri</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="n">utilityUri</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Get the utilityUri of an NFT
+</span>    <span class="c1">/// @dev The empty string for `utilityUri` indicates that there is no utility associated
+</span>    <span class="c1">/// @param tokenId The NFT to get the user address for
+</span>    <span class="c1">/// @return The utility uri for this NFT
+</span>    <span class="c1">/// 5e470cbc
+</span>    <span class="k">function</span> <span class="n">utilityUriOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the changes made to utilityUri
+</span>    <span class="c1">/// @param tokenId The NFT to get the user address for
+</span>    <span class="c1">/// @return The history of changes to `utilityUri` for this NFT
+</span>    <span class="c1">/// f96090b9
+</span>    <span class="k">function</span> <span class="n">utilityHistoryOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>All functions defined as view MAY be implemented as pure or view</p>
+
+<p>Function <code class="language-plaintext highlighter-rouge">setUtilityUri</code> MAY be implemented as public or external. Also, the ability to set the <code class="language-plaintext highlighter-rouge">utilityUri</code> SHOULD be
+restricted to the one who’s offering the utility, whether that’s the NFT creator or someone else.</p>
+
+<p>The event <code class="language-plaintext highlighter-rouge">UpdateUtility</code> MUST be emitted when the <code class="language-plaintext highlighter-rouge">setUtilityUri</code> function is called or any other time that the utility
+of the token is changed, like in batch updates.</p>
+
+<p>The method <code class="language-plaintext highlighter-rouge">utilityHistoryOf</code> MUST reflect all changes made to the <code class="language-plaintext highlighter-rouge">utilityUri</code> of a tokenId, whether that’s done 
+through <code class="language-plaintext highlighter-rouge">setUtilityUri</code> or by any other means, such as bulk updates</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">supportsInterface</code> method MUST return true when called with <code class="language-plaintext highlighter-rouge">ed231d73</code></p>
+
+<p>The original metadata SHOULD conform to the “ERC-6785 Metadata with utilities JSON Schema” which is a compatible
+extension of the “ERC-721 Metadata JSON Schema” defined in ERC-721.</p>
+
+<p>“ERC-6785 Metadata with utilities JSON Schema” :</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Asset Metadata"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Identifies the asset to which this NFT represents"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Describes the asset to which this NFT represents"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A URI pointing to a resource with mime type image/* representing the asset to which this NFT represents. Consider making any images at a width between 320 and 1080 pixels and aspect ratio between 1.91:1 and 4:5 inclusive."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"utilities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"t&amp;c"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Describes what type of utility this is"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A brief description of the utility"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"An array of possible properties describing the utility, defined as key-value pairs"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"expiry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The period of time for the validity of the utility, since the minting of the NFT. Expressed in seconds"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"t&amp;c"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Since the <code class="language-plaintext highlighter-rouge">utilityUri</code> could contain information that has to be restricted to some level and could be dependent on an
+off-chain tool for displaying said information, the creator needs the ability to modify it in the event the off-chain
+tool or platform becomes unavailable or inaccessible.</p>
+
+<p>For transparency purposes, having a <code class="language-plaintext highlighter-rouge">utilityHistoryOf</code> method will make it clear how the <code class="language-plaintext highlighter-rouge">utilityUri</code> has changed over 
+time.</p>
+
+<p>For example, if a creator sells an NFT that gives holders a right to a video call with the creator, the metadata for
+this utility NFT would read as follows:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"utilities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Video call"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I will enter a private video call with whoever owns the NFT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"sessions"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"time_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"minutes"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"expiry"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.577e+7</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"t&amp;c"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://...."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In order to get access to the details needed to enter the video call, the owner would access the URI returned by
+the <code class="language-plaintext highlighter-rouge">getUtilityUri</code> method for the NFT that they own. Additionally, access to the details could be conditioned by the
+authentication with the wallet that owns the NFT.</p>
+
+<p>The current status of the utility would also be included in the URI (eg: how many sessions are still available, etc.)</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is compatible with current ERC-721 standard. There are no other standards that define similar methods for
+NFTs and the method names are not used by other ERC-721 related standards.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Test cases are available <a href="../assets/eip-6785/test/ERC6785.test.js">here</a></p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The reference implementation can be found <a href="../assets/eip-6785/contracts/ERC6785.sol">here</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>There are no security considerations related directly to the implementation of this standard.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0-1.0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

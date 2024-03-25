@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Revised Ethereum Smart Contract Packaging Standard (EthPM v3) | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Revised Ethereum Smart Contract Packaging Standard (EthPM v3) | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-2678" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-2678" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Revised Ethereum Smart Contract Packaging Standard (EthPM v3)</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A data format describing a smart contract software package.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>This EIP defines a data format for <em>package manifest</em> documents,
+representing a package of one or more smart contracts, optionally
+including source code and any/all deployed instances across multiple
+networks. Package manifests are minified JSON objects, to be distributed
+via content addressable storage networks, such as IPFS. Packages
+are then published to on-chain EthPM registries, defined in
+<a href="./eip-1319.md">EIP-1319</a>, from where they can be freely accessed.</p>
+
+<p>This document presents a natural language description of a formal
+specification for version <strong>3</strong> of this format.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>This standard aims to encourage the Ethereum development ecosystem
+towards software best practices around code reuse. By defining an open,
+community-driven package data format standard, this effort seeks to
+provide support for package management tools development by offering a
+general-purpose solution that has been designed with observed common
+practices in mind.</p>
+
+<ul>
+  <li>Updates the schema for a <em>package manifest</em> to be compatible with
+the <a href="https://solidity.readthedocs.io/en/latest/metadata.html">metadata</a> output for compilers.</li>
+  <li>Updates the <code class="language-plaintext highlighter-rouge">"sources"</code> object definition to support a wider range of source file types and serve as <a href="https://solidity.readthedocs.io/en/latest/using-the-compiler.html#compiler-input-and-output-json-description">JSON input</a> for a compiler.</li>
+  <li>Moves compiler definitions to a top-level <code class="language-plaintext highlighter-rouge">"compilers"</code> array in order to:
+    <ul>
+      <li>Simplify the links between a compiler version, sources, and the
+compiled assets.</li>
+      <li>Simplify packages that use multiple compiler versions.</li>
+    </ul>
+  </li>
+  <li>Updates key formatting from <code class="language-plaintext highlighter-rouge">snake_case</code> to <code class="language-plaintext highlighter-rouge">camelCase</code> to be
+more consistent with <a href="https://google.github.io/styleguide/jsoncstyleguide.xml?showone=Property_Name_Format#Property_Name_Format">JSON convention</a>.</li>
+</ul>
+
+<h3 id="guiding-principles">Guiding Principles</h3>
+
+<p>This specification makes the following assumptions about the document
+lifecycle.</p>
+
+<ol>
+  <li>
+    <p>Package manifests are intended to be generated programmatically by
+package management software as part of the release process.</p>
+  </li>
+  <li>
+    <p>Package manifests will be consumed by package managers during tasks
+like installing package dependencies or building and deploying new
+releases.</p>
+  </li>
+  <li>
+    <p>Package manifests will typically <strong>not</strong> be stored alongside the
+source, but rather by package registries <em>or</em> referenced by package
+registries and stored in something akin to IPFS.</p>
+  </li>
+  <li>
+    <p>Package manifests can be used to verify public deployments of source 
+contracts.</p>
+  </li>
+</ol>
+
+<h3 id="use-cases">Use Cases</h3>
+
+<p>The following use cases were considered during the creation of this
+specification.</p>
+
+<ul>
+  <li><strong>owned</strong>: A package which contains contracts which are not meant to be used by themselves but rather as base contracts to provide functionality to other contracts through inheritance.</li>
+  <li><strong>transferable</strong>: A package which has a single dependency.</li>
+  <li><strong>standard-token</strong>: A package which contains a reusable contract.</li>
+  <li><strong>safe-math-lib</strong>: A package which contains deployed instance of one of the package contracts.</li>
+  <li><strong>piper-coin</strong>: A package which contains a deployed instance of a reusable contract from a dependency.</li>
+  <li><strong>escrow</strong>: A package which contains a deployed instance of a local contract which is linked against a deployed instance of a local library.</li>
+  <li><strong>wallet</strong>: A package with a deployed instance of a local contract which is linked against a deployed instance of a library from a dependency.</li>
+  <li><strong>wallet-with-send</strong>: A package with a deployed instance which links against a deep dependency.</li>
+  <li><strong>simple-auction</strong>: Compiler <code class="language-plaintext highlighter-rouge">"metadata"</code> field output.</li>
+</ul>
+
+<h2 id="package-specification">Package Specification</h2>
+
+<h3 id="conventions">Conventions</h3>
+
+<h4 id="rfc2119">RFC2119</h4>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”,
+“SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this
+document are to be interpreted as described in RFC 2119.</p>
+
+<ul>
+  <li><a href="https://www.ietf.org/rfc/rfc2119.txt">https://www.ietf.org/rfc/rfc2119.txt</a></li>
+</ul>
+
+<h4 id="prefixed-vs-unprefixed">Prefixed vs Unprefixed</h4>
+
+<p>A <a href="#prefixed">prefixed</a> hexadecimal value begins with <code class="language-plaintext highlighter-rouge">0x</code>.
+<a href="#unprefixed">Unprefixed</a> values have no prefix. Unless otherwise
+specified, all hexadecimal values <strong>should</strong> be represented with the
+<code class="language-plaintext highlighter-rouge">0x</code> prefix.</p>
+
+<ul>
+  <li><strong>Prefixed</strong>: <code class="language-plaintext highlighter-rouge">0xdeadbeef</code></li>
+  <li><strong>Unprefixed</strong>: <code class="language-plaintext highlighter-rouge">deadbeef</code></li>
+</ul>
+
+<h3 id="document-format">Document Format</h3>
+
+<p>The canonical format is a single JSON object. Packages <strong>must</strong> conform
+to the following serialization rules.</p>
+
+<ul>
+  <li>
+    <p>The document <strong>must</strong> be tightly packed, meaning no linebreaks or
+extra whitespace.</p>
+  </li>
+  <li>
+    <p>The keys in all objects <strong>must</strong> be sorted alphabetically.</p>
+  </li>
+  <li>
+    <p>Duplicate keys in the same object are invalid.</p>
+  </li>
+  <li>
+    <p>The document <strong>must</strong> use
+<a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a>
+encoding.</p>
+  </li>
+  <li>
+    <p>The document <strong>must</strong> not have a trailing newline.</p>
+  </li>
+  <li>
+    <p>To ensure backwards compatibility, <code class="language-plaintext highlighter-rouge">manifest_version</code> is a forbidden
+top-level key.</p>
+  </li>
+</ul>
+
+<h3 id="document-specification">Document Specification</h3>
+
+<p>The following fields are defined for the package. Custom fields <strong>may</strong>
+be included. Custom fields <strong>should</strong> be prefixed with <code class="language-plaintext highlighter-rouge">x-</code> to prevent
+name collisions with future versions of the specification.</p>
+
+<ul>
+  <li><strong>See Also</strong>: Formalized (<a href="https://json-schema.org">JSON-Schema</a>) version of this specification: <a href="../assets/eip-2678/package.spec.json">package.spec.json</a></li>
+  <li><strong>Jump To</strong>: <a href="#object-definitions">Definitions</a></li>
+</ul>
+
+<h3 id="ethpm-manifest-version">EthPM Manifest Version</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">manifest</code> field defines the specification version that this
+document conforms to.</p>
+
+<ul>
+  <li>
+    <p>Packages <strong>must</strong> include this field.</p>
+  </li>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">manifest</code></li>
+  <li><strong>Type</strong>: String</li>
+  <li><strong>Allowed Values</strong>: <code class="language-plaintext highlighter-rouge">ethpm/3</code></li>
+</ul>
+
+<h3 id="package-name">Package Name</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">name</code> field defines a human readable name for this package.</p>
+
+<ul>
+  <li>
+    <p>Packages <strong>should</strong> include this field to be released on an EthPM
+registry.</p>
+  </li>
+  <li>
+    <p>Package names <strong>must</strong> begin with a lowercase letter and be
+comprised of only the lowercase letters <code class="language-plaintext highlighter-rouge">a-z</code>, numeric characters <code class="language-plaintext highlighter-rouge">0-9</code>, and the
+dash character <code class="language-plaintext highlighter-rouge">-</code>.</p>
+  </li>
+  <li>
+    <p>Package names <strong>must</strong> not exceed 255 characters in length.</p>
+  </li>
+  <li><strong>Required</strong>: If <code class="language-plaintext highlighter-rouge">version</code> is included.</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">name</code></li>
+  <li><strong>Type</strong>: String</li>
+  <li><strong>Format</strong>: <strong>must</strong> match the regular expression <code class="language-plaintext highlighter-rouge">^[a-z][-a-z0-9]{0,255}$</code></li>
+</ul>
+
+<h3 id="package-version">Package Version</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">version</code> field declares the version number of this release.</p>
+
+<ul>
+  <li>
+    <p>Packages <strong>should</strong> include this field to be released on an EthPM
+registry.</p>
+  </li>
+  <li>
+    <p>This value <strong>should</strong> conform to the
+<a href="http://semver.org/">semver</a> version numbering
+specification.</p>
+  </li>
+  <li><strong>Required</strong>: If <code class="language-plaintext highlighter-rouge">name</code> is included.</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">version</code></li>
+  <li><strong>Type</strong>: String</li>
+</ul>
+
+<h3 id="package-metadata">Package Metadata</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">meta</code> field defines a location for metadata about the package which
+is not integral in nature for package installation, but may be important
+or convenient to have on-hand for other reasons.</p>
+
+<ul>
+  <li>
+    <p>This field <strong>should</strong> be included in all Packages.</p>
+  </li>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">meta</code></li>
+  <li><strong>Type</strong>: <a href="#the-package-meta-object">Package Meta Object</a></li>
+</ul>
+
+<h3 id="sources">Sources</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">sources</code> field defines a source tree that <strong>should</strong> comprise the
+full source tree necessary to recompile the contracts contained in this
+release.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">sources</code></li>
+  <li><strong>Type</strong>: Object (String: <a href="#the-source-object">Sources Object</a>)</li>
+</ul>
+
+<h3 id="contract-types">Contract Types</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">contractTypes</code> field hosts the <a href="#contract-type">Contract
+Types</a> which have been included in this release.</p>
+
+<ul>
+  <li>
+    <p>Packages <strong>should</strong> only include contract types that can be found in
+the source files for this package.</p>
+  </li>
+  <li>
+    <p>Packages <strong>should not</strong> include contract types from dependencies.</p>
+  </li>
+  <li>
+    <p>Packages <strong>should not</strong> include abstract contracts in the contract
+types section of a release.</p>
+  </li>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">contractTypes</code></li>
+  <li><strong>Type</strong>: Object (String: <a href="#the-contract-type-object">Contract Type Object</a>)</li>
+  <li><strong>Format</strong>: Keys <strong>must</strong> be valid <a href="#contract-alias">Contract Aliases</a>. <br /> Values <strong>must</strong> conform to the <a href="#the-contract-type-object">Contract Type Object</a> definition.</li>
+</ul>
+
+<h3 id="compilers">Compilers</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">compilers</code> field holds the information about the compilers and
+their settings that have been used to generate the various
+<code class="language-plaintext highlighter-rouge">contractTypes</code> included in this release.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">compilers</code></li>
+  <li><strong>Type</strong>: Array (<a href="#the-compiler-information-object">Compiler Information Object</a>)</li>
+</ul>
+
+<h3 id="deployments">Deployments</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">deployments</code> field holds the information for the chains on which
+this release has <a href="#contract-instance">Contract Instances</a> as well
+as the <a href="#contract-type">Contract Types</a> and other deployment
+details for those deployed contract instances. The set of chains defined
+by the <a href="#bip122-uri">BIP122 URI</a> keys for this object <strong>must</strong> be
+unique. There cannot be two different URI keys in a deployments field
+representing the same blockchain.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">deployments</code></li>
+  <li><strong>Type</strong>: Object (String: Object(String: <a href="#the-contract-instance-object">Contract Instance Object</a>))</li>
+  <li><strong>Format</strong>: Keys <strong>must</strong> be a valid BIP122 URI chain definition. <br />Values <strong>must</strong> be objects which conform to the following format:<br />- Keys <strong>must</strong> be valid <a href="#contract-instance-name">Contract Instance Names</a><br />- Values <strong>must</strong> be a valid <a href="#the-contract-instance-object">Contract Instance Object</a></li>
+</ul>
+
+<h3 id="build-dependencies">Build Dependencies</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">buildDependencies</code> field defines a key/value mapping of EthPM
+packages that this project depends on.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">buildDependencies</code></li>
+  <li><strong>Type</strong>: Object (String: String)</li>
+  <li><strong>Format</strong>: Keys <strong>must</strong> be valid <a href="#package-name">package names</a>.<br />Values <strong>must</strong> be a <a href="#content-addressable-uri">Content Addressable URI</a> which resolves to a valid package that conforms the same EthPM manifest version as its parent.</li>
+</ul>
+
+<h3 id="object-definitions">Object Definitions</h3>
+
+<p>Definitions for different objects used within the Package. All objects
+allow custom fields to be included. Custom fields <strong>should</strong> be prefixed
+with <code class="language-plaintext highlighter-rouge">x-</code> to prevent name collisions with future versions of the
+specification.</p>
+
+<h3 id="the-link-reference-object">The <em>Link Reference</em> Object</h3>
+
+<p>A <a href="#link-reference">Link Reference</a> object has the following
+key/value pairs. All link references are assumed to be associated with
+some corresponding <a href="#bytecode">Bytecode</a>.</p>
+
+<h4 id="offsets-offsets">Offsets: <code class="language-plaintext highlighter-rouge">offsets</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">offsets</code> field is an array of integers, corresponding to each of
+the start positions where the link reference appears in the bytecode.
+Locations are 0-indexed from the beginning of the bytes representation
+of the corresponding bytecode. This field is invalid if it references a
+position that is beyond the end of the bytecode.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>: Array</li>
+</ul>
+
+<h4 id="length-length">Length: <code class="language-plaintext highlighter-rouge">length</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">length</code> field is an integer which defines the length in bytes of
+the link reference. This field is invalid if the end of the defined link
+reference exceeds the end of the bytecode.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>: Integer</li>
+</ul>
+
+<h4 id="name-name">Name: <code class="language-plaintext highlighter-rouge">name</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">name</code> field is a string which <strong>must</strong> be a valid
+<a href="#identifier">Identifier</a>. Any link references which <strong>should</strong> be
+linked with the same link value <strong>should</strong> be given the same name.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>: String</li>
+  <li><strong>Format</strong>: <strong>must</strong> conform to the <a href="#identifier">Identifier</a> format.</li>
+</ul>
+
+<h3 id="the-link-value-object">The <em>Link Value</em> Object</h3>
+
+<p>Describes a single <a href="#link-value">Link Value</a>.</p>
+
+<p>A <strong>Link Value object</strong> is defined to have the following key/value
+pairs.</p>
+
+<h4 id="offsets-offsets-1">Offsets: <code class="language-plaintext highlighter-rouge">offsets</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">offsets</code> field defines the locations within the corresponding
+bytecode where the <code class="language-plaintext highlighter-rouge">value</code> for this link value was written. These
+locations are 0-indexed from the beginning of the bytes representation
+of the corresponding bytecode.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>: Integer</li>
+  <li><strong>Format</strong>: See below.</li>
+</ul>
+
+<p>Format</p>
+
+<p>Array of integers, where each integer <strong>must</strong> conform to all of the
+following.</p>
+
+<ul>
+  <li>
+    <p>greater than or equal to zero</p>
+  </li>
+  <li>
+    <p>strictly less than the length of the unprefixed hexadecimal
+representation of the corresponding bytecode.</p>
+  </li>
+</ul>
+
+<h4 id="type-type">Type: <code class="language-plaintext highlighter-rouge">type</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">type</code> field defines the <code class="language-plaintext highlighter-rouge">value</code> type for determining what is
+encoded when <a href="#linking">linking</a> the corresponding bytecode.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>: String</li>
+  <li><strong>Allowed Values</strong>: <code class="language-plaintext highlighter-rouge">"literal"</code> for bytecode literals.<br /><code class="language-plaintext highlighter-rouge">"reference"</code> for named references to a particular <a href="#contract-instance">Contract Instance</a></li>
+</ul>
+
+<h4 id="value-value">Value: <code class="language-plaintext highlighter-rouge">value</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">value</code> field defines the value which should be written when <a href="#linking">linking</a> the corresponding bytecode.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>: String</li>
+  <li><strong>Format</strong>: Determined based on <code class="language-plaintext highlighter-rouge">type</code>, see below.</li>
+</ul>
+
+<p>Format</p>
+
+<p>For static value <em>literals</em> (e.g. address), value <strong>must</strong> be a 0x-prefixed
+hexadecimal string representing bytes.</p>
+
+<p>To reference the address of a <a href="#contract-instance">Contract
+Instance</a> from the current package the value
+should be the name of that contract instance.</p>
+
+<ul>
+  <li>
+    <p>This value <strong>must</strong> be a valid <a href="#contract-instance-name">Contract Instance
+Name</a>.</p>
+  </li>
+  <li>
+    <p>The chain definition under which the contract instance that this
+link value belongs to must contain this value within its keys.</p>
+  </li>
+  <li>
+    <p>This value <strong>may not</strong> reference the same contract instance that
+this link value belongs to.</p>
+  </li>
+</ul>
+
+<p>To reference a contract instance from a <a href="#package">Package</a> from
+somewhere within the dependency tree the value is constructed as
+follows.</p>
+
+<ul>
+  <li>
+    <p>Let <code class="language-plaintext highlighter-rouge">[p1, p2, .. pn]</code> define a path down the dependency tree.</p>
+  </li>
+  <li>
+    <p>Each of <code class="language-plaintext highlighter-rouge">p1, p2, pn</code> <strong>must</strong> be valid package names.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">p1</code> <strong>must</strong> be present in keys of the <code class="language-plaintext highlighter-rouge">buildDependencies</code> for the
+current package.</p>
+  </li>
+  <li>
+    <p>For every <code class="language-plaintext highlighter-rouge">pn</code> where <code class="language-plaintext highlighter-rouge">n &gt; 1</code>, <code class="language-plaintext highlighter-rouge">pn</code> <strong>must</strong> be present in the keys
+of the <code class="language-plaintext highlighter-rouge">buildDependencies</code> of the package for <code class="language-plaintext highlighter-rouge">pn-1</code>.</p>
+  </li>
+  <li>
+    <p>The value is represented by the string
+<code class="language-plaintext highlighter-rouge">&lt;p1&gt;:&lt;p2&gt;:&lt;...&gt;:&lt;pn&gt;:&lt;contract-instance&gt;</code> where all of <code class="language-plaintext highlighter-rouge">&lt;p1&gt;</code>,
+<code class="language-plaintext highlighter-rouge">&lt;p2&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;pn&gt;</code> are valid package names and <code class="language-plaintext highlighter-rouge">&lt;contract-instance&gt;</code> is
+a valid <a href="#contract-name">Contract Name</a>.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">&lt;contract-instance&gt;</code> value <strong>must</strong> be a valid <a href="#contract-instance-name">Contract
+Instance Name</a>.</p>
+  </li>
+  <li>
+    <p>Within the package of the dependency defined by <code class="language-plaintext highlighter-rouge">&lt;pn&gt;</code>, all of the
+following must be satisfiable:</p>
+
+    <ul>
+      <li>
+        <p>There <strong>must</strong> be <em>exactly</em> one chain defined under the
+<code class="language-plaintext highlighter-rouge">deployments</code> key which matches the chain definition that this
+link value is nested under.</p>
+      </li>
+      <li>
+        <p>The <code class="language-plaintext highlighter-rouge">&lt;contract-instance&gt;</code> value <strong>must</strong> be present in the keys
+of the matching chain.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-bytecode-object">The <em>Bytecode</em> Object</h3>
+
+<p>A bytecode object has the following key/value pairs.</p>
+
+<h4 id="bytecode-bytecode">Bytecode: <code class="language-plaintext highlighter-rouge">bytecode</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">bytecode</code> field is a string containing the <code class="language-plaintext highlighter-rouge">0x</code> prefixed
+hexadecimal representation of the bytecode.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>:  String</li>
+  <li><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">0x</code> prefixed hexadecimal.</li>
+</ul>
+
+<h4 id="link-references-linkreferences">Link References: <code class="language-plaintext highlighter-rouge">linkReferences</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">linkReferences</code> field defines the locations in the corresponding
+bytecode which require <a href="#linking">linking</a>.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  Array</li>
+  <li><strong>Format</strong>: All values <strong>must</strong> be valid <a href="#the-link-reference-object">Link Reference objects</a>. See also below.</li>
+</ul>
+
+<p>Format</p>
+
+<p>This field is considered invalid if <em>any</em> of the <a href="#link-reference">Link
+References</a> are invalid when applied to the
+corresponding <code class="language-plaintext highlighter-rouge">bytecode</code> field, <em>or</em> if any of the link references
+intersect.</p>
+
+<p>Intersection is defined as two link references which overlap.</p>
+
+<h4 id="link-dependencies-linkdependencies">Link Dependencies: <code class="language-plaintext highlighter-rouge">linkDependencies</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">linkDependencies</code> defines the <a href="#link-value">Link Values</a> that
+have been used to link the corresponding bytecode.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  Array</li>
+  <li><strong>Format</strong>: All values <strong>must</strong> be valid <a href="#the-link-value-object">Link Value objects</a>. See also below.</li>
+</ul>
+
+<p>Format</p>
+
+<p>Validation of this field includes the following:</p>
+
+<ul>
+  <li>
+    <p>Two link value objects <strong>must not</strong> contain any of the same values
+for <code class="language-plaintext highlighter-rouge">offsets</code>.</p>
+  </li>
+  <li>
+    <p>Each <a href="#the-link-value-object">link value object</a> <strong>must</strong> have a
+corresponding <a href="#the-link-reference-object">link reference object</a> under
+the <code class="language-plaintext highlighter-rouge">linkReferences</code> field.</p>
+  </li>
+  <li>
+    <p>The length of the resolved <code class="language-plaintext highlighter-rouge">value</code> <strong>must</strong> be equal to the <code class="language-plaintext highlighter-rouge">length</code>
+of the corresponding <a href="#link-reference">Link Reference</a>.</p>
+  </li>
+</ul>
+
+<h3 id="the-package-meta-object">The <em>Package Meta</em> Object</h3>
+
+<p>The <em>Package Meta</em> object is defined to have the following key/value
+pairs.</p>
+
+<h4 id="authors">Authors</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">authors</code> field defines a list of human readable names for the
+authors of this package. Packages <strong>may</strong> include this field.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">authors</code></li>
+  <li><strong>Type</strong>:  Array(String)</li>
+</ul>
+
+<h4 id="license">License</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">license</code> field declares the license associated with this package.
+This value <strong>should</strong> conform to the
+<a href="https://spdx.org/licenses/">SPDX</a>
+format. Packages <strong>should</strong> include this field. If a file <a href="#the-source-object">Source
+Object</a> defines its own license, that license takes
+precedence for that particular file over this package-scoped <code class="language-plaintext highlighter-rouge">meta</code>
+license.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">license</code></li>
+  <li><strong>Type</strong>:  String</li>
+</ul>
+
+<h4 id="description">Description</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">description</code> field provides additional detail that may be relevant
+for the package. Packages <strong>may</strong> include this field.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">description</code></li>
+  <li><strong>Type</strong>:  String</li>
+</ul>
+
+<h4 id="keywords">Keywords</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">keywords</code> field provides relevant keywords related to this package.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">keywords</code></li>
+  <li><strong>Type</strong>:  Array(String)</li>
+</ul>
+
+<h4 id="links">Links</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">links</code> field provides URIs to relevant resources associated with
+this package. When possible, authors <strong>should</strong> use the following keys
+for the following common resources.</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">website</code>: Primary website for the package.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">documentation</code>: Package Documentation</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">repository</code>: Location of the project source code.</p>
+  </li>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">links</code></li>
+  <li><strong>Type</strong>:  Object (String: String)</li>
+</ul>
+
+<h3 id="the-sources-object">The <em>Sources</em> Object</h3>
+
+<p>A <em>Sources</em> object is defined to have the following fields.</p>
+
+<ul>
+  <li><strong>Key</strong>: A unique identifier for the source file. (String)</li>
+  <li><strong>Value</strong>: <a href="#the-source-object">Source Object</a></li>
+</ul>
+
+<h3 id="the-source-object">The <em>Source</em> Object</h3>
+
+<h4 id="checksum-checksum">Checksum: <code class="language-plaintext highlighter-rouge">checksum</code></h4>
+
+<p>Hash of the source file.</p>
+
+<ul>
+  <li><strong>Required</strong>: Only <strong>if</strong> the <code class="language-plaintext highlighter-rouge">content</code> field is missing and none of the provided URLs contain a content hash.</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">checksum</code></li>
+  <li><strong>Value</strong>: <a href="#the-checksum-object">Checksum Object</a></li>
+</ul>
+
+<h4 id="urls-urls">URLS: <code class="language-plaintext highlighter-rouge">urls</code></h4>
+
+<p>Array of urls that resolve to the same source file.</p>
+<ul>
+  <li>
+    <p>Urls <strong>should</strong> be stored on a content-addressable filesystem.
+<strong>If</strong> they are not, then either <code class="language-plaintext highlighter-rouge">content</code> or <code class="language-plaintext highlighter-rouge">checksum</code> <strong>must</strong> be
+included.</p>
+  </li>
+  <li>
+    <p>Urls <strong>must</strong> be prefixed with a scheme.</p>
+  </li>
+  <li>
+    <p>If the resulting document is a directory the key <strong>should</strong> be
+interpreted as a directory path.</p>
+  </li>
+  <li>
+    <p>If the resulting document is a file the key <strong>should</strong> be
+interpreted as a file path.</p>
+  </li>
+  <li><strong>Required</strong>: If <code class="language-plaintext highlighter-rouge">content</code> is not included.</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">urls</code></li>
+  <li><strong>Value</strong>: Array(String)</li>
+</ul>
+
+<h4 id="content-content">Content: <code class="language-plaintext highlighter-rouge">content</code></h4>
+
+<p>Inlined contract source. If both <code class="language-plaintext highlighter-rouge">urls</code> and <code class="language-plaintext highlighter-rouge">content</code> are provided, the <code class="language-plaintext highlighter-rouge">content</code> value
+<strong>must</strong> match the content of the files identified in <code class="language-plaintext highlighter-rouge">urls</code>.</p>
+
+<ul>
+  <li><strong>Required</strong>: If <code class="language-plaintext highlighter-rouge">urls</code> is not included.</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">content</code></li>
+  <li><strong>Value</strong>: String</li>
+</ul>
+
+<h4 id="install-path-installpath">Install Path: <code class="language-plaintext highlighter-rouge">installPath</code></h4>
+
+<p>Filesystem path of source file.</p>
+<ul>
+  <li>
+    <p><strong>Must</strong> be a relative filesystem path that begins with a <code class="language-plaintext highlighter-rouge">./</code>.</p>
+  </li>
+  <li>
+    <p><strong>Must</strong> resolve to a path that is within the current virtual
+working directory.</p>
+  </li>
+  <li>
+    <p><strong>Must</strong> be unique across all included sources.</p>
+  </li>
+  <li>
+    <p><strong>Must not</strong> contain <code class="language-plaintext highlighter-rouge">../</code> to avoid accessing files outside of 
+the source folder in improper implementations.</p>
+  </li>
+  <li><strong>Required</strong>: This field <strong>must</strong> be included for the package to be writable to disk.</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">installPath</code></li>
+  <li><strong>Value</strong>: String</li>
+</ul>
+
+<h4 id="type-type-1">Type: <code class="language-plaintext highlighter-rouge">type</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">type</code> field declares the type of the source file. The field
+<strong>should</strong> be one of the following values: <code class="language-plaintext highlighter-rouge">solidity</code>, <code class="language-plaintext highlighter-rouge">vyper</code>,
+<code class="language-plaintext highlighter-rouge">abi-json</code>, <code class="language-plaintext highlighter-rouge">solidity-ast-json</code>.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">type</code></li>
+  <li><strong>Value</strong>: String</li>
+</ul>
+
+<h4 id="license-license">License: <code class="language-plaintext highlighter-rouge">license</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">license</code> field declares the type of license associated with
+this source file. When defined, this license overrides the
+package-scoped <a href="#license">meta license</a>.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">license</code></li>
+  <li><strong>Value</strong>: String</li>
+</ul>
+
+<h3 id="the-checksum-object">The <em>Checksum</em> Object</h3>
+
+<p>A <em>Checksum</em> object is defined to have the following key/value pairs.</p>
+
+<h4 id="algorithm-algorithm">Algorithm: <code class="language-plaintext highlighter-rouge">algorithm</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">algorithm</code> used to generate the corresponding hash. Possible 
+algorithms include, but are not limited to <code class="language-plaintext highlighter-rouge">sha3</code>, <code class="language-plaintext highlighter-rouge">sha256</code>, <code class="language-plaintext highlighter-rouge">md5</code>,
+<code class="language-plaintext highlighter-rouge">keccak256</code>.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>:  String</li>
+</ul>
+
+<h4 id="hash-hash">Hash: <code class="language-plaintext highlighter-rouge">hash</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">hash</code> of a source files contents generated with the corresponding
+algorithm.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>:  String</li>
+</ul>
+
+<h3 id="the-contract-type-object">The <em>Contract Type</em> Object</h3>
+
+<p>A <em>Contract Type</em> object is defined to have the following key/value
+pairs.</p>
+
+<h4 id="contract-name-contractname">Contract Name: <code class="language-plaintext highlighter-rouge">contractName</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">contractName</code> field defines the <a href="#contract-name">Contract
+Name</a> for this <a href="#contract-type">Contract
+Type</a>.</p>
+
+<ul>
+  <li><strong>Required</strong>: If the <a href="#contract-name">Contract Name</a> and <a href="#contract-alias">Contract Alias</a> are not the same.</li>
+  <li><strong>Type</strong>:  String</li>
+  <li><strong>Format</strong>: <strong>Must</strong> be a valid <a href="#contract-name">Contract Name</a></li>
+</ul>
+
+<h4 id="source-id-sourceid">Source ID: <code class="language-plaintext highlighter-rouge">sourceId</code></h4>
+
+<p>The global source identifier for the source file from which this
+contract type was generated.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  String</li>
+  <li><strong>Format</strong>: <strong>Must</strong> match a unique source ID included in the <a href="#the-sources-object">Sources Object</a> for this package.</li>
+</ul>
+
+<h4 id="deployment-bytecode-deploymentbytecode">Deployment Bytecode: <code class="language-plaintext highlighter-rouge">deploymentBytecode</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">deploymentBytecode</code> field defines the bytecode for this <a href="#contract-type">Contract
+Type</a>.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  Object</li>
+  <li><strong>Format</strong>: <strong>Must</strong> conform to the <a href="#the-bytecode-object">Bytecode object</a> format.</li>
+</ul>
+
+<h4 id="runtime-bytecode-runtimebytecode">Runtime Bytecode: <code class="language-plaintext highlighter-rouge">runtimeBytecode</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">runtimeBytecode</code> field defines the unlinked <code class="language-plaintext highlighter-rouge">0x</code>-prefixed runtime
+portion of <a href="#bytecode">Bytecode</a> for this <a href="#contract-type">Contract
+Type</a>.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  Object</li>
+  <li><strong>Format</strong>: <strong>Must</strong> conform to the <a href="#the-bytecode-object">Bytecode object</a> format.</li>
+</ul>
+
+<h4 id="abi-abi">ABI: <code class="language-plaintext highlighter-rouge">abi</code></h4>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  Array</li>
+  <li><strong>Format</strong>: <strong>Must</strong> conform to the <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI#json">Ethereum Contract ABI JSON</a> format.</li>
+</ul>
+
+<h4 id="userdoc-userdoc">UserDoc: <code class="language-plaintext highlighter-rouge">userdoc</code></h4>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  Object</li>
+  <li><strong>Format</strong>: <strong>Must</strong> conform to the <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Natural-Specification-Format#user-documentation">UserDoc</a> format.</li>
+</ul>
+
+<h4 id="devdoc-devdoc">DevDoc: <code class="language-plaintext highlighter-rouge">devdoc</code></h4>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  Object</li>
+  <li><strong>Format</strong>: <strong>Must</strong> conform to the <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Natural-Specification-Format#developer-documentation">DevDoc</a> format.</li>
+</ul>
+
+<h3 id="the-contract-instance-object">The <em>Contract Instance</em> Object</h3>
+
+<p>A <strong>Contract Instance Object</strong> represents a single deployed <a href="#contract-instance">Contract
+Instance</a> and is defined to have the following
+key/value pairs.</p>
+
+<h4 id="contract-type-contracttype">Contract Type: <code class="language-plaintext highlighter-rouge">contractType</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">contractType</code> field defines the <a href="#contract-type">Contract
+Type</a> for this <a href="#contract-instance">Contract
+Instance</a>. This can reference any of the
+contract types included in this <a href="#package">Package</a> <em>or</em> any of the
+contract types found in any of the package dependencies from the
+<code class="language-plaintext highlighter-rouge">buildDependencies</code> section of the <a href="#package-manifest">Package
+Manifest</a>.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>:  String</li>
+  <li><strong>Format</strong>: See below.</li>
+</ul>
+
+<p>Format</p>
+
+<p>Values for this field <strong>must</strong> conform to <em>one of</em> the two formats
+herein.</p>
+
+<p>To reference a contract type from this Package, use the format
+<code class="language-plaintext highlighter-rouge">&lt;contract-alias&gt;</code>.</p>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">&lt;contract-alias&gt;</code> value <strong>must</strong> be a valid <a href="#contract-alias">Contract
+Alias</a>.</p>
+  </li>
+  <li>
+    <p>The value <strong>must</strong> be present in the keys of the <code class="language-plaintext highlighter-rouge">contractTypes</code>
+section of this Package.</p>
+  </li>
+</ul>
+
+<p>To reference a contract type from a dependency, use the format
+<code class="language-plaintext highlighter-rouge">&lt;package-name&gt;:&lt;contract-alias&gt;</code>.</p>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">&lt;package-name&gt;</code> value <strong>must</strong> be present in the keys of the
+<code class="language-plaintext highlighter-rouge">buildDependencies</code> of this Package.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">&lt;contract-alias&gt;</code> value <strong>must</strong> be be a valid <a href="#contract-alias">Contract
+Alias</a>.</p>
+  </li>
+  <li>
+    <p>The resolved package for <code class="language-plaintext highlighter-rouge">&lt;package-name&gt;</code> must contain the
+<code class="language-plaintext highlighter-rouge">&lt;contract-alias&gt;</code> value in the keys of the <code class="language-plaintext highlighter-rouge">contractTypes</code> section.</p>
+  </li>
+</ul>
+
+<h4 id="address-address">Address: <code class="language-plaintext highlighter-rouge">address</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">address</code> field defines the <a href="#address">Address</a> of the
+<a href="#contract-instance">Contract Instance</a>.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Type</strong>:  String</li>
+  <li><strong>Format</strong>: Hex encoded <code class="language-plaintext highlighter-rouge">0x</code> prefixed Ethereum address matching the regular expression <code class="language-plaintext highlighter-rouge">^0x[0-9a-fA-F]{40}$</code>.</li>
+</ul>
+
+<h4 id="transaction-transaction">Transaction: <code class="language-plaintext highlighter-rouge">transaction</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">transaction</code> field defines the transaction hash in which this
+<a href="#contract-instance">Contract Instance</a> was created.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  String</li>
+  <li><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">0x</code> prefixed hex encoded transaction hash.</li>
+</ul>
+
+<h4 id="block-block">Block: <code class="language-plaintext highlighter-rouge">block</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">block</code> field defines the block hash in which this the transaction
+which created this <em>contract instance</em> was mined.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  String</li>
+  <li><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">0x</code> prefixed hex encoded block hash.</li>
+</ul>
+
+<h4 id="runtime-bytecode-runtimebytecode-1">Runtime Bytecode: <code class="language-plaintext highlighter-rouge">runtimeBytecode</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">runtimeBytecode</code> field defines the runtime portion of bytecode for
+this <a href="#contract-instance">Contract Instance</a>. When present, the
+value from this field supersedes the <code class="language-plaintext highlighter-rouge">runtimeBytecode</code> from the
+<a href="#contract-type">Contract Type</a> for this <a href="#contract-instance">Contract
+Instance</a>.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Type</strong>:  Object</li>
+  <li><strong>Format</strong>: <strong>Must</strong> conform to the <a href="#the-bytecode-object">Bytecode Object</a> format.</li>
+</ul>
+
+<p>Every entry in the <code class="language-plaintext highlighter-rouge">linkReferences</code> for this bytecode <strong>must</strong> have a
+corresponding entry in the <code class="language-plaintext highlighter-rouge">linkDependencies</code> section.</p>
+
+<h3 id="the-compiler-information-object">The <em>Compiler Information</em> Object</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">compilers</code> field defines the various compilers and settings used
+during compilation of any <a href="#contract-type">Contract Types</a> or
+<a href="#contract-instance">Contract Instance</a> included in this package.</p>
+
+<p>A <em>Compiler Information</em> object is defined to have the following
+key/value pairs.</p>
+
+<h4 id="name-name-1">Name: <code class="language-plaintext highlighter-rouge">name</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">name</code> field defines which compiler was used in compilation.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">name</code></li>
+  <li><strong>Type</strong>:  String</li>
+</ul>
+
+<h4 id="version-version">Version: <code class="language-plaintext highlighter-rouge">version</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">version</code> field defines the version of the compiler. The field
+<strong>should</strong> be OS agnostic (OS not included in the string) and take the
+form of either the stable version in
+<a href="http://semver.org/">semver</a> format or if built on a
+nightly should be denoted in the form of <code class="language-plaintext highlighter-rouge">&lt;semver&gt;-&lt;commit-hash&gt;</code> ex:
+<code class="language-plaintext highlighter-rouge">0.4.8-commit.60cc1668</code>.</p>
+
+<ul>
+  <li><strong>Required</strong>: Yes</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">version</code></li>
+  <li><strong>Type</strong>:  String</li>
+</ul>
+
+<h4 id="settings-settings">Settings: <code class="language-plaintext highlighter-rouge">settings</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">settings</code> field defines any settings or configuration that was used
+in compilation. For the <code class="language-plaintext highlighter-rouge">"solc"</code> compiler, this <strong>should</strong> conform to
+the <a href="http://solidity.readthedocs.io/en/latest/using-the-compiler.html#compiler-input-and-output-json-description">Compiler Input and Output
+Description</a>.</p>
+
+<ul>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">settings</code></li>
+  <li><strong>Type</strong>:  Object</li>
+</ul>
+
+<h4 id="contract-types-contracttypes">Contract Types: <code class="language-plaintext highlighter-rouge">contractTypes</code></h4>
+
+<p>A list of the <a href="#contract-alias">Contract Alias</a> or <a href="#contract-type">Contract Types</a> in this package
+that used this compiler to generate its outputs.</p>
+
+<ul>
+  <li>
+    <p>All <code class="language-plaintext highlighter-rouge">contractTypes</code> that locally declare <code class="language-plaintext highlighter-rouge">runtimeBytecode</code>
+<strong>should</strong> be attributed for by a compiler object.</p>
+  </li>
+  <li>
+    <p>A single <code class="language-plaintext highlighter-rouge">contractTypes</code> <strong>must</strong> not be attributed to more than one
+compiler.</p>
+  </li>
+  <li><strong>Required</strong>: No</li>
+  <li><strong>Key</strong>: <code class="language-plaintext highlighter-rouge">contractTypes</code></li>
+  <li><strong>Type</strong>:  Array(<a href="#contract-alias">Contract Alias</a>)</li>
+</ul>
+
+<h3 id="bip122-uri">BIP122 URI</h3>
+
+<p>BIP122 URIs are used to define a blockchain via a subset of the
+<a href="https://github.com/bitcoin/bips/blob/master/bip-0122.mediawiki">BIP-122</a>
+spec.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blockchain://&lt;genesis_hash&gt;/block/&lt;latest confirmed block hash&gt;
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">&lt;genesis hash&gt;</code> represents the blockhash of the first block on the
+chain, and <code class="language-plaintext highlighter-rouge">&lt;latest confirmed block hash&gt;</code> represents the hash of the
+latest block that’s been reliably confirmed (package managers should be
+free to choose their desired level of confirmations).</p>
+
+<h3 id="glossary">Glossary</h3>
+
+<p>The terms in this glossary have been updated to reflect the changes made
+in V3.</p>
+
+<h4 id="abi">ABI</h4>
+<p>The JSON representation of the application binary interface. See the
+official
+<a href="https://solidity.readthedocs.io/en/develop/abi-spec.html">specification</a>
+for more information.</p>
+
+<h4 id="address">Address</h4>
+<p>A public identifier for an account on a particular chain</p>
+
+<h4 id="bytecode">Bytecode</h4>
+<p>The set of EVM instructions as produced by a compiler. Unless otherwise
+specified this should be assumed to be hexadecimal encoded, representing
+a whole number of bytes, and <a href="#prefixed">prefixed</a> with <code class="language-plaintext highlighter-rouge">0x</code>.</p>
+
+<p>Bytecode can either be linked or unlinked. (see
+<a href="#linking">Linking</a>)</p>
+
+<ul>
+  <li><strong>Unlinked Bytecode</strong>: The hexadecimal representation of a contract’s EVM instructions that contains sections of code that requires <a href="#linking">linking</a> for the contract to be functional.<br />The sections of code which are unlinked <strong>must</strong> be filled in with zero bytes.<br /><strong>Example</strong>: <code class="language-plaintext highlighter-rouge">0x606060405260e06000730000000000000000000000000000000000000000634d536f</code></li>
+  <li><strong>Linked Bytecode</strong>: The hexadecimal representation of a contract’s EVM instructions which has had all <a href="#link-reference">Link References</a> replaced with the desired <a href="#link-value">Link Values</a>. <strong>Example</strong>: <code class="language-plaintext highlighter-rouge">0x606060405260e06000736fe36000604051602001526040518160e060020a634d536f</code></li>
+</ul>
+
+<h4 id="chain-definition">Chain Definition</h4>
+<p>This definition originates from <a href="https://github.com/bitcoin/bips/blob/master/bip-0122.mediawiki">BIP122
+URI</a>.</p>
+
+<p>A URI in the format <code class="language-plaintext highlighter-rouge">blockchain://&lt;chain_id&gt;/block/&lt;block_hash&gt;</code></p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">chain_id</code> is the unprefixed hexadecimal representation of the
+genesis hash for the chain.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">block_hash</code> is the unprefixed hexadecimal representation of the
+hash of a block on the chain.</p>
+  </li>
+</ul>
+
+<p>A chain is considered to match a chain definition if the the genesis
+block hash matches the <code class="language-plaintext highlighter-rouge">chain_id</code> and the block defined by <code class="language-plaintext highlighter-rouge">block_hash</code>
+can be found on that chain. It is possible for multiple chains to match
+a single URI, in which case all chains are considered valid matches</p>
+
+<h4 id="content-addressable-uri">Content Addressable URI</h4>
+<p>Any URI which contains a cryptographic hash which can be used to verify
+the integrity of the content found at the URI.</p>
+
+<p>The URI format is defined in RFC3986</p>
+
+<p>It is <strong>recommended</strong> that tools support IPFS and Swarm.</p>
+
+<h4 id="contract-alias">Contract Alias</h4>
+<p>This is a name used to reference a specific <a href="#contract-type">Contract
+Type</a>. Contract aliases <strong>must</strong> be unique within a
+single <a href="#package">Package</a>.</p>
+
+<p>The contract alias <strong>must</strong> use <em>one of</em> the following naming schemes:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">&lt;contract-name&gt;</code></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">&lt;contract-name&gt;&lt;identifier&gt;</code></p>
+  </li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">&lt;contract-name&gt;</code> portion <strong>must</strong> be the same as the <a href="#contract-name">Contract
+Name</a> for this contract type.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">&lt;identifier&gt;</code> portion <strong>must</strong> match the regular expression
+<code class="language-plaintext highlighter-rouge">^[-a-zA-Z0-9]{1,256}$</code>.</p>
+
+<h4 id="contract-instance">Contract Instance</h4>
+<p>A contract instance a specific deployed version of a <a href="#contract-type">Contract
+Type</a>.</p>
+
+<p>All contract instances have an <a href="#address">Address</a> on some specific
+chain.</p>
+
+<h4 id="contract-instance-name">Contract Instance Name</h4>
+<p>A name which refers to a specific <a href="#contract-instance">Contract
+Instance</a> on a specific chain from the
+deployments of a single <a href="#package">Package</a>. This name <strong>must</strong> be
+unique across all other contract instances for the given chain. The name
+must conform to the regular expression
+<code class="language-plaintext highlighter-rouge">^[a-zA-Z_$][a-zA-Z0-9_$]{0,255}$</code></p>
+
+<p>In cases where there is a single deployed instance of a given <a href="#contract-type">Contract
+Type</a>, package managers <strong>should</strong> use the
+<a href="#contract-alias">Contract Alias</a> for that contract type for this
+name.</p>
+
+<p>In cases where there are multiple deployed instances of a given contract
+type, package managers <strong>should</strong> use a name which provides some added
+semantic information as to help differentiate the two deployed instances
+in a meaningful way.</p>
+
+<h4 id="contract-name">Contract Name</h4>
+<p>The name found in the source code that defines a specific <a href="#contract-type">Contract
+Type</a>. These names <strong>must</strong> conform to the regular
+expression <code class="language-plaintext highlighter-rouge">^[a-zA-Z_$][a-zA-Z0-9_$]{0,255}$</code>.</p>
+
+<p>There can be multiple contracts with the same contract name in a
+projects source files.</p>
+
+<h4 id="contract-type">Contract Type</h4>
+<p>Refers to a specific contract in the package source. This term can be
+used to refer to an abstract contract, a normal contract, or a library.
+Two contracts are of the same contract type if they have the same
+bytecode.</p>
+
+<p>Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>contract Wallet {
+    ...
+}
+</code></pre></div></div>
+
+<p>A deployed instance of the <code class="language-plaintext highlighter-rouge">Wallet</code> contract would be of of type
+<code class="language-plaintext highlighter-rouge">Wallet</code>.</p>
+
+<h4 id="identifier">Identifier</h4>
+<p>Refers generally to a named entity in the <a href="#package">Package</a>.</p>
+
+<p>A string matching the regular expression
+<code class="language-plaintext highlighter-rouge">^[a-zA-Z][-_a-zA-Z0-9]{0,255}$</code></p>
+
+<h4 id="link-reference">Link Reference</h4>
+<p>A location within a contract’s bytecode which needs to be linked. A link
+reference has the following properties.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">offset</code></strong>: Defines the location within the bytecode where the link reference begins.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">length</code></strong>: Defines the length of the reference.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">name</code></strong>: (optional) A string to identify the reference.</li>
+</ul>
+
+<h4 id="link-value">Link Value</h4>
+<p>A link value is the value which can be inserted in place of a <a href="#link-reference">Link
+Reference</a></p>
+
+<h4 id="linking">Linking</h4>
+<p>The act of replacing <a href="#link-reference">Link References</a> with <a href="#link-value">Link
+Values</a> within some <a href="#bytecode">Bytecode</a>.</p>
+
+<h4 id="package">Package</h4>
+<p>Distribution of an application’s source or compiled bytecode along with
+metadata related to authorship, license, versioning, et al.</p>
+
+<p>For brevity, the term <strong>Package</strong> is often used metonymously to mean
+<a href="#package-manifest">Package Manifest</a>.</p>
+
+<h4 id="package-manifest">Package Manifest</h4>
+<p>A machine-readable description of a package.</p>
+
+<h4 id="prefixed">Prefixed</h4>
+<p><a href="#bytecode">Bytecode</a> string with leading <code class="language-plaintext highlighter-rouge">0x</code>.</p>
+
+<ul>
+  <li><strong>Example</strong>: <code class="language-plaintext highlighter-rouge">0xdeadbeef</code></li>
+</ul>
+
+<h4 id="unprefixed">Unprefixed</h4>
+<p>Not <a href="#prefixed">Prefixed</a>.</p>
+
+<ul>
+  <li><strong>Example</strong>: <code class="language-plaintext highlighter-rouge">deadbeef</code></li>
+</ul>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="minification">Minification</h3>
+
+<p>EthPM packages are distributed as alphabetically-ordered &amp; minified JSON to ensure consistency.
+Since packages are published on content-addressable filesystems (eg. IPFS), this restriction
+guarantees that any given set of contract assets will always resolve to the same content-addressed URI.</p>
+
+<h3 id="package-names">Package Names</h3>
+
+<p>Package names are restricted to lower-case characters, numbers, and <code class="language-plaintext highlighter-rouge">-</code> to improve the readability
+of the package name, in turn improving the security properties for a package. A user is more likely
+to accurately identify their target package with this restricted set of characters, and not confuse
+a malicious package that disguises itself as a trusted package with similar but different 
+characters (e.g. <code class="language-plaintext highlighter-rouge">O</code> and <code class="language-plaintext highlighter-rouge">0</code>).</p>
+
+<h3 id="bip122">BIP122</h3>
+
+<p>The BIP-122 standard has been used since EthPM v1 since it is an industry standard URI scheme for
+identifying different blockchains and distinguishing between forks.</p>
+
+<h3 id="compilers-1">Compilers</h3>
+
+<p>Compilers are now defined in a top-level array, simplifying the task for tooling to identify the compiler types
+needed to interact with or validate the contract assets. This also removes unnecessarily duplicated
+information, should multiple <code class="language-plaintext highlighter-rouge">contractTypes</code> share the same compiler type.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>To improve understanding and readability of the EthPM spec, the
+<code class="language-plaintext highlighter-rouge">manifest_version</code> field was updated to <code class="language-plaintext highlighter-rouge">manifest</code> in v3. To ensure 
+backwards compatibility, v3 packages <strong>must</strong> define a top-level
+<code class="language-plaintext highlighter-rouge">"manifest"</code> with a value of <code class="language-plaintext highlighter-rouge">"ethpm/3"</code>. Additionally,
+<code class="language-plaintext highlighter-rouge">"manifest_version"</code> is a forbidden top-level key in v3 packages.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Using EthPM packages implicitly requires importing &amp;/or executing code written by others. The EthPM spec
+guarantees that when using a properly constructed and released EthPM package, the user will have the exact same
+code that was included in the package by the package author. However, it is impossible to guarantee that this code
+is safe to interact with. Therefore, it is critical that end users only interact with EthPM packages authored and
+released by individuals or organizations that they trust to include non-malicious code.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

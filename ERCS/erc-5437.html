@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Security Contact Interface | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Security Contact Interface | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5437" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5437" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Security Contact Interface</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+<p>An interface for security notice using asymmetric encryption. The interface exposes a asymmetric encryption key and a destination of delivery.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>Currently there is no consistent way to specify an official channel for security researchers to report security issues to smart contract maintainers.</p>
+
+<h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IEIP5437</span> <span class="p">{</span>
+
+    <span class="c1">/// REQUIRED
+</span>    <span class="k">function</span> <span class="n">getSecurityContact</span><span class="p">(</span><span class="kt">uint8</span> <span class="k">type</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span>
+    <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">uint8</span> <span class="k">type</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">publicKey</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">extraData</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// OPTIONAL
+</span>    <span class="c1">// TODO consider remove if not needed before finalized
+</span>    <span class="k">function</span> <span class="n">setSecurityContact</span><span class="p">(</span>
+        <span class="kt">uint8</span> <span class="k">type</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">publicKey</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">extraData</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+    <span class="k">event</span> <span class="n">SecurityContactChanged</span><span class="p">(</span><span class="kt">uint8</span> <span class="k">type</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">publicKeyForEncryption</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">extraData</span><span class="p">);</span>
+
+    <span class="c1">/// OPTIONAL
+</span>    <span class="k">function</span> <span class="n">securityNotify</span><span class="p">(</span><span class="kt">uint8</span> <span class="k">type</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span><span class="p">;</span>
+    <span class="c1">/// OPTIONAL
+</span>    <span class="k">event</span> <span class="n">OnSecurityNotification</span><span class="p">(</span><span class="kt">uint8</span> <span class="k">type</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">sourceData</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">);</span>
+
+    <span class="c1">/// OPTIONAL
+</span>    <span class="c1">// TODO consider to make it a separate EIP
+</span>    <span class="k">function</span> <span class="n">bountyPolicy</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">extraData</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Compliant interfaces MUST implement the <code class="language-plaintext highlighter-rouge">getSecurityContact</code> method.</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">type</code> is a one byte data with valid range of <code class="language-plaintext highlighter-rouge">[0x10, 0x7f]</code>. The ranges of <code class="language-plaintext highlighter-rouge">[0x00, 0x0f]</code> and <code class="language-plaintext highlighter-rouge">[0x80, 0xff]</code> are reserved for future extension.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">type</code> indicates the format of the <code class="language-plaintext highlighter-rouge">publicKey</code> and <code class="language-plaintext highlighter-rouge">extraData</code> in the following way</p>
+
+<hr />
+<p>| Type | Encryption scheme                   | extraData                                       |
+——-|————————————-|————————————————–
+| 0x10 | GnuPG - RSA/3072                    | Email address(es) encoded in format of RFC 2822 |
+————————————————————————————————</p>
+
+<p>A new version of this table can be proposed by future EIPs by specifying a new <code class="language-plaintext highlighter-rouge">type</code> number.</p>
+
+<ol>
+  <li>The <code class="language-plaintext highlighter-rouge">publicKey</code> returned from <code class="language-plaintext highlighter-rouge">getSecurityContact</code> MUST follow the encryption scheme specified
+in the table above.</li>
+</ol>
+
+<p>The following is an example of a <code class="language-plaintext highlighter-rouge">publicKey</code> using <code class="language-plaintext highlighter-rouge">RSA/3072</code> generated via GnuPG in an RFC 20 ASCII-encoding of the public key string:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQGNBGLzM2YBDADnCxAW/A0idvKNeQ6s/iYUeIIE+2mWmHcBGqLi0zrfz7pKWI+D
+m6Hek51sg2c7ZlswPEp8KqANrj/CV1stXHF+KAZtYeFiAqpIZl1wtB6QgKYWGsJf
+sXjBU3duLzLut2yvTfbEZsWAvrEaDjlXywdpboorHvfTE2vOvI6iGcjdh7PW7W7g
+IGzlL6ukLGG7y9FUO2dSMjCR/tWMLCupnDDLN2cUHnfEnHZ34FMd61NxcHLC7cIk
+P8xkFt8GCxURniTjqI5HAB8bGfR34kflVpr2+iKD5e+vQxcWK7vB443nruVf8osn
+udDF8Z6mgl7bKBbGyYH58QsVlmZ8g3E4YaMKjpwOzEK3V2R8Yh4ETdr670ZCRrIz
+QWVkibGgmQ3J/9RYps5Hfqpj4wV60Bsh1xUIJEIAs3ubMt7Z5JYFeze7VlXGlwot
+P+SnAfKzlZT4CDEl2LEEDrbpnpOEdp0x9hYsEaXTxBGSpTDaxP2MyhW3u6pYeehG
+oD0UVTLjWgU+6akAEQEAAbQjc29tZXJlYWxuYW1lIDxncGcubG9jYWwuZ2VuQHp6
+bi5pbT6JAdQEEwEIAD4WIQTDk/9jzRZ+lU2cY8rSVJNbud1lrQUCYvMzZgIbAwUJ
+EswDAAULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRDSVJNbud1lraulDACqFbQg
+e9hfoK17UcPVz/u4ZnwmFd9zFAWSYkGqrK9XMvz0R8pr7Y3Dp5hfvaptqID/lHhA
+2oPEZ1ViIYDBcqG9WoWjCOYNoIosEAczrvf8YtUC2MHI+5DdYHtST74jDLuWMw3U
+AbBXHds3KcRY5/j01kqqi4uwsMBCYyH3Jl3IwjKgy0KDBbuQakvaHPmNnt81ayvZ
+ucdsNB9n/JMDxUWNCcySR+cllW4mk68pdiuK5qw0JMaoUjHFoWsgMTbFSlAV/lre
+qu8MnrLSs5iPvvaJ3uDOuYROB2FsbvWxayfAAVS1iZf2vQFBJPnDwDdYoPNYMjLp
+s2SfU02MVRGp3wanbtvM52uP42SLLNjBqUvJV03/QwfxCRejgAJOBn+iaOxP9NOe
+qfQdKzYPbA9FohdkL9991n21XBZcZzAgF9RyU9IZAPAnwZyex1zfzJsUp/HrjhP8
+Ljs8MIcjIlmpLk66TmJte4dN5eML1bpohmfMX8k0ILESLSUhxEg1JBNYIDK5AY0E
+YvMzZgEMALnIkONpqCkV+yaP8Tb8TBjmM+3TioJQROViINUQZh6lZM3/M+DPxAWZ
+r0MIh1a3+o+ThlZ70tlS67w3Sjd62sWAFzALzW4F+gTqjBTh6LURDqDV8OXUrggA
+SKK222aDP+Fr21h/TtPLeyDvcgm8Xvi4Cy7Jmf5CfT5jDio7a+FyFBNlTFSVqzLM
+TgFOkUFBg8kJKvDjWIrS2fcTkELwZ8+IlQ52YbrXwbDar843x1fRmsY+x9nnuGuP
+RYn1U4Jbptu2pEkG5q94jzUzTkGZHCzBJY7a8mtvS0mLqIE0Se1p+HFLY76Rma/F
+HB6J4JNOTzBZ0/1FVvUOcMkjuZ2dX81qoCZ8NP6eafzKvNYZrGa5NJnjWO1ag5jQ
+D8qHuOwxs8Fy9evmkwAVl51evLFNT532I4LK0zHSbF8MccZjpEFMSKwalKJn02Ml
+yTd+ljYLf8SKMOLVps8kc4VyMR1lz0PwSpKDFOmkC1LRURpM7UTtCK+/RFg1OLyQ
+SKBmdI37KQARAQABiQG8BBgBCAAmFiEEw5P/Y80WfpVNnGPK0lSTW7ndZa0FAmLz
+M2YCGwwFCRLMAwAACgkQ0lSTW7ndZa2oFgv8DAxHtRZchTvjxtdLhQEUSHt80JCQ
+zgHd7OUI9EU3K+oDj9AKtKZF1fqMlQoOskgBsLy/xpWwyhatv2ONLtHSjYDkZ7qs
+jsXshqpuvJ3X00Yn9PXG1Z1jKl7rzy2/0DnQ8aFP+gktfu2Oat4uIu4YSqRsVW/Z
+sbdTsW3T4E6Uf0qUKDf49mK3Y2nhTwY0YZqJnuQkSuUvpuM5a/4zSoaIRz+vSNjX
+MoXUIK/f8UnWABPm90OCptTMTzXCC1UXEHTNm6iBJThFiq3GeLZH+GnIola5KLO1
++YbsFEchLfLZ27pWGfIbyppvsuQmrHef+J3g6sXybOWDHVYr3Za1fzxQVIbwoIEe
+ndKG0bu7ZAi2b/c8uH/wHT5IvtfzHLeSTjDqG8UyLTnaDxHQZIE9JIzWSQ1DSoNC
+YrU7CQtL+/HRpiGFHfClaXln8VWkjnUvp+Fg1ZPtE1t/SKddZ7m29Hd9nzUc0OQW
+MOA+HDqgA3a9kWbQKSloORq4unft1eu/FCra
+=O6Bf
+-----END PGP PUBLIC KEY BLOCK-----
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>IF <code class="language-plaintext highlighter-rouge">setSecurityContact</code> is implemented and a call to it has succeeded in setting a new security contact, an event <code class="language-plaintext highlighter-rouge">SecurityContactChanged</code> MUST be emitted with the identical passed-in-parameters of <code class="language-plaintext highlighter-rouge">setSecurityContact</code></p>
+  </li>
+  <li>
+    <p>It’s also RECOMMENDED that an on-chain security notify method <code class="language-plaintext highlighter-rouge">securityNotify</code>
+to implemented to receive security notice onchain. If it’s implemented and a call
+has succeeded, it MUST emit an <code class="language-plaintext highlighter-rouge">OnSecurityNotification</code> with identical pass-in-parameter data.</p>
+  </li>
+  <li>
+    <p>Compliant interfaces MUST implement <a href="./eip-165.md">EIP-165</a>.
+<!-- TODO: add EIP-165 interfaces. -->
+<!-- TODO also consider requiring/recommending implementing EIP-5629 ERC-interface detection. --></p>
+  </li>
+  <li>
+    <p>It’s recommended to set a bounty policy via <code class="language-plaintext highlighter-rouge">bountyPolicy</code> method. The <code class="language-plaintext highlighter-rouge">id = 0</code> is preserved for a full overview, while other digits are used for different individual bounty policies. The returned
+string will be URI to content of bounty policies.
+No particular format of bounty policy is specified.</p>
+  </li>
+</ol>
+
+<h2 id="rationale">Rationale</h2>
+<ol>
+  <li>For simplicity, this EIP specifies a simple GPG scheme with a given encryption scheme and uses email addresses as a contact method. It’s possible that future EIPs will specify new encryption schemes or delivery methods.</li>
+  <li>This EIP adds an optional method, <code class="language-plaintext highlighter-rouge">setSecurityContact</code>, to set the security contact, because it might change due to circumstances such as the expiration of the cryptographic keys.</li>
+  <li>This EIP explicitly marks <code class="language-plaintext highlighter-rouge">securityNotify</code> as <code class="language-plaintext highlighter-rouge">payable</code>, in order to allow implementers to set a staking amount to report a security vulnerability.</li>
+  <li>This EIP allows for future expansion by adding the <code class="language-plaintext highlighter-rouge">bountyPolicy</code> the <code class="language-plaintext highlighter-rouge">extraData</code> fields. Additional values of these fields may be added in future EIPs.</li>
+</ol>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Currently, existing solutions such as OpenZeppelin use plaintext in source code</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @custom:security-contact some-user@some-domain.com
+</span></code></pre></div></div>
+
+<p>It’s recommend that new versions of smart contracts adopt this EIP in addition to the legacy <code class="language-plaintext highlighter-rouge">@custom:security-contact</code> approach.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Implementors should properly follow security practices required by the encryption scheme to ensure the security of the chosen communication channel. Some best practices are as follows:</p>
+
+<ol>
+  <li>Keep security contact information up-to-date;</li>
+  <li>Rotate encryption keys in the period recommended by best practice;</li>
+  <li>Regularly monitor the channel to receive notices in a timely manner.</li>
+</ol>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

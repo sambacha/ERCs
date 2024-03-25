@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Ethereum Access Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Ethereum Access Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7272" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7272" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Ethereum Access Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>An Ethereum Access Token (EAT) is an <a href="./eip-712.md">EIP-712</a> conformant, signed message, used by off-chain services to grant Ethereum accounts access to specific on-chain resources. EATs share similarities with JSON Web Tokens (JWTs); both are used for short-lived authorizations. However Ethereum Access Tokens are specifically designed to be verified on-chain and tailored to authorize smart contract function calls.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>While other proposals tackle authentication or authorization in a more narrow way, this specification allows developers to add a layer of access control to any function they create with minimal changes. It is best suited for use cases where end users should only be able to access specific on-chain resources themselves directly, by way of sending a transaction, provided they have been granted authorization by an off-chain service first. Examples of such scenarios include an off-chain verifier assessing eligibility requirements (e.g by verifying verifiable credentials) to mint a token or to interact with a smart contract that requires a certain compliance status.
+Therefore, this proposal enables off-chain systems to authenticate the controller of an Ethereum account in any way they want, before granting an authorization bound to said account.</p>
+
+<p>This specification is intended to improve interoperability in the Ethereum ecosystem, by providing a consistent machine-readable message format to achieve improved user experiences.</p>
+
+<p>EATs fill a void where access control requirements differ from current standard access control mechanisms (role-based access modifiers or checking that an address owns an NFT):</p>
+
+<ul>
+  <li>Desired acccess is short-lived</li>
+  <li>Criteria needs to be flexible/dynamic: updating the requirements for granting access doesn’t require any update on chain</li>
+  <li>When Soulbound or other on-chain token semantics are not desired. Using any kind of “on-chain registry” to grant authorization places a burden on the owner of such registry to keep it up-to-date at all time. Otherwise, someone might be wrongly granted access in the lapse of time where their on-chain status is incorrect. With EATs, on the contrary, users come to ask for an authorization which gives EAT issuers the opportunity to perform some checks and update their records before granting authorization. Additionally, relying purely on on-chain data comes with privacy concerns due to the public nature of most of current chains. When authorization needs to be granted based on sensitive or personally identifiable information, it is not recommended to store that information on-chain and perform a lookup. Ethereum Access Tokens provide an alternative which doesn’t leak any PII on-chain.</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="overview">Overview</h3>
+
+<p>An example flow integrated in a DeFi application is the following:</p>
+
+<ol>
+  <li>A user interacts with the DeFi’s off-chain service, providing sufficient input for the off-chain service to ensure the user meets its criteria (for example, authenticates the user and/or make sure they possess valid credentials)</li>
+  <li>If authorization is granted, an EAT is issued to the user</li>
+  <li>The user then interacts with the gated smart contract function within the specified period of time passing the EAT as part of the transaction</li>
+  <li>The EAT is verified on-chain</li>
+</ol>
+
+<p><img src="../assets/eip-7272/EAT_transaction_auth_flow.png" alt="Transaction authorization flow using an EAT" /></p>
+
+<p>An Ethereum Access Token MUST guarantee granular access control by binding it to specific parameters upon issuance. Then, on-chain EAT verification ensures that:</p>
+
+<ul>
+  <li>The function being called is the expected one</li>
+  <li>The function parameters are the expected ones</li>
+  <li>The function caller is the expected one</li>
+  <li>The function is being called in the authorized timeframe (i.e checking that the EAT is not expired)</li>
+  <li>The smart contract being called is the expected one</li>
+  <li>The authorization has been given by a valid issuer, i.e the EAT has been signed by one of the expected issuers</li>
+</ul>
+
+<h3 id="structure-of-an-ethereum-access-token">Structure of an Ethereum Access Token</h3>
+
+<p>An Ethereum Access Token is composed of a signature and expiry.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+ uint8 v,
+ bytes32 r,
+ bytes32 s,
+ uint256 expiry
+}
+</code></pre></div></div>
+
+<p>The signature is obtained using the typed structured data hashing and signing standard (EIP-712), signing over the following EAT payload:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct AccessToken {
+    uint256 expiry;
+    FunctionCall functionCall;
+}
+
+struct FunctionCall {
+    bytes4 functionSignature;
+    address target;
+    address caller;
+    bytes parameters;
+}
+</code></pre></div></div>
+
+<ul>
+  <li><strong>expiry</strong>: unix timestamp, expected to be before <code class="language-plaintext highlighter-rouge">block.timestamp</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">FunctionCall</code> parameters correspond to the following:</p>
+
+<ul>
+  <li><strong>functionSignature</strong>: identifier for the function being called, expected to match <code class="language-plaintext highlighter-rouge">msg.sig</code></li>
+  <li><strong>target</strong>: address of the target contract being called</li>
+  <li><strong>caller</strong>: address of the current caller - expected to match <code class="language-plaintext highlighter-rouge">msg.sender</code></li>
+  <li><strong>parameters</strong>: <code class="language-plaintext highlighter-rouge">calldata</code> after stripping off the first parameters, namely <code class="language-plaintext highlighter-rouge">v</code>,<code class="language-plaintext highlighter-rouge">r</code>, <code class="language-plaintext highlighter-rouge">s</code> and <code class="language-plaintext highlighter-rouge">expiry</code></li>
+</ul>
+
+<h3 id="eat-verification">EAT Verification</h3>
+
+<p>On chain, the reference implementation uses two contracts: an <code class="language-plaintext highlighter-rouge">AccessTokenConsumer</code> which is inherited by contracts needing to permission some of its functions and an <code class="language-plaintext highlighter-rouge">AccessTokenVerifier</code> which is responsible for verifying EATs.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">AccessTokenConsumer</code> contract calls the <code class="language-plaintext highlighter-rouge">AccessTokenVerifier</code> to verify the integrity of an EAT.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">verify()</code> function of the <code class="language-plaintext highlighter-rouge">AccessTokenVerifier</code> takes a signature and an <code class="language-plaintext highlighter-rouge">AccessToken</code> as input, verifies that the token is not expired, attempts to recover the signer from the signature and the reconstructed EIP-712 digest, and verifies that the signer is a valid, expected signer.</p>
+
+<p>Please see the <a href="../assets/eip-7272/AccessTokenVerifier.sol">reference implementation</a> for an example of how this can be performed.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<ul>
+  <li>
+    <p>Single-use. The reference implementation guarantees non-replayability of EATs. But other implementations might favor a different approach.</p>
+  </li>
+  <li>
+    <p>Use of EIP-712. By conforming to EIP-712, EATs are interoperable with existing Ethereum infrastructure, and developers can use them to create access controls with minimal modifications to their existing code. It also ensures that EATs issued are bound to a specific chain.</p>
+  </li>
+  <li>
+    <p>Zero-knowledge proofs. Using ZKPs comes at a cost, including added complexity. EATs are not much more than signed messages which are simpler to reason around. While <code class="language-plaintext highlighter-rouge">ecrecover</code> is available in any Ethereum smart contract out of the box, ZKPs come in different flavors which hinders interoperability.</p>
+  </li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Any function can be gated with an EAT, apart from the special <code class="language-plaintext highlighter-rouge">receive</code> and <code class="language-plaintext highlighter-rouge">fallback</code> functions.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Here’s a reference implementation of the different smart contracts making up the EAT system onchain:</p>
+
+<ul>
+  <li><a href="../assets/eip-7272/IAccessTokenVerifier.sol">IAccessTokenVerifier.sol</a></li>
+  <li><a href="../assets/eip-7272/AccessTokenVerifier.sol">AccessTokenVerifier.sol</a></li>
+  <li><a href="../assets/eip-7272/AccessTokenConsumer.sol">AccessTokenConsumer.sol</a></li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The security of the Ethereum Access Token (EAT) proposal depends on several factors:</p>
+
+<h3 id="replay-attacks">Replay Attacks</h3>
+
+<p>The implementation MAY ensure that an EAT cannot be reused after it has been consumed. This is achieved by marking the EAT as consumed in the <code class="language-plaintext highlighter-rouge">_consumeAccessToken</code> function.</p>
+
+<h3 id="off-chain-issuance">Off-Chain Issuance</h3>
+
+<p>The security of the off-chain service issuing EATs is critical since the security of EAT-gated functions depends on it.
+If this service is compromised, malicious actors could be granted EATs giving them access to on-chain resources that they should not have access to.</p>
+
+<h3 id="expiry-time-considerations">Expiry Time Considerations</h3>
+
+<p>The expiry time of the EAT must be set judiciously to balance usability and security. If the expiry time is set too long, it might increase the risk of EAT misuse. If it’s too short, it might compromise the usability of the application.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

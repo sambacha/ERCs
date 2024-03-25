@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>NFT Dynamic Traits | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="NFT Dynamic Traits | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7496" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7496" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">NFT Dynamic Traits</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This specification introduces a new interface that extends <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> that defines methods for setting and getting dynamic onchain traits associated with non-fungible tokens. These dynamic traits can be used to represent properties, characteristics, redeemable entitlements, or other attributes that can change over time. By defining these traits onchain, they can be used and modified by other onchain contracts.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Trait values for non-fungible tokens are often stored offchain. This makes it difficult to query and mutate these values in contract code. Specifying the ability to set and get traits onchain allows for new use cases like redeeming onchain entitlements and transacting based on a token’s traits.</p>
+
+<p>Onchain traits can be used by contracts in a variety of different scenarios. For example, a contract that wants to entitle a token to a consumable benefit (e.g. a redeemable) can robustly reflect that onchain. Marketplaces can allow bidding on these tokens based on the trait value without having to rely on offchain state and exposing users to frontrunning attacks. The motivating use case behind this proposal is to protect users from frontrunning attacks on marketplaces where users can list NFTs with certain traits where they are expected to be upheld during fulfillment.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>Contracts implementing this EIP MUST include the events, getters, and setters as defined below, and MUST return <code class="language-plaintext highlighter-rouge">true</code> for <a href="./eip-165.md">ERC-165</a> <code class="language-plaintext highlighter-rouge">supportsInterface</code> for <code class="language-plaintext highlighter-rouge">0xaf332f3e</code>, the 4 byte <code class="language-plaintext highlighter-rouge">interfaceId</code> for this ERC.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IERC7496</span> <span class="p">{</span>
+    <span class="cm">/* Events */</span>
+    <span class="k">event</span> <span class="n">TraitUpdated</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">traitKey</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">traitValue</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">TraitUpdatedRange</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">traitKey</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">fromTokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">toTokenId</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">TraitUpdatedRangeUniformValue</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">traitKey</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">fromTokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">toTokenId</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">traitValue</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">TraitUpdatedList</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">traitKey</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="n">tokenIds</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">TraitUpdatedListUniformValue</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">traitKey</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="n">tokenIds</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">traitValue</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">TraitMetadataURIUpdated</span><span class="p">();</span>
+
+    <span class="cm">/* Getters */</span>
+    <span class="k">function</span> <span class="n">getTraitValue</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">traitKey</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">traitValue</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">getTraitValues</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">traitKeys</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="n">traitValues</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">getTraitMetadataURI</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">uri</span><span class="p">);</span>
+
+    <span class="cm">/* Setters */</span>
+    <span class="k">function</span> <span class="n">setTrait</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">traitKey</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">newValue</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="keys--names">Keys &amp; Names</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">traitKey</code> is used to identify a trait. The <code class="language-plaintext highlighter-rouge">traitKey</code> MUST be a unique <code class="language-plaintext highlighter-rouge">bytes32</code> value identifying a single trait.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">traitKey</code> SHOULD be a <code class="language-plaintext highlighter-rouge">keccak256</code> hash of a human readable trait name.</p>
+
+<h3 id="metadata">Metadata</h3>
+
+<p>Trait metadata is an optional way to define additional information about which traits are present in a contract, how to parse and display trait values, and permissions for setting trait values.</p>
+
+<p>The trait metadata must be compliant with the <a href="../assets/eip-7496/DynamicTraitsSchema.json">specified schema</a>.</p>
+
+<p>The trait metadata URI MAY be a data URI or point to an offchain resource.</p>
+
+<p>The keys in the <code class="language-plaintext highlighter-rouge">traits</code> object MUST be unique trait names. If the trait name is 32 byte hex string starting with <code class="language-plaintext highlighter-rouge">0x</code> then it is interpreted as a literal <code class="language-plaintext highlighter-rouge">traitKey</code>. Otherwise, the <code class="language-plaintext highlighter-rouge">traitKey</code> is defined as the <code class="language-plaintext highlighter-rouge">keccak256</code> hash of the trait name. A literal <code class="language-plaintext highlighter-rouge">traitKey</code> MUST NOT collide with the <code class="language-plaintext highlighter-rouge">keccak256</code> hash of any other traits defined in the metadata.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">displayName</code> values MUST be unique and MUST NOT collide with the <code class="language-plaintext highlighter-rouge">displayName</code> of any other traits defined in the metadata.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">validateOnSale</code> value provides a signal to marketplaces on how to validate the trait value when a token is being sold. If the validation criteria is not met, the sale MUST not be permitted by the marketplace contract. If specified, the value of <code class="language-plaintext highlighter-rouge">validateOnSale</code> MUST be one of the following (or it is assumed to be <code class="language-plaintext highlighter-rouge">none</code>):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">none</code>: No validation is necessary.</li>
+  <li><code class="language-plaintext highlighter-rouge">requireEq</code>: The <code class="language-plaintext highlighter-rouge">bytes32</code> <code class="language-plaintext highlighter-rouge">traitValue</code> MUST be equal to the value at the time the offer to purchase was made.</li>
+  <li><code class="language-plaintext highlighter-rouge">requireUintGte</code>: The <code class="language-plaintext highlighter-rouge">bytes32</code> <code class="language-plaintext highlighter-rouge">traitValue</code> MUST be greater than or equal to the value at the time the offer to purchase was made. This comparison is made using the <code class="language-plaintext highlighter-rouge">uint256</code> representation of the <code class="language-plaintext highlighter-rouge">bytes32</code> value.</li>
+  <li><code class="language-plaintext highlighter-rouge">requireUintLte</code>: The <code class="language-plaintext highlighter-rouge">bytes32</code> <code class="language-plaintext highlighter-rouge">traitValue</code> MUST be less than or equal to the value at the time the offer to purchase was made. This comparison is made using the <code class="language-plaintext highlighter-rouge">uint256</code> representation of the <code class="language-plaintext highlighter-rouge">bytes32</code> value.</li>
+</ul>
+
+<p>Note that even though this specification requires marketplaces to validate the required trait values, buyers and sellers cannot fully rely on marketplaces to do this and must also take their own precautions to research the current trait values prior to initiating the transaction.</p>
+
+<p>Here is an example of the specified schema:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"traits"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Color"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"dataType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"acceptableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="s2">"green"</span><span class="p">,</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"points"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Total Score"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"dataType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"decimal"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"signed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"decimals"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"validateOnSale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"requireUintGte"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"dataType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"maxLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"valueMappings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"0x0000000000000000000000000000000000000000000000000000000000000000"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unnamed"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"0x92e75d5e42b80de937d204558acf69c8ea586a244fe88bc0181323fe3b9e3ebf"</span><span class="p">:</span><span class="w"> </span><span class="s2">"🙂"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"tokenOwnerCanUpdateValue"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"birthday"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Birthday"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"dataType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epochSeconds"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"valueMappings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"0x0000000000000000000000000000000000000000000000000000000000000000"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"0x77c2fd45bd8bdef5b5bc773f46759bb8d169f3468caab64d7d5f2db16bb867a8"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"🚢 📅"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"dataType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epochSeconds"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"valueMappings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"0x0000000000000000000000000000000000000000000000000000000000000000"</span><span class="p">:</span><span class="w"> </span><span class="mi">1696702201</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="string-metadata-type"><code class="language-plaintext highlighter-rouge">string</code> Metadata Type</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">string</code> metadata type allows for a string value to be set for a trait.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dataType</code> object MAY have a <code class="language-plaintext highlighter-rouge">minLength</code> and <code class="language-plaintext highlighter-rouge">maxLength</code> value defined. If <code class="language-plaintext highlighter-rouge">minLength</code> is not specified, it is assumed to be 0. If <code class="language-plaintext highlighter-rouge">maxLength</code> is not specified, it is assumed to be a reasonable length.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dataType</code> object MAY have a <code class="language-plaintext highlighter-rouge">valueMappings</code> object defined. If the <code class="language-plaintext highlighter-rouge">valueMappings</code> object is defined, the <code class="language-plaintext highlighter-rouge">valueMappings</code> object MUST be a mapping of <code class="language-plaintext highlighter-rouge">bytes32</code> values to <code class="language-plaintext highlighter-rouge">string</code> or unset <code class="language-plaintext highlighter-rouge">null</code> values. The <code class="language-plaintext highlighter-rouge">bytes32</code> values SHOULD be the <code class="language-plaintext highlighter-rouge">keccak256</code> hash of the <code class="language-plaintext highlighter-rouge">string</code> value. The <code class="language-plaintext highlighter-rouge">string</code> values MUST be unique. If the trait for a token is updated to <code class="language-plaintext highlighter-rouge">null</code>, it is expected offchain indexers to delete the trait for the token.</p>
+
+<h4 id="decimal-metadata-type"><code class="language-plaintext highlighter-rouge">decimal</code> Metadata Type</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">decimal</code> metadata type allows for a numeric value to be set for a trait in decimal form.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dataType</code> object MAY have a <code class="language-plaintext highlighter-rouge">signed</code> value defined. If <code class="language-plaintext highlighter-rouge">signed</code> is not specified, it is assumed to be <code class="language-plaintext highlighter-rouge">false</code>. This determines whether the <code class="language-plaintext highlighter-rouge">traitValue</code> returned is interpreted as a signed or unsigned integer.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dataType</code> object MAY have <code class="language-plaintext highlighter-rouge">minValue</code> and <code class="language-plaintext highlighter-rouge">maxValue</code> values defined. These should be formatted with the decimals specified. If <code class="language-plaintext highlighter-rouge">minValue</code> is not specified, it is assumed to be the minimum value of <code class="language-plaintext highlighter-rouge">signed</code> and <code class="language-plaintext highlighter-rouge">decimals</code>. If <code class="language-plaintext highlighter-rouge">maxValue</code> is not specified, it is assumed to be the maximum value of the <code class="language-plaintext highlighter-rouge">signed</code> and <code class="language-plaintext highlighter-rouge">decimals</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dataType</code> object MAY have a <code class="language-plaintext highlighter-rouge">decimals</code> value defined. The <code class="language-plaintext highlighter-rouge">decimals</code> value MUST be a non-negative integer. The <code class="language-plaintext highlighter-rouge">decimals</code> value determines the number of decimal places included in the <code class="language-plaintext highlighter-rouge">traitValue</code> returned onchain. If <code class="language-plaintext highlighter-rouge">decimals</code> is not specified, it is assumed to be 0.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dataType</code> object MAY have a <code class="language-plaintext highlighter-rouge">valueMappings</code> object defined. If the <code class="language-plaintext highlighter-rouge">valueMappings</code> object is defined, the <code class="language-plaintext highlighter-rouge">valueMappings</code> object MUST be a mapping of <code class="language-plaintext highlighter-rouge">bytes32</code> values to numeric or unset <code class="language-plaintext highlighter-rouge">null</code> values.</p>
+
+<h4 id="boolean-metadata-type"><code class="language-plaintext highlighter-rouge">boolean</code> Metadata Type</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">boolean</code> metadata type allows for a boolean value to be set for a trait.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dataType</code> object MAY have a <code class="language-plaintext highlighter-rouge">valueMappings</code> object defined. If the <code class="language-plaintext highlighter-rouge">valueMappings</code> object is defined, the <code class="language-plaintext highlighter-rouge">valueMappings</code> object MUST be a mapping of <code class="language-plaintext highlighter-rouge">bytes32</code> values to <code class="language-plaintext highlighter-rouge">boolean</code> or unset <code class="language-plaintext highlighter-rouge">null</code> values. The <code class="language-plaintext highlighter-rouge">boolean</code> values MUST be unique.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">valueMappings</code> is not used, the default trait values for <code class="language-plaintext highlighter-rouge">boolean</code> should be <code class="language-plaintext highlighter-rouge">bytes32(0)</code> for <code class="language-plaintext highlighter-rouge">false</code> and <code class="language-plaintext highlighter-rouge">bytes32(uint256(1))</code> (<code class="language-plaintext highlighter-rouge">0x0000000000000000000000000000000000000000000000000000000000000001</code>) for <code class="language-plaintext highlighter-rouge">true</code>.</p>
+
+<h4 id="epochseconds-metadata-type"><code class="language-plaintext highlighter-rouge">epochSeconds</code> Metadata Type</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">epochSeconds</code> metadata type allows for a numeric value to be set for a trait in seconds since the Unix epoch.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dataType</code> object MAY have a <code class="language-plaintext highlighter-rouge">valueMappings</code> object defined. If the <code class="language-plaintext highlighter-rouge">valueMappings</code> object is defined, the <code class="language-plaintext highlighter-rouge">valueMappings</code> object MUST be a mapping of <code class="language-plaintext highlighter-rouge">bytes32</code> values to integer or unset <code class="language-plaintext highlighter-rouge">null</code> values.</p>
+
+<h3 id="events">Events</h3>
+
+<p>Updating traits MUST emit one of:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">TraitUpdated</code></li>
+  <li><code class="language-plaintext highlighter-rouge">TraitUpdatedRange</code></li>
+  <li><code class="language-plaintext highlighter-rouge">TraitUpdatedRangeUniformValue</code></li>
+  <li><code class="language-plaintext highlighter-rouge">TraitUpdatedList</code></li>
+  <li><code class="language-plaintext highlighter-rouge">TraitUpdatedListUniformValue</code></li>
+</ul>
+
+<p>For the <code class="language-plaintext highlighter-rouge">Range</code> events, the <code class="language-plaintext highlighter-rouge">fromTokenId</code> and <code class="language-plaintext highlighter-rouge">toTokenId</code> MUST be a consecutive range of tokens IDs and MUST be treated as an inclusive range.</p>
+
+<p>For the <code class="language-plaintext highlighter-rouge">List</code> events, the <code class="language-plaintext highlighter-rouge">tokenIds</code> MAY be in any order.</p>
+
+<p>It is RECOMMENDED to use the <code class="language-plaintext highlighter-rouge">UniformValue</code> events when the trait value is uniform across all token ids, so offchain indexers can more quickly process bulk updates rather than fetching each trait value individually.</p>
+
+<p>Updating the trait metadata MUST emit the event <code class="language-plaintext highlighter-rouge">TraitMetadataURIUpdated</code> so offchain indexers can be notified to query the contract for the latest changes via <code class="language-plaintext highlighter-rouge">getTraitMetadataURI()</code>.</p>
+
+<h3 id="settrait"><code class="language-plaintext highlighter-rouge">setTrait</code></h3>
+
+<p>If a trait defines <code class="language-plaintext highlighter-rouge">tokenOwnerCanUpdateValue</code> as <code class="language-plaintext highlighter-rouge">true</code>, then the trait value MUST be updatable by the token owner by calling <code class="language-plaintext highlighter-rouge">setTrait</code>.</p>
+
+<p>If the value the token owner is attempting to set is not valid, the transaction MUST revert. If the value is valid, the trait value MUST be updated and one of the <code class="language-plaintext highlighter-rouge">TraitUpdated</code> events MUST be emitted.</p>
+
+<p>If the trait has a <code class="language-plaintext highlighter-rouge">valueMappings</code> entry defined for the desired value being set, <code class="language-plaintext highlighter-rouge">setTrait</code> MUST be called with the corresponding <code class="language-plaintext highlighter-rouge">traitValue</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The design of this specification is primarily a key-value mapping for maximum flexibility. This interface for traits was chosen instead of relying on using regular <code class="language-plaintext highlighter-rouge">getFoo()</code> and <code class="language-plaintext highlighter-rouge">setFoo()</code> style functions to allow for brevity in defining, setting, and getting traits. Otherwise, contracts would need to know both the getter and setter function selectors including the parameters that go along with it. In defining general but explicit get and set functions, the function signatures are known and only the trait key and values are needed to query and set the values. Contracts can also add new traits in the future without needing to modify contract code.</p>
+
+<p>The traits metadata allows for customizability of both display and behavior. The <code class="language-plaintext highlighter-rouge">valueMappings</code> property can define human-readable values to enhance the traits, for example, the default label of the <code class="language-plaintext highlighter-rouge">0</code> value (e.g. if the key was “redeemed”, “0” could be mapped to “No”, and “1” to “Yes”). The <code class="language-plaintext highlighter-rouge">validateOnSale</code> property lets the token creator define which traits should be protected on order creation and fulfillment, to protect end users against frontrunning.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>As a new EIP, no backwards compatibility issues are present, except for the point in the specification above that it is explicitly required that the onchain traits MUST override any conflicting values specified by the ERC-721 or ERC-1155 metadata URIs.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Authors have included Foundry tests covering functionality of the specification in the <a href="../assets/eip-7496/ERC721DynamicTraits.t.sol">assets folder</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Authors have included reference implementations of the specification in the <a href="../assets/eip-7496/DynamicTraits.sol">assets folder</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The set* methods exposed externally MUST be permissioned so they are not callable by everyone but only by select roles or addresses.</p>
+
+<p>Marketplaces SHOULD NOT trust offchain state of traits as they can be frontrunned. Marketplaces SHOULD check the current state of onchain traits at the time of transfer. Marketplaces MAY check certain traits that change the value of the NFT (e.g. redemption status, defined by metadata values with <code class="language-plaintext highlighter-rouge">validateOnSale</code> property) or they MAY hash all the trait values to guarantee the same state at the time of order creation.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

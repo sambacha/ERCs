@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>ERC-721 Consecutive Transfer Extension | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="ERC-721 Consecutive Transfer Extension | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-2309" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-2309" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">ERC-721 Consecutive Transfer Extension</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A standardized event emitted when creating/transferring one, or many non-fungible tokens using consecutive token identifiers.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>The optional ERC-721 Consecutive Transfer Extension provides a standardized event which could be emitted during the creation/transfer of one, or many non-fungible tokens. This standard does not set the expectation of how you might create/transfer many tokens it is only concerned with the event emitted after the creation, or transfer of ownership of these tokens. This extension assumes that token identifiers are in consecutive order.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>This extension provides even more scalibility of the <a href="./eip-721.md">ERC-721 specification</a>. It is possible to create, transfer, and burn 2^256 non-fungible tokens in one transaction. However, it is not possible to emit that many <code class="language-plaintext highlighter-rouge">Transfer</code> events in one transaction. The <code class="language-plaintext highlighter-rouge">Transfer</code> event is part of the original specification which states:</p>
+
+<blockquote>
+  <p>This emits when ownership of any NFT changes by any mechanism.
+This event emits when NFTs are created (<code class="language-plaintext highlighter-rouge">from</code> == 0) and destroyed
+(<code class="language-plaintext highlighter-rouge">to</code> == 0). Exception: during contract creation, any number of NFTs
+may be created and assigned without emitting Transfer. At the time of
+any transfer, the approved address for that NFT (if any) is reset to none.</p>
+</blockquote>
+
+<p>This allows for the original <code class="language-plaintext highlighter-rouge">Transfer</code> event to be emitted for one token at a time, which in turn gives us O(n) time complexity. Minting one billion NFTs can be done in one transaction using efficient data structures, but in order to emit the <code class="language-plaintext highlighter-rouge">Transfer</code> event - according to the original spec - one would need a loop with one billion iterations which is bound to run out of gas, or exceed transaction timeout limits. This cannot be accomplished with the current spec. This extension solves that problem.</p>
+
+<p>Many decentralized marketplaces and block explorers utilize the <code class="language-plaintext highlighter-rouge">Transfer</code> event as a way to determine which NFTs an address owns. The Consecutive Transfer Extension provides a standard mechanism for these platforms to use to determine ownership of many tokens.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL
+NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and
+“OPTIONAL” in this document are to be interpreted as described in
+RFC 2119.</p>
+
+<p><strong>ERC-721 compliant contracts MAY implement this Consecutive Transfer Extension to provide a standard event to be emitted at the time of creation, burn, or transfer of one or many consecutive tokens</strong></p>
+
+<p>The address executing the transaction <strong>MUST</strong> own all the tokens within the range of <code class="language-plaintext highlighter-rouge">fromTokenId</code> and <code class="language-plaintext highlighter-rouge">toTokenId</code>, or <strong>MUST</strong> be an approved operator to act on the owners behalf.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">fromTokenId</code> and <code class="language-plaintext highlighter-rouge">toTokenId</code> <strong>MUST</strong> be a consecutive range of tokens IDs.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">fromTokenId</code>, <code class="language-plaintext highlighter-rouge">fromAddress</code>, and <code class="language-plaintext highlighter-rouge">toAddress</code> <strong>MUST</strong> be indexed parameters</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">toTokenId</code> <strong>MUST NOT</strong> be an indexed parameter</p>
+
+<p>When minting/creating tokens, the <code class="language-plaintext highlighter-rouge">fromAddress</code> argument <strong>MUST</strong> be set to <code class="language-plaintext highlighter-rouge">0x0</code> (i.e. zero address).</p>
+
+<p>When burning/destroying tokens, the <code class="language-plaintext highlighter-rouge">toAddress</code> argument <strong>MUST</strong> be set to <code class="language-plaintext highlighter-rouge">0x0</code> (i.e. zero address).</p>
+
+<p>When emitting the ConsecutiveTransfer event the Transfer event <strong>MUST NOT</strong> be emitted</p>
+
+<p>Contracts that implement the <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> event <strong>MAY</strong> still use the original <code class="language-plaintext highlighter-rouge">Transfer</code> event, however when emitting the <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> event the <code class="language-plaintext highlighter-rouge">Transfer</code> event <strong>MUST NOT</strong> be emitted.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">event</span> <span class="n">ConsecutiveTransfer</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">fromTokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">toTokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">fromAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">toAddress</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="examples">Examples</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> event can be used for a single token as well as many tokens:</p>
+
+<p><strong>Single token creation</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">emit ConsecutiveTransfer(1, 1, address(0), toAddress);</code></p>
+
+<p><strong>Batch token creation</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">emit ConsecutiveTransfer(1, 100000, address(0), toAddress);</code></p>
+
+<p><strong>Batch token transfer</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">emit ConsecutiveTransfer(1, 100000, fromAddress, toAddress);</code></p>
+
+<p><strong>Burn</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">emit ConsecutiveTransfer(1, 100000, from, address(0));</code></p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Standardizing the <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> event gives decentralized platforms a standard way of determining ownership of large quantities of non-fungible tokens without the need to support a new token standard. There are many ways in which the batch creation and transfer of NFTs can be implemented. The Consecutive Transfer Extension allows contract creators to implement batch creation, transfer, and burn methods however they see fit, but provides a standardized event in which all implementations can use. By specifying a range of consecutive token identifiers we can easily cover the transfer, or creation of 2^(256) tokens and decentralized platforms can react accordingly.</p>
+
+<p>Take this example. I sell magical fruit and have a farm with 10,000 magical fruit trees each with different fruit and 1,000 new trees every few years. I want to turn each tree into a non-fungible token that people can own. Each person that owns one of my non-fungible tree tokens will receive a quarterly percentage of each harvest from that tree. The problem is that I would need to create and transfer each of these tokens individually - which will cost me a lot of time and money and frankly would keep me from doing this.</p>
+
+<p>With this extension I would be able to to mint my initial 10,000  tree tokens in one transaction. I would be able to quickly and cheaply mint my additional 1,000  tree tokens when a new batch is planted. I would then be able to transfer all of the 10,000+ tree tokens to a special smart contract that keeps track of the selling and distribution of funds in one transaction all while adhering to a specified standard.</p>
+
+<p><strong>Rationale to have a single event that covers minting, burning, and transferring</strong></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> event can be used to cover minting, burning, and transferring events. While there may have been confusion in the beginning adhering to transfer to/from “0” pattern this is mitigated by checking for the <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> topic and verifying the emitting contract supports the ERC-721 interface by using the ERC-165 standard.</p>
+
+<p><strong>Indexed event parameters</strong></p>
+
+<p>Events in Solidity can have up to three indexed parameters which will make it possible to filter for specific values of indexed arguments. This standard sets the <code class="language-plaintext highlighter-rouge">fromAddress</code>, <code class="language-plaintext highlighter-rouge">toAddress</code>, and <code class="language-plaintext highlighter-rouge">fromTokenId</code> as the indexed parameters. The <code class="language-plaintext highlighter-rouge">toTokenId</code> can be retrieved from the data part of the log. The reason for this is that more often than not one may be searching for events to learn about the history of ownership for a given address. The <code class="language-plaintext highlighter-rouge">fromTokenId</code> can then be retrieved along with the other two indexed parameters for simplicity. Then one only needs to decode the log data which is ensured to be the <code class="language-plaintext highlighter-rouge">toTokenId</code>.</p>
+
+<p><strong>Rationale to not emit <code class="language-plaintext highlighter-rouge">Transfer</code> when <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> is also emitted</strong></p>
+
+<p>This can lead to bugs and unnecessary complex logic for platforms using these events to track token ownership. When transferring a single token it is acceptable to emit the original <code class="language-plaintext highlighter-rouge">Transfer</code> event, but the <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> event should not be emitted during the same transaction and vice-versa.</p>
+
+<p><strong>Comparing 2309 and 1155</strong></p>
+
+<p>As the NFT market continues to grow so does the need for the ability to scale the smart contracts. Users need to be able to do things like mint a massive amount of tokens at one time, transfer a massive amount of tokens, and be able to track ownership of all these assets. We need to do this in a way that is cost effective and doesn’t fail under the confines of the Ethereum blockchain. As millions of tokens are minted we need contracts with the ability to scale.</p>
+
+<p><a href="./eip-1155.md">ERC-1155</a> was created and added as a standard in 2019 to try to solve these problems, but it falls short when it comes to minting massive amounts of unique tokens in a cost-effective way. With ERC-1155 it’s either going to cost hundreds (or thousands) of dollars or it’s going to run out of gas. ERC-1155 works well when minting many semi-fungible tokens but falls short when minting many unique tokens. Using the 2309 standard you could mint millions of blank NFTs upfront and update the metadata for each one in a cost effective way.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This extension was written to allow for the smallest change possible to the original ERC-721 spec while still providing a mechanism to track the creation, transfer, and deletion of a massive amount of tokens. While it is a minimal change the effects on platforms that only use the original <code class="language-plaintext highlighter-rouge">Transfer</code> event to index token ownership would be severe. They would not be properly recording token ownership information that could be known by listening for the <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> event. For platforms that wish to support the <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> event it would be best to support both the original <code class="language-plaintext highlighter-rouge">Transfer</code> event and the <code class="language-plaintext highlighter-rouge">ConsecutiveTransfer</code> event to track token ownership.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+<p>There are no security considerations related directly to the implementation of this standard.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

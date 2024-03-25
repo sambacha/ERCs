@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>NFT Legal Use, Repurposing, and Remixing | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="NFT Legal Use, Repurposing, and Remixing | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5554" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5554" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">NFT Legal Use, Repurposing, and Remixing</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP extends any other token standard to provide:</p>
+
+<ul>
+  <li>Explicit rights for the token holder related to commercial exploitation, derivative works, and reproduction;</li>
+  <li><a href="./eip-5218.md">EIP-5218</a> interface for creating, viewing, and checking the status of licenses</li>
+  <li>Standard format for extended license information in the token metadata;</li>
+  <li>Standard events to track off chain creation of derivative works, commercial exploitation, and reproduction;</li>
+  <li>On chain tracking of derivative works and reproductions</li>
+  <li>Additional required fields in the smart contract to reference the copyright owner</li>
+  <li>Function calls for commercial exploitation, derivative works and reproduction.</li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+<p>NFTs still face legal uncertainty, and many now realize that the rights associated with an NFT are just as important as the NFT itself. Our goal is to help the ecosystem reach clear consensus and broad understanding of what purchasers of NFTs are acquiring in terms of copyright or other rights.</p>
+
+<p>Today, purchasing the NFT of a digital work is not the same as purchasing the copyright in that work. In most cases, the NFT does not even incorporate the digital work; it only references it via a hash. Hence, the NFT holder owns a unique digital copy of the work, but does not necessarily enjoy the right to reproduce, redistribute, or otherwise exploit that work—unless explicitly provided for by the copyright owner. It typically only includes the right to privately enjoy the work and display it publicly on social media or in virtual galleries.</p>
+
+<p>We aim to create a new set of licenses with modular terms and conditions—à la Creative Commons—in order to enable artists to increase the value of their NFT by associating additional rights to them (e.g. the right to create derivative works, or to allow for the commercial usage of the underlying works). Our solution will allow for any licensed rights to be granted, only and exclusively, to the current holders of an NFT, and to be transferred automatically to the new token holders every time the NFT is being transferred.</p>
+
+<p>An on chain registry of copyrighted material will help in discovery of the rights associated with the NFTs that have been created with this protocol.</p>
+
+<p>Our current work is drafting the legalese and technical specifications.</p>
+
+<h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Every contract compliant with this EIP must implement the <code class="language-plaintext highlighter-rouge">IERC5554</code> interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC5554</span> <span class="k">is</span> <span class="n">IERC5218</span> <span class="p">{</span>
+
+    <span class="k">event</span> <span class="n">CommercialExploitation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_externalUri</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">ReproductionCreated</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_reproductionId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_reproduction</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_reproductionTokenId</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">DerivativeCreated</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_derivativeId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_derivative</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_derivativeTokenId</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Retrieve the copyright owner address
+</span>    <span class="c1">/// @dev Throws unless the token exists
+</span>    <span class="c1">/// @param tokenId The identifier for the queried token
+</span>    <span class="c1">/// @return address of the copyright owner
+</span>    <span class="k">function</span> <span class="n">getCopyrightOwner</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">virtual</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+    
+    <span class="c1">/// @notice Requests to log an execution of a license
+</span>    <span class="c1">/// @dev Throws unless the token issuance conditions are met
+</span>    <span class="c1">/// @param tokenId The identifier for the queried token
+</span>    <span class="c1">/// @return uint256 tracking reproduction ID
+</span>    <span class="k">function</span> <span class="n">logReproduction</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">reproduction</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">reproductionTokenId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">virtual</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Requests to log an executions of a license
+</span>    <span class="c1">/// @dev Throws unless the token issuance conditions are met
+</span>    <span class="c1">/// @param tokenId The identifier for the queried token
+</span>    <span class="c1">/// @return uint256 tracking derivative ID
+</span>    <span class="k">function</span> <span class="n">logDerivative</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">derivative</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">derivativeTokenId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">virtual</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Requests to log an execution of a license
+</span>    <span class="c1">/// @dev Throws unless the commercial exploitation conditions are met
+</span>    <span class="c1">/// @param tokenId The identifier for the queried token
+</span>    <span class="k">function</span> <span class="n">logCommercialExploitation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">uri</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Retrieve the token associated with a reproduction
+</span>    <span class="c1">/// @dev Throws unless the reproduction exists
+</span>    <span class="c1">/// @param _reproductionId The identifier for the reproduction
+</span>    <span class="c1">/// @return uint256 The identifier for the token used to generate the reproduction
+</span>    <span class="k">function</span> <span class="n">getReproductionTokenId</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_reproductionId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Retrieve the token associated with a reproduction
+</span>    <span class="c1">/// @dev Throws unless the reproduction exists
+</span>    <span class="c1">/// @param _reproductionId The identifier for the reproduction
+</span>    <span class="c1">/// @return uint256 The identifier for the license used to generate the reproduction
+</span>    <span class="k">function</span> <span class="n">getReproductionLicenseId</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_reproductionId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Retrieve the token associated with a reproduction
+</span>    <span class="c1">/// @dev Throws unless the reproduction exists
+</span>    <span class="c1">/// @param _reproductionId The identifier for the derivative work
+</span>    <span class="c1">/// @return address The address of the reproduction collection
+</span>    <span class="k">function</span> <span class="n">getReproductionCollection</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_reproductionId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Retrieve the token associated with a derivative
+</span>    <span class="c1">/// @dev Throws unless the derivative exists
+</span>    <span class="c1">/// @param _derivativeId The identifier for the derivative work
+</span>    <span class="c1">/// @return uint256 The identifier for the token used to generate the derivative work
+</span>    <span class="k">function</span> <span class="n">getDerivativeTokenId</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_derivativeId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Retrieve the token associated with a derivative
+</span>    <span class="c1">/// @dev Throws unless the derivative exists
+</span>    <span class="c1">/// @param _derivativeId The identifier for the derivative work
+</span>    <span class="c1">/// @return uint256 The identifier for the license used to generate the derivative work
+</span>    <span class="k">function</span> <span class="n">getDerivativeLicenseId</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_derivativeId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Retrieve the token associated with a derivative
+</span>    <span class="c1">/// @dev Throws unless the derivative exists
+</span>    <span class="c1">/// @param _derivativeId The identifier for the derivative work
+</span>    <span class="c1">/// @return address The address of the derivative collection
+</span>    <span class="k">function</span> <span class="n">getDerivativeCollection</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_derivativeId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="token-based-attribution-remix">Token based Attribution/ Remix</h3>
+<p>On chain derivative works and reproductions</p>
+<ul>
+  <li>Reproductions and derivative works are tracked in the contract.</li>
+</ul>
+
+<h3 id="event-based-attribution">Event based attribution</h3>
+<p>For commercial exploitation or other off-chain uses of a creative work, this EIP defines events to be emitted to track the use of the work.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">CommercialExploitation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenID</span><span class="p">,</span> <span class="kt">string</span> <span class="n">uri</span><span class="p">)</span>
+
+<span class="k">function</span> <span class="n">logCommercialExploitation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">uri</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="kt">bool</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="example">Example:</h4>
+<p>When a token holder uses an NFT for off-chain merchandise, log a reference to the off-chain work in the event uri</p>
+
+<h3 id="required-fields">Required fields</h3>
+
+<pre><code class="language-solifity">function copyrightOwner(uint256 tokenId) external returns address;
+</code></pre>
+
+<p>Copyright owner per tokenID. Could just be the tokenID owner in a simple use case, or something else if desired by the creator.</p>
+
+<h2 id="rationale">Rationale</h2>
+<p>We expand here upon the Motivation section to justify every decision made with regard to the specs of the standard:</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">getLicenseId()</code> function takes a tokenID as a parameter, making it possible for different tokenID to be associated with different licensing terms.</p>
+
+<p>LicenseURI links to a content-addressed file that stipulates the terms and conditions of the license in actual legal language, so that the license can be read and understood by those who want to understand which rights are associated with the work of authorship, and which additional rights are granted through the acquisition of the NFT.</p>
+
+<p>When the license allows for the reproduction and/or for the creation of a derivative work only to the token holders, there needs to be a way to verify that the new NFT or the derivative NFT was created legitimately. The standard ensures this by enabling the current token holder to call a function, e.g. logDerivative which checks that the caller has a valid license to execute</p>
+
+<p>For commercial exploitation or other off-chain uses of a creative work, the standard implements the <code class="language-plaintext highlighter-rouge">logCommercialExploitation()</code> that makes it possible to keep track of which commercial exploitations have been made, and when. This makes it possible to verify that all commercial exploitation were legitimately done.</p>
+
+<p>The standard introduces a new field, <code class="language-plaintext highlighter-rouge">copyrightOwner</code>, which indicates the address of the current holder of the copyright in the work. If multiple copyright owners exist, a multisig address (or DAO) can be used.</p>
+
+<p>The artist address is not registered as an on-chain variable, but rather as part of the metadata, because it is an immutable field.</p>
+
+<p>If any, the parents of the work (i.e. the works that it is derived upon) must be part of the metadata information, so that people can verify that the NFT has obtained a DerivativeWork for each one of its parents.</p>
+
+<p>This licensing framework is intended to create a system to facilitate the licensing of rights that “follow the token” through a public licensing framework. This is not meant to be used for cases in which an exclusive right is licensed through a personal license to a specific actor (e.g. the copyright owner providing a third-party with the right to commercially exploit the work, regardless of whether they hold the token). This also is not designed to account for the sub-licensing case (e.g. licensing the right to one party to license third parties to engage in commercial exploitation), since this should rather be done via a personal copyright licensing scheme.</p>
+
+<h3 id="examples">Examples</h3>
+
+<h4 id="bored-koalas-merchandising">Bored Koalas merchandising</h4>
+
+<p>Vigdís creates a PFP collection of Bored Koalas, which is subject to standard copyright restrictions: no one has the right to reproduce, distribute, communicate, commercialize or remix these works. However, she wants to give specific permissions to those who hold a NFT from the collection. She mints the collection with this EIP, introducing a conditional license that allows for the current token holder to display the Bored Koala associated with each NFT and commercialize it for the purpose of merchandising only.</p>
+
+<p>Neža has purchased one of these Bored Koalas. She wants to produce merchandising to be distributed at his blockchain conference. She goes to a print shop and asks them to make t-shirts with the Bored Koala image of the NFT she has purchased. The print shop can verify that she has the right to commercially exploit the work by verifying that they are the holder of the Bored Koala NFT, and verifying the terms of the license associated with it. (NB: this does not require a sub-license to be granted to the print shop, because the commercial exploitation implies the right to commission third parties to engage in such commercial exploitation). Neža brings the t-shirts to her conference and puts them for sale. When doing so, she calls the <code class="language-plaintext highlighter-rouge">logCommercialExploitation()</code> function from the NFT smart contract in order to track that the commercial exploitation was done at a time while she was the token holder.</p>
+
+<h4 id="musical-remix">Musical Remix</h4>
+
+<p>Matti is an up and coming songwriter in the emerging web3 music ecosystem. For the upcoming crypto conference, he creates a hit song called “Degens in the Night”. Instead of listing the song on a web2 platform, Matti mints the song as an NFT using this EIP, with a dual licensing scheme: a general public licenses that allows for the free reproduction and redistribution of the work, given proper attribution (e.g. Creative Commons BY-NC-ND) and a conditional license which allows for the token holder to remix the song, in exchange of a particular lump sum (e.g. 1ETH) and under the condition that the derivative work is released under the same licensing terms as the original work Lyyli wants to create a cover of that song, which she calls “Degens in the Parisian Night”. She purchases the NFT and mints a new derivative NFT under a new smart contract using this EIP standard. She then calls the <code class="language-plaintext highlighter-rouge">requestDerivativeToken()</code> function and send 1ETH to the original NFT smart contract, in order to request that a DerivativeToken be assigned to the new smart contract she has created. The smart contract automatically approves the request to assign a Derivative Token to the new smart contract of Lyyli. This can be used as a proof that the derivative work is indeed a legitimate work, which has been approved by the copyright owner of the original work. During the conference hundreds of other web3 music creators host a side event with Degens in the Night remixes playing until 4am.</p>
+
+<h4 id="royalties-remix">Royalties Remix</h4>
+
+<p>Alice created a 3D model of a motorcycle, which she wants everyone to remix, under the condition that she gets royalty from the commercial exploitation of all derivative works. She release her work as an NFT with this EIP, with a dual licensing scheme: a general public licenses that allows for the free reproduction and redistribution of the work, given proper attribution (e.g. Creative Commons BY-NC-ND) and a conditional license which allows for the token holder to remix the song, under the condition that the derivative work is released under the same licensing terms as the original work, and that there is a split of the royalties between himself and the remixer.</p>
+
+<p>Jane wants to create a derivative work of the motorcycle. She purchases the NFT and mints a new derivative NFT under a new smart contract that uses this EIP, which includes a royalty split for Alice. She then calls the <code class="language-plaintext highlighter-rouge">requestDerivativeToken()</code> function from the original NFT smart contract in order to request that a DerivativeToken be assigned to the new smart contract she has created. Alice decided that the smart contract shall not automate the approval or rejection of the request, but rather wait for her to validate or invalidate the request, after she has verified that the design and provisions of the new smart contract, namely that it does indeed replicate the same terms and conditions as the original work and that it incorporates the proper amount of royalties. She approves the request to assign a Derivative Token to the new smart contract of Jane. When people purchase Jane’s NFT, the royalties are split to ensure the proper redistribution of the generated profit to Alice.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>The interface defined in this standard is backward compatible with most NFT standards used in the Ethereum ecosystem as of this writing.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+<p>Needs discussion.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

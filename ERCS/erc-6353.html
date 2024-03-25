@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Charity token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Charity token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6353" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6353" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Charity token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>An extension to <a href="./eip-20.md">EIP-20</a> that can automatically send an additional percentage of each transfer to a third party, and that provides an interface for retrieving this information. This can allow token owners to make donations to a charity with every transfer. This can also be used to allow automated savings programs.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There are charity organizations with addresses on-chain, and there are token holders who want to make automated donations. Having a standardized way of collecting and managing these donations helps users and user interface developers. Users can make an impact with their token and can contribute to achieving sustainable blockchain development. Projects can easily retrieve charity donations addresses and rate for a given <a href="./eip-20.md">EIP-20</a> token, token holders can compare minimum rate donation offers allowed by token contract owners. This standard provides functionality that allows token holders to donate easily.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Owner of the contract <strong>MAY</strong>, after review, register charity address in <code class="language-plaintext highlighter-rouge">whitelistedRate</code> and set globally a default rate of donation. To register the address, the rate <strong>MUST</strong> not be null.</p>
+
+<p>Token holders <strong>MAY</strong> choose and specify a default charity address from <code class="language-plaintext highlighter-rouge">_defaultAddress</code>, this address <strong>SHOULD</strong> be different from the null address for the donation to be activated.</p>
+
+<p>The donation is a percentage-based rate model, but the calculation can be done differently. Applications and individuals can implement this standard by retrieving information with <code class="language-plaintext highlighter-rouge">charityInfo()</code> , which specifies an assigned rate for a given address.</p>
+
+<p>This standard provides functionality that allows token holders to donate easily. The donation when activated is done directly in the overridden <code class="language-plaintext highlighter-rouge">transfer</code>, <code class="language-plaintext highlighter-rouge">transferFrom</code>, and <code class="language-plaintext highlighter-rouge">approve</code> functions.</p>
+
+<p>When <code class="language-plaintext highlighter-rouge">transfer</code>, <code class="language-plaintext highlighter-rouge">transferFrom</code> are called the sender’s balance is reduced by the initial amount and a donation amount is deduced. The initial transfered amount is transferred to the recipient’s balance and an additional donation amount is transfered to a third party (charity). The two transfer are done at the same time and emit two <code class="language-plaintext highlighter-rouge">Transfer</code> events.
+Also, if the account has an insufficient balance to cover the transfer and the donation the whole transfer would revert.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+
+<span class="c1">///
+/// @dev Required interface of an ERC20 Charity compliant contract.
+///
+</span><span class="k">interface</span> <span class="n">IERC20charity</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+    <span class="c1">/// The EIP-165 identifier for this interface is 0x557512b6
+</span>
+    
+    <span class="cm">/**
+     * @dev Emitted when `toAdd` charity address is added to `whitelistedRate`.
+     */</span>
+    <span class="k">event</span> <span class="n">AddedToWhitelist</span> <span class="p">(</span><span class="kt">address</span> <span class="n">toAdd</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Emitted when `toRemove` charity address is deleted from `whitelistedRate`.
+     */</span>
+    <span class="k">event</span> <span class="n">RemovedFromWhitelist</span> <span class="p">(</span><span class="kt">address</span> <span class="n">toRemove</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Emitted when `_defaultAddress` charity address is modified and set to `whitelistedAddr`.
+     */</span>
+    <span class="k">event</span> <span class="n">DonnationAddressChanged</span> <span class="p">(</span><span class="kt">address</span> <span class="n">whitelistedAddr</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Emitted when `_defaultAddress` charity address is modified and set to `whitelistedAddr` 
+    * and _donation is set to `rate`.
+     */</span>
+    <span class="k">event</span> <span class="n">DonnationAddressAndRateChanged</span> <span class="p">(</span><span class="kt">address</span> <span class="n">whitelistedAddr</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">rate</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Emitted when `whitelistedRate` for `whitelistedAddr` is modified and set to `rate`.
+     */</span>
+    <span class="k">event</span> <span class="n">ModifiedCharityRate</span><span class="p">(</span><span class="kt">address</span> <span class="n">whitelistedAddr</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">rate</span><span class="p">);</span>
+    
+    <span class="cm">/**
+    *@notice Called with the charity address to determine if the contract whitelisted the address
+    *and if it is the rate assigned.
+    *@param addr - the Charity address queried for donnation information.
+    *@return whitelisted - true if the contract whitelisted the address to receive donnation
+    *@return defaultRate - the rate defined by the contract owner by default , the minimum rate allowed different from 0
+    */</span>
+    <span class="k">function</span> <span class="n">charityInfo</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">addr</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">bool</span> <span class="n">whitelisted</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">defaultRate</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+    *@notice Add address to whitelist and set rate to the default rate.
+    * @dev Requirements:
+     *
+     * - `toAdd` cannot be the zero address.
+     *
+     * @param toAdd The address to whitelist.
+     */</span>
+    <span class="k">function</span> <span class="n">addToWhitelist</span><span class="p">(</span><span class="kt">address</span> <span class="n">toAdd</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+    *@notice Remove the address from the whitelist and set rate to the default rate.
+    * @dev Requirements:
+     *
+     * - `toRemove` cannot be the zero address.
+     *
+     * @param toRemove The address to remove from whitelist.
+     */</span>
+    <span class="k">function</span> <span class="n">deleteFromWhitelist</span><span class="p">(</span><span class="kt">address</span> <span class="n">toRemove</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+    *@notice Get all registered charity addresses.
+     */</span>
+    <span class="k">function</span> <span class="n">getAllWhitelistedAddresses</span><span class="p">()</span> <span class="k">external</span> <span class="p">;</span>
+
+    <span class="cm">/**
+    *@notice Display for a user the rate of the default charity address that will receive donation.
+     */</span>
+    <span class="k">function</span> <span class="n">getRate</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *@notice Set personlised rate for charity address in {whitelistedRate}.
+    * @dev Requirements:
+     *
+     * - `whitelistedAddr` cannot be the zero address.
+     * - `rate` cannot be inferior to the default rate.
+     *
+     * @param whitelistedAddr The address to set as default.
+     * @param rate The personalised rate for donation.
+     */</span>
+    <span class="k">function</span> <span class="n">setSpecificRate</span><span class="p">(</span><span class="kt">address</span> <span class="n">whitelistedAddr</span> <span class="p">,</span> <span class="kt">uint256</span> <span class="n">rate</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+    *@notice Set for a user a default charity address that will receive donation. 
+    * The default rate specified in {whitelistedRate} will be applied.
+    * @dev Requirements:
+     *
+     * - `whitelistedAddr` cannot be the zero address.
+     *
+     * @param whitelistedAddr The address to set as default.
+     */</span>
+    <span class="k">function</span> <span class="n">setSpecificDefaultAddress</span><span class="p">(</span><span class="kt">address</span> <span class="n">whitelistedAddr</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+    *@notice Set for a user a default charity address that will receive donation. 
+    * The rate is specified by the user.
+    * @dev Requirements:
+     *
+     * - `whitelistedAddr` cannot be the zero address.
+     * - `rate` cannot be less than to the default rate 
+     * or to the rate specified by the owner of this contract in {whitelistedRate}.
+     *
+     * @param whitelistedAddr The address to set as default.
+     * @param rate The personalised rate for donation.
+     */</span>
+    <span class="k">function</span> <span class="n">setSpecificDefaultAddressAndRate</span><span class="p">(</span><span class="kt">address</span> <span class="n">whitelistedAddr</span> <span class="p">,</span> <span class="kt">uint256</span> <span class="n">rate</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+    *@notice Display for a user the default charity address that will receive donation. 
+    * The default rate specified in {whitelistedRate} will be applied.
+     */</span>
+    <span class="k">function</span> <span class="n">specificDefaultAddress</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">address</span> <span class="n">defaultAddress</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+    *@notice Delete The Default Address and so deactivate donnations .
+     */</span>
+    <span class="k">function</span> <span class="n">deleteDefaultAddress</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h3 id="functions">Functions</h3>
+
+<h4 id="addtowhitelist"><strong>addToWhitelist</strong></h4>
+
+<p>Add address to whitelist and set the rate to the default rate.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>toAdd</td>
+      <td>The address to the whitelist.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="deletefromwhitelist"><strong>deleteFromWhitelist</strong></h4>
+
+<p>Remove the address from the whitelist and set rate to the default rate.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>toRemove</td>
+      <td>The address to remove from whitelist.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="getallwhitelistedaddresses"><strong>getAllWhitelistedAddresses</strong></h4>
+
+<p>Get all registered charity addresses.</p>
+
+<h4 id="getrate"><strong>getRate</strong></h4>
+
+<p>Display for a user the rate of the default charity address that will receive donation.</p>
+
+<h4 id="setspecificrate"><strong>setSpecificRate</strong></h4>
+
+<p>Set personalized rate for charity address in {whitelistedRate}.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>whitelistedAddr</td>
+      <td>The address to set as default.</td>
+    </tr>
+    <tr>
+      <td>rate</td>
+      <td>The personalised rate for donation.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="setspecificdefaultaddress"><strong>setSpecificDefaultAddress</strong></h4>
+
+<p>Set for a user a default charity address that will receive donations. The default rate specified in {whitelistedRate} will be applied.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>whitelistedAddr</td>
+      <td>The address to set as default.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="setspecificdefaultaddressandrate"><strong>setSpecificDefaultAddressAndRate</strong></h4>
+
+<p>Set for a user a default charity address that will receive donations. The rate is specified by the user.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>whitelistedAddr</td>
+      <td>The address to set as default.</td>
+    </tr>
+    <tr>
+      <td>rate</td>
+      <td>The personalized rate for donation.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="specificdefaultaddress"><strong>specificDefaultAddress</strong></h4>
+
+<p>Display for a user the default charity address that will receive donations. The default rate specified in {whitelistedRate} will be applied.</p>
+
+<h4 id="deletedefaultaddress"><strong>deleteDefaultAddress</strong></h4>
+
+<p>Delete The Default Address and so deactivate donations.</p>
+
+<h4 id="charityinfo"><strong>charityInfo</strong></h4>
+
+<p>Called with the charity address to determine if the contract whitelisted the address and if it is, the rate assigned.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>addr</td>
+      <td>The Charity address queried for donnation information.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This EIP chooses to whitelist charity addresses by using an array and keeping track of the “active” status with a mapping <code class="language-plaintext highlighter-rouge">whitelistedRate</code> to allow multiple choice of recipient and for transparence. The donation address can also be a single address chosen by the owner of the contract and modified by period.</p>
+
+<p>If the sender balance is insuficent i.e total amount of token (initial transfer + donation) is insuficent the transfer would revert. Donation are done in the <code class="language-plaintext highlighter-rouge">transfer</code> function to simplify the usage and to not add an additional function, but the implementation could be donne differently, and for exemple allow a transfer to go through without the donation amount when donation is activated. The token implementer can also choose to store the donation in the contract or in another one and add a withdrawal or claimable function, so the charity can claim the allocated amount of token themselves, the additional transfer will be triggered by the charity and not the token holder.</p>
+
+<p>Also, donations amount are calculated here as a percentage of the amount of token transfered to allow different case scenario, but the token implementer can decide to opt for another approach instead like rounding up the transaction value.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This implementation is an extension of the functionality of <a href="./eip-20.md">EIP-20</a>, it introduces new functionality retaining the core interfaces and functionality of the <a href="./eip-20.md">EIP-20</a> standard. There is a small backwards compatibility issue, indeed if an account has insufficient balance, it’s possible for the transfer to fail.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Tests can be found in <a href="../assets/eip-6353/test/charity.js"><code class="language-plaintext highlighter-rouge">charity.js</code></a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The reference implementation of the standard can be found under <a href="../assets/eip-6353/contracts/ERC20Charity.sol"><code class="language-plaintext highlighter-rouge">contracts/</code></a> folder.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>There are no additional security considerations compared to EIP-20.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Contract Discovery and eTLD+1 Association | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Contract Discovery and eTLD+1 Association | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7529" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7529" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Contract Discovery and eTLD+1 Association</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The introduction of DNS over HTTPS (DoH) in <a href="https://www.rfc-editor.org/rfc/rfc8484">RFC 8484</a> has enabled tamper-resistant client-side queries of DNS records directly from a web application. This proposal describes a simple standard leveraging DoH to fetch TXT records (from traditional DNS service providers) which are used for discovering and verifying the association of a smart contract with a common DNS domain. This standard can be used as a straightforward technique to mitigate smart contract authorship spoofing and enhance the discoverability of smart contracts through standard web search mechanisms.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>As mainstream businesses begin to adopt public blockchain and digital asset technologies more rapidly, there is a growing need for a discovery/search mechanism (compatible with conventional web technologies) of smart contracts associated with a known business domain as well as reasonable assurance that the smart contract does indeed belong to the business owner of the DNS domain. The relatively recent introduction and widespread support of DoH means it is possible to make direct, tamper-resistant queries of DNS records straight from a web application context and thus leverage a simple TXT record as a pointer to an on-chain smart contract. Prior to the introduction of DoH, web (and mobile) applications <em>could not</em> access DNS records directly; instead they would have to relay requests through a trusted, proprietary service provider who could easily manipulate response results.</p>
+
+<p>According to Cloudflare, the two most common use cases of TXT records today are email spam prevention (via <a href="https://www.rfc-editor.org/rfc/rfc7208">SPF</a>, <a href="https://www.rfc-editor.org/rfc/rfc6376">DKIM</a>, and <a href="https://www.rfc-editor.org/rfc/rfc7489">DMARC</a> TXT records) and domain name ownership verification. The use case considered here for on-chain smart contract discovery and verification is essentially analogous.</p>
+
+<p>A TXT pointer coupled with an appropriate smart contract interface (described in this proposal) yields a simple, yet flexible and robust mechanism for the client-side detection and reasonably secure verification of on-chain logic and digital assets associated with the owner of a domain name. For example, a stablecoin issuer might leverage this standard to provide a method for an end user or web-based end user client to ensure that the asset their wallet is interacting with is indeed the contract issued or controlled by the owner or administrator of a well known DNS domain.</p>
+
+<p><strong>Example 1</strong>:</p>
+
+<p>A user visits merchant.com who accepts payments via paymentprocessor.com. The business behind paymentprocessor.com has previously released a stable coin for easier cross-border payments which adheres to this ERC. On the checkout page, paymentprocessor.com is mounted as an iframe component. If the user has installed a browser-extension wallet compatible with this standard, then the wallet can detect the domain of the iframe in the context of the checkout page, discover and verify the stable coin’s association with paymentprocessor.com, and automatically prompt to complete the purchase in paymentprocessor.com’s stable coin.</p>
+
+<p><strong>Example 2</strong>:</p>
+
+<p>A user visits nftmarketplace.io to buy a limited release NFT from theirfavoritebrand.com. The marketplace webapp can leverage this ERC to allow the user to search by domain name and also indicate to the user that an NFT of interest is indeed an authentic asset associated with theirfavoritebrand.com.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h4 id="definition-etld1">Definition: eTLD+1</h4>
+
+<p>The term TLD stands for <em>top-level domain</em> and is always the part of a domain name which follows the final dot in a URL (e.g. <code class="language-plaintext highlighter-rouge">.com</code> or <code class="language-plaintext highlighter-rouge">.net</code>). If only domains directly under TLDs where registrable by a single organization, then it would be guaranteed that <code class="language-plaintext highlighter-rouge">myexample.com</code>, <code class="language-plaintext highlighter-rouge">abc.myexample.com</code>, and <code class="language-plaintext highlighter-rouge">def.myexample.com</code> all belonged to the same organization.</p>
+
+<p>However, this is not the case in general since many DNS registrars allow organizations to register domain names below the top level (examples include <code class="language-plaintext highlighter-rouge">sussex.ac.uk</code> and <code class="language-plaintext highlighter-rouge">aber.ac.uk</code> which are controlled by different institutions). These types of domains are referred to as eTLDs (effective top-level domains) and represent a domain under which domain names can be registered by a single organization. For example, the eTLD of <code class="language-plaintext highlighter-rouge">myexample.com</code> is <code class="language-plaintext highlighter-rouge">.com</code> and the eTLD of <code class="language-plaintext highlighter-rouge">sussex.ac.uk</code> is <code class="language-plaintext highlighter-rouge">.ac.uk</code> since individual organizations can be issued their own domain names under both <code class="language-plaintext highlighter-rouge">.com</code> and <code class="language-plaintext highlighter-rouge">.ac.uk</code>.</p>
+
+<p>Therefore, an eTLD+1 is an eTLD <em>plus</em> this next part on the domain name. Since eTLDs are by definition registerable, all domains with the same eTLD+1 are owned by the same organization, which makes them appropriate to utilize in this proposal for associating a smart contract with a single business or organization entity.</p>
+
+<h3 id="contract-pointers-in-txt-records">Contract Pointers in TXT Records</h3>
+
+<p>The owner of an eTLD+1 domain name MUST create a TXT record in their DNS settings that serves as a pointer to all relevant smart contracts they wish to associate with their domain.</p>
+
+<p><a href="https://www.rfc-editor.org/rfc/rfc1035#section-3.3.14">TXT records</a> are not intended (nor permitted by most DNS servers) to store large amounts of data. Every DNS provider has their own vendor-specific character limits. However, an EVM-compatible address string is 42 characters, so most DNS providers will allow for dozens of contract addresses to be stored under a single record. Furthermore, a domain is allowed to have multiple TXT records associated with the same host and the content of all duplicate records can be retrieved in a single DoH query.</p>
+
+<p>A TXT record pointing to an organization’s smart contracts MUST adhere to the following schema:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">HOST</code>: <code class="language-plaintext highlighter-rouge">ERC-7529.&lt;chain_id&gt;._domaincontracts</code> (where <code class="language-plaintext highlighter-rouge">&lt;chain_id&gt;</code> is replaced by the decimal representation of the chain id)</li>
+  <li><code class="language-plaintext highlighter-rouge">VALUE</code>: &lt;<code class="language-plaintext highlighter-rouge">address 1</code>&gt;,&lt;<code class="language-plaintext highlighter-rouge">address 2</code>&gt;,…</li>
+</ul>
+
+<p>It is RECOMMENDED that EVM address strings adhere to <a href="./eip-1191.md">ERC-1191</a> so that the browser client can checksum the validity of the address and its target network before making an RPC call.</p>
+
+<p>A user’s web application can access TXT records directly from a DNS registrar who supports DoH with <code class="language-plaintext highlighter-rouge">fetch</code>. An example query of a DoH server that supports JSON format will look like:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://example-doh-provider.com/dns-query?name=ERC-7529.1._domaincontracts.myexample.com&amp;type=TXT</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Accept</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/dns-json</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<h3 id="smart-contract-association-with-a-domain">Smart Contract Association with a Domain</h3>
+
+<p>Any smart contract MAY implement this ERC to provide a verification mechanism of smart contract addresses listed in a compatible TXT record.</p>
+
+<p>A smart contract need only store one new member variable, <code class="language-plaintext highlighter-rouge">domains</code>, which is a mapping from the keccak256 hash of all eTLD+1 domain strings associated with the business or organization which deployed (or is closely associated with) the contract to a boolean. This member variable can be written to with the external functions <code class="language-plaintext highlighter-rouge">addDomain</code> and <code class="language-plaintext highlighter-rouge">removeDomain</code>. The <code class="language-plaintext highlighter-rouge">domains</code> member variable can be queried by the <code class="language-plaintext highlighter-rouge">getDomain</code> function which takes a string representing an eTLD+1 and returns true
+if the contract has been associated with the domain and false otherwise.</p>
+
+<p>Lastly, the contract MAY emit events when eTLD+1 domains are added (<code class="language-plaintext highlighter-rouge">AddDomain</code>) or removed (<code class="language-plaintext highlighter-rouge">RemoveDomain</code>) from the <code class="language-plaintext highlighter-rouge">domains</code> map. This can be useful for 
+determining all domains associated with a contract when they are not known ahead of time by the client.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">/// @notice Optional event emitted when a domain is added
+</span>  <span class="c1">/// @param domain eTLD+1 associated with the contract
+</span>  <span class="k">event</span> <span class="n">AddDomain</span><span class="p">(</span><span class="kt">string</span> <span class="n">domain</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Optional event emitted when a domain is removed
+</span>  <span class="c1">/// @param domain eTLD+1 that is no longer associated with the contract
+</span>  <span class="k">event</span> <span class="n">RemoveDomain</span><span class="p">(</span><span class="kt">string</span> <span class="n">domain</span><span class="p">);</span>
+
+  <span class="c1">/// @dev a mapping from the keccak256 hash of eTLD+1 domains associated with this contract to a boolean
+</span>  <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="n">domains</span><span class="p">;</span>
+
+  <span class="c1">/// @notice a getter function that takes an eTLD+1 domain string and returns true if associated with the contract
+</span>  <span class="c1">/// @param domain a string representing an eTLD+1 domain
+</span>  <span class="k">function</span> <span class="n">getDomain</span><span class="p">(</span><span class="kt">string</span> <span class="k">calldata</span> <span class="n">domain</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span> 
+
+  <span class="c1">/// @notice an authenticated method to add an eTLD+1 domain
+</span>  <span class="c1">/// @param domain a string representing an eTLD+1 domain associated with the contract
+</span>  <span class="k">function</span> <span class="n">addDomain</span><span class="p">(</span><span class="kt">string</span> <span class="k">calldata</span> <span class="n">domain</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice an authenticated method to remove an eTLD+1 domain
+</span>  <span class="c1">/// @param domain a string representing an eTLD+1 domain that is no longer associated with the contract
+</span>  <span class="k">function</span> <span class="n">removeDomain</span><span class="p">(</span><span class="kt">string</span> <span class="k">calldata</span> <span class="n">domain</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="client-side-verification">Client-side Verification</h3>
+
+<p>When a client detects a compatible TXT record listed on an eTLD+1, it SHOULD loop through each listed contract address and, via an appropriate RPC provider, assert
+that each of the smart contracts returns <code class="language-plaintext highlighter-rouge">true</code> when the eTLD+1 string is passed to the <code class="language-plaintext highlighter-rouge">getDomain</code> function.</p>
+
+<p>Alternatively, if a client is inspecting a contract that implements this ERC, the client SHOULD inspect the <code class="language-plaintext highlighter-rouge">AddDomain</code> and <code class="language-plaintext highlighter-rouge">RemoveDomain</code> events to calculate if 
+one or more eTLD+1 domains are actively associated with the contract. The user client SHOULD attempt to fetch TXT records from all associated eTLD+1 domains to verify its association or authenticity. The client MUST confirm that each contract address is contained in a TXT record’s <code class="language-plaintext highlighter-rouge">VALUE</code> field of the eTLD+1 pointed to by the contract’s <code class="language-plaintext highlighter-rouge">domains</code> mapping.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>In this specification, the TXT record <code class="language-plaintext highlighter-rouge">HOST</code> naming scheme is designed to mimic the DKIM naming convention. Additionally, this naming scheme makes it simple to programmatically ascertain if any smart contracts are associated with the domain on a given blockchain network. Prepending with <code class="language-plaintext highlighter-rouge">ERC-7529</code> will prevent naming collisions with other TXT records. The value of <code class="language-plaintext highlighter-rouge">&lt;chain_id&gt;</code> is simply the decimal representation of the chain id associated with the target blockchain network (i.e. <code class="language-plaintext highlighter-rouge">1</code> for Ethereum mainnet or <code class="language-plaintext highlighter-rouge">11155111</code> for Sepolia) where the smart contracts are deployed. So, a typical <code class="language-plaintext highlighter-rouge">HOST</code> might be: <code class="language-plaintext highlighter-rouge">ERC-7529.1._domainContracts</code>, <code class="language-plaintext highlighter-rouge">ERC-7529.11155111._domaincontracts</code>, etc.</p>
+
+<p>A user client working with smart contracts implementing this proposal is protected by cross-checking that two independent sources of information agree with each other (i.e. DNS and a blockchain network). As long as the <code class="language-plaintext highlighter-rouge">addDomain</code> and <code class="language-plaintext highlighter-rouge">removeDomain</code> calls on the smart contract are properly authenticated (as shown in the reference implementation), the values in the domains field must have been set by a controller of the contract. The contract addresses in the TXT records can only be set by the owner of the eTLD+1 domain. For these two values to align the same organization must control both resources.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues found.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The implementation of <code class="language-plaintext highlighter-rouge">getDomain</code>, <code class="language-plaintext highlighter-rouge">addDomain</code> and <code class="language-plaintext highlighter-rouge">removeDomain</code> is a trivial exercise, but candidate implementations are given here for completeness:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getDomain</span><span class="p">(</span>
+      <span class="kt">string</span> <span class="k">calldata</span> <span class="n">domain</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">domains</span><span class="p">[</span><span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">domain</span><span class="p">))];</span>
+  <span class="p">}</span>
+
+<span class="k">function</span> <span class="n">addDomain</span><span class="p">(</span>
+      <span class="kt">string</span> <span class="k">memory</span> <span class="n">domain</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="n">onlyRole</span><span class="p">(</span><span class="n">DEFAULT_ADMIN_ROLE</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">domains</span><span class="p">[</span><span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">domain</span><span class="p">))]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">emit</span> <span class="n">AddDomain</span><span class="p">(</span><span class="n">domain</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="k">function</span> <span class="n">removeDomain</span><span class="p">(</span>
+    <span class="kt">string</span> <span class="k">memory</span> <span class="n">domain</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="n">onlyRole</span><span class="p">(</span><span class="n">DEFAULT_ADMIN_ROLE</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">domains</span><span class="p">[</span><span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">domain</span><span class="p">))]</span> <span class="o">==</span> <span class="nb">true</span><span class="p">,</span> <span class="s">"ERC7529: eTLD+1 currently not associated with this contract"</span><span class="p">);</span> 
+    <span class="n">domains</span><span class="p">[</span><span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">domain</span><span class="p">))]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">emit</span> <span class="n">RemoveDomain</span><span class="p">(</span><span class="n">domain</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>NOTE</strong>: Appropriate account authentication MUST be applied to <code class="language-plaintext highlighter-rouge">addDomain</code> and <code class="language-plaintext highlighter-rouge">removeDomain</code> so that only authorized users may update the <code class="language-plaintext highlighter-rouge">domains</code> mapping. In the given reference implementation the <code class="language-plaintext highlighter-rouge">onlyRole</code> modifier is used to restrict call privileges to accounts with the <code class="language-plaintext highlighter-rouge">DEFAULT_ADMIN_ROLE</code> which can be added to any contract with the OpenZeppelin access control abstract class.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Due to the reliance on traditional DNS systems, this ERC is susceptible to attacks on this technology, such as domain hijacking. Additionally, it is the responsibility of the smart contract author to ensure that <code class="language-plaintext highlighter-rouge">addDomain</code> and <code class="language-plaintext highlighter-rouge">removeDomain</code> are authenticated properly, otherwise an attacker could associate their smart contract with an undesirable domain, which would simply break the ability to verify association with the proper domain.</p>
+
+<p>It is worth noting that for an attacker to falsy verify a contract against a domain would require them to compromise both the DNS settings <strong>and</strong> the smart contract itself. In this scenario, the attacker has likely also compromised the business’ email domains as well.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

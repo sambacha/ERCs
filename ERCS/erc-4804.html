@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Web3 URL to EVM Call Message Translation | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Web3 URL to EVM Call Message Translation | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4804" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4804" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Web3 URL to EVM Call Message Translation</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard translates an RFC 2396 URI like <code class="language-plaintext highlighter-rouge">web3://uniswap.eth/</code> to an EVM message such as:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EVMMessage {
+   To: 0xaabbccddee.... // where uniswap.eth's address registered at ENS
+   Calldata: 0x
+   ...
+}
+</code></pre></div></div>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Currently, reading data from Web3 generally relies on a translation done by a Web2 proxy to Web3 blockchain. The translation is mostly done by the proxies such as dApp websites/node service provider/etherscan, which are out of the control of users. The standard here aims to provide a simple way for Web2 users to directly access the content of Web3, especially on-chain Web contents such as SVG/HTML.  Moreover, this standard enables interoperability with other standards already compatible with URIs, like SVG/HTML.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>This specification only defines read-only (i.e. Solidity’s <code class="language-plaintext highlighter-rouge">view</code> functions) semantics. State modifying functions may be defined as a future extension.</p>
+
+<p>A Web3 URL is in the following form</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3URL = web3Schema [userinfo "@"] contractName [":" chainid] path ["?" query]
+web3Schema = [ "ethereum-web3://" | "eth-web3://" | "web3://" ]
+contractName = address | [name "." [ subDomain0 "." ... ]] nsProviderSuffix
+path = ["/" method ["/" argument_0 ["/" argument_1 ... ]]]
+argument = [type "!"] value
+query = "attribute_1=value_1 [ "&amp;" attribute_2=value_2 ... ]
+attribute = "returns" | "returnTypes" | other_attribute
+</code></pre></div></div>
+
+<p>where</p>
+
+<ul>
+  <li><strong>web3Schema</strong> indicates the schema of the URL, which is <code class="language-plaintext highlighter-rouge">web3://</code> or <code class="language-plaintext highlighter-rouge">w3://</code> for short.</li>
+  <li><strong>userinfo</strong> indicates which user is calling the EVM, i.e., “From” field in EVM call message. If not specified, the protocol will use 0x0 as the sender address.</li>
+  <li><strong>contractName</strong> indicates the contract to be called, i.e., “To” field in the EVM call message. If the <strong>contractName</strong> is an <strong>address</strong>, i.e., 0x + 20-byte-data hex, then “To” will be the address. Otherwise, the name is from a name service. In the second case, <strong>nsProviderSuffix</strong> will be the suffix from name service providers such as “eth”, etc. The way to translate the name from a name service to an address will be discussed in later EIPs.</li>
+  <li><strong>chainid</strong> indicates which chain to resolve <strong>contractName</strong> and call the message. If not specified, the protocol will use the same chain as the name service provider, e.g., 1 for eth. If no name service provider is available, the default chainid is 1.</li>
+  <li><strong>query</strong> is an optional component containing a sequence of attribute-value pairs separated by “&amp;”.</li>
+</ul>
+
+<h3 id="resolve-mode">Resolve Mode</h3>
+
+<p>Once the “To” address and chainid are determined, the protocol will check the resolver mode of contract by calling “resolveMode” method. The protocol currently supports two resolve modes:</p>
+
+<h4 id="manual-mode">Manual Mode</h4>
+
+<p>The manual mode will not do any interpretation of <strong>path</strong> and <strong>query</strong>, and put <strong>path</strong> [ “?” <strong>query</strong> ] as the calldata of the message directly.</p>
+
+<h4 id="auto-mode">Auto Mode</h4>
+
+<p>The auto mode is the default mode to resolve (also applies when the “resolveMode” method is unavailable in the target contract). In the auto mode, if <strong>path</strong> is empty, then the protocol will call the target contract with empty calldata. Otherwise, the calldata of the EVM message will use standard Solidity contract ABI, where</p>
+
+<ul>
+  <li><strong>method</strong> is a string of function method be called</li>
+  <li><strong>argument_i</strong> is the ith argument of the method. If <strong>type</strong> is specified, the value will be translated to the corresponding type. The protocol currently supports the basic types such as uint256, bytes32, address, bytes, and string. If <strong>type</strong> is not specified, then the type will be automatically detected using the following rule in a sequential way:</li>
+</ul>
+
+<ol>
+  <li><strong>type</strong>=”uint256”, if <strong>value</strong> is numeric; or</li>
+  <li><strong>type</strong>=”bytes32”, if <strong>value</strong> is in the form of 0x+32-byte-data hex; or</li>
+  <li><strong>type</strong>=”address”, if <strong>value</strong> is in the form of 0x+20-byte-data hex; or</li>
+  <li><strong>type</strong>=”bytes”, if <strong>value</strong> is in the form of 0x followed by any number of bytes besides 20 or 32; or</li>
+  <li>else <strong>type</strong>=”address” and parse the argument as a domain name in the form of <code class="language-plaintext highlighter-rouge">[name "." [ subDomain0 "." ... ]] nsProviderSuffix</code>. In this case, the actual value of the argument will be obtained from <strong>nsProviderSuffix</strong>, e.g., eth.  If <strong>nsProviderSuffix</strong> is not supported, an unsupported NS provider error will be returned.</li>
+</ol>
+
+<p>Note that if <strong>method</strong> does not exist, i.e., <strong>path</strong> is empty or “/”, then the contract will be called with empty calldata.</p>
+
+<ul>
+  <li><strong>returns</strong> attribute in <strong>query</strong> tells the format of the returned data. If not specified, the returned message data will be parsed in “(bytes32)” and MIME will be set based on the suffix of the last argument. If <strong>returns</strong> is “()”, the returned data will be parsed in raw bytes in JSON.  Otherwise, the returned message will be parsed in the specified <strong>returns</strong> attribute in JSON.  If multiple <strong>returns</strong> attributes are present, the value of the last <strong>returns</strong> attribute will be applied. Note that <strong>returnTypes</strong> is the alias of <strong>returns</strong>, but it is not recommended to use and is mainly for backward-compatible purpose.</li>
+</ul>
+
+<h3 id="examples">Examples</h3>
+
+<h4 id="example-1">Example 1</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://w3url.eth/
+</code></pre></div></div>
+
+<p>The protocol will find the address of <strong>w3url.eth</strong> from ENS in chainid 1 (Mainnet), and then the protocol will call the address with “From” = “0x…” and “Calldata” = “0x2F”.</p>
+
+<h4 id="example-2">Example 2</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://cyberbrokers-meta.eth/renderBroker/9999
+</code></pre></div></div>
+
+<p>The protocol will find the address of <strong>cyberbrokers-meta.eth</strong> from ENS on chainid 1 (Mainnet), and then call the address with “To” = “0x…” and “Calldata” = “0x” + <code class="language-plaintext highlighter-rouge">keccak("view(uint256)")[0:4] + abi.encode(uint256(9999))</code>.</p>
+
+<h4 id="example-3">Example 3</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://vitalikblog.eth:5/
+</code></pre></div></div>
+
+<p>The protocol will find the address of <strong>vitalikblog.eth</strong> from ENS on chainid 5 (Goerli), and then call the address with “From” = “0x…” and “Calldata” = “0x2F” with chainid = 5.</p>
+
+<h4 id="example-4">Example 4</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://0xe4ba0e245436b737468c206ab5c8f4950597ab7f:42170/
+</code></pre></div></div>
+
+<p>The protocol will call the address with “To” = “0x9e081Df45E0D167636DB9C61C7ce719A58d82E3b” and “Calldata” = “0x” with chainid = 42170 (Arbitrum Nova).</p>
+
+<h4 id="example-5">Example 5</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/balanceOf/vitalik.eth?returns=(uint256)
+</code></pre></div></div>
+
+<p>The protocol will find the addresses of <strong>vitalik.eth</strong> from ENS on chainid 1 (Mainnet) and then call the method “balanceOf(address)” of the contract with the <strong>charles.eth</strong>’s address. The returned data will be parsed as uint256 like <code class="language-plaintext highlighter-rouge">[ "10000000000000" ]</code>.</p>
+
+<h4 id="example-6">Example 6</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/balanceOf/vitalik.eth?returns=()
+</code></pre></div></div>
+
+<p>The protocol will find the address of <strong>vitalik.eth</strong> from ENS on chainid 1 (Mainnet) and then call the method “balanceOf(address)” of the address. The returned data will be parsed as raw bytes like <code class="language-plaintext highlighter-rouge">["0x000000000000000000000000000000000000000000000000000009184e72a000"]</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The purpose of the proposal is to add a decentralized presentation layer for Ethereum.  With the layer, we are able to render any web content (including HTML/CSS/JPG/PNG/SVG, etc) on-chain using human-readable URLs, and thus EVM can be served as decentralized Backend.  The design of the standard is based on the following principles:</p>
+
+<ul>
+  <li>
+    <p><strong>Human-readable</strong>.  The Web3 URL should be easily recognized by human similar to Web2 URL (<code class="language-plaintext highlighter-rouge">http://</code>).  As a result, we support names from name services to replace address for better readability.  In addition, instead of using calldata in hex, we use human-readable method + arguments and translate them to calldata for better readability.</p>
+  </li>
+  <li>
+    <p><strong>Maximum-Compatible with HTTP-URL standard</strong>.  The Web3 URL should be compatible with HTTP-URL standard including relative pathing, query, fragment, etc so that the support of existing HTTP-URL (e.g., by browser) can be easily extended to Web3 URL with minimal modification.  This also means that existing Web2 users can easily migrate to Web3 with minimal extra knowledge of this standard.</p>
+  </li>
+  <li>
+    <p><strong>Simple</strong>.  Instead of providing explicit types in arguments, we use a “maximum likelihood” principle of auto-detecting the types of the arguments such as address, bytes32, and uint256.  This could greatly minimize the length of URL, while avoiding confusion.  In addition, explicit types are also supported to clear the confusion if necessary.</p>
+  </li>
+  <li>
+    <p><strong>Flexible</strong>.  The contract is able to override the encoding rule so that the contract has fine-control of understanding the actual Web resources that the users want to locate.</p>
+  </li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>No security considerations were found.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

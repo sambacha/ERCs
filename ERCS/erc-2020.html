@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>E-Money Standard Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="E-Money Standard Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-2020" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-2020" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">E-Money Standard Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>The E-Money Standard Token aims to enable the issuance of regulated electronic money on blockchain networks, and its practical usage in real financial applications.</p>
+
+<h2 id="actors">Actors</h2>
+
+<h4 id="operator">Operator</h4>
+<p>An account, which has been approved by an account to perform an action on the behalf of another account.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Financial institutions work today with electronic systems, which hold account balances in databases on core banking systems. In order for an institution to be allowed to maintain records of client balances segregated and available for clients, such institution must be regulated under a known legal framework and must possess a license to do so. Maintaining a license under regulatory supervision entails ensuring compliance (i.e. performing KYC on all clients and ensuring good AML practices before allowing transactions) and demonstrating technical and operational solvency through periodic audits, so clients depositing funds with the institution can rest assured that their money is safe.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There are only a number of potential regulatory license frameworks that allow institutions to issue and hold money balances for customers (be it retail corporate or institutional types). The most important and practical ones are three:</p>
+<ul>
+  <li><strong>Electronic money entities</strong>: these are legally regulated vehicles that are mostly used today for cash and payments services, instead of more complex financial services. For example prepaid cards or online payment systems such as PayPal run on such schemes. In most jurisdictions, electronic money balances are required to be 100% backed by assets, which often entails holding cash on an omnibus account at a bank with 100% of the funds issued to clients in the electronic money ledger.</li>
+  <li><strong>Banking licenses</strong>: these include commercial and investment banks, which segregate client funds using current and other type of accounts implemented on core banking systems. Banks can create money by lending to clients, so bank money can be backed by promises to pay and other illiquid assets.</li>
+  <li><strong>Central banks</strong>: central banks hold balances for banks in RTGS systems, similar to core banking systems but with much more restricted yet critical functionality. Central banks create money by lending it to banks, which pledge their assets to central banks as a lender of last resort for an official interest rate.</li>
+</ul>
+
+<p>Regulations for all these types of electronic money are local, i.e. only valid for each jurisdiction and not valid in others. Regulations can vary as well dramatically in different jurisdictions — for example there are places with no electronic money frameworks, on everything has to be done through banking licenses or directly with a central bank. But in all cases compliance with existing regulation needs to ensured, in particular:</p>
+<ul>
+  <li><strong>Know Your Customer (KYC)</strong>: the institution needs to identify the client before providing them with the possibility of depositing money or transact. In different jurisdictions and for different types of licenses there are different levels of balance and activity that can be allowed for different levels of KYC. For example, low KYC requirements with little checks or even no checks at all can usually be acceptable in many jurisdictions if cashin balances are kept low (i.e. hundreds of dollars)</li>
+  <li><strong>Anti Money Laundering (AML)</strong>: the institution needs to perform checks of parties transacting with its clients, typically checking against black lists and doing sanction screening, most notably in the context of international transactions</li>
+</ul>
+
+<p>Beyond cash, financial instruments such as equities or bonds are also registered in electronic systems in most cases, although all these systems and the bank accounting systems are only connected through rudimentary messaging means, which leads to the need for reconciliations and manual management in many cases. Cash systems to provide settlement of transactions in the capital markets are not well-connected to the transactional systems, and often entail delays and settlement risk.</p>
+
+<p>The E-Money Standard Token builds on Ethereum standards currently in use such as <a href="./eip-20.md">ERC-20</a>, but it extends them to provide few key additional pieces of functionality, needed in the regulated financial world:</p>
+<ul>
+  <li><strong>Compliance</strong>: E-Money Standard Token implements a set of methods to check in advance whether user-initiated transactions can be done from a compliance point of view. Implementations must <code class="language-plaintext highlighter-rouge">require</code> that these methods return a positive answer before executing the transaction.</li>
+  <li><strong>Clearing</strong>: In addition to the standard <a href="./eip-20.md">ERC-20</a> <code class="language-plaintext highlighter-rouge">transfer</code> method, E-Money Standard Token provides a way to submit transfers that need to be cleared by the token issuing authority off-chain. These transfers are then executed in two steps:
+    <ol>
+      <li>transfers are ordered</li>
+      <li>after clearing them, transfers are executed or rejected by the operator of the token contract</li>
+    </ol>
+  </li>
+  <li><strong>Holds</strong>: token balances can be put on hold, which will make the held amount unavailable for further use until the hold is resolved (i.e. either executed or released). Holds have a payer, a payee, and a notary who is in charge of resolving the hold. Holds also implement expiration periods, after which anyone can release the hold Holds are similar to escrows in that are firm and lead to final settlement. Holds can also be used to implement collateralization.</li>
+  <li><strong>Funding requests</strong>: users can request for a wallet to be funded by calling the smart contract and attaching a debit instruction string. The tokenizer reads this request, interprets the debit instructions, and triggers a transfer in the bank ledger to initiate the tokenization process.</li>
+  <li><strong>Payouts</strong>: users can request payouts by calling the smart contract and attaching a payment instruction string. The (de)tokenizer reads this request, interprets the payment instructions, and triggers the transfer of funds (typically from the omnibus account) into the destination account, if possible. Note that a redemption request is a special type of payout in which the destination (bank) account for the payout is the bank account linked to the token wallet.</li>
+</ul>
+
+<p>The E-Money Standard Token is thus different from other tokens commonly referred to as “stable coins” in that it is designed to be issued, burnt and made available to users in a compliant manner (i.e. with full KYC and AML compliance) through a licensed vehicle (an electronic money entity, a bank, or a central bank), and in that it provides the additional functionality described above, so it can be used by other smart contracts implementing more complex financial applications such as interbank payments, supply chain finance instruments, or the creation of E-Money Standard Token denominated bonds and equities with automatic delivery-vs-payment.</p>
+
+<h2 id="specification">Specification</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">EMoneyToken</span> <span class="cm">/* is ERC-1996, ERC-2018, ERC-2019, ERC-2021 */</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">currency</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">version</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+    
+    <span class="k">function</span> <span class="n">availableFunds</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    
+    <span class="k">function</span> <span class="n">checkTransferAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">checkApproveAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>
+    
+    <span class="k">function</span> <span class="n">checkHoldAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">address</span> <span class="n">notary</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">checkAuthorizeHoldOperatorAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">from</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>    
+
+    <span class="k">function</span> <span class="n">checkOrderTransferAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">checkAuthorizeClearableTransferOperatorAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">from</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>
+    
+    <span class="k">function</span> <span class="n">checkOrderFundAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">checkAuthorizeFundOperatorAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>
+    
+    <span class="k">function</span> <span class="n">checkOrderPayoutAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">checkAuthorizePayoutOperatorAllowed</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">from</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">byte</span> <span class="n">status</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="mandatory-checks">Mandatory checks</h3>
+
+<p>The checks must be verified in their corresponding actions. The action must only be successful if the check return an <code class="language-plaintext highlighter-rouge">Allowed</code> status code. In any other case the functions must revert.</p>
+
+<h3 id="status-codes">Status codes</h3>
+
+<p>If an action is allowed <code class="language-plaintext highlighter-rouge">0x11</code> (Allowed), or an issuer-specific code with equivalent but more precise meaning must be returned. If the action is not allowed the status must be <code class="language-plaintext highlighter-rouge">0x10</code> (Disallowed), or an issuer-specific code with equivalent but more precise meaning.</p>
+
+<h3 id="functions">Functions</h3>
+
+<h4 id="currency">currency</h4>
+
+<p>Returns the currency that backs the token. The value must be a code defined in <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>.</p>
+
+<p>| Parameter | Description |
+| ———|————-|
+| - | - |</p>
+
+<h4 id="version">version</h4>
+
+<p>Returns the current version of the smart contract. The format of the version is up to the implementer of the EIP.</p>
+
+<p>| Parameter | Description |
+| ———|————-|
+| - | - |</p>
+
+<h4 id="availablefunds">availableFunds</h4>
+
+<p>Returns the total net funds of an account. Taking into consideration the outright balance and the held balances.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>account</td>
+      <td>The account which available funds should be returned</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checktransferallowed">checkTransferAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">transfer</code> or <code class="language-plaintext highlighter-rouge">transferFrom</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>from</td>
+      <td>The address of the payer, from whom the tokens are to be taken if executed</td>
+    </tr>
+    <tr>
+      <td>to</td>
+      <td>The address of the payee, to whom the tokens are to be transferred if executed</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>The amount to be transferred</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checkapproveallowed">checkApproveAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">approve</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>from</td>
+      <td>The address of the payer, from whom the tokens are to be taken if executed</td>
+    </tr>
+    <tr>
+      <td>spender</td>
+      <td>The address of the spender, which potentially can initiate transfers on behalf of <code class="language-plaintext highlighter-rouge">from</code></td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>The maximum amount to be transferred</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checkholdallowed">checkHoldAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">hold</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>from</td>
+      <td>The address of the payer, from whom the tokens are to be taken if executed</td>
+    </tr>
+    <tr>
+      <td>to</td>
+      <td>The address of the payee, to whom the tokens are to be transferred if executed</td>
+    </tr>
+    <tr>
+      <td>notary</td>
+      <td>The address of the notary who is going to determine whether the hold is to be executed or released</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>The amount to be transferred. Must be less or equal than the balance of the payer</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checkauthorizeholdoperatorallowed">checkAuthorizeHoldOperatorAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">checkAuthorizeHoldOperatorAllowed</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>operator</td>
+      <td>The address to be approved as operator of clearable transfers</td>
+    </tr>
+    <tr>
+      <td>from</td>
+      <td>The address on which behalf holds could potentially be issued</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checkordertransferallowed">checkOrderTransferAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">orderTransfer</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>from</td>
+      <td>The address of the payer, from whom the tokens are to be taken if executed</td>
+    </tr>
+    <tr>
+      <td>to</td>
+      <td>The address of the payee, to whom the tokens are to be paid if executed</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>The amount to be transferred. Must be less or equal than the balance of the payer</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checkauthorizeclearabletransferoperatorallowed">checkAuthorizeClearableTransferOperatorAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">authorizeClearableTransferOperator</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>operator</td>
+      <td>The address to be approved as operator of clearable transfers</td>
+    </tr>
+    <tr>
+      <td>from</td>
+      <td>The address on which behalf clearable transfers could potentially be ordered</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checkorderfundallowed">checkOrderFundAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">orderFund</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>to</td>
+      <td>The address to which the tokens are to be given if executed</td>
+    </tr>
+    <tr>
+      <td>operator</td>
+      <td>The address of the requester, which initiates the funding order</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>The amount to be funded</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checkauthorizefundoperatorallowed">checkAuthorizeFundOperatorAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">authorizeFundOperator</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>operator</td>
+      <td>The address to be approved as operator of ordering funding</td>
+    </tr>
+    <tr>
+      <td>to</td>
+      <td>The address which the tokens are to be given if executed</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checkorderpayoutallowed">checkOrderPayoutAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">orderPayout</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>from</td>
+      <td>The address from whom the tokens are to be taken if executed</td>
+    </tr>
+    <tr>
+      <td>operator</td>
+      <td>The address of the requester, which initiates the payout request</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>The amount to be paid out</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="checkauthorizepayoutoperatorallowed">checkAuthorizePayoutOperatorAllowed</h4>
+
+<p>Checks if the <code class="language-plaintext highlighter-rouge">authorizePayoutOperator</code> function is allowed to be executed with the given parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>operator</td>
+      <td>The address to be approved as operator of ordering payouts</td>
+    </tr>
+    <tr>
+      <td>from</td>
+      <td>The address from which the tokens are to be taken if executed</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This EIP unifies <a href="./eip-1996.md">ERC-1996</a>, <a href="./eip-2018.md">ERC-2018</a>, <a href="./eip-2019.md">ERC-2019</a> and <a href="./eip-2021.md">ERC-2021</a> and adds the checks for the compliance on top of it. By this way the separate EIPs are otherwise independent of each other, and the E-Money Standard Token offers a solution for all necessary functionality of regulated electronic money.</p>
+
+<p>While not requiring it, the naming of the check functions was adopted from <a href="./eip-1462.md">ERC-1462</a>.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This EIP is fully backwards compatible as its implementation extends the functionality of <a href="./eip-1996.md">ERC-1996</a>, <a href="./eip-2018.md">ERC-2018</a>, <a href="./eip-2019.md">ERC-2019</a>, <a href="./eip-2021.md">ERC-2021</a> and <a href="./eip-1066.md">ERC-1066</a>.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>The GitHub repository <a href="https://github.com/IoBuilders/em-token">IoBuilders/em-token</a> contains the work in progress implementation.</p>
+
+<h2 id="contributors">Contributors</h2>
+<p>This proposal has been collaboratively implemented by <a href="https://adhara.io/">adhara.io</a> and <a href="https://io.builders/">io.builders</a>.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

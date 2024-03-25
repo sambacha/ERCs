@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>URL Format for Transaction Requests | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="URL Format for Transaction Requests | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-681" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-681" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">URL Format for Transaction Requests</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard way of representing various transactions, especially payment requests in ether and <a href="./eip-20.md">ERC-20</a> tokens as URLs.</p>
+
+<h2 id="abstract">Abstract</h2>
+<p>URLs embedded in QR-codes, hyperlinks in web-pages, emails or chat messages provide for robust cross-application signaling between very loosely coupled applications. A standardized URL format for payment requests allows for instant invocation of the user’s preferred wallet application (even if it is a webapp or a swarm đapp), with the correct parameterization of the payment transaction only to be confirmed by the (authenticated) user.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>The convenience of representing payment requests by standard URLs has been a major factor in the wide adoption of Bitcoin. Bringing a similarly convenient mechanism to Ethereum would speed up its acceptance as a payment platform among end-users. In particular, URLs embedded in broadcast Intents are the preferred way of launching applications on the Android operating system and work across practically all applications. Desktop web browsers have a standardized way of defining protocol handlers for URLs with specific protocol specifications. Other desktop applications typically launch the web browser upon encountering a URL. Thus, payment request URLs could be delivered through a very broad, ever growing selection of channels.</p>
+
+<p>This specification supersedes the defunct ERC-67, which is a URL format for representing arbitrary transactions in a low-level fashion. This ERC focuses specifically on the important special case of payment requests, while allowing for other, ABI-specified transactions.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="syntax">Syntax</h3>
+<p>Payment request URLs contain “ethereum” in their schema (protocol) part and are constructed as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>request                 = schema_prefix target_address [ "@" chain_id ] [ "/" function_name ] [ "?" parameters ]
+schema_prefix           = "ethereum" ":" [ "pay-" ]
+target_address          = ethereum_address
+chain_id                = 1*DIGIT
+function_name           = STRING
+ethereum_address        = ( "0x" 40*HEXDIG ) / ENS_NAME
+parameters              = parameter *( "&amp;" parameter )
+parameter               = key "=" value
+key                     = "value" / "gas" / "gasLimit" / "gasPrice" / TYPE
+value                   = number / ethereum_address / STRING
+number                  = [ "-" / "+" ] *DIGIT [ "." 1*DIGIT ] [ ( "e" / "E" ) [ 1*DIGIT ] ]
+</code></pre></div></div>
+
+<p>Where <code class="language-plaintext highlighter-rouge">TYPE</code> is a standard ABI type name, as defined in <a href="https://solidity.readthedocs.io/en/develop/abi-spec.html">Ethereum Contract ABI specification</a>. <code class="language-plaintext highlighter-rouge">STRING</code> is a URL-encoded unicode string of arbitrary length, where delimiters and the
+percentage symbol (<code class="language-plaintext highlighter-rouge">%</code>) are mandatorily hex-encoded with a <code class="language-plaintext highlighter-rouge">%</code> prefix.</p>
+
+<p>Note that a <code class="language-plaintext highlighter-rouge">number</code> can be expressed in <em>scientific notation</em>, with a multiplier of a power of 10. Only integer numbers are allowed, so the exponent MUST be greater or equal to the number of decimals after the point.</p>
+
+<p>If <em>key</em> in the parameter list is <code class="language-plaintext highlighter-rouge">value</code>, <code class="language-plaintext highlighter-rouge">gasLimit</code>, <code class="language-plaintext highlighter-rouge">gasPrice</code> or <code class="language-plaintext highlighter-rouge">gas</code> then <em>value</em> MUST be a <code class="language-plaintext highlighter-rouge">number</code>. Otherwise, it must correspond to the <code class="language-plaintext highlighter-rouge">TYPE</code> string used as <em>key</em>.</p>
+
+<p>For the syntax of ENS_NAME, please consult <a href="./eip-137.md">ERC-137</a> defining Ethereum Name Service.</p>
+
+<h3 id="semantics">Semantics</h3>
+
+<p><code class="language-plaintext highlighter-rouge">target_address</code> is mandatory and denotes either the beneficiary of native token payment (see below) or the contract address with which the user is asked to interact.</p>
+
+<p><code class="language-plaintext highlighter-rouge">chain_id</code> is optional and contains the decimal chain ID, such that transactions on various test- and private networks can be requested. If no <code class="language-plaintext highlighter-rouge">chain_id</code> is present, the client’s current network setting remains effective.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">function_name</code> is missing, then the URL is requesting payment in the native token of the blockchain, which is ether in our case. The amount is specified in <code class="language-plaintext highlighter-rouge">value</code> parameter, in the atomic unit (i.e. wei). The use of scientific notation is strongly encouraged. For example, requesting 2.014 ETH to address <code class="language-plaintext highlighter-rouge">0xfb6916095ca1df60bb79Ce92ce3ea74c37c5d359</code> would look as follows:
+<a href="ethereum:0xfb6916095ca1df60bb79Ce92ce3ea74c37c5d359?value=2.014e18">ethereum:0xfb6916095ca1df60bb79Ce92ce3ea74c37c5d359?value=2.014e18</a></p>
+
+<p>Requesting payments in <a href="./eip-20.md">ERC-20</a> tokens involves a request to call the <code class="language-plaintext highlighter-rouge">transfer</code> function of the token contract with an <code class="language-plaintext highlighter-rouge">address</code> and a <code class="language-plaintext highlighter-rouge">uint256</code> typed parameter, containing the <em>beneficiary address</em> and the <em>amount in atomic units</em>, respectively. For example,
+requesting a Unicorn to address <code class="language-plaintext highlighter-rouge">0x8e23ee67d1332ad560396262c48ffbb01f93d052</code> looks as follows:
+<a href="ethereum:0x89205a3a3b2a69de6dbf7f01ed13b2108b2c43e7/transfer?address=0x8e23ee67d1332ad560396262c48ffbb01f93d052&amp;uint256=1">ethereum:0x89205a3a3b2a69de6dbf7f01ed13b2108b2c43e7/transfer?address=0x8e23ee67d1332ad560396262c48ffbb01f93d052&amp;uint256=1</a></p>
+
+<p>If using ENS names instead of hexadecimal addresses, the resolution is up to the payer, at any time between receiving the URL and sending the transaction. Hexadecimal addresses always take precedence over ENS names, i. e. even if there exists a matching ENS name consisting of <code class="language-plaintext highlighter-rouge">0x</code> followed by 40 hexadecimal digits, it should never be resolved. Instead, the hexadecimal address should be used directly.</p>
+
+<p>Note that the indicated amount is only a suggestion (as are all the supplied arguments) which the user is free to change. With no indicated amount, the user should be prompted to enter the amount to be paid.</p>
+
+<p>Similarly <code class="language-plaintext highlighter-rouge">gasLimit</code> and <code class="language-plaintext highlighter-rouge">gasPrice</code> are suggested user-editable values for <em>gas limit</em> and <em>gas price</em>, respectively, for the requested transaction. It is acceptable to abbreviate <code class="language-plaintext highlighter-rouge">gasLimit</code> as <code class="language-plaintext highlighter-rouge">gas</code>, the two are treated synonymously.</p>
+
+<h2 id="rationale">Rationale</h2>
+<p>The proposed format is chosen to resemble <code class="language-plaintext highlighter-rouge">bitcoin:</code> URLs as closely as possible, as both users and application programmers are already familiar with that format. In particular, this motivated the omission of the unit, which is often used in Ethereum ecosystem. Handling different orders of magnitude is facilitated by the exponent so that amount values can be expressed in their nominal units, just like in the case of <code class="language-plaintext highlighter-rouge">bitcoin:</code>. The use of scientific notation is strongly encouraged when expressing monetary value in ether or <a href="./eip-20.md">ERC-20</a> tokens. For better human readability, the exponent should be the decimal value of the nominal unit: 18 for ether or the value returned by <code class="language-plaintext highlighter-rouge">decimals()</code> of the token contract for <a href="./eip-20.md">ERC-20</a> tokens. Additional parameters may be added, if popular use cases requiring them emerge in practice.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">0x</code> prefix before ethereum addresses specified as hexadecimal numbers is following established practice and also unambiguously distinguishes hexadecimal addresses from ENS names consisting of 40 alphanumeric characters.</p>
+
+<p>Future upgrades that are partially or fully incompatible with this proposal must use a prefix other than <code class="language-plaintext highlighter-rouge">pay-</code> that is separated by a dash (<code class="language-plaintext highlighter-rouge">-</code>) character from whatever follows it.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>In the fairly common case of only indicating the recipient address in a request for payment in ether, this specification is compatible with the superseded ERC-67.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Since irreversible transactions can be initiated with parameters from such URLs, the integrity and authenticity of these URLs are of great importance.
+In particular, changing either the recipient address or the amount transferred can be a profitable attack. Users should only use URLs received from authenticated sources with adequate integrity protection.</p>
+
+<p>To prevent malicious redirection of payments using ENS, hexadecimal interpretation of Ethereum addresses must have precedence over ENS lookups. Client software may alert the user if an ENS address is visually similar to a hexadecimal address or even outright reject such addresses as likely phishing attacks.</p>
+
+<p>In order to make sure that the amount transacted is the same as the amount intended, the amount communicated to the human user should be easily verifiable by inspection, including the order of magnitude. In case of <a href="./eip-20.md">ERC-20</a> token payments, if the payer client has access to the blockchain or some other trusted source of information about the token contract, the interface should display the amount in the units specified in the token contract. Otherwise, it should be displayed as expressed in the URL, possibly alerting the user to the uncertainty of the nominal unit. To facilitate human inspection of the amount, the use of scientific notation with an exponent corresponding to the nominal unit of the transacted token (e.g. 18 in case of ether) is advisable.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

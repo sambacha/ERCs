@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>dType Storage Extension - Decentralized Type System for EVM | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="dType Storage Extension - Decentralized Type System for EVM | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-2157" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-2157" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">dType Storage Extension - Decentralized Type System for EVM</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>This ERC is an extension of ERC-1900, proposing an optional storage extension for dType, a decentralized type system, specifying a general ABI for all storage contracts that contain type instances.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>The storage extension will enable easy navigation and retrieval of type data that is intended to be of public use. This is possible through standardizing the ABI of the dType storage contracts, with the effect of having a deterministic path to a type instance record. This standardization enables a more effective on-chain and off-chain use of data and opens up possibilities for decentralized applications, enabling developers to build on top of public global data.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Currently, Ethereum does not have standardization of data addressability. This might not be needed for data that is meant to be quasi-private, however, it is needed for data that is meant for public consumption. ERC-1900 has started standardizing data types for increasing interoperability between projects, but this is not enough if we want to build a global ecosystem. Deterministic data addressability will enable anyone to build upon the same public data sets, off-chain or on-chain.</p>
+
+<p>It is true that with ERC-1900, blockchain data analysis and type-specific data retrieval will be possible off-chain, but this implies relying on centralized data caches (blockchain explorers) or maintaining your own data cache. Moreover, this option does not allow on-chain standardization on data retrieval paths, therefore limiting the type of on-chain interoperable operations that can be done.</p>
+
+<p>Having a clear way of retrieving data, instead of analyzing the blockchain for contracts that have a certain type in their ABI or bytecode, will make development easier and more decentralized for applications that target global data on specific types.</p>
+
+<p>For example, a decentralized market place can be built on top of some marketplace-specific types, and by knowing exactly where the type data is stored, it is easy to create custom algorithms that provide the user with the product information they seek. Everyone has access to the data and the data path is standardized.</p>
+
+<p>Moreover, by standardizing storage contract interfaces, ABI inference is possible. The common interface, together with the dType registry will provide all the data needed to reconstruct the ABI.</p>
+
+<p>This system can be extended with access and mutability control later on, in a future proposal. Access and mutability control will be necessary for public-use global systems. Moreover, we can have a homogeneous application of permissions across system components. This is not detailed in the present proposal.</p>
+
+<p>Another use case is data bridges between Ethereum shards or between Ethereum and other chains. Data syncing between shards/chains can be done programmatically, across data types (from various projects). Imagine a user having a public profile/identity contract on one chain, wishing to move that profile on Ethereum. By supporting the origin chain types and having a standardized storage mechanism, data moving processes will be the same.</p>
+
+<p>This pattern of separating data type definitions and storage allows developers to create functional programming-like patterns on Ethereum, even though languages such as Solidity are not functional.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="typerootcontract">TypeRootContract</h3>
+
+<p>ERC-1900 defines a <code class="language-plaintext highlighter-rouge">contractAddress</code> field in the type metadata. For the limited purpose of ERC-1900, this field contains the value of the Ethereum type library in which the type definition exists. For the purpose of this ERC, the <code class="language-plaintext highlighter-rouge">contractAddress</code> will contain the Etherereum address of a <code class="language-plaintext highlighter-rouge">TypeRootContract</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">TypeRootContract</span> <span class="p">{</span>
+  <span class="kt">address</span> <span class="k">public</span> <span class="n">libraryAddress</span><span class="p">;</span>
+  <span class="kt">address</span> <span class="k">public</span> <span class="n">storageAddress</span><span class="p">;</span>
+
+  <span class="k">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_library</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_storage</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+    <span class="n">libraryAddress</span> <span class="o">=</span> <span class="n">_library</span><span class="p">;</span>
+    <span class="n">storageAddress</span> <span class="o">=</span> <span class="n">_storage</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">libraryAddress</code> - Ethereum address of the type definition library, from ERC-1900</li>
+  <li><code class="language-plaintext highlighter-rouge">storageAddress</code> - Ethereum address of the type data storage contract</li>
+</ul>
+
+<h3 id="typestoragecontract">TypeStorageContract</h3>
+
+<p>This contract will use the type library to define the internal data stored in it. Each record will be a type instance, addressable by a primary identifier. The primary identifier is calculated by the type library’s <code class="language-plaintext highlighter-rouge">getIdentifier</code> function, based on the type instance values.</p>
+
+<p>We propose a Solidity CRUD pattern, as described in https://medium.com/robhitchens/solidity-crud-part-1-824ffa69509a, where records can also be retrieved using their index - a monotonically increasing counter.</p>
+
+<p>An stub implementation for the TypeStorageContract would look like:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="s">'./TypeALib.sol'</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">TypeAStorage</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">TypeALib</span> <span class="k">for</span> <span class="n">TypeALib</span><span class="p">.</span><span class="n">TypeA</span><span class="p">;</span>
+
+    <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">public</span> <span class="n">typeIndex</span><span class="p">;</span>
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">Type</span><span class="p">)</span> <span class="k">public</span> <span class="n">typeStruct</span><span class="p">;</span>
+
+    <span class="k">struct</span> <span class="n">Type</span> <span class="p">{</span>
+        <span class="n">TypeALib</span><span class="p">.</span><span class="n">TypeA</span> <span class="n">data</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">index</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">event</span> <span class="n">LogNew</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">identifier</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">index</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">LogUpdate</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">identifier</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">index</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">LogRemove</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">identifier</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">index</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">insert</span><span class="p">(</span><span class="n">TypeALib</span><span class="p">.</span><span class="n">TypeA</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">identifier</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">insertBytes</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">identifier</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">remove</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">identifier</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">index</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">update</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">TypeALib</span><span class="p">.</span><span class="n">TypeA</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">identifier</span><span class="p">)</span>
+
+    <span class="k">function</span> <span class="n">isStored</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">identifier</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span> <span class="n">stored</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getByHash</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">identifier</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="n">TypeALib</span><span class="p">.</span><span class="n">TypeA</span> <span class="k">memory</span> <span class="n">data</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getByIndex</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">index</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="n">TypeALib</span><span class="p">.</span><span class="n">TypeA</span> <span class="k">memory</span> <span class="n">data</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">count</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">counter</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>We are now thinking about a building block as a smart contract with an encapsulated object that contains state changing functions that are only understood from within. This is more akin to Object-Oriented Programming and poses interoperability and scalability issues. Not necessarily for an individual project, but for a global Ethereum OS. This is why we are proposing to separate data from business logic and data structure definitions.</p>
+
+<p>When you have public aggregated data, categorized on each type, anyone can build tools on top of it. This is a radical change from the closed or dispersed data patterns that we find in web2.</p>
+
+<p>We have chosen to define a <code class="language-plaintext highlighter-rouge">TypeRootContract</code> instead of extending the dType registry with fields for the TypeStorage contract, because this approach enables easier interface updates in the future. It is more extensible.</p>
+
+<p>The storage pattern used for dType itself and all the Type Storage contracts can be the same. This lowers the cost of building, testing and auditing the code.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">TypeStorageContract</code> pattern should ensure:</p>
+<ul>
+  <li>type instance addressability by the primary identifier</li>
+  <li>a way to retrieve all records from the contract</li>
+  <li>counting the number of records</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal does not affect existent Ethereum standards or implementations. It uses the present experimental version of ABIEncoderV2.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Will be added.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>An in-work implementation can be found at https://github.com/pipeos-one/dType/tree/master/contracts/contracts.
+This proposal will be updated with an appropriate implementation when consensus is reached on the specifications.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

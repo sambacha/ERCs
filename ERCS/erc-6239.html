@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Semantic Soulbound Tokens | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Semantic Soulbound Tokens | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6239" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6239" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Semantic Soulbound Tokens</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal extends <a href="./eip-721.md">ERC-721</a> and <a href="./eip-5192.md">ERC-5192</a> by introducing Resource Description Framework (RDF) triples to Soulbound Tokens’ (‘SBTs‘) metadata.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>A Soulbound Token represents the commitments, credentials, and affiliations of accounts. RDF is a standard data model developed by the World Wide Web Consortium (‘W3C’) and is used to represent information in a structured format. Semantic SBTs are built on existing <a href="./eip-721.md">ERC-721</a> and <a href="./eip-5192.md">ERC-5192</a> standards to include RDF triples in metadata to capture and store the meaning of social metadata as a network of accounts and attributes.</p>
+
+<p>Semantic SBT provides a foundation for publishing, linking, and integrating data from multiple sources, and enables the ability to query and retrieve information across these sources, using inference to uncover new insights from existing social relations. For example, form the on-chain united social graph, assign trusted contacts for social recovery, and supports fair governance.</p>
+
+<p>While the existence of SBTs can create a decentralized social framework, there still needs to specify a common data model to manage the social metadata on-chain in a trustless manner, describing social metadata in an interconnected way, make it easy to be exchanged, integrated and discovered. And to further fuel the boom of the SBTs ecosystem, we need a bottom-up and decentralized way to maintain people’s social identity related information.</p>
+
+<p>Semantic SBTs address this by storing social metadata, attestations, and access permissions on-chain to bootstrap the social identity layer and a linked data layer natively on Ethereum, and bring semantic meanings to the tons of bits of on-chain data.</p>
+
+<h3 id="connectedness">Connectedness</h3>
+
+<p>Semantic SBTs store social data as RDF triples in the Subject-Predicate-Object format, making it easy to create relationships between accounts and attributes.  RDF is a standard for data interchange used to represent highly interconnected data. Representing data in RDF triples makes it simpler for automated systems to identify, clarify, and connect information.</p>
+
+<h3 id="linked-data">Linked Data</h3>
+
+<p>Semantic SBTs allow the huge amount of social data on-chain to be available in a standard format (RDF) and be reachable and manageable. The interrelated datasets on-chain can create the linked data layer that allows social data to be mixed, exposed, and shared across different applications, providing a convenient, cheap, and reliable way to retrieve data, regardless of the number of users.</p>
+
+<h3 id="social-identity">Social Identity</h3>
+
+<p>Semantic SBTs allow people to publish or attest their own identity-related data in a bottom-up and decentralized way, without reliance on any centralized intermediaries while setting every party free. The data is fragmentary in each Semantic SBT and socially interrelated. RDF triples enable various community detection algorithms to be built on top.</p>
+
+<p>This proposal outlines the semantic data modeling of SBTs that allows implementers to model the social relations among Semantic SBTs, especially in the social sector.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<ul>
+  <li>The token <strong>MUST</strong> implement the following interfaces:
+    <ol>
+      <li><a href="./eip-165.md">ERC-165</a>’s <code class="language-plaintext highlighter-rouge">ERC165</code> (<code class="language-plaintext highlighter-rouge">0x01ffc9a7</code>)</li>
+      <li><a href="./eip-721.md">ERC-721</a>’s <code class="language-plaintext highlighter-rouge">ERC721</code> (<code class="language-plaintext highlighter-rouge">0x80ac58cd</code>)</li>
+      <li><a href="./eip-721.md">ERC-721</a>’s <code class="language-plaintext highlighter-rouge">ERC721Metadata</code> (<code class="language-plaintext highlighter-rouge">0x5b5e139f</code>)</li>
+      <li><a href="./eip-5192.md">ERC-5192</a>’s <code class="language-plaintext highlighter-rouge">ERC5192</code> (<code class="language-plaintext highlighter-rouge">0xb45a3c0e</code>)</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="rdf-statement">RDF Statement</h3>
+
+<p>RDF statements come in various formats, we have selected the six most commonly used formats: <code class="language-plaintext highlighter-rouge">nt(N-Triples)</code>,<code class="language-plaintext highlighter-rouge">ttl(Turtle)</code>,<code class="language-plaintext highlighter-rouge">rdf(RDF/XML)</code>,<code class="language-plaintext highlighter-rouge">rj(RDF/JSON)</code>,<code class="language-plaintext highlighter-rouge">nq(N-Quads)</code> and <code class="language-plaintext highlighter-rouge">trig(TriG)</code>.</p>
+
+<p>The complete format of an RDF statement:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rdfStatements = {[format]}&lt;statements&gt;
+</code></pre></div></div>
+
+<p>In the following section, fragments surrounded by <code class="language-plaintext highlighter-rouge">{}</code> characters are OPTIONAL.</p>
+
+<p>In the following section, fragments surrounded by <code class="language-plaintext highlighter-rouge">&lt;&gt;</code> characters are REQUIRED.</p>
+
+<p>format: nt/ttl/rdf/rj/nq/trig</p>
+
+<p>When no format is selected: statements = [ttl]statements</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nt(n-triples)</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">nt</code> uses space to separate the subject, predicate, object of a triple, and a period . to indicate the end of a triple.</p>
+
+<p>The basic structure is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subject predicate object .
+</code></pre></div></div>
+
+<p>In this format, the subject is in the format of IRIREF or BLANK_NODE_LABEL, the predicate is in the format of IRIREF, and the object is in the format of IRIREF, BLANK_NODE_LABEL, or STRING_LITERAL_QUOTE.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;http://example.org/entity/user1&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://example.org/entity/User&gt; .
+&lt;http://example.org/entity/user1&gt; &lt;http://example.org/property/name&gt; "Alice" .
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ttl(Turtle)</code></li>
+</ul>
+
+<p>Compared to <code class="language-plaintext highlighter-rouge">nt</code>, <code class="language-plaintext highlighter-rouge">ttl</code> uses prefixes to simplify the IRIREF format, and the same predicate under the same subject can be merged without repeating it. “a” can be used to represent <code class="language-plaintext highlighter-rouge">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt;</code>.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@prefix : &lt;http://example.org/entity/&gt; .
+@prefix p: &lt;http://example.org/property/&gt; .
+
+:user1 a :User;
+       p:name ”Alice” .
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">rdf(RDF/XML)</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">rdf</code> describes RDF in XML format, using rdf:RDF as the top-level element, and xmlns to describe prefixes. rdf:Description begins describing a node, rdf:about defines the node to be described, and rdf:resource fills in the property value in the format of IRI. If the property value is a string, the property value can be directly written as the text of the property node.</p>
+
+<p>The basic structure is:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;rdf:RDF</span> <span class="na">xmlns:rdf=</span><span class="s">"http://www.w3.org/1999/ 02/22-rdf-syntax-ns#"</span><span class="nt">&gt;</span>
+
+ <span class="nt">&lt;rdf:Description</span> <span class="na">rdf:about=</span><span class="s">"subject"</span> <span class="nt">&gt;</span>
+  <span class="nt">&lt;predicate</span> <span class="na">rdf:resource=</span><span class="s">"object"</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;predicate</span> <span class="nt">&gt;</span>object<span class="nt">&lt;/predicate&gt;</span>
+ <span class="nt">&lt;/rdf:Description&gt;</span>
+<span class="nt">&lt;/rdf:RDF&gt;</span>
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;rdf:RDF</span> <span class="na">xmlns:rdf=</span><span class="s">"http://www.w3.org/1999/ 02/22-rdf-syntax-ns#"</span>
+           <span class="na">xmlns:p=</span><span class="s">"http://example.org/property/"</span><span class="nt">&gt;</span>
+
+ <span class="nt">&lt;rdf:Description</span> <span class="na">rdf:about=</span><span class="s">"http://example.org/entity/user1"</span> <span class="nt">&gt;</span>
+   <span class="nt">&lt;rdf:type</span> <span class="na">rdf:resource=</span><span class="s">"http://example.org/entity/"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;p:name</span> <span class="nt">&gt;</span>Alice<span class="nt">&lt;/p:name&gt;</span>
+ <span class="nt">&lt;/rdf:Description&gt;</span>
+<span class="nt">&lt;/rdf:RDF&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">rj(RDF/JSON)</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">rj</code> describes RDF in JSON format. A triple is described as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  {"subject":{"predicate":[object]}}
+</code></pre></div></div>
+
+<p>Note that each root object is a unique primary key and duplicates are not allowed. There will be no duplicate subjects as keys, and there will be no duplicate predicates under a single subject.</p>
+
+<p>For example:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">   </span><span class="p">{</span><span class="w">
+ </span><span class="nl">"http://example.org/entity/user1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+     </span><span class="s2">"http://example.org/entity/User"</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"http://example.org/property/name"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+     </span><span class="s2">"Alice"</span><span class="w">
+   </span><span class="p">]</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nq(N-Quads)</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">nq</code> is based on <code class="language-plaintext highlighter-rouge">nt</code> but includes a graph label that describes the dataset to which an RDF triple belongs. The graph label can be in the format of IRIREF or BLANK_NODE_LABEL.</p>
+
+<p>The basic structure is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subject predicate object graphLabel.
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;http://example.org/entity/user1&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://example.org/entity/User&gt; &lt;http://example.org/graphs/example&gt; .
+&lt;http://example.org/entity/user1&gt; &lt;http://example.org/property/name&gt; "Alice" &lt;http://example.org/graphs/example&gt; .
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">trig(TriG)</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">trig</code> is an extension of <code class="language-plaintext highlighter-rouge">ttl</code> that includes a graph label to describe the dataset to which an RDF triple belongs. The triple statements are enclosed in curly braces {}.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@prefix : &lt;http://example.org/entity/&gt; .
+@prefix p: &lt;http://example.org/property/&gt; .
+
+&lt;http://example.org/graphs/example&gt;
+  {
+       :user1 a :User;
+              p:name ”Alice” .
+
+   }
+</code></pre></div></div>
+
+<p>In the contract events: <code class="language-plaintext highlighter-rouge">CreateRDF</code>, <code class="language-plaintext highlighter-rouge">UpdateRDF</code>, <code class="language-plaintext highlighter-rouge">RemoveRDF</code>, and the <code class="language-plaintext highlighter-rouge">rdfOf method</code>, the  <code class="language-plaintext highlighter-rouge">rdfStatements</code> is used in <code class="language-plaintext highlighter-rouge">ttl</code> format by default. If other formats listed above are used, a format identifier needs to be added for identification.</p>
+
+<p>The format identifier starts with <code class="language-plaintext highlighter-rouge">[</code> and ends with <code class="language-plaintext highlighter-rouge">]</code> with the format in the middle, i.e., <code class="language-plaintext highlighter-rouge">[format]</code>.</p>
+
+<p>For example, the <code class="language-plaintext highlighter-rouge">rdfStatements</code> in <code class="language-plaintext highlighter-rouge">nt</code> format should include the prefix <code class="language-plaintext highlighter-rouge">[nt]</code>.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[nt]subject predicate object .
+</code></pre></div></div>
+
+<h3 id="contract-interface">Contract Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @title Semantic Soulbound Token
+ * Note: the ERC-165 identifier for this interface is 0xfbafb698
+ */</span>
+<span class="k">interface</span> <span class="n">ISemanticSBT</span><span class="p">{</span>
+    <span class="cm">/**
+     * @dev This emits when minting a Semantic Soulbound Token.
+     * @param tokenId The identifier for the Semantic Soulbound Token.
+     * @param rdfStatements The RDF statements for the Semantic Soulbound Token. 
+     */</span>
+    <span class="k">event</span> <span class="n">CreateRDF</span> <span class="p">(</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span>  <span class="n">rdfStatements</span>
+    <span class="p">);</span>
+    <span class="cm">/**
+     * @dev This emits when updating the RDF data of Semantic Soulbound Token. RDF data is a collection of RDF statements that are used to represent information about resources.
+     * @param tokenId The identifier for the Semantic Soulbound Token.
+     * @param rdfStatements The RDF statements for the semantic soulbound token. 
+     */</span>
+    <span class="k">event</span> <span class="n">UpdateRDF</span> <span class="p">(</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span>  <span class="n">rdfStatements</span>
+    <span class="p">);</span>
+    <span class="cm">/**
+     * @dev This emits when burning or revoking Semantic Soulbound Token.
+     * @param tokenId The identifier for the Semantic Soulbound Token.
+     * @param rdfStatements The RDF statements for the Semantic Soulbound Token. 
+     */</span>
+    <span class="k">event</span> <span class="n">RemoveRDF</span> <span class="p">(</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span>  <span class="n">rdfStatements</span>
+    <span class="p">);</span>
+    <span class="cm">/**
+     * @dev Returns the RDF statements of the Semantic Soulbound Token. 
+     * @param tokenId The identifier for the Semantic Soulbound Token.
+     * @return rdfStatements The RDF statements for the Semantic Soulbound Token. 
+     */</span>
+    <span class="k">function</span> <span class="n">rdfOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">rdfStatements</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">ISemanticRDFSchema</code>, an extension of ERC-721 Metadata, is <strong>OPTIONAL</strong> for this standard, it is used to get the Schema URI for the RDF data.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">ISemanticRDFSchema</span><span class="p">{</span>
+    <span class="cm">/**
+     * @notice Get the URI of schema for this contract.
+     * @return The URI of the contract which point to a configuration profile.
+     */</span>
+    <span class="k">function</span> <span class="n">schemaURI</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="method-specification">Method Specification</h3>
+
+<p><code class="language-plaintext highlighter-rouge">rdfOf (uint256 tokenId)</code>: Query the RDF data for the Semantic Soulbound Token by <code class="language-plaintext highlighter-rouge">tokenId</code>. The returned RDF data format conforms to the W3C RDF standard. RDF data is a collection of RDF statements that are used to represent information about resources. An RDF statement, also known as a triple, is a unit of information in the RDF data model. It consists of three parts: a subject, a predicate, and an object.</p>
+
+<p><code class="language-plaintext highlighter-rouge">schemaURI()</code>: This <strong>OPTIONAL</strong> method is used to query the URIs of the schema for the RDF data. RDF Schema is an extension of the basic RDF vocabulary and provides a data-modelling vocabulary for RDF data. It is <strong>RECOMMENDED</strong> to store the RDF Schema in decentralized storage such as Arweave or IPFS. The URIs are then stored in the contract and can be queried by this method.</p>
+
+<h3 id="event-specification">Event Specification</h3>
+
+<p><code class="language-plaintext highlighter-rouge">CreateRDF</code>: When minting a Semantic Soulbound Token, this event <strong>MUST</strong> be triggered to notify the listener to perform operations with the created RDF data. When calling the event, the input RDF data <strong>MUST</strong> be RDF statements, which are units of information consisting of three parts: a subject, a predicate, and an object.</p>
+
+<p><code class="language-plaintext highlighter-rouge">UpdateRDF</code>: When updating RDF data for a Semantic Soulbound Token, this event <strong>MUST</strong> be triggered to notify the listener to perform update operations accordingly with the updated RDF data. When calling the event, the input RDF data <strong>MUST</strong> be RDF statements, which are units of information consisting of three parts: a subject, a predicate, and an object.</p>
+
+<p><code class="language-plaintext highlighter-rouge">RemoveRDF</code>: When burning or revoking a Semantic Soulbound Token, this event <strong>MUST</strong> be triggered to notify the listener to perform operations with the removed RDF data for the Semantic SBT. When calling the event, the input RDF data <strong>MUST</strong> be RDF statements, which are units of information consisting of three parts: a subject, a predicate, and an object.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>RDF is a flexible and extensible data model based on creating subject-predicate-object relationships, often used to model graph data due to its semantic web standards, Linked Data concept, flexibility, and query capabilities. RDF allows graph data to be easily integrated with other data sources on the web, making it possible to create more comprehensive and interoperable models. The advantage of using RDF for semantic description is that it can describe richer information, including terms, categories, properties, and relationships. RDF uses standard formats and languages to describe metadata, making the expression of semantic information more standardized and unified. This helps to establish more accurate and reliable semantic networks, promoting interoperability between different systems. Additionally, RDF supports semantic reasoning, which allows the system to automatically infer additional relationships and connections between nodes in the social graph based on the existing data.</p>
+
+<p>There are multiple formats for RDF statements. We list six most widely adopted RDF statement formats in the EIP: <code class="language-plaintext highlighter-rouge">Turtle</code>, <code class="language-plaintext highlighter-rouge">N-Triples</code>, <code class="language-plaintext highlighter-rouge">RDF/XML</code>, <code class="language-plaintext highlighter-rouge">RDF/JSON</code>,<code class="language-plaintext highlighter-rouge">N-Quads</code>, and <code class="language-plaintext highlighter-rouge">TriG</code>. These formats have different advantages and applicability in expressing, storing, and parsing RDF statements. Among these, <code class="language-plaintext highlighter-rouge">Turtle</code> is a popular format in RDF statements, due to its good human-readability and concision. It is typically used as the default format in this EIP for RDF statements. Using the Turtle format can make RDF statements easier to understand and maintain, while reducing the need for storage, suitable for representing complex RDF graphs.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal is fully backward compatible with <a href="./eip-721.md">ERC-721</a> and <a href="./eip-5192.md">ERC-5192</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>There are no security considerations related directly to the implementation of this standard.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

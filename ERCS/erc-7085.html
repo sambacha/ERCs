@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>NFT Relationship Enhancement | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="NFT Relationship Enhancement | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7085" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7085" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">NFT Relationship Enhancement</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal builds on <a href="./eip-1155.md">ERC-1155</a> and creates a standard for referring relationships and quantifiable attributes between non-isolated <a href="./eip-721.md">ERC-721</a> or <a href="./eip-1155.md">ERC-1155</a> non-fungible tokens (NFTs). It enables users to build a graph of NFTs and set quantifiable attributes for each NFT, facilitating more complex NFT ecosystems. While a similar proposal exists for <a href="./eip-721.md">ERC-721</a> tokens, it does not provide a way to establish quantifiable relationships or object attributes.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The current standard for NFTs lacks the ability to establish relationships and attributes between tokens. This limitation makes it difficult for users to build more complex NFT ecosystems that require referring relationships and quantifiable attributes between tokens. For example, a user may create a derivative NFT that refers to the original NFT and sets a quantifiable attribute for the relationship between the two NFTs, but without a standardized way to establish relationships and attributes between NFTs, managing these ecosystems becomes increasingly difficult and inefficient.</p>
+
+<p>This proposal aims to address this issue by extending the <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> standards to include the ability to establish referring relationships and quantifiable attributes between NFTs.</p>
+
+<p>By enabling users to build more complex NFT ecosystems, this proposal will enhance the NFT ecosystem and open up new possibilities for NFT use cases. However, it’s important to consider potential drawbacks such as increased complexity and gas cost, and carefully design rules to mitigate these issues.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>This EIP proposes the addition of five new functions to the <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> standards: <code class="language-plaintext highlighter-rouge">setRelationship</code>, <code class="language-plaintext highlighter-rouge">setAttribute</code>, <code class="language-plaintext highlighter-rouge">getRelationship</code>, <code class="language-plaintext highlighter-rouge">getAttribute</code>, and <code class="language-plaintext highlighter-rouge">getAttributeNames</code>. These functions allow users to establish referring relationships and set quantifiable attributes between NFTs.</p>
+
+<h3 id="setrelationship"><code class="language-plaintext highlighter-rouge">setRelationship</code></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">setRelationship</code> function establishes a referring relationship between two NFTs. It takes the following parameters:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setRelationship</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_originalID</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_derivativeID</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_attribute</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_originalID</code>: the ID of the original NFT</li>
+  <li><code class="language-plaintext highlighter-rouge">_derivativeID</code>: the ID of the derivative NFT that refers to the original NFT</li>
+  <li><code class="language-plaintext highlighter-rouge">_attribute</code>: the quantifiable attribute for this relationship, which defaults to 1 if not specified</li>
+</ul>
+
+<p>When called, this function establishes a referring relationship between the two NFTs.</p>
+
+<h3 id="setattribute"><code class="language-plaintext highlighter-rouge">setAttribute</code></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">setAttribute</code> function sets a quantifiable attribute for an NFT. It takes the following parameters:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setAttribute</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">_name</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_id</code>: the ID of the NFT</li>
+  <li><code class="language-plaintext highlighter-rouge">_name</code>: the name of the attribute to be set</li>
+  <li><code class="language-plaintext highlighter-rouge">_value</code>: the value of the attribute to be set</li>
+</ul>
+
+<p>When called, this function sets a quantifiable attribute for the NFT.</p>
+
+<h3 id="getattribute"><code class="language-plaintext highlighter-rouge">getAttribute</code></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">getAttribute</code> function allows anyone to retrieve the value of a specific attribute associated with an NFT. It takes the following parameters:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getAttribute</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">_name</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_id</code>: The ID of the NFT for which you want to retrieve the attribute.</li>
+  <li><code class="language-plaintext highlighter-rouge">_name</code>: The name of the attribute you wish to retrieve.</li>
+</ul>
+
+<p>This function returns the value of the specified attribute as a bytes32 data type.</p>
+
+<h3 id="getattributenames"><code class="language-plaintext highlighter-rouge">getAttributeNames</code></h3>
+
+<p>The getAttributeNames function allows anyone to retrieve the names of all attributes associated with an NFT. It takes the following parameter:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getAttributeNames</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_id</code>: The ID of the NFT for which you want to retrieve the attribute names.</li>
+</ul>
+
+<p>This function returns an array of bytes32 values representing the names of all attributes associated with the specified NFT.</p>
+
+<h3 id="getrelationship"><code class="language-plaintext highlighter-rouge">getRelationship</code></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">getRelationship</code> function allows anyone to retrieve the value of a referring relationship between two NFTs. It takes the following parameters:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getRelationship</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_originalID</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_derivativeID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_originalID</code>: The ID of the original NFT.</li>
+  <li><code class="language-plaintext highlighter-rouge">_derivativeID</code>: The ID of the derivative NFT that refers to the original NFT.</li>
+</ul>
+
+<p>This function returns the value of the referring relationship between the two NFTs as a uint256 data type.</p>
+
+<h3 id="example-usage">Example Usage</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NFTGraph</span> <span class="n">nftContract</span> <span class="o">=</span> <span class="n">NFTGraph</span><span class="p">(</span><span class="n">addressOfContract</span><span class="p">);</span>
+
+<span class="c1">// Retrieve the value of an attribute named "Color" for NFT with ID 123
+</span><span class="kt">bytes32</span> <span class="n">colorValue</span> <span class="o">=</span> <span class="n">nftContract</span><span class="p">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="s">"Color"</span><span class="p">);</span>
+
+<span class="c1">// Retrieve the names of all attributes associated with NFT with ID 456
+</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributeNames</span> <span class="o">=</span> <span class="n">nftContract</span><span class="p">.</span><span class="n">getAttributeNames</span><span class="p">(</span><span class="mi">456</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>By including these functions and methods in the specification, you establish a clear and standardized way for users and developers to read attributes associated with NFTs.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>In developing this EIP, some key design decisions were made. For example, we limited the complexity of the relationship graph that can be created by only allowing for one referring relationship between two NFTs. This helps to ensure that the graph remains manageable and does not become too complex to be useful. Additionally, we kept the gas cost of setting attributes to a minimum by only allowing for one attribute to be set at a time.</p>
+
+<p>While there are currently no similar features in other blockchain languages or standards, we drew inspiration from the concept of Graph Theory, which is a branch of mathematics that studies the relationships between objects. By adding the ability to establish relationships between NFTs and set quantifiable attributes for those relationships, we believe that the extended NFT standard will become even more useful and versatile for NFT creators and users.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This EIP is designed to be fully backward-compatible with existing <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> contracts and tokens. Existing NFT contracts and tokens will continue to function as they did before, and the new <code class="language-plaintext highlighter-rouge">setRelationship</code> and <code class="language-plaintext highlighter-rouge">setAttribute</code> functions will only be available to contracts that explicitly implement this EIP.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>To assist in understanding and implementing this proposal, we provide a reference Solidity interface and contract that define the functions for establishing relationships and reading attributes. Developers can use this interface as a foundation for integrating the NFT Relationship Enhancement into their own contracts.</p>
+
+<h3 id="erc-165-interface-support"><a href="./eip-165.md">ERC-165</a> Interface Support</h3>
+
+<p>The NFT Relationship Enhancement contract implements the ERC-165 standard interface to allow for interface detection. This enables smart contracts and applications to check if a given contract supports the functions defined in this proposal before interacting with it.</p>
+
+<h3 id="inftgraph-interface">INFTGraph Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC165/IERC165.sol"</span><span class="p">;</span>  <span class="c1">// Import IERC165 for interface detection
+</span>
+<span class="k">interface</span> <span class="n">INFTGraph</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+    <span class="c1">// setRelationship: Establishes relationships between NFTs.
+</span>    <span class="k">function</span> <span class="n">setRelationship</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_originalID</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_derivativeID</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_attribute</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="c1">// setAttribute: Sets quantifiable attributes for NFTs.
+</span>    <span class="k">function</span> <span class="n">setAttribute</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">_name</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="c1">// getRelationship: Retrieves relationship values between NFTs.
+</span>    <span class="k">function</span> <span class="n">getRelationship</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_originalID</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_derivativeID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="c1">// getAttribute: Retrieves the value of specific attributes associated with NFTs.
+</span>    <span class="k">function</span> <span class="n">getAttribute</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">_name</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+    <span class="c1">// getAttributeNames: Retrieves all attribute names associated with an NFT.
+</span>    <span class="k">function</span> <span class="n">getAttributeNames</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The INFTGraph interface specifies the functions for setting relationships and attributes, as well as retrieving attribute information and relationship values.</p>
+
+<h3 id="nftgraph-contract">NFTGraph Contract</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/introspection/ERC165.sol"</span><span class="p">;</span>  <span class="c1">// Import ERC165 for interface detection
+</span>
+<span class="k">import</span> <span class="s">"./INFTGraph.sol"</span><span class="p">;</span>  <span class="c1">// Import INFTGraph interface
+</span>
+<span class="k">contract</span> <span class="n">NFTGraph</span> <span class="k">is</span> <span class="n">INFTGraph</span><span class="p">{</span>
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">))</span> <span class="k">public</span> <span class="n">relationship</span><span class="p">;</span>
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="kt">bytes32</span><span class="p">))</span> <span class="k">public</span> <span class="n">attributes</span><span class="p">;</span>
+
+    <span class="c1">// Implement the setRelationship and setAttribute functions as described in the EIP specification.
+</span>
+
+    <span class="c1">// Implement the supportsInterface function for ERC-165.
+</span>    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceID</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">interfaceID</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">INFTGraph</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span> <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceID</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Additional implementation details...
+</span>    <span class="k">function</span> <span class="n">getRelationship</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_originalID</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_derivativeID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">relationship</span><span class="p">[</span><span class="n">_originalID</span><span class="p">][</span><span class="n">_derivativeID</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getAttribute</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">_name</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kt">bytes32</span><span class="p">(</span><span class="n">attributes</span><span class="p">[</span><span class="n">_id</span><span class="p">][</span><span class="n">_name</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getAttributeNames</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">names</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">bytes32</span><span class="p">[](</span><span class="n">attributes</span><span class="p">[</span><span class="n">_id</span><span class="p">].</span><span class="n">length</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">attributes</span><span class="p">[</span><span class="n">_id</span><span class="p">].</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kt">bytes32</span><span class="p">(</span><span class="n">attributes</span><span class="p">[</span><span class="n">_id</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">names</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">setRelationship</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">originalNFT</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">derivativeNFT</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">relationshipValue</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">originalNFT</span> <span class="o">!=</span> <span class="n">derivativeNFT</span><span class="p">,</span> <span class="s">"Original and derivative NFTs must be different"</span><span class="p">);</span>
+        <span class="n">relationship</span><span class="p">[</span><span class="n">originalNFT</span><span class="p">][</span><span class="n">derivativeNFT</span><span class="p">]</span> <span class="o">=</span> <span class="n">relationshipValue</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="k">function</span> <span class="n">setAttribute</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">nft</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">attributeName</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">attributeValue</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="n">attributes</span><span class="p">[</span><span class="n">nft</span><span class="p">][</span><span class="n">attributeName</span><span class="p">]</span> <span class="o">=</span> <span class="n">attributeValue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The NFTGraph contract implements the functions specified in the INFTGraph interface and provides storage for relationships and attributes.</p>
+
+<p>Developers can use this reference interface and contract as a starting point for integrating the NFT Relationship Enhancement functionality into their own projects.
+The interface provides a clear and standardized way to interact with the contract, promoting consistency and ease of integration.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>When implementing this proposal, contract developers should consider the following security aspects:</p>
+
+<ol>
+  <li><strong>Validation of Relationships</strong>: Contracts utilizing the setRelationship function must ensure that the relationships being established are valid and authorized by the relevant parties. Unauthorized or malicious relationships could lead to unintended consequences.</li>
+  <li><strong>Attribute Validation</strong>: Contracts implementing the setAttribute function should carefully validate attributes to prevent malicious or harmful values. Invalid or unvalidated attributes could disrupt the functionality of the NFT ecosystem.</li>
+  <li><strong>Access Control</strong>: Contracts should implement appropriate access control mechanisms to restrict who can call critical functions, especially those that modify relationships or attributes. Unauthorized access can lead to misuse or exploitation.</li>
+  <li><strong>Reentrancy Protection</strong>: Consider adding reentrancy protection mechanisms to functions that modify relationships or attributes. Reentrancy attacks could otherwise be exploited to manipulate contract behavior.</li>
+</ol>
+
+<p>By addressing these considerations, developers can enhance the security of their contracts and protect the integrity of the NFT ecosystem.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

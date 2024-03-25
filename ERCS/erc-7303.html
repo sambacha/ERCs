@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Token-Controlled Token Circulation | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Token-Controlled Token Circulation | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7303" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7303" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Token-Controlled Token Circulation</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This ERC introduces an access control scheme termed Token-Controlled Token Circulation (TCTC). By representing the privileges associated with a role as an <a href="./eip-721.md">ERC-721</a> or <a href="./eip-1155.md">ERC-1155</a> token (referred to as a <code class="language-plaintext highlighter-rouge">control token</code>), the processes of granting or revoking a role can be facilitated through the minting or burning of the corresponding <code class="language-plaintext highlighter-rouge">control token</code>.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There are numerous methods to implement access control for privileged actions. A commonly utilized pattern is “role-based” access control as specified in <a href="./eip-5982.md">ERC-5982</a>. This method, however, necessitates the use of an off-chain management tool to grant or revoke required roles through its interface. Additionally, as many wallets lack a user interface that displays the privileges granted by a role, users are often unable to comprehend the status of their privileges through the wallet.</p>
+
+<h3 id="use-cases">Use Cases</h3>
+
+<p>This ERC is applicable in many scenarios where role-based access control as described in <a href="./eip-5982.md">ERC-5982</a> is used. Specific use cases include:</p>
+
+<p><strong>Mint/Burn Permission:</strong>
+In applications that circulate items such as tickets, coupons, membership cards, and site access rights as tokens, it is necessary to provide the system administrator with the authority to mint or burn these tokens. These permissions can be realized as <code class="language-plaintext highlighter-rouge">control tokens</code> in this scheme.</p>
+
+<p><strong>Transfer Permission:</strong>
+In some situations within these applications, it may be desirable to limit the ability to transfer tokens to specific agencies. In these cases, an agency certificate is issued as a <code class="language-plaintext highlighter-rouge">control token</code>. The ownership of this <code class="language-plaintext highlighter-rouge">control token</code> then provides the means to regulate token transfers.</p>
+
+<p><strong>Address Verification:</strong>
+Many applications require address verification to prevent errors in the recipient’s address when minting or transferring target tokens. A <code class="language-plaintext highlighter-rouge">control token</code> is issued as proof of address verification to users, which is required by the recipient when a mint or transfer transaction is executed, thus preventing misdeliveries. In some instances, this <code class="language-plaintext highlighter-rouge">control token</code> for address verification may be issued by a government agency or specific company after an identity verification process.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<ol>
+  <li>Smart contracts implementing the <a href="./eip-7303.md">ERC-7303</a> standard MUST represent the privilege required by the role as an ERC-721 token or ERC-1155 token. The tokens that represent privileges are called <code class="language-plaintext highlighter-rouge">control tokens</code> in this ERC. The <code class="language-plaintext highlighter-rouge">control token</code> can be any type of token, and its transactions may be recursively controlled by another <code class="language-plaintext highlighter-rouge">control token</code>.</li>
+  <li>To associate the required <code class="language-plaintext highlighter-rouge">control token</code> with the role, the address of the previously deployed contract for the <code class="language-plaintext highlighter-rouge">control token</code> MUST be used.</li>
+  <li>To ascertain whether an account possesses the necessary role, it SHOULD be confirmed that the balance of the <code class="language-plaintext highlighter-rouge">control token</code> exceeds 0, utilizing the <code class="language-plaintext highlighter-rouge">balanceOf</code> method defined in ERC-721 or ERC-1155. Note that the <code class="language-plaintext highlighter-rouge">typeId</code> must be specified if an ERC-1155 token is used for the <code class="language-plaintext highlighter-rouge">balanceOf</code> method.</li>
+  <li>To grant a role to an account, a <code class="language-plaintext highlighter-rouge">control token</code> representing the privilege SHOULD be minted to the account using <code class="language-plaintext highlighter-rouge">safeMint</code> method defined in <a href="./eip-5679.md">ERC-5679</a>.</li>
+  <li>To revoke a role from an account, the <code class="language-plaintext highlighter-rouge">control token</code> representing the privilege SHOULD be burned using the <code class="language-plaintext highlighter-rouge">burn</code> method defined in ERC-5679.</li>
+  <li>A role in a compliant smart contract is represented in the format of <code class="language-plaintext highlighter-rouge">bytes32</code>. It’s RECOMMENDED the value of such role is computed as a <code class="language-plaintext highlighter-rouge">keccak256</code> hash of a string of the role name, in this format: <code class="language-plaintext highlighter-rouge">bytes32 role = keccak256("&lt;role_name&gt;")</code> such as <code class="language-plaintext highlighter-rouge">bytes32 role = keccak256("MINTER")</code>.</li>
+</ol>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The choice to utilize ERC-721 or ERC-1155 token as the control token for privileges enhances visibility of such privileges within wallets, thus simplifying privilege management for users.</p>
+
+<p>Generally, when realizing privileges as tokens, specifications like Soulbound Token (e.g., <a href="./eip-5192.md">ERC-5192</a>) are used. Given that ERC-5192 inherits from ERC-721, this ERC has choiced ERC-721 as the requirement for the control token.</p>
+
+<p>Employing a transferable control token can cater to scenarios where role delegation is necessary. For example, when an authority within an organization is replaced or on vacation, the ability to transfer their privileges to another member becomes possible. The decision to designate the control token as transferable will depend on the specific needs of the application.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This ERC is designed to be compatible for <a href="./eip-721">ERC-721</a>, <a href="./eip-1155">ERC-1155</a>, and <a href="./eip-5679">ERC-5679</a> respectively.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>ERC-7303 provides a modifier to facilitate the implementation of TCTC access control in applications.　This modifier checks if an account possesses the necessary role. ERC-7303 also includes a function that grants a specific role to a designated account.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: Apache-2.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/ERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC1155/ERC1155.sol"</span><span class="p">;</span>
+
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC7303</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">ERC721Token</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">contractId</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">ERC1155Token</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">contractId</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">typeId</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">mapping</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">ERC721Token</span><span class="p">[])</span> <span class="k">private</span> <span class="n">_ERC721_Contracts</span><span class="p">;</span>
+    <span class="k">mapping</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">ERC1155Token</span><span class="p">[])</span> <span class="k">private</span> <span class="n">_ERC1155_Contracts</span><span class="p">;</span>
+
+    <span class="k">modifier</span> <span class="n">onlyHasToken</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">role</span><span class="p">,</span> <span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_checkHasToken</span><span class="p">(</span><span class="n">role</span><span class="p">,</span> <span class="n">account</span><span class="p">),</span> <span class="s">"ERC7303: not has a required token"</span><span class="p">);</span>
+        <span class="n">_</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Grant a role to user who owns a control token specified by the ERC-721 contractId. 
+     * Multiple calls are allowed, in this case the user must own at least one of the specified token.
+     * @param role byte32 The role which you want to grant.
+     * @param contractId address The address of contractId of which token the user required to own.
+     */</span>
+    <span class="k">function</span> <span class="n">_grantRoleByERC721</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">role</span><span class="p">,</span> <span class="kt">address</span> <span class="n">contractId</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">IERC165</span><span class="p">(</span><span class="n">contractId</span><span class="p">).</span><span class="n">supportsInterface</span><span class="p">(</span><span class="k">type</span><span class="p">(</span><span class="n">IERC721</span><span class="p">).</span><span class="n">interfaceId</span><span class="p">),</span>
+            <span class="s">"ERC7303: provided contract does not support ERC721 interface"</span>
+        <span class="p">);</span>
+        <span class="n">_ERC721_Contracts</span><span class="p">[</span><span class="n">role</span><span class="p">].</span><span class="n">push</span><span class="p">(</span><span class="n">ERC721Token</span><span class="p">(</span><span class="n">contractId</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Grant a role to user who owns a control token specified by the ERC-1155 contractId. 
+     * Multiple calls are allowed, in this case the user must own at least one of the specified token.
+     * @param role byte32 The role which you want to grant.
+     * @param contractId address The address of contractId of which token the user required to own.
+     * @param typeId uint256 The token type id that the user required to own.
+     */</span>
+    <span class="k">function</span> <span class="n">_grantRoleByERC1155</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">role</span><span class="p">,</span> <span class="kt">address</span> <span class="n">contractId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">typeId</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">IERC165</span><span class="p">(</span><span class="n">contractId</span><span class="p">).</span><span class="n">supportsInterface</span><span class="p">(</span><span class="k">type</span><span class="p">(</span><span class="n">IERC1155</span><span class="p">).</span><span class="n">interfaceId</span><span class="p">),</span>
+            <span class="s">"ERC7303: provided contract does not support ERC1155 interface"</span>
+        <span class="p">);</span>
+        <span class="n">_ERC1155_Contracts</span><span class="p">[</span><span class="n">role</span><span class="p">].</span><span class="n">push</span><span class="p">(</span><span class="n">ERC1155Token</span><span class="p">(</span><span class="n">contractId</span><span class="p">,</span> <span class="n">typeId</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_checkHasToken</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">role</span><span class="p">,</span> <span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ERC721Token</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">ERC721Tokens</span> <span class="o">=</span> <span class="n">_ERC721_Contracts</span><span class="p">[</span><span class="n">role</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ERC721Tokens</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">IERC721</span><span class="p">(</span><span class="n">ERC721Tokens</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">contractId</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">account</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">ERC1155Token</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">ERC1155Tokens</span> <span class="o">=</span> <span class="n">_ERC1155_Contracts</span><span class="p">[</span><span class="n">role</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ERC1155Tokens</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">IERC1155</span><span class="p">(</span><span class="n">ERC1155Tokens</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">contractId</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">ERC1155Tokens</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">typeId</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The following is a simple example of utilizing <code class="language-plaintext highlighter-rouge">ERC7303</code> within an ERC-721 token to define “minter” and “burner” roles. Accounts possessing these roles are allowed to create new tokens and destroy existing tokens, facilitated by specifying ERC-721 or ERC-1155 control tokens:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: Apache-2.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/ERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./ERC7303.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">MyToken</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">ERC7303</span> <span class="p">{</span>
+    <span class="kt">bytes32</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">MINTER_ROLE</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"MINTER_ROLE"</span><span class="p">);</span>
+    <span class="kt">bytes32</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">BURNER_ROLE</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"BURNER_ROLE"</span><span class="p">);</span>
+
+    <span class="k">constructor</span><span class="p">()</span> <span class="n">ERC721</span><span class="p">(</span><span class="s">"MyToken"</span><span class="p">,</span> <span class="s">"MTK"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Specifies the deployed contractId of ERC721 control token.
+</span>        <span class="n">_grantRoleByERC721</span><span class="p">(</span><span class="n">MINTER_ROLE</span><span class="p">,</span> <span class="mi">0</span><span class="n">x</span><span class="p">...);</span>
+        <span class="n">_grantRoleByERC721</span><span class="p">(</span><span class="n">BURNER_ROLE</span><span class="p">,</span> <span class="mi">0</span><span class="n">x</span><span class="p">...);</span>
+
+        <span class="c1">// Specifies the deployed contractId and typeId of ERC1155 control token.
+</span>        <span class="n">_grantRoleByERC1155</span><span class="p">(</span><span class="n">MINTER_ROLE</span><span class="p">,</span> <span class="mi">0</span><span class="n">x</span><span class="p">...,</span> <span class="p">...);</span>
+        <span class="n">_grantRoleByERC1155</span><span class="p">(</span><span class="n">BURNER_ROLE</span><span class="p">,</span> <span class="mi">0</span><span class="n">x</span><span class="p">...,</span> <span class="p">...);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">safeMint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">uri</span><span class="p">)</span>
+        <span class="k">public</span> <span class="n">onlyHasToken</span><span class="p">(</span><span class="n">MINTER_ROLE</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_safeMint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">burn</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> 
+        <span class="k">public</span> <span class="n">onlyHasToken</span><span class="p">(</span><span class="n">BURNER_ROLE</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="n">_burn</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The security of tokens subject to circulation depends significantly on the security of the control tokens. Careful consideration must be given to the settings regarding the administrative privileges, mint/transfer/burn permissions, and the possibility of contract updates of control tokens.</p>
+
+<p>In particular, making control tokens transferable allows for flexible operations, such as the temporary delegation of administrative rights. However, it also raises the possibility that the rights to circulate tokens could fall into the hands of inappropriate third parties. Therefore, control tokens should generally be made non-transferable. If control tokens are to be made transferable, at the very least, the authority to burn these tokens should be retained by a trusted administrator.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

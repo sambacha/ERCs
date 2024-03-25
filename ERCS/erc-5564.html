@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Stealth Addresses | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Stealth Addresses | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5564" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5564" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Stealth Addresses</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This specification establishes a standardized method for interacting with stealth addresses, which allow senders of transactions or transfers to non-interactively generate private accounts exclusively accessible by their recipients. Moreover, this specification enables developers to create stealth address protocols based on the foundational implementation outlined in this ERC, utilizing a singleton contract to emit the necessary information for recipients. In addition to the base implementation, this ERC also outlines the first implementation of a cryptographic scheme, specifically the SECP256k1 curve.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The standardization of non-interactive stealth address generation presents the potential to significantly improve the privacy capabilities of the Ethereum network and other EVM-compatible chains by allowing recipients to remain private when receiving assets. This is accomplished through the sender generating a stealth address based on a shared secret known exclusively to the sender and recipient. The recipients alone can access the funds stored at their stealth addresses, as they are the sole possessors of the necessary private key. As a result, observers are unable to associate the recipient’s stealth address with their identity, thereby preserving the recipient’s privacy and leaving the sender as the only party privy to this information. By offering a foundational implementation in the form of a single contract that is compatible with multiple cryptographic schemes, recipients are granted a centralized location to monitor, ensuring they do not overlook any incoming transactions.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Definitions:</p>
+
+<ul>
+  <li>A “stealth meta-address” is a set of one or two public keys that can be used to compute a stealth address for a given recipient.</li>
+  <li>A “spending key” is a private key that can be used to spend funds sent to a stealth address. A “spending public key” is the corresponding public key.</li>
+  <li>A “viewing key” is a private key that can be used to determine if funds sent to a stealth address belong to the recipient who controls the corresponding spending key. A “viewing public key” is the corresponding public key.</li>
+</ul>
+
+<p>Different stealth address schemes will have different expected stealth meta-address lengths. A scheme that uses public keys of length <code class="language-plaintext highlighter-rouge">n</code> bytes MUST define stealth meta-addresses as follows:</p>
+
+<ul>
+  <li>A stealth meta-address of length <code class="language-plaintext highlighter-rouge">n</code> uses the same stealth meta-address for the spending public key and viewing public key.</li>
+  <li>A stealth meta-address of length <code class="language-plaintext highlighter-rouge">2n</code> uses the first <code class="language-plaintext highlighter-rouge">n</code> bytes as the spending public key and the last <code class="language-plaintext highlighter-rouge">n</code> bytes as the viewing public key.</li>
+</ul>
+
+<p>Given a recipient’s stealth meta-address, a sender MUST be able generate a stealth address for the recipient by calling a method with the following signature:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Generates a stealth address from a stealth meta address.
+/// @param stealthMetaAddress The recipient's stealth meta-address.
+/// @return stealthAddress The recipient's stealth address.
+/// @return ephemeralPubKey The ephemeral public key used to generate the stealth address.
+/// @return viewTag The view tag derived from the shared secret.
+</span><span class="k">function</span> <span class="n">generateStealthAddress</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">stealthMetaAddress</span><span class="p">)</span>
+  <span class="k">external</span>
+  <span class="k">view</span>
+  <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">stealthAddress</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">ephemeralPubKey</span><span class="p">,</span> <span class="kt">bytes1</span> <span class="n">viewTag</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>A recipient MUST be able to check if a stealth address belongs to them by calling a method with the following signature:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Returns true if funds sent to a stealth address belong to the recipient who controls
+/// the corresponding spending key.
+/// @param stealthAddress The recipient's stealth address.
+/// @param ephemeralPubKey The ephemeral public key used to generate the stealth address.
+/// @param viewingKey The recipient's viewing private key.
+/// @param spendingPubKey The recipient's spending public key.
+/// @return True if funds sent to the stealth address belong to the recipient.
+</span><span class="k">function</span> <span class="n">checkStealthAddress</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">stealthAddress</span><span class="p">,</span>
+  <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">ephemeralPubKey</span><span class="p">,</span>
+  <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">viewingKey</span><span class="p">,</span>
+  <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">spendingPubKey</span>
+<span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>A recipient MUST be able to compute the private key for a stealth address by calling a method with the following signature:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Computes the stealth private key for a stealth address.
+/// @param stealthAddress The expected stealth address.
+/// @param ephemeralPubKey The ephemeral public key used to generate the stealth address.
+/// @param viewingKey The recipient's viewing private key.
+/// @param spendingKey The recipient's spending private key.
+/// @return stealthKey The stealth private key corresponding to the stealth address.
+/// @dev The stealth address input is not strictly necessary, but it is included so the method
+/// can validate that the stealth private key was generated correctly.
+</span><span class="k">function</span> <span class="n">computeStealthKey</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">stealthAddress</span><span class="p">,</span>
+  <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">ephemeralPubKey</span><span class="p">,</span>
+  <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">viewingKey</span><span class="p">,</span>
+  <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">spendingKey</span>
+<span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The implementation of these methods is scheme-specific. The specification of a new stealth address scheme MUST specify the implementation for each of these methods. Additionally, although these function interfaces are specified in Solidity, they do not necessarily ever need to be implemented in Solidity, but any library or SDK conforming to this specification MUST implement these methods with compatible function interfaces.</p>
+
+<p>A 256 bit integer (<code class="language-plaintext highlighter-rouge">schemeId</code>) is used to identify stealth address schemes. A mapping from the schemeId to its specification MUST be declared in the ERC that proposes to standardize a new stealth address scheme. It is RECOMMENDED  that <code class="language-plaintext highlighter-rouge">schemeId</code>s are chosen to be monotonically incrementing integers for simplicity, but arbitrary or meaningful <code class="language-plaintext highlighter-rouge">schemeId</code>s  may be chosen. Furthermore, the schemeId MUST be added to <a href="../assets/eip-5564/scheme_ids.md">this overview</a>. These extensions MUST specify:</p>
+
+<ul>
+  <li>
+    <p>The integer identifier for the scheme.</p>
+  </li>
+  <li>
+    <p>The algorithm for encoding a stealth meta-address (i.e. the spending public key and viewing public key) into a <code class="language-plaintext highlighter-rouge">bytes</code> array, and decoding it from <code class="language-plaintext highlighter-rouge">bytes</code> to the native key types of that scheme.</p>
+  </li>
+  <li>
+    <p>The algorithm for the <code class="language-plaintext highlighter-rouge">generateStealthAddress</code> method.</p>
+  </li>
+  <li>
+    <p>The algorithm for the <code class="language-plaintext highlighter-rouge">checkStealthAddress</code> method.</p>
+  </li>
+  <li>
+    <p>The algorithm for the <code class="language-plaintext highlighter-rouge">computeStealthKey</code> method.</p>
+  </li>
+</ul>
+
+<p>This specification additionally defines a singleton <code class="language-plaintext highlighter-rouge">ERC5564Announcer</code> contract that emits events to announce when something is sent to a stealth address. This MUST be a singleton contract, with one instance per chain. The contract is specified as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Interface for announcing when something is sent to a stealth address.
+</span><span class="k">contract</span> <span class="n">IERC5564Announcer</span> <span class="p">{</span>
+  <span class="c1">/// @dev Emitted when sending something to a stealth address.
+</span>  <span class="c1">/// @dev See the `announce` method for documentation on the parameters.
+</span>  <span class="k">event</span> <span class="n">Announcement</span> <span class="p">(</span>
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">schemeId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">stealthAddress</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">caller</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">ephemeralPubKey</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">metadata</span>
+  <span class="p">);</span>
+
+  <span class="c1">/// @dev Called by integrators to emit an `Announcement` event.
+</span>  <span class="c1">/// @param schemeId The integer specifying the applied stealth address scheme.
+</span>  <span class="c1">/// @param stealthAddress The computed stealth address for the recipient.
+</span>  <span class="c1">/// @param ephemeralPubKey Ephemeral public key used by the sender.
+</span>  <span class="c1">/// @param metadata An arbitrary field MUST include the view tag in the first byte.
+</span>  <span class="c1">/// Besides the view tag, the metadata can be used by the senders however they like, 
+</span>  <span class="c1">/// but the below guidelines are recommended:
+</span>  <span class="c1">/// The first byte of the metadata MUST be the view tag.
+</span>  <span class="c1">/// - When sending/interacting with the native token of the blockchain (cf. ETH), the metadata SHOULD be structured as follows:
+</span>  <span class="c1">///     - Byte 1 MUST be the view tag, as specified above.
+</span>  <span class="c1">///     - Bytes 2-5 are `0xeeeeeeee`
+</span>  <span class="c1">///     - Bytes 6-25 are the address 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE.
+</span>  <span class="c1">///     - Bytes 26-57 are the amount of ETH being sent.
+</span>  <span class="c1">/// - When interacting with ERC-20/ERC-721/etc. tokens, the metadata SHOULD be structured as follows:
+</span>  <span class="c1">///   - Byte 1 MUST be the view tag, as specified above.
+</span>  <span class="c1">///   - Bytes 2-5 are a function identifier. When a function selector (e.g.
+</span>  <span class="c1">///     the first (left, high-order in big-endian) four bytes of the Keccak-256
+</span>  <span class="c1">///     hash of the signature of the function, like Solidity and Vyper use) is
+</span>  <span class="c1">///     available, it MUST be used.
+</span>  <span class="c1">///   - Bytes 6-25 are the token contract address.
+</span>  <span class="c1">///   - Bytes 26-57 are the amount of tokens being sent/interacted with for fungible tokens, or
+</span>  <span class="c1">///     the token ID for non-fungible tokens.
+</span>  <span class="k">function</span> <span class="n">announce</span> <span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">schemeId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">stealthAddress</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">ephemeralPubKey</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">metadata</span>
+  <span class="p">)</span>
+    <span class="k">external</span>
+  <span class="p">{</span>
+    <span class="k">emit</span> <span class="n">Announcement</span><span class="p">(</span><span class="n">schemeId</span><span class="p">,</span> <span class="n">stealthAddress</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">ephemeralPubKey</span><span class="p">,</span> <span class="n">metadata</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="stealth-meta-address-format">Stealth meta-address format</h3>
+
+<p>The new address format for the stealth meta-address extends the chain specific address format by adding a <code class="language-plaintext highlighter-rouge">st:</code> (<em>stealth</em>) prefix.
+Thus, a stealth meta-address on Ethereum has the following format:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>st:eth:0x&lt;spendingKey&gt;&lt;viewingKey&gt;
+</code></pre></div></div>
+
+<p>Stealth meta-addresses may be managed by the user and/or registered within a publicly available <code class="language-plaintext highlighter-rouge">Registry</code> contract, as delineated in <a href="./eip-6538">ERC-6538</a>. This provides users with a centralized location for identifying stealth meta-addresses associated with other individuals while simultaneously enabling recipients to express their openness to engage via stealth addresses.</p>
+
+<p><em>Notably, the address format is used only to differentiate stealth addresses from standard addresses, as the prefix is removed before performing any computations on the stealth meta-address.</em></p>
+
+<hr />
+
+<h3 id="initial-implementation-of-secp256k1-with-view-tags">Initial Implementation of SECP256k1 with View Tags</h3>
+
+<p>This ERC provides a foundation that is not tied to any specific cryptographic system through the <code class="language-plaintext highlighter-rouge">IERC5564Announcer</code> contract. In addition, it introduces the first implementation of a <a href="../assets/eip-5564/scheme_ids.md">stealth address scheme</a> that utilizes the SECP256k1 elliptic curve and view tags. The SECP256k1 elliptic curve is defined with the equation $y^2 = x^3 + 7 \pmod{p}$, where $p = 2^{256} - 2^{32} - 977$.</p>
+
+<p>The following reference is divided into three sections:</p>
+
+<ol>
+  <li>
+    <p>Stealth address generation</p>
+  </li>
+  <li>
+    <p>Parsing announcements</p>
+  </li>
+  <li>
+    <p>Stealth private key derivation</p>
+  </li>
+</ol>
+
+<p>Definitions:</p>
+
+<ul>
+  <li>$G$ represents the generator point of the curve.</li>
+</ul>
+
+<h4 id="generation---generate-stealth-address-from-stealth-meta-address">Generation - Generate stealth address from stealth meta-address:</h4>
+
+<ul>
+  <li>
+    <p>Recipient has access to the private keys $p_{spend}$, $p_{view}$ from which public keys $P_{spend}$ and $P_{view}$ are derived.</p>
+  </li>
+  <li>
+    <p>Recipient has published a stealth meta-address that consists of the public keys $P_{spend}$ and $P_{view}$.</p>
+  </li>
+  <li>
+    <p>Sender passes the stealth meta-address to the <code class="language-plaintext highlighter-rouge">generateStealthAddress</code> function.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">generateStealthAddress</code> function performs the following computations:</p>
+    <ul>
+      <li>Generate a random 32-byte entropy ephemeral private key $p_{ephemeral}$.</li>
+      <li>Derive the ephemeral public key  $P_{ephemeral}$ from $p_{ephemeral}$.</li>
+      <li>Parse the spending and viewing public keys, $P_{spend}$ and $P_{view}$, from the stealth meta-address.</li>
+      <li>A shared secret $s$ is computed as $s = p_{ephemeral} \cdot P_{view}$.</li>
+      <li>The secret is hashed $s_{h} = \textrm{h}(s)$.</li>
+      <li>The view tag $v$ is extracted by taking the most significant byte $s_{h}[0]$,</li>
+      <li>Multiply the hashed shared secret with the generator point $S_h = s_h \cdot G$.</li>
+      <li>The recipient’s stealth public key is computed as $P_{stealth} = P_{spend} + S_h$.</li>
+      <li>The recipient’s stealth address $a_{stealth}$ is computed as $\textrm{pubkeyToAddress}(P_{stealth})$.</li>
+      <li>The function returns the stealth address $a_{stealth}$, the ephemeral public key $P_{ephemeral}$ and the view tag $v$.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="parsing---locate-ones-own-stealth-addresses">Parsing - Locate one’s own stealth address(es):</h4>
+
+<ul>
+  <li>
+    <p>User has access to the viewing private key $p_{view}$ and the spending public key $P_{spend}$.</p>
+  </li>
+  <li>
+    <p>User has access to a set of <code class="language-plaintext highlighter-rouge">Announcement</code> events and applies the <code class="language-plaintext highlighter-rouge">checkStealthAddress</code> function to each of them.</p>
+  </li>
+  <li>
+    <p>The  <code class="language-plaintext highlighter-rouge">checkStealthAddress</code> function performs the following computations:</p>
+    <ul>
+      <li>Shared secret $s$ is computed by multiplying the viewing private key with the ephemeral public key of the announcement $s = p_{view}$ * $P_{ephemeral}$.</li>
+      <li>The secret is hashed $s_{h} = h(s)$.</li>
+      <li>The view tag $v$ is extracted by taking the most significant byte $s_{h}[0]$ and can be compared to the given view tag. If the view tags do not match, this <code class="language-plaintext highlighter-rouge">Announcement</code> is not for the user and the remaining steps can be skipped. If the view tags match, continue on.</li>
+      <li>Multiply the hashed shared secret with the generator point $S_h = s_h \cdot G$.</li>
+      <li>The stealth public key is computed as $P_{stealth} = P_{spend} + S_h$.</li>
+      <li>The derived stealth address $a_{stealth}$ is computed as $\textrm{pubkeyToAddress}(P_{stealth})$.</li>
+      <li>Return <code class="language-plaintext highlighter-rouge">true</code> if the stealth address of the announcement matches the derived stealth address, else return <code class="language-plaintext highlighter-rouge">false</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="private-key-derivation---generate-the-stealth-address-private-key-from-the-hashed-shared-secret-and-the-spending-private-key">Private key derivation - Generate the stealth address private key from the hashed shared secret and the spending private key.</h4>
+
+<ul>
+  <li>
+    <p>User has access to the viewing private key $p_{view}$ and spending private key $p_{spend}$.</p>
+  </li>
+  <li>
+    <p>User has access to a set of <code class="language-plaintext highlighter-rouge">Announcement</code> events for which the <code class="language-plaintext highlighter-rouge">checkStealthAddress</code> function returns <code class="language-plaintext highlighter-rouge">true</code>.</p>
+  </li>
+  <li>
+    <p>The  <code class="language-plaintext highlighter-rouge">computeStealthKey</code> function performs the following computations:</p>
+    <ul>
+      <li>Shared secret $s$ is computed by multiplying the viewing private key with the ephemeral public key of the announcement $s = p_{view}$ * $P_{ephemeral}$.</li>
+      <li>The secret is hashed $s_{h} = h(s)$.</li>
+      <li>The stealth private key is computed as $p_{stealth} = p_{spend} + s_h$.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="parsing-considerations">Parsing considerations</h3>
+
+<p>Usually, the recipient of a stealth address transaction has to perform the following operations to check whether he was the recipient of a certain transaction:</p>
+
+<ul>
+  <li>
+    <p>2x ecMUL,</p>
+  </li>
+  <li>
+    <p>2x HASH,</p>
+  </li>
+  <li>
+    <p>1x ecADD,</p>
+  </li>
+</ul>
+
+<p>The view tags approach is introduced to reduce the parsing time by around 6x. Users only need to perform 1x ecMUL and 1x HASH (skipping 1x ecMUL, 1x ecADD and 1x HASH) for every parsed announcement. The 1-byte view tag length is based on the maximum required space to reliably filter non-matching announcements. With a 1-byte <code class="language-plaintext highlighter-rouge">viewTag</code>, the probability for users to skip the remaining computations after hashing the shared secret $h(s)$ is $255/256$. This means that users can almost certainly skip the above three operations for any announcements that do not involve them. Since the view tag reveals one byte of the shared secret, the security margin is reduced from 128 bits to 124 bits. Notably, this only affects the privacy and not the secure generation of a stealth address.</p>
+
+<hr />
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This ERC emerged from the need for privacy-preserving ways to transfer ownership without disclosing any information about the recipients’ identities. Token ownership can expose sensitive personal information. While individuals may wish to donate to a specific organization or country, they might prefer not to disclose a link between themselves and the recipient simultaneously. Standardizing stealth address generation represents a significant step towards unlinkable interactions, since such privacy-enhancing solutions require standards to achieve widespread adoption. Consequently, it is crucial to focus on developing generalizable approaches for implementing related solutions.</p>
+
+<p>The stealth address specification standardizes a protocol for generating and locating stealth addresses, facilitating the transfer of assets without requiring prior interaction with the recipient. This enables recipients to verify the receipt of a transfer without the need to interact with the blockchain and query account balances. Importantly, stealth addresses enable token transfer recipients to verify receipt while maintaining their privacy, as only the recipient can recognize themselves as the recipient of the transfer.</p>
+
+<p>The authors recognize the trade-off between on- and off-chain efficiency. Although incorporating a Monero-like view tags mechanism enables recipients to parse announcements more efficiently, it adds complexity to the announcement event.</p>
+
+<p>The recipient’s address and the <code class="language-plaintext highlighter-rouge">viewTag</code> MUST be included in the announcement event, allowing users to quickly verify ownership without querying the chain for positive account balances.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This ERC is fully backward compatible.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>You can find the implementation of the ERC above in the Specification section.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="dos-countermeasures">DoS Countermeasures</h3>
+
+<p>There are potential denial of service (DoS) attack vectors that are not mitigated by network transaction fees. Stealth transfer senders cause an externality for recipients, as parsing announcement events consumes computational resources that are not compensated with gas. Therefore, spamming announcement events <em>can</em> be a detriment to the user experience, as it <em>can</em> lead to longer parsing times. 
+We consider the incentives to carry out such an attack to be low because <strong>no monetary benefit can be obtained</strong>
+However, to tackle potential spam, parsing providers may adopt their own anti-DoS attack methods. These may include ignoring the spamming users when serving announcements to users or, less harsh, de-prioritizing them when ordering the announcements. The indexed <code class="language-plaintext highlighter-rouge">caller</code> keyword may help parsing providers to effectively filter known spammers.</p>
+
+<p>Furthermore, parsing providers have a few options to counter spam, such as introducing staking mechanisms or requiring senders to pay a <code class="language-plaintext highlighter-rouge">toll</code> before including their <code class="language-plaintext highlighter-rouge">Announcement</code>. Moreover, a Staking mechanism may allow users to stake an unslashable amount of ETH (similarly to <a href="./eip-4337">ERC-4337</a>), to help mitigate potential spam through <em>sybil attacks</em> and enable parsing providers filtering spam more effectively.
+Introducing a <code class="language-plaintext highlighter-rouge">toll</code>, paid by sending users, would simply put a cost on each stealth address transaction, making spamming economically unattractive.</p>
+
+<h3 id="recipients-transaction-costs">Recipients’ transaction costs</h3>
+
+<p>The funding of the stealth address wallet represents a known issue that might breach privacy. The wallet that funds the stealth address MUST NOT have any physical connection to the stealth address owner in order to fully leverage the privacy improvements.</p>
+
+<p>Thus, the sender may attach a small amount of ETH to each stealth address transaction, thereby sponsoring subsequent transactions of the recipient.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

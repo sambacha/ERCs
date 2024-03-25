@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Multi-redeemable NFTs | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Multi-redeemable NFTs | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6672" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6672" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Multi-redeemable NFTs</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP proposes an extension to the <a href="./eip-721.md">ERC-721</a> standard for Non-Fungible Tokens (NFTs) to enable multi-redeemable NFTs. Redemption provides a means for NFT holders to demonstrate ownership and eligibility of their NFT, which in turn enables them to receive a physical or digital item. This extension would allow an NFT to be redeemed in multiple scenarios and maintain a record of its redemption status on the blockchain.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The motivation behind our proposed NFT standard is to provide a more versatile and flexible solution compared to existing standards, allowing for multi-redeemable NFTs. Our proposed NFT standard enables multi-redeemable NFTs, allowing them to be redeemed in multiple scenarios for different campaigns or events, thus unlocking new possibilities for commerce use cases and breaking the limitation of one-time redemption per NFT.</p>
+
+<p>One use case for an NFT that can be redeemed multiple times in various scenarios is a digital concert ticket. The NFT could be redeemed for access to the online concert and then again for exclusive merchandise, a meet and greet with the artist, or any exclusive commerce status that is bound to the NFT. Each redemption could represent a unique experience or benefit for the NFT holder.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="redeem-and-cancel-functions">Redeem and Cancel Functions</h3>
+
+<p>An operator SHALL only make an update to the redemption created by itself. Therefore, the <code class="language-plaintext highlighter-rouge">redeem()</code> and <code class="language-plaintext highlighter-rouge">cancel()</code> functions do not have an <code class="language-plaintext highlighter-rouge">_operator</code> parameter, and the <code class="language-plaintext highlighter-rouge">msg.sender</code> address MUST be used as the <code class="language-plaintext highlighter-rouge">_operator</code>.</p>
+
+<h3 id="redemption-flag-key-value-pairs">Redemption Flag Key-Value Pairs</h3>
+
+<p>The combination of <code class="language-plaintext highlighter-rouge">_operator</code>, <code class="language-plaintext highlighter-rouge">_tokenId</code>, and <code class="language-plaintext highlighter-rouge">_redemptionId</code> MUST be used as the key in the redemption flag key-value pairs, whose value can be accessed from the <code class="language-plaintext highlighter-rouge">isRedeemed()</code> function.</p>
+
+<p><strong>Every contract compliant with this EIP MUST implement <code class="language-plaintext highlighter-rouge">ERC6672</code> and <code class="language-plaintext highlighter-rouge">ERC721</code> interfaces.</strong></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">16</span><span class="p">;</span>
+
+<span class="c1">/// @title ERC-6672 Multi-Redeemable NFT Standard
+/// @dev See https://eips.ethereum.org/EIPS/eip-6672
+/// Note: the ERC-165 identifier for this interface is 0x4dddf83f.
+</span><span class="k">interface</span> <span class="n">IERC6672</span> <span class="cm">/* is IERC721 */</span> <span class="p">{</span>
+    <span class="c1">/// @dev This event emits when an NFT is redeemed.
+</span>    <span class="k">event</span> <span class="n">Redeem</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_operator</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">redeemer</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">_redemptionId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">_memo</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @dev This event emits when a redemption is canceled.
+</span>    <span class="k">event</span> <span class="n">Cancel</span><span class="p">(</span>
+      <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_operator</span><span class="p">,</span>
+      <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_tokenId</span><span class="p">,</span>
+      <span class="kt">bytes32</span> <span class="n">_redemptionId</span><span class="p">,</span>
+      <span class="kt">string</span> <span class="n">_memo</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice Check whether an NFT is already used for redemption or not.
+</span>    <span class="c1">/// @dev 
+</span>    <span class="c1">/// @param _operator The address of the operator of the redemption platform.
+</span>    <span class="c1">/// @param _redemptionId The identifier for a redemption.
+</span>    <span class="c1">/// @param _tokenId The identifier for an NFT.
+</span>    <span class="c1">/// @return Whether an NFT is already redeemed or not.
+</span>    <span class="k">function</span> <span class="n">isRedeemed</span><span class="p">(</span><span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">_redemptionId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice List the redemptions created by the given operator for the given NFT.
+</span>    <span class="c1">/// @dev
+</span>    <span class="c1">/// @param _operator The address of the operator of the redemption platform.
+</span>    <span class="c1">/// @param _tokenId The identifier for an NFT.
+</span>    <span class="c1">/// @return List of redemptions of speficic `_operator` and `_tokenId`.
+</span>    <span class="k">function</span> <span class="n">getRedemptionIds</span><span class="p">(</span><span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">[]);</span>
+    
+    <span class="c1">/// @notice Redeem an NFT
+</span>    <span class="c1">/// @dev
+</span>    <span class="c1">/// @param _redemptionId The identifier created by the operator for a redemption.
+</span>    <span class="c1">/// @param _tokenId The NFT to redeem.
+</span>    <span class="c1">/// @param _memo
+</span>    <span class="k">function</span> <span class="n">redeem</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_redemptionId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_memo</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Cancel a redemption
+</span>    <span class="c1">/// @dev
+</span>    <span class="c1">/// @param _redemptionId The redemption to cancel.
+</span>    <span class="c1">/// @param _tokenId The NFT to cancel the redemption.
+</span>    <span class="c1">/// @param _memo
+</span>    <span class="k">function</span> <span class="n">cancel</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_redemptionId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_memo</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="metadata-extension">Metadata Extension</h3>
+
+<p>The key format for the <code class="language-plaintext highlighter-rouge">redemptions</code> key-value pairs MUST be standardized as <code class="language-plaintext highlighter-rouge">operator-tokenId-redemptionId</code>, where <code class="language-plaintext highlighter-rouge">operator</code> is the operator wallet address, <code class="language-plaintext highlighter-rouge">tokenId</code> is  the identifier of the token that has been redeemed, and <code class="language-plaintext highlighter-rouge">redemptionId</code> is the redemption identifier. The value of the key <code class="language-plaintext highlighter-rouge">operator-tokenId-redemptionId</code> is an object that contains the <code class="language-plaintext highlighter-rouge">status</code> and <code class="language-plaintext highlighter-rouge">description</code> of the redemption.</p>
+
+<ul>
+  <li>
+    <p>Redemption status, i.e. <code class="language-plaintext highlighter-rouge">status</code></p>
+
+    <p>The redemption status can have a more granular level, rather than just being a flag with a <code class="language-plaintext highlighter-rouge">true</code> or <code class="language-plaintext highlighter-rouge">false</code> value. For instance, in cases of physical goods redemption, we may require the redemption status to be either <code class="language-plaintext highlighter-rouge">redeemed</code>, <code class="language-plaintext highlighter-rouge">paid</code>, or <code class="language-plaintext highlighter-rouge">shipping</code>. It is RECOMMENDED to use a string enum that is comprehensible by both the operator and the marketplace or any other parties that want to exhibit the status of the redemption.</p>
+  </li>
+  <li>
+    <p>Description of the redemption, i.e. <code class="language-plaintext highlighter-rouge">description</code></p>
+
+    <p>The <code class="language-plaintext highlighter-rouge">description</code> SHOULD be used to provide more details about the redemption, such as information about the concert ticket, a detailed description of the action figures, and more.</p>
+  </li>
+</ul>
+
+<p>The <strong>metadata extension</strong> is OPTIONAL for <a href="./eip-6672.md">ERC-6672</a> smart contracts (see “caveats”, below). This allows your smart contract to be interrogated for its name and for details about the assets which your NFTs represent.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title ERC-6672 Multi-Redeemable Token Standard, optional metadata extension
+/// @dev See https://eips.ethereum.org/EIPS/eip-6672
+</span><span class="k">interface</span> <span class="n">IERC6672Metadata</span> <span class="cm">/* is IERC721Metadata */</span> <span class="p">{</span>
+    <span class="c1">/// @notice A distinct Uniform Resource Identifier (URI) for a given asset.
+</span>    <span class="c1">/// @dev Throws if `_tokenId` is not a valid NFT. URIs are defined in RFC
+</span>    <span class="c1">///  3986. The URI may point to a JSON file that conforms to the "ERC-6672
+</span>    <span class="c1">///  Metadata JSON Schema".
+</span>    <span class="k">function</span> <span class="n">tokenURI</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This is the “<a href="./eip-6672.md">ERC-6672</a> Metadata JSON Schema” referenced above.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Asset Metadata"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Identifies the asset to which this NFT represents"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Describes the asset to which this NFT represents"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A URI pointing to a resource with mime type image/* representing the asset to which this NFT represents. Consider making any images at a width between 320 and 1080 pixels and aspect ratio between 1.91:1 and 4:5 inclusive."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"redemptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"operator-tokenId-redemptionId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The status of a redemption. Enum type can be used to represent the redemption status, such as redeemed, shipping, paid."</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Describes the object that has been redeemed for an NFT, such as the name of an action figure series name or the color of the product."</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="key-choices-for-redemption-flag-and-status">Key Choices for Redemption Flag and Status</h3>
+
+<p>The combination of <code class="language-plaintext highlighter-rouge">_operator</code>, <code class="language-plaintext highlighter-rouge">_tokenId</code>, and <code class="language-plaintext highlighter-rouge">_redemptionId</code> is chosen as the key because it provides a clear and unique identifier for each redemption transaction.</p>
+
+<ul>
+  <li>
+    <p>Operator wallet address, i.e. <code class="language-plaintext highlighter-rouge">_operator</code></p>
+
+    <p>It’s possible that there are more than one party who would like to use the same NFT for redemption. For example, MisterPunks NFTs are eligible to be redeemed for both Event-X and Event-Y tickets, and each event’s ticket redemption is handled by a different operator.</p>
+  </li>
+  <li>
+    <p>Token identifier, i.e. <code class="language-plaintext highlighter-rouge">_tokenId</code></p>
+
+    <p>Each NFT holder will have different redemption records created by the same operator. Therefore, it’s important to use token identifier as one of the keys.</p>
+  </li>
+  <li>
+    <p>Redemption identifier, i.e. <code class="language-plaintext highlighter-rouge">_redemptionId</code></p>
+
+    <p>Using <code class="language-plaintext highlighter-rouge">_redemptionId</code> as one of the keys enables NFT holders to redeem the same NFT to the same operator in multiple campaigns. For example, Operator-X has 2 campaigns, i.e. campaign A and campaign B, and both campaigns allow for MisterPunks NFTs to be redeemed for physical action figures. Holder of MisterPunk #7 is eligible for redemption in both campaigns and each redemption is recorded with the same <code class="language-plaintext highlighter-rouge">_operator</code> and <code class="language-plaintext highlighter-rouge">_tokenId</code>, but with different <code class="language-plaintext highlighter-rouge">_redemptionId</code>.</p>
+  </li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is compatible with <a href="./eip-721.md">ERC-721</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The reference implementation of Multi-Redeemable NFT can be found <a href="../assets/eip-6672/contracts/ERC6672.sol">here</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>An incorrect implementation of <a href="./eip-6672.md">ERC-6672</a> could potentially allow an unauthorized operator to access redemption flags owned by other operators, creating a security risk. As a result, an unauthorized operator could cancel the redemption process managed by other operators. Therefore, it is crucial for <a href="./eip-6672.md">ERC-6672</a> implementations to ensure that only the operator who created the redemption, identified using <code class="language-plaintext highlighter-rouge">msg.sender</code>, can update the redemption flag using the <code class="language-plaintext highlighter-rouge">redeem()</code> and <code class="language-plaintext highlighter-rouge">cancel()</code> functions. It is also recommended to isolate the <code class="language-plaintext highlighter-rouge">redeem()</code> and <code class="language-plaintext highlighter-rouge">cancel()</code> functions from <a href="./eip-721.md">ERC-721</a> approval models.</p>
+
+<p>This <a href="./eip-6672.md">ERC-6672</a> token is compatible with <a href="./eip-721.md">ERC-721</a>, so wallets and smart contracts capable of storing and handling standard <a href="./eip-721.md">ERC-721</a> tokens will not face the risk of asset loss caused by incompatible standard implementations.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

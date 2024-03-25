@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Atomic Swap-based American Call Option Contract Standard | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Atomic Swap-based American Call Option Contract Standard | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-2266" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-2266" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Atomic Swap-based American Call Option Contract Standard</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A standard for token contracts providing Atomic Swap-based American Call Option functionalities.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>This standard provides functionality to make Atomic Swap-based American Call Option payment. The Atomic Swap protocol based on Hashed Time-Locked Contract (HTLC) <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> has optionality <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>, and such optionality can be utilised to construct American Call Options without trusted third party. This standard defines the common way of implementing this protocol. In particular, this EIP defines technical terms, provides interfaces, and gives reference implementations of this protocol.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Atomic Swap allows users to atomically exchange their tokens without trusted third parties while the HTLC is commonly used for the implementation. However, the HTLC-based Atomic Swap has optionality. More specifically, the swap initiator can choose to proceed or abort the swap for several hours, which gives him time for speculating according to the exchange rate. A discussion<sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> shows that the HTLC-based Atomic Swap is equivalent to an American Call Option in finance. On the other hand,thanks to such optionality, the HTLC-based Atomic Swap can be utilised to construct American Call Options without trusted third party. A paper<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> proposes a secure Atomic-Swap-based American Call Option protocol on smart contracts. This protocol not only eliminates the arbitrage opportunity but also prevents any party from locking the other party’s money maliciously. This EIP aims at providing the standard of implementing this protocol in existing token standards.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The Atomic Swap-based American Call Option smart contract should follow the syntax and semantics of Ethereum smart contracts.</p>
+
+<h3 id="definitions">Definitions</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">initiator</code>: the party who publishes the advertisement of the swap.</li>
+  <li><code class="language-plaintext highlighter-rouge">participant</code>: the party who agrees on the advertisement and participates in the swap with <code class="language-plaintext highlighter-rouge">initiator</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">asset</code>: the amount of token(s) to be exchanged.</li>
+  <li><code class="language-plaintext highlighter-rouge">premium</code>: the amount of token(s) that <code class="language-plaintext highlighter-rouge">initiator</code> pays to <code class="language-plaintext highlighter-rouge">participant</code> as the premium.</li>
+  <li><code class="language-plaintext highlighter-rouge">redeem</code>: the action to claim the token from the other party.</li>
+  <li><code class="language-plaintext highlighter-rouge">refund</code>: the action to claim the token from the party herself/himself, because of timelock expiration.</li>
+  <li><code class="language-plaintext highlighter-rouge">secrect</code>: a random string chosen by <code class="language-plaintext highlighter-rouge">initiator</code> as the preimage of a hash.</li>
+  <li><code class="language-plaintext highlighter-rouge">secrectHash</code>: a string equals to the hash of <code class="language-plaintext highlighter-rouge">secrect</code>, used for constructing HTLCs.</li>
+  <li><code class="language-plaintext highlighter-rouge">timelock</code>: a timestamp representing the timelimit, before when the asset can be redeemed, and otherwise can only be refunded.</li>
+</ul>
+
+<h3 id="storage-variables">Storage Variables</h3>
+
+<h4 id="swap">swap</h4>
+
+<p>This mapping stores the metadata of the swap contracts, including the parties and tokens involved. Each contract uses different <code class="language-plaintext highlighter-rouge">secretHash</code>, and is distinguished by <code class="language-plaintext highlighter-rouge">secretHash</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">Swap</span><span class="p">)</span> <span class="k">public</span> <span class="n">swap</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="initiatorasset">initiatorAsset</h4>
+
+<p>This mapping stores the detail of the asset initiators want to sell, including the amount, the timelock and the state. It is associated with the swap contract with the same <code class="language-plaintext highlighter-rouge">secretHash</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">InitiatorAsset</span><span class="p">)</span> <span class="k">public</span> <span class="n">initiatorAsset</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="participantasset">participantAsset</h4>
+
+<p>This mapping stores the details of the asset participants want to sell, including the amount, the timelock and the state. It is associated with the swap contract with the same <code class="language-plaintext highlighter-rouge">secretHash</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">ParticipantAsset</span><span class="p">)</span> <span class="k">public</span> <span class="n">participantAsset</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="premiumasset">premiumAsset</h4>
+
+<p>This mapping stores the details of the premium initiators attach in the swap contract, including the amount, the timelock and the state. It is associated with the swap contract with the same <code class="language-plaintext highlighter-rouge">secretHash</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="n">Premium</span><span class="p">)</span> <span class="k">public</span> <span class="n">premium</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="methods">Methods</h3>
+
+<h4 id="setup">setup</h4>
+
+<p>This function sets up the swap contract, including the both parties involved, the tokens to exchanged, and so on.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setup</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">address</span> <span class="k">payable</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">tokenA</span><span class="p">,</span> <span class="kt">address</span> <span class="n">tokenB</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">initiatorAssetAmount</span><span class="p">,</span> <span class="kt">address</span> <span class="k">payable</span> <span class="n">participant</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">participantAssetAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">premiumAmount</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span>
+</code></pre></div></div>
+
+<h4 id="initiate">initiate</h4>
+
+<p>The initiator invokes this function to fill and lock the token she/he wants to sell and join the contract.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">initiate</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">assetRefundTime</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span>
+</code></pre></div></div>
+
+<h4 id="fillpremium">fillPremium</h4>
+
+<p>The initiator invokes this function to fill and lock the premium.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">fillPremium</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">premiumRefundTime</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span>
+</code></pre></div></div>
+
+<h4 id="participate">participate</h4>
+
+<p>The participant invokes this function to fill and lock the token she/he wants to sell and join the contract.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">participate</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">assetRefundTime</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span>
+</code></pre></div></div>
+
+<h4 id="redeemasset">redeemAsset</h4>
+
+<p>One of the parties invokes this function to get the token from the other party, by providing the preimage of the hash lock <code class="language-plaintext highlighter-rouge">secret</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">redeemAsset</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">secret</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">)</span> <span class="k">public</span>
+</code></pre></div></div>
+
+<h4 id="refundasset">refundAsset</h4>
+
+<p>One of the parties invokes this function to get the token back after the timelock expires.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">refundAsset</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">)</span> <span class="k">public</span>
+</code></pre></div></div>
+
+<h4 id="redeempremium">redeemPremium</h4>
+
+<p>The participant invokes this function to get the premium. This can be invoked only if the participant has already invoked <code class="language-plaintext highlighter-rouge">participate</code> and the participant’s token is redeemed or refunded.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">redeemPremium</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">)</span> <span class="k">public</span>
+</code></pre></div></div>
+
+<h4 id="refundpremium">refundPremium</h4>
+
+<p>The initiator invokes this function to get the premium back after the timelock expires.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">refundPremium</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">)</span> <span class="k">public</span>
+</code></pre></div></div>
+
+<h3 id="events">Events</h3>
+
+<h4 id="setup-1">SetUp</h4>
+
+<p>This event indicates that one party has set up the contract using the function <code class="language-plaintext highlighter-rouge">setup()</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">SetUp</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">address</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">participant</span><span class="p">,</span> <span class="kt">address</span> <span class="n">tokenA</span><span class="p">,</span> <span class="kt">address</span> <span class="n">tokenB</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">initiatorAssetAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">participantAssetAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">premiumAmount</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="initiated">Initiated</h4>
+
+<p>This event indicates that <code class="language-plaintext highlighter-rouge">initiator</code> has filled and locked the token to be exchanged using the function <code class="language-plaintext highlighter-rouge">initiate()</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">Initiated</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">initiateTimestamp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">address</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">participant</span><span class="p">,</span> <span class="kt">address</span> <span class="n">initiatorAssetToken</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">initiatorAssetAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">initiatorAssetRefundTimestamp</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="participated">Participated</h4>
+
+<p>This event indicates that <code class="language-plaintext highlighter-rouge">participant</code> has filled and locked the token to be exchanged using the function <code class="language-plaintext highlighter-rouge">participate()</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">Participated</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">participateTimestamp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">address</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">participant</span><span class="p">,</span> <span class="kt">address</span> <span class="n">participantAssetToken</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">participantAssetAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">participantAssetRefundTimestamp</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="premiumfilled">PremiumFilled</h4>
+
+<p>This event indicates that <code class="language-plaintext highlighter-rouge">initiator</code> has filled and locked <code class="language-plaintext highlighter-rouge">premium</code> using the function <code class="language-plaintext highlighter-rouge">fillPremium()</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">PremiumFilled</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">fillPremiumTimestamp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">address</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">participant</span><span class="p">,</span> <span class="kt">address</span> <span class="n">premiumToken</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">premiumAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">premiumRefundTimestamp</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="initiatorassetredeemedparticipantassetredeemed">InitiatorAssetRedeemed/ParticipantAssetRedeemed</h4>
+
+<p>These two events indicate that <code class="language-plaintext highlighter-rouge">asset</code> has been redeemed by the other party before the timelock by providing <code class="language-plaintext highlighter-rouge">secret</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">InitiatorAssetRedeemed</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">redeemTimestamp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secret</span><span class="p">,</span> <span class="kt">address</span> <span class="n">redeemer</span><span class="p">,</span> <span class="kt">address</span> <span class="n">assetToken</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">ParticipantAssetRedeemed</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">redeemTimestamp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secret</span><span class="p">,</span> <span class="kt">address</span> <span class="n">redeemer</span><span class="p">,</span> <span class="kt">address</span> <span class="n">assetToken</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="initiatorassetrefundedparticipantassetrefunded">InitiatorAssetRefunded/ParticipantAssetRefunded</h4>
+
+<p>These two events indicate that <code class="language-plaintext highlighter-rouge">asset</code> has been refunded by the original owner after the timelock expires.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">InitiatorAssetRefunded</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">refundTimestamp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">address</span> <span class="n">refunder</span><span class="p">,</span> <span class="kt">address</span> <span class="n">assetToken</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">ParticipantAssetRefunded</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">refundTimestamp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">address</span> <span class="n">refunder</span><span class="p">,</span> <span class="kt">address</span> <span class="n">assetToken</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="premiumredeemed">PremiumRedeemed</h4>
+
+<p>This event indicates that <code class="language-plaintext highlighter-rouge">premium</code> has been redeemed by <code class="language-plaintext highlighter-rouge">participant</code>. This implies that <code class="language-plaintext highlighter-rouge">asset</code> is either redeemed by <code class="language-plaintext highlighter-rouge">initiator</code> if it can provide the preimage of <code class="language-plaintext highlighter-rouge">secrectHash</code> before  <code class="language-plaintext highlighter-rouge">asset</code> timelock expires; or refunded by <code class="language-plaintext highlighter-rouge">participant</code> if <code class="language-plaintext highlighter-rouge">asset</code> timelock expires.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">PremiumRedeemed</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">redeemTimestamp</span><span class="p">,</span><span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span><span class="kt">address</span> <span class="n">redeemer</span><span class="p">,</span><span class="kt">address</span> <span class="n">token</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="premiumrefunded">PremiumRefunded</h4>
+
+<p>This event indicates that <code class="language-plaintext highlighter-rouge">premium</code> has been refunded back to <code class="language-plaintext highlighter-rouge">initiator</code>, because of <code class="language-plaintext highlighter-rouge">participant</code> doesn’t participate at all, by the time of <code class="language-plaintext highlighter-rouge">premium</code> timelock expires.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">PremiumRefunded</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">refundTimestamp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">secretHash</span><span class="p">,</span> <span class="kt">address</span> <span class="n">refunder</span><span class="p">,</span> <span class="kt">address</span> <span class="n">token</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<ul>
+  <li>To achieve the atomicity, HTLC is used.</li>
+  <li>The participant should decide whether to participate after the initiator locks the token and sets up the timelock.</li>
+  <li>The initiator should decide whether to proceed the swap (redeem the tokens from the participant and reveal the preimage of the hash lock), after the participant locks the tokens and sets up the time locks.</li>
+  <li>Premium is redeemable for the participant only if the participant participates in the swap and redeems the initiator’s token before premium’s timelock expires.</li>
+  <li>Premium is refundable for the initiator only if the initiator initiates but the participant does not participate in the swap at all.</li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">initiateTimestamp</code> should cover the whole swap process.</li>
+  <li>The participant should never participate before the premium has been deposited.</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal is fully backward compatible. Functionalities of existing standards will not be affected by this proposal, as it only provides additional features to them.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>Please visit <a href="../assets/eip-2266/Example.sol">here</a> to find our example implementation.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+<h2 id="references">References</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts">Hash Time Locked Contracts</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://lists.linuxfoundation.org/pipermail/lightning-dev/2019-January/001798.html">An Argument For Single-Asset Lightning Network</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:2:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://eprint.iacr.org/2019/896">On the optionality and fairness of Atomic Swaps</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

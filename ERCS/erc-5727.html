@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Semi-Fungible Soulbound Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Semi-Fungible Soulbound Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5727" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5727" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Semi-Fungible Soulbound Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>An interface for soulbound tokens (SBT), which are non-transferable tokens representing a person’s identity, credentials, affiliations, and reputation.</p>
+
+<p>Our interface can handle a combination of fungible and non-fungible tokens in an organized way. It provides a set of core methods that can be used to manage the lifecycle of soulbound tokens, as well as a rich set of extensions that enables DAO governance, delegation, token expiration, and account recovery.</p>
+
+<p>This interface aims to provide a flexible and extensible framework for the development of soulbound token systems.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The current Web3 ecosystem is heavily focused on financialized, transferable tokens. However, there’s a growing need for non-transferable tokens to represent unique personal attributes and rights. Existing attempts within the Ethereum community to create such tokens lack the necessary flexibility and extensibility. Our interface addresses this gap, offering a versatile and comprehensive solution for SBTs.</p>
+
+<p>Our interface can be used to represent non-transferable ownerships, and provides features for common use cases including but not limited to:</p>
+
+<ul>
+  <li>Lifecycle Management: Robust tools for minting, revocation, and managing the subscription and expiration of SBTs.</li>
+  <li>DAO Governance and Delegation: Empower community-driven decisions and operational delegation for SBT management.</li>
+  <li>Account Recovery: Advanced mechanisms for account recovery and key rotation, ensuring security and continuity.</li>
+  <li>Versatility in Tokens: Support for both fungible and non-fungible SBTs, catering to a wide range of use cases like membership cards and loyalty programs.</li>
+  <li>Token Grouping: Innovative slot-based system for organizing SBTs, ideal for complex reward structures including vouchers, points, and badges.</li>
+  <li>Claimable SBTs: Streamlined distribution of SBTs for airdrops, giveaways, and referral programs.</li>
+</ul>
+
+<p>This interface not only enriches the Web3 landscape but also paves the way for a more decentralized and personalized digital society.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>A token is identified by its <code class="language-plaintext highlighter-rouge">tokenId</code>, which is a 256-bit unsigned integer. A token can also have a value denoting its denomination.</p>
+
+<p>A slot is identified by its <code class="language-plaintext highlighter-rouge">slotId</code>, which is a 256-bit unsigned integer. Slots are used to group fungible and non-fungible tokens together, thus make tokens semi-fungible. A token can only belong to one slot at a time.</p>
+
+<h3 id="core">Core</h3>
+
+<p>The core methods are used to manage the lifecycle of SBTs. They MUST be supported by all semi-fungible SBT implementations.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @title ERC5727 Soulbound Token Interface
+ * @dev The core interface of the ERC5727 standard.
+ */</span>
+<span class="k">interface</span> <span class="n">IERC5727</span> <span class="k">is</span> <span class="n">IERC3525</span><span class="p">,</span> <span class="n">IERC5192</span><span class="p">,</span> <span class="n">IERC5484</span><span class="p">,</span> <span class="n">IERC4906</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev MUST emit when a token is revoked.
+     * @param from The address of the owner
+     * @param tokenId The token id
+     */</span>
+    <span class="k">event</span> <span class="n">Revoked</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev MUST emit when a token is verified.
+     * @param by The address that initiated the verification
+     * @param tokenId The token id
+     * @param result The result of the verification
+     */</span>
+    <span class="k">event</span> <span class="n">Verified</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">by</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">result</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the verifier of a token.
+     * @dev MUST revert if the `tokenId` does not exist
+     * @param tokenId the token for which to query the verifier
+     * @return The address of the verifier of `tokenId`
+     */</span>
+    <span class="k">function</span> <span class="n">verifierOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the issuer of a token.
+     * @dev MUST revert if the `tokenId` does not exist
+     * @param tokenId the token for which to query the issuer
+     * @return The address of the issuer of `tokenId`
+     */</span>
+    <span class="k">function</span> <span class="n">issuerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Issue a token in a specified slot to an address.
+     * @dev MUST revert if the `to` address is the zero address.
+     *      MUST revert if the `verifier` address is the zero address.
+     * @param to The address to issue the token to
+     * @param tokenId The token id
+     * @param slot The slot to issue the token in
+     * @param burnAuth The burn authorization of the token
+     * @param verifier The address of the verifier
+     * @param data Additional data used to issue the token
+     */</span>
+    <span class="k">function</span> <span class="n">issue</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">slot</span><span class="p">,</span>
+        <span class="n">BurnAuth</span> <span class="n">burnAuth</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">verifier</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Issue credit to a token.
+     * @dev MUST revert if the `tokenId` does not exist.
+     * @param tokenId The token id
+     * @param amount The amount of the credit
+     * @param data The additional data used to issue the credit
+     */</span>
+    <span class="k">function</span> <span class="n">issue</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Revoke a token from an address.
+     * @dev MUST revert if the `tokenId` does not exist.
+     * @param tokenId The token id
+     * @param data The additional data used to revoke the token
+     */</span>
+    <span class="k">function</span> <span class="n">revoke</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Revoke credit from a token.
+     * @dev MUST revert if the `tokenId` does not exist.
+     * @param tokenId The token id
+     * @param amount The amount of the credit
+     * @param data The additional data used to revoke the credit
+     */</span>
+    <span class="k">function</span> <span class="n">revoke</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Verify if a token is valid.
+     * @dev MUST revert if the `tokenId` does not exist.
+     * @param tokenId The token id
+     * @param data The additional data used to verify the token
+     * @return A boolean indicating whether the token is successfully verified
+     */</span>
+    <span class="k">function</span> <span class="n">verify</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="extensions">Extensions</h3>
+
+<p>All extensions below are OPTIONAL for <a href="./eip-5727.md">ERC-5727</a> implementations. An implementation MAY choose to implement some, none, or all of them.</p>
+
+<h4 id="enumerable">Enumerable</h4>
+
+<p>This extension provides methods to enumerate the tokens of a owner. It is recommended to be implemented together with the core interface.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @title ERC5727 Soulbound Token Enumerable Interface
+ * @dev This extension allows querying the tokens of a owner.
+ */</span>
+<span class="k">interface</span> <span class="n">IERC5727Enumerable</span> <span class="k">is</span> <span class="n">IERC3525SlotEnumerable</span><span class="p">,</span> <span class="n">IERC5727</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Get the number of slots of a owner.
+     * @param owner The owner whose number of slots is queried for
+     * @return The number of slots of the `owner`
+     */</span>
+    <span class="k">function</span> <span class="n">slotCountOfOwner</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the slot with `index` of the `owner`.
+     * @dev MUST revert if the `index` exceed the number of slots of the `owner`.
+     * @param owner The owner whose slot is queried for.
+     * @param index The index of the slot queried for
+     * @return The slot is queried for
+     */</span>
+    <span class="k">function</span> <span class="n">slotOfOwnerByIndex</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">index</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the balance of a owner in a slot.
+     * @dev MUST revert if the slot does not exist.
+     * @param owner The owner whose balance is queried for
+     * @param slot The slot whose balance is queried for
+     * @return The balance of the `owner` in the `slot`
+     */</span>
+    <span class="k">function</span> <span class="n">ownerBalanceInSlot</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">slot</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="metadata">Metadata</h4>
+
+<p>This extension provides methods to fetch the metadata of a token, a slot and the contract itself. It is recommended to be implemented if you need to specify the appearance and properties of tokens, slots and the contract (i.e. the SBT collection).</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @title ERC5727 Soulbound Token Metadata Interface
+ * @dev This extension allows querying the metadata of soulbound tokens.
+ */</span>
+<span class="k">interface</span> <span class="n">IERC5727Metadata</span> <span class="k">is</span> <span class="n">IERC3525Metadata</span><span class="p">,</span> <span class="n">IERC5727</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="governance">Governance</h4>
+
+<p>This extension provides methods to manage the mint and revocation permissions through voting. It is useful if you want to rely on a group of voters to decide the issuance a particular SBT.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @title ERC5727 Soulbound Token Governance Interface
+ * @dev This extension allows issuing of tokens by community voting.
+ */</span>
+<span class="k">interface</span> <span class="n">IERC5727Governance</span> <span class="k">is</span> <span class="n">IERC5727</span> <span class="p">{</span>
+    <span class="k">enum</span> <span class="n">ApprovalStatus</span> <span class="p">{</span>
+        <span class="n">Pending</span><span class="p">,</span>
+        <span class="n">Approved</span><span class="p">,</span>
+        <span class="n">Rejected</span><span class="p">,</span>
+        <span class="n">Removed</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Emitted when a token issuance approval is changed.
+     * @param approvalId The id of the approval
+     * @param creator The creator of the approval, zero address if the approval is removed
+     * @param status The status of the approval
+     */</span>
+    <span class="k">event</span> <span class="n">ApprovalUpdate</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">approvalId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">creator</span><span class="p">,</span>
+        <span class="n">ApprovalStatus</span> <span class="n">status</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Emitted when a voter approves an approval.
+     * @param voter The voter who approves the approval
+     * @param approvalId The id of the approval
+     */</span>
+    <span class="k">event</span> <span class="n">Approve</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">voter</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">approvalId</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">approve</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Create an approval of issuing a token.
+     * @dev MUST revert if the caller is not a voter.
+     *      MUST revert if the `to` address is the zero address.
+     * @param to The owner which the token to mint to
+     * @param tokenId The id of the token to mint
+     * @param amount The amount of the token to mint
+     * @param slot The slot of the token to mint
+     * @param burnAuth The burn authorization of the token to mint
+     * @param data The additional data used to mint the token
+     */</span>
+    <span class="k">function</span> <span class="n">requestApproval</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">slot</span><span class="p">,</span>
+        <span class="n">BurnAuth</span> <span class="n">burnAuth</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">verifier</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Remove `approvalId` approval request.
+     * @dev MUST revert if the caller is not the creator of the approval request.
+     *      MUST revert if the approval request is already approved or rejected or non-existent.
+     * @param approvalId The approval to remove
+     */</span>
+    <span class="k">function</span> <span class="n">removeApprovalRequest</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">approvalId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Approve `approvalId` approval request.
+     * @dev MUST revert if the caller is not a voter.
+     *     MUST revert if the approval request is already approved or rejected or non-existent.
+     * @param approvalId The approval to approve
+     * @param approve True if the approval is approved, false if the approval is rejected
+     * @param data The additional data used to approve the approval (e.g. the signature, voting power)
+     */</span>
+    <span class="k">function</span> <span class="n">voteApproval</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">approvalId</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">approve</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Get the URI of the approval.
+     * @dev MUST revert if the `approvalId` does not exist.
+     * @param approvalId The approval whose URI is queried for
+     * @return The URI of the approval
+     */</span>
+    <span class="k">function</span> <span class="n">approvalURI</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">approvalId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="delegate">Delegate</h4>
+
+<p>This extension provides methods to delegate (undelegate) mint right in a slot to (from) an operator. It is useful if you want to allow an operator to mint tokens in a specific slot on your behalf.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @title ERC5727 Soulbound Token Delegate Interface
+ * @dev This extension allows delegation of issuing and revocation of tokens to an operator.
+ */</span>
+<span class="k">interface</span> <span class="n">IERC5727Delegate</span> <span class="k">is</span> <span class="n">IERC5727</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Emitted when a token issuance is delegated to an operator.
+     * @param operator The owner to which the issuing right is delegated
+     * @param slot The slot to issue the token in
+     */</span>
+    <span class="k">event</span> <span class="n">Delegate</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">slot</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Emitted when a token issuance is revoked from an operator.
+     * @param operator The owner to which the issuing right is delegated
+     * @param slot The slot to issue the token in
+     */</span>
+    <span class="k">event</span> <span class="n">UnDelegate</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">slot</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Delegate rights to `operator` for a slot.
+     * @dev MUST revert if the caller does not have the right to delegate.
+     *      MUST revert if the `operator` address is the zero address.
+     *      MUST revert if the `slot` is not a valid slot.
+     * @param operator The owner to which the issuing right is delegated
+     * @param slot The slot to issue the token in
+     */</span>
+    <span class="k">function</span> <span class="n">delegate</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">slot</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Revoke rights from `operator` for a slot.
+     * @dev MUST revert if the caller does not have the right to delegate.
+     *      MUST revert if the `operator` address is the zero address.
+     *      MUST revert if the `slot` is not a valid slot.
+     * @param operator The owner to which the issuing right is delegated
+     * @param slot The slot to issue the token in
+     */</span>
+
+    <span class="k">function</span> <span class="n">undelegate</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">slot</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Check if an operator has the permission to issue or revoke tokens in a slot.
+     * @param operator The operator to check
+     * @param slot The slot to check
+     */</span>
+    <span class="k">function</span> <span class="n">isOperatorFor</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">slot</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h4 id="recovery">Recovery</h4>
+
+<p>This extension provides methods to recover tokens from a stale owner. It is recommended to use this extension so that users are able to retrieve their tokens from a compromised or old wallet in certain situations. The signing scheme SHALL be compatible with <a href="./eip-712.md">EIP-712</a> for readability and usability.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @title ERC5727 Soulbound Token Recovery Interface
+ * @dev This extension allows recovering soulbound tokens from an address provided its signature.
+ */</span>
+<span class="k">interface</span> <span class="n">IERC5727Recovery</span> <span class="k">is</span> <span class="n">IERC5727</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Emitted when the tokens of `owner` are recovered.
+     * @param from The owner whose tokens are recovered
+     * @param to The new owner of the tokens
+     */</span>
+    <span class="k">event</span> <span class="n">Recovered</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Recover the tokens of `owner` with `signature`.
+     * @dev MUST revert if the signature is invalid.
+     * @param owner The owner whose tokens are recovered
+     * @param signature The signature signed by the `owner`
+     */</span>
+    <span class="k">function</span> <span class="n">recover</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="expirable">Expirable</h4>
+
+<p>This extension provides methods to manage the expiration of tokens. It is useful if you want to expire/invalidate tokens after a certain period of time.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @title ERC5727 Soulbound Token Expirable Interface
+ * @dev This extension allows soulbound tokens to be expirable and renewable.
+ */</span>
+<span class="k">interface</span> <span class="n">IERC5727Expirable</span> <span class="k">is</span> <span class="n">IERC5727</span><span class="p">,</span> <span class="n">IERC5643</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Set the expiry date of a token.
+     * @dev MUST revert if the `tokenId` token does not exist.
+     *      MUST revert if the `date` is in the past.
+     * @param tokenId The token whose expiry date is set
+     * @param expiration The expire date to set
+     * @param isRenewable Whether the token is renewable
+     */</span>
+    <span class="k">function</span> <span class="n">setExpiration</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint64</span> <span class="n">expiration</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">isRenewable</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="token-storage-model">Token storage model</h3>
+
+<p>We adopt semi-fungible token storage models designed to support both fungible and non-fungible tokens, inspired by the semi-fungible token standard. We found that such a model is better suited to the representation of SBT than the model used in <a href="./eip-1155.md">ERC-1155</a>.</p>
+
+<p>Firstly, each slot can be used to represent different categories of SBTs. For instance, a DAO can have membership SBTs, role badges, reputations, etc. in one SBT collection.</p>
+
+<p>Secondly, unlike <a href="./eip-1155.md">ERC-1155</a>, in which each unit of fungible tokens is exactly the same, our interface can help differentiate between similar tokens. This is justified by that credential scores obtained from different entities differ not only in value but also in their effects, validity periods, origins, etc. However, they still share the same slot as they all contribute to a person’s credibility, membership, etc.</p>
+
+<h3 id="recovery-mechanism">Recovery mechanism</h3>
+
+<p>To prevent the loss of SBTs, we propose a recovery mechanism that allows users to recover their tokens by providing a signature signed by their owner address. This mechanism is inspired by <a href="./eip-1271.md">ERC-1271</a>.</p>
+
+<p>Since SBTs are bound to an address and are meant to represent the identity of the address, which cannot be split into fractions. Therefore, each recovery should be considered as a transfer of all the tokens of the owner. This is why we use the <code class="language-plaintext highlighter-rouge">recover</code> function instead of <code class="language-plaintext highlighter-rouge">transferFrom</code> or <code class="language-plaintext highlighter-rouge">safeTransferFrom</code>.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This EIP proposes a new token interface which is compatible with <a href="./eip-721.md">ERC-721</a>, <a href="./eip-3525.md">ERC-3525</a>, <a href="./eip-4906.md">ERC-4906</a>, <a href="./eip-5192.md">ERC-5192</a>, <a href="./eip-5484.md">ERC-5484</a>.</p>
+
+<p>This EIP is also compatible with <a href="./eip-165.md">ERC-165</a>.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Our sample implementation includes test cases written using Hardhat.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>You can find our reference implementation <a href="../assets/eip-5727/ERC5727.sol">here</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>This EIP does not involve the general transfer of tokens, and thus there will be no security issues related to token transfer generally.</p>
+
+<p>However, users should be aware of the security risks of using the recovery mechanism. If a user loses his/her private key, all his/her soulbound tokens will be exposed to potential theft. The attacker can create a signature and restore all SBTs of the victim. Therefore, users should always keep their private keys safe. We recommend developers implement a recovery mechanism that requires multiple signatures to restore SBTs.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

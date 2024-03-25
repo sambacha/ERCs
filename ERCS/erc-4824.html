@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Common Interfaces for DAOs | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Common Interfaces for DAOs | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4824" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4824" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Common Interfaces for DAOs</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>An API standard for decentralized autonomous organizations (DAOs), focused on relating on-chain and off-chain representations of membership and proposals.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>DAOs, since being invoked in the Ethereum whitepaper, have been vaguely defined. This has led to a wide range of patterns but little standardization or interoperability between the frameworks and tools that have emerged. Standardization and interoperability are necessary to support a variety of use-cases. In particular, a standard daoURI, similar to tokenURI in <a href="./eip-721">ERC-721</a>, will enhance DAO discoverability, legibility, proposal simulation, and interoperability between tools. More consistent data across the ecosystem is also a prerequisite for future DAO standards.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Every contract implementing this EIP MUST implement the <a href="./eip-4824">ERC-4824</a> interface below:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">/// @title ERC-4824 DAOs
+/// @dev See &lt;https://eips.ethereum.org/EIPS/eip-4824&gt;
+</span><span class="k">interface</span> <span class="n">IERC</span><span class="o">-</span><span class="mi">4824</span> <span class="p">{</span>
+    <span class="k">event</span> <span class="n">DAOURIUpdate</span><span class="p">(</span><span class="kt">address</span> <span class="n">daoAddress</span><span class="p">,</span> <span class="kt">string</span> <span class="n">daoURI</span><span class="p">);</span>
+
+    <span class="c1">/// @notice A distinct Uniform Resource Identifier (URI) pointing to a JSON object following the "ERC-4824 DAO JSON-LD Schema". This JSON file splits into four URIs: membersURI, proposalsURI, activityLogURI, and governanceURI. The membersURI should point to a JSON file that conforms to the "ERC-4824 Members JSON-LD Schema". The proposalsURI should point to a JSON file that conforms to the "ERC-4824 Proposals JSON-LD Schema". The activityLogURI should point to a JSON file that conforms to the "ERC-4824 Activity Log JSON-LD Schema". The governanceURI should point to a flatfile, normatively a .md file. Each of the JSON files named above can be statically-hosted or dynamically-generated.
+</span>    <span class="k">function</span> <span class="n">daoURI</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">_daoURI</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The DAO JSON-LD Schema mentioned above:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.daostar.org/schemas"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DAO"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;name of the DAO&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;description&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"membersURI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;URI&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"proposalsURI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;URI&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"activityLogURI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;URI&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"governanceURI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;URI&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contractsURI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;URI&gt;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>A DAO MAY inherit the above interface above or it MAY create an external registration contract that is compliant with this EIP. If a DAO creates an external registration contract, the registration contract MUST store the DAO’s primary address.</p>
+
+<p>If the DAO inherits the above interface, it SHOULD define a method for updating daoURI. If the DAO uses an external registration contract, the registration contract SHOULD contain some access control logic to enable efficient updating for daoURI.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">/// @title ERC-4824 Common Interfaces for DAOs
+/// @dev See &lt;https://eips.ethereum.org/EIPS/eip-4824&gt;
+/// @title ERC-4824: DAO Registration
+</span><span class="k">contract</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Registration</span> <span class="k">is</span> <span class="n">IERC</span><span class="o">-</span><span class="mi">4824</span><span class="p">,</span> <span class="n">AccessControl</span> <span class="p">{</span>
+    <span class="kt">bytes32</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">MANAGER_ROLE</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"MANAGER_ROLE"</span><span class="p">);</span>
+
+    <span class="kt">string</span> <span class="k">private</span> <span class="n">_daoURI</span><span class="p">;</span>
+
+    <span class="kt">address</span> <span class="n">daoAddress</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">daoAddress</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="mh">0xdead</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice Set the initial DAO URI and offer manager role to an address
+</span>    <span class="c1">/// @dev Throws if initialized already
+</span>    <span class="c1">/// @param _daoAddress The primary address for a DAO
+</span>    <span class="c1">/// @param _manager The address of the URI manager
+</span>    <span class="c1">/// @param daoURI_ The URI which will resolve to the governance docs
+</span>    <span class="k">function</span> <span class="n">initialize</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_daoAddress</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_manager</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">daoURI_</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="n">initialize</span><span class="p">(</span><span class="n">_daoAddress</span><span class="p">,</span> <span class="n">daoURI_</span><span class="p">,</span> <span class="n">_ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span><span class="p">);</span>
+        <span class="n">_grantRole</span><span class="p">(</span><span class="n">MANAGER_ROLE</span><span class="p">,</span> <span class="n">_manager</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice Set the initial DAO URI
+</span>    <span class="c1">/// @dev Throws if initialized already
+</span>    <span class="c1">/// @param _daoAddress The primary address for a DAO
+</span>    <span class="c1">/// @param daoURI_ The URI which will resolve to the governance docs
+</span>    <span class="k">function</span> <span class="n">initialize</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_daoAddress</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">daoURI_</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">daoAddress</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="nb">revert</span> <span class="n">AlreadyInitialized</span><span class="p">();</span>
+        <span class="n">daoAddress</span> <span class="o">=</span> <span class="n">_daoAddress</span><span class="p">;</span>
+        <span class="n">_setURI</span><span class="p">(</span><span class="n">daoURI_</span><span class="p">);</span>
+
+        <span class="n">_grantRole</span><span class="p">(</span><span class="n">DEFAULT_ADMIN_ROLE</span><span class="p">,</span> <span class="n">_daoAddress</span><span class="p">);</span>
+        <span class="n">_grantRole</span><span class="p">(</span><span class="n">MANAGER_ROLE</span><span class="p">,</span> <span class="n">_daoAddress</span><span class="p">);</span>
+
+        <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span><span class="p">(</span><span class="n">_ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span><span class="p">).</span><span class="n">logRegistration</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice Update the URI for a DAO
+</span>    <span class="c1">/// @dev Throws if not called by dao or manager
+</span>    <span class="c1">/// @param daoURI_ The URI which will resolve to the governance docs
+</span>    <span class="k">function</span> <span class="n">setURI</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">daoURI_</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyRole</span><span class="p">(</span><span class="n">MANAGER_ROLE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_setURI</span><span class="p">(</span><span class="n">daoURI_</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_setURI</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">daoURI_</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="n">_daoURI</span> <span class="o">=</span> <span class="n">daoURI_</span><span class="p">;</span>
+        <span class="k">emit</span> <span class="n">DAOURIUpdate</span><span class="p">(</span><span class="n">daoAddress</span><span class="p">,</span> <span class="n">daoURI_</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">daoURI</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">daoURI_</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_daoURI</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span>
+        <span class="kt">bytes4</span> <span class="n">interfaceId</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span>
+            <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC</span><span class="o">-</span><span class="mi">4824</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span>
+            <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceId</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="indexing">Indexing</h3>
+
+<p>If a DAO inherits the ERC-4824 interface from a 4824-compliant DAO factory, then the DAO factory SHOULD incorporate a call to an indexer contract as part of the DAO’s initialization to enable efficient network indexing. If the DAO is <a href="./eip-165">ERC-165</a>-compliant, the factory can do this without additional permissions. If the DAO is <em>not</em> compliant with ERC-165, the factory SHOULD first obtain access control rights to the indexer contract and then call logRegistration directly with the address of the new DAO and the daoURI of the new DAO. Note that any user, including the DAO itself, MAY call logRegistration and submit a registration for a DAO which inherits the ERC-4824 interface and which is also ERC-165-compliant.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="n">error</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">InterfaceNotSupported</span><span class="p">();</span>
+
+<span class="k">contract</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span> <span class="k">is</span> <span class="n">AccessControl</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">ERC165Checker</span> <span class="k">for</span> <span class="kt">address</span><span class="p">;</span>
+
+    <span class="kt">bytes32</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">REGISTRATION_ROLE</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"REGISTRATION_ROLE"</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">DAOURIRegistered</span><span class="p">(</span><span class="kt">address</span> <span class="n">daoAddress</span><span class="p">);</span>
+
+    <span class="k">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">_grantRole</span><span class="p">(</span><span class="n">DEFAULT_ADMIN_ROLE</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+        <span class="n">_grantRole</span><span class="p">(</span><span class="n">REGISTRATION_ROLE</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">logRegistrationPermissioned</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">daoAddress</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="n">onlyRole</span><span class="p">(</span><span class="n">REGISTRATION_ROLE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">emit</span> <span class="n">DAOURIRegistered</span><span class="p">(</span><span class="n">daoAddress</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">logRegistration</span><span class="p">(</span><span class="kt">address</span> <span class="n">daoAddress</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">daoAddress</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="k">type</span><span class="p">(</span><span class="n">IERC</span><span class="o">-</span><span class="mi">4824</span><span class="p">).</span><span class="n">interfaceId</span><span class="p">))</span>
+            <span class="nb">revert</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">InterfaceNotSupported</span><span class="p">();</span>
+        <span class="k">emit</span> <span class="n">DAOURIRegistered</span><span class="p">(</span><span class="n">daoAddress</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>If a DAO uses an external registration contract, the DAO SHOULD use a common registration factory contract linked to a common indexer to enable efficient network indexing.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">/// @title ERC-4824 Common Interfaces for DAOs
+/// @dev See &lt;https://eips.ethereum.org/EIPS/eip-4824&gt;
+</span>
+<span class="k">contract</span> <span class="n">CloneFactory</span> <span class="p">{</span>
+    <span class="c1">// implementation of eip-1167 - see https://eips.ethereum.org/EIPS/eip-1167
+</span>    <span class="k">function</span> <span class="n">createClone</span><span class="p">(</span><span class="kt">address</span> <span class="n">target</span><span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes20</span> <span class="n">targetBytes</span> <span class="o">=</span> <span class="kt">bytes20</span><span class="p">(</span><span class="n">target</span><span class="p">);</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="kr">let</span> <span class="n">clone</span> <span class="o">:=</span> <span class="n">mload</span><span class="p">(</span><span class="mh">0x40</span><span class="p">)</span>
+            <span class="n">mstore</span><span class="p">(</span>
+                <span class="n">clone</span><span class="p">,</span>
+                <span class="mh">0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000</span>
+            <span class="p">)</span>
+            <span class="n">mstore</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">clone</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">),</span> <span class="n">targetBytes</span><span class="p">)</span>
+            <span class="n">mstore</span><span class="p">(</span>
+                <span class="n">add</span><span class="p">(</span><span class="n">clone</span><span class="p">,</span> <span class="mh">0x28</span><span class="p">),</span>
+                <span class="mh">0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000</span>
+            <span class="p">)</span>
+            <span class="n">result</span> <span class="o">:=</span> <span class="n">create</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">clone</span><span class="p">,</span> <span class="mh">0x37</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">RegistrationSummoner</span> <span class="p">{</span>
+    <span class="k">event</span> <span class="n">NewRegistration</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">daoAddress</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">daoURI</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">registration</span>
+    <span class="p">);</span>
+
+    <span class="kt">address</span> <span class="k">public</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="k">public</span> <span class="n">template</span><span class="p">;</span> <span class="cm">/*Template contract to clone*/</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_template</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">_template</span><span class="p">;</span>
+        <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span> <span class="o">=</span> <span class="n">_ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">registrationAddress</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">by</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">exists</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="n">Clones</span><span class="p">.</span><span class="n">predictDeterministicAddress</span><span class="p">(</span>
+            <span class="n">template</span><span class="p">,</span>
+            <span class="n">_saltedSalt</span><span class="p">(</span><span class="n">by</span><span class="p">,</span> <span class="n">salt</span><span class="p">),</span>
+            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)</span>
+        <span class="p">);</span>
+        <span class="n">exists</span> <span class="o">=</span> <span class="n">addr</span><span class="p">.</span><span class="n">code</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">summonRegistration</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">calldata</span> <span class="n">daoURI_</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">manager</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">contracts</span><span class="p">,</span>
+        <span class="kt">bytes</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">registration</span><span class="p">,</span> <span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">results</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">registration</span> <span class="o">=</span> <span class="n">Clones</span><span class="p">.</span><span class="n">cloneDeterministic</span><span class="p">(</span>
+            <span class="n">template</span><span class="p">,</span>
+            <span class="n">_saltedSalt</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span>
+        <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">manager</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Registration</span><span class="p">(</span><span class="n">registration</span><span class="p">).</span><span class="n">initialize</span><span class="p">(</span>
+                <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span>
+                <span class="n">daoURI_</span><span class="p">,</span>
+                <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span>
+            <span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Registration</span><span class="p">(</span><span class="n">registration</span><span class="p">).</span><span class="n">initialize</span><span class="p">(</span>
+                <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span>
+                <span class="n">manager</span><span class="p">,</span>
+                <span class="n">daoURI_</span><span class="p">,</span>
+                <span class="n">ERC</span><span class="o">-</span><span class="mi">4824</span><span class="n">Index</span>
+            <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="n">_callContracts</span><span class="p">(</span><span class="n">contracts</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+
+        <span class="k">emit</span> <span class="n">NewRegistration</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">daoURI_</span><span class="p">,</span> <span class="n">registration</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="members">Members</h3>
+
+<p>Members JSON-LD Schema. Every contract implementing this EIP SHOULD implement a membersuRI pointing to a JSON object satisfying this schema.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;http://www.daostar.org/schemas&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DAO"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;name of the DAO&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"members"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EthereumAddress"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;address or other identifier&gt;"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EthereumAddress"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;address or other identifier&gt;"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="proposals">Proposals</h3>
+
+<p>Proposals JSON-LD Schema. Every contract implementing this EIP SHOULD implement a proposalsURI pointing to a JSON object satisfying this schema.</p>
+
+<p>In particular, any on-chain proposal MUST be associated to an id of the form CAIP10_ADDRESS + “?proposalId=” + PROPOSAL_COUNTER, where CAIP10_ADDRESS is an address following the CAIP-10 standard and PROPOSAL_COUNTER is an arbitrary identifier such as a uint256 counter or a hash that is locally unique per CAIP-10 address. Off-chain proposals MAY use a similar id format where CAIP10_ADDRESS is replaced with an appropriate URI or URL.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.daostar.org/schemas"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DAO"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;name of the DAO&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"proposals"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"proposal"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;proposal ID&gt;"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;name or title of proposal&gt;"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contentURI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;URI to content or discussion&gt;"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;status of proposal&gt;"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"calls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CallDataEVM"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;call or delegate call&gt;"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;EthereumAddress&gt;"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;EthereumAddress&gt;"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;value&gt;"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;call data&gt;"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="activity-log">Activity Log</h3>
+
+<p>Activity Log JSON-LD Schema. Every contract implementing this EIP SHOULD implement a activityLogURI pointing to a JSON object satisfying this schema.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"@context"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;http://www.daostar.org/schemas&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DAO"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;name of the DAO&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"activities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;activity ID&gt;"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"activity"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"proposal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"proposal"</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;proposal ID&gt;"</span><span class="p">,</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"member"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EthereumAddress"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;address or other identifier&gt;"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w"> 
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"activities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;activity ID&gt;"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"activity"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"proposal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"proposal"</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;proposal ID&gt;"</span><span class="p">,</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"member"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EthereumAddress"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;address or other identifier&gt;"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="contracts">Contracts</h3>
+
+<p>Contracts JSON-LD Schema. Every contract implementing this EIP SHOULD implement a contractsURI pointing to a JSON object satisfying this schema.</p>
+
+<p>Further, every contractsURI SHOULD include at least the contract inheriting the ERC-4824 interface.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "@context": "&lt;http://www.daostar.org/schemas&gt;",
+    "type": "DAO",
+    "name": "&lt;name of the DAO&gt;",
+    "contracts": [
+        {
+            "type": "EthereumAddress",
+            "id": "&lt;address or other identifier&gt;",
+            "name": "&lt;name, e.g. Treasury&gt;",
+            "description": "&lt;description, e.g. Primary operating treasury for the DAO&gt;"
+        },
+        {
+            "type": "EthereumAddress",
+            "id": "&lt;address or other identifier&gt;",
+            "name": "&lt;name, e.g. Governance Token&gt;",
+            "description": "&lt;description, e.g. ERC20 governance token contract&gt;"
+        }
+        {
+            "type": "EthereumAddress",
+            "id": "&lt;address or other identifier&gt;",
+            "name": "&lt;name, e.g. Registraction Contract&gt;",
+            "description": "&lt;description, e.g. ERC-4824 registration contract&gt;"
+        }
+    ]
+}
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>In this standard, we assume that all DAOs possess at least two primitives: <em>membership</em> and <em>behavior</em>. <em>Membership</em> is defined by a set of addresses. <em>Behavior</em> is defined by a set of possible contract actions, including calls to external contracts and calls to internal functions. <em>Proposals</em> relate membership and behavior; they are objects that members can interact with and which, if and when executed, become behaviors of the DAO.</p>
+
+<h3 id="apis-uris-and-off-chain-data">APIs, URIs, and off-chain data</h3>
+
+<p>DAOs themselves have a number of existing and emerging use-cases. But almost all DAOs need to publish data off-chain for a number of reasons: communicating to and recruiting members, coordinating activities, powering user interfaces and governance applications such as Snapshot or Tally, or enabling search and discovery via platforms like DeepDAO, Messari, and Etherscan. Having a standardized schema for this data organized across multiple URIs, i.e. an API specification, would strengthen existing use-cases for DAOs, help scale tooling and frameworks across the ecosystem, and build support for additional forms of interoperability.</p>
+
+<p>While we considered standardizing on-chain aspects of DAOs in this standard, particularly on-chain proposal objects and proposal IDs, we felt that this level of standardization was premature given (1) the relative immaturity of use-cases, such as multi-DAO proposals or master-minion contracts, that would benefit from such standardization, (2) the close linkage between proposal systems and governance, which we did not want to standardize (see “governanceURI”, below), and (3) the prevalence of off-chain and L2 voting and proposal systems in DAOs (see “proposalsURI”, below). Further, a standard URI interface is relatively easy to adopt and has been actively demanded by frameworks (see “Community Consensus”, below).</p>
+
+<h3 id="membersuri">membersURI</h3>
+
+<p>Approaches to membership vary widely in DAOs. Some DAOs and DAO frameworks (e.g. Gnosis Safe, Tribute), maintain an explicit, on-chain set of members, sometimes called owners or stewards. But many DAOs are structured so that membership status is based on the ownership of a token or tokens (e.g. Moloch, Compound, DAOstack, 1Hive Gardens). In these DAOs, computing the list of current members typically requires some form of off-chain indexing of events.</p>
+
+<p>In choosing to ask only for an (off-chain) JSON schema of members, we are trading off some on-chain functionality for more flexibility and efficiency. We expect different DAOs to use membersURI in different ways: to serve a static copy of on-chain membership data, to contextualize the on-chain data (e.g. many Gnosis Safe stewards would not say that they are the only members of the DAO), to serve consistent membership for a DAO composed of multiple contracts, or to point at an external service that computes the list, among many other possibilities. We also expect many DAO frameworks to offer a standard endpoint that computes this JSON file, and we provide a few examples of such endpoints in the implementation section.</p>
+
+<p>We encourage extensions of the Membership JSON-LD Schema, e.g. for DAOs that wish to create a state variable that captures active/inactive status or different membership levels.</p>
+
+<h3 id="proposalsuri">proposalsURI</h3>
+
+<p>Proposals have become a standard way for the members of a DAO to trigger on-chain actions, e.g. sending out tokens as part of grant or executing arbitrary code in an external contract. In practice, however, many DAOs are governed by off-chain decision-making systems on platforms such as Discourse, Discord, or Snapshot, where off-chain proposals may function as signaling mechanisms for an administrator or as a prerequisite for a later on-chain vote. (To be clear, on-chain votes may also serve as non-binding signaling mechanisms or as “binding” signals leading to some sort of off-chain execution.) The schema we propose is intended to support both on-chain and off-chain proposals, though DAOs themselves may choose to report only on-chain, only off-chain, or some custom mix of proposal types.</p>
+
+<p><strong>Proposal ID</strong>. Every unique on-chain proposal MUST be associated to a proposal ID of the form CAIP10_ADDRESS + “?proposalId=” + PROPOSAL_COUNTER, where PROPOSAL_COUNTER is an arbitrary string which is unique per CAIP10_ADDRESS. Note that PROPOSAL_COUNTER may not be the same as the on-chain representation of the proposal; however, each PROPOSAL_COUNTER should be unique per CAIP10_ADDRESS, such that the proposal ID is a globally unique identifier. We endorse the CAIP-10 standard to support multi-chain / layer 2 proposals and the “?proposalId=” query syntax to suggest off-chain usage.</p>
+
+<p><strong>ContentURI</strong>. In many cases, a proposal will have some (off-chain) content such as a forum post or a description on a voting platform which predates or accompanies the actual proposal.</p>
+
+<p><strong>Status</strong>. Almost all proposals have a status or state, but the actual status is tied to the governance system, and there is no clear consensus between existing DAOs about what those statuses should be (see table below). Therefore, we have defined a “status” property with a generic, free text description field.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Proposal Statuses</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Aragon</td>
+      <td>Not specified</td>
+    </tr>
+    <tr>
+      <td>Colony</td>
+      <td>[‘Null’, ‘Staking’, ‘Submit’, ‘Reveal’, ‘Closed’, ‘Finalizable’, ‘Finalized’, ‘Failed’]</td>
+    </tr>
+    <tr>
+      <td>Compound</td>
+      <td>[‘Pending’, ‘Active’, ‘Canceled’, ‘Defeated’, ‘Succeeded’, ‘Queued’, ‘Expired’, ‘Executed’]</td>
+    </tr>
+    <tr>
+      <td>DAOstack/ Alchemy</td>
+      <td>[‘None’, ‘ExpiredInQueue’, ‘Executed’, ‘Queued’, ‘PreBoosted’, ‘Boosted’, ‘QuietEndingPeriod’]</td>
+    </tr>
+    <tr>
+      <td>Moloch v2</td>
+      <td>[sponsored, processed, didPass, cancelled, whitelist, guildkick]</td>
+    </tr>
+    <tr>
+      <td>Tribute</td>
+      <td>[‘EXISTS’, ‘SPONSORED’, ‘PROCESSED’]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>ExecutionData</strong>. For on-chain proposals with non-empty execution, we include an array field to expose the call data. The main use-case for this data is execution simulation of proposals.</p>
+
+<h3 id="activityloguri">activityLogURI</h3>
+
+<p>The activity log JSON is intended to capture the interplay between a member of a DAO and a given proposal. Examples of activities include the creation/submission of a proposal, voting on a proposal, disputing a proposal, and so on.</p>
+
+<p><em>Alternatives we considered: history, interactions</em></p>
+
+<h3 id="governanceuri">governanceURI</h3>
+
+<p>Membership, to be meaningful, usually implies rights and affordances of some sort, e.g. the right to vote on proposals, the right to ragequit, the right to veto proposals, and so on. But many rights and affordances of membership are realized off-chain (e.g. right to vote on a Snapshot, gated access to a Discord). Instead of trying to standardize these wide-ranging practices or forcing DAOs to locate descriptions of those rights on-chain, we believe that a flatfile represents the easiest and most widely-acceptable mechanism for communicating what membership means and how proposals work. These flatfiles can then be consumed by services such as Etherscan, supporting DAO discoverability and legibility.</p>
+
+<p>We chose the word “governance” as an appropriate word that reflects (1) the widespread use of the word in the DAO ecosystem and (2) the common practice of emitting a governance.md file in open-source software projects.</p>
+
+<p><em>Alternative names considered: description, readme, constitution</em></p>
+
+<h3 id="contractsuri">contractsURI</h3>
+
+<p>Over the course of community conversations, multiple parties raised the need to report on, audit, and index the different contracts belonging to a given DAO. Some of these contracts are deployed as part of the modular design of a single DAO framework, e.g. the core, voting, and timelock contracts within Open Zeppelin / Compound Governor. In other cases, a DAO might deploy multiple multsigs as treasuries and/or multiple subDAOs that are effectively controlled by the DAO. ContractsURI offers a generic way of declaring these many instruments.</p>
+
+<p><em>Alternative names considered: contractsRegistry, contractsList</em></p>
+
+<h3 id="why-json-ld">Why JSON-LD</h3>
+
+<p>We chose to use JSON-LD rather than the more widespread and simpler JSON standard because (1) we want to support use-cases where a DAO wants to include members using some other form of identification than their Ethereum address and (2) we want this standard to be compatible with future multi-chain standards. Either use-case would require us to implement a context and type for addresses, which is already implemented in JSON-LD.</p>
+
+<p>Further, given the emergence of patterns such as subDAOs and DAOs of DAOs in large organizations such as Synthetix, as well as L2 and multi-chain use-cases, we expect some organizations will point multiple DAOs to the same URI, which would then serve as a gateway to data from multiple contracts and services. The choice of JSON-LD allows for easier extension and management of that data.</p>
+
+<h3 id="community-consensus"><strong>Community Consensus</strong></h3>
+
+<p>The initial draft standard was developed as part of the DAOstar One roundtable series, which included representatives from all major EVM-based DAO frameworks (Aragon, Compound, DAOstack, Gnosis, Moloch, OpenZeppelin, and Tribute), a wide selection of DAO tooling developers, as well as several major DAOs. Thank you to all the participants of the roundtable. We would especially like to thank Auryn Macmillan, Fabien of Snapshot, Selim Imoberdorf, Lucia Korpas, and Mehdi Salehi for their contributions.</p>
+
+<p>In-person events will be held at Schelling Point 2022 and at ETHDenver 2022, where we hope to receive more comments from the community. We also plan to schedule a series of community calls through early 2022.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Existing contracts that do not wish to use this specification are unaffected. DAOs that wish to adopt the standard without updating or migrating contracts can do so via an external registration contract.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>This standard defines the interfaces for the DAO URIs but does not specify the rules under which the URIs are set, or how the data is prepared. Developers implementing this standard should consider how to update this data in a way aligned with the DAO’s governance model, and keep the data fresh in a way that minimizes reliance on centralized service providers.</p>
+
+<p>Indexers that rely on the data returned by the URI should take caution if DAOs return executable code from the URIs. This executable code might be intended to get the freshest information on membership, proposals, and activity log, but it could also be used to run unrelated tasks.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

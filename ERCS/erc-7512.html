@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Onchain Representation for Audits | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Onchain Representation for Audits | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7512" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7512" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Onchain Representation for Audits</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The proposal aims to create a standard for an onchain representation of audit reports that can be parsed by contracts to extract relevant information about the audits, such as who performed the audits and what standards have been verified.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Audits are an integral part of the smart contract security framework. They are commonly used to increase the security of smart contracts and ensure that they follow best practices as well as correctly implement standards such <a href="./eip-20.md">ERC-20</a>, <a href="./eip-721.md">ERC-721</a>, and similar ERCs. Many essential parts of the blockchain ecosystem are facilitated by the usage of smart contracts. Some examples of this are:</p>
+
+<ul>
+  <li>Bridges: Most bridges consist of a bridgehead or a lockbox that secures the tokens that should be bridged. If any of these contracts are faulty it might be possible to bring the operation of the bridge to a halt or, in extreme circumstances, cause uncollateralized assets to be minted on satellite chains.</li>
+  <li>Token Contracts: Every token in the Ethereum ecosystem is a smart contract. Apps that interact with these tokens rely on them adhering to known token standards, most commonly <a href="./eip-20.md">ERC-20</a> and <a href="./eip-721.md">ERC-721</a>. Tokens that behave differently can cause unexpected behavior and might even lead to loss of funds.</li>
+  <li>Smart Contract Accounts (SCAs): With <a href="./eip-4337.md">ERC-4337</a> more visibility has been created for smart-contract-based accounts. They provide extreme flexibility and can cater to many different use cases whilst retaining a greater degree of control and security over each account. A concept that has been experimented with is the idea of modules that allow the extension of a smart contract account’s functionality. <a href="./eip-6900.md">ERC-6900</a>) is a recent standard that defines how to register and design plugins that can be registered on an account.</li>
+  <li>Interoperability (Hooks &amp; Callbacks): With more protocols supporting external-facing functions to interact with them and different token standards triggering callbacks on a transfer (i.e. <a href="./eip-1155.md">ERC-1155</a>), it is important to make sure that these interactions are well vetted to minimize the security risks they are associated with as much as possible.</li>
+</ul>
+
+<p>The usage and impact smart contracts will have on the day-to-day operations of decentralized applications will steadily increase. To provide tangible guarantees about security and allow better composability it is imperative that an onchain verification method exists to validate that a contract has been audited. Creating a system that can verify that an audit has been made for a specific contract will strengthen the security guarantees of the whole smart contract ecosystem.</p>
+
+<p>While this information alone is no guarantee that there are no bugs or flaws in a contract, it can provide an important building block to create innovative security systems for smart contracts in an onchain way.</p>
+
+<h3 id="example">Example</h3>
+
+<p>Imagine a hypothetical <a href="./eip-1155.md">ERC-1155</a> token bridge. The goal is to create a scalable system where it is possible to easily register new tokens that can be bridged. To minimize the risk of malicious or faulty tokens being registered, audits will be used and verified onchain.</p>
+
+<p><img src="../assets/eip-7512/example_use_case.png" alt="Onchain Audit Example Use Case" /></p>
+
+<p>To illustrate the flow within the diagram clearly, it separates the Bridge and the Verifier roles into distinct actors. Theoretically, both can live in the same contract.</p>
+
+<p>There are four parties:</p>
+
+<ul>
+  <li>User: The end user that wants to bridge their token</li>
+  <li>Bridge Operator: The operator that maintains the bridge</li>
+  <li>Bridge: The contract the user will interact with to trigger the bridge operation</li>
+  <li>Validator: The contract that validates that a token can be bridged</li>
+</ul>
+
+<p>As a first (1) step, the bridge operator should define the keys/accounts for the auditors from which audits are accepted for the token registration process.</p>
+
+<p>With this, the user (or token owner) can trigger the registration flow (2). There are two steps (3 and 6) that will be performed: verify that the provided audit is valid and has been signed by a trusted auditor (4), and check that the token contract implements the bridge’s supported token standard (<a href="./eip-1155.md">ERC-1155</a>) (7).</p>
+
+<p>After the audit and token standard validations have been performed, it is still advisable to have some form of manual intervention in place by the operator to activate a token for bridging (10). <!-- This step could be omitted if there is strong trust in the auditor or if an ERC provides strong compatibility guarantees. --></p>
+
+<p>Once the token has been activated on the bridge, Users can start bridging it (11).</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="audit-properties">Audit Properties</h3>
+
+<ul>
+  <li>Auditor
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">name</code>: Name of the auditor (i.e. for displaying to the user)</li>
+      <li><code class="language-plaintext highlighter-rouge">uri</code>: URI to retrieve more information about the auditor</li>
+      <li><code class="language-plaintext highlighter-rouge">authors</code>: A list of authors that contributed to this audit. This SHOULD be the persons who audited the contracts and created the audit</li>
+    </ul>
+  </li>
+  <li>Audit
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">auditor</code>: Information on the auditor</li>
+      <li><code class="language-plaintext highlighter-rouge">auditedContract</code>: MUST be the <code class="language-plaintext highlighter-rouge">chainId</code> as well as <code class="language-plaintext highlighter-rouge">deployment</code> of the contract the audit is related to</li>
+      <li><code class="language-plaintext highlighter-rouge">issuedAt</code>: MUST contain the information when the original audit (identified by the <code class="language-plaintext highlighter-rouge">auditHash</code>) was issued</li>
+      <li><code class="language-plaintext highlighter-rouge">ercs</code>: A list of ERCs that are implemented by the target contract. The ERCs listed MUST be fully implemented. This list MAY be empty</li>
+      <li><code class="language-plaintext highlighter-rouge">auditHash</code>: MUST be the hash of the original audit. This allows onchain verification of information that may belong to a specific audit</li>
+      <li><code class="language-plaintext highlighter-rouge">auditUri</code>: SHOULD point to a source where the audit can be retrieved</li>
+    </ul>
+  </li>
+  <li>Contract
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">chainId</code>: MUST be a <code class="language-plaintext highlighter-rouge">bytes32</code> representation of the <a href="./eip-155.md">EIP-155</a> chain ID of the blockchain that the contract has been deployed in</li>
+      <li><code class="language-plaintext highlighter-rouge">deployment</code>: MUST be an <code class="language-plaintext highlighter-rouge">address</code> representation of a contract’s deployment address</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="auditor-verification">Auditor Verification</h3>
+
+<ul>
+  <li>Signature
+    <ul>
+      <li>Type
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">SECP256K1</code>
+            <ul>
+              <li>Data is the encoded representation of <code class="language-plaintext highlighter-rouge">r</code>, <code class="language-plaintext highlighter-rouge">s</code>, and <code class="language-plaintext highlighter-rouge">v</code></li>
+            </ul>
+          </li>
+          <li><code class="language-plaintext highlighter-rouge">BLS</code>
+            <ul>
+              <li>TBD</li>
+            </ul>
+          </li>
+          <li><code class="language-plaintext highlighter-rouge">ERC1271</code>
+            <ul>
+              <li>Data is the ABI-encoded representation of <code class="language-plaintext highlighter-rouge">chainId</code>, <code class="language-plaintext highlighter-rouge">address</code>, <code class="language-plaintext highlighter-rouge">blocknumber</code>, and the <code class="language-plaintext highlighter-rouge">signature bytes</code></li>
+            </ul>
+          </li>
+          <li><code class="language-plaintext highlighter-rouge">SECP256R1</code>
+            <ul>
+              <li>Data is the encoded representation of <code class="language-plaintext highlighter-rouge">r</code>, <code class="language-plaintext highlighter-rouge">s</code>, and <code class="language-plaintext highlighter-rouge">v</code></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Data</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="data-types">Data types</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Auditor</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">uri</span><span class="p">;</span>
+    <span class="kt">string</span><span class="p">[]</span> <span class="n">authors</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">Contract</span> <span class="p">{</span>
+    <span class="kt">bytes32</span> <span class="n">chainId</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">deployment</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">AuditSummary</span> <span class="p">{</span>
+    <span class="n">Auditor</span> <span class="n">auditor</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">issuedAt</span><span class="p">;</span>
+    <span class="kt">uint256</span><span class="p">[]</span> <span class="n">ercs</span><span class="p">;</span>
+    <span class="n">Contract</span> <span class="n">auditedContract</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="n">auditHash</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">auditUri</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="signing">Signing</h3>
+
+<p>For signing <a href="./eip-712.md">EIP-712</a> will be used. For this the main type is the <code class="language-plaintext highlighter-rouge">AuditSummary</code> and as the <code class="language-plaintext highlighter-rouge">EIP712Domain</code> the following definition applies:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">EIP712Domain</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">version</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">EIP712Domain</span> <span class="n">auditDomain</span> <span class="o">=</span> <span class="n">EIP712Domain</span><span class="p">(</span><span class="s">"ERC-7652: Onchain Audit Representation"</span><span class="p">,</span> <span class="s">"1.0"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The generated signature can then be attached to the <code class="language-plaintext highlighter-rouge">AuditSummary</code> to generate a new <code class="language-plaintext highlighter-rouge">SignedAuditSummary</code> object:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">SignatureType</span> <span class="p">{</span>
+    <span class="n">SECP256K1</span><span class="p">,</span>
+    <span class="n">BLS</span><span class="p">,</span>
+    <span class="n">ERC1271</span><span class="p">,</span>
+    <span class="n">SECP256R1</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">Signature</span> <span class="p">{</span>
+    <span class="n">SignatureType</span> <span class="k">type</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">SignedAuditSummary</span> <span class="n">extends</span> <span class="n">AuditSummary</span> <span class="p">{</span>
+    <span class="kt">uint256</span> <span class="n">signedAt</span><span class="p">;</span>
+    <span class="n">Signature</span> <span class="n">auditorSignature</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The current ERC deliberately does not define the <code class="language-plaintext highlighter-rouge">findings</code> of an audit. Such a definition would require alignment on the definition of what severities are supported, what data of a finding should be stored onchain vs off-chain, and other similar finding-related attributes that are hard to strictly describe. Given the complexity of this task, we consider it to be outside the scope of this EIP. It is important to note that this ERC proposes that a signed audit summary indicates that a specific contract instance (specified by its <code class="language-plaintext highlighter-rouge">chainId</code> and <code class="language-plaintext highlighter-rouge">deployment</code>) has undergone a security audit.</p>
+
+<p>Furthermore, it indicates that this contract instance correctly implements the listed ERCs. This normally corresponds to the final audit revision for a contract which is then connected to the deployment. As specified above, this ERC MUST NOT be considered an attestation of a contract’s security but rather a methodology via which data relevant to a smart contract can be extracted; evaluation of the quality, coverage, and guarantees of the data is left up to the integrators of the ERC.</p>
+
+<h3 id="further-considerations">Further Considerations</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">standards</code> vs <code class="language-plaintext highlighter-rouge">ercs</code>
+    <ul>
+      <li>Limiting the scope to audits related to EVM-based smart contract accounts allows a better definition of parameters.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">chainId</code> and <code class="language-plaintext highlighter-rouge">deployment</code>
+    <ul>
+      <li>As a contract’s behavior depends on the blockchain it is deployed in, we have opted to associate a <code class="language-plaintext highlighter-rouge">chainId</code> as well as <code class="language-plaintext highlighter-rouge">deployment</code> address per contract that corresponds to an audit</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">contract</code> vs <code class="language-plaintext highlighter-rouge">contracts</code>
+    <ul>
+      <li>Many audits are related to multiple contracts that make up a protocol. To ensure simplicity in the initial version of this ERC, we chose to only reference one contract per audit summary. If multiple contracts have been audited in the same audit engagement, the same audit summary can be associated with different contract instances. An additional benefit of this is the ability to properly associate contract instances with the <code class="language-plaintext highlighter-rouge">ercs</code> they support. The main drawback of this approach is that it requires multiple signing passes by the auditors.</li>
+    </ul>
+  </li>
+  <li>Why <a href="./eip-712.md">EIP-712</a>?
+    <ul>
+      <li><a href="./eip-712.md">EIP-712</a> was chosen as a base due to its tooling compatibility (i.e. for signing)</li>
+    </ul>
+  </li>
+  <li>How to assign a specific Signing Key to an Auditor?
+    <ul>
+      <li>Auditors should publicly share the public part of the signature, which can be done via their website, professional page, and any such social medium</li>
+      <li>As an extension to this ERC it would be possible to build a public repository, however, this falls out-of-scope of the ERC</li>
+    </ul>
+  </li>
+  <li>Polymorphic Contracts and Proxies
+    <ul>
+      <li>This ERC explicitly does <strong>not</strong> mention polymorphic contracts and proxies. These are important to be considered, however, their proper management is delegated to auditors as well as implementors of this ERC</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="future-extensions">Future Extensions</h3>
+
+<ul>
+  <li>Potential expansion of ERC to accommodate non-EVM chains</li>
+  <li>Better support for polymorphic/upgradeable contracts and multi-contract audits</li>
+  <li>Management of signing keys for auditors</li>
+  <li>Definition of findings of an audit</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues have been identified in relation to current ERC standards.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>TBD.</p>
+
+<p>The following features will be implemented in a reference implementation:</p>
+
+<ul>
+  <li>Script to trigger signing based on a JSON representing the audit summary</li>
+  <li>Contract to verify signed audit summary</li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="auditor-key-management">Auditor Key Management</h3>
+
+<p>The premise of this ERC relies on proper key management by the auditors who partake in the system. If an auditor’s key is compromised, they may be associated with seemingly audited or ERC-compliant contracts that ultimately could not comply with the standards. As a potential protection measure, the ERC may define an “association” of auditors (f.e. auditing companies) that would permit a secondary key to revoke existing signatures of auditors as a secondary security measure in case of an auditor’s key compromise.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

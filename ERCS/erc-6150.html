@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Hierarchical NFTs | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Hierarchical NFTs | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6150" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6150" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Hierarchical NFTs</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard is an extension to <a href="./eip-721.md">EIP-721</a>. It proposes a multi-layer filesystem-like hierarchical NFTs. This standard provides interfaces to get parent NFT or children NFTs and whether NFT is a leaf node or root node, maintaining the hierarchical relationship among them.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>This EIP standardizes the interface of filesystem-like hierarchical NFTs and provides a reference implementation.</p>
+
+<p>Hierarchy structure is commonly implemented for file systems by operating systems such as Linux Filesystem Hierarchy (FHS).</p>
+
+<p><img src="../assets/eip-6150/linux-hierarchy.png" alt="Linux Hierarchical File Structure" /></p>
+
+<p>Websites often use a directory and category hierarchy structure, such as eBay (Home -&gt; Electronics -&gt; Video Games -&gt; Xbox -&gt; Products), and Twitter (Home -&gt; Lists -&gt; List -&gt; Tweets), and Reddit (Home -&gt; r/ethereum -&gt; Posts -&gt; Hot).</p>
+
+<p><img src="../assets/eip-6150/website-hierarchy.png" alt="Website Hierarchical Structure" /></p>
+
+<p>A single smart contract can be the <code class="language-plaintext highlighter-rouge">root</code>, managing every directory/category as individual NFT and hierarchy relations of NFTs. Each NFT’s <code class="language-plaintext highlighter-rouge">tokenURI</code> may be another contract address, a website link, or any form of metadata.</p>
+
+<p>The advantages and the advancement of the Ethereum ecosystem of using this standard include:</p>
+
+<ul>
+  <li>Complete on-chain storage of hierarchy, which can also be governed on-chain by additional DAO contract</li>
+  <li>Only need a single contract to manage and operate the hierarchical relations</li>
+  <li>Transferrable directory/category ownership as NFT, which is great for use cases such as on-chain forums</li>
+  <li>Easy and permissionless data access to the hierarchical structure by front-end</li>
+  <li>Ideal structure for traditional applications such as e-commerce, or forums</li>
+  <li>Easy-to-understand interfaces for developers, which are similar to Linux filesystem commands in concept</li>
+</ul>
+
+<p>The use cases can include:</p>
+
+<ul>
+  <li>On-chain forum, like Reddit</li>
+  <li>On-chain social media, like Twitter</li>
+  <li>On-chain corporation, for managing organizational structures</li>
+  <li>On-chain e-commerce platforms, like eBay or individual stores</li>
+  <li>Any application with tree-like structures</li>
+</ul>
+
+<p>In the future, with the development of the data availability solutions of Ethereum and an external permissionless data retention network, the content (posts, listed items, or tweets) of these platforms can also be entirely stored on-chain, thus realizing fully decentralized applications.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>Every compliant contract must implement this proposal, <a href="./eip-721.md">EIP-721</a> and <a href="./eip-165.md">EIP-165</a> interfaces.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Note: the ERC-165 identifier for this interface is 0x897e2c73.
+</span><span class="k">interface</span> <span class="n">IERC6150</span> <span class="cm">/* is IERC721, IERC165 */</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Emitted when `tokenId` token under `parentId` is minted.
+     * @param minter The address of minter
+     * @param to The address received token
+     * @param parentId The id of parent token, if it's zero, it means minted `tokenId` is a root token.
+     * @param tokenId The id of minted token, required to be greater than zero
+     */</span>
+    <span class="k">event</span> <span class="n">Minted</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">minter</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">parentId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the parent token of `tokenId` token.
+     * @param tokenId The child token
+     * @return parentId The Parent token found
+     */</span>
+    <span class="k">function</span> <span class="n">parentOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">parentId</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the children tokens of `tokenId` token.
+     * @param tokenId The parent token
+     * @return childrenIds The array of children tokens
+     */</span>
+    <span class="k">function</span> <span class="n">childrenOf</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">childrenIds</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Check the `tokenId` token if it is a root token.
+     * @param tokenId The token want to be checked
+     * @return Return `true` if it is a root token; if not, return `false`
+     */</span>
+    <span class="k">function</span> <span class="n">isRoot</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Check the `tokenId` token if it is a leaf token.
+     * @param tokenId The token want to be checked
+     * @return Return `true` if it is a leaf token; if not, return `false`
+     */</span>
+    <span class="k">function</span> <span class="n">isLeaf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Optional Extension: Enumerable</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Note: the ERC-165 identifier for this interface is 0xba541a2e.
+</span><span class="k">interface</span> <span class="n">IERC6150Enumerable</span> <span class="k">is</span> <span class="n">IERC6150</span> <span class="cm">/* IERC721Enumerable */</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Get total amount of children tokens under `parentId` token.
+     * @dev If `parentId` is zero, it means get total amount of root tokens.
+     * @return The total amount of children tokens under `parentId` token.
+     */</span>
+    <span class="k">function</span> <span class="n">childrenCountOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">parentId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the token at the specified index of all children tokens under `parentId` token.
+     * @dev If `parentId` is zero, it means get root token.
+     * @return The token ID at `index` of all chlidren tokens under `parentId` token.
+     */</span>
+    <span class="k">function</span> <span class="n">childOfParentByIndex</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">parentId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">index</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Get the index position of specified token in the children enumeration under specified parent token.
+     * @dev Throws if the `tokenId` is not found in the children enumeration.
+     * If `parentId` is zero, means get root token index.
+     * @param parentId The parent token
+     * @param tokenId The specified token to be found
+     * @return The index position of `tokenId` found in the children enumeration
+     */</span>
+    <span class="k">function</span> <span class="n">indexInChildrenEnumeration</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">parentId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Optional Extension: Burnable</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Note: the ERC-165 identifier for this interface is 0x4ac0aa46.
+</span><span class="k">interface</span> <span class="n">IERC6150Burnable</span> <span class="k">is</span> <span class="n">IERC6150</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Burn the `tokenId` token.
+     * @dev Throws if `tokenId` is not a leaf token.
+     * Throws if `tokenId` is not a valid NFT.
+     * Throws if `owner` is not the owner of `tokenId` token.
+     * Throws unless `msg.sender` is the current owner, an authorized operator, or the approved address for this token.
+     * @param tokenId The token to be burnt
+     */</span>
+    <span class="k">function</span> <span class="n">safeBurn</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Batch burn tokens.
+     * @dev Throws if one of `tokenIds` is not a leaf token.
+     * Throws if one of `tokenIds` is not a valid NFT.
+     * Throws if `owner` is not the owner of all `tokenIds` tokens.
+     * Throws unless `msg.sender` is the current owner, an authorized operator, or the approved address for all `tokenIds`.
+     * @param tokenIds The tokens to be burnt
+     */</span>
+    <span class="k">function</span> <span class="n">safeBatchBurn</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Optional Extension: ParentTransferable</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Note: the ERC-165 identifier for this interface is 0xfa574808.
+</span><span class="k">interface</span> <span class="n">IERC6150ParentTransferable</span> <span class="k">is</span> <span class="n">IERC6150</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Emitted when the parent of `tokenId` token changed.
+     * @param tokenId The token changed
+     * @param oldParentId Previous parent token
+     * @param newParentId New parent token
+     */</span>
+    <span class="k">event</span> <span class="n">ParentTransferred</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">oldParentId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">newParentId</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Transfer parentship of `tokenId` token to a new parent token
+     * @param newParentId New parent token id
+     * @param tokenId The token to be changed
+     */</span>
+    <span class="k">function</span> <span class="n">transferParent</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">newParentId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Batch transfer parentship of `tokenIds` to a new parent token
+     * @param newParentId New parent token id
+     * @param tokenIds Array of token ids to be changed
+     */</span>
+    <span class="k">function</span> <span class="n">batchTransferParent</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">newParentId</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Optional Extension: Access Control</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Note: the ERC-165 identifier for this interface is 0x1d04f0b3.
+</span><span class="k">interface</span> <span class="n">IERC6150AccessControl</span> <span class="k">is</span> <span class="n">IERC6150</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Check the account whether a admin of `tokenId` token.
+     * @dev Each token can be set more than one admin. Admin have permission to do something to the token, like mint child token,
+     * or burn token, or transfer parentship.
+     * @param tokenId The specified token
+     * @param account The account to be checked
+     * @return If the account has admin permission, return true; otherwise, return false.
+     */</span>
+    <span class="k">function</span> <span class="n">isAdminOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">account</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Check whether the specified parent token and account can mint children tokens
+     * @dev If the `parentId` is zero, check whether account can mint root nodes
+     * @param parentId The specified parent token to be checked
+     * @param account The specified account to be checked
+     * @return If the token and account has mint permission, return true; otherwise, return false.
+     */</span>
+    <span class="k">function</span> <span class="n">canMintChildren</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">parentId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">account</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Check whether the specified token can be burnt by specified account
+     * @param tokenId The specified token to be checked
+     * @param account The specified account to be checked
+     * @return If the tokenId can be burnt by account, return true; otherwise, return false.
+     */</span>
+    <span class="k">function</span> <span class="n">canBurnTokenByAccount</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">account</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>As mentioned in the abstract, this EIP’s goal is to have a simple interface for supporting Hierarchical NFTs. Here are a few design decisions and why they were made:</p>
+
+<h3 id="relationship-between-nfts">Relationship between NFTs</h3>
+
+<p>All NFTs will make up a hierarchical relationship tree. Each NFT is a node of the tree, maybe as a root node or a leaf node, as a parent node or a child node.</p>
+
+<p>This proposal standardizes the event <code class="language-plaintext highlighter-rouge">Minted</code> to indicate the parent and child relationship when minting a new node. When a root node is minted, parentId should be zero. That means a token id of zero could not be a real node. So a real node token id must be greater than zero.</p>
+
+<p>In a hierarchical tree, it’s common to query upper and lower nodes. So this proposal standardizes function <code class="language-plaintext highlighter-rouge">parentOf</code> to get the parent node of the specified node and standardizes function <code class="language-plaintext highlighter-rouge">childrenOf</code> to get all children nodes.</p>
+
+<p>Functions <code class="language-plaintext highlighter-rouge">isRoot</code> and <code class="language-plaintext highlighter-rouge">isLeaf</code> can check if one node is a root node or a leaf node, which would be very useful for many cases.</p>
+
+<h3 id="enumerable-extension">Enumerable Extension</h3>
+
+<p>This proposal standardizes three functions as an extension to support enumerable queries involving children nodes. Each function all have param <code class="language-plaintext highlighter-rouge">parentId</code>, for compatibility, when the <code class="language-plaintext highlighter-rouge">parentId</code> specified zero means query root nodes.</p>
+
+<h3 id="parenttransferable-extension">ParentTransferable Extension</h3>
+
+<p>In some cases, such as filesystem, a directory or a file could be moved from one directory to another. So this proposal adds ParentTransferable Extension to support this situation.</p>
+
+<h3 id="access-control">Access Control</h3>
+
+<p>In a hierarchical structure, usually, there is more than one account has permission to operate a node, like mint children nodes, transfer node, burn node. This proposal adds a few functions as standard to check access control permissions.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal is fully backward compatible with <a href="./eip-721.md">EIP-721</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Implementation: <a href="../assets/eip-6150/contracts/ERC6150.sol">EIP-6150</a></p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>No security considerations were found.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

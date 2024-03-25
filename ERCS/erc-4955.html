@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Vendor Metadata Extension for NFTs | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Vendor Metadata Extension for NFTs | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4955" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4955" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Vendor Metadata Extension for NFTs</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP standardizes a schema for NFTs metadata to add new field namespaces to the JSON schema for <a href="./eip-721.md">EIP-721</a> and <a href="./eip-1155.md">EIP-1155</a> NFTs.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>A standardized NFT metadata schema allows wallets, marketplaces, metaverses, and similar applications to interoperate with any NFT. Applications such as NFT marketplaces and metaverses could usefully leverage NFTs by rendering them using custom 3D representations or any other new attributes.</p>
+
+<p>Some projects like Decentraland, TheSandbox, Cryptoavatars, etc. need their own 3D model in order to represent an NFT. These models are not cross-compatible because of distinct aesthetics and data formats.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<h3 id="schema">Schema</h3>
+
+<p>(subject to “caveats” below)</p>
+
+<p>A new property called <code class="language-plaintext highlighter-rouge">namespaces</code> is introduced. This property expects one object per project as shown in the example below.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Asset Metadata"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Identifies the asset that this NFT represents"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Describes the asset that this NFT represents"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A URI pointing to a resource with mime type image/* representing the asset that this NFT represents. Consider making any images at a width between 320 and 1080 pixels and aspect ratio between 1.91:1 and 4:5 inclusive."</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"namespaces"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Application-specific NFT properties"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="example">Example</h3>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My NFT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NFT description"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ipfs://QmZfmRZHuawJDtDVMaEaPWfgWFV9iXoS9SzLvwX76wm6pa"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"namespaces"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"myAwesomeCompany"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"prop1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"prop2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value2"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"myAwesomeCompany2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"prop3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value3"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"prop4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value4"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// Or by simply using a `URI` to reduce the size of the JSON response.</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My NFT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NFT description"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ipfs://QmZfmRZHuawJDtDVMaEaPWfgWFV9iXoS9SzLvwX76wm6pa"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"namespaces"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"myAwesomeCompany"</span><span class="p">:</span><span class="w"> </span><span class="s2">"URI"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"myAwesomeCompany2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"URI"</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>There are many projects which need custom properties in order to display a current NFT. Each project may have its own way to render the NFTs and therefore they need different values. An example of this is the metaverses like Decentraland or TheSandbox where they need different 3d models to render the NFT based on the visual/engine of each. NFTs projects like Cryptopunks, Bored Apes, etc. can create the 3d models needed for each project and therefore be supported out of the box.</p>
+
+<p>The main differences between the projects that are rendering 3d NFTs (models) are:</p>
+
+<h3 id="armatures">Armatures</h3>
+
+<p>Every metaverse uses its own armature. There is a standard for humanoids but it is not being used for every metaverse and not all the metaverses use humanoids. For example, Decentraland has a different aesthetic than Cryptovoxels and TheSandbox. It means that every metaverse will need a different model and they may have the same extension (GLB, GLTF)</p>
+
+<p><img src="../assets/eip-4955/different-renders.jpeg" alt="" /></p>
+
+<h3 id="metadata-representations-files">Metadata (Representations Files)</h3>
+
+<p>For example, every metaverse uses its own metadata representation files to make it work inside the engine depending on its game needs.</p>
+
+<p>This is the JSON config of a wearable item in Decentraland:</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"replaces"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"hides"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upper_body"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"representations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"bodyShapes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"urn:decentraland:off-chain:base-avatars:BaseMale"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"mainFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male/Look6_Tshirt_A.glb"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male/Look6_Tshirt_A.glb"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://peer-ec2.decentraland.org/content/contents/QmX3yMhmx4AvGmyF3CM5ycSQB4F99zXh9rL5GvdxTTcoCR"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"overrideHides"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"overrideReplaces"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"bodyShapes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"urn:decentraland:off-chain:base-avatars:BaseFemale"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"mainFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"female/Look6_Tshirt_B (1).glb"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"female/Look6_Tshirt_B (1).glb"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://peer-ec2.decentraland.org/content/contents/QmcgddP4L8CEKfpJ4cSZhswKownnYnpwEP4eYgTxmFdav8"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"overrideHides"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"overrideReplaces"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://peer-ec2.decentraland.org/content/contents/QmPnzQZWAMP4Grnq6phVteLzHeNxdmbRhKuFKqhHyVMqrK"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"thumbnail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://peer-ec2.decentraland.org/content/contents/QmcnBFjhyFShGo9gWk2ETbMRDudiX7yjn282djYCAjoMuL"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"metrics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"triangles"</span><span class="p">:</span><span class="w"> </span><span class="mi">3400</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"materials"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"textures"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"meshes"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bodies"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"entities"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">replaces</code>, <code class="language-plaintext highlighter-rouge">overrides</code>, <code class="language-plaintext highlighter-rouge">hides</code>, and different body shapes representation for the same asset are needed for Decentraland in order to render the 3D asset correctly.</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">namespaces</code> instead of objects like the ones below make it easy for the specific vendor/third-parties to access and index the required models. Moreover, <code class="language-plaintext highlighter-rouge">styles</code> do not exist because there are no standards around for how an asset will be rendered. As I mentioned above, each metaverse for example uses its own armature and aesthetic. There is no Decentraland-style or TheSandbox-style that other metaverses use. Each of them is unique and specific for the sake of the platform’s reason of being. Projects like Cryptoavatars are trying to push different standards but without luck for the same reasons related to the uniquity of the armature/animations/metadata.</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model/gltf+json"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Decentraland"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+
+</span><span class="c1">// Or</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model/gltf+json"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"humanoide"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>With <code class="language-plaintext highlighter-rouge">namespaces</code>, each vendor will know how to render an asset by doing:</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">fetch</span><span class="p">(</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">namespaces</span><span class="p">[</span><span class="dl">"</span><span class="s2">PROJECT_NAME</span><span class="dl">"</span><span class="p">].</span><span class="nx">uri</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">render</span><span class="p">(</span><span class="nx">res</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>The idea behind extending the <a href="./eip-721.md">EIP-721</a> metadata schema is for backward compatibility. Most projects on Ethereum use non-upgradeable contracts. If this EIP required new implementations of those contracts, they would have to be re-deployed. This is time-consuming and wastes money. Leveraging EIP-721’s existing metadata  field minimizes the number of changes necessary. Finally, the JSON metadata is already used to store representations using the <code class="language-plaintext highlighter-rouge">image</code> field. It seems reasonable to have all the representations of an asset in the same place.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Existing projects that can’t modify the metadata response (schema), may be able to create a new smart contract that based on the <code class="language-plaintext highlighter-rouge">tokenId</code> returns the updated metadata schema. Of course, the projects may need to accept these linked smart contracts as valid in order to fetch the metadata by the <code class="language-plaintext highlighter-rouge">tokenURI</code> function.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The same security considerations as with <a href="./eip-721.md">EIP-721</a> apply related to using http gateways or IPFS for the tokenURI method.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

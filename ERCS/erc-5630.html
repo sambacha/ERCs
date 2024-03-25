@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>New approach for encryption / decryption | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="New approach for encryption / decryption | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5630" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5630" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">New approach for encryption / decryption</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP proposes a new way to encrypt and decrypt using Ethereum keys. This EIP uses <em>only</em> the <code class="language-plaintext highlighter-rouge">secp256k1</code> curve, and proposes two new RPC methods: <code class="language-plaintext highlighter-rouge">eth_getEncryptionPublicKey</code> and <code class="language-plaintext highlighter-rouge">eth_performECDH</code>. These two methods, in conjunction, allow users to receive encryptions and perform decryptions (respectively). We require that the wallet <em>only</em> perform the core ECDH operation, leaving the ECIES operations up to implementers (we do suggest a standardized version of ECIES, however). In contrast, a previous EIPs used the same secret key, in both signing and encryption, on two <em>different</em> curves (namely, <code class="language-plaintext highlighter-rouge">secp256k1</code> and <code class="language-plaintext highlighter-rouge">ec25519</code>), and hardcoded a particular version of ECIES.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>We discuss a few motivating examples. One key motivation is direct-to-address encryption on Ethereum. Using our EIP, one can directly send encrypted messages to some desired recipient on-chain, without having a prior direct channel to that recipient. (Note that in this EIP, we standardize <em>only</em> the encryption procedure—that is, the generation of the ciphertext—and <em>not</em> how exactly the on-chain message should be sent. In practice, ideally, smart-contract infrastructure will be set up for this purpose; barring this, encryptors could make use of the raw <code class="language-plaintext highlighter-rouge">data</code> field available in each standard transfer.)</p>
+
+<p>We discuss a second sort of example. In a certain common design pattern, a dApp generates a fresh secret on behalf of a user. It is of interest if, instead of forcing this user to independently store, safeguard, and back up this latter secret, the dApp may instead encrypt this secret to a public key which the user controls—and whose secret key, crucially, resides within the user’s HD wallet hierarchy—and then post the resulting ciphertext to secure storage (e.g., on-chain).  This design pattern allows the dApp/user to bootstrap the security of the <em>fresh</em> secret onto the security of the user’s existing HD wallet seed phrase, which the user has already gone through the trouble of safeguarding and storing. This represents a far lower UX burden than forcing the user to store and manage fresh keys directly (which can, and often does, lead to loss of funds). We note that this design pattern described above is used today by, various dApps (e.g., Tornado Cash).</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>We describe our approach here; we compare our approach to prior EIPs in the <strong>Rationale</strong> section below. Throughout, we make reference to SEC 1: Elliptic Curve Cryptography, by Daniel R. L. Brown.</p>
+
+<p>We use the <code class="language-plaintext highlighter-rouge">secp256k1</code> curve for both signing and encryption.
+For encryption, we use ECIES. We specify that the wallet <em>only</em> perform the sensitive ECDH operation. This lets implementers select their own ECIES variants at will.</p>
+
+<p>We propose that all binary data be serialized to and from <code class="language-plaintext highlighter-rouge">0x</code>-prefixed hex strings. We moreover use <code class="language-plaintext highlighter-rouge">0x</code>-prefixed hex strings to specify private keys and public keys, and represent public keys in compressed form. We represent Ethereum accounts in the usual way (<code class="language-plaintext highlighter-rouge">0x</code>-prefixed, 20-byte hex strings). Specifically, to serialize and deserialize elliptic curve points, implementers MUST use the following standard:</p>
+
+<ul>
+  <li>to serialize a point: use [SEC 1, §2.3.3], with point compression.</li>
+  <li>
+    <p>to deserialize a point: use [SEC 1, §2.3.3], while <em>requiring</em> point compression; that is:</p>
+
+    <ul>
+      <li>the input byte string MUST have length ⌈log₂q / 8⌉ + 1 = <code class="language-plaintext highlighter-rouge">33</code>.</li>
+      <li>the first byte MUST be <code class="language-plaintext highlighter-rouge">0x02</code> or <code class="language-plaintext highlighter-rouge">0x03</code>.</li>
+      <li>the integer represented by the remaining 32 bytes (as in [SEC 1, §2.3.8]) MUST reside in {0, …, <em>p</em> - 1}, and moreover MUST yield a quadratic residue modulo <em>p</em> under the Weierstrass expression X^3 + 7 (modulo <em>p</em>).</li>
+    </ul>
+  </li>
+</ul>
+
+<p>For application-level implementers actually implementing ECIES, we propose the following variant. Unless they have a reason to do otherwise, implementers SHOULD use the following standardized choices:</p>
+
+<ul>
+  <li>the KDF <code class="language-plaintext highlighter-rouge">ANSI-X9.63-KDF</code>, where the hash function <code class="language-plaintext highlighter-rouge">SHA-512</code> is used,</li>
+  <li>the HMAC <code class="language-plaintext highlighter-rouge">HMAC–SHA-256–256 with 32 octet or 256 bit keys</code>,</li>
+  <li>the symmetric encryption scheme <code class="language-plaintext highlighter-rouge">AES–256 in CBC mode</code>.</li>
+</ul>
+
+<p>We propose that the binary, <em>concatenated</em> serialization mode for ECIES ciphertexts be used, both for encryption and decryption, where moreover elliptic curve points are <em>compressed</em>.</p>
+
+<p>Thus, on the request:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">request</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">eth_getEncryptionPublicKey</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">[</span><span class="nx">account</span><span class="p">]</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">account</code> is a standard 20-byte, <code class="language-plaintext highlighter-rouge">0x</code>-prefixed, hex-encoded Ethereum account, the client should operate as follows:</p>
+
+<ul>
+  <li>find the secret signing key <code class="language-plaintext highlighter-rouge">sk</code> corresponding to the Ethereum account <code class="language-plaintext highlighter-rouge">account</code>, or else return an error if none exists.</li>
+  <li>compute the <code class="language-plaintext highlighter-rouge">secp256k1</code> public key corresponding to <code class="language-plaintext highlighter-rouge">sk</code>.</li>
+  <li>return this public key in compressed, <code class="language-plaintext highlighter-rouge">0x</code>-prefixed, hex-encoded form, following [SEC 1, §2.3.3].</li>
+</ul>
+
+<p>On the request</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">request</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">eth_performECDH</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">[</span><span class="nx">account</span><span class="p">,</span> <span class="nx">ephemeralKey</span><span class="p">]</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">account</code> is as above, and <code class="language-plaintext highlighter-rouge">ephemeralKey</code> is an elliptic curve point encoded as above:</p>
+
+<ul>
+  <li>find the secret key <code class="language-plaintext highlighter-rouge">sk</code> corresponding to the Ethereum account <code class="language-plaintext highlighter-rouge">account</code>, or else return an error if none exists.</li>
+  <li>deserialize <code class="language-plaintext highlighter-rouge">ephemeralKey</code> to an elliptic curve point using [SEC 1, §2.3.3] (where compression is required), throwing an error if deserialization fails.</li>
+  <li>compute the elliptic curve Diffie–Hellman secret, following [SEC 1, §3.3.1].</li>
+  <li>return the resulting field element as an 0x-prefixed, hex-encoded, 32-byte string, using [SEC 1, §2.3.5].</li>
+</ul>
+
+<p>Test vectors are given below.</p>
+
+<h3 id="encrypting-to-a-smart-contract">Encrypting to a smart contract</h3>
+
+<p>In light of account abstraction, <a href="eip-4337.md">EIP-4337</a>, and the advent of smart-contract wallets, we moreover specify a way to encrypt to a contract.
+More precisely, we specify a way for a contract to <em>advertise</em> how it would like encryptions to it to be constructed. This should be viewed as an analogue of <a href="eip-1271.md">EIP-1271</a>, but for encryption, as opposed to signing.</p>
+
+<p>Our specification is as follows.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ERC5630</span> <span class="p">{</span>
+  <span class="cm">/**
+   * @dev Should return an encryption of the provided plaintext, using the provided randomness.
+   * @param plaintext      Plaintext to be encrypted
+   * @param randomness     Entropy to be used during encryption
+   */</span>
+  <span class="k">function</span> <span class="n">encryptTo</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">plaintext</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">randomness</span><span class="p">)</span>
+    <span class="k">public</span>
+    <span class="k">view</span>
+    <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">ciphertext</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Each contract MAY implement <code class="language-plaintext highlighter-rouge">encryptTo</code> as it desires. Unless it has a good reason to do otherwise, it SHOULD use the ECIES variant we propose above.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>There is <em>no security proof</em> for a scheme which simultaneously invokes signing on the <code class="language-plaintext highlighter-rouge">secp256k1</code> curve and encryption on the <code class="language-plaintext highlighter-rouge">ec25519</code> curve, and where <em>the same secret key is moreover used in both cases</em>. Though no attacks are known, it is not desirable to use a scheme which lacks a proof in this way.
+We, instead, propose the reuse of the same key in signing and encryption, but where <em>the same curve is used in both</em>. This very setting has been studied in prior work; see, e.g., Degabriele, Lehmann, Paterson, Smart and Strefler, <em>On the Joint Security of Encryption and Signature in EMV</em>, 2011. That work found this joint scheme to be secure in the generic group model.
+We note that this very joint scheme (i.e., using ECDSA and ECIES on the same curve) is used live in production in EMV payments.</p>
+
+<p>We now discuss a few further aspects of our approach.</p>
+
+<p><strong>On-chain public key discovery.</strong> Our proposal has an important feature whereby an encryption <em>to</em> some account can be constructed whenever that account has signed at least one transaction.
+Indeed, it is possible to recover an account’s <code class="language-plaintext highlighter-rouge">secp256k1</code> public key directly from any signature on behalf of that account.</p>
+
+<p><strong>ECDH vs. ECIES.</strong> We specify that the wallet <em>only</em> perform the sensitive ECDH operation, and let application-level implementers perform the remaining steps of ECIES. This has two distinct advantages:</p>
+
+<ul>
+  <li><strong>Flexibility.</strong> It allows implementers to select arbitrary variants of ECIES, without having to update what the wallet does.</li>
+  <li><strong>Bandwidth.</strong> Our approach requires that only small messages (on the order of 32 bytes) be exchanged between the client and the wallet. This could be material in settings in which the plaintexts and ciphertexts at play are large, and when the client and the wallet are separated by an internet connection.</li>
+</ul>
+
+<p><strong>Twist attacks.</strong> A certain GitHub post by Christian Lundkvist warns against “twist attacks” on the <code class="language-plaintext highlighter-rouge">secp256k1</code> curve. These attacks are not applicable to this EIP, for multiple <em>distinct</em> reasons, which we itemize:</p>
+
+<ul>
+  <li><strong>Only applies to classical ECDH, not ECIES.</strong> This attack only applies to classical ECDH (i.e., in which both parties use persistent, authenticated public keys), and not to ECIES (in which one party, the encryptor, uses an ephemeral key). Indeed, it only applies to a scenario in which an attacker can induce a victim to exponentiate an attacker-supplied point by a sensitive scalar, and then moreover send the result back to the attacker. But this pattern only happens in classical Diffie–Hellman, and never in ECIES. Indeed, in ECIES, we recall that the only sensitive Diffie–Hellman operation happens during decryption, but in this case, the victim (who would be the decryptor) never sends the resulting DH point back to the attacker (rather, the victim merely uses it locally to attempt an AES decryption). During <em>encryption</em>, the exponentiation is done by the encryptor, who has no secret at all (sure enough, the exponentiation is by an ephemeral scalar), so here there would be nothing for the attacker to learn.</li>
+  <li><strong>Only applies to uncompressed points.</strong> Indeed, we use compressed points in this EIP. When compressed points are used, each 33-byte string <em>necessarily</em> either resolves to a point on the correct curve, or else has no reasonable interpretation. There is no such thing as “a point not on the curve” (which, in particular, can pass undetectedly as such).</li>
+  <li><strong>Only applies when you fail to check a point is on the curve.</strong> But this is inapplicable for us anyway, since we use compressed points (see above). We also require that all validations be performed.</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Our <code class="language-plaintext highlighter-rouge">eth_performECDH</code> method is new, and so doesn’t raise any backwards compatibility issues.</p>
+
+<p>A previous proposal proposed an <code class="language-plaintext highlighter-rouge">eth_getEncryptionPublicKey</code> method (together with an <code class="language-plaintext highlighter-rouge">eth_decrypt</code> method unrelated to this EIP). Our proposal overwrites the previous behavior of <code class="language-plaintext highlighter-rouge">eth_getEncryptionPublicKey</code>.
+It is unlikely that this will be an issue, since encryption keys need be newly retrieved <em>only</em> upon the time of encryption; on the other hand, <em>new</em> ciphertexts will be generated using our new approach.
+(In particular, our modification will not affect the ability of ciphertexts generated using the old EIP to be <code class="language-plaintext highlighter-rouge">eth_decrypt</code>ed.)</p>
+
+<p>In any case, the previous EIP was never standardized, and is <em>not</em> (to our knowledge) implemented in a non-deprecated manner in <em>any</em> production code today.</p>
+
+<h3 id="test-cases">Test Cases</h3>
+
+<p>The secret <em>signing key</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    0x439047a312c8502d7dd276540e89fe6639d39da1d8466f79be390579d7eaa3b2
+</code></pre></div></div>
+
+<p>with Ethereum address <code class="language-plaintext highlighter-rouge">0x72682F2A3c160947696ac3c9CC48d290aa89549c</code>, has <code class="language-plaintext highlighter-rouge">secp256k1</code> public key</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    0x03ff5763a2d3113229f2eda8305fae5cc1729e89037532a42df357437532770010
+</code></pre></div></div>
+
+<p>Thus, the request:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">request</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">eth_getEncryptionPublicKey</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">0x72682F2A3c160947696ac3c9CC48d290aa89549c</span><span class="dl">"</span><span class="p">]</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>should return:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">0x03ff5763a2d3113229f2eda8305fae5cc1729e89037532a42df357437532770010</span><span class="dl">"</span>
+</code></pre></div></div>
+
+<p>If an encryptor were to encrypt a message—say, <code class="language-plaintext highlighter-rouge">I use Firn Protocol to gain privacy on Ethereum.</code>—under the above public key, using the above ECIES variant, he could obtain, for example:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">0x036f06f9355b0e3f7d2971da61834513d5870413d28a16d7d68ce05dc78744daf850e6c2af8fb38e3e31d679deac82bd12148332fa0e34aecb31981bd4fe8f7ac1b74866ce65cbe848ee7a9d39093e0de0bd8523a615af8d6a83bbd8541bf174f47b1ea2bd57396b4a950a0a2eb77af09e36bd5832b8841848a8b302bd816c41ce</span><span class="dl">"</span>
+</code></pre></div></div>
+
+<p>Upon obtaining this ciphertext, the decryptor would extract the relevant ephemeral public key, namely:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">0x036f06f9355b0e3f7d2971da61834513d5870413d28a16d7d68ce05dc78744daf8</span><span class="dl">"</span>
+</code></pre></div></div>
+
+<p>And submit the request:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">request</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">eth_performECDH</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">"</span><span class="s2">0x72682F2A3c160947696ac3c9CC48d290aa89549c</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">0x036f06f9355b0e3f7d2971da61834513d5870413d28a16d7d68ce05dc78744daf8</span><span class="dl">"</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>which in turn would return the Diffie–Hellman secret:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">0x4ad782e7409702101abe6d0279f242a2c545c46dd50a6704a4b9e3ae2730522e</span><span class="dl">"</span>
+</code></pre></div></div>
+
+<p>Upon proceeding with the above ECIES variant, the decryptor would then obtain the string <code class="language-plaintext highlighter-rouge">I use Firn Protocol to gain privacy on Ethereum.</code>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Our proposal uses heavily standardized algorithms and follows all best practices.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

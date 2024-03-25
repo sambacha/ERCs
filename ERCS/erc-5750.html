@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>General Extensibility for Method Behaviors | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="General Extensibility for Method Behaviors | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5750" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5750" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">General Extensibility for Method Behaviors</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP standardizes the passing of unstructured call data to functions to enable future extensibility.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The purpose of having extra data in a method is to allow further extensions to existing method interfaces.</p>
+
+<p>It is it useful to make methods extendable. Any methods complying with this EIP, such as overloaded <code class="language-plaintext highlighter-rouge">transfer</code> and <code class="language-plaintext highlighter-rouge">vote</code> could use string reasons as the extra data. Existing EIPs that have exported methods compliant with this EIP can be extended for behaviors such as using the extra data to prove endorsement, as a salt, as a nonce, or as a commitment for a reveal/commit scheme. Finally, data can be passed forward to callbacks.</p>
+
+<p>There are two ways to achieve extensibility for existing functions. Each comes with their set of challenges:</p>
+
+<ol>
+  <li>Add a new method</li>
+</ol>
+
+<ul>
+  <li>What will the method name be?</li>
+  <li>What will the parameters be?</li>
+  <li>How many use-cases does a given method signature support?</li>
+  <li>Does this support off-chain signatures?</li>
+</ul>
+
+<ol>
+  <li>Use one or more existing parameters, or add one or more new ones</li>
+</ol>
+
+<ul>
+  <li>Should existing parameters be repurposed, or should more be added?</li>
+  <li>How many parameters should be used?</li>
+  <li>What are their sizes and types?</li>
+</ul>
+
+<p>Standardizing how methods can be extended helps to answer these questions.</p>
+
+<p>Finally, this EIP aims to achieve maximum backward and future compatibility. Many EIPs already partially support this EIP, such as <a href="./eip-721.md">EIP-721</a> and <a href="./eip-1155.md">EIP-1155</a>. This EIP supports many use cases, from commit-reveal schemes (<a href="./eip-5732.md">EIP-5732</a>), to adding digital signatures alongside with a method call. Other implementers and EIPs should be able to depend on the compatibility granted by this EIP so that all compliant method interfaces are eligible for future new behaviors.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>When used in this EIP, the term <code class="language-plaintext highlighter-rouge">bytes</code> MUST be interpreted as the dynamically-sized byte array in Solidity data types.</p>
+
+<ol>
+  <li>
+    <p>Unlike many other ERCs which is compliant at the <code class="language-plaintext highlighter-rouge">contract</code> level, this ERC’s specification specify compliance at <code class="language-plaintext highlighter-rouge">method</code> level.</p>
+  </li>
+  <li>
+    <p>Any method with a bytes as this method’s last parameter is an <em>eligible</em> method. It looks like this <code class="language-plaintext highlighter-rouge">function methodName(type1 value1, type2 value2, ... bytes data)</code>.</p>
+  </li>
+  <li>
+    <p>A <em>compliant</em> method MUST be an <em>eligible</em> method and MUST also designate that last <code class="language-plaintext highlighter-rouge">bytes</code> field in its method parameter for behaviors extensions.</p>
+  </li>
+  <li>
+    <p>If an <em>eligible</em> method has an overloaded sibling method that
+has the exact same method name and exact same preceding parameters
+except for not having the last <code class="language-plaintext highlighter-rouge">bytes</code> parameter, the behavior
+of the compliant method MUST be identical to
+its overloaded sibling method when last <code class="language-plaintext highlighter-rouge">bytes</code> is an empty array.</p>
+  </li>
+</ol>
+
+<h3 id="examples-of-compliant-and-non-compliant-methods">Examples of compliant and non-compliant methods</h3>
+
+<ol>
+  <li>Here is a compliant method <code class="language-plaintext highlighter-rouge">methodName1</code> in a <code class="language-plaintext highlighter-rouge">Foo</code> contract</li>
+</ol>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="c1">// @dev This method allows extension behavior via `_data` field;
+</span>  <span class="k">function</span> <span class="n">methodName1</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_param1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_param2</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_data</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">firstNonRelatedMethod</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">someValue</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">secondNonRelatedMethod</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">someValue</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Here is a compliant method <code class="language-plaintext highlighter-rouge">methodName2</code> in a <code class="language-plaintext highlighter-rouge">Bar</code> contract which is an overloaded method for another <code class="language-plaintext highlighter-rouge">methodName2</code>.</li>
+</ol>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="c1">// @dev This is a sibling method to `methodName2(uint256 _param1, address _param2, bytes calldata _data);`
+</span>  <span class="k">function</span> <span class="n">methodName2</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_param1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_param2</span><span class="p">);</span>
+
+  <span class="c1">// @dev This method allows extension behavior via `_data` field;
+</span>  <span class="c1">//      When passed in an empty array for `_data` field, this method
+</span>  <span class="c1">//      MUST behave IDENTICAL to
+</span>  <span class="c1">//      its overloaded sibling `methodName2(uint256 _param1, address _param2);`
+</span>  <span class="k">function</span> <span class="n">methodName2</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_param1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_param2</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_data</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">firstNonRelatedMethod</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">someValue</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">secondNonRelatedMethod</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">someValue</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Here is a non-compliant method <code class="language-plaintext highlighter-rouge">methodName1</code> because it do not allow extending behavior</li>
+</ol>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="c1">// @dev This method DO NOT allow extension behavior via `_data` field;
+</span>  <span class="k">function</span> <span class="n">methodName1</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_param1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_param2</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_data</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">firstNonRelatedMethod</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">someValue</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">secondNonRelatedMethod</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">someValue</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Here is a non-compliant method
+<code class="language-plaintext highlighter-rouge">methodName2(uint256 _param1, address _param2, bytes calldata _data);</code>
+because it behaves differently
+to its overloaded sibling method
+<code class="language-plaintext highlighter-rouge">methodName2(uint256 _param1, address _param2);</code> when <code class="language-plaintext highlighter-rouge">_data</code> is empty array.</li>
+</ol>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="c1">// @dev This is a sibling method to `methodName2(uint256 _param1, address _param2, bytes calldata _data);`
+</span>  <span class="k">function</span> <span class="n">methodName2</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_param1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_param2</span><span class="p">);</span>
+
+  <span class="c1">// @dev This method allows extension behavior via `_data` field;
+</span>  <span class="c1">//      When passed in an empty array for `_data` field, this method
+</span>  <span class="c1">//      behave DIFFERENTLY to
+</span>  <span class="c1">//      its overloaded sibling `methodName2(uint256 _param1, address _param2);`
+</span>  <span class="k">function</span> <span class="n">methodName2</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_param1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_param2</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_data</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">firstNonRelatedMethod</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">someValue</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">secondNonRelatedMethod</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">someValue</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<ol>
+  <li>Using the dynamically-sized <code class="language-plaintext highlighter-rouge">bytes</code> type allows for maximum flexibility by enabling payloads of arbitrary types.</li>
+  <li>Having the bytes specified as the last parameter makes this EIP compatible with the calldata layout of solidity.</li>
+</ol>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Many existing EIPs already have compliant methods as part of their specification. All contracts compliant with those EIPs are either fully or partially compliant with this EIP.</p>
+
+<p>Here is an incomplete list:</p>
+
+<ul>
+  <li>In <a href="./eip-721.md">EIP-721</a>, the following method is already compliant:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable;</code> is already compliant</li>
+    </ul>
+  </li>
+  <li>In <a href="./eip-1155.md">EIP-1155</a>, the following methods are already compliant
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data) external;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">function safeBatchTransferFrom(address _from, address _to, uint256[] calldata _ids, uint256[] calldata _values, bytes calldata _data) external;</code></li>
+    </ul>
+  </li>
+  <li>In <a href="./eip-777.md">EIP-777</a>, the following methods are already compliant
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">function burn(uint256 amount, bytes calldata data) external;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">function send(address to, uint256 amount, bytes calldata data) external;</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>However, not all functions that have a <code class="language-plaintext highlighter-rouge">bytes</code> as the last parameter are compliant. The following functions are not compliant without an overload since their last parameter is involved in functionality:</p>
+
+<ul>
+  <li>In <a href="./eip-2535.md">EIP-2535</a>, the following methods is not compliant:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">function diamondCut(FacetCut[] calldata _diamondCut, address _init, bytes calldata _calldata) external;</code></li>
+      <li><strong>Either</strong> of the following can be done to create a compliance.
+        <ol>
+          <li>An overload MUST be created: <code class="language-plaintext highlighter-rouge">function diamondCut(FacetCut[] calldata _diamondCut, address _init, bytes calldata _calldata, bytes calldata _data) external;</code> which adds a new <code class="language-plaintext highlighter-rouge">_data</code> after all parameters of original method.</li>
+          <li>The use of <code class="language-plaintext highlighter-rouge">bytes memory _calldata</code> MUST be relaxed to allow for extending behaviors.</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>In <a href="./eip-1271.md">EIP-1271</a>, the following method is not compliant:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">function isValidSignature(bytes32 _hash, bytes memory _signature) public view returns (bytes4 magicValue);</code></li>
+      <li><strong>Either</strong> of the following can be done to create a compliance:
+        <ol>
+          <li>An new overload MUST be created: <code class="language-plaintext highlighter-rouge">function isValidSignature(bytes32 _hash, bytes memory _signature, bytes calldata _data) public view returns (bytes4 magicValue);</code> which adds a new <code class="language-plaintext highlighter-rouge">_data</code> after all parameters of original method.</li>
+          <li>The use of <code class="language-plaintext highlighter-rouge">bytes memory _signature</code> MUST be relaxed to allow for extending behaviors.</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<ol>
+  <li>If using the extra data for extended behavior, such as supplying signature for onchain verification, or supplying commitments in a commit-reveal scheme, best practices should be followed for those particular extended behaviors.</li>
+  <li>Compliant contracts must also take into consideration that the data parameter will be publicly revealed when submitted into the mempool or included in a block, so one must consider the risk of replay and transaction ordering attacks. <strong>Unencrypted personally identifiable information must never be included in the data parameter.</strong></li>
+</ol>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

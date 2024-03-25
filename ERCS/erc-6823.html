@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Token Mapping Slot Retrieval Extension | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Token Mapping Slot Retrieval Extension | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6823" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6823" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Token Mapping Slot Retrieval Extension</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The aim of this proposal is to enhance the precision of off-chain simulations for transactions that involve contracts complying with the <a href="./eip-20.md">ERC-20</a>, <a href="./eip-721.md">ERC-721</a>, or <a href="./eip-1155.md">ERC-1155</a> standards. To achieve this, a method is proposed for obtaining the reserved storage slot of the mapping responsible to track ownership of compliant tokens. The proposed extension offers a standardized entry point that allows for identifying the reserved storage slot of a mapping in a compatible manner. This not only facilitates capturing state changes more precisely but also enables external tools and services to do so without requiring expertise in the particular implementation details.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>To understand the rationale behind this proposal, it’s important to remember how values and mapping are stored in the storage layout. This procedure is language-agnostic; it can be applied to multiple programming languages beyond Solidity, including Vyper.</p>
+
+<p>The storage layout is a way to persistently store data in Ethereum smart contracts. In the EVM, storage is organized as a key-value store, where each key is a 32-byte location, and each value is a 32-byte word. When you define a state variable in a contract, it is assigned to a storage location. The location is determined by the variable’s position in the contract’s storage structure. The first variable in the contract is assigned to location 0, the second to location 1, and so on. Multiple values less than 32 bytes can be grouped to fit in a single slot if possible.</p>
+
+<p>Due to their indeterminate size, mappings utilize a specialized storage arrangement. Instead of storing mappings “in between” state variables, they are allocated to occupy 32 bytes only, and their elements are stored in a distinct storage slot computed through a keccak-256 hash. The location of the value corresponding to a mapping key <code class="language-plaintext highlighter-rouge">k</code> is determined by concatenating <code class="language-plaintext highlighter-rouge">h(k)</code> and <code class="language-plaintext highlighter-rouge">p</code> and performing a keccak-256 hash. The value of <code class="language-plaintext highlighter-rouge">p</code> is the position of the mapping in the storage layout, which depends on the order and the nature of the variables initialized before the mapping. It can’t be determined in a universal way as you have to know how the implementation of the contract is done.</p>
+
+<p>Due to the nature of the mapping type, it is challenging to simulate transactions that involve smart contracts because the storage layout for different contracts is unique to their specific implementation, etched by their variable requirements and the order of their declaration. Since the storage location of a value in a mapping variable depends on this implementation-sensitive storage slot, we cannot guarantee similarity on the off-chain simulation version that an on-chain attempted interaction will result in.</p>
+
+<p>This hurdle prevents external platforms and tools from capturing/validating changes made to the contract’s state with certainty.</p>
+
+<p>That’s why transaction simulation relies heavily on events. However, this approach has limitations, and events should only be informative and not relied upon as the single source of truth. The state is and must be the only source of truth. Furthermore, it is impossible to know the shape of the storage deterministically and universally, which prevents us from verifying the source of truth that is storage, forcing us to rely on information emitted from the application layer.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>The proposal suggests an extension to the ERC-20/ERC-721/ERC-1155 standards that allows retrieving the reserved storage slot for the mapping type in any compliant smart-contract implementation in a deterministic manner. This method eliminates the reliance on events and enhances the precision of the data access from storage. The proposed extension therefore enables accurate off-chain simulations. The outcome is greater transparency and predictability at no extra cost for the caller, and a negigleable increase in the deployment cost of the contract.</p>
+
+<p>The proposed extension is a single function that returns the reserved storage slot for the mapping type in any ERC-20/ERC-721/ERC-1155 compliant smart-contract implementation. The function is named <code class="language-plaintext highlighter-rouge">getTokenLocationRoot</code> and is declared as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC20Extension</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">getTokenLocationRoot</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">slot</span> <span class="o">:=</span> <span class="o">&lt;</span><span class="n">mapping_name</span><span class="o">&gt;</span><span class="p">.</span><span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC721Extension</span> <span class="k">is</span> <span class="n">ERC721</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">getTokenLocationRoot</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">slot</span> <span class="o">:=</span> <span class="o">&lt;</span><span class="n">mapping_name</span><span class="o">&gt;</span><span class="p">.</span><span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC1155Extension</span> <span class="k">is</span> <span class="n">ERC1155</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">getTokenLocationRoot</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">slot</span> <span class="o">:=</span> <span class="o">&lt;</span><span class="n">mapping_name</span><span class="o">&gt;</span><span class="p">.</span><span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>For these contracts, off-chain callers can use the <code class="language-plaintext highlighter-rouge">getTokenLocationRoot()</code> function to find the reserved storage slot for the mapping type. This function returns the reserved storage slot for the mapping type in the contract. This location is used to calculate where all the values of the mapping will be stored. Knowing this value makes it possible to determine precisely where each value of the mapping will be stored, regardless of the contract’s implementation. The caller can use this slot to calculate the storage slot for a specific token ID and compare the value to the expected one to verify the action stated by the event. In the case of a ERC-721 mint, the caller can compare the value of the storage slot to the address of the token’s owner. In the case of a ERC-20 transfer, the caller can compare the value of the storage slot to the address of the token’s new owner. In the case of a ERC-1155 burn, the caller can compare the value of the storage slot to the zero address. The off-chain comparison can be performed with any of the many tools available. In addition, it could perhaps allow storage to be proven atomically by not proving the entire state but only a location – to track ownership of a specific token, for example.</p>
+
+<p>The name of the function is intentionally generic to allow the same implementation for all the different token standards. Once implemented universally, the selector derived from the signature of this function will be a single, universal entry point that can be used to directly read the slots in the storage responsible of the ownership, of any token contract. This will make off-chain simulations significantly more accurate, and the events will be used for informational purposes only.</p>
+
+<p>Contract implementers MUST implement the <code class="language-plaintext highlighter-rouge">getTokenLocationRoot()</code> function in their contracts. The function MUST return the reserved storage slot for the mapping type in the contract. The function SHOULD be declared as <code class="language-plaintext highlighter-rouge">external pure</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The idea behind the implementation was to find an elegant and concise way that avoided any breaking changes with the current standard. Moreover, since gas consumption is crucial, it was inconceivable to find an implementation that would cost gas to the final user. In this case, the addition of a function increases the deployment cost of the contract in a minimal way, but its use is totally free for the external actors.</p>
+
+<p>The implementation is minimalist in order to be as flexible as possible while being directly compatible with the main programming languages used today to develop smart-contracts for the EVM.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues have been found.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC20Extension</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">getTokenLocationRoot</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">slot</span> <span class="o">:=</span> <span class="o">&lt;</span><span class="n">mapping_name</span><span class="o">&gt;</span><span class="p">.</span><span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC721Extension</span> <span class="k">is</span> <span class="n">ERC721</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">getTokenLocationRoot</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">slot</span> <span class="o">:=</span> <span class="o">&lt;</span><span class="n">mapping_name</span><span class="o">&gt;</span><span class="p">.</span><span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC1155Extension</span> <span class="k">is</span> <span class="n">ERC1155</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">getTokenLocationRoot</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">slot</span> <span class="o">:=</span> <span class="o">&lt;</span><span class="n">mapping_name</span><span class="o">&gt;</span><span class="p">.</span><span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>No security issues are raised by the implementation of this extension.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

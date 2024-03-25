@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>NFT Rights Management | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="NFT Rights Management | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5218" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5218" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">NFT Rights Management</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The following standard defines an API for managing NFT licenses. This standard provides basic functionality to create, transfer, and revoke licenses, and to determine the current licensing state of an NFT. The standard does not define the legal details of the license. Instead, it provides a structured framework for recording licensing details.</p>
+
+<p>We consider use cases of NFT creators who wish to give the NFT holder a copyright license to use a work associated with the NFT. The holder of an active license can issue sublicenses to others to carry out the rights granted under the license. The license can be transferred with the NFT, so do all the sublicenses. The license can optionally be revoked under conditions specified by the creator.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The <a href="./eip-721.md">ERC-721</a> standard defines an API to track and transfer ownership of an NFT. When an NFT is to represent some off-chain asset, however, we would need some legally effective mechanism to <em>tether</em> the on-chain asset (NFT) to the off-chain property. One important case of off-chain property is creative work such as an image or music file. Recently, most NFT projects involving creative works have used licenses to clarify what legal rights are granted to the NFT owner. But these licenses are almost always off-chain and the NFTs themselves do not indicate what licenses apply to them, leading to uncertainty about rights to use the work associated with the NFT. It is not a trivial task to avoid all the copyright vulnerabilities in NFTs, nor have existing EIPs addressed rights management of NFTs beyond the simple cases of direct ownership (see <a href="./eip-721.md">ERC-721</a>) or rental (see <a href="./eip-4907.md">ERC-4907</a>).</p>
+
+<p>This EIP attempts to provide a standard to facilitate rights management of NFTs in the world of Web3. In particular, <a href="./eip-5218.md">ERC-5218</a> smart contracts allow all licenses to an NFT, including the <em>root license</em> issued to the NFT owner and <em>sublicenses</em> granted by a license holder, to be recorded and easily tracked with on-chain data. These licenses can consist of human-readable legal code, machine-readable summaries such as those written in CC REL, or both. An ERC-5218 smart contract points to a license by recording a URI, providing a reliable reference for users to learn what legal rights they are granted and for NFT creators and auditors to detect unauthorized infringing uses.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p><strong>Every ERC-5218 compliant contract <em>must</em> implement the <code class="language-plaintext highlighter-rouge">IERC5218</code> interface</strong>:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">/// @title ERC-5218: NFT Rights Management
+</span><span class="k">interface</span> <span class="n">IERC5218</span> <span class="k">is</span> <span class="n">IERC721</span> <span class="p">{</span>
+
+  <span class="c1">/// @dev This emits when a new license is created by any mechanism.
+</span>  <span class="k">event</span> <span class="n">CreateLicense</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_parentLicenseId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_licenseHolder</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_uri</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_revoker</span><span class="p">);</span>
+ 
+  <span class="c1">/// @dev This emits when a license is revoked. Note that under some
+</span>  <span class="c1">///  license terms, the sublicenses may be `implicitly` revoked following the
+</span>  <span class="c1">///  revocation of some ancestral license. In that case, your smart contract
+</span>  <span class="c1">///  may only emit this event once for the ancestral license, and the revocation
+</span>  <span class="c1">///  of all its sublicenses can be implied without consuming additional gas.
+</span>  <span class="k">event</span> <span class="n">RevokeLicense</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">);</span>
+ 
+  <span class="c1">/// @dev This emits when the a license is transferred to a new holder. The
+</span>  <span class="c1">///  root license of an NFT should be transferred with the NFT in an ERC721
+</span>  <span class="c1">///  `transfer` function call. 
+</span>  <span class="k">event</span> <span class="n">TransferLicense</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_licenseHolder</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Check if a license is active.
+</span>  <span class="c1">/// @dev A non-existing or revoked license is inactive and this function must
+</span>  <span class="c1">///  return `false` upon it. Under some license terms, a license may become
+</span>  <span class="c1">///  inactive because some ancestral license has been revoked. In that case,
+</span>  <span class="c1">///  this function should return `false`.
+</span>  <span class="c1">/// @param _licenseId The identifier for the queried license
+</span>  <span class="c1">/// @return Whether the queried license is active
+</span>  <span class="k">function</span> <span class="n">isLicenseActive</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Retrieve the token identifier a license was issued upon.
+</span>  <span class="c1">/// @dev Throws unless the license is active.
+</span>  <span class="c1">/// @param _licenseId The identifier for the queried license
+</span>  <span class="c1">/// @return The token identifier the queried license was issued upon
+</span>  <span class="k">function</span> <span class="n">getLicenseTokenId</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Retrieve the parent license identifier of a license.
+</span>  <span class="c1">/// @dev Throws unless the license is active. If a license doesn't have a
+</span>  <span class="c1">///  parent license, return a special identifier not referring to any license
+</span>  <span class="c1">///  (such as 0).
+</span>  <span class="c1">/// @param _licenseId The identifier for the queried license
+</span>  <span class="c1">/// @return The parent license identifier of the queried license
+</span>  <span class="k">function</span> <span class="n">getParentLicenseId</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Retrieve the holder of a license.
+</span>  <span class="c1">/// @dev Throws unless the license is active.   
+</span>  <span class="c1">/// @param _licenseId The identifier for the queried license
+</span>  <span class="c1">/// @return The holder address of the queried license
+</span>  <span class="k">function</span> <span class="n">getLicenseHolder</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Retrieve the URI of a license.
+</span>  <span class="c1">/// @dev Throws unless the license is active.   
+</span>  <span class="c1">/// @param _licenseId The identifier for the queried license
+</span>  <span class="c1">/// @return The URI of the queried license
+</span>  <span class="k">function</span> <span class="n">getLicenseURI</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Retrieve the revoker address of a license.
+</span>  <span class="c1">/// @dev Throws unless the license is active.   
+</span>  <span class="c1">/// @param _licenseId The identifier for the queried license
+</span>  <span class="c1">/// @return The revoker address of the queried license
+</span>  <span class="k">function</span> <span class="n">getLicenseRevoker</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Retrieve the root license identifier of an NFT.
+</span>  <span class="c1">/// @dev Throws unless the queried NFT exists. If the NFT doesn't have a root
+</span>  <span class="c1">///  license tethered to it, return a special identifier not referring to any
+</span>  <span class="c1">///  license (such as 0).   
+</span>  <span class="c1">/// @param _tokenId The identifier for the queried NFT
+</span>  <span class="c1">/// @return The root license identifier of the queried NFT
+</span>  <span class="k">function</span> <span class="n">getLicenseIdByTokenId</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Create a new license.
+</span>  <span class="c1">/// @dev Throws unless the NFT `_tokenId` exists. Throws unless the parent
+</span>  <span class="c1">///  license `_parentLicenseId` is active, or `_parentLicenseId` is a special
+</span>  <span class="c1">///  identifier not referring to any license (such as 0) and the NFT
+</span>  <span class="c1">///  `_tokenId` doesn't have a root license tethered to it. Throws unless the
+</span>  <span class="c1">///  message sender is eligible to create the license, i.e., either the
+</span>  <span class="c1">///  license to be created is a root license and `msg.sender` is the NFT owner,
+</span>  <span class="c1">///  or the license to be created is a sublicense and `msg.sender` is the holder
+</span>  <span class="c1">///  of the parent license. 
+</span>  <span class="c1">/// @param _tokenId The identifier for the NFT the license is issued upon
+</span>  <span class="c1">/// @param _parentLicenseId The identifier for the parent license
+</span>  <span class="c1">/// @param _licenseHolder The address of the license holder
+</span>  <span class="c1">/// @param _uri The URI of the license terms
+</span>  <span class="c1">/// @param _revoker The revoker address
+</span>  <span class="c1">/// @return The identifier of the created license
+</span>  <span class="k">function</span> <span class="n">createLicense</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_parentLicenseId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_licenseHolder</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">_uri</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_revoker</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Revoke a license.
+</span>  <span class="c1">/// @dev Throws unless the license is active and the message sender is the
+</span>  <span class="c1">///  eligible revoker. This function should be used for revoking both root
+</span>  <span class="c1">///  licenses and sublicenses. Note that if a root license is revoked, the
+</span>  <span class="c1">///  NFT should be transferred back to its creator.
+</span>  <span class="c1">/// @param _licenseId The identifier for the queried license
+</span>  <span class="k">function</span> <span class="n">revokeLicense</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+  
+  <span class="c1">/// @notice Transfer a sublicense.
+</span>  <span class="c1">/// @dev Throws unless the sublicense is active and `msg.sender` is the license
+</span>  <span class="c1">///  holder. Note that the root license of an NFT should be tethered to and
+</span>  <span class="c1">///  transferred with the NFT. Whenever an NFT is transferred by calling the
+</span>  <span class="c1">///  ERC721 `transfer` function, the holder of the root license should be
+</span>  <span class="c1">///  changed to the new NFT owner.
+</span>  <span class="c1">/// @param _licenseId The identifier for the queried license
+</span>  <span class="c1">/// @param _licenseHolder The new license holder
+</span>  <span class="k">function</span> <span class="n">transferSublicense</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_licenseId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_licenseHolder</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Licenses to an NFT in general have a tree structure as below:</p>
+
+<p><img src="../assets/eip-5218/license-tree.png" alt="The license tree" /></p>
+
+<p>There is one root license to the NFT itself, granting the NFT owner some rights to the linked work. The NFT owner (i.e., the root license holder) may create sublicenses, holders of which may also create sublicenses recursively.</p>
+
+<p>The full log of license creation, transfer, and revocation <em>must</em> be traceable via event logs. Therefore, all license creations and transfers <em>must</em> emit a corresponding log event. Revocation may differ a bit. An implementation of this EIP may emit a <code class="language-plaintext highlighter-rouge">Revoke</code> event only when a license is revoked in a function call, or for every revoked license, both are sufficient to trace the status of all licenses. The former costs less gas if revoking a license automatically revokes all sublicenses under it, while the latter is efficient in terms of interrogation of a license status. Implementers should make the tradeoffs depending on their license terms.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">revoker</code> of a license may be the licensor, the license holder, or a smart contract address which calls the <code class="language-plaintext highlighter-rouge">revokeLicense</code> function when some conditions are met. Implementers should be careful with the authorization, and may make the <code class="language-plaintext highlighter-rouge">revoker</code> smart contract forward compatible with transfers by not hardcoding the addresses of <code class="language-plaintext highlighter-rouge">licensor</code> or <code class="language-plaintext highlighter-rouge">licenseHolder</code>.</p>
+
+<p>The license <code class="language-plaintext highlighter-rouge">URI</code> may point to a JSON file that conforms to the “ERC-5218 Metadata JSON Schema” as below, which adopts the “three-layer” design of the Creative Commons Licenses:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"License Metadata"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"legal-code"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The legal code of the license."</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"human-readable"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The human readable license deed."</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"machine-readable"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The machine readable code of the license that can be recognized by software, such as CC REL."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Note that this EIP doesn’t include a function to update license URI so the license terms should be persistent by default. It is recommended to store the license metadata on a decentralized storage service such as IPFS or adopt the IPFS-style URI which encodes the hash of the metadata for integrity verification. On the other hand, license updatability, if necessary in certain scenarios, can be realized by revoking the original license and creating a new license, or adding a updating function, the eligibile caller of which must be carefully specified in the license and securely implemented in the smart contract.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">supportsInterface</code> method MUST return <code class="language-plaintext highlighter-rouge">true</code> when called with <code class="language-plaintext highlighter-rouge">0xac7b5ca9</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This EIP aims to allow tracing all licenses to an NFT to facilitate right management. The ERC-721 standard only logs the property but not the legal rights tethered to NFTs. Even when logging the license via the optional ERC-721 Metadata extension, sublicenses are not traceable, which doesn’t comply with the transparency goals of Web3. Some implementations attempt to get around this limitation by minting NFTs to represent a particular license, such as the BAYC #6068 Royalty-Free Usage License. This is not an ideal solution because the linking between different licenses to an NFT is ambiguous. An auditor has to investigate all NFTs in the blockchain and inspect the metadata which hasn’t been standardized in terms of sublicense relationship. To avoid these problems, this EIP logs all licenses to an NFT in a tree data structure, which is compatible with ERC-721 and allows efficient traceability.</p>
+
+<p>This EIP attempts to tether NFTs with copyright licenses to the creative work by default and is not subject to the high legal threshold for copyright ownership transfers which require an explicit signature from the copyright owner. To transfer and track copyright ownership, one may possibly integrate ERC-5218 and <a href="./eip-5289.md">ERC-5289</a> after careful scrutinizing and implement a smart contract that atomically (1) signs the legal contract via ERC-5289, and (2) transfers the NFT together with the copyright ownership via ERC-5218. Either both take place or both revert.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is compatible with the current ERC-721 standards: a contract can inherit from both ERC-721 and ERC-5218 at the same time.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Test cases are available <a href="../assets/eip-5218/contracts/test/Contract.t.sol">here</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>A reference implementation maintains the following data structures:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">struct</span> <span class="n">License</span> <span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">active</span><span class="p">;</span> <span class="c1">// whether the license is active
+</span>    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span> <span class="c1">// the identifier of the NFT the license is tethered to
+</span>    <span class="kt">uint256</span> <span class="n">parentLicenseId</span><span class="p">;</span> <span class="c1">// the identifier of the parent license
+</span>    <span class="kt">address</span> <span class="n">licenseHolder</span><span class="p">;</span> <span class="c1">// the license holder
+</span>    <span class="kt">string</span> <span class="n">uri</span><span class="p">;</span> <span class="c1">// the license URI
+</span>    <span class="kt">address</span> <span class="n">revoker</span><span class="p">;</span> <span class="c1">// the license revoker
+</span>  <span class="p">}</span>
+  <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">License</span><span class="p">)</span> <span class="k">private</span> <span class="n">_licenses</span><span class="p">;</span> <span class="c1">// maps from a license identifier to a license object
+</span>  <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">private</span> <span class="n">_licenseIds</span><span class="p">;</span> <span class="c1">// maps from an NFT to its root license identifier
+</span></code></pre></div></div>
+
+<p>Each NFT has a license tree and starting from each license, one can trace back to the root license via <code class="language-plaintext highlighter-rouge">parentLicenseId</code> along the path.</p>
+
+<p>In the reference implementation, once a license is revoked, all sublicenses under it are revoked. This is realized in a <em>lazy</em> manner for lower gas cost, i.e., assign <code class="language-plaintext highlighter-rouge">active=false</code> only for licenses that are explicitly revoked in a <code class="language-plaintext highlighter-rouge">revokeLicense</code> function call. Therefore, <code class="language-plaintext highlighter-rouge">isLicenseActive</code> returns <code class="language-plaintext highlighter-rouge">true</code> only if all its ancestral licenses haven’t been revoked.</p>
+
+<p>For non-root licenses, the creation, transfer and revocation are straightforward:</p>
+
+<ol>
+  <li>Only the holder of an active license can create sublicenses.</li>
+  <li>Only the holder of an active license can transfer it to a different license holder.</li>
+  <li>Only the revoker of an active license can revoke it.</li>
+</ol>
+
+<p>The root license must be compatible with <code class="language-plaintext highlighter-rouge">ERC-721</code>:</p>
+
+<ol>
+  <li>When an NFT is minted, a license is granted to the NFT owner.</li>
+  <li>When an NFT is transferred, the license holder is changed to the new owner of the NFT.</li>
+  <li>When a root license is revoked, the NFT is returned to the NFT creator, and the NFT creator may later transfer it to a new owner with a new license.</li>
+</ol>
+
+<p>The complete implementation can be found <a href="../assets/eip-5218/contracts/src/RightsManagement.sol">here</a>.</p>
+
+<p>In addition, the <a href="../assets/eip-5218/ic3license/ic3license.pdf">Token-Bound NFT License</a> is specifically designed to work with this interface and provides a reference to the language of NFT licenses.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Implementors of the <code class="language-plaintext highlighter-rouge">IERC5218</code> standard must consider thoroughly the permissions they give to <code class="language-plaintext highlighter-rouge">licenseHolder</code> and <code class="language-plaintext highlighter-rouge">revoker</code>. If the license is ever to be transferred to a different license holder, the <code class="language-plaintext highlighter-rouge">revoker</code> smart contract should not hardcode the <code class="language-plaintext highlighter-rouge">licenseHolder</code> address to avoid undesirable scenarios.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

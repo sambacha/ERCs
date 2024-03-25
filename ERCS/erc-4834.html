@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Hierarchical Domains | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Hierarchical Domains | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4834" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4834" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Hierarchical Domains</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This is a standard for generic name resolution with arbitrarily complex access control and resolution. It permits a contract that implements this EIP (referred to as a “domain” hereafter) to be addressable with a more human-friendly name, with a similar purpose to <a href="./eip-137.md">ERC-137</a> (also known as “ENS”).</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The advantage of this EIP over existing standards is that it provides a minimal interface that supports name resolution, adds standardized access control, and has a simple architecture. ENS, although useful, has a comparatively complex architecture and does not have standard access control.</p>
+
+<p>In addition, all domains (including subdomains, TLDs, and even the root itself) are actually implemented as domains, meaning that name resolution is a simple iterative algorithm, not unlike DNS itself.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<h3 id="contract-interface">Contract Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IDomain</span> <span class="p">{</span>
+    <span class="c1">/// @notice     Query if a domain has a subdomain with a given name
+</span>    <span class="c1">/// @param      name The subdomain to query, in right to left order
+</span>    <span class="c1">/// @return     `true` if the domain has a subdomain with the given name, `false` otherwise
+</span>    <span class="k">function</span> <span class="n">hasDomain</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">name</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice     Fetch the subdomain with a given name
+</span>    <span class="c1">/// @dev        This should revert if `hasDomain(name)` is `false`
+</span>    <span class="c1">/// @param      name The subdomain to fetch, in right to left order
+</span>    <span class="c1">/// @return     The subdomain with the given name
+</span>    <span class="k">function</span> <span class="n">getDomain</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">name</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="name-resolution">Name Resolution</h3>
+
+<p>To resolve a name (like <code class="language-plaintext highlighter-rouge">"a.b.c"</code>), split it by the delimiter (resulting in something like <code class="language-plaintext highlighter-rouge">["a", "b", "c"]</code>). Set <code class="language-plaintext highlighter-rouge">domain</code> initially to the root domain, and <code class="language-plaintext highlighter-rouge">path</code> to be an empty list.</p>
+
+<p>Pop off the last element of the array (<code class="language-plaintext highlighter-rouge">"c"</code>) and add it to the path, then call <code class="language-plaintext highlighter-rouge">domain.hasDomain(path)</code>. If it’s <code class="language-plaintext highlighter-rouge">false</code>, then the domain resolution fails. Otherwise, set the domain to <code class="language-plaintext highlighter-rouge">domain.getDomain(path)</code>. Repeat until the list of split segments is empty.</p>
+
+<p>There is no limit to the amount of nesting that is possible. For example, <code class="language-plaintext highlighter-rouge">0.1.2.3.4.5.6.7.8.9.a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.s.t.u.v.w.x.y.z</code> would be valid if the root contains <code class="language-plaintext highlighter-rouge">z</code>, and <code class="language-plaintext highlighter-rouge">z</code> contains <code class="language-plaintext highlighter-rouge">y</code>, and so on.</p>
+
+<p>Here is a solidity function that resolves a name:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">resolve</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">splitName</span><span class="p">,</span> <span class="n">IDomain</span> <span class="n">root</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">IDomain</span> <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+    <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="n">splitName</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Append to back of list
+</span>        <span class="n">path</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">splitName</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="c1">// Require that the current domain has a domain
+</span>        <span class="nb">require</span><span class="p">(</span><span class="n">current</span><span class="p">.</span><span class="n">hasDomain</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="s">"Name resolution failed"</span><span class="p">);</span>
+        <span class="c1">// Resolve subdomain
+</span>        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="p">.</span><span class="n">getDomain</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">current</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="optional-extension-registerable">Optional Extension: Registerable</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IDomainRegisterable</span> <span class="k">is</span> <span class="n">IDomain</span> <span class="p">{</span>
+    <span class="c1">//// Events
+</span>    
+    <span class="c1">/// @notice     Must be emitted when a new subdomain is created (e.g. through `createDomain`)
+</span>    <span class="c1">/// @param      sender msg.sender for createDomain
+</span>    <span class="c1">/// @param      name name for createDomain
+</span>    <span class="c1">/// @param      subdomain subdomain in createDomain
+</span>    <span class="k">event</span> <span class="n">SubdomainCreate</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">address</span> <span class="n">subdomain</span><span class="p">);</span>
+
+    <span class="c1">/// @notice     Must be emitted when the resolved address for a domain is changed (e.g. with `setDomain`)
+</span>    <span class="c1">/// @param      sender msg.sender for setDomain
+</span>    <span class="c1">/// @param      name name for setDomain
+</span>    <span class="c1">/// @param      subdomain subdomain in setDomain
+</span>    <span class="c1">/// @param      oldSubdomain the old subdomain
+</span>    <span class="k">event</span> <span class="n">SubdomainUpdate</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">address</span> <span class="n">subdomain</span><span class="p">,</span> <span class="kt">address</span> <span class="n">oldSubdomain</span><span class="p">);</span>
+
+    <span class="c1">/// @notice     Must be emitted when a domain is unmapped (e.g. with `deleteDomain`)
+</span>    <span class="c1">/// @param      sender msg.sender for deleteDomain
+</span>    <span class="c1">/// @param      name name for deleteDomain
+</span>    <span class="c1">/// @param      subdomain the old subdomain
+</span>    <span class="k">event</span> <span class="n">SubdomainDelete</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">address</span> <span class="n">subdomain</span><span class="p">);</span>
+
+    <span class="c1">//// CRUD
+</span>    
+    <span class="c1">/// @notice     Create a subdomain with a given name
+</span>    <span class="c1">/// @dev        This should revert if `canCreateDomain(msg.sender, name, pointer)` is `false` or if the domain exists
+</span>    <span class="c1">/// @param      name The subdomain name to be created
+</span>    <span class="c1">/// @param      subdomain The subdomain to create
+</span>    <span class="k">function</span> <span class="n">createDomain</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">address</span> <span class="n">subdomain</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="c1">/// @notice     Update a subdomain with a given name
+</span>    <span class="c1">/// @dev        This should revert if `canSetDomain(msg.sender, name, pointer)` is `false` of if the domain doesn't exist
+</span>    <span class="c1">/// @param      name The subdomain name to be updated
+</span>    <span class="c1">/// @param      subdomain The subdomain to set
+</span>    <span class="k">function</span> <span class="n">setDomain</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">address</span> <span class="n">subdomain</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice     Delete the subdomain with a given name
+</span>    <span class="c1">/// @dev        This should revert if the domain doesn't exist or if `canDeleteDomain(msg.sender, name)` is `false`
+</span>    <span class="c1">/// @param      name The subdomain to delete
+</span>    <span class="k">function</span> <span class="n">deleteDomain</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+
+    <span class="c1">//// Parent Domain Access Control
+</span>
+    <span class="c1">/// @notice     Get if an account can create a subdomain with a given name
+</span>    <span class="c1">/// @dev        This must return `false` if `hasDomain(name)` is `true`.
+</span>    <span class="c1">/// @param      updater The account that may or may not be able to create/update a subdomain
+</span>    <span class="c1">/// @param      name The subdomain name that would be created/updated
+</span>    <span class="c1">/// @param      subdomain The subdomain that would be set
+</span>    <span class="c1">/// @return     Whether an account can update or create the subdomain
+</span>    <span class="k">function</span> <span class="n">canCreateDomain</span><span class="p">(</span><span class="kt">address</span> <span class="n">updater</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">address</span> <span class="n">subdomain</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice     Get if an account can update or create a subdomain with a given name
+</span>    <span class="c1">/// @dev        This must return `false` if `hasDomain(name)` is `false`.
+</span>    <span class="c1">///             If `getDomain(name)` is also a domain implementing the subdomain access control extension, this should return `false` if `getDomain(name).canMoveSubdomain(msg.sender, this, subdomain)` is `false`.
+</span>    <span class="c1">/// @param      updater The account that may or may not be able to create/update a subdomain
+</span>    <span class="c1">/// @param      name The subdomain name that would be created/updated
+</span>    <span class="c1">/// @param      subdomain The subdomain that would be set
+</span>    <span class="c1">/// @return     Whether an account can update or create the subdomain
+</span>    <span class="k">function</span> <span class="n">canSetDomain</span><span class="p">(</span><span class="kt">address</span> <span class="n">updater</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">address</span> <span class="n">subdomain</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice     Get if an account can delete the subdomain with a given name
+</span>    <span class="c1">/// @dev        This must return `false` if `hasDomain(name)` is `false`.
+</span>    <span class="c1">///             If `getDomain(name)` is a domain implementing the subdomain access control extension, this should return `false` if `getDomain(name).canDeleteSubdomain(msg.sender, this, subdomain)` is `false`.
+</span>    <span class="c1">/// @param      updater The account that may or may not be able to delete a subdomain
+</span>    <span class="c1">/// @param      name The subdomain to delete
+</span>    <span class="c1">/// @return     Whether an account can delete the subdomain
+</span>    <span class="k">function</span> <span class="n">canDeleteDomain</span><span class="p">(</span><span class="kt">address</span> <span class="n">updater</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="optional-extension-enumerable">Optional Extension: Enumerable</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IDomainEnumerable</span> <span class="k">is</span> <span class="n">IDomain</span> <span class="p">{</span>
+    <span class="c1">/// @notice     Query all subdomains. Must revert if the number of domains is unknown or infinite.
+</span>    <span class="c1">/// @return     The subdomain with the given index.
+</span>    <span class="k">function</span> <span class="n">subdomainByIndex</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">index</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+    
+    <span class="c1">/// @notice     Get the total number of subdomains. Must revert if the number of domains is unknown or infinite.
+</span>    <span class="c1">/// @return     The total number of subdomains.
+</span>    <span class="k">function</span> <span class="n">totalSubdomains</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="optional-extension-access-control">Optional Extension: Access Control</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IDomainAccessControl</span> <span class="k">is</span> <span class="n">IDomain</span> <span class="p">{</span>
+    <span class="c1">/// @notice     Get if an account can move the subdomain away from the current domain
+</span>    <span class="c1">/// @dev        May be called by `canSetDomain` of the parent domain - implement access control here!!!
+</span>    <span class="c1">/// @param      updater The account that may be moving the subdomain
+</span>    <span class="c1">/// @param      name The subdomain name
+</span>    <span class="c1">/// @param      parent The parent domain
+</span>    <span class="c1">/// @param      newSubdomain The domain that will be set next
+</span>    <span class="c1">/// @return     Whether an account can update the subdomain
+</span>    <span class="k">function</span> <span class="n">canMoveSubdomain</span><span class="p">(</span><span class="kt">address</span> <span class="n">updater</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="n">IDomain</span> <span class="n">parent</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newSubdomain</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice     Get if an account can unset this domain as a subdomain
+</span>    <span class="c1">/// @dev        May be called by `canDeleteDomain` of the parent domain - implement access control here!!!
+</span>    <span class="c1">/// @param      updater The account that may or may not be able to delete a subdomain
+</span>    <span class="c1">/// @param      name The subdomain to delete
+</span>    <span class="c1">/// @param      parent The parent domain
+</span>    <span class="c1">/// @return     Whether an account can delete the subdomain
+</span>    <span class="k">function</span> <span class="n">canDeleteSubdomain</span><span class="p">(</span><span class="kt">address</span> <span class="n">updater</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="n">IDomain</span> <span class="n">parent</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This EIP’s goal, as mentioned in the abstract, is to have a simple interface for resolving names. Here are a few design decisions and why they were made:</p>
+
+<ul>
+  <li>Name resolution algorithm
+    <ul>
+      <li>Unlike ENS’s resolution algorithm, this EIP’s name resolution is fully under the control of the contracts along the resolution path.</li>
+      <li>This behavior is more intuitive to users.</li>
+      <li>This behavior allows for greater flexibility - e.g. a contract that changes what it resolves to based on the time of day.</li>
+    </ul>
+  </li>
+  <li>Parent domain access control
+    <ul>
+      <li>A simple “ownable” interface was not used because this specification was designed to be as generic as possible. If an ownable implementation is desired, it can be implemented.</li>
+      <li>This also gives parent domains the ability to call subdomains’ access control methods so that subdomains, too, can choose whatever access control mechanism they desire</li>
+    </ul>
+  </li>
+  <li>Subdomain access control
+    <ul>
+      <li>These methods are included so that subdomains aren’t always limited to their parent domain’s access control</li>
+      <li>The root domain can be controlled by a DAO with a non-transferable token with equal shares, a TLD can be controlled by a DAO with a token representing stake, a domain of that TLD can be controlled by a single owner, a subdomain of that domain can be controlled by a single owner linked to an NFT, and so on.</li>
+      <li>Subdomain access control functions are suggestions: an ownable domain might implement an owner override, so that perhaps subdomains might be recovered if the keys are lost.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This EIP is general enough to support ENS, but ENS is not general enough to support this EIP.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="malicious-canmovesubdomain-black-hole">Malicious canMoveSubdomain (Black Hole)</h3>
+
+<h4 id="description-malicious-canmovesubdomain">Description: Malicious <code class="language-plaintext highlighter-rouge">canMoveSubdomain</code></h4>
+
+<p>Moving a subdomain using <code class="language-plaintext highlighter-rouge">setDomain</code> is a potentially dangerous operation.</p>
+
+<p>Depending on the parent domain’s implementation, if a malicious new subdomain unexpectedly returns <code class="language-plaintext highlighter-rouge">false</code> on <code class="language-plaintext highlighter-rouge">canMoveSubdomain</code>, that subdomain can effectively lock the ownership of the domain.</p>
+
+<p>Alternatively, it might return <code class="language-plaintext highlighter-rouge">true</code> when it isn’t expected (i.e. a backdoor), allowing the contract owner to take over the domain.</p>
+
+<h4 id="mitigation-malicious-canmovesubdomain">Mitigation: Malicious <code class="language-plaintext highlighter-rouge">canMoveSubdomain</code></h4>
+
+<p>Clients should help by warning if <code class="language-plaintext highlighter-rouge">canMoveSubdomain</code> or <code class="language-plaintext highlighter-rouge">canDeleteSubdomain</code> for the new subdomain changes to <code class="language-plaintext highlighter-rouge">false</code>. It is important to note, however, that since these are functions, it is possible for the value to change depending on whether or not it has already been linked. It is also still possible for it to unexpectedly return true. It is therefore recommended to <strong>always</strong> audit the new subdomain’s source code before calling <code class="language-plaintext highlighter-rouge">setDomain</code>.</p>
+
+<h3 id="parent-domain-resolution">Parent Domain Resolution</h3>
+
+<h4 id="description-parent-domain-resolution">Description: Parent Domain Resolution</h4>
+
+<p>Parent domains have full control of name resolution for their subdomains. If a particular domain is linked to <code class="language-plaintext highlighter-rouge">a.b.c</code>, then <code class="language-plaintext highlighter-rouge">b.c</code> can, depending on its code, set <code class="language-plaintext highlighter-rouge">a.b.c</code> to any domain, and <code class="language-plaintext highlighter-rouge">c</code> can set <code class="language-plaintext highlighter-rouge">b.c</code> itself to any domain.</p>
+
+<h4 id="mitigation-parent-domain-resolution">Mitigation: Parent Domain Resolution</h4>
+
+<p>Before acquiring a domain that has been pre-linked, it is recommended to always have the contract <strong>and</strong> all the parents up to the root audited.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

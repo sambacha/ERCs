@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Signature Validation Method for NFTs | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Signature Validation Method for NFTs | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6066" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6066" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Signature Validation Method for NFTs</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>While <strong>E</strong>xternally <strong>O</strong>wned <strong>A</strong>ccounts can validate signed messages with <code class="language-plaintext highlighter-rouge">ecrecover()</code> and smart contracts can validate signatures using specifications outlined in <a href="./eip-1271.md">ERC-1271</a>, currently there is no standard method to create or validate signatures made by NFTs. We propose a standard way for anyone to validate whether a signature made by an NFT is valid. This is possible via a modified signature validation function originally found in <a href="./eip-1271.md">ERC-1271</a>: <code class="language-plaintext highlighter-rouge">isValidSignature(tokenId, hash, data)</code>.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>With billions of ETH in trading volume, the <strong>N</strong>on-<strong>F</strong>ungible <strong>T</strong>oken standard has exploded into tremendous popularity in recent years. Despite the far-reaching implications of having unique tokenized items on-chain, NFTs have mainly been used to represent artwork in the form of avatars or profile pictures. While this is certainly not a trivial use case for the <a href="./eip-721.md">ERC-721</a> &amp; <a href="./eip-1155.md">ERC-1155</a> token standards, we reckon more can be done to aid the community in discovering alternative uses for NFTs.</p>
+
+<p>One of the alternative use cases for NFTs is using them to represent offices in an organization. In this case, tying signatures to transferrable NFTs instead of EOAs or smart contracts becomes crucial. Suppose there exists a DAO that utilizes NFTs as badges that represent certain administrative offices (i.e., CEO, COO, CFO, etc.) with a quarterly democratic election that potentially replaces those who currently occupy said offices. If the sitting COO has previously signed agreements or authorized certain actions, their past signatures would stay with the EOA who used to be the COO instead of the COO’s office itself once they are replaced with another EOA as the new COO-elect. Although a multisig wallet for the entire DAO is one way to mitigate this problem, often it is helpful to generate signatures on a more intricate level so detailed separation of responsibilities are established and maintained. It is also feasible to appoint a smart contract instead of an EOA as the COO, but the complexities this solution brings are unnecessary. If a DAO uses ENS to establish their organizational hierarchy, this proposal would allow wrapped ENS subdomains (which are NFTs) to generate signatures.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pragma solidity ^0.8.0;
+
+interface IERC6066 {
+    /**
+     * @dev MUST return if the signature provided is valid for the provided tokenId and hash
+     * @param tokenId   Token ID of the signing NFT
+     * @param hash      Hash of the data to be signed
+     * @param data      OPTIONAL arbitrary data that may aid verification
+     *
+     * MUST return the bytes4 magic value 0x12edb34f when function passes.
+     * MUST NOT modify state (using STATICCALL for solc &lt; 0.5, view modifier for solc &gt; 0.5)
+     * MUST allow external calls
+     *
+     */
+    function isValidSignature(
+        uint256 tokenId,
+        bytes32 hash,
+        bytes calldata data
+    ) external view returns (bytes4 magicValue);
+}
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">isValidSignature</code> can call arbitrary methods to validate a given signature.</p>
+
+<p>This function MAY be implemented by <a href="./eip-721.md">ERC-721</a> or <a href="./eip-1155.md">ERC-1155</a> compliant contracts that desire to enable its token holders to sign messages using their NFTs. Compliant callers wanting to support contract signatures MUST call this method if the signer is the holder of an NFT (<a href="./eip-721.md">ERC-721</a> or <a href="./eip-1155.md">ERC-1155</a>).</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>We have purposefully decided to not include a signature generation standard in this proposal as it would restrict flexibility of such mechanism, just as <a href="./eip-1271.md">ERC-1271</a> does not enforce a signing standard for smart contracts. We also decided to reference Gnosis Safe’s contract signing approach as it is both simplistic and proven to be adequate. The <code class="language-plaintext highlighter-rouge">bytes calldata data</code> parameter is considered optional if extra data is needed for signature verification, also conforming this EIP to <a href="./eip-5750.md">ERC-5750</a> for future-proofing purposes.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This EIP is incompatible with previous work on signature validation as it does not validate any cryptographically generated signatures. Instead, signature is merely a boolean flag indicating consent. This is consistent with Gnosis Safe’s contract signature implementation.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Example implementation of an <a href="./eip-721.md">ERC-721</a> compliant contract that conforms to <a href="./eip-6066.md">ERC-6066</a> with a custom signing function:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "./interfaces/IERC6066.sol";
+
+contract ERC6066Reference is ERC721, IERC6066 {
+    // type(IERC6066).interfaceId
+    bytes4 public constant MAGICVALUE = 0x12edb34f;
+    bytes4 public constant BADVALUE = 0xffffffff;
+
+    mapping(uint256 =&gt; mapping(bytes32 =&gt; bool)) internal _signatures;
+
+    error ENotTokenOwner();
+
+    /**
+     * @dev Checks if the sender owns NFT with ID tokenId
+     * @param tokenId   Token ID of the signing NFT
+     */
+    modifier onlyTokenOwner(uint256 tokenId) {
+        if (ownerOf(tokenId) != _msgSender()) revert ENotTokenOwner();
+        _;
+    }
+
+    constructor(string memory name_, string memory symbol_)
+        ERC721(name_, symbol_)
+    {}
+
+    /**
+     * @dev SHOULD sign the provided hash with NFT of tokenId given sender owns said NFT
+     * @param tokenId   Token ID of the signing NFT
+     * @param hash      Hash of the data to be signed
+     */
+    function sign(uint256 tokenId, bytes32 hash)
+        external
+        onlyTokenOwner(tokenId)
+    {
+        _signatures[tokenId][hash] = true;
+    }
+
+    /**
+     * @dev MUST return if the signature provided is valid for the provided tokenId, hash, and optionally data
+     */
+    function isValidSignature(uint256 tokenId, bytes32 hash, bytes calldata data)
+        external
+        view
+        override
+        returns (bytes4 magicValue)
+    {
+        // The data parameter is unused in this example
+        return _signatures[tokenId][hash] ? MAGICVALUE : BADVALUE;
+    }
+
+    /**
+     * @dev ERC-165 support
+     */
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override returns (bool) {
+        return
+            interfaceId == type(IERC6066).interfaceId ||
+            super.supportsInterface(interfaceId);
+    }
+}
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The revokable nature of contract-based signatures carries over to this EIP. Developers and users alike should take it into consideration.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

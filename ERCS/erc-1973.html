@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Scalable Rewards | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Scalable Rewards | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1973" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1973" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Scalable Rewards</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A mintable token rewards interface that mints ‘n’ tokens per block which are distributed equally among the ‘m’ participants in the DAPP’s ecosystem.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>The mintable token rewards interface allows DApps to build a token economy where token rewards are distributed equally among the active participants. The tokens are minted based on per block basis that are configurable (E.g. 10.2356 tokens per block, 0.1 token per block, 1350 tokens per block) and the mint function can be initiated by any active participant. The token rewards distributed to each participant is dependent on the number of participants in the network. At the beginning, when the network has low volume, the tokens rewards per participant is high but as the network scales the token rewards decreases dynamically.</p>
+
+<p>## Motivation</p>
+
+<p>Distributing tokens through a push system to a large amount of participants fails due to block gas limit. As the number of participants in the network grow to tens of thousands, keeping track of the iterable registry of participants and their corresponding rewards in a push system becomes unmanagable. E.g. Looping through 5000 addresses to distribute 0.0000001 reward tokens is highly inefficient. Furthermore, the gas fees in these transactions are high and needs to be undertaken by the DApp developer or the respective company, leading to centralization concerns.</p>
+
+<p>A pull system is required to keep the application completely decentralized and to avoid the block gas limit problem. However, no standard solution has been proposed to distribute scalable rewards to tens of thousands participants with a pull system. This is what we propose with this EIP through concepts like TPP, round mask, participant mask.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="definitions">Definitions</h3>
+
+<p><code class="language-plaintext highlighter-rouge">token amount per participant in the ecosytem or TPP (token per participant)</code>: TPP = (token amount to mint / total active participants)</p>
+
+<p><code class="language-plaintext highlighter-rouge">roundMask</code>: the cumulative snapshot of TPP over time for the token contract. E.g. transactionOne = 10 tokens are minted with 100 available participants (TPP = 10 / 100) , transactionTwo = 12 tokens are minted with 95 participants (TPP = 12 / 95 )</p>
+
+<p>roundMask = (10/100) + (12/95)</p>
+
+<p><code class="language-plaintext highlighter-rouge">participantMask</code>: is used to keep track of a <code class="language-plaintext highlighter-rouge">msg.sender</code> (participant) rewards over time. When a <code class="language-plaintext highlighter-rouge">msg.sender</code> joins or leaves the ecosystem, the player mask is updated</p>
+
+<p>participantMask = previous roundMask OR (current roundMask - TPP)</p>
+
+<p><code class="language-plaintext highlighter-rouge">rewards for msg.sender</code>: roundMask - participantMask</p>
+
+<p>E.g. Let’s assume a total of 6 transactions (smart contract triggers or functions calls) are in place with 10 existing participants (denominator) and 20 tokens (numerator) are minted per transaction. At 2nd transaction, the 11th participant joins the network and exits before 5th transaction, the 11th participant’s balance is as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> t1 roundMask = (20/10)
+ t2 roundMask = (20/10) + (20/11) 
+ t3 roundMask = (20/10) + (20/11) + (20/11)
+ t4 roundMask = (20/10) + (20/11) + (20/11) + (20/11)
+ t5 roundMask = (20/10) + (20/11) + (20/11) + (20/11)+ (20/10)
+ t6 roundMask = (20/10) + (20/11) + (20/11) + (20/11)+ (20/10) + (20/10)
+</code></pre></div></div>
+
+<p>Total tokens released in 6 transactions = 60 tokens</p>
+
+<p>As the participant joins at t2 and leaves before t5, the participant deserves the rewards between t2 and t4. When the participant joins at t2, the ‘participantMask = (20/10)’, when the participant leaves before t5, the cumulative deserved reward tokens are :</p>
+
+<p>rewards for msg.sender: <code class="language-plaintext highlighter-rouge">[t4 roundMask = (20/10) + (20/11)+ (20/11) + (20/11)] - [participantMask = (20/10)] = [rewards = (20/11)+ (20/11) + (20/11)]</code></p>
+
+<p>When the same participant joins the ecosystem at a later point (t27 or t35), a new ‘participantMask’ is given that is used to calculate the new deserved reward tokens when the participant exits. This process continues dynamically for each participant.</p>
+
+<p><code class="language-plaintext highlighter-rouge">tokensPerBlock</code>: the amount of tokens that will be released per block</p>
+
+<p><code class="language-plaintext highlighter-rouge">blockFreezeInterval</code>: the number of blocks that need to pass until the next mint. E.g. if set to 50 and ‘n’ tokens were minted at block ‘b’, the next ‘n’ tokens won’t be minted until ‘b + 50’ blocks have passed</p>
+
+<p><code class="language-plaintext highlighter-rouge">lastMintedBlockNumber</code>: the block number on which last ‘n’ tokens were minted</p>
+
+<p><code class="language-plaintext highlighter-rouge">totalParticipants</code> : the total number of participants in the DApp network</p>
+
+<p><code class="language-plaintext highlighter-rouge">tokencontractAddress</code> : the contract address to which tokens will be minted, default is address(this)</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">2</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">Rewards</span> <span class="k">is</span> <span class="n">ERC20Mintable</span><span class="p">,</span> <span class="n">ERC20Detailed</span> <span class="p">{</span>
+
+<span class="k">using</span> <span class="n">SafeMath</span> <span class="k">for</span> <span class="kt">uint256</span><span class="p">;</span>
+
+<span class="kt">uint256</span> <span class="k">public</span> <span class="n">roundMask</span><span class="p">;</span>
+<span class="kt">uint256</span> <span class="k">public</span> <span class="n">lastMintedBlockNumber</span><span class="p">;</span>
+<span class="kt">uint256</span> <span class="k">public</span> <span class="n">totalParticipants</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">uint256</span> <span class="k">public</span> <span class="n">tokensPerBlock</span><span class="p">;</span> 
+<span class="kt">uint256</span> <span class="k">public</span> <span class="n">blockFreezeInterval</span><span class="p">;</span> 
+<span class="kt">address</span> <span class="k">public</span> <span class="n">tokencontractAddress</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">);</span>
+<span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">participantMask</span><span class="p">;</span> 
+
+<span class="cm">/**
+ * @dev constructor, initializes variables.
+ * @param _tokensPerBlock The amount of token that will be released per block, entered in wei format (E.g. 1000000000000000000)
+ * @param _blockFreezeInterval The amount of blocks that need to pass (E.g. 1, 10, 100) before more tokens are brought into the ecosystem.
+ */</span>
+ <span class="k">constructor</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokensPerBlock</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_blockFreezeInterval</span><span class="p">)</span> <span class="k">public</span> <span class="n">ERC20Detailed</span><span class="p">(</span><span class="s">"Simple Token"</span><span class="p">,</span> <span class="s">"SIM"</span><span class="p">,</span> <span class="mi">18</span><span class="p">){</span> 
+<span class="n">lastMintedBlockNumber</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">number</span><span class="p">;</span>
+<span class="n">tokensPerBlock</span> <span class="o">=</span> <span class="n">_tokensPerBlock</span><span class="p">;</span>
+<span class="n">blockFreezeInterval</span> <span class="o">=</span> <span class="n">_blockFreezeInterval</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Modifier to check if msg.sender is whitelisted as a minter. 
+ */</span>
+<span class="k">modifier</span> <span class="n">isAuthorized</span><span class="p">()</span> <span class="p">{</span>
+<span class="nb">require</span><span class="p">(</span><span class="n">isMinter</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">));</span>
+<span class="n">_</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Function to add participants in the network. 
+ * @param _minter The address that will be able to mint tokens.
+ * @return A boolean that indicates if the operation was successful.
+ */</span>
+<span class="k">function</span> <span class="n">addMinters</span><span class="p">(</span><span class="kt">address</span> <span class="n">_minter</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">_addMinter</span><span class="p">(</span><span class="n">_minter</span><span class="p">);</span>
+<span class="n">totalParticipants</span> <span class="o">=</span> <span class="n">totalParticipants</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">updateParticipantMask</span><span class="p">(</span><span class="n">_minter</span><span class="p">);</span>
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="cm">/**
+ * @dev Function to remove participants in the network. 
+ * @param _minter The address that will be unable to mint tokens.
+ * @return A boolean that indicates if the operation was successful.
+ */</span>
+<span class="k">function</span> <span class="n">removeMinters</span><span class="p">(</span><span class="kt">address</span> <span class="n">_minter</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">totalParticipants</span> <span class="o">=</span> <span class="n">totalParticipants</span><span class="p">.</span><span class="n">sub</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">_removeMinter</span><span class="p">(</span><span class="n">_minter</span><span class="p">);</span> 
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="cm">/**
+ * @dev Function to introduce new tokens in the network. 
+ * @return A boolean that indicates if the operation was successful.
+ */</span>
+<span class="k">function</span> <span class="n">trigger</span><span class="p">()</span> <span class="k">external</span> <span class="n">isAuthorized</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">bool</span> <span class="n">res</span> <span class="o">=</span> <span class="n">readyToMint</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="n">mintTokens</span><span class="p">();</span>
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Function to withdraw rewarded tokens by a participant. 
+ * @return A boolean that indicates if the operation was successful.
+ */</span>
+<span class="k">function</span> <span class="n">withdraw</span><span class="p">()</span> <span class="k">external</span> <span class="n">isAuthorized</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">uint256</span> <span class="n">amount</span> <span class="o">=</span> <span class="n">calculateRewards</span><span class="p">();</span>
+<span class="nb">require</span><span class="p">(</span><span class="n">amount</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">ERC20</span><span class="p">(</span><span class="n">tokencontractAddress</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Function to check if new tokens are ready to be minted. 
+ * @return A boolean that indicates if the operation was successful.
+ */</span>
+<span class="k">function</span> <span class="n">readyToMint</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">uint256</span> <span class="n">currentBlockNumber</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">number</span><span class="p">;</span>
+<span class="kt">uint256</span> <span class="n">lastBlockNumber</span> <span class="o">=</span> <span class="n">lastMintedBlockNumber</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="n">currentBlockNumber</span> <span class="o">&gt;</span> <span class="n">lastBlockNumber</span> <span class="o">+</span> <span class="n">blockFreezeInterval</span><span class="p">)</span> <span class="p">{</span> 
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Function to calculate current rewards for a participant. 
+ * @return A uint that returns the calculated rewards amount.
+ */</span>
+<span class="k">function</span> <span class="n">calculateRewards</span><span class="p">()</span> <span class="k">private</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">uint256</span> <span class="n">playerMask</span> <span class="o">=</span> <span class="n">participantMask</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">];</span>
+<span class="kt">uint256</span> <span class="n">rewards</span> <span class="o">=</span> <span class="n">roundMask</span><span class="p">.</span><span class="n">sub</span><span class="p">(</span><span class="n">playerMask</span><span class="p">);</span>
+<span class="n">updateParticipantMask</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+<span class="k">return</span> <span class="n">rewards</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Function to mint new tokens into the economy. 
+ * @return A boolean that indicates if the operation was successful.
+ */</span>
+<span class="k">function</span> <span class="n">mintTokens</span><span class="p">()</span> <span class="k">private</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">uint256</span> <span class="n">currentBlockNumber</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">number</span><span class="p">;</span>
+<span class="kt">uint256</span> <span class="n">tokenReleaseAmount</span> <span class="o">=</span> <span class="p">(</span><span class="n">currentBlockNumber</span><span class="p">.</span><span class="n">sub</span><span class="p">(</span><span class="n">lastMintedBlockNumber</span><span class="p">)).</span><span class="n">mul</span><span class="p">(</span><span class="n">tokensPerBlock</span><span class="p">);</span>
+<span class="n">lastMintedBlockNumber</span> <span class="o">=</span> <span class="n">currentBlockNumber</span><span class="p">;</span>
+<span class="n">mint</span><span class="p">(</span><span class="n">tokencontractAddress</span><span class="p">,</span> <span class="n">tokenReleaseAmount</span><span class="p">);</span>
+<span class="n">calculateTPP</span><span class="p">(</span><span class="n">tokenReleaseAmount</span><span class="p">);</span>
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+ <span class="cm">/**
+* @dev Function to calculate TPP (token amount per participant).
+* @return A boolean that indicates if the operation was successful.
+*/</span>
+<span class="k">function</span> <span class="n">calculateTPP</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokens</span><span class="p">)</span> <span class="k">private</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">uint256</span> <span class="n">tpp</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">.</span><span class="n">div</span><span class="p">(</span><span class="n">totalParticipants</span><span class="p">);</span>
+<span class="n">updateRoundMask</span><span class="p">(</span><span class="n">tpp</span><span class="p">);</span>
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+ <span class="cm">/**
+* @dev Function to update round mask. 
+* @return A boolean that indicates if the operation was successful.
+*/</span>
+<span class="k">function</span> <span class="n">updateRoundMask</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tpp</span><span class="p">)</span> <span class="k">private</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">roundMask</span> <span class="o">=</span> <span class="n">roundMask</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">tpp</span><span class="p">);</span>
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+ <span class="cm">/**
+* @dev Function to update participant mask (store the previous round mask)
+* @return A boolean that indicates if the operation was successful.
+*/</span>
+<span class="k">function</span> <span class="n">updateParticipantMask</span><span class="p">(</span><span class="kt">address</span> <span class="n">participant</span><span class="p">)</span> <span class="k">private</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">uint256</span> <span class="n">previousRoundMask</span> <span class="o">=</span> <span class="n">roundMask</span><span class="p">;</span>
+<span class="n">participantMask</span><span class="p">[</span><span class="n">participant</span><span class="p">]</span> <span class="o">=</span> <span class="n">previousRoundMask</span><span class="p">;</span>
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Currently, there is no standard for a scalable reward distribution mechanism. In order to create a sustainable cryptoeconomic environment within DAPPs, incentives play a large role. However, without a scalable way to distribute rewards to tens of thousands of participants, most DAPPs lack a good incentive structure. The ones with a sustainable cryptoeconomic environment depend heavily on centralized servers or a group of selective nodes to trigger the smart contracts. But, in order to keep an application truly decentralized, the reward distribution mechanism must depend on the active participants itself and scale as the number of participants grow. This is what this EIP intends to accomplish.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Not Applicable.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>WIP, will be added.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>WIP, a proper implementation will be added later.A sample example is below:</p>
+
+<p><code class="language-plaintext highlighter-rouge">etherscan rewards contract</code> : https://ropsten.etherscan.io/address/0x8b0abfc541ab7558857816a67e186221adf887bc#tokentxns</p>
+
+<p><code class="language-plaintext highlighter-rouge">Step 1</code> : deploy Rewards contract with the following parameters_tokensPerBlock = 1e18, _blockFreezeInterval = 1</p>
+
+<p><code class="language-plaintext highlighter-rouge">Step 2</code> : add Alice(0x123) and Bob(0x456) as minters, addMinters(address _minter)</p>
+
+<p><code class="language-plaintext highlighter-rouge">Step 3</code> : call trigger() from Alice / Bob’s account. 65 blocks are passed, hence 65 SIM tokens are minted. The RM is 32500000000000000000</p>
+
+<p><code class="language-plaintext highlighter-rouge">Step 4</code> : Alice withdraws and receives 32.5 SIM tokens (65 tokens / 2 participants) and her PM = 32500000000000000000</p>
+
+<p><code class="language-plaintext highlighter-rouge">Step 5</code> : add Satoshi(0x321) and Vitalik(0x654) as minters, addMinters(address _minter)</p>
+
+<p><code class="language-plaintext highlighter-rouge">Step 6</code> : call trigger() from Alice / Bob’s / Satoshi / Vitalik account. 101 blocks are passed, hence 101 SIM tokens are minted. The RM is 57750000000000000000</p>
+
+<p><code class="language-plaintext highlighter-rouge">Step 7</code> : Alice withdraws and receives 25.25 SIM tokens (101 tokens / 4 participants) and her PM = 57750000000000000000</p>
+
+<p><code class="language-plaintext highlighter-rouge">Step 8</code> : Bob withdraws and receives 57.75 SIM tokens ((65 tokens / 2 participants) + (101 tokens / 4 participants)). Bob’s PM = 57750000000000000000</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via CC0.</p>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li>
+    <p>Scalable Reward Distribution on the Ethereum Blockchain by Bogdan Batog, Lucian Boca and Nick Johnson</p>
+  </li>
+  <li>
+    <p>Fomo3d DApp, https://fomo3d.hostedwiki.co/</p>
+  </li>
+</ol>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

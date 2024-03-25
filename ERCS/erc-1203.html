@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>ERC-1203 Multi-Class Token Standard (ERC-20 Extension) | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="ERC-1203 Multi-Class Token Standard (ERC-20 Extension) | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1203" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1203" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">ERC-1203 Multi-Class Token Standard (ERC-20 Extension)</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A standard interface for multi-class tokens (MCTs).</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>The following standard allows for the implementation of a standard API for MCTs within smart contracts. This standard provides basic functionality to track, transfer, and convert MCTs.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>This standard is heavily inspired by ERC-20 Token Standard and ERC-721 Non-Fungible Token Standard. However, whereas these standards are chiefly concerned with representation of items/value in a single class, fungible or note, this proposed standard focus on that of a more complexed, multi-class system. It is fair to think of MCTs as a hybrid of fungible tokens (FT) and non-fungible tokens (NFTs), that is tokens are fungible within the same class but non-fungible with that from a different class. And conversions between classes may be optionally supported.</p>
+
+<p>MCTs are useful in representing various structures with heterogeneous components, such as:</p>
+
+<ul>
+  <li>
+    <p><strong>Abstract Concepts:</strong> A company may have different classes of stocks (e.g. senior preferred, junior preferred, class A common, class B common) that together make up its outstanding equities. A shareholder’s position of such company composites of zero or more shares in each class.</p>
+  </li>
+  <li>
+    <p><strong>Virtual Items:</strong> A sandbox computer game may have many types of resources (e.g. rock, wood, berries, cows, meat, knife, etc.) that together make up that virtual world. A player’s inventory has any combination and quantity of these resources</p>
+  </li>
+  <li>
+    <p><strong>Physical Items:</strong> A supermarket may have many SKUs it has available for purchase (e.g. eggs, milk, beef jerky, beer, etc.). Things get added or removed from a shopper’s cart as it moves down the aisle.</p>
+  </li>
+</ul>
+
+<p>It’s sometimes possible, especially with regard to abstract concepts or virtual items, to convert from one class to another, at a specified conversion ratio. When it comes to physical items, such conversion essentially is the implementation of bartering. Though it might generally be easier to introduce a common intermediary class, i.e. money.</p>
+
+<h2 id="specification">Specification</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">ERC20</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">totalSupply</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_spender</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">ERC1203</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">totalSupply</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_class</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">fullyDilutedTotalSupply</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">fullyDilutedBalanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">fullyDilutedAllowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_spender</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">convert</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_fromClass</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_toClass</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Convert</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_fromClass</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_toClass</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="erc-20-methods-and-events-fully-compatible">ERC-20 Methods and Events (fully compatible)</h3>
+
+<p>Please see <a href="./eip-20.md">ERC-20 Token Standard</a> for detailed specifications. Do note that these methods and events only work on the “default” class of an MCT.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">totalSupply</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_spender</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="tracking-and-transferring">Tracking and Transferring</h3>
+
+<p><strong>totalSupply</strong></p>
+
+<p>Returns the total number of tokens in the specified <code class="language-plaintext highlighter-rouge">_class</code></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">totalSupply</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_class</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>balanceOf</strong></p>
+
+<p>Returns the number of tokens of a specified <code class="language-plaintext highlighter-rouge">_class</code> that the <code class="language-plaintext highlighter-rouge">_owner</code> has</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>transfer</strong></p>
+
+<p>Transfer <code class="language-plaintext highlighter-rouge">_value</code> tokens of <code class="language-plaintext highlighter-rouge">_class</code> to address specified by <code class="language-plaintext highlighter-rouge">_to</code>, return <code class="language-plaintext highlighter-rouge">true</code> if successful</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>approve</strong></p>
+
+<p>Grant <code class="language-plaintext highlighter-rouge">_spender</code> the right to transfer <code class="language-plaintext highlighter-rouge">_value</code> tokens of <code class="language-plaintext highlighter-rouge">_class</code>, return <code class="language-plaintext highlighter-rouge">true</code> if successful</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>allowance</strong></p>
+
+<p>Return the number of tokens of <code class="language-plaintext highlighter-rouge">_class</code> that <code class="language-plaintext highlighter-rouge">_spender</code> is authorized to transfer on the behalf of <code class="language-plaintext highlighter-rouge">_owner</code></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>transferFrom</strong></p>
+
+<p>Transfer <code class="language-plaintext highlighter-rouge">_value</code> tokens of <code class="language-plaintext highlighter-rouge">_class</code> from address specified by <code class="language-plaintext highlighter-rouge">_from</code> to address specified by <code class="language-plaintext highlighter-rouge">_to</code> as previously approved, return <code class="language-plaintext highlighter-rouge">true</code> if successful</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Transfer</strong></p>
+
+<p>Triggered when tokens are transferred or created, including zero value transfers</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Approval</strong></p>
+
+<p>Triggered on successful <code class="language-plaintext highlighter-rouge">approve</code></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">event</span> <span class="n">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_class</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="conversion-and-dilution">Conversion and Dilution</h3>
+
+<p><strong>fullyDilutedTotalSupply</strong></p>
+
+<p>Return the total token supply as if all converted to the lowest common denominator class</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">fullyDilutedTotalSupply</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>fullyDilutedBalanceOf</strong></p>
+
+<p>Return the total token owned by <code class="language-plaintext highlighter-rouge">_owner</code> as if all converted to the lowest common denominator class</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">fullyDilutedBalanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>fullyDilutedAllowance</strong></p>
+
+<p>Return the total token <code class="language-plaintext highlighter-rouge">_spender</code> is authorized to transfer on behalf of <code class="language-plaintext highlighter-rouge">_owner</code> as if all converted to the lowest common denominator class</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">fullyDilutedAllowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_spender</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>convert</strong></p>
+
+<p>Convert <code class="language-plaintext highlighter-rouge">_value</code> of <code class="language-plaintext highlighter-rouge">_fromClass</code> to <code class="language-plaintext highlighter-rouge">_toClass</code>, return <code class="language-plaintext highlighter-rouge">true</code> if successful</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">function</span> <span class="n">convert</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_fromClass</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_toClass</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Conversion</strong></p>
+
+<p>Triggered on successful <code class="language-plaintext highlighter-rouge">convert</code></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">event</span> <span class="n">Conversion</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_fromClass</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_toClass</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+<p>This standard purposely extends ERC-20 Token Standard so that new MCTs following or existing ERC-20 tokens extending this standard are fully compatible with current wallets and exchanges. In addition, new methods and events are kept as closely to ERC-20 conventions as possible for ease of adoption.</p>
+
+<p>We have considered alternative implementations to support the multi-class structure, as discussed below, and we found current token standards incapable or inefficient in deal with such structures.</p>
+
+<p><strong>Using multiple ERC-20 tokens</strong></p>
+
+<p>It is certainly possible to create an ERC-20 token for each class, and a separate contract to coordinate potential conversions, but the short coming in this approach is clearly evident. The rationale behind this standard is to have a single contract to manage multiple classes of tokens.</p>
+
+<p><strong>Shoehorning ERC-721 token</strong></p>
+
+<p>Treating each token as unique, the non-fungible token standard offers maximum representational flexibility arguably at the expense of convenience. The main challenge of using ERC-721 to represent multi-class token is that separate logic is required to keep track of which tokens belongs to which class, a hacky and unnecessary endeavor.</p>
+
+<p><strong>Using ERC-1178 token</strong></p>
+
+<p>We came across ERC-1178 as we were putting final touches on our own proposal. The two ERCs look very similar on the surface but we believe there’re a few key advantages this one has over ERC-1178.</p>
+
+<ul>
+  <li>ERC-1178 offers no backward compatibility whereas this proposal is an extension of ERC-20 and therefore fully compatible with all existing wallets and exchanges</li>
+  <li>By the same token, existing ERC-20 contracts can extend themselves to adopt this standard and support additional classes without affecting their current behaviors</li>
+  <li>This proposal introduces the concept of cross class conversion and dilution, making each token class integral part of a whole system rather than many silos</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This EIP is fully compatible with the mandatory methods of ERC20 Token Standard so long as the implementation includes a “lowest common denominator” class, which may be class B common/gold coin/money in the abstract/virtual/physical examples above respectively. Where it is not possible to implement such class, then the implementation should specify a default class for tracking or transferring unless otherwise specified, e.g. US dollar is transferred unless other currency is explicitly specified.</p>
+
+<p>We find it contrived to require the optional methods of ERC20 Token Standard, <code class="language-plaintext highlighter-rouge">name()</code>, <code class="language-plaintext highlighter-rouge">symbol()</code>, and <code class="language-plaintext highlighter-rouge">decimals()</code>, but developers are certainly free to implement these as they wish.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+<p>The repository at <a href="https://github.com/jeffishjeff/ERC-1203">jeffishjeff/ERC-1203</a> contains the <a href="https://github.com/jeffishjeff/ERC-1203/blob/master/token.test.js">sample test cases</a>.</p>
+
+<h2 id="implementation">Implementation</h2>
+<p>The repository at <a href="https://github.com/jeffishjeff/ERC-1203">jeffishjeff/ERC-1203</a> contains the <a href="https://github.com/jeffishjeff/ERC-1203/blob/master/token.sol">sample implementation</a>.</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li>ERC-20 Token Standard. ./eip-20.md</li>
+  <li>ERC-721 Non-Fungible Token Standard. ./eip-721.md</li>
+  <li>ERC-1178 Multi-class Token Standard. ./eip-1178.md</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

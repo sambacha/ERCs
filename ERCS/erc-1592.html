@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Address and ERC20-compliant transfer rules | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Address and ERC20-compliant transfer rules | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1592" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1592" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Address and ERC20-compliant transfer rules</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>We propose a standard and an interface to define transfer rules, in the context of ERC20 tokens and possibly beyond.</p>
+
+<p>A rule can act based on sender, destination and amount, and is triggered (and rejects the transfer) according to any required business logic.</p>
+
+<p>To ease rule reusability and composition, we also propose an interface and base implementation for a rule engine.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>This standard proposal should answer the following challenges:</p>
+<ul>
+  <li>Enable integration of rules with interacting platforms such as exchanges, decentralized wallets and DApps.</li>
+  <li>Externale code and storage, improve altogether reusability, gas costs and contracts’ memory footprint.</li>
+  <li>Highlight contract behavior and its evolution, in order to ease user interaction with such contract.</li>
+</ul>
+
+<p>If these challenges are answered, this proposal will provide a unified basis for transfer rules and hopefully address the transfer restriction needs of other EIPs as well, e.g. 
+<a href="./eip-902.md">EIP-902</a>, 
+<a href="./eip-1066.md">EIP-1066</a>
+and <a href="./eip-1175.md">EIP-1175</a>.</p>
+
+<p>This document proposes specifications for a standard of <strong>transfer rules</strong> and interfaces to both the rules and the rule engine, which was made to be inherited by a token, but may have a much broader scope in the authors’ opinion.</p>
+
+<p>The last section of this document illustrates the proposal with a rule template and links to rule implementations.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>ERC20 was designed as a standard interface allowing any token on Ethereum to be handled by other applications: from wallets to decentralized exchanges. This has been extremely powerful, but future developments in the industry of tokenization are bringing new challenges. For example it is already hard to know exactly why an ERC20 transfer failed, and it will become even harder when many tokens add their own transfer rules to the mix; we propose that it should be trivial to determine before a tx is sent, whether the transfer should turn out valid or invalid, and why (unless conditions change in the meantime obviously). On the other hand, if the rules were changed, it should also be easily detected, so that the interacting party knows it must adjust its expectations or model.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>We define below an interface for a rule. Rules are meant to be as simple as possible, to limit gas expenditure, since that logic will be executed on every transfer. Another reason for keeping rules simple and short, and strive for atomicity, is to facilitate both composition and interpretation of rejected transfers. By knowing which rule was triggered, we obtain a clear picture of the reason for rejection.</p>
+
+<p>The engine we propose executes all the rules defined by its owner, on every transfer and it is easy to add and remove rules individually, although we have chosen to use quite a raw rule update method, to save on deployment costs, which are often tight when it comes to token smart contracts.</p>
+
+<p>Rules are deployed on the blockchain as individual smart contracts, and called upon by the rule engine they were attached to. But any third party, for example an exchange preparing a cashout for a customer, can very cheaply query the rule engine of the token, or a single rule directly, to verify the validity of a transfer before execution, so as to never get a rejected transaction.</p>
+
+<h2 id="rule-interface">Rule interface</h2>
+
+<p><code class="language-plaintext highlighter-rouge">IRule</code> interface should provide a way to validate if an address or a transfer is valid.</p>
+
+<p>If one of these two methods is not applicable, it can simply be made to return true systematically.
+If any parameter of <code class="language-plaintext highlighter-rouge">isTransferValid</code> is not needed, its name should be commented out with <code class="language-plaintext highlighter-rouge">/* */</code>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">pragma</span> <span class="nx">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">25</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">IRule</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">isAddressValid</span><span class="p">(</span><span class="nx">address</span> <span class="nx">_address</span><span class="p">)</span> <span class="nx">external</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+  <span class="kd">function</span> <span class="nx">isTransferValid</span><span class="p">(</span><span class="nx">address</span> <span class="nx">_from</span><span class="p">,</span> <span class="nx">address</span> <span class="nx">_to</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">_amount</span><span class="p">)</span>
+    <span class="nx">external</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="withrules-interface">WithRules interface</h2>
+
+<p><code class="language-plaintext highlighter-rouge">WithRules</code> interface describes the integration of rules to a rule engine.
+Developers may choose to not implement this interface if their code will only deal with one rule, or if it is not desirable to update the rules.</p>
+
+<p>The rules ordering must be thought through carefully.
+Rules which are cheaper to validate or have a higher chance to break should be put first to reduce global gas expenditure, then business logic should guide the ordering of rules. That is why rules for a given context should be defined as a whole and not individually.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">pragma</span> <span class="nx">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">25</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="dl">"</span><span class="s2">./IRule.sol</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">IWithRules</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">ruleLength</span><span class="p">()</span> <span class="kr">public</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">uint256</span><span class="p">);</span>
+  <span class="kd">function</span> <span class="nx">rule</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">_ruleId</span><span class="p">)</span> <span class="kr">public</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">IRule</span><span class="p">);</span>
+  <span class="kd">function</span> <span class="nx">validateAddress</span><span class="p">(</span><span class="nx">address</span> <span class="nx">_address</span><span class="p">)</span> <span class="kr">public</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+  <span class="kd">function</span> <span class="nx">validateTransfer</span><span class="p">(</span><span class="nx">address</span> <span class="nx">_from</span><span class="p">,</span> <span class="nx">address</span> <span class="nx">_to</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">_amount</span><span class="p">)</span>
+    <span class="kr">public</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+
+  <span class="kd">function</span> <span class="nx">defineRules</span><span class="p">(</span><span class="nx">IRule</span><span class="p">[]</span> <span class="nx">_rules</span><span class="p">)</span> <span class="kr">public</span><span class="p">;</span>
+
+  <span class="nx">event</span> <span class="nx">RulesDefined</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">count</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="withrules-implementation">WithRules implementation</h2>
+
+<p>We also propose a simple implementation of the rule engine, available <a href="https://github.com/MtPelerin/MtPelerin-protocol/blob/master/contracts/rule/WithRules.sol">here</a>. It has been kept minimal both to save on gas costs on each transfer, and to reduce the deployment cost overhead for the derived smart contract.</p>
+
+<p>On top of implementing the interface above, this engine also defines two modifiers (<code class="language-plaintext highlighter-rouge">whenAddressRulesAreValid</code>and  <code class="language-plaintext highlighter-rouge">whenTransferRulesAreValid</code>), which can be used throughout the token contract to restrict <code class="language-plaintext highlighter-rouge">transfer()</code>, <code class="language-plaintext highlighter-rouge">transferFrom</code> and any other function that needs to respect either a simple whitelist or complex transfer rules.</p>
+
+<h2 id="integration">Integration</h2>
+
+<p>To use rules within a token is as easy as having the token inherit from WithRules, then writing rules according to the IRule interface and deploying each rule individually. The token owner can then use <code class="language-plaintext highlighter-rouge">defineRules()</code> to attach all rules in the chosen order, within a single transaction.</p>
+
+<p>Below is a template for a rule.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="s">"../interface/IRule.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">TemplateRule</span> <span class="k">is</span> <span class="n">IRule</span> <span class="p">{</span>
+  
+  <span class="c1">// state vars for business logic
+</span>
+  <span class="k">constructor</span><span class="p">(</span><span class="cm">/* arguments for init */</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+
+    <span class="c1">// initializations
+</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">isAddressValid</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">boolean</span> <span class="n">isValid</span><span class="p">;</span>
+
+    <span class="c1">// business logic 
+</span>
+    <span class="k">return</span> <span class="n">isValid</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">isTransferValid</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">boolean</span> <span class="n">isValid</span><span class="p">;</span>
+
+    <span class="c1">// business logic 
+</span>
+    <span class="k">return</span> <span class="n">isValid</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><em>** Notes **</em>
+The MPS (Mt Pelerin’s Share) token is the current live implementation of this standard.
+Other implementations may be written with different trade-offs: from gas savings to improved security.</p>
+
+<h4 id="example-of-rules-implementations">Example of rules implementations</h4>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/MtPelerin/MtPelerin-protocol/tree/master/contracts/rule/YesNoRule.sol">YesNo rule</a>: Trivial rule used to demonstrate both a rule and the rule engine.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/MtPelerin/MtPelerin-protocol/tree/master/contracts/rule/FreezeRule.sol">Freeze rule</a>: This rule allows to prevent any transfer of tokens to or from chosen addresses. A smart blacklist.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/MtPelerin/MtPelerin-protocol/tree/master/contracts/rule/LockRule.sol">Lock rule</a>: Define a global transfer policy preventing either sending or receiving tokens within a period of time. Exceptions may be granted to some addresses by the token admin. A smart whitelist.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/MtPelerin/MtPelerin-protocol/tree/master/contracts/rule/UserKycRule.sol">User Kyc Rule</a>: Rule example relying on an existing whitelist to assert transfer and addresses validity. It is a good example of a rule that completely externalizes it’s tasks.</p>
+  </li>
+</ul>
+
+<h4 id="example-implementations-are-available-at">Example implementations are available at</h4>
+<ul>
+  <li><a href="https://github.com/MtPelerin/MtPelerin-protocol/tree/master/contracts/rule">Mt Pelerin Bridge protocol rules implementation</a></li>
+  <li><a href="https://github.com/MtPelerin/MtPelerin-protocol/blob/master/contracts/token/component/TokenWithRules.sol">Mt Pelerin Token with rules</a></li>
+</ul>
+
+<h2 id="history">History</h2>
+
+<p>Historical links related to this standard:</p>
+
+<ul>
+  <li>The first regulated tokenized share issued by Mt Pelerin (MPS token) is using an early version of this proposal: https://www.mtpelerin.com/blog/world-first-tokenized-shares
+The rule engine was updated several times, after the token issuance and during the tokensale, to match changing business and legal requirements, showcasing the solidity and flexibility of the rule engine.</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.
+External references outside this repository will have their own specific copyrights.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

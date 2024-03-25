@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Reserved Ownership Accounts | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Reserved Ownership Accounts | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6981" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6981" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Reserved Ownership Accounts</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The following specifies a system for services to link their users to a claimable Ethereum address. Services can provide a signed message and unique salt to their users which can be used to deploy a smart contract wallet to the deterministic address through a registry contract using the <code class="language-plaintext highlighter-rouge">create2</code> opcode.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>It is common for web services to allow their users to hold on-chain assets via custodial wallets. These wallets are typically EOAs, deployed smart contract wallets or omnibus contracts, with private keys or asset ownership information stored on a traditional database. This proposal outlines a solution that avoids the security concerns associated with historical approaches, and rids the need and implications of services controlling user assets</p>
+
+<p>Users on external services that choose to leverage the following specification can be given an Ethereum address to receive assets without the need to do any on-chain transaction. These users can choose to attain control of said addresses at a future point in time. Thus, on-chain assets can be sent to and owned by a user beforehand, therefore enabling the formation of an on-chain identity without requiring the user to interact with the underlying blockchain.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="overview">Overview</h3>
+
+<p>The system for creating reserved ownership accounts consists of:</p>
+
+<ol>
+  <li>An Account Registry which provides deterministic addresses based on the service users’ identifying salts, and implements a signature verified function that enables claiming of Account Instances by the service’s end users.</li>
+  <li>Account Instances created through the Account Registry by end users which allow access to the assets received at the deterministic address prior to Account Instance deployment.</li>
+</ol>
+
+<p>External services wishing to provide their users with reserved ownership accounts MUST maintain a relationship between a user’s identifying credentials and a salt. The external service SHALL refer to an Account Registry Instance to retrieve the deterministic account address for a given salt. Users of a given service MUST be able to create an Account Instance by validating their identifying credentials via the external service, which SHOULD give the user a signed message for their salt. Signatures SHOULD be generated by the external service using an signing address known to the Account Registry Instance. Users SHALL pass this message and signature to the service’s Account Registry Instance in a call to <code class="language-plaintext highlighter-rouge">claimAccount</code> to deploy and claim an Account Instance at the deterministic address.</p>
+
+<h3 id="account-registry">Account Registry</h3>
+
+<p>The Account Registry MUST implement the following interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IAccountRegistry</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Registry instances emit the AccountCreated event upon successful account creation
+     */</span>
+    <span class="k">event</span> <span class="n">AccountCreated</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">address</span> <span class="n">accountImplementation</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salt</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Registry instances emit the AccountClaimed event upon successful claim of account by owner
+     */</span>
+    <span class="k">event</span> <span class="n">AccountClaimed</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">address</span> <span class="n">owner</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Creates a smart contract account.
+     *
+     * If account has already been created, returns the account address without calling create2.
+     *
+     * @param salt       - The identifying salt for which the user wishes to deploy an Account Instance
+     *
+     * Emits AccountCreated event
+     * @return the address for which the Account Instance was created
+     */</span>
+    <span class="k">function</span> <span class="n">createAccount</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">salt</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Allows an owner to claim a smart contract account created by this registry.
+     *
+     * If the account has not already been created, the account will be created first using `createAccount`
+     *
+     * @param owner      - The initial owner of the new Account Instance
+     * @param salt       - The identifying salt for which the user wishes to deploy an Account Instance
+     * @param expiration - If expiration &gt; 0, represents expiration time for the signature.  Otherwise
+     *                     signature does not expire.
+     * @param message    - The keccak256 message which validates the owner, salt, expiration
+     * @param signature  - The signature which validates the owner, salt, expiration
+     *
+     * Emits AccountClaimed event
+     * @return the address of the claimed Account Instance
+     */</span>
+    <span class="k">function</span> <span class="n">claimAccount</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">expiration</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">message</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">signature</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the computed address of a smart contract account for a given identifying salt
+     *
+     * @return the computed address of the account
+     */</span>
+    <span class="k">function</span> <span class="n">account</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">salt</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Fallback signature verification for unclaimed accounts
+     */</span>
+    <span class="k">function</span> <span class="n">isValidSignature</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">hash</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="createaccount">createAccount</h4>
+
+<p><code class="language-plaintext highlighter-rouge">createAccount</code> is used to deploy the Account Instance for a given salt.</p>
+
+<ul>
+  <li>This function MUST deploy a new Account Instance as a <a href="./eip-1167.md">ERC-1167</a> proxy pointing to the account implementation.</li>
+  <li>This function SHOULD set the initial owner of the Account Instance to the Account Registry Instance.</li>
+  <li>The account implementation address MUST be immutable, as it is used to compute the deterministic address for the Account Instance.</li>
+  <li>Upon successful deployment of the Account Instance, the registry SHOULD emit an <code class="language-plaintext highlighter-rouge">AccountCreated</code> event.</li>
+</ul>
+
+<h4 id="claimaccount">claimAccount</h4>
+
+<p><code class="language-plaintext highlighter-rouge">claimAccount</code> is used to claim ownership of the Account Instance for a given salt.</p>
+
+<ul>
+  <li>This function MUST create a new Account Instance if one does not already exist for the given salt.</li>
+  <li>This function SHOULD verify that the msg.sender has permission to claim ownership over the Account Instance for the identifying salt and initial owner. Verification SHOULD be done by validating the message and signature against the owner, salt and expiration using ECDSA for EOA signers, or <a href="./eip-1271.md">ERC-1271</a> for smart contract signers.</li>
+  <li>This function SHOULD verify that the block.timestamp &lt; expiration or that expiration == 0.</li>
+  <li>Upon successful signature verification on calls to <code class="language-plaintext highlighter-rouge">claimAccount</code>, the registry MUST completely relinquish control over the Account Instance, and assign ownership to the initial owner by calling <code class="language-plaintext highlighter-rouge">setOwner</code> on the Account Instance.</li>
+  <li>Upon successful claim of the Account Instance, the registry SHOULD emit an <code class="language-plaintext highlighter-rouge">AccountClaimed</code> event.</li>
+</ul>
+
+<h4 id="isvalidsignature">isValidSignature</h4>
+
+<p><code class="language-plaintext highlighter-rouge">isValidSignature</code> is a fallback signature verification function used by unclaimed accounts. Valid signatures SHALL be generated by the registry signer by signing a composite hash of the original message hash, and the Account Instance address (e.g. <code class="language-plaintext highlighter-rouge">bytes32 compositeHash = keccak256(abi.encodePacked(originalHash, accountAddress))</code>). The function MUST reconstruct the composite hash, where <code class="language-plaintext highlighter-rouge">originalHash</code> is the hash passed to the function, and <code class="language-plaintext highlighter-rouge">accountAddress</code> is <code class="language-plaintext highlighter-rouge">msg.sender</code> (the unclaimed Account Instance). The function MUST verify the signature against the composite hash and registry signer.</p>
+
+<h3 id="account-instance">Account Instance</h3>
+
+<p>The Account Instance MUST implement the following interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IAccount</span> <span class="k">is</span> <span class="n">IERC1271</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Sets the owner of the Account Instance.
+     *
+     * Only callable by the current owner of the instance, or by the registry if the Account
+     * Instance has not yet been claimed.
+     *
+     * @param owner      - The new owner of the Account Instance
+     */</span>
+    <span class="k">function</span> <span class="n">setOwner</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>All Account Instances MUST be created using an Account Registry Instance.</li>
+  <li>Account Instances SHOULD provide access to assets previously sent to the address at which the Account Instance is deployed to.</li>
+  <li><code class="language-plaintext highlighter-rouge">setOwner</code> SHOULD update the owner and SHOULD be callable by the current owner of the Account Instance.</li>
+  <li>If an Account Instance is deployed, but not claimed, the owner of the Account Instance MUST be initialized to the Account Registry Instance.</li>
+  <li>An Account Instance SHALL determine if it has been claimed by checking if the owner is the Account Registry Instance.</li>
+</ul>
+
+<h4 id="account-instance-signatures">Account Instance Signatures</h4>
+
+<p>Account Instances MUST support <a href="./eip-1271.md">ERC-1271</a> by implementing an <code class="language-plaintext highlighter-rouge">isValidSignature</code> function. When the owner of an Account Instance wants to sign a message (e.g. to log in to a dApp), the signature MUST be generated in one of the following ways, depending the state of the Account Instance:</p>
+
+<ol>
+  <li>If the Account instance is deployed and claimed, the owner should generate the signature, and <code class="language-plaintext highlighter-rouge">isValidSignature</code> SHOULD verify that the message hash and signature are valid for the current owner of the Account Instance.</li>
+  <li>If the Account Instance is deployed, but unclaimed, the registry signer should generate the signature using a composite hash of the original message and address of the Account Instance described <a href="#isvalidsignature">above</a>, and <code class="language-plaintext highlighter-rouge">isValidSignature</code> SHOULD forward the message hash and signature to the Account Registry Instance’s <code class="language-plaintext highlighter-rouge">isValidSignature</code> function.</li>
+  <li>If the Account Instance is not deployed, the registry signer should generate a signature on the composite hash as done in situation 2, and wrap the signature according to <a href="./eip-6492.md#signer-side">ERC-6492</a> (e.g. <code class="language-plaintext highlighter-rouge">concat(abi.encode((registryAddress, createAccountCalldata, compositeHashSignature), (address, bytes, bytes)), magicBytes)</code>).</li>
+</ol>
+
+<p>Signature validation for Account Instances should be done according to <a href="./eip-6492.md#verifier-side">ERC-6492</a>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="service-owned-registry-instances">Service-Owned Registry Instances</h3>
+
+<p>While it might seem more user-friendly to implement and deploy a universal registry for reserved ownership accounts, we believe that it is important for external service providers to have the option to own and control their own Account Registry.  This provides the flexibility of implementing their own permission controls and account deployment authorization frameworks.</p>
+
+<p>We are providing a reference Registry Factory which can deploy Account Registries for an external service, which comes with:</p>
+
+<ul>
+  <li>Immutable Account Instance implementation</li>
+  <li>Validation for the <code class="language-plaintext highlighter-rouge">claimAccount</code> method via ECDSA for EOA signers, or <a href="./eip-1271.md">ERC-1271</a> validation for smart contract signers</li>
+  <li>Ability for the Account Registry deployer to change the signing addressed used for <code class="language-plaintext highlighter-rouge">claimAccount</code> validation</li>
+</ul>
+
+<h3 id="account-registry-and-account-implementation-coupling">Account Registry and Account Implementation Coupling</h3>
+
+<p>Since Account Instances are deployed as <a href="./eip-1167.md">ERC-1167</a> proxies, the account implementation address affects the addresses of accounts deployed from a given Account Registry. Requiring that registry instances be linked to a single, immutable account implementation ensures consistency between a user’s salt and linked address on a given Account Registry Instance.</p>
+
+<p>This also allows services to gain the the trust of users by deploying their registries with a reference to a trusted account implementation address.</p>
+
+<p>Furthermore, account implementations can be designed as upgradeable, so users are not necessarily bound to the implementation specified by the Account Registry Instance used to create their account.</p>
+
+<h3 id="separate-createaccount-and-claimaccount-operations">Separate <code class="language-plaintext highlighter-rouge">createAccount</code> and <code class="language-plaintext highlighter-rouge">claimAccount</code> Operations</h3>
+
+<p>Operations to create and claim Account Instances are intentionally separate. This allows services to provide users with valid <a href="./eip-6492.md">ERC-6492</a> signatures before their Account Instance has been deployed.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The following is an example of an Account Registry Factory which can be used by external service providers to deploy their own Account Registry Instance.</p>
+
+<h3 id="account-registry-factory">Account Registry Factory</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">13</span><span class="p">;</span>
+
+<span class="c1">/// @author: manifold.xyz
+</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">Create2</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/utils/Create2.sol"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span><span class="n">Address</span><span class="p">}</span> <span class="n">from</span> <span class="s">"../../lib/Address.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">ERC1167ProxyBytecode</span><span class="p">}</span> <span class="n">from</span> <span class="s">"../../lib/ERC1167ProxyBytecode.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">IAccountRegistryFactory</span><span class="p">}</span> <span class="n">from</span> <span class="s">"./IAccountRegistryFactory.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">AccountRegistryFactory</span> <span class="k">is</span> <span class="n">IAccountRegistryFactory</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">Address</span> <span class="k">for</span> <span class="kt">address</span><span class="p">;</span>
+
+    <span class="n">error</span> <span class="n">InitializationFailed</span><span class="p">();</span>
+
+    <span class="kt">address</span> <span class="k">private</span> <span class="kr">immutable</span> <span class="n">registryImplementation</span> <span class="o">=</span> <span class="mh">0x076B08EDE2B28fab0c1886F029cD6d02C8fF0E94</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">createRegistry</span><span class="p">(</span>
+        <span class="kt">uint96</span> <span class="n">index</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">accountImplementation</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">accountInitData</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span> <span class="o">=</span> <span class="n">_getSalt</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">code</span> <span class="o">=</span> <span class="n">ERC1167ProxyBytecode</span><span class="p">.</span><span class="n">createCode</span><span class="p">(</span><span class="n">registryImplementation</span><span class="p">);</span>
+        <span class="kt">address</span> <span class="n">_registry</span> <span class="o">=</span> <span class="n">Create2</span><span class="p">.</span><span class="n">computeAddress</span><span class="p">(</span><span class="n">salt</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">code</span><span class="p">));</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">_registry</span><span class="p">.</span><span class="n">isDeployed</span><span class="p">())</span> <span class="k">return</span> <span class="n">_registry</span><span class="p">;</span>
+
+        <span class="n">_registry</span> <span class="o">=</span> <span class="n">Create2</span><span class="p">.</span><span class="n">deploy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">code</span><span class="p">);</span>
+
+        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_registry</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodeWithSignature</span><span class="p">(</span>
+                <span class="s">"initialize(address,address,bytes)"</span><span class="p">,</span>
+                <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span>
+                <span class="n">accountImplementation</span><span class="p">,</span>
+                <span class="n">accountInitData</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">InitializationFailed</span><span class="p">();</span>
+
+        <span class="k">emit</span> <span class="n">AccountRegistryCreated</span><span class="p">(</span><span class="n">_registry</span><span class="p">,</span> <span class="n">accountImplementation</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">_registry</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">registry</span><span class="p">(</span><span class="kt">address</span> <span class="n">deployer</span><span class="p">,</span> <span class="kt">uint96</span> <span class="n">index</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span> <span class="o">=</span> <span class="n">_getSalt</span><span class="p">(</span><span class="n">deployer</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">code</span> <span class="o">=</span> <span class="n">ERC1167ProxyBytecode</span><span class="p">.</span><span class="n">createCode</span><span class="p">(</span><span class="n">registryImplementation</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Create2</span><span class="p">.</span><span class="n">computeAddress</span><span class="p">(</span><span class="n">salt</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">code</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_getSalt</span><span class="p">(</span><span class="kt">address</span> <span class="n">deployer</span><span class="p">,</span> <span class="kt">uint96</span> <span class="n">index</span><span class="p">)</span> <span class="k">private</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kt">bytes32</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">deployer</span><span class="p">,</span> <span class="n">index</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="account-registry-1">Account Registry</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">13</span><span class="p">;</span>
+
+<span class="c1">/// @author: manifold.xyz
+</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">Create2</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/utils/Create2.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">ECDSA</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/utils/cryptography/ECDSA.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">Ownable</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/access/Ownable.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">Initializable</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/proxy/utils/Initializable.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">IERC1271</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/interfaces/IERC1271.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">SignatureChecker</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/utils/cryptography/SignatureChecker.sol"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span><span class="n">Address</span><span class="p">}</span> <span class="n">from</span> <span class="s">"../../lib/Address.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">IAccountRegistry</span><span class="p">}</span> <span class="n">from</span> <span class="s">"../../interfaces/IAccountRegistry.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">ERC1167ProxyBytecode</span><span class="p">}</span> <span class="n">from</span> <span class="s">"../../lib/ERC1167ProxyBytecode.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">AccountRegistryImplementation</span> <span class="k">is</span> <span class="n">Ownable</span><span class="p">,</span> <span class="n">Initializable</span><span class="p">,</span> <span class="n">IAccountRegistry</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">Address</span> <span class="k">for</span> <span class="kt">address</span><span class="p">;</span>
+    <span class="k">using</span> <span class="n">ECDSA</span> <span class="k">for</span> <span class="kt">bytes32</span><span class="p">;</span>
+
+    <span class="k">struct</span> <span class="n">Signer</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">account</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="n">isContract</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">error</span> <span class="n">InitializationFailed</span><span class="p">();</span>
+    <span class="n">error</span> <span class="n">ClaimFailed</span><span class="p">();</span>
+    <span class="n">error</span> <span class="n">Unauthorized</span><span class="p">();</span>
+
+    <span class="kt">address</span> <span class="k">public</span> <span class="n">accountImplementation</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="k">public</span> <span class="n">accountInitData</span><span class="p">;</span>
+    <span class="n">Signer</span> <span class="k">public</span> <span class="n">signer</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">_disableInitializers</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">initialize</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">accountImplementation_</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">accountInitData_</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="n">initializer</span> <span class="p">{</span>
+        <span class="n">_transferOwnership</span><span class="p">(</span><span class="n">owner</span><span class="p">);</span>
+        <span class="n">accountImplementation</span> <span class="o">=</span> <span class="n">accountImplementation_</span><span class="p">;</span>
+        <span class="n">accountInitData</span> <span class="o">=</span> <span class="n">accountInitData_</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev See {IAccountRegistry-createAccount}
+     */</span>
+    <span class="k">function</span> <span class="n">createAccount</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">salt</span><span class="p">)</span> <span class="k">external</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">code</span> <span class="o">=</span> <span class="n">ERC1167ProxyBytecode</span><span class="p">.</span><span class="n">createCode</span><span class="p">(</span><span class="n">accountImplementation</span><span class="p">);</span>
+        <span class="kt">address</span> <span class="n">_account</span> <span class="o">=</span> <span class="n">Create2</span><span class="p">.</span><span class="n">computeAddress</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">(</span><span class="n">salt</span><span class="p">),</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">code</span><span class="p">));</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">_account</span><span class="p">.</span><span class="n">isDeployed</span><span class="p">())</span> <span class="k">return</span> <span class="n">_account</span><span class="p">;</span>
+
+        <span class="n">_account</span> <span class="o">=</span> <span class="n">Create2</span><span class="p">.</span><span class="n">deploy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">(</span><span class="n">salt</span><span class="p">),</span> <span class="n">code</span><span class="p">);</span>
+
+        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_account</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="n">accountInitData</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">InitializationFailed</span><span class="p">();</span>
+
+        <span class="k">emit</span> <span class="n">AccountCreated</span><span class="p">(</span><span class="n">_account</span><span class="p">,</span> <span class="n">accountImplementation</span><span class="p">,</span> <span class="n">salt</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">_account</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev See {IAccountRegistry-claimAccount}
+     */</span>
+    <span class="k">function</span> <span class="n">claimAccount</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">expiration</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">message</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">signature</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_verify</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">expiration</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">signature</span><span class="p">);</span>
+        <span class="kt">address</span> <span class="n">_account</span> <span class="o">=</span> <span class="nb">this</span><span class="p">.</span><span class="n">createAccount</span><span class="p">(</span><span class="n">salt</span><span class="p">);</span>
+
+        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_account</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodeWithSignature</span><span class="p">(</span><span class="s">"transferOwnership(address)"</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span>
+        <span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">ClaimFailed</span><span class="p">();</span>
+
+        <span class="k">emit</span> <span class="n">AccountClaimed</span><span class="p">(</span><span class="n">_account</span><span class="p">,</span> <span class="n">owner</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">_account</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev See {IAccountRegistry-account}
+     */</span>
+    <span class="k">function</span> <span class="n">account</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">salt</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">code</span> <span class="o">=</span> <span class="n">ERC1167ProxyBytecode</span><span class="p">.</span><span class="n">createCode</span><span class="p">(</span><span class="n">accountImplementation</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Create2</span><span class="p">.</span><span class="n">computeAddress</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">(</span><span class="n">salt</span><span class="p">),</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">code</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev See {IAccountRegistry-isValidSignature}
+     */</span>
+    <span class="k">function</span> <span class="n">isValidSignature</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">hash</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">expectedHash</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">hash</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">));</span>
+        <span class="kt">bool</span> <span class="n">isValid</span> <span class="o">=</span> <span class="n">SignatureChecker</span><span class="p">.</span><span class="n">isValidSignatureNow</span><span class="p">(</span>
+            <span class="n">signer</span><span class="p">.</span><span class="n">account</span><span class="p">,</span>
+            <span class="n">expectedHash</span><span class="p">,</span>
+            <span class="n">signature</span>
+        <span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isValid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IERC1271</span><span class="p">.</span><span class="n">isValidSignature</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="s">""</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">updateSigner</span><span class="p">(</span><span class="kt">address</span> <span class="n">newSigner</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+        <span class="kt">uint32</span> <span class="n">signerSize</span><span class="p">;</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">signerSize</span> <span class="o">:=</span> <span class="n">extcodesize</span><span class="p">(</span><span class="n">newSigner</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">signer</span><span class="p">.</span><span class="n">account</span> <span class="o">=</span> <span class="n">newSigner</span><span class="p">;</span>
+        <span class="n">signer</span><span class="p">.</span><span class="n">isContract</span> <span class="o">=</span> <span class="n">signerSize</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_verify</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">expiration</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">message</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">signature</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">signatureAccount</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">signer</span><span class="p">.</span><span class="n">isContract</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">SignatureChecker</span><span class="p">.</span><span class="n">isValidSignatureNow</span><span class="p">(</span><span class="n">signer</span><span class="p">.</span><span class="n">account</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">signature</span><span class="p">))</span>
+                <span class="nb">revert</span> <span class="n">Unauthorized</span><span class="p">();</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">signatureAccount</span> <span class="o">=</span> <span class="n">message</span><span class="p">.</span><span class="n">recover</span><span class="p">(</span><span class="n">signature</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kt">bytes32</span> <span class="n">expectedMessage</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="s">"</span><span class="se">\x19</span><span class="s">Ethereum Signed Message:</span><span class="se">\n</span><span class="s">84"</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">expiration</span><span class="p">)</span>
+        <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">message</span> <span class="o">!=</span> <span class="n">expectedMessage</span> <span class="o">||</span>
+            <span class="p">(</span><span class="o">!</span><span class="n">signer</span><span class="p">.</span><span class="n">isContract</span> <span class="o">&amp;&amp;</span> <span class="n">signatureAccount</span> <span class="o">!=</span> <span class="n">signer</span><span class="p">.</span><span class="n">account</span><span class="p">)</span> <span class="o">||</span>
+            <span class="p">(</span><span class="n">expiration</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">expiration</span> <span class="o">&lt;</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="p">)</span> <span class="nb">revert</span> <span class="n">Unauthorized</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="example-account-implementation">Example Account Implementation</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">13</span><span class="p">;</span>
+
+<span class="c1">/// @author: manifold.xyz
+</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">IERC1271</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/interfaces/IERC1271.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">SignatureChecker</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/utils/cryptography/SignatureChecker.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">IERC165</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/utils/introspection/IERC165.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">ERC165Checker</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/utils/introspection/ERC165Checker.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">IERC721</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/token/ERC721/IERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">IERC721Receiver</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/token/ERC721/IERC721Receiver.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">IERC1155Receiver</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/token/ERC1155/IERC1155Receiver.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">Initializable</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/proxy/utils/Initializable.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">Ownable</span><span class="p">}</span> <span class="n">from</span> <span class="s">"openzeppelin/access/Ownable.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="n">IERC1967Account</span><span class="p">}</span> <span class="n">from</span> <span class="s">"./IERC1967Account.sol"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span><span class="n">IAccount</span><span class="p">}</span> <span class="n">from</span> <span class="s">"../../interfaces/IAccount.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title ERC1967AccountImplementation
+ * @notice A lightweight, upgradeable smart contract wallet implementation
+ */</span>
+<span class="k">contract</span> <span class="n">ERC1967AccountImplementation</span> <span class="k">is</span>
+    <span class="n">IAccount</span><span class="p">,</span>
+    <span class="n">IERC165</span><span class="p">,</span>
+    <span class="n">IERC721Receiver</span><span class="p">,</span>
+    <span class="n">IERC1155Receiver</span><span class="p">,</span>
+    <span class="n">IERC1967Account</span><span class="p">,</span>
+    <span class="n">Initializable</span><span class="p">,</span>
+    <span class="n">Ownable</span>
+<span class="p">{</span>
+    <span class="kt">address</span> <span class="k">public</span> <span class="n">registry</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">_disableInitializers</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">initialize</span><span class="p">()</span> <span class="k">external</span> <span class="n">initializer</span> <span class="p">{</span>
+        <span class="n">registry</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+        <span class="n">_transferOwnership</span><span class="p">(</span><span class="n">registry</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IAccount</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span>
+            <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC1967Account</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span>
+            <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC1155Receiver</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span>
+            <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC721Receiver</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span>
+            <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC165</span><span class="p">).</span><span class="n">interfaceId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">onERC721Received</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">this</span><span class="p">.</span><span class="n">onERC721Received</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">onERC1155Received</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">this</span><span class="p">.</span><span class="n">onERC1155Received</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">onERC1155BatchReceived</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">this</span><span class="p">.</span><span class="n">onERC1155BatchReceived</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev {See IERC1967Account-executeCall}
+     */</span>
+    <span class="k">function</span> <span class="n">executeCall</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_target</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_value</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_data</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">override</span> <span class="n">onlyOwner</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bool</span> <span class="n">success</span><span class="p">;</span>
+        <span class="c1">// solhint-disable-next-line avoid-low-level-calls
+</span>        <span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">_result</span><span class="p">)</span> <span class="o">=</span> <span class="n">_target</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">_value</span><span class="p">}(</span><span class="n">_data</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="kt">string</span><span class="p">(</span><span class="n">_result</span><span class="p">));</span>
+        <span class="k">emit</span> <span class="n">TransactionExecuted</span><span class="p">(</span><span class="n">_target</span><span class="p">,</span> <span class="n">_value</span><span class="p">,</span> <span class="n">_data</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">_result</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev {See IAccount-setOwner}
+     */</span>
+    <span class="k">function</span> <span class="n">setOwner</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">)</span> <span class="k">external</span> <span class="k">override</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+        <span class="n">_transferOwnership</span><span class="p">(</span><span class="n">_owner</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+
+    <span class="k">function</span> <span class="n">isValidSignature</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">hash</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">owner</span><span class="p">()</span> <span class="o">==</span> <span class="n">registry</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IERC1271</span><span class="p">(</span><span class="n">registry</span><span class="p">).</span><span class="n">isValidSignature</span><span class="p">(</span><span class="n">hash</span><span class="p">,</span> <span class="n">signature</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kt">bool</span> <span class="n">isValid</span> <span class="o">=</span> <span class="n">SignatureChecker</span><span class="p">.</span><span class="n">isValidSignatureNow</span><span class="p">(</span><span class="n">owner</span><span class="p">(),</span> <span class="n">hash</span><span class="p">,</span> <span class="n">signature</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isValid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IERC1271</span><span class="p">.</span><span class="n">isValidSignature</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="s">""</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="front-running">Front-running</h3>
+
+<p>Deployment of reserved ownership accounts through an Account Registry Instance through calls to <code class="language-plaintext highlighter-rouge">createAccount</code> could be front-run by a malicious actor. However, if the malicious actor attempted to alter the <code class="language-plaintext highlighter-rouge">owner</code> parameter in the calldata, the Account Registry Instance would find the signature to be invalid, and revert the transaction. Thus, any successful front-running transaction would deploy an identical Account Instance to the original transaction, and the original owner would still gain control over the address.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

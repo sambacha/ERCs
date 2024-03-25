@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Generic Token Upgrade Standard | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Generic Token Upgrade Standard | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4931" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4931" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Generic Token Upgrade Standard</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The following standard allows for the implementation of a standard API for <a href="./eip-20.md">ERC-20</a> token upgrades. This standard specifies an interface that supports the conversion of tokens from one contract (called the “source token”) to those from another (called the “destination token”), as well as several helper methods to provide basic information about the token upgrade (i.e. the address of the source and destination token contracts, the ratio that source will be upgraded to destination, etc.).</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Token contract upgrades typically require each asset holder to exchange their old tokens for new ones using a bespoke interface provided by the developers. This standard interface will allow asset holders as well as centralized and decentralized exchanges to conduct token upgrades more efficiently since token contract upgrade scripts will be essentially reusable. Standardization will reduce the security overhead involved in verifying the functionality of the upgrade contracts. It will also provide asset issuers clear guidance on how to effectively implement a token upgrade.</p>
+
+<h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Please Note: Methods marked with (Optional Ext.) are a part of the optional extension for downgrade functionality and may remain unimplemented if downgrade functionality is not required.</p>
+<h3 id="token-upgrade-interface-contract">Token Upgrade Interface Contract</h3>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IEIP4931</span> <span class="p">{</span>
+</code></pre></div></div>
+<h4 id="methods">Methods</h4>
+
+<h5 id="upgradesource">upgradeSource</h5>
+
+<p>Returns the address of the original (source) token that will be upgraded.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev A getter to determine the contract that is being upgraded from ("source contract")
+/// @return The address of the source token contract
+</span><span class="k">function</span> <span class="n">upgradeSource</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h5 id="upgradedestination">upgradeDestination</h5>
+
+<p>Returns the address of the token contract that is being upgraded to.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev A getter to determine the contract that is being upgraded to ("destination contract")
+/// @return The address of the destination token contract
+</span><span class="k">function</span> <span class="n">upgradeDestination</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h5 id="isupgradeactive">isUpgradeActive</h5>
+
+<p>Returns the current status of the upgrade functionality. Status MUST return <code class="language-plaintext highlighter-rouge">true</code> when the upgrade contract is functional and serving upgrades. It MUST return <code class="language-plaintext highlighter-rouge">false</code> when the upgrade contract is not currently serving upgrades.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev The method will return true when the contract is serving upgrades and otherwise false
+/// @return The status of the upgrade as a boolean
+</span><span class="k">function</span> <span class="n">isUpgradeActive</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+<h5 id="isdowngradeactive">isDowngradeActive</h5>
+
+<p>Returns the current status of the downgrade functionality. Status MUST return <code class="language-plaintext highlighter-rouge">true</code> when the upgrade contract is functional and serving downgrades. It MUST return <code class="language-plaintext highlighter-rouge">false</code> when the upgrade contract is not currently serving downgrades. When the downgrade Optional Ext. is not implemented, this method will always return <code class="language-plaintext highlighter-rouge">false</code> to signify downgrades are not available.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev The method will return true when the contract is serving downgrades and otherwise false
+/// @return The status of the downgrade as a boolean
+</span><span class="k">function</span> <span class="n">isDowngradeActive</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+<h5 id="ratio">ratio</h5>
+
+<p>Returns the ratio of destination token to source token, expressed as a 2-tuple, that the upgrade will use. E.g. <code class="language-plaintext highlighter-rouge">(3, 1)</code> means the upgrade will provide 3 destination tokens for every 1 source token being upgraded.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev A getter for the ratio of destination tokens to source tokens received when conducting an upgrade
+/// @return Two uint256, the first represents the numerator while the second represents
+/// the denominator of the ratio of destination tokens to source tokens allotted during the upgrade
+</span><span class="k">function</span> <span class="n">ratio</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h5 id="totalupgraded">totalUpgraded</h5>
+
+<p>Returns the total number of tokens that have been upgraded from source to destination. If the downgrade Optional Ext. is implemented, calls to <code class="language-plaintext highlighter-rouge">downgrade</code> will reduce the <code class="language-plaintext highlighter-rouge">totalUpgraded</code> return value making it possible for the value to decrease between calls. The return value will be strictly increasing if downgrades are not implemented.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev A getter for the total amount of source tokens that have been upgraded to destination tokens.
+/// The value may not be strictly increasing if the downgrade Optional Ext. is implemented.
+/// @return The number of source tokens that have been upgraded to destination tokens
+</span><span class="k">function</span> <span class="n">totalUpgraded</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span>
+</code></pre></div></div>
+<h5 id="computeupgrade">computeUpgrade</h5>
+
+<p>Computes the <code class="language-plaintext highlighter-rouge">destinationAmount</code> of destination tokens that correspond to a given <code class="language-plaintext highlighter-rouge">sourceAmount</code> of source tokens, according to the predefined conversion ratio, as well as the <code class="language-plaintext highlighter-rouge">sourceRemainder</code> amount of source tokens that can’t be upgraded. For example, let’s consider a (3, 2) ratio, which means that 3 destination tokens are provided for every 2 source tokens; then, for a source amount of 5 tokens, <code class="language-plaintext highlighter-rouge">computeUpgrade(5)</code> must return <code class="language-plaintext highlighter-rouge">(6, 1)</code>, meaning that 6 destination tokens are expected (in this case, from 4 source tokens) and 1 source token is left as remainder.</p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev A method to mock the upgrade call determining the amount of destination tokens received from an upgrade
+/// as well as the amount of source tokens that are left over as remainder
+/// @param sourceAmount The amount of source tokens that will be upgraded
+/// @return destinationAmount A uint256 representing the amount of destination tokens received if upgrade is called
+/// @return sourceRemainder A uint256 representing the amount of source tokens left over as remainder if upgrade is called
+</span><span class="k">function</span> <span class="n">computeUpgrade</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">sourceAmount</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">destinationAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">sourceRemainder</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h5 id="computedowngrade-optional-ext">computeDowngrade (Optional Ext.)</h5>
+
+<p>Computes the <code class="language-plaintext highlighter-rouge">sourceAmount</code> of source tokens that correspond to a given <code class="language-plaintext highlighter-rouge">destinationAmount</code> of destination tokens, according to the predefined conversion ratio, as well as the <code class="language-plaintext highlighter-rouge">destinationRemainder</code> amount of destination tokens that can’t be downgraded. For example, let’s consider a (3, 2) ratio, which means that 3 destination tokens are provided for every 2 source tokens; for a destination amount of 13 tokens, <code class="language-plaintext highlighter-rouge">computeDowngrade(13)</code> must return <code class="language-plaintext highlighter-rouge">(4, 1)</code>, meaning that 4 source tokens are expected (in this case, from 12 destination tokens) and 1 destination token is left as remainder.</p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev A method to mock the downgrade call determining the amount of source tokens received from a downgrade
+/// as well as the amount of destination tokens that are left over as remainder
+/// @param destinationAmount The amount of destination tokens that will be downgraded
+/// @return sourceAmount A uint256 representing the amount of source tokens received if downgrade is called
+/// @return destinationRemainder A uint256 representing the amount of destination tokens left over as remainder if upgrade is called
+</span><span class="k">function</span> <span class="n">computeDowngrade</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">destinationAmount</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">sourceAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">destinationRemainder</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h5 id="upgrade">upgrade</h5>
+
+<p>Upgrades the <code class="language-plaintext highlighter-rouge">amount</code> of source token to the destination token in the specified ratio. The destination tokens will be sent to the <code class="language-plaintext highlighter-rouge">_to</code> address. The function MUST lock the source tokens in the upgrade contract or burn them. If the downgrade Optional Ext. is implemented, the source tokens MUST be locked instead of burning. The function MUST <code class="language-plaintext highlighter-rouge">throw</code> if the caller’s address does not have enough source token to upgrade or if <code class="language-plaintext highlighter-rouge">isUpgradeActive</code> is returning <code class="language-plaintext highlighter-rouge">false</code>. The function MUST also fire the <code class="language-plaintext highlighter-rouge">Upgrade</code> event. <code class="language-plaintext highlighter-rouge">approve</code> MUST be called first on the source contract.</p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev A method to conduct an upgrade from source token to destination token.
+/// The call will fail if upgrade status is not true, if approve has not been called
+/// on the source contract, or if sourceAmount is larger than the amount of source tokens at the msg.sender address.
+/// If the ratio would cause an amount of tokens to be destroyed by rounding/truncation, the upgrade call will
+/// only upgrade the nearest whole amount of source tokens returning the excess to the msg.sender address. 
+/// Emits the Upgrade event
+/// @param _to The address the destination tokens will be sent to upon completion of the upgrade
+/// @param sourceAmount The amount of source tokens that will be upgraded 
+</span><span class="k">function</span> <span class="n">upgrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">sourceAmount</span><span class="p">)</span> <span class="k">external</span>
+</code></pre></div></div>
+
+<h5 id="downgrade-optional-ext">downgrade (Optional Ext.)</h5>
+<p>Downgrades the <code class="language-plaintext highlighter-rouge">amount</code> of destination token to the source token in the specified ratio. The source tokens will be sent to the <code class="language-plaintext highlighter-rouge">_to</code> address. The function MUST unwrap the destination tokens back to the source tokens. The function MUST <code class="language-plaintext highlighter-rouge">throw</code> if the caller’s address does not have enough destination token to downgrade or if <code class="language-plaintext highlighter-rouge">isDowngradeActive</code> is returning <code class="language-plaintext highlighter-rouge">false</code>. The function MUST also fire the <code class="language-plaintext highlighter-rouge">Downgrade</code> event. <code class="language-plaintext highlighter-rouge">approve</code> MUST be called first on the destination contract.</p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev A method to conduct a downgrade from destination token to source token.
+/// The call will fail if downgrade status is not true, if approve has not been called
+/// on the destination contract, or if destinationAmount is larger than the amount of destination tokens at the msg.sender address.
+/// If the ratio would cause an amount of tokens to be destroyed by rounding/truncation, the downgrade call will only downgrade
+/// the nearest whole amount of destination tokens returning the excess to the msg.sender address. 
+///  Emits the Downgrade event
+/// @param _to The address the source tokens will be sent to upon completion of the downgrade
+/// @param destinationAmount The amount of destination tokens that will be downgraded 
+</span><span class="k">function</span> <span class="n">downgrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">destinationAmount</span><span class="p">)</span> <span class="k">external</span>
+</code></pre></div></div>
+
+<h4 id="events">Events</h4>
+
+<h5 id="upgrade-1">Upgrade</h5>
+
+<p>MUST trigger when tokens are upgraded.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @param _from Address that called upgrade
+/// @param _to Address that destination tokens were sent to upon completion of the upgrade
+/// @param sourceAmount Amount of source tokens that were upgraded
+/// @param destinationAmount Amount of destination tokens sent to the _to address
+</span><span class="k">event</span> <span class="n">Upgrade</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">sourceAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">destinationAmount</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h5 id="downgrade-optional-ext-1">Downgrade (Optional Ext.)</h5>
+
+<p>MUST trigger when tokens are downgraded.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @param _from Address that called downgrade
+/// @param _to Address that source tokens were sent to upon completion of the downgrade
+/// @param sourceAmount Amount of source tokens sent to the _to address
+/// @param destinationAmount Amount of destination tokens that were downgraded
+</span><span class="k">event</span> <span class="n">Downgrade</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">sourceAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">destinationAmount</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+<p>There have been several notable ERC20 upgrades (Ex. Golem: GNT -&gt; GLM) where the upgrade functionality is written directly into the token contracts. We view this as a suboptimal approach to upgrades since it tightly couples the upgrade with the existing tokens. This EIP promotes the use of a third contract to facilitate the token upgrade to decouple the functionality of the upgrade from the functionality of the token contracts. Standardizing the upgrade functionality will allow asset holders and exchanges to write simplified reusable scripts to conduct upgrades which will reduce the overhead of conducting upgrades in the future. The interface aims to be intentionally broad leaving much of the specifics of the upgrade to the implementer, so that the token contract implementations do not interfere with the upgrade process. Finally, we hope to create a greater sense of security and validity for token upgrades by enforcing strict means of disposing of the source tokens during the upgrade. This is achieved by the specification of the  <code class="language-plaintext highlighter-rouge">upgrade</code> method. The agreed upon norm is that burnable tokens shall be burned. Otherwise, tokens shall be effectively burned by being sent to the <code class="language-plaintext highlighter-rouge">0x00</code> address. When downgrade Optional Ext. is implemented, the default is instead to lock source tokens in the upgrade contract to avoid a series of consecutive calls to <code class="language-plaintext highlighter-rouge">upgrade</code> and <code class="language-plaintext highlighter-rouge">downgrade</code> from artificially inflating the supply of either token (source or destination).</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>There are no breaking backwards compatibility issues. There are previously implemented token upgrades that likely do not adhere to this standard. In these cases, it may be relevant for the asset issuers to communicate that their upgrade is not EIP-4931 compliant.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//SPDX-License-Identifier: Apache-2.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/IERC20.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IEIP4931.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">SourceUpgrade</span> <span class="k">is</span>  <span class="n">IEIP4931</span> <span class="p">{</span>
+	<span class="k">using</span> <span class="n">SafeERC20</span>  <span class="k">for</span> <span class="n">IERC20</span><span class="p">;</span>
+
+	<span class="kt">uint256</span> <span class="k">constant</span> <span class="n">RATIO_SCALE</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">18</span><span class="p">;</span>
+    
+	<span class="n">IERC20</span> <span class="k">private</span> <span class="n">source</span><span class="p">;</span>
+	<span class="n">IERC20</span> <span class="k">private</span> <span class="n">destination</span><span class="p">;</span>
+	<span class="kt">bool</span> <span class="k">private</span> <span class="n">upgradeStatus</span><span class="p">;</span>
+	<span class="kt">bool</span> <span class="k">private</span> <span class="n">downgradeStatus</span><span class="p">;</span>
+	<span class="kt">uint256</span> <span class="k">private</span> <span class="n">numeratorRatio</span><span class="p">;</span>
+	<span class="kt">uint256</span> <span class="k">private</span> <span class="n">denominatorRatio</span><span class="p">;</span>
+	<span class="kt">uint256</span> <span class="k">private</span> <span class="n">sourceUpgradedTotal</span><span class="p">;</span>
+
+	<span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">upgradedBalance</span><span class="p">;</span>
+
+	<span class="k">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_source</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_destination</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_upgradeStatus</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_downgradeStatus</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_numeratorRatio</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_denominatorRatio</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">_source</span> <span class="o">!=</span> <span class="n">_destination</span><span class="p">,</span> <span class="s">"SourceUpgrade: source and destination addresses are the same"</span><span class="p">);</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">_source</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"SourceUpgrade: source address cannot be zero address"</span><span class="p">);</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">_destination</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"SourceUpgrade: destination address cannot be zero address"</span><span class="p">);</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">_numeratorRatio</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"SourceUpgrade: numerator of ratio cannot be zero"</span><span class="p">);</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">_denominatorRatio</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"SourceUpgrade: denominator of ratio cannot be zero"</span><span class="p">);</span>
+
+		<span class="n">source</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">_source</span><span class="p">);</span>
+		<span class="n">destination</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">_destination</span><span class="p">);</span>
+		<span class="n">upgradeStatus</span> <span class="o">=</span> <span class="n">_upgradeStatus</span><span class="p">;</span>
+		<span class="n">downgradeStatus</span> <span class="o">=</span> <span class="n">_downgradeStatus</span><span class="p">;</span>
+		<span class="n">numeratorRatio</span> <span class="o">=</span> <span class="n">_numeratorRatio</span><span class="p">;</span>
+		<span class="n">denominatorRatio</span> <span class="o">=</span> <span class="n">_denominatorRatio</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev A getter to determine the contract that is being upgraded from ("source contract")
+</span>	<span class="c1">/// @return The address of the source token contract
+</span>	<span class="k">function</span> <span class="n">upgradeSource</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev A getter to determine the contract that is being upgraded to ("destination contract")
+</span>	<span class="c1">/// @return The address of the destination token contract
+</span>	<span class="k">function</span> <span class="n">upgradeDestination</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="n">destination</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev The method will return true when the contract is serving upgrades and otherwise false
+</span>	<span class="c1">/// @return The status of the upgrade as a boolean
+</span>	<span class="k">function</span> <span class="n">isUpgradeActive</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">upgradeStatus</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev The method will return true when the contract is serving downgrades and otherwise false
+</span>	<span class="c1">/// @return The status of the downgrade as a boolean
+</span>	<span class="k">function</span> <span class="n">isDowngradeActive</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">downgradeStatus</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev A getter for the ratio of destination tokens to source tokens received when conducting an upgrade
+</span>	<span class="c1">/// @return Two uint256, the first represents the numerator while the second represents
+</span>	<span class="c1">/// the denominator of the ratio of destination tokens to source tokens allotted during the upgrade
+</span>	<span class="k">function</span> <span class="n">ratio</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="p">(</span><span class="n">numeratorRatio</span><span class="p">,</span> <span class="n">denominatorRatio</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev A getter for the total amount of source tokens that have been upgraded to destination tokens.
+</span>	<span class="c1">/// The value may not be strictly increasing if the downgrade Optional Ext. is implemented.
+</span>	<span class="c1">/// @return The number of source tokens that have been upgraded to destination tokens
+</span>	<span class="k">function</span> <span class="n">totalUpgraded</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">sourceUpgradedTotal</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev A method to mock the upgrade call determining the amount of destination tokens received from an upgrade
+</span>	<span class="c1">/// as well as the amount of source tokens that are left over as remainder
+</span>	<span class="c1">/// @param sourceAmount The amount of source tokens that will be upgraded
+</span>	<span class="c1">/// @return destinationAmount A uint256 representing the amount of destination tokens received if upgrade is called
+</span>	<span class="c1">/// @return sourceRemainder A uint256 representing the amount of source tokens left over as remainder if upgrade is called
+</span>	<span class="k">function</span> <span class="n">computeUpgrade</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">sourceAmount</span><span class="p">)</span>
+		<span class="k">public</span>
+		<span class="k">view</span>
+		<span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">destinationAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">sourceRemainder</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">sourceRemainder</span> <span class="o">=</span> <span class="n">sourceAmount</span> <span class="o">%</span> <span class="p">(</span><span class="n">numeratorRatio</span> <span class="o">/</span> <span class="n">denominatorRatio</span><span class="p">);</span>
+		<span class="kt">uint256</span> <span class="n">upgradeableAmount</span> <span class="o">=</span> <span class="n">sourceAmount</span> <span class="o">-</span> <span class="p">(</span><span class="n">sourceRemainder</span> <span class="o">*</span> <span class="n">RATIO_SCALE</span><span class="p">);</span>
+		<span class="n">destinationAmount</span> <span class="o">=</span> <span class="n">upgradeableAmount</span> <span class="o">*</span> <span class="p">(</span><span class="n">numeratorRatio</span> <span class="o">/</span> <span class="n">denominatorRatio</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev A method to mock the downgrade call determining the amount of source tokens received from a downgrade
+</span>	<span class="c1">/// as well as the amount of destination tokens that are left over as remainder
+</span>	<span class="c1">/// @param destinationAmount The amount of destination tokens that will be downgraded
+</span>	<span class="c1">/// @return sourceAmount A uint256 representing the amount of source tokens received if downgrade is called
+</span>	<span class="c1">/// @return destinationRemainder A uint256 representing the amount of destination tokens left over as remainder if upgrade is called
+</span>	<span class="k">function</span> <span class="n">computeDowngrade</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">destinationAmount</span><span class="p">)</span>
+		<span class="k">public</span>
+		<span class="k">view</span>
+		<span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">sourceAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">destinationRemainder</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">destinationRemainder</span> <span class="o">=</span> <span class="n">destinationAmount</span> <span class="o">%</span> <span class="p">(</span><span class="n">denominatorRatio</span> <span class="o">/</span> <span class="n">numeratorRatio</span><span class="p">);</span>
+		<span class="kt">uint256</span> <span class="n">upgradeableAmount</span> <span class="o">=</span> <span class="n">destinationAmount</span> <span class="o">-</span> <span class="p">(</span><span class="n">destinationRemainder</span> <span class="o">*</span> <span class="n">RATIO_SCALE</span><span class="p">);</span>
+		<span class="n">sourceAmount</span> <span class="o">=</span> <span class="n">upgradeableAmount</span> <span class="o">/</span> <span class="p">(</span><span class="n">denominatorRatio</span> <span class="o">/</span> <span class="n">numeratorRatio</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev A method to conduct an upgrade from source token to destination token.
+</span>	<span class="c1">/// The call will fail if upgrade status is not true, if approve has not been called
+</span>	<span class="c1">/// on the source contract, or if sourceAmount is larger than the amount of source tokens at the msg.sender address.
+</span>	<span class="c1">/// If the ratio would cause an amount of tokens to be destroyed by rounding/truncation, the upgrade call will
+</span>	<span class="c1">/// only upgrade the nearest whole amount of source tokens returning the excess to the msg.sender address.
+</span>	<span class="c1">/// Emits the Upgrade event
+</span>	<span class="c1">/// @param _to The address the destination tokens will be sent to upon completion of the upgrade
+</span>	<span class="c1">/// @param sourceAmount The amount of source tokens that will be upgraded
+</span>	<span class="k">function</span> <span class="n">upgrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">sourceAmount</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">upgradeStatus</span> <span class="o">==</span> <span class="nb">true</span><span class="p">,</span> <span class="s">"SourceUpgrade: upgrade status is not active"</span><span class="p">);</span>
+		<span class="p">(</span><span class="kt">uint256</span> <span class="n">destinationAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">sourceRemainder</span><span class="p">)</span> <span class="o">=</span> <span class="n">computeUpgrade</span><span class="p">(</span><span class="n">sourceAmount</span><span class="p">);</span>
+		<span class="n">sourceAmount</span> <span class="o">-=</span> <span class="n">sourceRemainder</span><span class="p">;</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">sourceAmount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"SourceUpgrade: disallow conversions of zero value"</span><span class="p">);</span>
+
+		<span class="n">upgradedBalance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sourceAmount</span><span class="p">;</span>
+		<span class="n">source</span><span class="p">.</span><span class="n">safeTransferFrom</span><span class="p">(</span>
+			<span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span>
+			<span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+			<span class="n">sourceAmount</span>
+			<span class="p">);</span>
+		<span class="n">destination</span><span class="p">.</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">destinationAmount</span><span class="p">);</span>
+		<span class="n">sourceUpgradedTotal</span> <span class="o">+=</span> <span class="n">sourceAmount</span><span class="p">;</span>
+		<span class="k">emit</span> <span class="n">Upgrade</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">sourceAmount</span><span class="p">,</span> <span class="n">destinationAmount</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">/// @dev A method to conduct a downgrade from destination token to source token.
+</span>	<span class="c1">/// The call will fail if downgrade status is not true, if approve has not been called
+</span>	<span class="c1">/// on the destination contract, or if destinationAmount is larger than the amount of destination tokens at the msg.sender address.
+</span>	<span class="c1">/// If the ratio would cause an amount of tokens to be destroyed by rounding/truncation, the downgrade call will only downgrade
+</span>	<span class="c1">/// the nearest whole amount of destination tokens returning the excess to the msg.sender address.
+</span>	<span class="c1">///  Emits the Downgrade event
+</span>	<span class="c1">/// @param _to The address the source tokens will be sent to upon completion of the downgrade
+</span>	<span class="c1">/// @param destinationAmount The amount of destination tokens that will be downgraded
+</span>	<span class="k">function</span> <span class="n">downgrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">destinationAmount</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">upgradeStatus</span> <span class="o">==</span> <span class="nb">true</span><span class="p">,</span> <span class="s">"SourceUpgrade: upgrade status is not active"</span><span class="p">);</span>
+		<span class="p">(</span><span class="kt">uint256</span> <span class="n">sourceAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">destinationRemainder</span><span class="p">)</span> <span class="o">=</span> <span class="n">computeDowngrade</span><span class="p">(</span><span class="n">destinationAmount</span><span class="p">);</span>
+		<span class="n">destinationAmount</span> <span class="o">-=</span> <span class="n">destinationRemainder</span><span class="p">;</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">destinationAmount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"SourceUpgrade: disallow conversions of zero value"</span><span class="p">);</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">upgradedBalance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">sourceAmount</span><span class="p">,</span>
+			<span class="s">"SourceUpgrade: can not downgrade more than previously upgraded"</span>
+			<span class="p">);</span>
+
+		<span class="n">upgradedBalance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sourceAmount</span><span class="p">;</span>
+		<span class="n">destination</span><span class="p">.</span><span class="n">safeTransferFrom</span><span class="p">(</span>
+			<span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span>
+			<span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+			<span class="n">destinationAmount</span>
+			<span class="p">);</span>
+		<span class="n">source</span><span class="p">.</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">sourceAmount</span><span class="p">);</span>
+		<span class="n">sourceUpgradedTotal</span> <span class="o">-=</span> <span class="n">sourceAmount</span><span class="p">;</span>
+		<span class="k">emit</span> <span class="n">Downgrade</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">sourceAmount</span><span class="p">,</span> <span class="n">destinationAmount</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+<p>The main security consideration is ensuring the implementation of the interface handles the source tokens during the upgrade in such a way that they are no longer accessible. Without careful handling, the validity of the upgrade may come into question since source tokens could potentially be upgraded multiple times. This is why EIP-4931 will strictly enforce the use of <code class="language-plaintext highlighter-rouge">burn</code> for source tokens that are burnable. For non-burnable tokens, the accepted method is to send the source tokens to the <code class="language-plaintext highlighter-rouge">0x00</code> address. When the downgrade Optional Ext. is implemented, the constraint will be relaxed, so that the source tokens can be held by the upgrade contract.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

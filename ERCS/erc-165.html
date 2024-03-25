@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Standard Interface Detection | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Standard Interface Detection | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-165" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-165" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Standard Interface Detection</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>Creates a standard method to publish and detect what interfaces a smart contract implements.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Herein, we standardize the following:</p>
+
+<ol>
+  <li>How interfaces are identified</li>
+  <li>How a contract will publish the interfaces it implements</li>
+  <li>How to detect if a contract implements ERC-165</li>
+  <li>How to detect if a contract implements any given interface</li>
+</ol>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>For some “standard interfaces” like <a href="./eip-20.md">the ERC-20 token interface</a>, it is sometimes useful to query whether a contract supports the interface and if yes, which version of the interface, in order to adapt the way in which the contract is to be interacted with. Specifically for ERC-20, a version identifier has already been proposed. This proposal standardizes the concept of interfaces and standardizes the identification (naming) of interfaces.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="how-interfaces-are-identified">How Interfaces are Identified</h3>
+
+<p>For this standard, an <em>interface</em> is a set of <a href="https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector">function selectors as defined by the Ethereum ABI</a>. This a subset of <a href="https://solidity.readthedocs.io/en/develop/abi-spec.html">Solidity’s concept of interfaces</a> and the  <code class="language-plaintext highlighter-rouge">interface</code> keyword definition which also defines return types, mutability and events.</p>
+
+<p>We define the interface identifier as the XOR of all function selectors in the interface. This code example shows how to calculate an interface identifier:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">Solidity101</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">hello</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">world</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">external</span> <span class="k">pure</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">Selector</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">calculateSelector</span><span class="p">()</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Solidity101</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">i</span><span class="p">.</span><span class="n">hello</span><span class="p">.</span><span class="nb">selector</span> <span class="o">^</span> <span class="n">i</span><span class="p">.</span><span class="n">world</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Note: interfaces do not permit optional functions, therefore, the interface identity will not include them.</p>
+
+<h3 id="how-a-contract-will-publish-the-interfaces-it-implements">How a Contract will Publish the Interfaces it Implements</h3>
+
+<p>A contract that is compliant with ERC-165 shall implement the following interface (referred as <code class="language-plaintext highlighter-rouge">ERC165.sol</code>):</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">ERC165</span> <span class="p">{</span>
+    <span class="c1">/// @notice Query if a contract implements an interface
+</span>    <span class="c1">/// @param interfaceID The interface identifier, as specified in ERC-165
+</span>    <span class="c1">/// @dev Interface identification is specified in ERC-165. This function
+</span>    <span class="c1">///  uses less than 30,000 gas.
+</span>    <span class="c1">/// @return `true` if the contract implements `interfaceID` and
+</span>    <span class="c1">///  `interfaceID` is not 0xffffffff, `false` otherwise
+</span>    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The interface identifier for this interface is <code class="language-plaintext highlighter-rouge">0x01ffc9a7</code>. You can calculate this by running <code class="language-plaintext highlighter-rouge">bytes4(keccak256('supportsInterface(bytes4)'));</code> or using the <code class="language-plaintext highlighter-rouge">Selector</code> contract above.</p>
+
+<p>Therefore the implementing contract will have a <code class="language-plaintext highlighter-rouge">supportsInterface</code> function that returns:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">true</code> when <code class="language-plaintext highlighter-rouge">interfaceID</code> is <code class="language-plaintext highlighter-rouge">0x01ffc9a7</code> (EIP165 interface)</li>
+  <li><code class="language-plaintext highlighter-rouge">false</code> when <code class="language-plaintext highlighter-rouge">interfaceID</code> is <code class="language-plaintext highlighter-rouge">0xffffffff</code></li>
+  <li><code class="language-plaintext highlighter-rouge">true</code> for any other <code class="language-plaintext highlighter-rouge">interfaceID</code> this contract implements</li>
+  <li><code class="language-plaintext highlighter-rouge">false</code> for any other <code class="language-plaintext highlighter-rouge">interfaceID</code></li>
+</ul>
+
+<p>This function must return a bool and use at most 30,000 gas.</p>
+
+<p>Implementation note, there are several logical ways to implement this function. Please see the example implementations and the discussion on gas usage.</p>
+
+<h3 id="how-to-detect-if-a-contract-implements-erc-165">How to Detect if a Contract Implements ERC-165</h3>
+
+<ol>
+  <li>The source contract makes a <code class="language-plaintext highlighter-rouge">STATICCALL</code> to the destination address with input data: <code class="language-plaintext highlighter-rouge">0x01ffc9a701ffc9a700000000000000000000000000000000000000000000000000000000</code> and gas 30,000. This corresponds to <code class="language-plaintext highlighter-rouge">contract.supportsInterface(0x01ffc9a7)</code>.</li>
+  <li>If the call fails or return false, the destination contract does not implement ERC-165.</li>
+  <li>If the call returns true, a second call is made with input data <code class="language-plaintext highlighter-rouge">0x01ffc9a7ffffffff00000000000000000000000000000000000000000000000000000000</code>.</li>
+  <li>If the second call fails or returns true, the destination contract does not implement ERC-165.</li>
+  <li>Otherwise it implements ERC-165.</li>
+</ol>
+
+<h3 id="how-to-detect-if-a-contract-implements-any-given-interface">How to Detect if a Contract Implements any Given Interface</h3>
+
+<ol>
+  <li>If you are not sure if the contract implements ERC-165, use the above procedure to confirm.</li>
+  <li>If it does not implement ERC-165, then you will have to see what methods it uses the old-fashioned way.</li>
+  <li>If it implements ERC-165 then just call <code class="language-plaintext highlighter-rouge">supportsInterface(interfaceID)</code> to determine if it implements an interface you can use.</li>
+</ol>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>We tried to keep this specification as simple as possible. This implementation is also compatible with the current Solidity version.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>The mechanism described above (with <code class="language-plaintext highlighter-rouge">0xffffffff</code>) should work with most of the contracts previous to this standard to determine that they do not implement ERC-165.</p>
+
+<p>Also <a href="./eip-137.md">the ENS</a> already implements this EIP.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Following is a contract that detects which interfaces other contracts implement. From @fulldecent and @jbaylina.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ERC165Query</span> <span class="p">{</span>
+    <span class="kt">bytes4</span> <span class="k">constant</span> <span class="n">InvalidID</span> <span class="o">=</span> <span class="mh">0xffffffff</span><span class="p">;</span>
+    <span class="kt">bytes4</span> <span class="k">constant</span> <span class="n">ERC165ID</span> <span class="o">=</span> <span class="mh">0x01ffc9a7</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">doesContractImplementInterface</span><span class="p">(</span><span class="kt">address</span> <span class="n">_contract</span><span class="p">,</span> <span class="kt">bytes4</span> <span class="n">_interfaceId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">success</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">result</span><span class="p">;</span>
+
+        <span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="o">=</span> <span class="n">noThrowCall</span><span class="p">(</span><span class="n">_contract</span><span class="p">,</span> <span class="n">ERC165ID</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">success</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="o">||</span><span class="p">(</span><span class="n">result</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="o">=</span> <span class="n">noThrowCall</span><span class="p">(</span><span class="n">_contract</span><span class="p">,</span> <span class="n">InvalidID</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">success</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="o">||</span><span class="p">(</span><span class="n">result</span><span class="o">!=</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="o">=</span> <span class="n">noThrowCall</span><span class="p">(</span><span class="n">_contract</span><span class="p">,</span> <span class="n">_interfaceId</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">success</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">result</span><span class="o">==</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">noThrowCall</span><span class="p">(</span><span class="kt">address</span> <span class="n">_contract</span><span class="p">,</span> <span class="kt">bytes4</span> <span class="n">_interfaceId</span><span class="p">)</span> <span class="k">constant</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">success</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes4</span> <span class="n">erc165ID</span> <span class="o">=</span> <span class="n">ERC165ID</span><span class="p">;</span>
+
+        <span class="k">assembly</span> <span class="p">{</span>
+                <span class="kr">let</span> <span class="n">x</span> <span class="o">:=</span> <span class="n">mload</span><span class="p">(</span><span class="mh">0x40</span><span class="p">)</span>               <span class="c1">// Find empty storage location using "free memory pointer"
+</span>                <span class="n">mstore</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">erc165ID</span><span class="p">)</span>                <span class="c1">// Place signature at beginning of empty storage
+</span>                <span class="n">mstore</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">),</span> <span class="n">_interfaceId</span><span class="p">)</span> <span class="c1">// Place first argument directly next to signature
+</span>
+                <span class="n">success</span> <span class="o">:=</span> <span class="n">staticcall</span><span class="p">(</span>
+                                    <span class="mi">30000</span><span class="p">,</span>         <span class="c1">// 30k gas
+</span>                                    <span class="n">_contract</span><span class="p">,</span>     <span class="c1">// To addr
+</span>                                    <span class="n">x</span><span class="p">,</span>             <span class="c1">// Inputs are stored at location x
+</span>                                    <span class="mh">0x24</span><span class="p">,</span>          <span class="c1">// Inputs are 36 bytes long
+</span>                                    <span class="n">x</span><span class="p">,</span>             <span class="c1">// Store output over input (saves space)
+</span>                                    <span class="mh">0x20</span><span class="p">)</span>          <span class="c1">// Outputs are 32 bytes long
+</span>
+                <span class="n">result</span> <span class="o">:=</span> <span class="n">mload</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>                 <span class="c1">// Load the result
+</span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>This approach uses a <code class="language-plaintext highlighter-rouge">view</code> function implementation of <code class="language-plaintext highlighter-rouge">supportsInterface</code>. The execution cost is 586 gas for any input. But contract initialization requires storing each interface (<code class="language-plaintext highlighter-rouge">SSTORE</code> is 20,000 gas). The <code class="language-plaintext highlighter-rouge">ERC165MappingImplementation</code> contract is generic and reusable.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./ERC165.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ERC165MappingImplementation</span> <span class="k">is</span> <span class="n">ERC165</span> <span class="p">{</span>
+    <span class="c1">/// @dev You must not set element 0xffffffff to true
+</span>    <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes4</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">internal</span> <span class="n">supportedInterfaces</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">ERC165MappingImplementation</span><span class="p">()</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="n">supportedInterfaces</span><span class="p">[</span><span class="nb">this</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">.</span><span class="nb">selector</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">supportedInterfaces</span><span class="p">[</span><span class="n">interfaceID</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">Simpson</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">is2D</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">skinColor</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">Lisa</span> <span class="k">is</span> <span class="n">ERC165MappingImplementation</span><span class="p">,</span> <span class="n">Simpson</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">Lisa</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="n">supportedInterfaces</span><span class="p">[</span><span class="nb">this</span><span class="p">.</span><span class="n">is2D</span><span class="p">.</span><span class="nb">selector</span> <span class="o">^</span> <span class="nb">this</span><span class="p">.</span><span class="n">skinColor</span><span class="p">.</span><span class="nb">selector</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">is2D</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">){}</span>
+    <span class="k">function</span> <span class="n">skinColor</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">){}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Following is a <code class="language-plaintext highlighter-rouge">pure</code> function implementation of <code class="language-plaintext highlighter-rouge">supportsInterface</code>. The worst-case execution cost is 236 gas, but increases linearly with a higher number of supported interfaces.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./ERC165.sol"</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">Simpson</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">is2D</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">skinColor</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">Homer</span> <span class="k">is</span> <span class="n">ERC165</span><span class="p">,</span> <span class="n">Simpson</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span>
+          <span class="n">interfaceID</span> <span class="o">==</span> <span class="nb">this</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">.</span><span class="nb">selector</span> <span class="o">||</span> <span class="c1">// ERC165
+</span>          <span class="n">interfaceID</span> <span class="o">==</span> <span class="nb">this</span><span class="p">.</span><span class="n">is2D</span><span class="p">.</span><span class="nb">selector</span>
+                         <span class="o">^</span> <span class="nb">this</span><span class="p">.</span><span class="n">skinColor</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span> <span class="c1">// Simpson
+</span>    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">is2D</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">){}</span>
+    <span class="k">function</span> <span class="n">skinColor</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">){}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>With three or more supported interfaces (including ERC165 itself as a required supported interface), the mapping approach (in every case) costs less gas than the pure approach (at worst case).</p>
+
+<h2 id="version-history">Version history</h2>
+<ul>
+  <li>
+    <p>PR 1640, finalized 2019-01-23 – This corrects the noThrowCall test case to use 36 bytes rather than the previous 32 bytes. The previous code was an error that still silently worked in Solidity 0.4.x but which was broken by new behavior introduced in Solidity 0.5.0. This change was discussed at <a href="https://github.com/ethereum/EIPs/pull/1640">#1640</a>.</p>
+  </li>
+  <li>
+    <p>EIP 165, finalized 2018-04-20 – Original published version.</p>
+  </li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>NFT Author Information and Consent | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="NFT Author Information and Consent | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5375" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5375" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">NFT Author Information and Consent</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP standardizes a JSON format for storing off-chain information about NFT authors. Specifically, it adds a new field which provides a list of author names, addresses, and proofs of <em>authorship consent</em>: proofs that the authors have agreed to be named as authors. Note that a proof of authorship <em>consent</em> is not a proof of authorship: an address can consent without having authored the NFT.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There is currently no standard to identify authors of an NFT, and existing techniques have issues:</p>
+
+<ul>
+  <li>Using the mint <code class="language-plaintext highlighter-rouge">tx.origin</code> or <code class="language-plaintext highlighter-rouge">msg.sender</code>
+    <ul>
+      <li>Assumes that the minter and the author are the same</li>
+      <li>Does not support multiple authors</li>
+    </ul>
+  </li>
+  <li>Using the first Transfer event for a given ID
+    <ul>
+      <li>Contract/minter can claim that someone else is the author without their consent</li>
+      <li>Does not support multiple authors</li>
+    </ul>
+  </li>
+  <li>Using a custom method/custom JSON field
+    <ul>
+      <li>Requires per-contract support by NFT platforms</li>
+      <li>Contract/minter can claim that someone else is the author without their consent</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The first practice is the most common. However, there are several situations where the minter and the author might not be the same, such as:</p>
+
+<ul>
+  <li>NFTs minted by a contract</li>
+  <li>Lazy minting</li>
+  <li>NFTs minted by an intermediary (which can be particularly useful when the author is not tech-savvy and/or the minting process is convoluted)</li>
+</ul>
+
+<p>This document thus defines a standard which allows the minter to provide authorship information, while also preventing authorship claims without the author’s consent.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>All addresses used in this standard MUST follow the casing rules described in <a href="./eip-55.md">EIP-55</a>.</p>
+
+<h3 id="definitions">Definitions</h3>
+
+<ul>
+  <li><strong>Authors</strong>: creators of an NFT</li>
+  <li><strong>Minter</strong>: entity responsible for the actual minting transaction; the minter and the authors MAY be the same</li>
+  <li><strong>Verifier</strong>: entity that wants to verify the authorship of an NFT (e.g. a user or an NFT marketplace)</li>
+  <li><strong>Author Consent Proof (ACP)</strong>: a signed message that proves that the signer agrees to be considered the author of the NFT</li>
+</ul>
+
+<h3 id="authorship-support">Authorship Support</h3>
+
+<p>The standard introduces a new JSON field, named <code class="language-plaintext highlighter-rouge">authorInfo</code>. It provides a REQUIRED interface for authorship claiming, as well as an OPTIONAL interface for author consent proofs.</p>
+
+<p><code class="language-plaintext highlighter-rouge">authorInfo</code> is a top-level field of the NFT metadata. Specifically:</p>
+
+<ul>
+  <li>If a contract supports the metadata extension for <a href="./eip-721.md">EIP-721</a>, the JSON document pointed by <code class="language-plaintext highlighter-rouge">tokenURI(uint256 _tokenId)</code> MUST include the top-level field <code class="language-plaintext highlighter-rouge">authorInfo</code></li>
+  <li>If a contract supports the metadata extension for <a href="./eip-1155.md">EIP-1155</a>, the JSON document pointed by <code class="language-plaintext highlighter-rouge">uri(uint256 _id)</code> MUST include a top-level field <code class="language-plaintext highlighter-rouge">authorInfo</code></li>
+</ul>
+
+<p>The JSON schema of <code class="language-plaintext highlighter-rouge">authorInfo</code> (named <code class="language-plaintext highlighter-rouge">ERC5375AuthorInfoSchema</code>) is defined as follows:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"consentInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Helper fields for consent verification"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"chainId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EIP-155 chain id"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NFT id"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"contractAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x-prefixed address of the smart contract"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"authors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERC5375AuthorSchema"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"authors"</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">authors</code> MAY be an empty array.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ERC5375AuthorSchema</code> is defined as follows:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x-prefixed address of the author"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"consent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERC5375AuthorConsentSchema"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Author consent information"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"address"</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Moreover, if the <code class="language-plaintext highlighter-rouge">consent</code> field is present, the <code class="language-plaintext highlighter-rouge">consentInfo</code> field of <code class="language-plaintext highlighter-rouge">authorInfo</code> MUST be present.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ERC5375AuthorConsentSchema</code> is defined as follows:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"consentData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NFT authorship consent schema version"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"issuer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x-prefixed address of the author"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"metadataFields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"version"</span><span class="p">,</span><span class="w"> </span><span class="s2">"issuer"</span><span class="p">,</span><span class="w"> </span><span class="s2">"metadataFields"</span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVM public key of the author"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EIP-712 signature of the consent message"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"consentData"</span><span class="p">,</span><span class="w"> </span><span class="s2">"publicKey"</span><span class="p">,</span><span class="w"> </span><span class="s2">"signature"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">metadataFields</code> is an object containing the JSON top-level fields (excluding <code class="language-plaintext highlighter-rouge">authorInfo</code>) that the author will certify. Note that the keys of <code class="language-plaintext highlighter-rouge">metadataFields</code> MAY be a (potentially empty) subset of the set of fields.</p>
+
+<p><code class="language-plaintext highlighter-rouge">consentData</code> MAY support additional fields as defined by other EIPs. <code class="language-plaintext highlighter-rouge">consentData</code> MUST contain all the information (which is not already present in other fields) required to verify the validity of an authorship consent proof.</p>
+
+<h3 id="author-consent">Author Consent</h3>
+
+<p>Consent is obtained by signing an <a href="./eip-712.md">EIP-712</a> compatible message. Specifically, the structure is defined as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Author</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">subject</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">metadata</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">subject</code> is the address of the NFT contract, <code class="language-plaintext highlighter-rouge">tokenId</code> is the id of the NFT and <code class="language-plaintext highlighter-rouge">metadata</code> is the JSON encoding of the fields listed in <code class="language-plaintext highlighter-rouge">metadataFields</code>. <code class="language-plaintext highlighter-rouge">metadata</code>:</p>
+
+<ul>
+  <li>MUST contain exactly the same fields as the ones listed in <code class="language-plaintext highlighter-rouge">metadataFields</code>, in the same order</li>
+  <li>MUST escape all non-ASCII characters. If the escaped character contains hexadecimal letters, they MUST be uppercase</li>
+  <li>MUST not contain any whitespace that is not part of a field name or value</li>
+</ul>
+
+<p>For example, if the top-level JSON fields are:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Holy Hand Grenade of Antioch"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Throw in the general direction of your favorite rabbit, et voilà"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"damage"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"authors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>and the content of <code class="language-plaintext highlighter-rouge">metadataFields</code> is <code class="language-plaintext highlighter-rouge">["name", "description"]</code>, the content of <code class="language-plaintext highlighter-rouge">metadata</code> is:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Holy Hand Grenade of Antioch"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Throw in the general direction of your favorite rabbit, et voil</span><span class="se">\u</span><span class="s2">00E0"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Similarly to <code class="language-plaintext highlighter-rouge">consentData</code>, this structure MAY support additional fields as defined by other EIPs.</p>
+
+<p>The domain separator structure is</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">EIP712Domain</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">version</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">name</code> and <code class="language-plaintext highlighter-rouge">version</code> are the same fields described in <code class="language-plaintext highlighter-rouge">consentData</code></p>
+
+<p>This structure MAY support additional fields as defined by other EIPs.</p>
+
+<h3 id="author-consent-verification">Author Consent Verification</h3>
+
+<p>Verification is performed using EIP-712 on an author-by-author basis. Specifically, given a JSON document D1, a consent proof is valid if all of the following statements are true:</p>
+
+<ul>
+  <li>D1 has a top-level <code class="language-plaintext highlighter-rouge">authorInfo</code> field that matches <code class="language-plaintext highlighter-rouge">ERC5375AuthorInfoSchema</code></li>
+  <li><code class="language-plaintext highlighter-rouge">consent</code> exists and matches <code class="language-plaintext highlighter-rouge">ERC5375AuthorConsentSchema</code>;</li>
+  <li>If calling <code class="language-plaintext highlighter-rouge">tokenURI</code> (for EIP-721) or <code class="language-plaintext highlighter-rouge">uri</code> (for EIP-1155) returns the URI of a JSON document D2, all the top-level fields listed in <code class="language-plaintext highlighter-rouge">metadataFields</code> MUST exist and have the same value;</li>
+  <li>The EIP-712 signature in <code class="language-plaintext highlighter-rouge">signature</code> (computed using the fields specified in the JSON document) is valid;</li>
+</ul>
+
+<p>Verifiers MUST NOT assume that an NFT with a valid consent proof from address X means that X is the actual author. On the other hand, verifiers MAY assume that if an NFT does not provide a valid consent proof for address X, then X is not the actual author.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="why-provide-only-an-author-consent-proof">Why provide only an author consent proof?</h3>
+
+<p>Adding support for full authorship proofs (i.e. Alice is the author and no one else is the author) requires a protocol to prove that someone is the only author of an NFT.
+In other words, we need to answer the question: “Given an NFT Y and a user X claiming to be the author, is X the original author of Y?”.</p>
+
+<p>For the sake of the argument, assume that there exists a protocol that, given an NFT Y, can determine the original author of Y. Even if such method existed, an attacker could slightly modify Y, thus obtaining a new NFT Y’, and rightfully claim to be the author of Y’, despite the fact that it is not an original work. Real-world examples include changing some pixels of an image or replacing some words of a text with synonyms.
+Preventing this behavior would require a general formal definition of when two NFTs are semantically equivalent. Even if defining such a concept were possible, it would still be beyond the scope of this EIP.</p>
+
+<p>Note that this issue is also present when using the minter’s address as a proxy for the author.</p>
+
+<h3 id="why-off-chain">Why off-chain?</h3>
+
+<p>There are three reasons:</p>
+
+<ul>
+  <li>Adding off-chain support does not require modifications to existing smart contracts;</li>
+  <li>Off-chain storage is usually much cheaper than on-chain storage, thus reducing the implementation barrier;</li>
+  <li>While there may be some use cases for full on-chain authorship proofs (e.g. a marketplace providing special features for authors), there are limited applications for on-chain author consent, due to the fact that it is mostly used by users to determine the subjective value of an NFT.</li>
+</ul>
+
+<h3 id="why-repeat-id-chainid-and-contractaddress">Why repeat id, chainId and contractAddress?</h3>
+
+<p>In many cases, this data can be derived from contextual information. However, requiring their inclusion in the JSON document ensures that author consent can be verified using only the JSON document.</p>
+
+<h3 id="why-not-implement-a-revocation-system">Why not implement a revocation system?</h3>
+
+<p>Authorship is usually final: either someone created an NFT or they didn’t. Moreover, a revocation system would impose additional implementation requirements on smart contracts and increase the complexity of verification. Smart contracts MAY implement a revocation system, such as the one defined in other EIPs.</p>
+
+<h4 id="why-escape-non-ascii-characters-in-the-signature-message">Why escape non-ASCII characters in the signature message?</h4>
+
+<p>EIP-712 is designed with the possibility of on-chain verification in mind; while on-chain verification is not a priority for this EIP, non-ASCII characters are escaped due to the high complexity of dealing with non-ASCII strings in smart contracts.</p>
+
+<h3 id="usability-improvements-for-authors">Usability Improvements for Authors</h3>
+
+<p>Since the author only needs to sign an EIP-712 message, this protocol allows minters to handle the technical aspects of minting while still preserving the secrecy of the author’s wallet. Specifically, the author only needs to:</p>
+
+<ul>
+  <li>Obtain an EVM wallet;</li>
+  <li>Learn how to read and sign a EIP-712 message (which can often be simplified by using a Dapp)</li>
+</ul>
+
+<p>without needing to:</p>
+
+<ul>
+  <li>Obtain the chain’s native token (e.g. through trading or bridging);</li>
+  <li>Sign a transaction;</li>
+  <li>Understand the pricing mechanism of transactions;</li>
+  <li>Verify if a transaction has been included in a block</li>
+</ul>
+
+<p>This reduces the technical barrier for authors, thus increasing the usability of NFTs, without requiring authors to hand over their keys to a tech-savvy intermediary.</p>
+
+<h3 id="limitations-of-address-based-consent">Limitations of Address-Based Consent</h3>
+
+<p>The standard defines a protocol to verify that a certain <em>address</em> provided consent. However, it does not guarantee that the address corresponds to the expected author (such as the one provided in the <code class="language-plaintext highlighter-rouge">name</code> field). Proving a link between an address and the entity behind it is beyond the scope of this document.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues were found.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="attacks">Attacks</h3>
+
+<p>A potential attack that exploits this EIP involves tricking authors into signing authorship consent messages against their wishes. For this reason, authors MUST verify that all signature fields match the required ones.</p>
+
+<p>A more subtle approach involves not adding important fields to <code class="language-plaintext highlighter-rouge">metadataFields</code>. By doing so, the author signature might be valid even if the minter changes critical information.</p>
+
+<h3 id="deprecated-features">Deprecated Features</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ERC5375AuthorInfoSchema</code> also originally included a field to specify a human-readable name for the author (without any kind of verification). This was scrapped due to the high risk of author spoofing, i.e.:</p>
+
+<ul>
+  <li>Alice mints an NFT using Bob’s name and Alice’s address</li>
+  <li>Charlie does not check the address and instead relies on the provided name</li>
+  <li>Charlie buys Alice’s NFT while believing that it was created by Bob</li>
+</ul>
+
+<p>For this reason, smart contract developers SHOULD NOT add support for unverifiable information to the JSON document. We believe that the most secure way to provide complex authorship information (e.g. the name of the author) is to prove that the information is associated with the <em>author’s address</em>, instead of with the NFT itself.</p>
+
+<h3 id="replay-attack-resistance">Replay Attack Resistance</h3>
+
+<p>The chain id, the contract address and the token id uniquely identify an NFT; for this reason, there is no need to implement additional replay attack countermeasures (e.g. a nonce system).</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

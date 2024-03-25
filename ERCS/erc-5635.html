@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>NFT Licensing Agreements | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="NFT Licensing Agreements | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5635" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5635" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">NFT Licensing Agreements</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP standardizes an NFT licensing oracle to store (register) and retrieve (discover) granted licensing agreements for non-fungible token (NFT) derivative works, which are also NFTs but are created using properties of some other underlying NFTs.</p>
+
+<p>In this standard, an NFT derivative work is referred to as a <strong>dNFT</strong>, while the original underlying NFT is referred to as an <strong>oNFT</strong>.</p>
+
+<p>The NFT owner, known as the <code class="language-plaintext highlighter-rouge">licensor</code>, may authorize another creator, known as the <code class="language-plaintext highlighter-rouge">licensee</code>, to create a derivative works (dNFTs), in exchange for an agreed payment, known as a <code class="language-plaintext highlighter-rouge">Royalty</code>. A licensing agreement outlines terms and conditions related to the deal between the licensor and licensee.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>In general, there are three important roles in this standard:</p>
+
+<ul>
+  <li>oNFT: An original underlying NFT. The holder of an oNFT is a licensor. An oNFT can be any NFT.</li>
+  <li>dNFT: A derivative work based on one or more oNFTs. The holder of a dNFT is a licensee.</li>
+  <li>Registry: A trusted smart contract able to verify whether a credential is signed or released by the holder of oNFT.</li>
+</ul>
+
+<p>Every <strong>dNFT</strong> contract must implement the <code class="language-plaintext highlighter-rouge">IERC5635NFT</code> and <code class="language-plaintext highlighter-rouge">IERC165</code> inferfaces.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC165.sol"</span><span class="p">;</span>
+
+<span class="c1">///
+/// @notice Interface of NFT derivatives (dNFT) for the NFT Licensing Standard
+/// @dev The ERC-165 identifier for this interface is 0xd584841c.
+</span><span class="k">interface</span> <span class="n">IERC5635DNFT</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+
+    <span class="c1">/// ERC165 bytes to add to interface array - set in parent contract
+</span>    <span class="c1">/// implementing this standard
+</span>    <span class="c1">///
+</span>    <span class="c1">/// bytes4(keccak256("IERC5635DNFT{}")) == 0xd584841c
+</span>    <span class="c1">/// bytes4 private constant _INTERFACE_ID_IERC5635DNFT = 0xd584841c;
+</span>    <span class="c1">/// _registerInterface(_INTERFACE_ID_IERC5635XDNFT);
+</span>    
+    <span class="c1">/// @notice Get the number of credentials.
+</span>    <span class="c1">/// @param _tokenId - ID of the dNFT asset queried
+</span>    <span class="c1">/// @return _number - the number of credentials 
+</span>    <span class="k">function</span> <span class="n">numberOfCredentials</span><span class="p">(</span>
+		<span class="kt">uint256</span> <span class="n">_tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">_number</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice Called with the sale price to determine how much royalty is owed and to whom.
+</span>    <span class="c1">/// @param _tokenId - ID of the dNFT asset queried
+</span>    <span class="c1">/// @param _credentialId - ID of the licensing agreement credential, the max id is numberOfCredentials(_tokenId)-1
+</span>    <span class="c1">/// @return _oNFT - the oNFT address where the licensing from
+</span>    <span class="c1">/// @return _tokenID - the oNFT ID where the licensing from
+</span>    <span class="c1">/// @return _registry - the address of registry which can verify this credential
+</span>    <span class="k">function</span> <span class="n">authorizedBy</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_credentialId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_oNFT</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_registry</span>
+    <span class="p">);</span>
+    
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">IERC165</span> <span class="p">{</span>
+    <span class="c1">/// @notice Query if a contract implements an interface
+</span>    <span class="c1">/// @param interfaceID The interface identifier, as specified in ERC-165
+</span>    <span class="c1">/// @dev Interface identification is specified in ERC-165. This function
+</span>    <span class="c1">///  uses less than 30,000 gas.
+</span>    <span class="c1">/// @return `true` if the contract implements `interfaceID` and
+</span>    <span class="c1">///  `interfaceID` is not 0xffffffff, `false` otherwise
+</span>    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Every <strong>Registry</strong> contract must implement the <code class="language-plaintext highlighter-rouge">IERC5635Registry</code> and <code class="language-plaintext highlighter-rouge">IERC165</code> inferfaces.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC165.sol"</span><span class="p">;</span>
+
+<span class="c1">///
+/// @dev Interface of NFT derivatives (dNFT) for the NFT Licensing Standard
+///  Note: the ERC-165 identifier for this interface is 0xb5065e9f
+</span><span class="k">interface</span> <span class="n">IERC5635Registry</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+
+    <span class="c1">/// ERC165 bytes to add to interface array - set in parent contract
+</span>    <span class="c1">/// implementing this standard
+</span>    <span class="c1">///
+</span>    <span class="c1">/// bytes4(keccak256("IERC5635Registry{}")) == 0xb5065e9f
+</span>    <span class="c1">/// bytes4 private constant _INTERFACE_ID_IERC5635Registry = 0xb5065e9f;
+</span>    <span class="c1">/// _registerInterface(_INTERFACE_ID_IERC5635Registry);
+</span>
+    <span class="c1">// TODO: Is the syntax correct?
+</span>    <span class="k">enum</span> <span class="n">LicensingAgreementType</span> <span class="p">{</span>
+      <span class="n">NonExclusive</span><span class="p">,</span>
+      <span class="n">Exclusive</span><span class="p">,</span>
+      <span class="n">Sole</span>
+    <span class="p">}</span> 
+
+
+    <span class="c1">/// @notice 
+</span>    <span class="c1">/// @param _dNFT - 
+</span>    <span class="c1">/// @param _dNFT_Id - 
+</span>    <span class="c1">/// @param _oNFT - 
+</span>    <span class="c1">/// @param _oNFT_Id - 
+</span>    <span class="c1">/// @return _licensed - 
+</span>    <span class="c1">/// @return _tokenID - the oNFT ID where the licensing from
+</span>    <span class="c1">/// @return _registry - the address of registry which can verify this credential
+</span>    <span class="k">function</span> <span class="n">isLicensed</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_dNFT</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_dNFT_Id</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_oNFT</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_oNFT_Id</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">bool</span> <span class="n">_licensed</span>
+    <span class="p">);</span>
+    
+    <span class="c1">/// @return _licenseIdentifier - the identifier, e.g. `MIT` or `Apache`, similar to `SPDX-License-Identifier: MIT` in SPDX.
+</span>    <span class="k">function</span> <span class="n">licensingInfo</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_dNFT</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_dNFT_Id</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_oNFT</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_oNFT_Id</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">bool</span> <span class="n">_licensed</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_licensor</span><span class="p">,</span>
+        <span class="kt">uint64</span> <span class="n">_timeOfSignature</span><span class="p">,</span>
+        <span class="kt">uint64</span> <span class="n">_expiryTime</span><span class="p">,</span>
+        <span class="n">LicensingAgreementType</span> <span class="n">_type</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">_licenseName</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">_licenseUri</span> <span class="c1">//
+</span>    <span class="p">);</span>
+    
+    <span class="k">function</span> <span class="n">royaltyRate</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_dNFT</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_dNFT_Id</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_oNFT</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_oNFT_Id</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">address</span> <span class="n">beneficiary</span><span class="p">,</span> 
+        <span class="kt">uint256</span> <span class="n">rate</span> <span class="c1">// The decimals is 9, means to divide the rate by 1,000,000,000
+</span>    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <strong>Registry</strong> contract MAY implement the <code class="language-plaintext highlighter-rouge">IERC5635Licensing</code> and <code class="language-plaintext highlighter-rouge">IERC165</code> inferfaces.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.6</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC165.sol"</span><span class="p">;</span>
+
+<span class="c1">///
+///
+</span><span class="k">interface</span> <span class="n">IERC5635Licensing</span> <span class="k">is</span> <span class="n">IERC165</span><span class="p">,</span> <span class="n">IERC5635Registry</span> <span class="p">{</span>
+
+    <span class="k">event</span> <span class="n">Licence</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_oNFT</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_oNFT_Id</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_dNFT</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_dNFT_Id</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">_expiryTime</span><span class="p">,</span> <span class="n">LicensingAgreementType</span> <span class="n">_type</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_licenseName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_licenseUri</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_oNFT</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_approved</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_tokenId</span><span class="p">);</span>
+    
+    <span class="k">event</span> <span class="n">ApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_oNFT</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_approved</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">licence</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_oNFT</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_oNFT_Id</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_dNFT</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_dNFT_Id</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">_expiryTime</span><span class="p">,</span> <span class="n">LicensingAgreementType</span> <span class="n">_type</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_licenseName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_licenseUri</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span> <span class="c1">//TODO: mortgages or not?
+</span>    
+    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_oNFT</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_approved</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span> <span class="c1">//TODO: why payable?
+</span>    
+    <span class="k">function</span> <span class="n">setApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_oNFT</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_approved</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    
+    <span class="k">function</span> <span class="n">getApproved</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_oNFT</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+    
+    <span class="k">function</span> <span class="n">isApprovedForAll</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_oNFT</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_operator</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Licensing credentials from a dNFT’s contract can be retrieved with <code class="language-plaintext highlighter-rouge">authorizedBy</code>, which specifies the details of a licensing agreement, which may include the oNFT. Those credentials may be verified with a <code class="language-plaintext highlighter-rouge">registry</code> service.</p>
+
+<p>Anyone can retrieve licensing royalty information with <code class="language-plaintext highlighter-rouge">licensingRoyalty</code> via the registry. While it is not possible to enforce the rules set out in this EIP on-chain, just like <a href="./eip-2981.md">EIP-2981</a>, we encourages NFT marketplaces to follow this EIP.</p>
+
+<h3 id="two-stages-licensing-and-discovery">Two stages: Licensing and Discovery</h3>
+
+<p>Taking the moment when the dNFT is minted as the cut-off point, the stage before is called the <strong>Licensing</strong> stage, and the subsequent stage is called the <strong>Discovery</strong> stage. The interface <code class="language-plaintext highlighter-rouge">IERC5635Licensing</code> is for the <strong>Licensing</strong> stage, and the interfaces <code class="language-plaintext highlighter-rouge">IERC5635DNFT</code> and <code class="language-plaintext highlighter-rouge">IERC5635Registry</code> are for the <strong>Discovery</strong> stage.</p>
+
+<h3 id="design-decision-beneficiary-of-licensing-agreement">Design decision: beneficiary of licensing agreement</h3>
+
+<p>As soon as someone sells their NFT, the full licensed rights are passed along to the new owner without any encumbrances, so that the beneficiary should be the new owner.</p>
+
+<h3 id="difference-between-cantbeevil-licenses-and-licensing-agreements">Difference between CantBeEvil Licenses and Licensing Agreements.</h3>
+
+<p>CantBeEvil licenses are creator-holder licenses which indicate what rights the NFTs’ holder are granted from the creator. Meanwhile, licensing agreements is a contract between a licensor and licensee. So, CantBeEvil licenses cannot be used as a licensing agreement.</p>
+
+<h3 id="design-decision-relationship-between-different-approval-levels">Design decision: Relationship between different approval levels</h3>
+
+<p>The approved address can <code class="language-plaintext highlighter-rouge">license()</code> the licensing agreement to <strong>dNFT</strong> on behalf of the holder of an <strong>oNFT</strong>. We define two levels of approval like that:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">approve</code> will lead to approval for one NFT related to an id.</li>
+  <li><code class="language-plaintext highlighter-rouge">setApprovalForAll</code> will lead to approval of all NFTs owned by <code class="language-plaintext highlighter-rouge">msg.sender</code>.</li>
+</ol>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is compatible with <a href="./eip-721.md">EIP-721</a>, <a href="./eip-1155.md">EIP-1155</a>, and <a href="./eip-2981.md">EIP-2981</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<h3 id="examples">Examples</h3>
+
+<h4 id="deploying-an-eip-721-nft-and-signaling-support-for-dnft">Deploying an <a href="./eip-721.md">EIP-721</a> NFT and signaling support for dNFT</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">constructor</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">baseURI</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+        <span class="n">_symbol</span> <span class="o">=</span> <span class="n">symbol</span><span class="p">;</span>
+        <span class="n">_setBaseURI</span><span class="p">(</span><span class="n">baseURI</span><span class="p">);</span>
+        <span class="c1">// register the supported interfaces to conform to ERC721 via ERC165
+</span>        <span class="n">_registerInterface</span><span class="p">(</span><span class="n">_INTERFACE_ID_ERC721</span><span class="p">);</span>
+        <span class="n">_registerInterface</span><span class="p">(</span><span class="n">_INTERFACE_ID_ERC721_METADATA</span><span class="p">);</span>
+        <span class="n">_registerInterface</span><span class="p">(</span><span class="n">_INTERFACE_ID_ERC721_ENUMERABLE</span><span class="p">);</span>
+        <span class="c1">// dNFT interface
+</span>        <span class="n">_registerInterface</span><span class="p">(</span><span class="n">_INTERFACE_ID_IERC5635DNFT</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="checking-if-the-nft-being-sold-on-your-marketplace-is-a-dnft">Checking if the NFT being sold on your marketplace is a dNFT</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bytes4</span> <span class="k">private</span> <span class="k">constant</span> <span class="n">_INTERFACE_ID_IERC5635DNFT</span> <span class="o">=</span> <span class="mh">0xd584841c</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="n">checkDNFT</span><span class="p">(</span><span class="kt">address</span> <span class="n">_contract</span><span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">)</span> <span class="o">=</span> <span class="n">IERC165</span><span class="p">(</span><span class="n">_contract</span><span class="p">).</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">_INTERFACE_ID_IERC5635DNFT</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">success</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="checking-if-an-address-is-a-registry">Checking if an address is a Registry</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bytes4</span> <span class="k">private</span> <span class="k">constant</span> <span class="n">_INTERFACE_ID_IERC5635Registry</span> <span class="o">=</span> <span class="mh">0xb5065e9f</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="n">checkLARegistry</span><span class="p">(</span><span class="kt">address</span> <span class="n">_contract</span><span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">)</span> <span class="o">=</span> <span class="n">IERC165</span><span class="p">(</span><span class="n">_contract</span><span class="p">).</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">_INTERFACE_ID_IERC5635Registry</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">success</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Needs discussion.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

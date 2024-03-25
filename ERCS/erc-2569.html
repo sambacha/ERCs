@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Saving and Displaying Image Onchain for Universal Tokens | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Saving and Displaying Image Onchain for Universal Tokens | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-2569" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-2569" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Saving and Displaying Image Onchain for Universal Tokens</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+<p>This set of interfaces allow a smart contract to save an SVG image in Ethereum and to retrieve an SVG image from Ethereum for fungible tokens, non-fungible tokens and tokens based on standards that will be developed in the future.</p>
+
+<p>The interface set has two interfaces: one to save an SVG file in Ethereum and the other to retrieve an SVG file from Ethereum.</p>
+
+<p>Typical applications include but not limited to:</p>
+<ul>
+  <li>A solution for storage of a fungible token’s icon.</li>
+  <li>A solution for storage of a non-fungible token’s icon.</li>
+  <li>A solution for storage of the icon/logo of a DAO’s reputation token.</li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+<p>The ERC-721 token standard is a popular standard to define a non-fungible token in Ethereum. This standard is widely used to specify a crypto gift, crypto medal, crypto collectible etc. The most famous use case is the <a href="https://www.cryptokitties.co/">cryptokitty</a>.</p>
+
+<p>In most of these applications an image is attached to an ERC-721 token. For example, in the cryptokitty case each kitty has a unique image. While the token’s code is saved in Ethereum permanently, the image attached to the token is not.</p>
+
+<p>The existing solutions still keep such an image in a centralized server instead of Ethereum. When these applications display an image for a token they retrieve the token’s information from Ethereum and search the centralized server for the token’s associated image by using the token’s information.</p>
+
+<p>Although this is an applicable way to display an image for a token, the image is still vulnerable to risks of being damaged or lost when saved in a centralized server.</p>
+
+<p>Hence we propose a set of interfaces to save an image for a universal token in Ethereum to keep the image permanent and tamper-resistant, and to retrieve an image for a universal token from Ethereum.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>An EIP-2569 compatible contract MUST have a method with the signature getTokenImageSvg(uint256) view returns (string memory) and a method with the signature setTokenImageSvg(uint256 tokenId, string memory imagesvg) internal.</p>
+
+<p>These methods define how a smart contract saves an image for a universal token in Ethereum which keeps the image permanent and tamper-resistant, and how a smart contract retrieves an image from Ethereum for a universal token.</p>
+
+<p>By calling the methods users should access an SVG image.</p>
+
+<ul>
+  <li>getTokenImageSvg(uint256 tokenId) external view returns (string memory): for an ERC-721 or ERC-1155 token or a token implemented by a contract which has a member “ID” to specify its token type or token index we define an interface to get an SVG image by using the token’s ID number. For an ERC-20 token or a token implemented by a contract which doesn’t have a member “ID” to specify its token type or token index we define an interface to get an SVG image for it if the token has a member variable string to save the image.</li>
+</ul>
+
+<p>It has the following parameter:</p>
+
+<p>tokenId: for a non-fungible token such as an ERC-721 token or a multi-token such as an ERC-1155 token which has a member “ID” to specify its token type or token index our proposed interface assigns an SVG image’s file content to a string variable of the token’s contract and  associates the SVG image to this “ID” number. This unique ID is used to access its SVG image in both a “set” operation and a “get” operation. 
+For a fungible token such as an ERC-20 token no such an ID is needed and our proposed interface just assigns an SVG image’s file content to a string variable of the token’s contract.</p>
+
+<ul>
+  <li>setTokenImageSvg(uint256 tokenId, string memory imagesvg) internal: for an ERC-721 or ERC-1155 token or a token implemented by a contract which has a member “ID” to specify its token type or token index we define an interface to associate an SVG image to the token’s ID number. For an ERC-20 token or a token implemented by a contract which doesn’t have a member “ID” to specify its token type or token index we define an interface to assign an SVG image to a member variable string of this token’s contract.</li>
+</ul>
+
+<p>It has the following two parameters:</p>
+
+<p>tokenId: for a non-fungible token such as an ERC-721 token or a multi-token such as an ERC-1155 token which has a member “ID” to specify its token type or token index our proposed interface assigns an SVG image’s file content to a string variable of the token’s contract and  associates the SVG image to this “ID” number. This unique ID is used to access its SVG image in both a “set” operation and a “get” operation. 
+For a fungible token such as an ERC-20 token no such an ID is needed and our proposed interface just assigns an SVG image’s file content to a string variable of the token’s contract.</p>
+
+<p>imageSvg: we use a string variable to save an SVG image file’s content.
+An SVG image that will be saved in the imageSvg string should include at least two attributes:”name”, “desc”(description).</p>
+
+<p>The procedure to save an image for a token in Ethereum is as follows:</p>
+
+<p><strong>Step1:</strong> define a string variable or an array of strings to hold an image or an array of images.</p>
+
+<p><strong>Step 2:</strong> define a function to set an (SVG) image’s file content or an array of image file’s contents to the string variable or the array of strings.</p>
+
+<p>Step 1: for a token such as an ERC-721 or ERC-1155 token which has a member variable “ID”  to specify a token type or index and a member variable string to keep an (SVG) image associated with the “ID”, retrieve the (SVG) image from Ethereum by calling our proposed “get” interface with the token’s ID; 
+for a token which doesn’t have a member variable “ID” to specify a token type of index but has a member variable string to keep an (SVG) image, retrieve the (SVG) image from Ethereum by calling our proposed “get” without an “ID”.</p>
+
+<h2 id="rationale">Rationale</h2>
+<p>After Bitcoin was created people have found ways to keep information permanent and tamper-resistant by encoding text messages they want to preserve permanently and tamper-resistantly in blockchain transactions. However existing applications only do this for text information and there are no solutions to keep an image permanent and tamper-resistant.</p>
+
+<p>One of the most significant reasons for not doing so is that in general the size of an image is much bigger than the size of a text file, thus the gas needed to save an image in Ethereum would exceed a block’s gas limit.</p>
+
+<p>However this changed a lot after the SVG(Scalable Vector Graphics) specification was developed by W3C since 1999.</p>
+
+<p>The SVG specification offers several advantages (for more details about the advantages please refer to a reference link:https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) over raster images. One of these advantages is its compact file-size.</p>
+
+<p>“Compact file-size – Pixel-based images are saved at a large size from the start because you can only retain the quality when you make the image smaller, but not when you make it larger. This can impact a site’s download speed. Since SVGs are scalable, they can be saved at a minimal file size”.</p>
+
+<p>This feature well fixes the painpoint of saving an image file in Ethereum, therefore we think saving an SVG image in Ethereum is a good solution for keep the image permanent and tamper-resistant.</p>
+
+<p>In most ERC-721 related DAPPs they display an image for a non-fungible token. In most ERC-20 related DAPPs they don’t have an image for a fungible token. We think displaying an image for a token either based on existing token standards such as ERC-20, ERC-721, ERC-1155 or based on future standards is needed in many use cases. Therefore those DAPPs which currently don’t display an image for a token will eventually need such a function.</p>
+
+<p>However with regard to most of the existing DAPPs which can display an image for a token they save such an image in a centralized server which, we think, is just a compromised solution. By utilizing the SVG specification we think converting a token’s image to an SVG image and saving it in Ethereum provides a better solution for DAPPs to access an image for a token.</p>
+
+<p>This solution not only works for tokens based on ERC-721, ERC-1155 and ERC-20 but will work for tokens based on future standards.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>There are no backward compatibility issues.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+<p><code class="language-plaintext highlighter-rouge">tokenId</code>: a token index in an ERC-721 token or a token type/index in an ERC-1155 token. It is a uint256 variable.</p>
+
+<p><code class="language-plaintext highlighter-rouge">imageSvg</code>: an SVG image’s file content. It is a string variable. Note: the SVG image should include at least three attributes:”name”, “description” and “issuer”.</p>
+
+<p><code class="language-plaintext highlighter-rouge">setTokenImageSvg</code>: interface to set an SVG image to a token with or without an ID number.</p>
+
+<p><code class="language-plaintext highlighter-rouge">getTokenImageSvg</code>: interface to get an SVG image for a token with or without an ID number.</p>
+
+<p>We propose to add three sol files in the existing ERC-721 implementation.
+Here are the details for the proposed sol files.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ----- IERC721GetImageSvg.sol -------------------------
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/IERC721.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title ERC-721 Non-Fungible Token Standard, optional retrieving SVG image extension
+ * @dev See https://eips.ethereum.org/EIPS/eip-721
+ */</span>
+<span class="k">contract</span> <span class="n">IERC721GetImageSvg</span> <span class="k">is</span> <span class="n">IERC721</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">getTokenImageSvg</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="c1">// ----- ERC721GetImageSvg.sol -------------------------
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/GSN/Context.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/./ERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/introspection/ERC165.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC721GetImageSvg.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ERC721GetImageSvg</span> <span class="k">is</span> <span class="n">Context</span><span class="p">,</span> <span class="n">ERC165</span><span class="p">,</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">IERC721GetImageSvg</span> <span class="p">{</span>
+    <span class="c1">// Mapping for token Images
+</span>    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">string</span><span class="p">)</span> <span class="k">private</span> <span class="n">_tokenImageSvgs</span><span class="p">;</span>
+
+    <span class="cm">/*
+     *     bytes4(keccak256('getTokenImageSvg(uint256)')) == 0x87d2f48c
+     *
+     *     =&gt; 0x87d2f48c == 0x87d2f48c
+     */</span>
+    <span class="kt">bytes4</span> <span class="k">private</span> <span class="k">constant</span> <span class="n">_INTERFACE_ID_ERC721_GET_TOKEN_IMAGE_SVG</span> <span class="o">=</span> <span class="mh">0x87d2f48c</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Constructor function
+     */</span>
+    <span class="k">constructor</span> <span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="c1">// register the supported interfaces to conform to ERC721 via ERC165
+</span>        <span class="n">_registerInterface</span><span class="p">(</span><span class="n">_INTERFACE_ID_ERC721_GET_TOKEN_IMAGE_SVG</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns an SVG Image for a given token ID.
+     * Throws if the token ID does not exist. May return an empty string.
+     * @param tokenId uint256 ID of the token to query
+     */</span>
+    <span class="k">function</span> <span class="n">getTokenImageSvg</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC721GetImageSvg: SVG Image query for nonexistent token"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">_tokenImageSvgs</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Internal function to set the token SVG image for a given token.
+     * Reverts if the token ID does not exist.
+     * @param tokenId uint256 ID of the token to set its SVG image
+     * @param imagesvg string SVG  to assign
+     */</span>
+    <span class="k">function</span> <span class="n">setTokenImageSvg</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">imagesvg</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC721GetImageSvg: SVG image set of nonexistent token"</span><span class="p">);</span>
+        <span class="n">_tokenImageSvgs</span><span class="p">[</span><span class="n">tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">imagesvg</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+
+<span class="c1">// ----- ERC721ImageSvgMintable.sol -------------------------
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/ERC721Metadata.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/access/roles/MinterRole.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./ERC721GetImageSvg.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title ERC721ImageSvgMintable
+ * @dev ERC721 minting logic with imagesvg.
+ */</span>
+<span class="k">contract</span> <span class="n">ERC721ImageSvgMintable</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">ERC721Metadata</span><span class="p">,</span> <span class="n">ERC721GetImageSvg</span><span class="p">,</span> <span class="n">MinterRole</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Function to mint tokens.
+     * @param to The address that will receive the minted tokens.
+     * @param tokenId The token id to mint.
+     * @param tokenImageSvg The token SVG image of the minted token.
+     * @return A boolean that indicates if the operation was successful.
+     */</span>
+    <span class="k">function</span> <span class="n">mintWithTokenImageSvg</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">tokenImageSvg</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyMinter</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+        <span class="n">setTokenImageSvg</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">tokenImageSvg</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="n">We</span> <span class="n">propose</span> <span class="n">to</span> <span class="n">add</span> <span class="n">three</span> <span class="n">sol</span> <span class="n">files</span> <span class="kr">in</span> <span class="n">the</span> <span class="n">existing</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">1155</span> <span class="n">implementation</span><span class="p">.</span>
+<span class="n">Here</span> <span class="n">are</span> <span class="n">the</span> <span class="n">details</span> <span class="k">for</span> <span class="n">the</span> <span class="n">proposed</span> <span class="n">sol</span> <span class="n">files</span><span class="p">.</span>
+
+<span class="c1">// ----- IERC1155GetImageSvg.sol -------------------------
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./IERC1155.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title ERC-1155 Multi Token Standard, retrieving SVG image for a token
+ * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md
+ */</span>
+<span class="k">contract</span> <span class="n">IERC1155GetImageSvg</span> <span class="k">is</span> <span class="n">IERC1155</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">getTokenImageSvg</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="c1">// ----- ERC1155GetImageSvg.sol -------------------------
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./ERC1155.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC1155GetImageSvg.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ERC1155GetImageSvg</span> <span class="k">is</span> <span class="n">ERC165</span><span class="p">,</span> <span class="n">ERC1155</span><span class="p">,</span> <span class="n">IERC1155GetImageSvg</span> <span class="p">{</span>
+    <span class="c1">// Mapping for token Images
+</span>    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">string</span><span class="p">)</span> <span class="k">private</span> <span class="n">_tokenImageSvgs</span><span class="p">;</span>
+
+    <span class="cm">/*
+     *     bytes4(keccak256('getTokenImageSvg(uint256)')) == 0x87d2f48c
+     *
+     *     =&gt; 0x87d2f48c == 0x87d2f48c
+     */</span>
+    <span class="kt">bytes4</span> <span class="k">private</span> <span class="k">constant</span> <span class="n">_INTERFACE_ID_ERC1155_GET_TOKEN_IMAGE_SVG</span> <span class="o">=</span> <span class="mh">0x87d2f48c</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Constructor function
+     */</span>
+    <span class="k">constructor</span> <span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="c1">// register the supported interfaces to conform to ERC1155 via ERC165
+</span>        <span class="n">_registerInterface</span><span class="p">(</span><span class="n">_INTERFACE_ID_ERC1155_GET_TOKEN_IMAGE_SVG</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/**
+     * @dev Returns an SVG Image for a given token ID.
+     * Throws if the token ID does not exist. May return an empty string.
+     * @param tokenId uint256 ID of the token to query
+     */</span>
+    <span class="k">function</span> <span class="n">getTokenImageSvg</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC1155GetImageSvg: SVG Image query for nonexistent token"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">_tokenImageSvgs</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Internal function to set the token SVG image for a given token.
+     * Reverts if the token ID does not exist.
+     * @param tokenId uint256 ID of the token to set its SVG image
+     * @param imagesvg string SVG  to assign
+     */</span>
+    <span class="k">function</span> <span class="n">setTokenImageSvg</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">imagesvg</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC1155GetImageSvg: SVG image set of nonexistent token"</span><span class="p">);</span>
+        <span class="n">_tokenImageSvgs</span><span class="p">[</span><span class="n">tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">imagesvg</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+
+
+<span class="c1">// ----- ERC1155MixedFungibleWithSvgMintable.sol -------------------------
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./ERC1155MixedFungibleMintable.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./ERC1155GetImageSvg.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+    @dev Mintable form of ERC1155 with SVG images
+    Shows how easy it is to mint new items with SVG images
+*/</span>
+
+<span class="k">contract</span> <span class="n">ERC1155MixedFungibleWithSvgMintable</span> <span class="k">is</span> <span class="n">ERC1155</span><span class="p">,</span> <span class="n">ERC1155MixedFungibleMintable</span><span class="p">,</span> <span class="n">ERC1155GetImageSvg</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Function to mint non-fungible tokens.
+     * @param _to The address that will receive the minted tokens.
+     * @param _type The token type to mint.
+     * @param tokenImageSvg The token SVG image of the minted token.
+     */</span>
+    <span class="k">function</span> <span class="n">mintNonFungibleWithImageSvg</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_type</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">tokenImageSvg</span><span class="p">)</span> <span class="k">external</span> <span class="n">creatorOnly</span><span class="p">(</span><span class="n">_type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">mintNonFungible</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_to</span><span class="p">);</span>
+        <span class="n">setTokenImageSvg</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">tokenImageSvg</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/**
+     * @dev Function to mint fungible tokens.
+     * @param _to The address that will receive the minted tokens.
+     * @param _id The token type to mint.
+     * @param _quantities The number of tokens for a type to mint.
+     * @param tokenImageSvg The token SVG image of the minted token.
+     */</span>
+    <span class="k">function</span> <span class="n">mintFungibleWithImageSvg</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">_quantities</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">tokenImageSvg</span><span class="p">)</span> <span class="k">external</span> <span class="n">creatorOnly</span><span class="p">(</span><span class="n">_id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">mintFungible</span><span class="p">(</span><span class="n">_id</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_quantities</span><span class="p">,</span> <span class="n">tokenImageSvg</span><span class="p">)</span>  <span class="p">{</span>
+        <span class="n">setTokenImageSvg</span><span class="p">(</span><span class="n">_id</span><span class="p">,</span> <span class="n">tokenImageSvg</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+
+<span class="n">We</span> <span class="n">propose</span> <span class="n">to</span> <span class="n">add</span> <span class="n">three</span> <span class="n">sol</span> <span class="n">files</span> <span class="kr">in</span> <span class="n">the</span> <span class="n">existing</span> <span class="n">ERC</span><span class="o">-</span><span class="mi">20</span> <span class="n">implementation</span><span class="p">.</span>
+<span class="n">Here</span> <span class="n">are</span> <span class="n">the</span> <span class="n">details</span> <span class="k">for</span> <span class="n">the</span> <span class="n">proposed</span> <span class="n">sol</span> <span class="n">files</span><span class="p">.</span>
+
+
+<span class="c1">// ----- IERC20GetImageSvg.sol -------------------------
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/IERC20.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title ERC-20 Fungible Token Standard, retrieving SVG image for a token
+ * @dev See https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol
+ */</span>
+<span class="k">contract</span> <span class="n">IERC20GetImageSvg</span> <span class="k">is</span> <span class="n">IERC20</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">getTokenImageSvg</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="c1">// ----- ERC20GetImageSvg.sol -------------------------
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/ERC20.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC20GetImageSvg.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ERC20GetImageSvg</span> <span class="k">is</span> <span class="n">ERC20</span><span class="p">,</span> <span class="n">IERC20GetImageSvg</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="k">private</span> <span class="n">_tokenImageSvg</span><span class="p">;</span>
+<span class="c1">//将图片实现写在构造器中
+</span>    <span class="k">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">calldata</span> <span class="n">svgCode</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+<span class="n">_tokenImageSvg</span> <span class="o">=</span> <span class="n">svgCode</span>
+<span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns an SVG Image.
+     */</span>
+    <span class="k">function</span> <span class="n">getTokenImageSvg</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_tokenImageSvg</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

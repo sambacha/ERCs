@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Trust Minimized Upgradeability Proxy | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Trust Minimized Upgradeability Proxy | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-3561" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-3561" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Trust Minimized Upgradeability Proxy</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>Removing trust from upgradeability proxy is necessary for anonymous developers. In order to accomplish this, instant and potentially malicious upgrades must be prevented. This EIP introduces additional storage slots for upgradeability proxy which are assumed to decrease trust in interaction with upgradeable smart contracts. Defined by the admin implementation logic can be made an active implementation logic only after Zero Trust Period allows.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Anonymous developers who utilize upgradeability proxies typically struggle to earn the trust of the community.</p>
+
+<p>Fairer, better future for humanity absolutely requires some developers to stay anonymous while still attract vital attention to solutions they propose and at the same time leverage the benefits of possible upgradeability.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The specification is an addition to the standard <a href="./eip-1967.md">EIP-1967</a> transparent proxy design.
+The specification focuses on the slots it adds. All admin interactions with trust minimized proxy must emit an event to make admin actions trackable, and all admin actions must be guarded with <code class="language-plaintext highlighter-rouge">onlyAdmin()</code> modifier.</p>
+
+<h3 id="next-logic-contract-address">Next Logic Contract Address</h3>
+
+<p>Storage slot <code class="language-plaintext highlighter-rouge">0x19e3fabe07b65998b604369d85524946766191ac9434b39e27c424c976493685</code> (obtained as <code class="language-plaintext highlighter-rouge">bytes32(uint256(keccak256('eip3561.proxy.next.logic')) - 1)</code>).
+Desirable implementation logic address must be first defined as next logic, before it can function as actual logic implementation stored in EIP-1967 <code class="language-plaintext highlighter-rouge">IMPLEMENTATION_SLOT</code>.
+Admin interactions with next logic contract address correspond with these methods and events:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Sets next logic contract address. Emits NextLogicDefined
+// If current implementation is address(0), then upgrades to IMPLEMENTATION_SLOT
+// immedeatelly, therefore takes data as an argument
+</span><span class="k">function</span> <span class="n">proposeTo</span><span class="p">(</span><span class="kt">address</span> <span class="n">implementation</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="n">IfAdmin</span>
+<span class="c1">// As soon UPGRADE_BLOCK_SLOT allows, sets the address stored as next implementation
+// as current IMPLEMENTATION_SLOT and initializes it.
+</span><span class="k">function</span> <span class="n">upgrade</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="n">IfAdmin</span>
+<span class="c1">// cancelling is possible for as long as upgrade() for given next logic was not called
+// emits NextLogicCanceled
+</span><span class="k">function</span> <span class="n">cancelUpgrade</span><span class="p">()</span> <span class="k">external</span> <span class="n">onlyAdmin</span><span class="p">;</span>
+
+<span class="k">event</span> <span class="n">NextLogicDefined</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">nextLogic</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">earliestArrivalBlock</span><span class="p">);</span> <span class="c1">// important to have
+</span><span class="k">event</span> <span class="n">NextLogicCanceled</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">oldLogic</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="upgrade-block">Upgrade Block</h3>
+
+<p>Storage slot <code class="language-plaintext highlighter-rouge">0xe3228ec3416340815a9ca41bfee1103c47feb764b4f0f4412f5d92df539fe0ee</code> (obtained as <code class="language-plaintext highlighter-rouge">bytes32(uint256(keccak256('eip3561.proxy.next.logic.block')) - 1)</code>).
+On/after this block next logic contract address can be set to EIP-1967 <code class="language-plaintext highlighter-rouge">IMPLEMENTATION_SLOT</code> or, in other words, <code class="language-plaintext highlighter-rouge">upgrade()</code> can be called. Updated automatically according to Zero Trust Period, shown as <code class="language-plaintext highlighter-rouge">earliestArrivalBlock</code> in the event <code class="language-plaintext highlighter-rouge">NextLogicDefined</code>.</p>
+
+<h3 id="propose-block">Propose Block</h3>
+
+<p>Storage slot <code class="language-plaintext highlighter-rouge">0x4b50776e56454fad8a52805daac1d9fd77ef59e4f1a053c342aaae5568af1388</code> (obtained as <code class="language-plaintext highlighter-rouge">bytes32(uint256(keccak256('eip3561.proxy.propose.block')) - 1)</code>).
+Defines after/on which block <em>proposing</em> next logic is possible. Required for convenience, for example can be manually set to a year from given time. Can be set to maximum number to completely seal the code.
+Admin interactions with this slot correspond with this method and event:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">prolongLock</span><span class="p">(</span><span class="kt">uint</span> <span class="n">b</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyAdmin</span><span class="p">;</span>
+<span class="k">event</span> <span class="n">ProposingUpgradesRestrictedUntil</span><span class="p">(</span><span class="kt">uint</span> <span class="n">block</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">nextProposedLogicEarliestArrival</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="zero-trust-period">Zero Trust Period</h3>
+
+<p>Storage slot <code class="language-plaintext highlighter-rouge">0x7913203adedf5aca5386654362047f05edbd30729ae4b0351441c46289146720</code> (obtained as <code class="language-plaintext highlighter-rouge">bytes32(uint256(keccak256('eip3561.proxy.zero.trust.period')) - 1)</code>).
+Zero Trust Period in amount of blocks, can only be set higher than previous value. While it is at default value(0), the proxy operates exactly as standard EIP-1967 transparent proxy. After zero trust period is set, all above specification is enforced.
+Admin interactions with this slot should correspond with this method and event:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setZeroTrustPeriod</span><span class="p">(</span><span class="kt">uint</span> <span class="n">blocks</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyAdmin</span><span class="p">;</span>
+<span class="k">event</span> <span class="n">ZeroTrustPeriodSet</span><span class="p">(</span><span class="kt">uint</span> <span class="n">blocks</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="implementation-example">Implementation Example</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">&gt;=</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span> <span class="c1">//important
+</span>
+<span class="c1">// EIP-3561 trust minimized proxy implementation https://github.com/ethereum/EIPs/blob/master/EIPS/eip-3561.md
+// Based on EIP-1967 upgradeability proxy: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1967.md
+</span>
+<span class="k">contract</span> <span class="n">TrustMinimizedProxy</span> <span class="p">{</span>
+    <span class="k">event</span> <span class="n">Upgraded</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">toLogic</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">AdminChanged</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">previousAdmin</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">newAdmin</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">NextLogicDefined</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">nextLogic</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">earliestArrivalBlock</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">ProposingUpgradesRestrictedUntil</span><span class="p">(</span><span class="kt">uint</span> <span class="n">block</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">nextProposedLogicEarliestArrival</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">NextLogicCanceled</span><span class="p">();</span>
+    <span class="k">event</span> <span class="n">ZeroTrustPeriodSet</span><span class="p">(</span><span class="kt">uint</span> <span class="n">blocks</span><span class="p">);</span>
+
+    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">ADMIN_SLOT</span> <span class="o">=</span> <span class="mh">0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">LOGIC_SLOT</span> <span class="o">=</span> <span class="mh">0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">NEXT_LOGIC_SLOT</span> <span class="o">=</span> <span class="mh">0x19e3fabe07b65998b604369d85524946766191ac9434b39e27c424c976493685</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">NEXT_LOGIC_BLOCK_SLOT</span> <span class="o">=</span> <span class="mh">0xe3228ec3416340815a9ca41bfee1103c47feb764b4f0f4412f5d92df539fe0ee</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">PROPOSE_BLOCK_SLOT</span> <span class="o">=</span> <span class="mh">0x4b50776e56454fad8a52805daac1d9fd77ef59e4f1a053c342aaae5568af1388</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">ZERO_TRUST_PERIOD_SLOT</span> <span class="o">=</span> <span class="mh">0x7913203adedf5aca5386654362047f05edbd30729ae4b0351441c46289146720</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">()</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">ADMIN_SLOT</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">'eip1967.proxy.admin'</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+                <span class="n">LOGIC_SLOT</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">'eip1967.proxy.implementation'</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+                <span class="n">NEXT_LOGIC_SLOT</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">'eip3561.proxy.next.logic'</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+                <span class="n">NEXT_LOGIC_BLOCK_SLOT</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">'eip3561.proxy.next.logic.block'</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+                <span class="n">PROPOSE_BLOCK_SLOT</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">'eip3561.proxy.propose.block'</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+                <span class="n">ZERO_TRUST_PERIOD_SLOT</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">'eip3561.proxy.zero.trust.period'</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">);</span>
+        <span class="n">_setAdmin</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">modifier</span> <span class="n">IfAdmin</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">_admin</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">_</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">_fallback</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_logic</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">logic</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">logic</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="n">LOGIC_SLOT</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_nextLogic</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">nextLogic</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">nextLogic</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="n">NEXT_LOGIC_SLOT</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_proposeBlock</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">b</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="n">PROPOSE_BLOCK_SLOT</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_nextLogicBlock</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">b</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="n">NEXT_LOGIC_BLOCK_SLOT</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_zeroTrustPeriod</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">ztp</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">ztp</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="n">ZERO_TRUST_PERIOD_SLOT</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_admin</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">adm</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">adm</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="n">ADMIN_SLOT</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_setAdmin</span><span class="p">(</span><span class="kt">address</span> <span class="n">newAdm</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">sstore</span><span class="p">(</span><span class="n">ADMIN_SLOT</span><span class="p">,</span> <span class="n">newAdm</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">changeAdmin</span><span class="p">(</span><span class="kt">address</span> <span class="n">newAdm</span><span class="p">)</span> <span class="k">external</span> <span class="n">IfAdmin</span> <span class="p">{</span>
+        <span class="k">emit</span> <span class="n">AdminChanged</span><span class="p">(</span><span class="n">_admin</span><span class="p">(),</span> <span class="n">newAdm</span><span class="p">);</span>
+        <span class="n">_setAdmin</span><span class="p">(</span><span class="n">newAdm</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">upgrade</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="n">IfAdmin</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">block</span><span class="p">.</span><span class="n">number</span> <span class="o">&gt;=</span> <span class="n">_nextLogicBlock</span><span class="p">(),</span> <span class="s">'too soon'</span><span class="p">);</span>
+        <span class="kt">address</span> <span class="n">logic</span><span class="p">;</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">logic</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="n">NEXT_LOGIC_SLOT</span><span class="p">)</span>
+            <span class="n">sstore</span><span class="p">(</span><span class="n">LOGIC_SLOT</span><span class="p">,</span> <span class="n">logic</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">logic</span><span class="p">.</span><span class="nb">delegatecall</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">'failed to call'</span><span class="p">);</span>
+        <span class="k">emit</span> <span class="n">Upgraded</span><span class="p">(</span><span class="n">logic</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">fallback</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="n">_fallback</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="n">_fallback</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_fallback</span><span class="p">()</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">!=</span> <span class="n">_admin</span><span class="p">());</span>
+        <span class="n">_delegate</span><span class="p">(</span><span class="n">_logic</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">cancelUpgrade</span><span class="p">()</span> <span class="k">external</span> <span class="n">IfAdmin</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">logic</span><span class="p">;</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">logic</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="n">LOGIC_SLOT</span><span class="p">)</span>
+            <span class="n">sstore</span><span class="p">(</span><span class="n">NEXT_LOGIC_SLOT</span><span class="p">,</span> <span class="n">logic</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">emit</span> <span class="n">NextLogicCanceled</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">prolongLock</span><span class="p">(</span><span class="kt">uint</span> <span class="n">b</span><span class="p">)</span> <span class="k">external</span> <span class="n">IfAdmin</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="n">_proposeBlock</span><span class="p">(),</span> <span class="s">'can be only set higher'</span><span class="p">);</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">sstore</span><span class="p">(</span><span class="n">PROPOSE_BLOCK_SLOT</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">emit</span> <span class="n">ProposingUpgradesRestrictedUntil</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="n">_zeroTrustPeriod</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">setZeroTrustPeriod</span><span class="p">(</span><span class="kt">uint</span> <span class="n">blocks</span><span class="p">)</span> <span class="k">external</span> <span class="n">IfAdmin</span> <span class="p">{</span>
+        <span class="c1">// before this set at least once acts like a normal eip 1967 transparent proxy
+</span>        <span class="kt">uint</span> <span class="n">ztp</span><span class="p">;</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">ztp</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="n">ZERO_TRUST_PERIOD_SLOT</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">blocks</span> <span class="o">&gt;</span> <span class="n">ztp</span><span class="p">,</span> <span class="s">'can be only set higher'</span><span class="p">);</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">sstore</span><span class="p">(</span><span class="n">ZERO_TRUST_PERIOD_SLOT</span><span class="p">,</span> <span class="n">blocks</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">_updateNextBlockSlot</span><span class="p">();</span>
+        <span class="k">emit</span> <span class="n">ZeroTrustPeriodSet</span><span class="p">(</span><span class="n">blocks</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_updateNextBlockSlot</span><span class="p">()</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="kt">uint</span> <span class="n">nlb</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">number</span> <span class="o">+</span> <span class="n">_zeroTrustPeriod</span><span class="p">();</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">sstore</span><span class="p">(</span><span class="n">NEXT_LOGIC_BLOCK_SLOT</span><span class="p">,</span> <span class="n">nlb</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_setNextLogic</span><span class="p">(</span><span class="kt">address</span> <span class="n">nl</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">block</span><span class="p">.</span><span class="n">number</span> <span class="o">&gt;=</span> <span class="n">_proposeBlock</span><span class="p">(),</span> <span class="s">'too soon'</span><span class="p">);</span>
+        <span class="n">_updateNextBlockSlot</span><span class="p">();</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">sstore</span><span class="p">(</span><span class="n">NEXT_LOGIC_SLOT</span><span class="p">,</span> <span class="n">nl</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">emit</span> <span class="n">NextLogicDefined</span><span class="p">(</span><span class="n">nl</span><span class="p">,</span> <span class="n">block</span><span class="p">.</span><span class="n">number</span> <span class="o">+</span> <span class="n">_zeroTrustPeriod</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">proposeTo</span><span class="p">(</span><span class="kt">address</span> <span class="n">newLogic</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="n">IfAdmin</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_zeroTrustPeriod</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">_logic</span><span class="p">()</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">_updateNextBlockSlot</span><span class="p">();</span>
+            <span class="k">assembly</span> <span class="p">{</span>
+                <span class="n">sstore</span><span class="p">(</span><span class="n">LOGIC_SLOT</span><span class="p">,</span> <span class="n">newLogic</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">newLogic</span><span class="p">.</span><span class="nb">delegatecall</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">'failed to call'</span><span class="p">);</span>
+            <span class="k">emit</span> <span class="n">Upgraded</span><span class="p">(</span><span class="n">newLogic</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">_setNextLogic</span><span class="p">(</span><span class="n">newLogic</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_delegate</span><span class="p">(</span><span class="kt">address</span> <span class="n">logic_</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">calldatacopy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">calldatasize</span><span class="p">())</span>
+            <span class="kr">let</span> <span class="n">result</span> <span class="o">:=</span> <span class="nb">delegatecall</span><span class="p">(</span><span class="n">gas</span><span class="p">(),</span> <span class="n">logic_</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">calldatasize</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">returndatacopy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">returndatasize</span><span class="p">())</span>
+            <span class="kr">switch</span> <span class="n">result</span>
+            <span class="kr">case</span> <span class="mi">0</span> <span class="p">{</span>
+                <span class="nb">revert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">returndatasize</span><span class="p">())</span>
+            <span class="p">}</span>
+            <span class="kr">default</span> <span class="p">{</span>
+                <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">returndatasize</span><span class="p">())</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>An argument “just don’t make such contracts upgadeable at all” fails when it comes to complex systems which do or do not heavily rely on human factor, which might manifest itself in unprecedented ways. It might be impossible to model some systems right on first try. Using decentralized governance for upgrade management coupled with EIP-1967 proxy might become a serious bottleneck for certain protocols before they mature and data is at hand.</p>
+
+<p>A proxy without a time delay before an actual upgrade is obviously abusable. A time delay is probably unavoidable, even if it means that inexperienced developers might not have confidence using it. Albeit this is a downside of this EIP, it’s a critically important option to have in smart contract development today.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Users must ensure that a trust-minimized proxy they interact with does not allow overflows, ideally represents the exact copy of the code in implementation example above, and also they must ensure that Zero Trust Period length is reasonable(at the very least two weeks if upgrades are usually being revealed beforehand, and in most cases at least a month).</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

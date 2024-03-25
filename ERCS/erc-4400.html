@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>EIP-721 Consumable Extension | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="EIP-721 Consumable Extension | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4400" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4400" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">EIP-721 Consumable Extension</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This specification defines standard functions outlining a <code class="language-plaintext highlighter-rouge">consumer</code> role for instance(s) of <a href="./eip-721.md">EIP-721</a>. An implementation allows reading the current <code class="language-plaintext highlighter-rouge">consumer</code> for a given NFT (<code class="language-plaintext highlighter-rouge">tokenId</code>) along with a standardized event for when an <code class="language-plaintext highlighter-rouge">consumer</code> has changed. The proposal depends on and extends the existing <a href="./eip-721.md">EIP-721</a>.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Many <a href="./eip-721.md">EIP-721</a> contracts introduce their own custom role that grants permissions for utilising/consuming a given NFT instance. The need for that role stems from the fact that other than owning the NFT instance, there are other actions that can be performed on an NFT. For example, various metaverses use <code class="language-plaintext highlighter-rouge">operator</code> / <code class="language-plaintext highlighter-rouge">contributor</code> roles for Land (EIP-721), so that owners of the land can authorise other addresses to deploy scenes to them (f.e. commissioning a service company to develop a scene).</p>
+
+<p>It is common for NFTs to have utility other than ownership. That being said, it requires a separate standardized consumer role, allowing compatibility with user interfaces and contracts, managing those contracts.</p>
+
+<p>Having a <code class="language-plaintext highlighter-rouge">consumer</code> role will enable protocols to integrate and build on top of dApps that issue EIP-721 tokens. One example is the creation of generic/universal NFT renting marketplaces.</p>
+
+<p>Example of kinds of contracts and applications that can benefit from this standard are:</p>
+<ul>
+  <li>metaverses that have land and other types of digital assets in those metaverses (scene deployment on land, renting land / characters / clothes / passes to events etc.)</li>
+  <li>NFT-based yield-farming. Adopting the standard enables the “staker” (owner of the NFT) to have access to the utility benefits even after transferring his NFT to the staking contract</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Every contract compliant to the <code class="language-plaintext highlighter-rouge">EIP721Consumable</code> extension MUST implement the <code class="language-plaintext highlighter-rouge">IEIP721Consumable</code> interface. The <strong>consumer extension</strong> is OPTIONAL for EIP-721 contracts.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title EIP-721 Consumer Role extension
+///  Note: the EIP-165 identifier for this interface is 0x953c8dfa
+</span><span class="k">interface</span> <span class="n">IEIP721Consumable</span> <span class="cm">/* is EIP721 */</span> <span class="p">{</span>
+
+    <span class="c1">/// @notice Emitted when `owner` changes the `consumer` of an NFT
+</span>    <span class="c1">/// The zero address for consumer indicates that there is no consumer address
+</span>    <span class="c1">/// When a Transfer event emits, this also indicates that the consumer address
+</span>    <span class="c1">/// for that NFT (if any) is set to none
+</span>    <span class="k">event</span> <span class="n">ConsumerChanged</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">consumer</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the consumer address of an NFT
+</span>    <span class="c1">/// @dev The zero address indicates that there is no consumer
+</span>    <span class="c1">/// Throws if `_tokenId` is not a valid NFT
+</span>    <span class="c1">/// @param _tokenId The NFT to get the consumer address for
+</span>    <span class="c1">/// @return The consumer address for this NFT, or the zero address if there is none
+</span>    <span class="k">function</span> <span class="n">consumerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Change or reaffirm the consumer address for an NFT
+</span>    <span class="c1">/// @dev The zero address indicates there is no consumer address
+</span>    <span class="c1">/// Throws unless `msg.sender` is the current NFT owner, an authorised
+</span>    <span class="c1">/// operator of the current owner or approved address
+</span>    <span class="c1">/// Throws if `_tokenId` is not valid NFT
+</span>    <span class="c1">/// @param _consumer The new consumer of the NFT
+</span>    <span class="k">function</span> <span class="n">changeConsumer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_consumer</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Every contract implementing the <code class="language-plaintext highlighter-rouge">EIP721Consumable</code> extension is free to define the permissions of a <code class="language-plaintext highlighter-rouge">consumer</code> (e.g. what are consumers allowed to do within their system) with only one exception - consumers MUST NOT be considered owners, authorised operators or approved addresses as per the EIP-721 specification. Thus, they MUST NOT be able to execute transfers &amp; approvals.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">consumerOf(uint256 _tokenId)</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">changeConsumer(address _consumer, uint256 _tokenId)</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">ConsumerChanged</code> event MUST be emitted when a consumer is changed.</p>
+
+<p>On every <code class="language-plaintext highlighter-rouge">transfer</code>, the consumer MUST be changed to a default address. It is RECOMMENDED for implementors to use <code class="language-plaintext highlighter-rouge">address(0)</code> as that default address.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">supportsInterface</code> method MUST return <code class="language-plaintext highlighter-rouge">true</code> when called with <code class="language-plaintext highlighter-rouge">0x953c8dfa</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Key factors influencing the standard:</p>
+
+<ul>
+  <li>Keeping the number of functions in the interfaces to a minimum to prevent contract bloat</li>
+  <li>Simplicity</li>
+  <li>Gas Efficiency</li>
+  <li>Not reusing or overloading other already existing roles (e.g. owners, operators, approved addresses)</li>
+</ul>
+
+<h3 id="name">Name</h3>
+
+<p>The chosen name resonates with the purpose of its existence. Consumers can be considered entities that utilise the token instances, without necessarily having ownership rights to it.</p>
+
+<p>The other name for the role that was considered was <code class="language-plaintext highlighter-rouge">operator</code>, however it is already defined and used within the <code class="language-plaintext highlighter-rouge">EIP-721</code> standard.</p>
+
+<h3 id="restriction-on-the-permissions">Restriction on the Permissions</h3>
+
+<p>There are numerous use-cases where a distinct role for NFTs is required that MUST NOT have owner permissions. A contract that implements the consumer role and grants ownership permissions to the consumer renders this standard pointless.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is compatible with current EIP-721 standards. There are no other standards that define a similar role for NFTs and the name (<code class="language-plaintext highlighter-rouge">consumer</code>) is not used by other EIP-721 related standards.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Test cases are available in the reference implementation <a href="../assets/eip-4400/test/erc721-consumable.ts">here</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The reference implementation can be found <a href="../assets/eip-4400/contracts/ERC721Consumable.sol">here</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Implementors of the <code class="language-plaintext highlighter-rouge">EIP721Consumable</code> standard must consider thoroughly the permissions they give to <code class="language-plaintext highlighter-rouge">consumers</code>. Even if they implement the standard correctly and do not allow transfer/burning of NFTs, they might still provide permissions to the <code class="language-plaintext highlighter-rouge">consumers</code> that they might not want to provide otherwise and should be restricted to <code class="language-plaintext highlighter-rouge">owners</code> only.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

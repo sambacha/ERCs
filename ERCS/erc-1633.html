@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Re-Fungible Token Standard (RFT) | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Re-Fungible Token Standard (RFT) | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1633" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1633" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Re-Fungible Token Standard (RFT)</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+<p><a href="./eip-20.md">ERC-20</a> extension for proportional ownership of an <a href="./eip-721.md">ERC-721</a> token.</p>
+
+<h2 id="abstract">Abstract</h2>
+<p>The intention of this proposal, the Re-Fungible Token Standard, is to extend the ERC-20 Token Standard and utilize ERC-165 Standard Interface Detection in order to represent the shared ownership of an ERC-721 Non-Fungible Token. The ERC-20 Token Standard was modified as little as possible in order to allow this new class of token to operate in all of the ways and locations which are familiar to assets that follow the original ERC-20 specification. While there are many possible variations of this specification that would enable many different capabilities and scenarios for shared ownership, this proposal is focused on the minimal commonalities to enable as much flexibility as possible for various further extensions. This proposal makes it possible to verify, from the contract level or from an external query, whether a fungible token represents a form of shared ownership of a non-fungible token. The inclusion of ERC-165 makes it possible to verify, from the contract level or from an external query, whether a non-fungible token is owned by ERC-20 token representing shared ownership.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>Shared ownership occurs across many industries and for many reasons. As more assets are registered, regulated and/or represented by the ERC-721 Non-Fungible Token Standard there will be more instances where the need for shared ownership of these assets will arise. For example, ARTBLX Inc. is working towards facilitating a protocol for collective ownership of physical, digital and conceptual artworks. The fungible tokens created from this process will have a value attached to the non-fungible tokens which they represent. This will be useful for price discovery of the underlying asset, liquidity for shared owners and as a new class of asset which can be used as collateral for loans or other financial instruments like stable coins. Providing an interface to this special class of fungible tokens is necessary to allow third parties to recognize them as a special class of fungible token and to recognize when a non-fungible token is collectively owned. This might be useful in the case of a wallet who would want to utilize the metadata of the underlying NFT to show additional info next to an RFT, or on an exchange who might want to make that sort of info similarly available, or an NFT marketplace who may want to direct customers to a relevant exchange who wish to purchase shares in a NFT which is owned by an RFT. Anywhere an ERC-20 is applicable it would be useful for a user to know whether that token represents a shared NFT, and what attributes that NFT may have.</p>
+
+<h2 id="specification">Specification</h2>
+<p>At a minimum, third parties need two things: 1) to be able to distinguish re-fungible tokens from other token standards and 2) to determine when a non-fungible token is collectively owned. These two scenarios can be encountered from the perspective of initial contact with the non-fungible token or from the perspective of initial contact with the re-fungible token.</p>
+
+<h4 id="initial-contact-with-the-re-fungible-token">Initial Contact with the Re-Fungible Token</h4>
+
+<p>In order for a third party to confirm which non-fungible token is owned by the re-fungible token there needs to be a pointer from the RFT contract to the NFT contract and the relevant token id. This is possible with two public getters named <code class="language-plaintext highlighter-rouge">parentToken()</code> and <code class="language-plaintext highlighter-rouge">parentTokenId()</code>. The first getter returns a variable of type <code class="language-plaintext highlighter-rouge">address</code> and designates the contract address of the Non-Fungible Token contract. The second getter returns a variable of type <code class="language-plaintext highlighter-rouge">uint256</code> and designates the token ID of the Non-Fungible Token. With these getters, the identity of the Non-Fungible Token can be determined. Below is an example of the Re-Fungible Token Standard interface that includes these getter functions:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">/// @dev Note: the ERC-165 identifier for this interface is 0x5755c3f2.
+</span><span class="k">interface</span> <span class="n">RFT</span> <span class="cm">/* is ERC20, ERC165 */</span> <span class="p">{</span>
+
+  <span class="k">function</span> <span class="n">parentToken</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span> <span class="n">_parentToken</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">parentTokenId</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_parentTokenId</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The validity of this claim can be confirmed from another contract (on-chain) or from interacting with an RPC endpoint (off-chain). Below is an example of the on-chain scenario:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">'./RFT.sol'</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">'./ERC721.sol'</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ConfirmRFT</span> <span class="p">{</span>
+
+  <span class="k">function</span> <span class="n">confirmRFT</span><span class="p">(</span><span class="kt">address</span> <span class="n">_RFT</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">_NFT</span> <span class="o">=</span> <span class="n">RFT</span><span class="p">(</span><span class="n">_RFT</span><span class="p">).</span><span class="n">parentToken</span><span class="p">();</span> <span class="c1">// returns address of NFT contract
+</span>    <span class="kt">uint256</span> <span class="n">_tokenId</span> <span class="o">=</span> <span class="n">RFT</span><span class="p">(</span><span class="n">_RFT</span><span class="p">).</span><span class="n">parentTokenId</span><span class="p">();</span> <span class="c1">// returns id of ID of NFT
+</span>
+    <span class="k">return</span>
+      <span class="n">NFT</span><span class="p">(</span><span class="n">_NFT</span><span class="p">).</span><span class="n">supportsInterface</span><span class="p">(</span><span class="mh">0x80ac58cd</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="c1">// confirm it is ERC-721
+</span>      <span class="n">NFT</span><span class="p">(</span><span class="n">_NFT</span><span class="p">).</span><span class="n">ownerOf</span><span class="p">(</span><span class="n">_tokenId</span><span class="p">)</span> <span class="o">==</span> <span class="n">_RFT</span><span class="p">;</span> <span class="c1">// confirm the owner of the NFT is the RFT contract address
+</span>  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Below is an off-chain example using an instance of web3.js in javascript:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">confirmRFT</span><span class="p">(</span><span class="nx">web3</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">const</span> <span class="nx">ERC721ABI</span> <span class="o">=</span> <span class="p">[...]</span> <span class="c1">// abi for ERC721</span>
+  <span class="kd">const</span> <span class="nx">RFTABI</span> <span class="o">=</span> <span class="p">[...]</span> <span class="c1">// abi for RFT</span>
+  <span class="kd">const</span> <span class="nx">RFTAddress</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">0x0123456789abcdef0123456789abcdef</span><span class="dl">'</span> <span class="c1">// address for the deployed RFT</span>
+
+  <span class="kd">const</span> <span class="nx">RFTContract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">RFTABI</span><span class="p">,</span> <span class="nx">RFTAddress</span><span class="p">)</span> <span class="c1">// deployed RFT contract instance</span>
+  <span class="kd">const</span> <span class="nx">ERC721Address</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">RFTcontract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">parentToken</span><span class="p">().</span><span class="nx">call</span><span class="p">()</span> <span class="c1">// returns address of NFT contract</span>
+  <span class="kd">const</span> <span class="nx">ERC721TokenId</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">RFTcontract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">parentTokenId</span><span class="p">().</span><span class="nx">call</span><span class="p">()</span> <span class="c1">// returns id of ID of NFT</span>
+
+  <span class="kd">const</span> <span class="nx">ERC721Contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">ERC721ABI</span><span class="p">,</span> <span class="nx">ERC721Address</span><span class="p">)</span> <span class="c1">// deployed ERC721 (as reported by RFT)</span>
+  <span class="kd">const</span> <span class="nx">isERC721</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ERC721Contract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">supportsInterface</span><span class="p">(</span><span class="dl">'</span><span class="s1">0x80ac58cd</span><span class="dl">'</span><span class="p">).</span><span class="nx">call</span><span class="p">()</span> <span class="c1">// confirm it is ERC-721</span>
+  <span class="kd">const</span> <span class="nx">ownerOfAddress</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ERC721Contract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">ownerOf</span><span class="p">(</span><span class="nx">ERC721TokenId</span><span class="p">).</span><span class="nx">call</span><span class="p">()</span> <span class="c1">// get the owner of the NFT</span>
+
+  <span class="k">return</span> <span class="nx">ERC721Response</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">===</span> <span class="nx">RFTAddress</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="c1">// confirm the owner of the NFT is the RFT contract</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="initial-contact-with-the-non-fungible-token">Initial Contact with the Non-Fungible Token</h4>
+
+<p>When checking the owner of a specific non-fungible token it’s important to be able to determine whether owner is in fact a re-fungible token contract. This is possible by utilizing ERC-165 Standard Interface Detection. In order to comply with that standard a contract must include the following getter function which returns <code class="language-plaintext highlighter-rouge">true</code> when passed the <code class="language-plaintext highlighter-rouge">bytes4</code> parameter <code class="language-plaintext highlighter-rouge">0x01ffc9a7</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function supportsInterface(bytes4 interfaceID) external view returns (bool);
+</code></pre></div></div>
+<p>After establishing support for this interface it becomes useful in determining whether the contract adheres to the Re-Fungible Token Standard. To do so the <code class="language-plaintext highlighter-rouge">supportsInterface(bytes4 interfaceID)</code> getter function must return <code class="language-plaintext highlighter-rouge">true</code> when passed the <code class="language-plaintext highlighter-rouge">bytes4</code> parameter <code class="language-plaintext highlighter-rouge">0x5755c3f2</code> which is the result of <code class="language-plaintext highlighter-rouge">bytes4(keccak256('parentToken()')) ^ bytes4(keccak256('parentTokenId()'))</code> or <code class="language-plaintext highlighter-rouge">parentToken.selector ^ parentTokenId.selector</code>. This could be achieved with the following code:</p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./ERC20.sol"</span><span class="p">;</span>
+
+<span class="c1">/// @dev Note: the ERC-165 identifier for this interface is 0x5755c3f2.
+</span><span class="k">interface</span> <span class="n">RFT</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="cm">/*, ERC165 */</span> <span class="p">{</span>
+
+  <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span>
+      <span class="n">interfaceID</span> <span class="o">==</span> <span class="nb">this</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">.</span><span class="nb">selector</span> <span class="o">||</span> <span class="c1">// ERC165
+</span>      <span class="n">interfaceID</span> <span class="o">==</span> <span class="nb">this</span><span class="p">.</span><span class="n">parentToken</span><span class="p">.</span><span class="nb">selector</span> <span class="o">||</span> <span class="c1">// parentToken()
+</span>      <span class="n">interfaceID</span> <span class="o">==</span> <span class="nb">this</span><span class="p">.</span><span class="n">parentTokenId</span><span class="p">.</span><span class="nb">selector</span> <span class="o">||</span> <span class="c1">// parentTokenId()
+</span>      <span class="n">interfaceID</span> <span class="o">==</span> <span class="nb">this</span><span class="p">.</span><span class="n">parentToken</span><span class="p">.</span><span class="nb">selector</span> <span class="o">^</span> <span class="nb">this</span><span class="p">.</span><span class="n">parentTokenId</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span> <span class="c1">// RFT
+</span>  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">parentToken</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span> <span class="n">_parentToken</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">parentTokenId</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_parentTokenId</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+<p>The flow of actually checking the status of a non-fungible token owner as a re-fungible token contract can be done from another contract (on-chain) as well as with an RPC endpoint (off-chain). Below is an example of the on-chain scenario:</p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">'./RFT.sol'</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">'./ERC721.sol'</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ConfirmRFT</span> <span class="p">{</span>
+
+  <span class="k">function</span> <span class="n">confirmRFT</span><span class="p">(</span><span class="kt">address</span> <span class="n">_NFT</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">_RFT</span> <span class="o">=</span> <span class="n">ERC721</span><span class="p">(</span><span class="n">_NFT</span><span class="p">).</span><span class="n">ownerOf</span><span class="p">(</span><span class="n">_tokenId</span><span class="p">);</span> <span class="c1">// get the owner of the NFT
+</span>
+    <span class="k">return</span>
+      <span class="n">RFT</span><span class="p">(</span><span class="n">_RFT</span><span class="p">).</span><span class="n">supportsInterface</span><span class="p">(</span><span class="mh">0x01ffc9a7</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="c1">// confirm it supports ERC-165
+</span>      <span class="n">RFT</span><span class="p">(</span><span class="n">_RFT</span><span class="p">).</span><span class="n">supportsInterface</span><span class="p">(</span><span class="mh">0x5755c3f2</span><span class="p">)</span> <span class="c1">// confirm it is RFT
+</span>  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Below is an off-chain example using web3.js in javascript:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">confirmRFT</span><span class="p">(</span><span class="nx">web3</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">const</span> <span class="nx">ERC721ABI</span> <span class="o">=</span> <span class="p">[...]</span> <span class="c1">// abi for ERC721</span>
+  <span class="kd">const</span> <span class="nx">RFTABI</span> <span class="o">=</span> <span class="p">[...]</span> <span class="c1">// abi for RFT</span>
+  <span class="kd">const</span> <span class="nx">ERC721Address</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">0x0123456789abcdef0123456789abcdef</span><span class="dl">'</span> <span class="c1">// address for the deployed NFT</span>
+  <span class="kd">const</span> <span class="nx">ERC721TokenId</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">7</span><span class="dl">'</span> <span class="c1">// token Id of the NFT</span>
+
+  <span class="kd">const</span> <span class="nx">ERC721Contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">ERC721ABI</span><span class="p">,</span> <span class="nx">ERC721Address</span><span class="p">)</span> <span class="c1">// deployed ERC721</span>
+  <span class="kd">const</span> <span class="nx">RFTAddress</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ERC721Contract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">ownerOf</span><span class="p">(</span><span class="nx">ERC721TokenId</span><span class="p">).</span><span class="nx">call</span><span class="p">()</span> <span class="c1">// owner address of the NFT</span>
+
+
+  <span class="kd">const</span> <span class="nx">RFTContract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">RFTABI</span><span class="p">,</span> <span class="nx">RFTAddress</span><span class="p">)</span> <span class="c1">// deployed RFT contract instance</span>
+  <span class="kd">const</span> <span class="nx">isERC165</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">RFTContract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">supportsInterface</span><span class="p">(</span><span class="dl">'</span><span class="s1">0x01ffc9a7</span><span class="dl">'</span><span class="p">).</span><span class="nx">call</span><span class="p">()</span> <span class="c1">// confirm it is ERC-165</span>
+  <span class="k">return</span> <span class="nx">isERC165</span> <span class="o">&amp;&amp;</span> <span class="k">await</span> <span class="nx">RFTContract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">supportsInterface</span><span class="p">(</span><span class="dl">'</span><span class="s1">0x5755c3f2</span><span class="dl">'</span><span class="p">).</span><span class="nx">call</span><span class="p">()</span> <span class="c1">// confirm it is RFT</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+<h2 id="rationale">Rationale</h2>
+<p>Most of the decisions made around the design of this standard were done in the hopes of keeping it as flexible as possible for as many use cases as possible. This includes making the standard 100% backwards compatible with ERC-20 Token Standard and able to interact with any previously deployed or future ERC-721 non-fungible token. This allows for each project to determine their own system for minting, burning and governing their re-fungible tokens depending on their specific use case.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>The Re-Fungible Token Standard is 100% backwards compatible with ERC-20 Token Standard. It is a small extension to the original specification and meant to be further extended for more specific use cases. Keeping the standard compatible with ERC-20 is important to allow for this token to benefit from the ecosystem that has grown around supporting the ubiquitous ERC-20 Token Standard.</p>
+
+<p>The Re-Fungible Token Standard is intended to interact with the ERC-721 Non-Fungible Token Standard. It is kept purposefully agnostic to extensions beyond the standard in order to allow specific projects to design their own token relationships such as governance over, rights to or permissions on each non-fungible token relative to the respective re-fungible token owners.</p>
+
+<h2 id="implementation">Implementation</h2>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">/// @dev Note: the ERC-165 identifier for this interface is 0x5755c3f2.
+</span><span class="k">interface</span> <span class="n">RFT</span> <span class="cm">/* is ERC20, ERC165 */</span> <span class="p">{</span>
+
+  <span class="k">function</span> <span class="n">parentToken</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span> <span class="n">_parentToken</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">parentTokenId</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_parentTokenId</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+<p>TBD</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

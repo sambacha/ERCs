@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Smart NFT - A Component for Intent-Centric | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Smart NFT - A Component for Intent-Centric | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7513" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7513" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Smart NFT - A Component for Intent-Centric</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>Smart NFT is the fusion of Smart Contract and NFT. An NFT with the logic of a Smart Contract can be executed, enabling on-chain interactions. Transitioning from an NFT to a Smart NFT is akin to going from a regular landline telephone to a smartphone, opening up broader and more intelligent possibilities for NFTs.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Ethereum introduces smart contracts revolutionized the blockchain and paved the way for the flourishing ecosystem of decentralized applications (dApps). Also, the concept of non-fungible tokens (NFTs) was introduced through <a href="./eip-721.md">ERC-721</a>, offering a paradigm for ownership verification.</p>
+
+<p>However, smart contracts still present significant barriers for most users, and NFTs have largely been limited to repetitive explorations within Art, Gaming, and Real-World Assets realm.</p>
+
+<p>The widespread adoption of smart contracts and the functional applications of NFTs still face substantial challenges. Here are some facts that emerges from this contradiction:</p>
+
+<ol>
+  <li>The strong desire for both intelligence and usability has led users to sacrifice security (sharing their private key with BOTs)</li>
+  <li>For individual developers, the process of turning functionalities into market-ready products is hindered by a lack of sufficient resources.</li>
+  <li>In the context of a “Code is Law” philosophy, there is a lack of on-chain infrastructure for securely transferring ownership of smart contracts/code.</li>
+</ol>
+
+<h3 id="usability-with-security">Usability with Security</h3>
+
+<p>IA-NFT acts as a key of a smart contract. With no private key, no risk of private key leakage.</p>
+
+<h3 id="ia-nft-as-native-on-chain-asset">IA-NFT as Native On-chain Asset</h3>
+
+<p>For years, NFT stands for the ownership of a picture, a piece of artwork, a game item, a real-world asset. All these backed assets are in fact not crypto native. IA-NFT verify the ownership of a piece of code or a smart contract.</p>
+
+<h3 id="interaction-abstraction-for-the-intent-abstraction">Interaction Abstraction for the Intent Abstraction</h3>
+
+<p>The on-chain interaction can be abstract to many functional module IA-NFTs and thus make the Interaction process more effective. Users can focus more on their intent rather than how to operate cross different dApps.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="overview">Overview</h3>
+
+<p>The following section will define the interface specifications for three main objects: Smart-NFT, Smart-Manager, Intent-Proxy, and establish the interaction relationships between three primary roles (developer, verifier, user) and these objects.</p>
+
+<p><img src="../assets/eip-7513/workflow.png" alt="" /></p>
+
+<h3 id="smart-nft-interface">Smart-NFT Interface</h3>
+
+<p>Before sending a registration request to Smart-Manager, developers should implement the following two core interfaces in Smart-NFT.</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">execute</code>: This function <strong>MUST</strong> contain only one parameter of the “bytes” type, which encapsulates the required parameters for a specific Smart-NFT. Additionally, <strong>MUST</strong> call validatePermission during the implementation to determine if this call is legitimate.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">validatePermission</code>: This function is used to query the Smart-Manager to determine whether the Smart-NFT has been successfully verified and is callable by the caller.</p>
+  </li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">ISmartNFT</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">validatePermission</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="smart-manager-interface">Smart-Manager Interface</h3>
+
+<p>The Smart-Manager interface defines 5 possible states for Smart-NFTs:：</p>
+
+<ul>
+  <li><strong>UNREGISTERED</strong>: Refers to Smart-NFTs that have not been registered with the Smart-Manager.</li>
+  <li><strong>DEREGISTERED</strong>: Denotes Smart-NFTs that were previously registered but have been removed or deregistered from the Smart-Manager.</li>
+  <li><strong>UNVERIFIED</strong>: Signifies Smart-NFTs that have been registered with the Smart-Manager but have not yet undergone the verification process.</li>
+  <li><strong>VERIFIED</strong>: Represents Smart-NFTs that have been registered with the Smart-Manager and have successfully passed the verification process, indicating they are safe to use.</li>
+  <li><strong>DENIED</strong>: Refers to Smart-NFTs that have been registered but failed the verification process, indicating they should not be used as they may pose security risks.</li>
+</ul>
+
+<p>Smart-Manager should be implemented with the following thress core interfaces.</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">register</code>: Developers can initiate a registration request for a Smart-NFT through this interface and provide the Smart-NFT’s creation code. Upon successful request, the Smart-NFT <strong>MUST</strong> be marked as <em>UNVERIFIED</em>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">auditTo</code>: <strong>Should</strong> only let trusted verifiers use this interface to audit a Smart-NFT to change its status to <em>Verified</em> or <em>Denied</em>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">isAccessible</code>: This interface is used to ascertain whether a user can use a specific Smart-NFT. The determination <strong>MUST</strong> involves considering both the ownership of the corresponding tokenId NFT and whether the Smart-NFT has been successfully verified.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">verificationStatusOf</code>: The function <strong>MUST</strong> returns the current verification stage of the specified Smart-NFT.</p>
+  </li>
+</ul>
+
+<p>Additionally, the implementation of Smart-Manager <strong>SHOULD</strong> inherit from <a href="./eip-1155.md">ERC-1155</a>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">ISmartManager</span> <span class="p">{</span>
+  <span class="k">enum</span> <span class="n">VerificationStatus</span> <span class="p">{</span>
+      <span class="n">UNREGISTERED</span><span class="p">,</span>
+      <span class="n">DEREGISTERED</span><span class="p">,</span>
+      <span class="n">UNVERIFIED</span><span class="p">,</span>
+      <span class="n">VERIFIED</span><span class="p">,</span>
+      <span class="n">DENIED</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">register</span><span class="p">(</span>
+      <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">creationCode</span><span class="p">,</span>
+      <span class="kt">uint256</span> <span class="n">totalSupply</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">implAddr</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">auditTo</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isValid</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">isAccessible</span><span class="p">(</span>
+      <span class="kt">address</span> <span class="n">caller</span><span class="p">,</span>
+      <span class="kt">uint256</span> <span class="n">tokenId</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">verificationStatusOf</span><span class="p">(</span>
+      <span class="kt">uint256</span> <span class="n">tokenId</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">VerificationStatus</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="intent-proxy-interface">Intent-Proxy Interface</h3>
+
+<p>Intent-Proxy interface defines an Action struct:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>type</th>
+      <th>defination</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tokenId</td>
+      <td>uint256</td>
+      <td>The nft id of the target Smart-NFT to call</td>
+    </tr>
+    <tr>
+      <td>executeParam</td>
+      <td>bytes</td>
+      <td>The param defined by the target Smart-NFT’s execute encode packed input</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Intent-Proxy should be implemented with <code class="language-plaintext highlighter-rouge">executeIntent</code>.</p>
+
+<ul>
+  <li>executeIntent: Users can achieve batch use of specified Smart-NFTs by calling this interface and providing an array of desired actions.</li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IIntentProxy</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">Action</span> <span class="p">{</span>
+      <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+      <span class="kt">bytes</span> <span class="n">executeParam</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">executeIntent</span><span class="p">(</span>
+      <span class="n">Action</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">actions</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="why-using-erc-1155">Why using ERC-1155</h3>
+
+<p>In the technical implementation aspect, we chose to use <a href="./eip-1155.md">ERC-1155</a> as the main contract for NFTs due to the consideration of increasing the reusability of Smart-NFTs. The reason for this choice is that both <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> are based on the concept of “token IDs” that point to NFTs. The key difference is that <a href="./eip-1155.md">ERC-1155</a> introduces the concept of “shares,” meaning that having at least one share gives you the right to use the functionality of that Smart-NFT. This concept can be likened to owning multiple smartphones of the same model, where owning several smartphones doesn’t grant you additional features; you can only use the features of each individual device.</p>
+
+<p>Another reason for directly using <a href="./eip-1155.md">ERC-1155</a> instead of defining a new NFT standard is the seamless integration of Smart-NFT transaction behavior into the existing market. This approach benefits both developers and users, as it simplifies the adoption of Smart-NFTs into the current ecosystem.</p>
+
+<h3 id="verifier">Verifier</h3>
+
+<p>In this protocol, Verifiers play a crucial role, responsible for auditing and verifying Smart-NFT code. However, decentralized Verifiers face some highly challenging issues, with one of the primary concerns being the specialized expertise required for their role, which is not easily accessible to the general population.</p>
+
+<p>First, let’s clarify the responsibilities of Verifiers, which include assessing the security, functionality, and compliance of smart contract code. This work demands professional programming skills, blockchain technology knowledge, and contract expertise. Verifiers must ensure the absence of vulnerabilities in the code.</p>
+
+<p>Secondly, decentralized Verifiers encounter challenges related to authority and credibility. In a centralized model, we can trust a specific auditing organization or expert to perform this task. However, in a decentralized environment, it becomes difficult to determine the expertise and integrity of Verifiers. This could potentially lead to incorrect audits and might even be abused to undermine overall stability and reliability.</p>
+
+<p>Lastly, achieving decentralized Verifiers also requires addressing coordination and management issues. In a centralized model, the responsibilities of managing and supervising Verifiers are relatively straightforward. However, in a decentralized environment, coordinating the work of various Verifiers and ensuring consistency in their audits across different contracts and code become significant challenges.</p>
+
+<h3 id="copyright-infringement-issue">Copyright infringement issue</h3>
+
+<p>Code plagiarism has always been a topic of concern, but often, such discussions seem unnecessary. We present two key points: first, overly simple code has no value, making discussions about plagiarism irrelevant. Secondly, when code is complex enough or creative, legal protection can be obtained through open-source licenses (OSI).</p>
+
+<p>The first point is that for overly simple code, plagiarism is almost meaningless. For example, consider a very basic “Hello World” program. Such code is so simple that almost anyone can independently create it. Discussing plagiarism of such code is a waste of time and resources because it lacks sufficient innovation or value and does not require legal protection.</p>
+
+<p>The second point is that when code is complex enough or creative, open-source licenses (OSI) provide legal protection for software developers. Open-source licenses are a way for developers to share their code and specify terms of use. For example, the GNU General Public License (GPL) and the Massachusetts Institute of Technology (MIT) license are common open-source licenses that ensure the original code’s creators can retain their intellectual property rights while allowing others to use and modify the code. This approach protects complex and valuable code while promoting innovation and sharing.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal aims to ensure the highest possible compatibility with the existing <a href="./eip-1155.md">ERC-1155</a> protocol. All functionalities present in <a href="./eip-1155.md">ERC-1155</a>, including <a href="./eip-165.md">ERC-165</a> detection and Smart-NFT support, are retained. This encompasses compatibility with current NFT trading platforms.</p>
+
+<p>For all Smart-NFTs, this proposla only mandates the provision of the <code class="language-plaintext highlighter-rouge">execute</code> function. This means that existing proxy contracts need to focus solely on this interface, making integration of Smart-NFTs more straightforward and streamlined.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>See <code class="language-plaintext highlighter-rouge">https://github.com/TsengMJ/EIP-7513_Example</code></p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="malicious-validator">Malicious Validator</h3>
+
+<p>All activities involving human intervention inherently carry the risk of malicious behavior. In this protocol, during the verification phase of Smart-NFTs, external validators provide guarantees. However, this structure raises concerns about the possibility of malicious validators intentionally endorsing Malicious Smart-NFTs. To mitigate this risk, it’s necessary to implement stricter validation mechanisms, filtering of validators, punitive measures, or even more stringent consensus standards.</p>
+
+<h3 id="unexpected-verification-error">Unexpected Verification Error</h3>
+
+<p>Apart from the issue of Malicious Validators, there’s the possibility of missed detection during the verification phase due to factors like overly complex Smart-NFT implementations or vulnerabilities in the Solidity compiler. This issue can only be addressed by employing additional tools to assist in contract auditing or by implementing multiple validator audits for the auditTo interface to reduce the likelihood of its occurrence.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

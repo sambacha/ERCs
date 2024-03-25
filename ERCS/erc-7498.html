@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>NFT Redeemables | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="NFT Redeemables | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7498" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7498" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">NFT Redeemables</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This specification introduces a new interface that extends <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> to enable the discovery and use of onchain and offchain redeemables for NFTs. Onchain getters and events facilitate discovery of redeemable campaigns and their requirements. New onchain mints use an interface that gives context to the minting contract of what was redeemed. For redeeming physical products and goods (offchain redeemables) a <code class="language-plaintext highlighter-rouge">redemptionHash</code> and <code class="language-plaintext highlighter-rouge">signer</code> can tie onchain redemptions with offchain order identifiers that contain chosen product and shipping information.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Creators frequently use NFTs to create redeemable entitlements for digital and physical goods. However, without a standard interface, it is challenging for users and apps to discover and interact with these NFTs in a predictable and standard way. This standard aims to encompass enabling broad functionality for:</p>
+
+<ul>
+  <li>discovery: events and getters that provide information about the requirements of a redemption campaign</li>
+  <li>onchain: token mints with context of items spent</li>
+  <li>offchain: the ability to associate with ecommerce orders (through <code class="language-plaintext highlighter-rouge">redemptionHash</code>)</li>
+  <li>trait redemptions: improving the burn-to-redeem experience with <a href="./eip-7496.md">ERC-7496</a> Dynamic Traits.</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>The token MUST have the following interface and MUST return <code class="language-plaintext highlighter-rouge">true</code> for <a href="./eip-165.md">ERC-165</a> supportsInterface for <code class="language-plaintext highlighter-rouge">0x1ac61e13</code>, the 4 byte interfaceId of the below.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IERC7498</span> <span class="p">{</span>
+  <span class="cm">/* Events */</span>
+  <span class="k">event</span> <span class="n">CampaignUpdated</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">campaignId</span><span class="p">,</span> <span class="n">Campaign</span> <span class="n">campaign</span><span class="p">,</span> <span class="kt">string</span> <span class="n">metadataURI</span><span class="p">);</span>
+  <span class="k">event</span> <span class="n">Redemption</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">campaignId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">requirementsIndex</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">redemptionHash</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="n">considerationTokenIds</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="n">traitRedemptionTokenIds</span><span class="p">,</span> <span class="kt">address</span> <span class="n">redeemedBy</span><span class="p">);</span>
+
+  <span class="cm">/* Structs */</span>
+  <span class="k">struct</span> <span class="n">Campaign</span> <span class="p">{</span>
+    <span class="n">CampaignParams</span> <span class="n">params</span><span class="p">;</span>
+    <span class="n">CampaignRequirements</span><span class="p">[]</span> <span class="n">requirements</span><span class="p">;</span> <span class="c1">// one requirement must be fully satisfied for a successful redemption
+</span>  <span class="p">}</span>
+  <span class="k">struct</span> <span class="n">CampaignParams</span> <span class="p">{</span>
+    <span class="kt">uint32</span> <span class="n">startTime</span><span class="p">;</span>
+    <span class="kt">uint32</span> <span class="n">endTime</span><span class="p">;</span>
+    <span class="kt">uint32</span> <span class="n">maxCampaignRedemptions</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">manager</span><span class="p">;</span> <span class="c1">// the address that can modify the campaign
+</span>    <span class="kt">address</span> <span class="n">signer</span><span class="p">;</span> <span class="c1">// null address means no EIP-712 signature required
+</span>  <span class="p">}</span>
+  <span class="k">struct</span> <span class="n">CampaignRequirements</span> <span class="p">{</span>
+    <span class="n">OfferItem</span><span class="p">[]</span> <span class="n">offer</span><span class="p">;</span>
+    <span class="n">ConsiderationItem</span><span class="p">[]</span> <span class="n">consideration</span><span class="p">;</span>
+    <span class="n">TraitRedemption</span><span class="p">[]</span> <span class="n">traitRedemptions</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">struct</span> <span class="n">TraitRedemption</span> <span class="p">{</span>
+    <span class="kt">uint8</span> <span class="n">substandard</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">token</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="n">traitKey</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="n">traitValue</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="n">substandardValue</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="cm">/* Getters */</span>
+  <span class="k">function</span> <span class="n">getCampaign</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">campaignId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Campaign</span> <span class="k">memory</span> <span class="n">campaign</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">metadataURI</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">totalRedemptions</span><span class="p">);</span>
+
+  <span class="cm">/* Setters */</span>
+  <span class="k">function</span> <span class="n">createCampaign</span><span class="p">(</span><span class="n">Campaign</span> <span class="k">calldata</span> <span class="n">campaign</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">metadataURI</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">campaignId</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">updateCampaign</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">campaignId</span><span class="p">,</span> <span class="n">Campaign</span> <span class="k">calldata</span> <span class="n">campaign</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">metadataURI</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">redeem</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">considerationTokenIds</span><span class="p">,</span> <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">extraData</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">---</span>
+
+<span class="cm">/* Seaport structs, for reference, used in offer/consideration above */</span>
+<span class="k">enum</span> <span class="n">ItemType</span> <span class="p">{</span>
+    <span class="n">NATIVE</span><span class="p">,</span>
+    <span class="n">ERC20</span><span class="p">,</span>
+    <span class="n">ERC721</span><span class="p">,</span>
+    <span class="n">ERC1155</span>
+<span class="p">}</span>
+<span class="k">struct</span> <span class="n">OfferItem</span> <span class="p">{</span>
+    <span class="n">ItemType</span> <span class="n">itemType</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">token</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">identifierOrCriteria</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">startAmount</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">endAmount</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">struct</span> <span class="n">ConsiderationItem</span> <span class="n">extends</span> <span class="n">OfferItem</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="k">payable</span> <span class="n">recipient</span><span class="p">;</span>
+    <span class="c1">// (note: psuedocode above, as of this writing can't extend structs in solidity)
+</span><span class="p">}</span>
+<span class="k">struct</span> <span class="n">SpentItem</span> <span class="p">{</span>
+    <span class="n">ItemType</span> <span class="n">itemType</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">token</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">identifier</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">amount</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="creating-campaigns">Creating campaigns</h3>
+
+<p>When creating a new campaign, <code class="language-plaintext highlighter-rouge">createCampaign</code> MUST be used and MUST return the newly created <code class="language-plaintext highlighter-rouge">campaignId</code> along with the <code class="language-plaintext highlighter-rouge">CampaignUpdated</code> event. The <code class="language-plaintext highlighter-rouge">campaignId</code> MUST be a counter incremented with each new campaign. The first campaign MUST have an id of <code class="language-plaintext highlighter-rouge">1</code>.</p>
+
+<h3 id="updating-campaigns">Updating campaigns</h3>
+
+<p>Updates to campaigns MAY use <code class="language-plaintext highlighter-rouge">updateCampaign</code> and MUST emit the <code class="language-plaintext highlighter-rouge">CampaignUpdated</code> event. If an address other than the <code class="language-plaintext highlighter-rouge">manager</code> tries to update the campaign, it MUST revert with <code class="language-plaintext highlighter-rouge">NotManager()</code>. If the manager wishes to make the campaign immutable, the <code class="language-plaintext highlighter-rouge">manager</code> MAY be set to the null address.</p>
+
+<h3 id="offer">Offer</h3>
+
+<p>If tokens are set in the params <code class="language-plaintext highlighter-rouge">offer</code>, the tokens MUST implement the <code class="language-plaintext highlighter-rouge">IRedemptionMintable</code> interface in order to support minting new items. The implementation SHOULD be however the token mechanics are desired. The implementing token MUST return true for ERC-165 <code class="language-plaintext highlighter-rouge">supportsInterface</code> for the interfaceId of <code class="language-plaintext highlighter-rouge">IRedemptionMintable</code>, <code class="language-plaintext highlighter-rouge">0x81fe13c2</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IRedemptionMintable</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">mintRedemption</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">campaignId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span>
+        <span class="n">OfferItem</span> <span class="k">calldata</span> <span class="n">offer</span><span class="p">,</span>
+        <span class="n">ConsiderationItem</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">consideration</span><span class="p">,</span>
+        <span class="n">TraitRedemption</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">traitRedemptions</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When <code class="language-plaintext highlighter-rouge">mintRedemption</code> is called, it is RECOMMENDED to replace the token identifiers in the consideration items and trait redemptions with the items actually being redeemed.</p>
+
+<h3 id="consideration">Consideration</h3>
+
+<p>Any token may be specified in the campaign requirement <code class="language-plaintext highlighter-rouge">consideration</code>. This will ensure the token is transferred to the <code class="language-plaintext highlighter-rouge">recipient</code>. If the token is meant to be burned, the recipient SHOULD be <code class="language-plaintext highlighter-rouge">0x000000000000000000000000000000000000dEaD</code>. If the token can internally handle burning its own tokens and reducing totalSupply, the token MAY burn the token instead of transferring to the recipient <code class="language-plaintext highlighter-rouge">0x000000000000000000000000000000000000dEaD</code>.</p>
+
+<h3 id="dynamic-traits">Dynamic traits</h3>
+
+<p>Including trait redemptions is optional, but if the token would like to enable trait redemptions the token MUST include <a href="./eip-7496.md">ERC-7496</a> Dynamic Traits.</p>
+
+<h3 id="signer">Signer</h3>
+
+<p>A signer MAY be specified to provide a signature to process the redemption. If the signer is not the null address, the signature MUST recover to the signer address via <a href="./eip-712.md">EIP-712</a> or <a href="./eip-1271.md">ERC-1271</a>.</p>
+
+<p>The EIP-712 struct for signing MUST be as follows: <code class="language-plaintext highlighter-rouge">SignedRedeem(address owner,uint256[] considerationTokenIds,uint256[] traitRedemptionTokenIds,uint256 campaignId,uint256 requirementsIndex, bytes32 redemptionHash, uint256 salt)"</code></p>
+
+<h3 id="redeem-function">Redeem function</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">redeem</code> function MUST use the <code class="language-plaintext highlighter-rouge">consideration</code>, <code class="language-plaintext highlighter-rouge">offer</code>, and <code class="language-plaintext highlighter-rouge">traitRedemptions</code> specified by the <code class="language-plaintext highlighter-rouge">requirements</code> determined by the <code class="language-plaintext highlighter-rouge">campaignId</code> and <code class="language-plaintext highlighter-rouge">requirementsIndex</code>:</p>
+
+<ul>
+  <li>Execute the transfers in the <code class="language-plaintext highlighter-rouge">consideration</code></li>
+  <li>Mutate the traits specified by <code class="language-plaintext highlighter-rouge">traitRedemptions</code> according to ERC-7496 Dynamic Traits</li>
+  <li>Call <code class="language-plaintext highlighter-rouge">mintRedemption()</code> on every <code class="language-plaintext highlighter-rouge">offer</code> item</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">Redemption</code> event MUST be emitted for every valid redemption that occurs.</p>
+
+<h4 id="redemption-extradata">Redemption extraData</h4>
+
+<p>The extraData layout MUST conform to the below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>bytes</th>
+      <th>value</th>
+      <th>description / notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0-32</td>
+      <td>campaignId</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>32-64</td>
+      <td>requirementsIndex</td>
+      <td>index of the campaign requirements met</td>
+    </tr>
+    <tr>
+      <td>64-96</td>
+      <td>redemptionHash</td>
+      <td>hash of offchain order ids</td>
+    </tr>
+    <tr>
+      <td>96-*</td>
+      <td>uint256[] traitRedemptionTokenIds</td>
+      <td>token ids for trait redemptions, MUST be in same order of campaign TraitRedemption[]</td>
+    </tr>
+    <tr>
+      <td>*-(+32)</td>
+      <td>salt</td>
+      <td>if signer != address(0)</td>
+    </tr>
+    <tr>
+      <td>*-(+*)</td>
+      <td>signature</td>
+      <td>if signer != address(0). can be for EIP-712 or ERC-1271</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code class="language-plaintext highlighter-rouge">requirementsIndex</code> MUST be the index in the <code class="language-plaintext highlighter-rouge">requirements</code> array that satisfies the redemption. This helps reduce gas to find the requirement met.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">traitRedemptionTokenIds</code> specifies the token IDs required for the trait redemptions in the requirements array. The order MUST be the same order of the token addresses expected in the array of <code class="language-plaintext highlighter-rouge">TraitRedemption</code> structs in the campaign requirement used.</p>
+
+<p>If the campaign <code class="language-plaintext highlighter-rouge">signer</code> is the null address the <code class="language-plaintext highlighter-rouge">salt</code> and <code class="language-plaintext highlighter-rouge">signature</code> MUST be omitted.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">redemptionHash</code> is designated for offchain redemptions to reference offchain order identifiers to track the redemption to.</p>
+
+<p>The function MUST check that the campaign is active (using the same boundary check as Seaport, <code class="language-plaintext highlighter-rouge">startTime &lt;= block.timestamp &lt; endTime</code>). If it is not active, it MUST revert with <code class="language-plaintext highlighter-rouge">NotActive()</code>.</p>
+
+<h3 id="trait-redemptions">Trait redemptions</h3>
+
+<p>The token MUST respect the TraitRedemption substandards as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>substandard ID</th>
+      <th>description</th>
+      <th>substandard value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>set value to <code class="language-plaintext highlighter-rouge">traitValue</code></td>
+      <td>prior required value. if blank, cannot be the <code class="language-plaintext highlighter-rouge">traitValue</code> already</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>increment trait by <code class="language-plaintext highlighter-rouge">traitValue</code></td>
+      <td>max value</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>decrement trait by <code class="language-plaintext highlighter-rouge">traitValue</code></td>
+      <td>min value</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>check value is <code class="language-plaintext highlighter-rouge">traitValue</code></td>
+      <td>n/a</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="max-campaign-redemptions">Max campaign redemptions</h3>
+
+<p>The token MUST check that the <code class="language-plaintext highlighter-rouge">maxCampaignRedemptions</code> is not exceeded. If the redemption does exceed <code class="language-plaintext highlighter-rouge">maxCampaignRedemptions</code>, it MUST revert with <code class="language-plaintext highlighter-rouge">MaxCampaignRedemptionsReached(uint256 total, uint256 max)</code></p>
+
+<h3 id="metadata-uri">Metadata URI</h3>
+
+<p>The metadata URI MUST conform to the below JSON schema:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://json-schema.org/draft/2020-12/schema"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"campaigns"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"campaignId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A one-line summary of the redeemable. Markdown is not supported."</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A multi-line or multi-paragraph description of the details of the redeemable. Markdown is supported."</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"imageUrls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A list of image URLs for the redeemable. The first image will be used as the thumbnail. Will rotate in a carousel if multiple images are provided. Maximum 5 images."</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"bannerUrl"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The banner image for the redeemable."</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"faq"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"question"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"answer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"question"</span><span class="p">,</span><span class="w"> </span><span class="s2">"answer"</span><span class="p">]</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"contentLocale"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The language tag for the content provided by this metadata. https://www.rfc-editor.org/rfc/rfc9110.html#name-language-tags"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"maxRedemptionsPerToken"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The maximum number of redemptions per token. When isBurn is true should be 1, else can be a number based on the trait redemptions limit."</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"isBurn"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"If the redemption burns the token."</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"An optional unique identifier for the campaign, for backends to identify when draft campaigns are published onchain."</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"productLimitForRedemption"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The number of products which are able to be chosen from the products array for a single redemption."</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://schema.org/Product"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"name"</span><span class="p">,</span><span class="w"> </span><span class="s2">"url"</span><span class="p">,</span><span class="w"> </span><span class="s2">"description"</span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"campaignId"</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w"> </span><span class="s2">"description"</span><span class="p">,</span><span class="w"> </span><span class="s2">"imageUrls"</span><span class="p">,</span><span class="w"> </span><span class="s2">"isBurn"</span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Future EIPs MAY inherit this one and add to the above metadata to add more features and functionality.</p>
+
+<h3 id="erc-1155-semi-fungibles">ERC-1155 (Semi-fungibles)</h3>
+
+<p>This standard MAY be applied to ERC-1155 but the redemptions would apply to all token amounts for specific token identifiers. If the ERC-1155 contract only has tokens with amount of 1, then this specification MAY be used as written.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The “offer” and “consideration” structs from Seaport were used to create a similar language for redeemable campaigns. The “offer” is what is being offered, e.g. a new onchain token, and the “consideration” is what must be satisfied to complete the redemption. The “consideration” field has a “recipient”, who the token should be transferred to. For trait updates that do not require moving of a token, <code class="language-plaintext highlighter-rouge">traitRedemptionTokenIds</code> is specified instead.</p>
+
+<p>The “salt” and “signature” fields are provided primarily for offchain redemptions where a provider would want to sign approval for a redemption before it is conducted onchain, to prevent the need for irregular state changes. For example, if a user lives outside a region supported by the shipping of an offchain redeemable, during the offchain order creation process the signature would not be provided for the onchain redemption when seeing that the user’s shipping country is unsupported. This prevents the user from redeeming the NFT, then later finding out the shipping isn’t supported after their NFT is already burned or trait is mutated.</p>
+
+<p><a href="./eip-7496.md">ERC-7496</a> Dynamic Traits is used for trait redemptions to support onchain enforcement of trait values for secondary market orders.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>As a new EIP, no backwards compatibility issues are present.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Authors have included Foundry tests covering functionality of the specification in the <a href="../assets/eip-7498/ERC721ShipyardRedeemable.t.sol">assets folder</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Authors have included reference implementations of the specification in the <a href="../assets/eip-7498/ERC7498NFTRedeemables.sol">assets folder</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>If trait redemptions are desired, tokens implementing this EIP must properly implement <a href="./eip-7496.md">ERC-7496</a> Dynamic Traits.</p>
+
+<p>For tokens to be minted as part of the params <code class="language-plaintext highlighter-rouge">offer</code>, the <code class="language-plaintext highlighter-rouge">mintRedemption</code> function contained as part of <code class="language-plaintext highlighter-rouge">IRedemptionMintable</code> MUST be permissioned and ONLY allowed to be called by specified addresses.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

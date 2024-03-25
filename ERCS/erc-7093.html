@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Social Recovery Interface | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Social Recovery Interface | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7093" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7093" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Social Recovery Interface</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This ERC proposes a standard interface for social recovery of smart contract accounts. It separates identity and policy verification from the recovery process, allowing more ways to authenticate (known as Guardians) than just on-chain accounts. It also lets users customize recovery policies without changing the account’s smart contract.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Vitalik Buterin has long advocated for social recovery as an essential tool for user protection within the crypto space. He posits that the value of this system rests in its ability to offer users, especially those less acquainted with the technicalities of cryptography, a robust safety net when access credentials are lost. By entrusting account recovery to a network of selected individuals or entities, dubbed “Guardians,” users gain a safeguard against the risk of losing access to their digital assets.</p>
+
+<p>In essence, social recovery operates by verifying the identity of the user and the chosen Guardians, and then considering a set of their signatures. Should the validated signatures reach a specified threshold, account access is reestablished. This system is equipped to enforce complex policies, such as necessitating signatures from particular Guardians or reaching signature thresholds from different Guardian categories.</p>
+
+<p>To overcome these limitations, this Ethereum Improvement Proposal (EIP) introduces a novel, customizable social recovery interface standard. This standard decouples identity and recovery policy verification from the recovery procedure itself, thereby enabling an independent, versatile definition and extension of both. This strategy accommodates a wider range of Guardian types and recovery policies, thereby offering users the following benefits:</p>
+
+<ol>
+  <li>Appoint friends or family members, who do not have blockchain accounts, as Guardians for social recovery.</li>
+  <li>Use NFTs/SBTs as Guardians for their accounts.</li>
+  <li>Personalize and implement adaptable recovery policies.</li>
+  <li>Support novel types of Guardians and recovery policies without needing to upgrade their account contracts.</li>
+  <li>Enable multiple recovery mechanism support, thereby eliminating single points of failure.</li>
+</ol>
+
+<p>This approach enables users to customize recovery policies without the need to change the smart contract of the account itself.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>This EIP consists of four key concepts:</p>
+
+<ul>
+  <li><strong>Identity</strong>: This denotes the representation of a Guardian’s identity on the blockchain. It encapsulates traditional on-chain account types such as Externally Owned Accounts (EOA) and Smart Contract Accounts (SCA). More importantly, it extends to include any identity construct capable of producing construct able to be verified on-chain, like signatures and proofs. This could range from <a href="https://www.w3.org/TR/2021/REC-webauthn-2-20210408/">Webauthn</a>/Passkey R1 keys to Email DomainKeys Identified Mail (DKIM) signatures <a href="https://www.rfc-editor.org/rfc/rfc6376">RFC 6376</a>, OpenID tokens, Zero-Knowledge Proofs (ZKP), Non-Fungible Tokens (NFTs), SoulBound Tokens (SBTs), and even types yet to be developed. This comprehensive approach ensures a broad, forward-compatible support for various identity types.</li>
+  <li><strong>PermissionVerifier</strong>: This component defines how to verify the signature or proof provided by the Guardian. Regardless of whether the Guardian’s account is on-chain or off-chain, the PermissionVerifier is invoked during the recovery process of smart contract accounts that incorporate a social recovery system. Its primary role is to confirm the validity of the Guardian’s signature or proof, thereby ensuring the authenticity of the Guardian during the recovery process.</li>
+  <li><strong>RecoveryPolicyVerifier</strong>: This component offers a flexible interface for validating recovery policies. The flexibility stems from allowing account holders or authorized parties to define and store their recovery policies. During the recovery process, the verification logic is implemented by invoking the specific function of the contract instance adopting this interface. Thus, a wide array of customizable social recovery scenarios can be catered to through different contract instances and policy configurations. This contract is optional, because sometimes the contract designer may not need the policy abstraction.</li>
+  <li><strong>RecoveryAccount</strong>: This component encapsulates the core of the social recovery functionality. It is designed to be flexible, composable, and extensible to adapt to various recovery needs. Each RecoveryAccount is defined by an instance contract, crafted by smart contract developers, which embeds the essential logic for the recovery process.</li>
+  <li><strong>RecoveryModule</strong>: In some contract designs, many functions are not directly added to the account contract, but are implemented in the form of Module, which is a contract outside the account contract. This component encapsulates the core of the social recovery functionality. It is designed to be flexible, composable, and extensible to adapt to various recovery needs.</li>
+</ul>
+
+<p><img src="../assets/eip-7093/social-recovery-flow.svg" alt="social_recovery_flow" /></p>
+
+<h3 id="datatypes">DataTypes</h3>
+
+<h3 id="typesanddecoders"><code class="language-plaintext highlighter-rouge">TypesAndDecoders</code></h3>
+
+<p>This defines the necessary data types required by this interface standard.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @dev Structure representing an identity with its signature/proof verification logic.
+ * Represents an EOA/CA account when signer is empty, use `guardianVerifier`as the actual signer for signature verification.
+ * OtherWise execute IPermissionVerifier(guardianVerifier).isValidPermission(hash, signer, signature).
+ */</span>
+<span class="k">struct</span> <span class="n">Identity</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">guardianVerifier</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="n">signer</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Structure representing a guardian with a property
+ * The property of Guardian are defined by the associated RecoveryPolicyVerifier contract.
+ */</span>
+<span class="k">struct</span> <span class="n">GuardianInfo</span> <span class="p">{</span>
+    <span class="n">Identity</span> <span class="n">guardian</span><span class="p">;</span>
+    <span class="kt">uint64</span> <span class="n">property</span><span class="p">;</span> <span class="c1">//eg.,Weight,Percentage,Role with weight,etc.
+</span><span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Structure representing a threshold configuration
+ */</span>
+<span class="k">struct</span> <span class="n">ThresholdConfig</span> <span class="p">{</span>
+    <span class="kt">uint64</span> <span class="n">threshold</span><span class="p">;</span> <span class="c1">// Threshold value
+</span>    <span class="kt">int48</span> <span class="n">lockPeriod</span><span class="p">;</span> <span class="c1">// Lock period for the threshold
+</span><span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Structure representing a recovery configuration
+ * A RecoveryConfig can have multiple threshold configurations for different threshold values and their lock periods, and the policyVerifier is optional.
+ */</span>
+<span class="k">struct</span> <span class="n">RecoveryConfigArg</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">policyVerifier</span><span class="p">;</span>
+    <span class="n">GuardianInfo</span><span class="p">[]</span> <span class="n">guardianInfos</span><span class="p">;</span>
+    <span class="n">ThresholdConfig</span><span class="p">[]</span> <span class="n">thresholdConfigs</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">Permission</span> <span class="p">{</span>
+    <span class="n">Identity</span> <span class="n">guardian</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="n">signature</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Identity</code> structure represents various types of guardians. The process of identity verification is as follows:</p>
+
+<ul>
+  <li>When the <code class="language-plaintext highlighter-rouge">signer</code> value in the declared entity is empty, this implies that the <code class="language-plaintext highlighter-rouge">Identity</code> entity is of EOA/SCA account type. In this case, <code class="language-plaintext highlighter-rouge">guardianVerifier</code> address should be the address of EOA/SCA (the actual signer). For permission verification of this <code class="language-plaintext highlighter-rouge">Identity</code> entity, it is recommended to utilize a secure library or built-in function capable of validating both ECDSA and <a href="./eip-1271.md">ERC-1271</a> signatures. This helps in preventing potential security vulnerabilities, such as signature malleability attacks.</li>
+  <li>When the <code class="language-plaintext highlighter-rouge">signer</code> value in the declared entity is non-empty, this suggests that the <code class="language-plaintext highlighter-rouge">Identity</code> entity is of non-account type. In this case, permission verification can be accomplished by calling <code class="language-plaintext highlighter-rouge">guardianVerifier</code> address contract instance through <code class="language-plaintext highlighter-rouge">IPermissionVerifier</code> interface.</li>
+</ul>
+
+<h3 id="interfaces">Interfaces</h3>
+
+<h3 id="ipermissionverifier"><code class="language-plaintext highlighter-rouge">IPermissionVerifier</code></h3>
+
+<p>The Guardian Permission Verification Interface. Implementations MUST conform to this interface to enable identity verification of non-account type guardians.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @dev Interface for no-account type identity signature/proof verification
+ */</span>
+<span class="k">interface</span> <span class="n">IPermissionVerifier</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Check if the signer key format is correct
+     */</span>
+    <span class="k">function</span> <span class="n">isValidSigners</span><span class="p">(</span><span class="kt">bytes</span><span class="p">[]</span> <span class="n">signers</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Validate permission
+     */</span>
+    <span class="k">function</span> <span class="n">isValidPermission</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">hash</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="n">signer</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="n">signature</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Validate permissions
+     */</span>
+    <span class="k">function</span> <span class="n">isValidPermissions</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">hash</span><span class="p">,</span>
+        <span class="kt">bytes</span><span class="p">[]</span> <span class="n">signers</span><span class="p">,</span>
+        <span class="kt">bytes</span><span class="p">[]</span> <span class="n">signatures</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Return supported signer key information, format, signature format, hash algorithm, etc.
+     * MAY TODO:using ERC-3668: ccip-read
+     */</span>
+    <span class="k">function</span> <span class="n">getGuardianVerifierInfo</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h3 id="irecoverypolicyverifier"><code class="language-plaintext highlighter-rouge">IRecoveryPolicyVerifier</code></h3>
+
+<p>The Recovery Policy Verification Interface. Implementations MAY conform to this interface to support verification of varying recovery policies. RecoveryPolicyVerifier is optional for SocialRecoveryInterface.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @dev Interface for recovery policy verification
+ */</span>
+<span class="k">interface</span> <span class="n">IRecoveryPolicyVerifier</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Verify recovery policy and return verification success and lock period
+     * Verification includes checking if guardians exist in the Guardians List
+     */</span>
+    <span class="k">function</span> <span class="n">verifyRecoveryPolicy</span><span class="p">(</span> <span class="n">Permission</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">permissions</span><span class="p">,</span> <span class="kt">uint64</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">properties</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">succ</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">weight</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns supported policy settings and accompanying property definitions for Guardian.
+     */</span>
+    <span class="k">function</span> <span class="n">getPolicyVerifierInfo</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">verifyRecoveryPolicy()</code> function is designed to validate whether the provided list of <code class="language-plaintext highlighter-rouge">Permissions</code> abides by the specified recovery properties (<code class="language-plaintext highlighter-rouge">properties</code>). This function has the following constraints and effects: For each matched <code class="language-plaintext highlighter-rouge">guardian</code>, calculations are made according to the corresponding <code class="language-plaintext highlighter-rouge">property</code> in the <code class="language-plaintext highlighter-rouge">properties</code> list (e.g., accumulating weight, distinguishing role while accumulating, etc.).</p>
+
+<p>These constraints ensure that the provided <code class="language-plaintext highlighter-rouge">guardians</code> and <code class="language-plaintext highlighter-rouge">properties</code> comply with the requirements of the recovery policy, maintaining the security and integrity of the recovery process.</p>
+
+<h3 id="irecoveryaccount"><code class="language-plaintext highlighter-rouge">IRecoveryAccount</code></h3>
+
+<p>The Smart Contract Account MAY implement the <code class="language-plaintext highlighter-rouge">IRecoveryAccount</code> interface to support social recovery functionality, enabling users to customize configurations of different types of Guardians and recovery policies. In the contract design based on Module, the implementation of <code class="language-plaintext highlighter-rouge">RecoveryModule</code> is very similar to <code class="language-plaintext highlighter-rouge">RecoveryAccount</code>, except that different accounts need to be distinguished and isolated.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IRecoveryAccount</span> <span class="p">{</span>
+    <span class="k">modifier</span> <span class="n">onlySelf</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">"onlySelf: NOT_AUTHORIZED"</span><span class="p">);</span>
+        <span class="n">_</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">modifier</span> <span class="n">InRecovering</span><span class="p">(</span><span class="kt">address</span> <span class="n">policyVerifyAddress</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">(</span><span class="kt">bool</span> <span class="n">isRecovering</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">getRecoveryStatus</span><span class="p">(</span><span class="n">policyVerifierAddress</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">isRecovering</span><span class="p">,</span> <span class="s">"InRecovering: no ongoing recovery"</span><span class="p">);</span>
+        <span class="n">_</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Events for updating guardians, starting for recovery, executing recovery, and canceling recovery
+     */</span>
+    <span class="k">event</span> <span class="n">RecoveryStarted</span><span class="p">(</span><span class="kt">bytes</span> <span class="n">newOwners</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">,</span> <span class="kt">uint48</span> <span class="n">expiryTime</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">RecoveryExecuted</span><span class="p">(</span><span class="kt">bytes</span> <span class="n">newOwners</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">RecoveryCanceled</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">nonce</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Return the domain separator name and version for signatures
+     * Also return the domainSeparator for EIP-712 signature
+     */</span>
+
+    <span class="c1">/// @notice             Domain separator name for signatures
+</span>    <span class="k">function</span> <span class="n">DOMAIN_SEPARATOR_NAME</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice             Domain separator version for signatures
+</span>    <span class="k">function</span> <span class="n">DOMAIN_SEPARATOR_VERSION</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice             returns the domainSeparator for EIP-712 signature
+</span>    <span class="c1">/// @return             the bytes32 domainSeparator for EIP-712 signature
+</span>    <span class="k">function</span> <span class="n">domainSeparatorV4</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Update /replace guardians and recovery policies
+     * Multiple recovery policies can be set using an array of RecoveryConfigArg
+     */</span>
+    <span class="k">function</span> <span class="n">updateGuardians</span><span class="p">(</span><span class="n">RecoveryConfigArg</span><span class="p">[]</span> <span class="n">recoveryConfigArgs</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlySelf</span><span class="p">;</span>
+
+    <span class="c1">// Generate EIP-712 message hash,
+</span>    <span class="c1">// Iterate over signatures for verification,
+</span>    <span class="c1">// Verify recovery policy,
+</span>    <span class="c1">// Store temporary state or recover immediately based on the result returned by verifyRecoveryPolicy.
+</span>    <span class="k">function</span> <span class="n">startRecovery</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">configIndex</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="n">newOwner</span><span class="p">,</span>
+        <span class="n">Permission</span><span class="p">[]</span> <span class="n">permissions</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Execute recovery
+     * temporary state -&gt; ownerKey rotation
+     */</span>
+    <span class="k">function</span> <span class="n">executeRecovery</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">configIndex</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">cancelRecovery</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">configIndex</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlySelf</span> <span class="n">InRecovering</span><span class="p">(</span><span class="n">policyVerifier</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">cancelRecoveryByGuardians</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">configIndex</span><span class="p">,</span> <span class="n">Permission</span><span class="p">[]</span> <span class="n">permissions</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="n">InRecovering</span><span class="p">(</span><span class="n">policyVerifier</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Get wallet recovery config, check if an identity is a guardian, get the nonce of social recovery, and get the recovery status of the wallet
+     */</span>
+    <span class="k">function</span> <span class="n">isGuardian</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">configIndex</span><span class="p">,</span> <span class="n">identity</span> <span class="n">guardian</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getRecoveryConfigs</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">RecoveryConfigArg</span><span class="p">[]</span> <span class="n">recoveryConfigArgs</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getRecoveryNonce</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">nonce</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getRecoveryStatus</span><span class="p">(</span><span class="kt">address</span> <span class="n">policyVerifier</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">isRecovering</span><span class="p">,</span> <span class="kt">uint48</span> <span class="n">expiryTime</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>For the <code class="language-plaintext highlighter-rouge">Guardian</code>’s signable message, it SHOULD employ <a href="./eip-712.md">EIP-712</a> type signature to ensure the content of the signature is readable and can be confirmed accurately during the Guardian signing process.</li>
+  <li><code class="language-plaintext highlighter-rouge">getRecoveryNonce()</code> SHOULD be separated from nonces associated with account asset operations, as social recovery is a function at the account layer.</li>
+</ul>
+
+<h3 id="recovery-account-workflow"><strong>Recovery Account Workflow</strong></h3>
+
+<p>Note: This workflow is presented as an illustrative example to clarify the coordinated usage of the associated interface components. It does not imply a mandatory adherence to this exact process.</p>
+
+<ol>
+  <li>
+    <p>A user sets up a <code class="language-plaintext highlighter-rouge">recoveryPolicyConfigA</code> within his <code class="language-plaintext highlighter-rouge">RecoveryAccount</code>:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="nl">"recoveryConfigA"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RecoveryConfig"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"policyVerifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xA"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"guardians"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Identity"</span><span class="p">,</span><span class="w">
+             </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+             </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                 </span><span class="nl">"guardianVerifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guardianVerifier1"</span><span class="p">,</span><span class="w">
+                 </span><span class="nl">"signer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"signerA"</span><span class="w">
+             </span><span class="p">},</span><span class="w">
+             </span><span class="nl">"property"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Identity"</span><span class="p">,</span><span class="w">
+             </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B"</span><span class="p">,</span><span class="w">
+             </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                 </span><span class="nl">"guardianVerifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guardianVerifier2"</span><span class="p">,</span><span class="w">
+                 </span><span class="nl">"signer"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+             </span><span class="p">},</span><span class="w">
+             </span><span class="nl">"property"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Identity"</span><span class="p">,</span><span class="w">
+             </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+             </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                 </span><span class="nl">"guardianVerifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guardianVerifier3"</span><span class="p">,</span><span class="w">
+                 </span><span class="nl">"signer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"signerC"</span><span class="w">
+             </span><span class="p">},</span><span class="w">
+             </span><span class="nl">"property"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">],</span><span class="w">
+     </span><span class="nl">"thresholdConfigs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+         </span><span class="p">{</span><span class="w"> </span><span class="nl">"threshold"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="nl">"lockPeriod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24hours"</span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w"> </span><span class="nl">"threshold"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="nl">"lockPeriod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">}</span><span class="w">
+     </span><span class="p">]</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>When GuardianA and GuardianB assist the user in performing account recovery, they are to confirm the <a href="./eip-712.md">EIP-712</a> structured data for signing, which might look like this:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"types"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"EIP712Domain"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"> </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"version"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"> </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"chainId"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uint256"</span><span class="w"> </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verifyingContract"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"address"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"StartRecovery"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"configIndex"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uint256"</span><span class="w"> </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newOwners"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bytes"</span><span class="w"> </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nonce"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uint256"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"primaryType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"StartRecovery"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recovery Account Contract"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"chainId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"verifyingContract"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"policyVerifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xA"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"newOwners"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>In this step, the guardians need to confirm that the domain separator’s <code class="language-plaintext highlighter-rouge">verifyingContract</code> is the correct <code class="language-plaintext highlighter-rouge">RecoveryAccount</code> address for the user, the contract name, version, and chainId are correct, and the <code class="language-plaintext highlighter-rouge">policyVerifier</code> and <code class="language-plaintext highlighter-rouge">newOwners</code> fields in the <code class="language-plaintext highlighter-rouge">message</code> part match the user’s provided data.</p>
+
+    <p>The <code class="language-plaintext highlighter-rouge">msgHash</code> is then composed of:</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">msgHash</code> = <code class="language-plaintext highlighter-rouge">keccak256("\\x19\\x01" + domainSeparatorV4() + dataHash)</code></li>
+    </ul>
+
+    <p>Where,</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">dataHash</code> = <code class="language-plaintext highlighter-rouge">keccak256(EXECUTE_RECOVERY_TYPEHASH + configIndex + keccak256(bytes(newOwners)) + getRecoveryNonce())</code></li>
+      <li><code class="language-plaintext highlighter-rouge">EXECUTE_RECOVERY_TYPEHASH</code> = <code class="language-plaintext highlighter-rouge">keccak256("StartRecovery(address configIndex, bytes newOwners, uint256 nonce)")</code></li>
+    </ul>
+
+    <p>The guardians sign this hash to obtain the signature:</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">signature</code> = <code class="language-plaintext highlighter-rouge">sign(msgHash)</code></li>
+    </ul>
+
+    <p>The <code class="language-plaintext highlighter-rouge">permission</code> is then constructed as:</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">permission</code> = <code class="language-plaintext highlighter-rouge">guardian + signature</code></li>
+    </ul>
+
+    <p>Once each Guardian has generated their unique <code class="language-plaintext highlighter-rouge">permission</code>, all these individual permissions are collected to form <code class="language-plaintext highlighter-rouge">permissions</code>:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">permissions</code>= [<code class="language-plaintext highlighter-rouge">guardianA+signature</code>, <code class="language-plaintext highlighter-rouge">guardianB+signature</code>, …]</p>
+
+    <p>The <code class="language-plaintext highlighter-rouge">permissions</code> is an array that consists of all the permissions of the Guardians who are participating in the recovery process.</p>
+  </li>
+  <li>
+    <p>A bundler or another relayer service calls the <code class="language-plaintext highlighter-rouge">RecoveryAccount.startRecovery(0xA, newOwners, permissions)</code> function.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">startRecovery()</code> function’s processing logic is as follows:</p>
+
+    <ul>
+      <li>Generate a message hash (<code class="language-plaintext highlighter-rouge">msgHash</code>) from the input parameters <code class="language-plaintext highlighter-rouge">0xA</code>, <code class="language-plaintext highlighter-rouge">newOwners</code> and internally generated <a href="./eip-712.md">EIP-712</a> signature parameters and <code class="language-plaintext highlighter-rouge">RecoveryNonce</code>.</li>
+      <li>Extract <code class="language-plaintext highlighter-rouge">guardian</code> and corresponding <code class="language-plaintext highlighter-rouge">signature</code> from the input parameters <code class="language-plaintext highlighter-rouge">permissions</code> and process them as follows:
+        <ul>
+          <li>If <code class="language-plaintext highlighter-rouge">guardianA.signer</code> is non-empty (Identity A), call <code class="language-plaintext highlighter-rouge">IPermissionVerifier(guardianVerifier1).isValidPermissions(signerA, msgHash, permissionA.signature)</code> to validate the signature.</li>
+          <li>If <code class="language-plaintext highlighter-rouge">guardianA.signer</code> is empty (Identity B), call the internal function <code class="language-plaintext highlighter-rouge">SignatureChecker.isValidSignatureNow(guardianVerifier2, msgHash, permissionB.signature)</code> to validate the signature.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>After successful verification of all <code class="language-plaintext highlighter-rouge">guardians</code> signatures, fetch the associated <code class="language-plaintext highlighter-rouge">config</code> data for policyVerifier address <code class="language-plaintext highlighter-rouge">0xA</code> and call <code class="language-plaintext highlighter-rouge">IRecoveryPolicyVerifier(0xA).verifyRecoveryPolicy(permissions, properties)</code>. The function <code class="language-plaintext highlighter-rouge">verifyRecoveryPolicy()</code> performs the following checks:</p>
+
+    <p>Note that the <code class="language-plaintext highlighter-rouge">guardians</code> parameter in the function refers to the guardians whose signatures have been successfully verified.</p>
+
+    <ul>
+      <li>Verify that <code class="language-plaintext highlighter-rouge">guardians</code> (Identity A and B) are present in <code class="language-plaintext highlighter-rouge">config.guardianInfos</code> list and are unique.</li>
+      <li>Accumulate the <code class="language-plaintext highlighter-rouge">property</code> values of <code class="language-plaintext highlighter-rouge">guardians</code> (30 + 30 = 60).</li>
+      <li>Compare the calculated result (60) with the <code class="language-plaintext highlighter-rouge">config.thresholdConfigs.threshold</code> ,the result is more than the first element (<code class="language-plaintext highlighter-rouge">threshold: 50, lockPeriod: 24 hours</code>) but less than the second element (<code class="language-plaintext highlighter-rouge">threshold: 100, lockPeriod: ""</code>), the validation is successful, and the lock period of 24 hours is returned.</li>
+    </ul>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">RecoveryAccount</code> saves a temporary state <code class="language-plaintext highlighter-rouge">{newOwners, block.timestamp + 24 hours}</code> and increments <code class="language-plaintext highlighter-rouge">RecoveryNonce</code>. A <code class="language-plaintext highlighter-rouge">RecoveryStarted</code> event is emitted.</p>
+  </li>
+  <li>
+    <p>After the expiry time, anyone (usually a relayer) can call <code class="language-plaintext highlighter-rouge">RecoveryAccount.executeRecovery()</code> to replace <code class="language-plaintext highlighter-rouge">newOwners</code>, remove the temporary state, complete the recovery, and emit a <code class="language-plaintext highlighter-rouge">RecoveryExecuteed</code> event.</p>
+  </li>
+</ol>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>A primary design rationale for this proposal is to extend a greater diversity of Guardian types and more flexible, customizable recovery policies for a RecoveryAccount. This is achieved by separating the verification logic from the social recovery process, ensuring that the basic logic of the account contract remains unaltered.</p>
+
+<p>The necessity of incorporating <code class="language-plaintext highlighter-rouge">Verifiers</code> from external contracts arises from the importance of maintaining the inherent recovery logic of the <code class="language-plaintext highlighter-rouge">RecoveryAccount</code>. The <code class="language-plaintext highlighter-rouge">Verifiers</code>’s logic is designed to be simple and clear, and its fixed invocation format means that any security risks posed by integrating external contracts can be effectively managed.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">recoveryConfigs</code> are critical to the <code class="language-plaintext highlighter-rouge">RecoveryAccount</code> and should be securely and effectively stored. The access and modification permissions associated with these configurations must be carefully managed and isolated to maintain security. The storage and quantity of <code class="language-plaintext highlighter-rouge">recoveryConfigs</code> are not limited to ensure the maximum flexibility of the <code class="language-plaintext highlighter-rouge">RecoveryAccount</code>’s implementation.</p>
+
+<p>The introduction of <code class="language-plaintext highlighter-rouge">recoveryNonce</code> into the <code class="language-plaintext highlighter-rouge">RecoveryAccount</code> serves to prevent potential replay attacks arising from the malicious use of Guardian’s <code class="language-plaintext highlighter-rouge">permissions</code>. The <code class="language-plaintext highlighter-rouge">recoveryNonce</code> ensures each recovery process is unique, reducing the likelihood of past successful recovery attempts being maliciously reused.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues are introduced by this standard.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>TBD.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Needs discussion.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

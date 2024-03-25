@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Remote Procedure Call Provider Lists | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Remote Procedure Call Provider Lists | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5139" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5139" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Remote Procedure Call Provider Lists</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+<p>This proposal specifies a JSON schema for describing lists of remote procedure call (RPC) providers for Ethereum-like chains, including their supported <a href="./eip-155.md">EIP-155</a> <code class="language-plaintext highlighter-rouge">CHAIN_ID</code>.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>The recent explosion of alternate chains, scaling solutions, and other mostly Ethereum-compatible ledgers has brought with it many risks for users. It has become commonplace to blindly add new RPC providers using <a href="./eip-3085.md">EIP-3085</a> without evaluating their trustworthiness. At best, these RPC providers may be accurate, but track requests; and at worst, they may provide misleading information and frontrun transactions.</p>
+
+<p>If users instead are provided with a comprehensive provider list built directly by their wallet, with the option of switching to whatever list they so choose, the risk of these malicious providers is mitigated significantly, without sacrificing functionality for advanced users.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<h3 id="list-validation--schema">List Validation &amp; Schema</h3>
+
+<p>List consumers (like wallets) MUST validate lists against the provided schema. List consumers MUST NOT connect to RPC providers present only in an invalid list.</p>
+
+<p>Lists MUST conform to the following JSON Schema:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://json-schema.org/draft/2020-12/schema"</span><span class="p">,</span><span class="w">
+
+  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ethereum RPC Provider List"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Schema for lists of RPC providers compatible with Ethereum wallets."</span><span class="p">,</span><span class="w">
+
+  </span><span class="nl">"$defs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"VersionBase"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Version of a list, used to communicate changes."</span><span class="p">,</span><span class="w">
+
+      </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"major"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"minor"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"patch"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Major version of a list. Incremented when providers are removed from the list or when their chain ids change."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"minimum"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+
+        </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Minor version of a list. Incremented when providers are added to the list."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"minimum"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+
+        </span><span class="nl">"patch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patch version of a list. Incremented for any change not covered by major or minor versions, like bug fixes."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"minimum"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+
+        </span><span class="nl">"preRelease"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pre-release version of a list. Indicates that the version is unstable and might not satisfy the intended compatibility requirements as denoted by its major, minor, and patch versions."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"pattern"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^[1-9A-Za-z][0-9A-Za-z]*(</span><span class="se">\\</span><span class="s2">.[1-9A-Za-z][0-9A-Za-z]*)*$"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+
+    </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+
+      </span><span class="nl">"allOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/VersionBase"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"patch"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"preRelease"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"build"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Build metadata associated with a list."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"pattern"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^[0-9A-Za-z-]+(</span><span class="se">\\</span><span class="s2">.[0-9A-Za-z-])*$"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+
+    </span><span class="nl">"VersionRange"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"patch"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"preRelease"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"mode"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+
+      </span><span class="nl">"allOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/VersionBase"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+
+      </span><span class="nl">"oneOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"mode"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"^"</span><span class="p">,</span><span class="w"> </span><span class="s2">"="</span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"preRelease"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"preRelease"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"mode"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"mode"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"="</span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+
+    </span><span class="nl">"Logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A URI to a logo; suggest SVG or PNG of size 64x64"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uri"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+
+    </span><span class="nl">"ProviderChain"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A single chain supported by a provider"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"chainId"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"endpoints"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"chainId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chain ID of an Ethereum-compatible network"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"minimum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"minItems"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"uniqueItems"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uri"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+
+    </span><span class="nl">"Provider"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Description of an RPC provider."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+
+      </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"chains"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name of the provider."</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"maxLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"pattern"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^[ </span><span class="se">\\</span><span class="s2">w.'+</span><span class="se">\\</span><span class="s2">-%/À-ÖØ-öø-ÿ:&amp;</span><span class="se">\\</span><span class="s2">[</span><span class="se">\\</span><span class="s2">]</span><span class="se">\\</span><span class="s2">(</span><span class="se">\\</span><span class="s2">)]+$"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/Logo"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"priority"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Priority of this provider (where zero is the highest priority.)"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"minimum"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"chains"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/ProviderChain"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+
+    </span><span class="nl">"Path"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A JSON Pointer path."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+
+    </span><span class="nl">"Patch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"oneOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"value"</span><span class="p">,</span><span class="w"> </span><span class="s2">"op"</span><span class="p">,</span><span class="w"> </span><span class="s2">"path"</span><span class="p">],</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/Path"</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The operation to perform."</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"add"</span><span class="p">,</span><span class="w"> </span><span class="s2">"replace"</span><span class="p">,</span><span class="w"> </span><span class="s2">"test"</span><span class="p">]</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The value to add, replace or test."</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"op"</span><span class="p">,</span><span class="w"> </span><span class="s2">"path"</span><span class="p">],</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/Path"</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The operation to perform."</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"remove"</span><span class="p">]</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"from"</span><span class="p">,</span><span class="w"> </span><span class="s2">"op"</span><span class="p">,</span><span class="w"> </span><span class="s2">"path"</span><span class="p">],</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/Path"</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+
+              </span><span class="nl">"op"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The operation to perform."</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"move"</span><span class="p">,</span><span class="w"> </span><span class="s2">"copy"</span><span class="p">]</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/Path"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A JSON Pointer path pointing to the location to move/copy from."</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+
+  </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"version"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"timestamp"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+
+  </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name of the provider list"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"maxLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"pattern"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^[</span><span class="se">\\</span><span class="s2">w ]+$"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/Logo"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/Version"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"date-time"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The timestamp of this list version; i.e. when this immutable version of the list was created"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"extends"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"changes"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"providers"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+
+  </span><span class="nl">"oneOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+
+      </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"extends"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"changes"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"providers"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+
+        </span><span class="nl">"extends"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+
+          </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"version"</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+
+          </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"uri"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uri"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Location of the list to extend, as a URI."</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"ens"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Location of the list to extend using EIP-1577."</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/VersionRange"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+
+          </span><span class="nl">"oneOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"uri"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"ens"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"ens"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"uri"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"changes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/Patch"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+
+      </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"providers"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"changes"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extends"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"providers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/$defs/Provider"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>For illustrative purposes, the following is an example list following the schema:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example Provider List"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"patch"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XPSr.p.I.g.l"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2004-08-08T00:00:00.0Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mylist.invalid/logo.png"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"providers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"some-key"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Frustrata"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"chains"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"chainId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"https://mainnet1.frustrata.invalid/"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"https://mainnet2.frustrana.invalid/"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"chainId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"https://ropsten.frustrana.invalid/"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"other-key"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sourceri"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"chains"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"chainId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"https://mainnet.sourceri.invalid/"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"chainId"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"https://kovan.sourceri.invalid"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="versioning">Versioning</h3>
+
+<p>List versioning MUST follow the <a href="../assets/eip-5139/semver.md">Semantic Versioning 2.0.0</a> (SemVer) specification.</p>
+
+<p>The major version MUST be incremented for the following modifications:</p>
+
+<ul>
+  <li>Removing a provider.</li>
+  <li>Changing a provider’s key in the <code class="language-plaintext highlighter-rouge">providers</code> object.</li>
+  <li>Removing the last <code class="language-plaintext highlighter-rouge">ProviderChain</code> for a chain id.</li>
+</ul>
+
+<p>The major version MAY be incremented for other modifications, as permitted by SemVer.</p>
+
+<p>If the major version is not incremented, the minor version MUST be incremented if any of the following modifications are made:</p>
+
+<ul>
+  <li>Adding a provider.</li>
+  <li>Adding the first <code class="language-plaintext highlighter-rouge">ProviderChain</code> of a chain id.</li>
+</ul>
+
+<p>The minor version MAY be incremented for other modifications, as permitted by SemVer.</p>
+
+<p>If the major and minor versions are unchanged, the patch version MUST be incremented for any change.</p>
+
+<h3 id="publishing">Publishing</h3>
+
+<p>Provider lists SHOULD be published to an Ethereum Name Service (ENS) name using <a href="./eip-1577.md">EIP-1577</a>’s <code class="language-plaintext highlighter-rouge">contenthash</code> mechanism on mainnet.</p>
+
+<p>Provider lists MAY instead be published using HTTPS. Provider lists published in this way MUST allow reasonable access from other origins (generally by setting the header <code class="language-plaintext highlighter-rouge">Access-Control-Allow-Origin: *</code>.)</p>
+
+<h3 id="priority">Priority</h3>
+
+<p>Provider entries MAY contain a <code class="language-plaintext highlighter-rouge">priority</code> field. A <code class="language-plaintext highlighter-rouge">priority</code> value of zero SHALL indicate the highest priority, with increasing <code class="language-plaintext highlighter-rouge">priority</code> values indicating decreasing priority. Multiple providers MAY be assigned the same priority. All providers without a <code class="language-plaintext highlighter-rouge">priority</code> field SHALL have equal priority. Providers without a <code class="language-plaintext highlighter-rouge">priority</code> field SHALL always have a lower priority than any provider with a <code class="language-plaintext highlighter-rouge">priority</code> field.</p>
+
+<p>List consumers MAY use <code class="language-plaintext highlighter-rouge">priority</code> fields to choose when to connect to a provider, but MAY ignore it entirely. List consumers SHOULD explain to users how their implementation interprets <code class="language-plaintext highlighter-rouge">priority</code>.</p>
+
+<h3 id="list-subtypes">List Subtypes</h3>
+
+<p>Provider lists are subdivided into two categories: root lists, and extension lists. A root list contains a list of providers, while an extension list contains a set of modifications to apply to another list.</p>
+
+<h4 id="root-lists">Root Lists</h4>
+
+<p>A root list has a top-level <code class="language-plaintext highlighter-rouge">providers</code> key.</p>
+
+<h4 id="extension-lists">Extension Lists</h4>
+
+<p>An extension list has top-level <code class="language-plaintext highlighter-rouge">extends</code> and <code class="language-plaintext highlighter-rouge">changes</code> keys.</p>
+
+<h5 id="specifying-a-parent-extends">Specifying a Parent (<code class="language-plaintext highlighter-rouge">extends</code>)</h5>
+
+<p>The <code class="language-plaintext highlighter-rouge">uri</code> and <code class="language-plaintext highlighter-rouge">ens</code> fields SHALL point to a source for the parent list.</p>
+
+<p>If present, the <code class="language-plaintext highlighter-rouge">uri</code> field MUST use a scheme specified in <a href="#publishing">Publishing</a>.</p>
+
+<p>If present, the <code class="language-plaintext highlighter-rouge">ens</code> field MUST specify an ENS name to be resolved using EIP-1577.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">version</code> field SHALL specify a range of compatible versions. List consumers MUST reject extension lists specifying an incompatible parent version.</p>
+
+<p>In the event of an incompatible version, list consumers MAY continue to use a previously saved parent list, but list consumers choosing to do so MUST display a prominent warning that the provider list is out of date.</p>
+
+<h6 id="default-mode">Default Mode</h6>
+
+<p>If the <code class="language-plaintext highlighter-rouge">mode</code> field is omitted, a parent version SHALL be compatible if and only if the parent’s version number matches the left-most non-zero portion in the major, minor, patch grouping.</p>
+
+<p>For example:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">major</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">minor</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">patch</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">3</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Is equivalent to:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;=1.2.3, &lt;2.0.0
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">major</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">minor</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">patch</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">3</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Is equivalent to:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;=0.2.3, &lt;0.3.0
+</code></pre></div></div>
+
+<h6 id="caret-mode-">Caret Mode (<code class="language-plaintext highlighter-rouge">^</code>)</h6>
+
+<p>The <code class="language-plaintext highlighter-rouge">^</code> mode SHALL behave exactly as the default mode above.</p>
+
+<h6 id="exact-mode-">Exact Mode (<code class="language-plaintext highlighter-rouge">=</code>)</h6>
+
+<p>In <code class="language-plaintext highlighter-rouge">=</code> mode, a parent version SHALL be compatible if and only if the parent’s version number exactly matches the specified version.</p>
+
+<h5 id="specifying-changes-changes">Specifying Changes (<code class="language-plaintext highlighter-rouge">changes</code>)</h5>
+
+<p>The <code class="language-plaintext highlighter-rouge">changes</code> field SHALL be a JavaScript Object Notation (JSON) Patch document as specified in RFC 6902.</p>
+
+<p>JSON pointers within the <code class="language-plaintext highlighter-rouge">changes</code> field MUST be resolved relative to the <code class="language-plaintext highlighter-rouge">providers</code> field of the parent list. For example, see the following lists for a correctly formatted extension.</p>
+
+<h6 id="root-list">Root List</h6>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">TODO</span><span class="w">
+</span></code></pre></div></div>
+
+<h6 id="extension-list">Extension List</h6>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">TODO</span><span class="w">
+</span></code></pre></div></div>
+
+<h5 id="applying-extension-lists">Applying Extension Lists</h5>
+
+<p>List consumers MUST follow this algorithm to apply extension lists:</p>
+
+<ol>
+  <li>Is the current list an extension list?
+    <ul>
+      <li>Yes:
+        <ol>
+          <li>Ensure that this <code class="language-plaintext highlighter-rouge">from</code> has not been seen before.</li>
+          <li>Retrieve the parent list.</li>
+          <li>Verify that the parent list is valid according to the JSON schema.</li>
+          <li>Ensure that the parent list is version compatible.</li>
+          <li>Set the current list to the parent list and go to step 1.</li>
+        </ol>
+      </li>
+      <li>No:
+        <ol>
+          <li>Go to step 2.</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>Copy the current list into a variable <code class="language-plaintext highlighter-rouge">$output</code>.</li>
+  <li>Does the current list have a child:
+    <ul>
+      <li>Yes:
+        <ol>
+          <li>Apply the child’s <code class="language-plaintext highlighter-rouge">changes</code> to <code class="language-plaintext highlighter-rouge">providers</code> in <code class="language-plaintext highlighter-rouge">$output</code>.</li>
+          <li>Verify that <code class="language-plaintext highlighter-rouge">$output</code> is valid according to the JSON schema.</li>
+          <li>Set the current list to the child.</li>
+          <li>Go to step 3.</li>
+        </ol>
+      </li>
+      <li>No:
+        <ol>
+          <li>Replace the current list’s <code class="language-plaintext highlighter-rouge">providers</code> with <code class="language-plaintext highlighter-rouge">providers</code> from <code class="language-plaintext highlighter-rouge">$output</code>.</li>
+          <li>The current list is now the resolved list; return it.</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>List consumers SHOULD limit the number of extension lists to a reasonable number.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This specification has two layers (provider, then chain id) instead of a flatter structure so that wallets can choose to query multiple independent providers for the same query and compare the results.</p>
+
+<p>Each provider may specify multiple endpoints to implement load balancing or redundancy.</p>
+
+<p>List version identifiers conform to SemVer to roughly communicate the kinds of changes that each new version brings. If a new version adds functionality (eg. a new chain id), then users can expect the minor version to be incremented. Similarly, if the major version is not incremented, list subscribers can assume dapps that work in the current version will continue to work in the next one.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Ultimately it is up to the end user to decide on what list to subscribe to. Most users will not change from the default list maintained by their wallet. Since wallets already have access to private keys, giving them additional control over RPC providers seems like a small increase in risk.</p>
+
+<p>While list maintainers may be incentivized (possibly financially) to include or exclude particular providers, actually doing so may jeopardize the legitimacy of their lists. This standard facilitates swapping lists, so if such manipulation is revealed, users are free to swap to a new list with little effort.</p>
+
+<p>If the list chosen by the user is published using EIP-1577, the list consumer has to have access to ENS in some way. This creates a paradox: how do you query Ethereum without an RPC provider? This paradox creates an attack vector: whatever method the list consumer uses to fetch the list can track the user, and even more seriously, <strong>can lie about the contents of the list</strong>.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

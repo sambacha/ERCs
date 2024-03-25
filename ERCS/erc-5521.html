@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Referable NFT | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Referable NFT | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5521" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5521" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Referable NFT</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard is an extension of <a href="./eip-721.md">ERC-721</a>. It proposes two referable indicators, referring and referred, and a time-based indicator <code class="language-plaintext highlighter-rouge">createdTimestamp</code>. The relationship between each NFT forms a directed acyclic graph (DAG). The standard allows users to query, track and analyze their relationships.</p>
+
+<p><img src="../assets/eip-5521/system-arch.png" alt="System Architecture" /></p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Many scenarios require inheritance, reference, and extension of NFTs. For instance, an artist may develop his NFT work based on a previous NFT, or a DJ may remix his record by referring to two pop songs, etc. Proposing a referable solution for existing NFTs and enabling efficient queries on cross-references make much sense.</p>
+
+<p>By adding the <code class="language-plaintext highlighter-rouge">referring</code> indicator, users can mint new NFTs (e.g., C, D, E) by referring to existing NFTs (e.g., A, B), while <code class="language-plaintext highlighter-rouge">referred</code> enables the referred NFTs (A, B) to be aware that who has quoted it (e.g., A ← D; C ← E; B ← E, and A ← E). The <code class="language-plaintext highlighter-rouge">createdTimestamp</code> is an indicator used to show the creation time of NFTs (A, B, C, D, E).</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Relationship</code>: a structure that contains <code class="language-plaintext highlighter-rouge">referring</code>, <code class="language-plaintext highlighter-rouge">referred</code>, <code class="language-plaintext highlighter-rouge">referringKeys</code>, <code class="language-plaintext highlighter-rouge">referredKeys</code>, <code class="language-plaintext highlighter-rouge">createdTimestamp</code>, and other customized and <strong>OPTIONAL</strong> attributes (i.e., not necessarily included in the standard) such as <code class="language-plaintext highlighter-rouge">privityOfAgreement</code> recording the ownerships of referred NFTs at the time the rNFTs were being created or <code class="language-plaintext highlighter-rouge">profitSharing</code> recording the profit sharing of <code class="language-plaintext highlighter-rouge">referring</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">referring</code>: an out-degree indicator, used to show the users this NFT refers to;</li>
+  <li><code class="language-plaintext highlighter-rouge">referred</code>: an in-degree indicator, used to show the users who have refereed this NFT;</li>
+  <li><code class="language-plaintext highlighter-rouge">referringKeys</code>: a helper for mapping conversion of out-degree indicators, used for events;</li>
+  <li><code class="language-plaintext highlighter-rouge">referredKeys</code>: a helper for mapping conversion of in-degree indicators, used for events;</li>
+  <li><code class="language-plaintext highlighter-rouge">createdTimestamp</code>: a time-based indicator, used to compare the timestamp of mint, which <strong>MUST NOT</strong> be editable anyhow by callers;</li>
+  <li><code class="language-plaintext highlighter-rouge">safeMint</code>: mint a new rNFT;</li>
+  <li><code class="language-plaintext highlighter-rouge">setNode</code>: set the referring list of an rNFT and update the referred list of each one in the referring list;
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">setNodeReferring</code>: set the referring list of an rNFT;</li>
+      <li><code class="language-plaintext highlighter-rouge">setNodeReferred</code>: set the referred list of the given rNFTs sourced from different contracts;
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">setNodeReferredExternal</code>: set the referred list of the given rNFTs sourced from external contracts;</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">referringOf</code>: get the referring list of an rNFT;</li>
+  <li><code class="language-plaintext highlighter-rouge">referredOf</code>: get the referred list of an rNFT.</li>
+</ul>
+
+<p>Implementers of this standard <strong>MUST</strong> have all of the following functions:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/introspection/IERC165.sol"</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC_5521</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+
+    <span class="c1">/// Logged when a node in the rNFT gets referred and changed.
+</span>    <span class="c1">/// @notice Emitted when the `node` (i.e., an rNFT) is changed.
+</span>    <span class="k">event</span> <span class="n">UpdateNode</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> 
+                     <span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> 
+                     <span class="kt">address</span><span class="p">[]</span> <span class="n">_address_referringList</span><span class="p">,</span>
+                     <span class="kt">uint256</span><span class="p">[][]</span> <span class="n">_tokenIds_referringList</span><span class="p">,</span>
+                     <span class="kt">address</span><span class="p">[]</span> <span class="n">_address_referredList</span><span class="p">,</span>
+                     <span class="kt">uint256</span><span class="p">[][]</span> <span class="n">_tokenIds_referredList</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice set the referred list of an rNFT associated with different contract addresses and update the referring list of each one in the referred list. Checking the duplication of `addresses` and `tokenIds` is **RECOMMENDED**.
+</span>    <span class="c1">/// @param `tokenId` of rNFT being set. `addresses` of the contracts in which rNFTs with `tokenIds` being referred accordingly. 
+</span>    <span class="c1">/// @requirement 
+</span>    <span class="c1">/// - the size of `addresses` **MUST** be the same as that of `tokenIds`;
+</span>    <span class="c1">/// - once the size of `tokenIds` is non-zero, the inner size **MUST** also be non-zero;
+</span>    <span class="c1">/// - the `tokenId` **MUST** be unique within the same contract;
+</span>    <span class="c1">/// - the `tokenId` **MUST NOT** be the same as `tokenIds[i][j]` if `addresses[i]` is essentailly `address(this)`.
+</span>    <span class="k">function</span> <span class="n">setNode</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">addresses</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice get the referring list of an rNFT.
+</span>    <span class="c1">/// @param `tokenId` of the rNFT being focused, `_address` of contract address associated with the focused rNFT.
+</span>    <span class="c1">/// @return the referring mapping of the rNFT.
+</span>    <span class="k">function</span> <span class="n">referringOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice get the referred list of an rNFT.
+</span>    <span class="c1">/// @param `tokenId` of the rNFT being focused, `_address` of contract address associated with the focused rNFT.
+</span>    <span class="c1">/// @return the referred mapping of the rNFT.
+</span>    <span class="k">function</span> <span class="n">referredOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span><span class="p">);</span>
+    
+    <span class="c1">/// @notice check supported interfaces, adhereing to ERC165.
+</span>    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">TargetContract</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+    <span class="c1">/// @notice set the referred list of an rNFT associated with external contract addresses. 
+</span>    <span class="c1">/// @param `_tokenIds` of rNFTs associated with the contract address `_address` being referred by the rNFT with `tokenId`.
+</span>    <span class="c1">/// @requirement
+</span>    <span class="c1">/// - `_address` **MUST NOT** be the same as `address(this)` where `this` is executed by an external contract where `TargetContract` interface is implemented.
+</span>    <span class="k">function</span> <span class="n">setNodeReferredExternal</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_tokenIds</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">referringOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">referredOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span><span class="p">);</span>
+    
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This standard is intended to establish the referable DAG for queries on cross-relationship and accordingly provide the simplest functions. It provides advantages as follows.</p>
+
+<p><em>Clear ownership inheritance</em>: This standard extends the static NFT into a virtually extensible NFT network. Artists do not have to create work isolated from others. The ownership inheritance avoids reinventing the same wheel.</p>
+
+<p><em>Incentive Compatibility</em>: This standard clarifies the referable relationship across different NFTs, helping to integrate multiple up-layer incentive models for both original NFT owners and new creators.</p>
+
+<p><em>Easy Integration</em>: This standard makes it easier for the existing token standards or third-party protocols. For instance, the rNFT can be applied to rentable scenarios (cf. <a href="./eip-5006.md">ERC-5006</a> to build a hierarchical rental market, where multiple users can rent the same NFT during the same time or one user can rent multiple NFTs during the same duration).</p>
+
+<p><em>Scalable Interoperability</em> From March 26th 2023, this standard has been stepping forward by enabling cross-contract references, giving a scalable adoption for the broader public with stronger interoperability.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard can be fully <a href="./eip-721.md">ERC-721</a> compatible by adding an extension function set.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Test cases are included in <a href="../assets/eip-5521/ERC_5521.test.js">ERC_5521.test.js</a></p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/ERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC_5521.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ERC_5521</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">IERC_5521</span><span class="p">,</span> <span class="n">TargetContract</span> <span class="p">{</span>
+
+    <span class="k">struct</span> <span class="n">Relationship</span> <span class="p">{</span>
+        <span class="k">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">[])</span> <span class="n">referring</span><span class="p">;</span>
+        <span class="k">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">[])</span> <span class="n">referred</span><span class="p">;</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="n">referringKeys</span><span class="p">;</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="n">referredKeys</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">createdTimestamp</span><span class="p">;</span> <span class="c1">// unix timestamp when the rNFT is being created
+</span>
+        <span class="c1">// extensible parameters
+</span>        <span class="c1">// ...
+</span>    <span class="p">}</span>
+
+    <span class="k">mapping</span> <span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">Relationship</span><span class="p">)</span> <span class="k">internal</span> <span class="n">_relationship</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">contractOwner</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name_</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol_</span><span class="p">)</span> <span class="n">ERC721</span><span class="p">(</span><span class="n">name_</span><span class="p">,</span> <span class="n">symbol_</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">contractOwner</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">safeMint</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">addresses</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">_tokenIds</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="c1">// require(msg.sender == contractOwner, "ERC_rNFT: Only contract owner can mint");
+</span>        <span class="n">_safeMint</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+        <span class="n">setNode</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">addresses</span><span class="p">,</span> <span class="n">_tokenIds</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice set the referred list of an rNFT associated with different contract addresses and update the referring list of each one in the referred list
+</span>    <span class="c1">/// @param tokenIds array of rNFTs, recommended to check duplication at the caller's end
+</span>    <span class="k">function</span> <span class="n">setNode</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">addresses</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">addresses</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="n">tokenIds</span><span class="p">.</span><span class="n">length</span><span class="p">,</span>
+            <span class="s">"Addresses and TokenID arrays must have the same length"</span>
+        <span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tokenIds</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="nb">revert</span><span class="p">(</span><span class="s">"ERC_5521: the referring list cannot be empty"</span><span class="p">);</span> <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">setNodeReferring</span><span class="p">(</span><span class="n">addresses</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">tokenIds</span><span class="p">);</span>
+        <span class="n">setNodeReferred</span><span class="p">(</span><span class="n">addresses</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">tokenIds</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice set the referring list of an rNFT associated with different contract addresses 
+</span>    <span class="c1">/// @param _tokenIds array of rNFTs associated with addresses, recommended to check duplication at the caller's end
+</span>    <span class="k">function</span> <span class="n">setNodeReferring</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">addresses</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">_tokenIds</span><span class="p">)</span> <span class="k">private</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_isApprovedOrOwner</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC_5521: transfer caller is not owner nor approved"</span><span class="p">);</span>
+
+        <span class="n">Relationship</span> <span class="k">storage</span> <span class="n">relationship</span> <span class="o">=</span> <span class="n">_relationship</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">addresses</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">relationship</span><span class="p">.</span><span class="n">referring</span><span class="p">[</span><span class="n">addresses</span><span class="p">[</span><span class="n">i</span><span class="p">]].</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="n">relationship</span><span class="p">.</span><span class="n">referringKeys</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">addresses</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="p">}</span> <span class="c1">// Add the address if it's a new entry
+</span>            <span class="n">relationship</span><span class="p">.</span><span class="n">referring</span><span class="p">[</span><span class="n">addresses</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+
+        <span class="n">relationship</span><span class="p">.</span><span class="n">createdTimestamp</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">;</span>
+        <span class="n">emitEvents</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice set the referred list of an rNFT associated with different contract addresses 
+</span>    <span class="c1">/// @param _tokenIds array of rNFTs associated with addresses, recommended to check duplication at the caller's end
+</span>    <span class="k">function</span> <span class="n">setNodeReferred</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">addresses</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">_tokenIds</span><span class="p">)</span> <span class="k">private</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">addresses</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">addresses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">length</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">Relationship</span> <span class="k">storage</span> <span class="n">relationship</span> <span class="o">=</span> <span class="n">_relationship</span><span class="p">[</span><span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]];</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">relationship</span><span class="p">.</span><span class="n">referred</span><span class="p">[</span><span class="n">addresses</span><span class="p">[</span><span class="n">i</span><span class="p">]].</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="n">relationship</span><span class="p">.</span><span class="n">referredKeys</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">addresses</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="p">}</span> <span class="c1">// Add the address if it's a new entry
+</span>                    
+                    <span class="nb">require</span><span class="p">(</span><span class="n">tokenId</span> <span class="o">!=</span> <span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="s">"ERC_5521: self-reference not allowed"</span><span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">relationship</span><span class="p">.</span><span class="n">createdTimestamp</span> <span class="o">&gt;=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">)</span> <span class="p">{</span> <span class="nb">revert</span><span class="p">(</span><span class="s">"ERC_5521: the referred rNFT needs to be a predecessor"</span><span class="p">);</span> <span class="p">}</span> <span class="c1">// Make sure the reference complies with the timing sequence
+</span>
+                    <span class="n">relationship</span><span class="p">.</span><span class="n">referred</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)].</span><span class="n">push</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+                    <span class="n">emitEvents</span><span class="p">(</span><span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]));</span>
+                <span class="p">}</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">TargetContract</span> <span class="n">targetContractInstance</span> <span class="o">=</span> <span class="n">TargetContract</span><span class="p">(</span><span class="n">addresses</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+                <span class="kt">bool</span> <span class="n">isSupports</span> <span class="o">=</span> <span class="n">targetContractInstance</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="k">type</span><span class="p">(</span><span class="n">TargetContract</span><span class="p">).</span><span class="n">interfaceId</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">isSupports</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// The target contract supports the interface, safe to call functions of the interface.
+</span>                    <span class="n">targetContractInstance</span><span class="p">.</span><span class="n">setNodeReferredExternal</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice set the referred list of an rNFT associated with different contract addresses 
+</span>    <span class="c1">/// @param _tokenIds array of rNFTs associated with addresses, recommended to check duplication at the caller's end
+</span>    <span class="k">function</span> <span class="n">setNodeReferredExternal</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_tokenIds</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">_tokenIds</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Relationship</span> <span class="k">storage</span> <span class="n">relationship</span> <span class="o">=</span> <span class="n">_relationship</span><span class="p">[</span><span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">relationship</span><span class="p">.</span><span class="n">referred</span><span class="p">[</span><span class="n">_address</span><span class="p">].</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="n">relationship</span><span class="p">.</span><span class="n">referredKeys</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">_address</span><span class="p">);</span> <span class="p">}</span> <span class="c1">// Add the address if it's a new entry
+</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">_address</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">"ERC_5521: this must be an external contract address"</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">relationship</span><span class="p">.</span><span class="n">createdTimestamp</span> <span class="o">&gt;=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">)</span> <span class="p">{</span> <span class="nb">revert</span><span class="p">(</span><span class="s">"ERC_5521: the referred rNFT needs to be a predecessor"</span><span class="p">);</span> <span class="p">}</span> <span class="c1">// Make sure the reference complies with the timing sequence
+</span>
+            <span class="n">relationship</span><span class="p">.</span><span class="n">referred</span><span class="p">[</span><span class="n">_address</span><span class="p">].</span><span class="n">push</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+            <span class="n">emitEvents</span><span class="p">(</span><span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">_tokenIds</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice Get the referring list of an rNFT
+</span>    <span class="c1">/// @param tokenId The considered rNFT, _address The corresponding contract address
+</span>    <span class="c1">/// @return The referring mapping of an rNFT
+</span>    <span class="k">function</span> <span class="n">referringOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span><span class="p">(</span><span class="n">IERC_5521</span><span class="p">,</span> <span class="n">TargetContract</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_referringKeys</span><span class="p">;</span>
+        <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">_referringValues</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">_address</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC_5521: token ID not existed"</span><span class="p">);</span>
+            <span class="p">(</span><span class="n">_referringKeys</span><span class="p">,</span> <span class="n">_referringValues</span><span class="p">)</span> <span class="o">=</span> <span class="n">convertMap</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">TargetContract</span> <span class="n">targetContractInstance</span> <span class="o">=</span> <span class="n">TargetContract</span><span class="p">(</span><span class="n">_address</span><span class="p">);</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">targetContractInstance</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="k">type</span><span class="p">(</span><span class="n">TargetContract</span><span class="p">).</span><span class="n">interfaceId</span><span class="p">),</span> <span class="s">"ERC_5521: target contract not supported"</span><span class="p">);</span>
+            <span class="p">(</span><span class="n">_referringKeys</span><span class="p">,</span> <span class="n">_referringValues</span><span class="p">)</span> <span class="o">=</span> <span class="n">targetContractInstance</span><span class="p">.</span><span class="n">referringOf</span><span class="p">(</span><span class="n">_address</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>     
+        <span class="p">}</span>      
+        <span class="k">return</span> <span class="p">(</span><span class="n">_referringKeys</span><span class="p">,</span> <span class="n">_referringValues</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice Get the referred list of an rNFT
+</span>    <span class="c1">/// @param tokenId The considered rNFT, _address The corresponding contract address
+</span>    <span class="c1">/// @return The referred mapping of an rNFT
+</span>    <span class="k">function</span> <span class="n">referredOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span><span class="p">(</span><span class="n">IERC_5521</span><span class="p">,</span> <span class="n">TargetContract</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_referredKeys</span><span class="p">;</span>
+        <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">_referredValues</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">_address</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC_5521: token ID not existed"</span><span class="p">);</span>
+            <span class="p">(</span><span class="n">_referredKeys</span><span class="p">,</span> <span class="n">_referredValues</span><span class="p">)</span> <span class="o">=</span> <span class="n">convertMap</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">TargetContract</span> <span class="n">targetContractInstance</span> <span class="o">=</span> <span class="n">TargetContract</span><span class="p">(</span><span class="n">_address</span><span class="p">);</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">targetContractInstance</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="k">type</span><span class="p">(</span><span class="n">TargetContract</span><span class="p">).</span><span class="n">interfaceId</span><span class="p">),</span> <span class="s">"ERC_5521: target contract not supported"</span><span class="p">);</span>
+            <span class="p">(</span><span class="n">_referredKeys</span><span class="p">,</span> <span class="n">_referredValues</span><span class="p">)</span> <span class="o">=</span> <span class="n">targetContractInstance</span><span class="p">.</span><span class="n">referredOf</span><span class="p">(</span><span class="n">_address</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>           
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">_referredKeys</span><span class="p">,</span> <span class="n">_referredValues</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @dev See {IERC165-supportsInterface}.
+</span>    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">(</span><span class="n">ERC721</span><span class="p">,</span> <span class="n">IERC_5521</span><span class="p">,</span> <span class="n">TargetContract</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC_5521</span><span class="p">).</span><span class="n">interfaceId</span>
+            <span class="o">||</span> <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">TargetContract</span><span class="p">).</span><span class="n">interfaceId</span>
+            <span class="o">||</span> <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceId</span><span class="p">);</span>    
+    <span class="p">}</span>
+
+    <span class="c1">// @notice Emit an event of UpdateNode
+</span>    <span class="k">function</span> <span class="n">emitEvents</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">sender</span><span class="p">)</span> <span class="k">private</span> <span class="p">{</span>
+        <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_referringKeys</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">_referringValues</span><span class="p">)</span> <span class="o">=</span> <span class="n">convertMap</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+        <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_referredKeys</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">_referredValues</span><span class="p">)</span> <span class="o">=</span> <span class="n">convertMap</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+        
+        <span class="k">emit</span> <span class="n">UpdateNode</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">_referringKeys</span><span class="p">,</span> <span class="n">_referringValues</span><span class="p">,</span> <span class="n">_referredKeys</span><span class="p">,</span> <span class="n">_referredValues</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// @notice Convert a specific `local` token mapping to a key array and a value array
+</span>    <span class="k">function</span> <span class="n">convertMap</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isReferring</span><span class="p">)</span> <span class="k">private</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Relationship</span> <span class="k">storage</span> <span class="n">relationship</span> <span class="o">=</span> <span class="n">_relationship</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">returnKeys</span><span class="p">;</span>
+        <span class="kt">uint256</span><span class="p">[][]</span> <span class="k">memory</span> <span class="n">returnValues</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">isReferring</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">returnKeys</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">.</span><span class="n">referringKeys</span><span class="p">;</span>
+            <span class="n">returnValues</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">uint256</span><span class="p">[][](</span><span class="n">returnKeys</span><span class="p">.</span><span class="n">length</span><span class="p">);</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">returnKeys</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">returnValues</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">.</span><span class="n">referring</span><span class="p">[</span><span class="n">returnKeys</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
+            <span class="p">}</span>            
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">returnKeys</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">.</span><span class="n">referredKeys</span><span class="p">;</span>
+            <span class="n">returnValues</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">uint256</span><span class="p">[][](</span><span class="n">returnKeys</span><span class="p">.</span><span class="n">length</span><span class="p">);</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">returnKeys</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">returnValues</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">.</span><span class="n">referred</span><span class="p">[</span><span class="n">returnKeys</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">returnKeys</span><span class="p">,</span> <span class="n">returnValues</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="timestamp">Timestamp</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">createdTimestamp</code> only covers the block-level timestamp (based on block headers), which does not support fine-grained comparisons such as transaction-level.</p>
+
+<h3 id="ownership-and-reference">Ownership and Reference</h3>
+
+<p>The change of ownership has nothing to do with the reference relationship. Normally, the distribution of profits complies to the aggreement when the NFT was being created regardless of the change of ownership unless specified in the agreement.</p>
+
+<p>Referring a token will not refer its descendants by default. In the case that only a specific child token gets referred, it means the privity of contract will involve nobody other than the owner of this specific child token. Alternatively, a chain-of-reference all the way from the root token to a specific very bottom child token (from root to leaf) can be constructured and recorded in the <code class="language-plaintext highlighter-rouge">referring</code> to explicitly define the distribution of profits.</p>
+
+<h3 id="open-minting-and-relationship-risks">Open Minting and Relationship Risks</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">safeMint</code> function has been deliberately designed to allow unrestricted minting and relationship setting, akin to the open referencing system seen in platforms such as Google Scholar. This decision facilitates strong flexibility, enabling any user to create and define relationships between NFTs without centralized control. While this design aligns with the intended openness of the system, it inherently carries certain risks. Unauthorized or incorrect references can be created, mirroring the challenges faced in traditional scholarly referencing where erroneous citations may occur. Additionally, the open nature may expose the system to potential abuse by malicious actors, who might manipulate relationships or inflate token supply. It is important to recognize that these risks are not considered design flaws but intentional trade-offs, which balances the system’s flexibility against potential reliability concerns.</p>
+
+<p>Stakeholders should be aware that the on-chain data integrity guarantees extend only to what has been recorded on the blockchain and do not preclude the possibility of off-chain errors or manipulations. Thus, users and integrators should exercise caution and judgment in interpreting and using the relationships and other data provided by this system.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

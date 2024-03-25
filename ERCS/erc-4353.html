@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Interface for Staked Tokens in NFTs | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Interface for Staked Tokens in NFTs | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4353" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4353" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Interface for Staked Tokens in NFTs</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+<p><a href="./eip-721.md">EIP-721</a> tokens can be deposited or staked in NFTs for a variety of reasons including escrow, rewards, benefits, and others. There is currently no means of retrieving the number of tokens staked and/or bound to an NFT. This proposal outlines a standard that may be implemented by all wallets and marketplaces easily to correctly retrieve the staked token amount of an NFT.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>Without staked token data, the actual amount of staked tokens cannot be conveyed from token owners to other users, and cannot be displayed in wallets, marketplaces, or block explorers. The ability to identify and verify an exogenous value derived from the staking process may be critical to the aims of an NFT holder.</p>
+
+<h2 id="specification">Specification</h2>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @dev Interface of the ERC4353 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-4353.
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others.
+ *
+ * Note: The ERC-165 identifier for this interface is 0x3a3d855f.
+ *
+ */</span>
+<span class="k">interface</span> <span class="n">IERC721Staked</span> <span class="p">{</span>
+    
+     <span class="cm">/**
+     * @dev Returns uint256 amount of on-chain tokens staked to the NFT.
+     * 
+     * @dev Wallets and marketplaces would need to call this for displaying
+     *      the amount of tokens staked and/or bound to the NFT.
+     */</span>
+    <span class="k">function</span> <span class="n">stakedAmount</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="suggested-flow">Suggested flow:</h3>
+
+<h4 id="constructordeployment">Constructor/deployment</h4>
+<ul>
+  <li>Creator - the owner of an NFT with its own rules for depositing tokens at and/or after the minting of a token.</li>
+  <li>Token Amount - the current amount of on-chain <a href="./eip-20.md">EIP-20</a> or derived tokens bound to an NFT from one or more deposits.</li>
+  <li>Withdraw Mechanism - rules based approach for withdrawing staked tokens and making sure to update the balance of the staked tokens.</li>
+</ul>
+
+<h3 id="staking-at-mint-and-locking-tokens-in-nft">Staking at mint and locking tokens in NFT</h3>
+<p>The suggested and intended implementation of this standard is to stake tokens at the time of minting an NFT, and not implementing any outbound transfer of tokens outside of <code class="language-plaintext highlighter-rouge">burn</code>. Therefore, only to stake at minting and withdraw only at burning.</p>
+
+<h4 id="nft-displayed-in-wallet-or-marketplace">NFT displayed in wallet or marketplace</h4>
+<p>A wallet or marketplace checks if an NFT has publicly staked tokens available for display - if so, call <code class="language-plaintext highlighter-rouge">stakedAmount(tokenId)</code> to get the current amount of tokens staked and/or bound to the NFT.</p>
+
+<p>The logical code looks something like this and inspired by William Entriken:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// contracts/Token.sol
+// SPDX-License-Identifier: MIT
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/access/Ownable.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title Token
+ * @dev Very simple ERC721 example with stake interface example.
+ * Note this implementation enforces recommended procedure:
+ *  1) stake at mint
+ *  2) withdraw at burn
+ */</span>
+<span class="k">contract</span> <span class="n">ERC721Staked</span> <span class="k">is</span> <span class="n">ERC721URIStorage</span><span class="p">,</span> <span class="n">Ownable</span> <span class="p">{</span>
+    <span class="c1">/// @dev track original minter of tokenId
+</span>    <span class="k">mapping</span> <span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">address</span> <span class="k">payable</span><span class="p">)</span> <span class="k">private</span> <span class="n">payees</span><span class="p">;</span>
+    <span class="c1">/// @dev map tokens to stored staked token value
+</span>    <span class="k">mapping</span> <span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">private</span> <span class="n">tokenValue</span><span class="p">;</span>
+
+    <span class="c1">/// @dev metadata
+</span>    <span class="k">constructor</span><span class="p">()</span> <span class="n">ERC721</span> <span class="p">(</span>
+        <span class="s">"Staked NFT"</span><span class="p">,</span> 
+        <span class="s">"SNFT"</span>
+    <span class="p">){}</span>
+
+    <span class="c1">/// @dev mints a new NFT
+</span>    <span class="c1">/// @param _to address that will own the minted NFT
+</span>    <span class="c1">/// @param _tokenId id the NFT
+</span>    <span class="c1">/// @param _uri metadata
+</span>    <span class="k">function</span> <span class="n">mint</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">payable</span> <span class="n">_to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">calldata</span> <span class="n">_uri</span>
+    <span class="p">)</span>
+        <span class="k">external</span> 
+        <span class="k">payable</span>
+        <span class="n">onlyOwner</span>
+    <span class="p">{</span>
+        <span class="n">_mint</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">_tokenId</span><span class="p">);</span>
+        <span class="n">_setTokenURI</span><span class="p">(</span><span class="n">_tokenId</span><span class="p">,</span> <span class="n">_uri</span><span class="p">);</span>
+        <span class="n">payees</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to</span><span class="p">;</span>
+        <span class="n">tokenValue</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @dev staked interface
+</span>    <span class="c1">/// @param _tokenId id of the NFT
+</span>    <span class="c1">/// @return _value staked value
+</span>    <span class="k">function</span> <span class="n">stakedAmount</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_value</span> <span class="o">=</span> <span class="n">tokenValue</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">];</span>
+        <span class="k">return</span> <span class="n">_value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @dev removes NFT &amp; transfers crypto to minter
+</span>    <span class="c1">/// @param _tokenId the NFT we want to remove
+</span>    <span class="k">function</span> <span class="n">burn</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span>
+    <span class="p">)</span>
+        <span class="k">external</span>
+        <span class="n">onlyOwner</span>
+    <span class="p">{</span>
+        <span class="nb">super</span><span class="p">.</span><span class="n">_burn</span><span class="p">(</span><span class="n">_tokenId</span><span class="p">);</span>
+        <span class="n">payees</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">].</span><span class="nb">transfer</span><span class="p">(</span><span class="n">tokenValue</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">]);</span>
+        <span class="n">tokenValue</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+<p>This standard is completely agnostic to how tokens are deposited or handled by the NFT. It is, therefore, the choice and responsibility of the author to encode and communicate the encoding of their tokenomics to purchasees of their token and/or to make their contracts viewable by purchasees.</p>
+
+<p>Although the intention of this standard is for tokens staked at mint and withdrawable only upon burn, the interface may be modified for dynamic withdrawing and depositing of tokens especially under DeFi application settings. In its current form, the contract logic may be the determining factor whether a deviation from the standard exists.</p>
+
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<p>TBD</p>
+
+<h2 id="test-cases">Test Cases</h2>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">expect</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">chai</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">ethers</span><span class="p">,</span> <span class="nx">waffle</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">hardhat</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">provider</span> <span class="o">=</span> <span class="nx">waffle</span><span class="p">.</span><span class="nx">provider</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">StakedNFT</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">_id</span> <span class="o">=</span> <span class="mi">1234567890</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">1.5</span><span class="dl">'</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">Token</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">Interface</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">owner</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">addr1</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">addr2</span><span class="p">;</span>
+
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">Token</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">getContractFactory</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERC721Staked</span><span class="dl">"</span><span class="p">);</span>
+        <span class="p">[</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">addr1</span><span class="p">,</span> <span class="p">...</span><span class="nx">addr2</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">getSigners</span><span class="p">();</span>
+        <span class="nx">Interface</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Token</span><span class="p">.</span><span class="nx">deploy</span><span class="p">();</span>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Staked NFT</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should set the right owner</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">mint</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span>
+                <span class="nx">addr1</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">_id</span><span class="p">,</span> <span class="dl">'</span><span class="s1">http://foobar</span><span class="dl">'</span><span class="p">)</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">ownerOf</span><span class="p">(</span><span class="nx">_id</span><span class="p">)).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">addr1</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should not have staked balance without value</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">mint</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span>
+                <span class="nx">addr1</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">_id</span><span class="p">,</span> <span class="dl">'</span><span class="s1">http://foobar</span><span class="dl">'</span><span class="p">)</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">stakedAmount</span><span class="p">(</span><span class="nx">_id</span><span class="p">)).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span>
+                <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">parseEther</span><span class="p">(</span><span class="dl">'</span><span class="s1">0</span><span class="dl">'</span><span class="p">));</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should set and return the staked amount</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">mint</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span>
+                <span class="nx">addr1</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">_id</span><span class="p">,</span> <span class="dl">'</span><span class="s1">http://foobar</span><span class="dl">'</span><span class="p">,</span>
+                <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">parseEther</span><span class="p">(</span><span class="nx">value</span><span class="p">)})</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">stakedAmount</span><span class="p">(</span><span class="nx">_id</span><span class="p">)).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span>
+                <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">parseEther</span><span class="p">(</span><span class="nx">value</span><span class="p">));</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should decrease owner eth balance on mint (deposit)</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">balance1</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">provider</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">owner</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">mint</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span>
+                <span class="nx">addr1</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">_id</span><span class="p">,</span> <span class="dl">'</span><span class="s1">http://foobar</span><span class="dl">'</span><span class="p">,</span>
+                <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">parseEther</span><span class="p">(</span><span class="nx">value</span><span class="p">)})</span>
+            <span class="kd">let</span> <span class="nx">balance2</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">provider</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">owner</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">diff</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">formatEther</span><span class="p">(</span>
+                <span class="nx">balance1</span><span class="p">.</span><span class="nx">sub</span><span class="p">(</span><span class="nx">balance2</span><span class="p">))).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">diff</span> <span class="o">===</span> <span class="nx">value</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should add to payee's eth balance on burn (withdraw)</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">balance1</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">provider</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">addr1</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">mint</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span>
+                <span class="nx">addr1</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">_id</span><span class="p">,</span> <span class="dl">'</span><span class="s1">http://foobar</span><span class="dl">'</span><span class="p">,</span>
+                <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">parseEther</span><span class="p">(</span><span class="nx">value</span><span class="p">)})</span>
+            <span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">burn</span><span class="p">(</span><span class="nx">_id</span><span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">balance2</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">provider</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">addr1</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">diff</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">formatEther</span><span class="p">(</span>
+                <span class="nx">balance2</span><span class="p">.</span><span class="nx">sub</span><span class="p">(</span><span class="nx">balance1</span><span class="p">))).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">diff</span> <span class="o">===</span> <span class="nx">value</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should update balance after transfer</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">mint</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span>
+                <span class="nx">addr1</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">_id</span><span class="p">,</span> <span class="dl">'</span><span class="s1">http://foobar</span><span class="dl">'</span><span class="p">,</span>
+                <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">parseEther</span><span class="p">(</span><span class="nx">value</span><span class="p">)})</span>
+            <span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">burn</span><span class="p">(</span><span class="nx">_id</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">Interface</span><span class="p">.</span><span class="nx">stakedAmount</span><span class="p">(</span><span class="nx">_id</span><span class="p">)).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span>
+                <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">parseEther</span><span class="p">(</span><span class="dl">'</span><span class="s1">0</span><span class="dl">'</span><span class="p">));</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+<p>The purpose of this standard is to simply and publicly identify whether an NFT claims to have staked tokens.</p>
+
+<p>Staked claims will be unreliable without a locking mechanism enforced, for example, if staked tokens can only be transferred at burn. Otherwise, tokens may be deposited and/or withdrawn at any time via arbitrary methods. Also, contracts that may allow arbitrary transfers without updating the correct balance will result in potential issues. A strict rules-based approach should be taken with these edge cases in mind.</p>
+
+<p>A dedicated service may exist to verify the claims of a token by analyzing transactions on the explorer. In this manner, verification may be automated to ensure a token’s claims are valid. The logical extension of this method may be to extend the interface and support flagging erroneous claims, all the while maintaining a simple goal of validating and verifying a staked amount exists to benefit the operator experience.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

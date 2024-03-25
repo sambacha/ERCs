@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Content Consent for AI/ML Data Mining | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Content Consent for AI/ML Data Mining | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7517" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7517" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Content Consent for AI/ML Data Mining</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP proposes a standardized approach to declaring mining preferences for digital media content on the EVM-compatible blockchains. This extends digital media metadata standards like <a href="./eip-7053.md">ERC-7053</a> and NFT metadata standards like <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a>, allowing asset creators to specify how their assets are used in data mining, AI training, and machine learning workflows.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>As digital assets become increasingly utilized in AI and machine learning workflows, it is critical that the rights and preferences of asset creators and license owners are respected, and the AI/ML creators can check and collect data easily and safely. Similar to robot.txt to websites, content owners and creators are looking for more direct control over how their creativities are used.</p>
+
+<p>This proposal standardizes a method of declaring these preferences. Adding <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> in the content metadata allows creators to include the information about whether the asset may be used as part of a data mining or AI/ML training workflow. This ensures the original intent of the content is maintained.</p>
+
+<p>For AI-focused applications, this information serves as a guideline, facilitating the ethical and efficient use of content while respecting the creator’s rights and building a sustainable data mining and AI/ML environment.</p>
+
+<p>The introduction of the <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> property in digital asset metadata covers the considerations including:</p>
+
+<ul>
+  <li>Accessibility: A clear and easily accessible method with human-readibility and machine-readibility for digital asset creators and license owners to express their preferences for how their assets are used in data mining and AI/ML training workflows. The AI/ML creators can check and collect data systematically.</li>
+  <li>Adoption: As Coalition for Content Provenance and Authenticity (C2PA) already outlines guidelines for indicating whether an asset may be used in data mining or AI/ML training, it’s crucial that onchain metadata aligns with these standards. This ensures compatibility between in-media metadata and onchain records.</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>This EIP introduces a new property, <code class="language-plaintext highlighter-rouge">dataMiningPreference</code>, to the metadata standards which signify the choices made by the asset creators or license owners regarding the suitability of their asset for inclusion in data mining or AI/ML training workflows. <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> is an object that can include one or more specific conditions.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dataMining</code>: Allow the asset to be used in data mining for determining “patterns, trends, and correlations”.</li>
+  <li><code class="language-plaintext highlighter-rouge">aiInference</code>: Allow the asset to be used as input to a trained AI/ML model for inferring a result.</li>
+  <li><code class="language-plaintext highlighter-rouge">aiGenerativeTraining</code>: Allow the asset to be used as training data for an AI/ML model that could produce derivative assets.</li>
+  <li><code class="language-plaintext highlighter-rouge">aiGenerativeTrainingWithAuthorship</code>: Same as <code class="language-plaintext highlighter-rouge">aiGenerativeTraining</code>, but requires that the authorship is disclosed.</li>
+  <li><code class="language-plaintext highlighter-rouge">aiTraining</code>: Allow the asset to be used as training data for generative and non-generative AI/ML models.</li>
+  <li><code class="language-plaintext highlighter-rouge">aiTrainingWithAuthorship</code>: Same as <code class="language-plaintext highlighter-rouge">aiTraining</code>, but requires that the authorship is disclosed.</li>
+</ul>
+
+<p>Each category is defined by a set of permissions that can take on one of three values: <code class="language-plaintext highlighter-rouge">allowed</code>, <code class="language-plaintext highlighter-rouge">notAllowed</code>, and <code class="language-plaintext highlighter-rouge">constraint</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">allowed</code> indicates that the asset can be freely used for the specific purpose without any limitations or restrictions.</li>
+  <li><code class="language-plaintext highlighter-rouge">notAllowed</code> means that the use of the asset for that particular purpose is strictly prohibited.</li>
+  <li><code class="language-plaintext highlighter-rouge">constrained</code> suggests that the use of the asset is permitted, but with certain conditions or restrictions that must be adhered to.</li>
+</ul>
+
+<p>For instance, the <code class="language-plaintext highlighter-rouge">aiInference</code> property indicates whether the asset can be used as input for an AI/ML model to derive results. If set to <code class="language-plaintext highlighter-rouge">allowed</code>, the asset can be utilized without restrictions. If <code class="language-plaintext highlighter-rouge">notAllowed</code>, the asset is prohibited from AI inference.</p>
+
+<p>If marked as <code class="language-plaintext highlighter-rouge">constrained</code>, certain conditions, detailed in the license document, must be met. When <code class="language-plaintext highlighter-rouge">constraint</code> is selected, parties intending to use the media files should respect the rules specified in the license. To avoid discrepancies with the content license, the specifics of these constraints are not detailed within the schema, but the license reference should be included in the content metadata.</p>
+
+<h3 id="schema">Schema</h3>
+
+<p>The JSON schema of <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> is defined as follows:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dataMining"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"allowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"notAllowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"constrained"</span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"aiInference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"allowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"notAllowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"constrained"</span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"aiTraining"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"allowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"notAllowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"constrained"</span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"aiGenerativeTraining"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"allowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"notAllowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"constrained"</span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"aiTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"allowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"notAllowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"constrained"</span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"aiGenerativeTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"allowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"notAllowed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"constrained"</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="examples">Examples</h3>
+
+<p>The mining preference example for not allowing generative AI training:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"dataMiningPreference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dataMining"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiInference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiGenerativeTraining"</span><span class="p">:</span><span class="w"> </span><span class="s2">"notAllowed"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The mining preference example for only allowing for AI inference:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"dataMiningPreference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"aiInference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiTraining"</span><span class="p">:</span><span class="w"> </span><span class="s2">"notAllowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiGenerativeTraining"</span><span class="p">:</span><span class="w"> </span><span class="s2">"notAllowed"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The mining preference example for allowing generative AI training if mentioning authorship and follow license:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"dataMiningPreference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dataMining"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiInference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiGenerativeTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"constrained"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="example-usage-with-erc-721">Example Usage with ERC-721</h3>
+
+<p>The following is an example of using the <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> property in <a href="./eip-721.md">ERC-721</a> NFTs.</p>
+
+<p>We can put the <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> field in the NFT metadata below. The <code class="language-plaintext highlighter-rouge">license</code> field is only an example for specifying how to use a constrained condition, and is not defined in this proposal. A NFT has its way to describe its license.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Starry Night, revision"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recreation of the oil-on-canvas painting by the Dutch Post-Impressionist painter Vincent van Gogh."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ipfs://bafyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dataMiningPreference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dataMining"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiInference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiGenerativeTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"constrained"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CC-BY-4.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"document"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://creativecommons.org/licenses/by/4.0/legalcode"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="example-usage-with-erc-7053">Example Usage with ERC-7053</h3>
+
+<p>The example using the <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> property in onchain media provenance registration defined in <a href="./eip-7053.md">ERC-7053</a>.</p>
+
+<p>Assuming the Decentralized Content Identifier (CID) is <code class="language-plaintext highlighter-rouge">bafyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</code>. We can put the <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> field in the Commit data directly. After following up the CID, got the Commit data:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"dataMiningPreference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dataMining"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiInference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiGenerativeTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"constrained"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CC-BY-4.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"document"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://creativecommons.org/licenses/by/4.0/legalcode"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We can also put the <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> field in any custom metadata whose CID is linked in the Commit data. The <code class="language-plaintext highlighter-rouge">assetTreeCid</code> field is an example for specifying how to link a custom metadata. After following up the CID, got the Commit data:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="err">/*</span><span class="w"> </span><span class="err">custom</span><span class="w"> </span><span class="err">metadata</span><span class="w"> </span><span class="err">CID</span><span class="w"> </span><span class="err">*/</span><span class="w">
+  </span><span class="nl">"assetTreeCid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bafybbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Following up the <code class="language-plaintext highlighter-rouge">assetTreeCid</code> which describes the custom properties of the registered asset:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"dataMiningPreference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dataMining"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiInference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allowed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"aiGenerativeTrainingWithAuthorship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"constrained"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CC-BY-4.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"document"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://creativecommons.org/licenses/by/4.0/legalcode"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The technical decisions behind this EIP have been carefully considered to address specific challenges and requirements in the digital asset landscape. Here are the clarifications for the rationale behind:</p>
+
+<ol>
+  <li>Adoption of JSON schema: The use of JSON facilitates ease of integration and interaction, both manually and programmatically, with the metadata.</li>
+  <li>Detailed control with training types: The different categories like <code class="language-plaintext highlighter-rouge">aiGenerativeTraining</code>, <code class="language-plaintext highlighter-rouge">aiTraining</code>, and <code class="language-plaintext highlighter-rouge">aiInference</code> let creators control in detail, considering both ethics and computer resource needs.</li>
+  <li>Authorship options included: Options like <code class="language-plaintext highlighter-rouge">aiGenerativeTrainingWithAuthorship</code> and <code class="language-plaintext highlighter-rouge">aiTrainingWithAuthorship</code> make sure creators get credit, addressing ethical and legal issues.</li>
+  <li>Introduction of <code class="language-plaintext highlighter-rouge">constrained</code> category: The introduction of <code class="language-plaintext highlighter-rouge">constrained</code> category serves as an intermediary between <code class="language-plaintext highlighter-rouge">allowed</code> and <code class="language-plaintext highlighter-rouge">notAllowed</code>. It signals that additional permissions or clarifications may be required, defaulting to <code class="language-plaintext highlighter-rouge">notAllowed</code> in the absence of such information.</li>
+  <li>C2PA alignment for interoperability: The standard aligns with C2PA guidelines, ensuring seamless mapping between onchain metadata and existing offchain standards.</li>
+</ol>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>When adopting this EIP, it’s essential to address several security aspects to ensure the safety and integrity of adoption:</p>
+
+<ul>
+  <li>Data Integrity: Since this EIP facilitates the declaration of mining preferences for digital media assets, the integrity of the data should be assured. Any tampering with the <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> property can lead to unauthorized data mining usage. Blockchain’s immutability will play a significant role here, but additional security layers, such as cryptographic signatures, can further ensure data integrity.</li>
+  <li>Verifiable Authenticity: Ensure that the individual or entity setting the <code class="language-plaintext highlighter-rouge">dataMiningPreference</code> is the legitimate owner or authorized representative of the digital asset. Unauthorized changes to preferences can lead to data misuse. Cross-checking asset provenance and ownership becomes paramount. Services or smart contracts should be implemented to verify the authenticity of assets before trusting the <code class="language-plaintext highlighter-rouge">dataMiningPreference</code>.</li>
+  <li>Data Privacy: Ensure that the process of recording preferences doesn’t inadvertently expose sensitive information about the asset creators or owners. Although the Ethereum blockchain is public, careful consideration is required to ensure no unintended data leakage.</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

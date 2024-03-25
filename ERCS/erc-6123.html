@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Smart Derivative Contract | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Smart Derivative Contract | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6123" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6123" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Smart Derivative Contract</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The Smart Derivative Contract (SDC) allows fully automizing and securing a financial product’s - e.g. a financial derivative or bond - complete trade life cycle.
+The SDC leverages the advantages of smart contracts to remove many of the frictions associated with the classical derivative life cycle. Most notably, the protocol allows the removal of counterpart risk essentially.
+The SDC can be implemented using a pre-agreed valuation oracle and valuation model, removing ambiguity in the settlement amounts. The SDC provides methods and callbacks to enable fully automated and fully transactional settlements (delivery-versus-payment, payment-vs-payment).
+Token-based settlement can be realized by any contract implementation implementing an <a href="./eip-20.md">ERC-20</a> token.
+Proof of concepts in terms of two legally binding digital Interest Rate Swaps were conducted in 2021 and 2022.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<h3 id="rethinking-financial-derivatives">Rethinking Financial Derivatives</h3>
+
+<p>By their very nature, so-called “over-the-counter (OTC)” financial contracts are bilateral contractual agreements on exchanging long-dated cash flow schedules.
+Since these contracts change their intrinsic market value due to changing market environments, they are subject to counterparty credit risk when one counterparty is subject to default.
+The initial white paper describes the concept of a Smart Derivative Contract (SDC) with the central aim to detach bilateral financial transactions from counterparty credit risk and to remove complexities
+in bilateral post-trade processing by a complete redesign.</p>
+
+<h3 id="concept-of-a-smart-derivative-contract">Concept of a Smart Derivative Contract</h3>
+
+<p>A Smart Derivative Contract is a deterministic settlement protocol with the same economic behaviour as a Financial Contract - e.g. an OTC-Derivative or a Bond.
+Every process state is specified; therefore, the trade and post-trade process is known in advance and is deterministic over the trade’s life cycle. An <a href="./eip-20.md">ERC-20</a> token can be used for frictionless decentralized settlement, see reference implementation. We do provide a separate interface and implementation for a specific “Settlement Token” derived from <a href="./eip-20.md">ERC-20</a>.
+These features enable two or multiple trade parties to process their financial contracts fully decentralized without relying on a third central intermediary agent.
+The process logic of SDC can be implemented as a finite state machine on solidity.</p>
+
+<h3 id="applications">Applications</h3>
+
+<p>The interface’s life cycle functionality applies to several use cases.</p>
+
+<h4 id="collateralized-otc-derivative">Collateralized OTC Derivative</h4>
+
+<p>In the case of a collateralized OTC derivative, an SDC settles the outstanding net present value of the underlying financial contract on a frequent (e.g. daily) basis. With each settlement cycle, the net present value of the underlying contract is exchanged, and the value of the contract is reset to zero. Pre-agreed margin buffers are locked at the beginning of each settlement cycle so that settlement will be guaranteed up to a certain amount.
+If a counterparty fails to obey contract rules, e.g. not providing sufficient pre-funding, SDC will terminate automatically with the guaranteed transfer of a termination fee by the causing party.
+We provide a Reference Implementation for this case.</p>
+
+<h4 id="defaultable-otc-derivative">Defaultable OTC Derivative</h4>
+
+<p>A defaultable OTC Derivative has no Collateral Process in place. In that case, a smart derivative will settle the according cash flows as determined in the derivative contract specification. A defaultable OTC derivative might end in
+a state ‘Failure to Pay’ if a settlement cannot be conducted.</p>
+
+<h4 id="smart-bond-contract">Smart Bond Contract</h4>
+
+<p>The life cycle of a bond can also make use of the function catalogue below. The interface enables the issuer to allocate and redeem the bond as well as settle coupon payments. On the other hand, it allows bondholders to interact with each other, conducting secondary market trades. It all boils down to a settlement phase, which needs to be pre-agreed by both parties or triggered by the issuer
+which can be processed in a completely frictionless way.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="methods">Methods</h3>
+
+<p>The following methods specify a Smart Derivative Contract’s trade initiation and settlement life cycle. For further information, please also look at the interface documentation ISDC.sol.</p>
+
+<h4 id="trade-initiation-phase-incepttrade">Trade Initiation Phase: <code class="language-plaintext highlighter-rouge">inceptTrade</code></h4>
+
+<p>A party can initiate a trade by providing the party address to trade with, trade data, trade position, payment amount for the trade and initial settlement data. Only registered counterparties are allowed to use that function.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">inceptTrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">_withParty</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">_tradeData</span><span class="p">,</span> <span class="kt">int</span> <span class="n">_position</span><span class="p">,</span> <span class="kt">int256</span> <span class="n">_paymentAmount</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">_initialSettlementData</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="trade-initiation-phase-confirmtrade">Trade Initiation Phase: <code class="language-plaintext highlighter-rouge">confirmTrade</code></h4>
+
+<p>A counterparty can confirm a trade by providing its trade specification data, which then gets matched against the data stored from <code class="language-plaintext highlighter-rouge">inceptTrade</code> call.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">confirmTrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">_withParty</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">_tradeData</span><span class="p">,</span> <span class="kt">int</span> <span class="n">_position</span><span class="p">,</span> <span class="kt">int256</span> <span class="n">_paymentAmount</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">_initialSettlementData</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="trade-settlement-phase-initiatesettlement">Trade Settlement Phase: <code class="language-plaintext highlighter-rouge">initiateSettlement</code></h4>
+
+<p>Allows eligible participants (such as counterparties or a delegated agent) to trigger a settlement phase.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">initiateSettlement</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="trade-settlement-phase-performsettlement">Trade Settlement Phase: <code class="language-plaintext highlighter-rouge">performSettlement</code></h4>
+
+<p>Valuation may be provided on-chain or off-chain via an external oracle service that calculates the settlement or coupon amounts and uses external market data.
+This method serves as a callback called from an external oracle providing settlement amount and used settlement data, which also get stored.
+The settlement amount will be checked according to contract terms, resulting in either a regular settlement or a termination of the trade.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">performSettlement</span><span class="p">(</span><span class="kt">int256</span> <span class="n">settlementAmount</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">settlementData</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="trade-settlement-phase-aftertransfer">Trade Settlement Phase: <code class="language-plaintext highlighter-rouge">afterTransfer</code></h4>
+
+<p>This method - either called back from the provided settlement token directly or from an eligible address - completes the settlement transfer.
+This might result in a termination or start of the next settlement phase, depending on the provided success flag.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">afterTransfer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">transactionHash</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">success</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="trade-termination-requesttermination">Trade Termination: <code class="language-plaintext highlighter-rouge">requestTermination</code></h4>
+
+<p>Allows an eligible party to request a mutual termination with a termination amount she is willing to pay</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">requestTradeTermination</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">tradeId</span><span class="p">,</span> <span class="kt">int256</span> <span class="n">_terminationPayment</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="trade-termination-confirmtradetermination">Trade Termination: <code class="language-plaintext highlighter-rouge">confirmTradeTermination</code></h4>
+
+<p>Allows an eligible party to confirm a previously requested (mutual) trade termination, including termination payment value</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">confirmTradeTermination</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">tradeId</span><span class="p">,</span> <span class="kt">int256</span> <span class="n">_terminationPayment</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="trade-events">Trade Events</h3>
+
+<p>The following events are emitted during an SDC Trade life-cycle.</p>
+
+<h4 id="tradeincepted">TradeIncepted</h4>
+
+<p>Emitted on trade inception - method ‘inceptTrade’</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">TradeIncepted</span><span class="p">(</span><span class="kt">address</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">string</span> <span class="n">tradeId</span><span class="p">,</span> <span class="kt">string</span> <span class="n">tradeData</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="tradeconfirmed">TradeConfirmed</h4>
+
+<p>Emitted on trade confirmation - method ‘confirmTrade’</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">TradeConfirmed</span><span class="p">(</span><span class="kt">address</span> <span class="n">confirmer</span><span class="p">,</span> <span class="kt">string</span> <span class="n">tradeId</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="tradeactivated">TradeActivated</h4>
+
+<p>Emitted when a Trade is activated</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">TradeActivated</span><span class="p">(</span><span class="kt">string</span> <span class="n">tradeId</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="tradesettlementrequest">TradeSettlementRequest</h3>
+
+<p>Emitted when a settlement is requested. May trigger the settlement phase.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">TradeSettlementRequest</span><span class="p">(</span><span class="kt">string</span> <span class="n">tradeData</span><span class="p">,</span> <span class="kt">string</span> <span class="n">lastSettlementData</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="tradesettlementphase">TradeSettlementPhase</h3>
+
+<p>Emitted when the settlement phase is started.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">TradeSettlementPhase</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h4 id="tradeterminationrequest">TradeTerminationRequest</h4>
+
+<p>Emitted when termination request is initiated by a counterparty</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">TradeTerminationRequest</span><span class="p">(</span><span class="kt">address</span> <span class="n">cpAddress</span><span class="p">,</span> <span class="kt">string</span> <span class="n">tradeId</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="tradeterminationconfirmed">TradeTerminationConfirmed</h4>
+
+<p>Emitted when termination request is confirmed by a counterparty</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">TradeTerminationConfirmed</span><span class="p">(</span><span class="kt">address</span> <span class="n">cpAddress</span><span class="p">,</span> <span class="kt">string</span> <span class="n">tradeId</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="tradeterminated">TradeTerminated</h4>
+
+<p>Emitted when trade is terminated</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">TradeTerminated</span><span class="p">(</span><span class="kt">string</span> <span class="n">cause</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="processhalted">ProcessHalted</h4>
+
+<p>Emitted when trade processing stops.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">ProcessHalted</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The interface design and reference implementation are based on the following considerations:</p>
+
+<ul>
+  <li>An SDC protocol enables interacting parties to initiate and process a financial transaction in a bilateral and deterministic manner. Settlement and Counterparty Risk is managed by the contract.</li>
+  <li>The provided interface specification is supposed to completely reflect the entire trade life cycle.</li>
+  <li>The interface specification is generic enough to handle the case that parties process one or even multiple financial transactions (on a netted base)</li>
+  <li>Usually, the valuation of financial trades (e.g. OTC Derivatives) will require advanced valuation methodology to determine the market value. This is why the concept might rely on an external market data source and hosted valuation algorithms</li>
+  <li>A pull-based valuation-based oracle pattern can be implemented by using the provided callback pattern (methods: <code class="language-plaintext highlighter-rouge">initiateSettlement</code>, <code class="language-plaintext highlighter-rouge">performSettlement</code>)</li>
+  <li>The reference implementation <code class="language-plaintext highlighter-rouge">SDC.sol</code> is based on a state-machine pattern where the states also serve as guards (via modifiers) to check which method is allowed to be called at a particular given process and trade state</li>
+</ul>
+
+<h3 id="state-diagram-of-trade-and-process-states">State diagram of trade and process states</h3>
+
+<p><img src="../assets/eip-6123/doc/sdc_trade_states.png" alt="image info" /></p>
+
+<h3 id="sequence-diagram-of-trade-initiation-and-settlement-life-cycle">Sequence diagram of trade initiation and settlement life-cycle</h3>
+
+<p><img src="../assets/eip-6123/doc/sdc_lifecycle_sequence_diagram.png" alt="image info" /></p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Life-cycle unit tests based on the sample implementation and usage of <a href="./eip-20.md">ERC-20</a> token is provided. See file <a href="../assets/eip-6123/test/SDCTests.js">test/SDCTests.js</a>
+).</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>An abstract contract class SDC.sol as well as a full reference implementation SDCPledgedBalance.sol for an OTC-Derivative is provided and is based on the <a href="./eip-20.md">ERC-20</a> token standard.
+See folder <code class="language-plaintext highlighter-rouge">/assets/contracts</code>, more explanation on the implementation is provided inline.</p>
+
+<h3 id="trade-data-specification-suggestion">Trade Data Specification (suggestion)</h3>
+
+<p>Please take a look at the provided xml file as a suggestion on how trade parameters could be stored.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>No known security issues up to now.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Mixed-case checksum address encoding | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Mixed-case checksum address encoding | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-55" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-55" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Mixed-case checksum address encoding</h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="specification">Specification</h1>
+
+<p>Code:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">eth_utils</span>
+
+
+<span class="k">def</span> <span class="nf">checksum_encode</span><span class="p">(</span><span class="n">addr</span><span class="p">):</span> <span class="c1"># Takes a 20-byte binary address as input
+</span>    <span class="n">hex_addr</span> <span class="o">=</span> <span class="n">addr</span><span class="p">.</span><span class="nb">hex</span><span class="p">()</span>
+    <span class="n">checksummed_buffer</span> <span class="o">=</span> <span class="s">""</span>
+
+    <span class="c1"># Treat the hex address as ascii/utf-8 for keccak256 hashing
+</span>    <span class="n">hashed_address</span> <span class="o">=</span> <span class="n">eth_utils</span><span class="p">.</span><span class="n">keccak</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">hex_addr</span><span class="p">).</span><span class="nb">hex</span><span class="p">()</span>
+
+    <span class="c1"># Iterate over each character in the hex address
+</span>    <span class="k">for</span> <span class="n">nibble_index</span><span class="p">,</span> <span class="n">character</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hex_addr</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">character</span> <span class="ow">in</span> <span class="s">"0123456789"</span><span class="p">:</span>
+            <span class="c1"># We can't upper-case the decimal digits
+</span>            <span class="n">checksummed_buffer</span> <span class="o">+=</span> <span class="n">character</span>
+        <span class="k">elif</span> <span class="n">character</span> <span class="ow">in</span> <span class="s">"abcdef"</span><span class="p">:</span>
+            <span class="c1"># Check if the corresponding hex digit (nibble) in the hash is 8 or higher
+</span>            <span class="n">hashed_address_nibble</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">hashed_address</span><span class="p">[</span><span class="n">nibble_index</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">hashed_address_nibble</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="n">checksummed_buffer</span> <span class="o">+=</span> <span class="n">character</span><span class="p">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">checksummed_buffer</span> <span class="o">+=</span> <span class="n">character</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">eth_utils</span><span class="p">.</span><span class="n">ValidationError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s">"Unrecognized hex character </span><span class="si">{</span><span class="n">character</span><span class="err">!</span><span class="n">r</span><span class="si">}</span><span class="s"> at position </span><span class="si">{</span><span class="n">nibble_index</span><span class="si">}</span><span class="s">"</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="s">"0x"</span> <span class="o">+</span> <span class="n">checksummed_buffer</span>
+
+
+<span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">addr_str</span><span class="p">):</span>
+    <span class="n">addr_bytes</span> <span class="o">=</span> <span class="n">eth_utils</span><span class="p">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="n">hexstr</span><span class="o">=</span><span class="n">addr_str</span><span class="p">)</span>
+    <span class="n">checksum_encoded</span> <span class="o">=</span> <span class="n">checksum_encode</span><span class="p">(</span><span class="n">addr_bytes</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">checksum_encoded</span> <span class="o">==</span> <span class="n">addr_str</span><span class="p">,</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">checksum_encoded</span><span class="si">}</span><span class="s"> != expected </span><span class="si">{</span><span class="n">addr_str</span><span class="si">}</span><span class="s">"</span>
+
+
+<span class="n">test</span><span class="p">(</span><span class="s">"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed"</span><span class="p">)</span>
+<span class="n">test</span><span class="p">(</span><span class="s">"0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"</span><span class="p">)</span>
+<span class="n">test</span><span class="p">(</span><span class="s">"0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB"</span><span class="p">)</span>
+<span class="n">test</span><span class="p">(</span><span class="s">"0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>In English, convert the address to hex, but if the <code class="language-plaintext highlighter-rouge">i</code>th digit is a letter (ie. it’s one of <code class="language-plaintext highlighter-rouge">abcdef</code>) print it in uppercase if the <code class="language-plaintext highlighter-rouge">4*i</code>th bit of the hash of the lowercase hexadecimal address is 1 otherwise print it in lowercase.</p>
+
+<h1 id="rationale">Rationale</h1>
+
+<p>Benefits:</p>
+<ul>
+  <li>Backwards compatible with many hex parsers that accept mixed case, allowing it to be easily introduced over time</li>
+  <li>Keeps the length at 40 characters</li>
+  <li>On average there will be 15 check bits per address, and the net probability that a randomly generated address if mistyped will accidentally pass a check is 0.0247%. This is a ~50x improvement over ICAP, but not as good as a 4-byte check code.</li>
+</ul>
+
+<h1 id="implementation">Implementation</h1>
+
+<p>In javascript:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">createKeccakHash</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">keccak</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="kd">function</span> <span class="nx">toChecksumAddress</span> <span class="p">(</span><span class="nx">address</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">address</span> <span class="o">=</span> <span class="nx">address</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">replace</span><span class="p">(</span><span class="dl">'</span><span class="s1">0x</span><span class="dl">'</span><span class="p">,</span> <span class="dl">''</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">hash</span> <span class="o">=</span> <span class="nx">createKeccakHash</span><span class="p">(</span><span class="dl">'</span><span class="s1">keccak256</span><span class="dl">'</span><span class="p">).</span><span class="nx">update</span><span class="p">(</span><span class="nx">address</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="dl">'</span><span class="s1">hex</span><span class="dl">'</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">0x</span><span class="dl">'</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">address</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">hash</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ret</span> <span class="o">+=</span> <span class="nx">address</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">toUpperCase</span><span class="p">()</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">ret</span> <span class="o">+=</span> <span class="nx">address</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">ret</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; toChecksumAddress('0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359')
+'0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359'
+</code></pre></div></div>
+
+<p>Note that the input to the Keccak256 hash is the lowercase hexadecimal string (i.e. the hex address encoded as ASCII):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var hash = createKeccakHash('keccak256').update(Buffer.from(address.toLowerCase(), 'ascii')).digest()
+</code></pre></div></div>
+
+<h1 id="test-cases">Test Cases</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># All caps
+0x52908400098527886E0F7030069857D2E4169EE7
+0x8617E340B3D01FA5F11F306F4090FD50E238070D
+# All Lower
+0xde709f2102306220921060314715629080e2fb77
+0x27b1fdb04752bbc536007a920d24acb045561c26
+# Normal
+0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed
+0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359
+0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB
+0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Dynamic On-Chain Token Attributes Repository | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Dynamic On-Chain Token Attributes Repository | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7508" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7508" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Dynamic On-Chain Token Attributes Repository</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The Public On-Chain Non-Fungible Token Attributes Repository standard provides the ability for <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> compatible tokens to store their attributes on-chain available to any external smart contract interacting with them.</p>
+
+<p>This proposal introduces the ability to assign attributes to NFTs in a public non-gated repository smart contract that is accessible at the same address in all of the networks. The repository smart contract is designed to be a common-good repository, meaning that it can be used by any ERC-721 or ERC-1155 compatible token.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>With NFTs being a widespread form of tokens in the Ethereum ecosystem and being used for a variety of use cases, it is time to standardize additional utility for them. Having the ability to store token’s attributes on chain allows for greater utility of tokens as it fosters cross-collection interactivity and provides perpetual store of attributes.</p>
+
+<p>This ERC introduces new utilities for <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> based tokens in the following areas:</p>
+
+<ul>
+  <li><a href="#cross-collection-interactivity">Cross-Collection interactivity</a></li>
+  <li><a href="#perpetual-store-of-attributes">Perpetual Store of Attributes</a></li>
+  <li><a href="#token-evolution">Token Evolution</a></li>
+  <li><a href="#dynamic-state-tracking">Dynamic State Tracking</a></li>
+</ul>
+
+<h3 id="cross-collection-interactivity">Cross-Collection Interactivity</h3>
+
+<p>Storing attributes on-chain in a predictable format allows for cross-collection interactivity. This means that the attributes of a token can be used by any external smart contract without the need for the token to be aware of the external smart contract.</p>
+
+<p>For example, a token can represent a game character with its set of attributes and can be used in an unrelated game with the same stats without the need for retrieving these attributes from an off-chain source. This ensures that the data the game is using is legitimate and not tampered with in order to gain an advantage.</p>
+
+<h3 id="perpetual-store-of-attributes">Perpetual Store of Attributes</h3>
+
+<p>Standardized on-chain token attributes allow for their perpetual storage.</p>
+
+<p>With off-chain attributes storage, the attributes are only available as long as the off-chain storage is available. If the storage is taken down, the attributes are lost. With on-chain attributes storage, the attributes are available as long as the blockchain is available. This increases the value of the token as it ensures that the attributes are available for as long as the token exists.</p>
+
+<h3 id="token-evolution">Token Evolution</h3>
+
+<p>On-Chain storage of token attributes allows for the token to evolve over time. Owner’s actions can impact the attributes of the token. Since the attributes are stored on chain, the smart contract has the ability to modify the attribute once certain thresholds are met. This allows for token to become more interactive and reflect owner’s dedication and effort.</p>
+
+<h3 id="dynamic-state-tracking">Dynamic State Tracking</h3>
+
+<p>On-Chain storage of token attributes allows for dynamic state tracking. The attributes can be used to track the state of the token and its owner. This allows for the token to be used in a variety of use cases. One such use case is supply chains; the token can represent a product and its attributes can be used to track the state of the product as it transitions from pending, shipped, delivered, etc.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="interface">Interface</h3>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title ERC-7508 Public On-Chain NFT Attributes Repository
+/// @dev See https://eips.ethereum.org/EIPS/eip-7508
+/// @dev Note: the ERC-165 identifier for this interface is 0x212206a8.
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">21</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC7508</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice A list of supported access types.
+     * @return The `Owner` type, where only the owner can manage the parameter.
+     * @return The `Collaborator` type, where only the collaborators can manage the parameter.
+     * @return The `OwnerOrCollaborator` type, where only the owner or collaborators can manage the parameter.
+     * @return The `TokenOwner` type, where only the token owner can manage the parameters of their tokens.
+     * @return The `SpecificAddress` type, where only specific addresses can manage the parameter.
+     */</span>
+    <span class="k">enum</span> <span class="n">AccessType</span> <span class="p">{</span>
+        <span class="n">Owner</span><span class="p">,</span>
+        <span class="n">Collaborator</span><span class="p">,</span>
+        <span class="n">OwnerOrCollaborator</span><span class="p">,</span>
+        <span class="n">TokenOwner</span><span class="p">,</span>
+        <span class="n">SpecificAddress</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Structure used to represent an address attribute.
+     * @return key The key of the attribute
+     * @return value The value of the attribute
+     */</span>
+    <span class="k">struct</span> <span class="n">AddressAttribute</span> <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Structure used to represent a boolean attribute.
+     * @return key The key of the attribute
+     * @return value The value of the attribute
+     */</span>
+    <span class="k">struct</span> <span class="n">BoolAttribute</span> <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Structure used to represent a bytes attribute.
+     * @return key The key of the attribute
+     * @return value The value of the attribute
+     */</span>
+    <span class="k">struct</span> <span class="n">BytesAttribute</span> <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">;</span>
+        <span class="kt">bytes</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Structure used to represent an int attribute.
+     * @return key The key of the attribute
+     * @return value The value of the attribute
+     */</span>
+    <span class="k">struct</span> <span class="n">IntAttribute</span> <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">;</span>
+        <span class="kt">int256</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Structure used to represent a string attribute.
+     * @return key The key of the attribute
+     * @return value The value of the attribute
+     */</span>
+    <span class="k">struct</span> <span class="n">StringAttribute</span> <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">;</span>
+        <span class="kt">string</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Structure used to represent an uint attribute.
+     * @return key The key of the attribute
+     * @return value The value of the attribute
+     */</span>
+    <span class="k">struct</span> <span class="n">UintAttribute</span> <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that a new collection has been registered to use the repository.
+     * @param collection Address of the collection
+     * @param owner Address of the owner of the collection; the addess authorized to manage the access control
+     * @param registeringAddress Address that registered the collection
+     * @param useOwnable A boolean value indicating whether the collection uses the Ownable extension to verify the
+     *  owner (`true`) or not (`false`)
+     */</span>
+    <span class="k">event</span> <span class="n">AccessControlRegistration</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">registeringAddress</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">useOwnable</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that the access control settings for a specific parameter have been updated.
+     * @param collection Address of the collection
+     * @param key The name of the parameter for which the access control settings have been updated
+     * @param accessType The AccessType of the parameter for which the access control settings have been updated
+     * @param specificAddress The specific addresses that has been updated
+     */</span>
+    <span class="k">event</span> <span class="n">AccessControlUpdate</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">,</span>
+        <span class="n">AccessType</span> <span class="n">accessType</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">specificAddress</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that the metadata URI for a collection has been updated.
+     * @param collection Address of the collection
+     * @param attributesMetadataURI The new attributes metadata URI
+     */</span>
+    <span class="k">event</span> <span class="n">MetadataURIUpdated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">attributesMetadataURI</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that a new collaborator has been added or removed.
+     * @param collection Address of the collection
+     * @param collaborator Address of the collaborator
+     * @param isCollaborator A boolean value indicating whether the collaborator has been added (`true`) or removed
+     *  (`false`)
+     */</span>
+    <span class="k">event</span> <span class="n">CollaboratorUpdate</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collaborator</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">isCollaborator</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that an address attribute has been updated.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @param value The new value of the attribute
+     */</span>
+    <span class="k">event</span> <span class="n">AddressAttributeUpdated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">value</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that a boolean attribute has been updated.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @param value The new value of the attribute
+     */</span>
+    <span class="k">event</span> <span class="n">BoolAttributeUpdated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">value</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that a bytes attribute has been updated.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @param value The new value of the attribute
+     */</span>
+    <span class="k">event</span> <span class="n">BytesAttributeUpdated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="n">value</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that an int attribute has been updated.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @param value The new value of the attribute
+     */</span>
+    <span class="k">event</span> <span class="n">IntAttributeUpdated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">int256</span> <span class="n">value</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that a string attribute has been updated.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @param value The new value of the attribute
+     */</span>
+    <span class="k">event</span> <span class="n">StringAttributeUpdated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">value</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify listeners that an uint attribute has been updated.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @param value The new value of the attribute
+     */</span>
+    <span class="k">event</span> <span class="n">UintAttributeUpdated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">value</span>
+    <span class="p">);</span>
+
+    <span class="c1">// ------------------- ACCESS CONTROL -------------------
+</span>
+    <span class="cm">/**
+     * @notice Used to check if the specified address is listed as a collaborator of the given collection's parameter.
+     * @param collaborator Address to be checked.
+     * @param collection Address of the collection.
+     * @return isCollaborator_ Boolean value indicating if the address is a collaborator of the given collection's (`true`) or not
+     *  (`false`).
+     */</span>
+    <span class="k">function</span> <span class="n">isCollaborator</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collaborator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">collection</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">isCollaborator_</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to check if the specified address is listed as a specific address of the given collection's
+     *  parameter.
+     * @param specificAddress Address to be checked.
+     * @param collection Address of the collection.
+     * @param key The key of the attribute
+     * @return isSpecificAddress_ Boolean value indicating if the address is a specific address of the given collection's parameter
+     *  (`true`) or not (`false`).
+     */</span>
+    <span class="k">function</span> <span class="n">isSpecificAddress</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">specificAddress</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">isSpecificAddress_</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to register a collection to use the RMRK token attributes repository.
+     * @dev  If the collection does not implement the Ownable interface, the `useOwnable` value must be set to `false`.
+     * @dev Emits an {AccessControlRegistration} event.
+     * @param collection The address of the collection that will use the RMRK token attributes repository.
+     * @param owner The address of the owner of the collection.
+     * @param useOwnable The boolean value to indicate if the collection implements the Ownable interface and whether it
+     *  should be used to validate that the caller is the owner (`true`) or to use the manually set owner address
+     *  (`false`).
+     */</span>
+    <span class="k">function</span> <span class="n">registerAccessControl</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">useOwnable</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to manage the access control settings for a specific parameter.
+     * @dev Only the `owner` of the collection can call this function.
+     * @dev The possible `accessType` values are:
+     *  [
+     *      Owner,
+     *      Collaborator,
+     *      OwnerOrCollaborator,
+     *      TokenOwner,
+     *      SpecificAddress,
+     *  ]
+     * @dev Emits an {AccessControlUpdated} event.
+     * @param collection The address of the collection being managed.
+     * @param key The key of the attribute
+     * @param accessType The type of access control to be applied to the parameter.
+     * @param specificAddress The address to be added as a specific addresses allowed to manage the given
+     *  parameter.
+     */</span>
+    <span class="k">function</span> <span class="n">manageAccessControl</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="n">AccessType</span> <span class="n">accessType</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">specificAddress</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to manage the collaborators of a collection.
+     * @dev The `collaboratorAddresses` and `collaboratorAddressAccess` arrays must be of the same length.
+     * @dev Emits a {CollaboratorUpdate} event.
+     * @param collection The address of the collection
+     * @param collaboratorAddresses The array of collaborator addresses being managed
+     * @param collaboratorAddressAccess The array of boolean values indicating if the collaborator address should
+     *  receive the permission (`true`) or not (`false`).
+     */</span>
+    <span class="k">function</span> <span class="n">manageCollaborators</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collaboratorAddresses</span><span class="p">,</span>
+        <span class="kt">bool</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collaboratorAddressAccess</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">// ------------------- METADATA URI -------------------
+</span>
+    <span class="cm">/**
+     * @notice Used to retrieve the attributes metadata URI for a collection, which contains all the information about the collection attributes.
+     * @param collection Address of the collection
+     * @return attributesMetadataURI The URI of the attributes metadata
+     */</span>
+    <span class="k">function</span> <span class="n">getAttributesMetadataURIForCollection</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">attributesMetadataURI</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to set the metadata URI for a collection, which contains all the information about the collection attributes.
+     * @dev Emits a {MetadataURIUpdated} event.
+     * @param collection Address of the collection
+     * @param attributesMetadataURI The URI of the attributes metadata
+     */</span>
+    <span class="k">function</span> <span class="n">setAttributesMetadataURIForCollection</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">attributesMetadataURI</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">// ------------------- GETTERS -------------------
+</span>
+    <span class="cm">/**
+     * @notice Used to retrieve the address type token attributes.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @return attribute The value of the address attribute
+     */</span>
+    <span class="k">function</span> <span class="n">getAddressAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">attribute</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the bool type token attributes.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @return attribute The value of the bool attribute
+     */</span>
+    <span class="k">function</span> <span class="n">getBoolAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">attribute</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the bytes type token attributes.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @return attribute The value of the bytes attribute
+     */</span>
+    <span class="k">function</span> <span class="n">getBytesAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">attribute</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the uint type token attributes.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @return attribute The value of the uint attribute
+     */</span>
+    <span class="k">function</span> <span class="n">getUintAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">attribute</span><span class="p">);</span>
+    <span class="cm">/**
+     * @notice Used to retrieve the string type token attributes.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @return attribute The value of the string attribute
+     */</span>
+    <span class="k">function</span> <span class="n">getStringAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">attribute</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the int type token attributes.
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param key The key of the attribute
+     * @return attribute The value of the uint attribute
+     */</span>
+    <span class="k">function</span> <span class="n">getIntAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">int256</span> <span class="n">attribute</span><span class="p">);</span>
+
+    <span class="c1">// ------------------- BATCH GETTERS -------------------
+</span>
+    <span class="cm">/**
+     * @notice Used to get multiple address parameter values for a token.
+     * @dev The `AddressAttribute` struct contains the following fields:
+     *  [
+     *     string key,
+     *     address value
+     *  ]
+     * @param collections Addresses of the collections, in the same order as the attribute keys. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attribute keys. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributeKeys An array of address keys to retrieve
+     * @return attributes An array of addresses, in the same order as the attribute keys
+     */</span>
+    <span class="k">function</span> <span class="n">getAddressAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributeKeys</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to get multiple bool parameter values for a token.
+     * @dev The `BoolAttribute` struct contains the following fields:
+     *  [
+     *     string key,
+     *     bool value
+     *  ]
+     * @param collections Addresses of the collections, in the same order as the attribute keys. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attribute keys. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributeKeys An array of bool keys to retrieve
+     * @return attributes An array of bools, in the same order as the attribute keys
+     */</span>
+    <span class="k">function</span> <span class="n">getBoolAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributeKeys</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to get multiple bytes parameter values for a token.
+     * @dev The `BytesAttribute` struct contains the following fields:
+     *  [
+     *     string key,
+     *     bytes value
+     *  ]
+     * @param collections Addresses of the collections, in the same order as the attribute keys. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attribute keys. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributeKeys An array of bytes keys to retrieve
+     * @return attributes An array of bytes, in the same order as the attribute keys
+     */</span>
+    <span class="k">function</span> <span class="n">getBytesAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributeKeys</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to get multiple int parameter values for a token.
+     * @param collections Addresses of the collections, in the same order as the attribute keys. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attribute keys. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributeKeys An array of int keys to retrieve
+     * @return attributes An array of ints, in the same order as the attribute keys
+     */</span>
+    <span class="k">function</span> <span class="n">getIntAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributeKeys</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">int256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to get multiple sting parameter values for a token.
+     * @param collections Addresses of the collections, in the same order as the attribute keys. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attribute keys. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributeKeys An array of string keys to retrieve
+     * @return attributes An array of strings, in the same order as the attribute keys
+     */</span>
+    <span class="k">function</span> <span class="n">getStringAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributeKeys</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to get multiple uint parameter values for a token.
+     * @param collections Addresses of the collections, in the same order as the attribute keys. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attribute keys. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributeKeys An array of uint keys to retrieve
+     * @return attributes An array of uints, in the same order as the attribute keys
+     */</span>
+    <span class="k">function</span> <span class="n">getUintAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributeKeys</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve multiple token attributes of any type at once.
+     * @dev The `StringAttribute`, `UintAttribute`, `IntAttribute`, `BoolAttribute`, `AddressAttribute` and `BytesAttribute` structs consists
+     *  to the following fields (where `value` is of the appropriate type):
+     *  [
+     *      key,
+     *      value,
+     *  ]
+     * @param collection The collection address
+     * @param tokenId The token ID
+     * @param addressKeys An array of address type attribute keys to retrieve
+     * @param boolKeys An array of bool type attribute keys to retrieve
+     * @param bytesKeys An array of bytes type attribute keys to retrieve
+     * @param intKeys An array of int type attribute keys to retrieve
+     * @param stringKeys An array of string type attribute keys to retrieve
+     * @param uintKeys An array of uint type attribute keys to retrieve
+     * @return addressAttributes An array of addresses, in the same order as the addressKeys
+     * @return boolAttributes An array of bools, in the same order as the boolKeys
+     * @return bytesAttributes An array of bytes, in the same order as the bytesKeys
+     * @return intAttributes An array of ints, in the same order as the intKeys
+     * @return stringAttributes An array of strings, in the same order as the stringKeys
+     * @return uintAttributes An array of uints, in the same order as the uintKeys
+     */</span>
+    <span class="k">function</span> <span class="n">getAttributes</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">addressKeys</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">boolKeys</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">bytesKeys</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">intKeys</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">stringKeys</span><span class="p">,</span>
+        <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">uintKeys</span>
+    <span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span>
+            <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">addressAttributes</span><span class="p">,</span>
+            <span class="kt">bool</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">boolAttributes</span><span class="p">,</span>
+            <span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">bytesAttributes</span><span class="p">,</span>
+            <span class="kt">int256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">intAttributes</span><span class="p">,</span>
+            <span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">stringAttributes</span><span class="p">,</span>
+            <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">uintAttributes</span>
+        <span class="p">);</span>
+
+    <span class="c1">// ------------------- PREPARE PRESIGNED MESSAGES -------------------
+</span>
+    <span class="cm">/**
+     * @notice Used to retrieve the message to be signed for submitting a presigned address attribute change.
+     * @param collection The address of the collection smart contract of the token receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction after which the message is invalid
+     * @return message Raw message to be signed by the authorized account
+     */</span>
+    <span class="k">function</span> <span class="n">prepareMessageToPresignAddressAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">message</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the message to be signed for submitting a presigned bool attribute change.
+     * @param collection The address of the collection smart contract of the token receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction after which the message is invalid
+     * @return message Raw message to be signed by the authorized account
+     */</span>
+    <span class="k">function</span> <span class="n">prepareMessageToPresignBoolAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">message</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the message to be signed for submitting a presigned bytes attribute change.
+     * @param collection The address of the collection smart contract of the token receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction after which the message is invalid
+     * @return message Raw message to be signed by the authorized account
+     */</span>
+    <span class="k">function</span> <span class="n">prepareMessageToPresignBytesAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">message</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the message to be signed for submitting a presigned int attribute change.
+     * @param collection The address of the collection smart contract of the token receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction after which the message is invalid
+     * @return message Raw message to be signed by the authorized account
+     */</span>
+    <span class="k">function</span> <span class="n">prepareMessageToPresignIntAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">int256</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">message</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the message to be signed for submitting a presigned string attribute change.
+     * @param collection The address of the collection smart contract of the token receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction after which the message is invalid
+     * @return message Raw message to be signed by the authorized account
+     */</span>
+    <span class="k">function</span> <span class="n">prepareMessageToPresignStringAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">message</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the message to be signed for submitting a presigned uint attribute change.
+     * @param collection The address of the collection smart contract of the token receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction after which the message is invalid
+     * @return message Raw message to be signed by the authorized account
+     */</span>
+    <span class="k">function</span> <span class="n">prepareMessageToPresignUintAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">message</span><span class="p">);</span>
+
+    <span class="c1">// ------------------- SETTERS -------------------
+</span>
+    <span class="cm">/**
+     * @notice Used to set an address attribute.
+     * @dev Emits a {AddressAttributeUpdated} event.
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The token ID
+     * @param key The attribute key
+     * @param value The attribute value
+     */</span>
+    <span class="k">function</span> <span class="n">setAddressAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">value</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set a boolean attribute.
+     * @dev Emits a {BoolAttributeUpdated} event.
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The token ID
+     * @param key The attribute key
+     * @param value The attribute value
+     */</span>
+    <span class="k">function</span> <span class="n">setBoolAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">value</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set an bytes attribute.
+     * @dev Emits a {BytesAttributeUpdated} event.
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The token ID
+     * @param key The attribute key
+     * @param value The attribute value
+     */</span>
+    <span class="k">function</span> <span class="n">setBytesAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">value</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set a signed number attribute.
+     * @dev Emits a {IntAttributeUpdated} event.
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The token ID
+     * @param key The attribute key
+     * @param value The attribute value
+     */</span>
+    <span class="k">function</span> <span class="n">setIntAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">int256</span> <span class="n">value</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set a string attribute.
+     * @dev Emits a {StringAttributeUpdated} event.
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The token ID
+     * @param key The attribute key
+     * @param value The attribute value
+     */</span>
+    <span class="k">function</span> <span class="n">setStringAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">value</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set an unsigned number attribute.
+     * @dev Emits a {UintAttributeUpdated} event.
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The token ID
+     * @param key The attribute key
+     * @param value The attribute value
+     */</span>
+    <span class="k">function</span> <span class="n">setUintAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">value</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">// ------------------- BATCH SETTERS -------------------
+</span>
+    <span class="cm">/**
+     * @notice Sets multiple address attributes for a token at once.
+     * @dev The `AddressAttribute` struct contains the following fields:
+     *  [
+     *      string key,
+     *      address value
+     *  ]
+     * @param collections Addresses of the collections, in the same order as the attributes. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attributes. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributes An array of `AddressAttribute` structs to be assigned to the given token
+     */</span>
+    <span class="k">function</span> <span class="n">setAddressAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="n">AddressAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Sets multiple bool attributes for a token at once.
+     * @dev The `BoolAttribute` struct contains the following fields:
+     *  [
+     *      string key,
+     *      bool value
+     *  ]
+     * @param collections Addresses of the collections, in the same order as the attributes. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attributes. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributes An array of `BoolAttribute` structs to be assigned to the given token
+     */</span>
+    <span class="k">function</span> <span class="n">setBoolAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="n">BoolAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Sets multiple bytes attributes for a token at once.
+     * @dev The `BytesAttribute` struct contains the following fields:
+     *  [
+     *      string key,
+     *      bytes value
+     *  ]
+     * @param collections Addresses of the collections, in the same order as the attributes. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attributes. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributes An array of `BytesAttribute` structs to be assigned to the given token
+     */</span>
+    <span class="k">function</span> <span class="n">setBytesAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="n">BytesAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Sets multiple int attributes for a token at once.
+     * @dev The `UintAttribute` struct contains the following fields:
+     *  [
+     *      string key,
+     *      int value
+     *  ]
+     * @param collections Addresses of the collections, in the same order as the attributes. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attributes. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributes An array of `IntAttribute` structs to be assigned to the given token
+     */</span>
+    <span class="k">function</span> <span class="n">setIntAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="n">IntAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Sets multiple string attributes for a token at once.
+     * @dev The `StringAttribute` struct contains the following fields:
+     *  [
+     *      string key,
+     *      string value
+     *  ]
+     * @param collections Addresses of the collections, in the same order as the attributes. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attributes. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributes An array of `StringAttribute` structs to be assigned to the given token
+     */</span>
+    <span class="k">function</span> <span class="n">setStringAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="n">StringAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Sets multiple uint attributes for a token at once.
+     * @dev The `UintAttribute` struct contains the following fields:
+     *  [
+     *      string key,
+     *      uint value
+     *  ]
+     * @param collections Addresses of the collections, in the same order as the attributes. If all tokens are from the same collection the array can contain a single element with the collection address.
+     * @param tokenIds IDs of the tokens, in the same order as the attributes. If all attributes are for the same token the array can contain a single element with the token ID.
+     * @param attributes An array of `UintAttribute` structs to be assigned to the given token
+     */</span>
+    <span class="k">function</span> <span class="n">setUintAttributes</span><span class="p">(</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">collections</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="n">UintAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">attributes</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Sets multiple attributes of multiple types for a token at the same time.
+     * @dev Emits a separate event for each attribute set.
+     * @dev The `StringAttribute`, `UintAttribute`, `BoolAttribute`, `AddressAttribute` and `BytesAttribute` structs consists
+     *  to the following fields (where `value` is of the appropriate type):
+     *  [
+     *      key,
+     *      value,
+     *  ]
+     * @param collection The address of the collection
+     * @param tokenId The token ID
+     * @param addressAttributes An array of `AddressAttribute` structs containing address attributes to set
+     * @param boolAttributes An array of `BoolAttribute` structs containing bool attributes to set
+     * @param bytesAttributes An array of `BytesAttribute` structs containing bytes attributes to set
+     * @param intAttributes An array of `IntAttribute` structs containing int attributes to set
+     * @param stringAttributes An array of `StringAttribute` structs containing string attributes to set
+     * @param uintAttributes An array of `UintAttribute` structs containing uint attributes to set
+     */</span>
+    <span class="k">function</span> <span class="n">setAttributes</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="n">AddressAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">addressAttributes</span><span class="p">,</span>
+        <span class="n">BoolAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">boolAttributes</span><span class="p">,</span>
+        <span class="n">BytesAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">bytesAttributes</span><span class="p">,</span>
+        <span class="n">IntAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">intAttributes</span><span class="p">,</span>
+        <span class="n">StringAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">stringAttributes</span><span class="p">,</span>
+        <span class="n">UintAttribute</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">uintAttributes</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">// ------------------- PRESIGNED SETTERS -------------------
+</span>
+    <span class="cm">/**
+     * @notice Used to set the address attribute on behalf of an authorized account.
+     * @dev Emits a {AddressAttributeUpdated} event.
+     * @param setter Address of the account that presigned the attribute change
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction
+     * @param v `v` value of an ECDSA signature of the presigned message
+     * @param r `r` value of an ECDSA signature of the presigned message
+     * @param s `s` value of an ECDSA signature of the presigned message
+     */</span>
+    <span class="k">function</span> <span class="n">presignedSetAddressAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">setter</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">s</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set the bool attribute on behalf of an authorized account.
+     * @dev Emits a {BoolAttributeUpdated} event.
+     * @param setter Address of the account that presigned the attribute change
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction
+     * @param v `v` value of an ECDSA signature of the presigned message
+     * @param r `r` value of an ECDSA signature of the presigned message
+     * @param s `s` value of an ECDSA signature of the presigned message
+     */</span>
+    <span class="k">function</span> <span class="n">presignedSetBoolAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">setter</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">s</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set the bytes attribute on behalf of an authorized account.
+     * @dev Emits a {BytesAttributeUpdated} event.
+     * @param setter Address of the account that presigned the attribute change
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction
+     * @param v `v` value of an ECDSA signature of the presigned message
+     * @param r `r` value of an ECDSA signature of the presigned message
+     * @param s `s` value of an ECDSA signature of the presigned message
+     */</span>
+    <span class="k">function</span> <span class="n">presignedSetBytesAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">setter</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">s</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set the int attribute on behalf of an authorized account.
+     * @dev Emits a {IntAttributeUpdated} event.
+     * @param setter Address of the account that presigned the attribute change
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction
+     * @param v `v` value of an ECDSA signature of the presigned message
+     * @param r `r` value of an ECDSA signature of the presigned message
+     * @param s `s` value of an ECDSA signature of the presigned message
+     */</span>
+    <span class="k">function</span> <span class="n">presignedSetIntAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">setter</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">int256</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">s</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set the string attribute on behalf of an authorized account.
+     * @dev Emits a {StringAttributeUpdated} event.
+     * @param setter Address of the account that presigned the attribute change
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction
+     * @param v `v` value of an ECDSA signature of the presigned message
+     * @param r `r` value of an ECDSA signature of the presigned message
+     * @param s `s` value of an ECDSA signature of the presigned message
+     */</span>
+    <span class="k">function</span> <span class="n">presignedSetStringAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">setter</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">s</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Used to set the uint attribute on behalf of an authorized account.
+     * @dev Emits a {UintAttributeUpdated} event.
+     * @param setter Address of the account that presigned the attribute change
+     * @param collection Address of the collection receiving the attribute
+     * @param tokenId The ID of the token receiving the attribute
+     * @param key The attribute key
+     * @param value The attribute value
+     * @param deadline The deadline timestamp for the presigned transaction
+     * @param v `v` value of an ECDSA signature of the presigned message
+     * @param r `r` value of an ECDSA signature of the presigned message
+     * @param s `s` value of an ECDSA signature of the presigned message
+     */</span>
+    <span class="k">function</span> <span class="n">presignedSetUintAttribute</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">setter</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">collection</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">key</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">deadline</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">s</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="schema">Schema</h3>
+
+<p>In addition to the interface we propose that collection owers SHOULD be able to set the schema for the attributes of their collection. We distinguish between 2 types: token attributes and collection attributes. The latter are the attributes that are shared by all tokens in the collection, they can be retrieved and set by using the max uint256 value as tokenId.</p>
+
+<p>For each attribute we specificy the following fields: name, description, type, display_name, display_type, decimals, min_value, max_value, conditional_value, modifiers and multi_storage. Only name and type are required. For more details on the fields, please refer to the [JSON schema] avaliable <a href="../assets/eip-7508/collection-metadata-schema.json"><code class="language-plaintext highlighter-rouge">collection-metadata-schema.json</code></a>, with an example available at <a href="../assets/eip-7508/collection-metadata-example.json"><code class="language-plaintext highlighter-rouge">collection-metadata-example.json</code></a>.</p>
+
+<p>The reasoning for conditional_value, modifiers and multi_storage will be discussed in the rationale section.</p>
+
+<h3 id="message-format-for-presigned-attribute">Message format for presigned attribute</h3>
+
+<p>The message to be signed by the <code class="language-plaintext highlighter-rouge">setter</code> in order for the attribute setting to be submitted by someone else is formatted as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">keccak256</span><span class="p">(</span>
+        <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span>
+            <span class="n">DOMAIN_SEPARATOR</span><span class="p">,</span>
+            <span class="n">METHOD_TYPEHASH</span><span class="p">,</span>
+            <span class="n">collection</span><span class="p">,</span>
+            <span class="n">tokenId</span><span class="p">,</span>
+            <span class="n">key</span><span class="p">,</span>
+            <span class="n">value</span><span class="p">,</span>
+            <span class="n">deadline</span>
+        <span class="p">)</span>
+    <span class="p">);</span>
+</code></pre></div></div>
+
+<p>The values passed when generating the message to be signed are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DOMAIN_SEPARATOR</code> - The domain separator of the Attribute repository smart contract</li>
+  <li><code class="language-plaintext highlighter-rouge">METHOD_TYPEHASH</code> - The typehash of the method being called. The supported values, depending on the method are:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">SET_UINT_ATTRIBUTE_TYPEHASH</code> - Used for setting uint attributes</li>
+      <li><code class="language-plaintext highlighter-rouge">SET_STRING_ATTRIBUTE_TYPEHASH</code> - Used for setting string attributes</li>
+      <li><code class="language-plaintext highlighter-rouge">SET_BOOL_ATTRIBUTE_TYPEHASH</code> - Used for setting bool attributes</li>
+      <li><code class="language-plaintext highlighter-rouge">SET_BYTES_ATTRIBUTE_TYPEHASH</code> - Used for setting bytes attributes</li>
+      <li><code class="language-plaintext highlighter-rouge">SET_ADDRESS_ATTRIBUTE_TYPEHASH</code> - Used for setting address attributes</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">collection</code> - Address of the collection containing the token receiving the attribute</li>
+  <li><code class="language-plaintext highlighter-rouge">tokenId</code> - ID of the token receiving the attribute</li>
+  <li><code class="language-plaintext highlighter-rouge">key</code> - The attribute key</li>
+  <li><code class="language-plaintext highlighter-rouge">value</code> - The attribute value of the appropriate type</li>
+  <li><code class="language-plaintext highlighter-rouge">deadline</code> - UNIX timestamp of the deadline for the signature to be submitted. The signed message submitted after the deadline MUST be rejected</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">DOMAIN_SEPARATOR</code> is generated as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">keccak256</span><span class="p">(</span>
+    <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span>
+        <span class="s">"ERC-7508: Public Non-Fungible Token Attributes Repository"</span><span class="p">,</span>
+        <span class="s">"1"</span><span class="p">,</span>
+        <span class="n">block</span><span class="p">.</span><span class="n">chainid</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">SET_UINT_ATTRIBUTE_TYPEHASH</code> is generated as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">keccak256</span><span class="p">(</span>
+    <span class="s">"setUintAttribute(address collection,uint256 tokenId,string memory key,uint256 value)"</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">SET_STRING_ATTRIBUTE_TYPEHASH</code> is generated as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">keccak256</span><span class="p">(</span>
+    <span class="s">"setStringAttribute(address collection,uint256 tokenId,string memory key,string memory value)"</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">SET_BOOL_ATTRIBUTE_TYPEHASH</code> is generated as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">keccak256</span><span class="p">(</span>
+    <span class="s">"setBoolAttribute(address collection,uint256 tokenId,string memory key,bool value)"</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">SET_BYTES_ATTRIBUTE_TYPEHASH</code> is generated as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">keccak256</span><span class="p">(</span>
+    <span class="s">"setBytesAttribute(address collection,uint256 tokenId,string memory key,bytes memory value)"</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">SET_ADDRESS_ATTRIBUTE_TYPEHASH</code> is generated as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">keccak256</span><span class="p">(</span>
+    <span class="s">"setAddressAttribute(address collection,uint256 tokenId,string memory key,address value)"</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Each chain, that the Attributes repository smart contract is deployed in, will have a different <code class="language-plaintext highlighter-rouge">DOMAIN_SEPARATOR</code> value due to chain IDs being different.</p>
+
+<h3 id="pre-determined-address-of-the-attributes-repository">Pre-determined address of the Attributes repository</h3>
+
+<p>The address of the Emotable repository smart contract is designed to resemble the function it serves. It starts with <code class="language-plaintext highlighter-rouge">0xA77B75</code> which is the abstract representation of <code class="language-plaintext highlighter-rouge">ATTBTS</code>. The address is TBD.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Designing the proposal, we considered the following questions:</p>
+
+<ol>
+  <li><strong>Should we refer to the values stored by the repository as propertiers or attributes?</strong><br />
+Historically values defining characteristics of tokens have been called properties, but have evolved in to being called attributes. Referring to the dictionary, the property is defined as a quality or characteristic that something has, and the attribute is defined as a quality or feature of somebody/something. We felt that using the term attribute fits better and decided to use it.</li>
+  <li><strong>Should the proposal specify access control?</strong><br />
+Designing the proposal, we had two options: either to include the access control within the specification of the proposal or to leave the access control up to the implementers that desire to use the attributes repository. While considering this we also had to consider the usability and compatibility aspects of the repository.<br />
+On one hand, including access control narrows down the freedom of implementation and requires the implementers to configure it before being able to use the repository. On the other hand, leaving access control up to implementers requires dedicated design of attributes access control within their smart contracts, increasing their size, complexity and deployment costs.<br />
+Another important thing to note is that including access control in the proposal makes it compatible with collections existing prior to the deployment of the repository and thus powers backwards-compatibility.</li>
+  <li><strong>Should the proposal establish an attributes extension or a common-good repository?</strong><br />
+Initially we set out to create an attributes extension to be used with any ERC-721 compliant tokens. However, we realized that the proposal would be more useful if it was a common-good repository of token attributes. This way, the tokens that can utilize it are not only the new ones but also the old ones that have been around since before the proposal.<br />
+An additional benefit of this course-correction is the compatibility with ERC-1155 tokens.</li>
+  <li><strong>Should we include only single-action operations, only multi-action operations, or both?</strong><br />
+We’ve considered including only single-action operations, where the user is only able to assign a single attribute to a single token, but we decided to include both single-action and multi-action operations. This way, the users can choose whether they want to assign an attribute to a single token or on multiple tokens at once.<br />
+This decision was made for the long-term viability of the proposal. Based on the gas cost of the network and the number of tokens in the collection, the user can choose the most cost-effective way of attribute assigning.</li>
+  <li><strong>Should we add the ability to assign attributes on someone else’s behalf?</strong><br />
+While we did not intend to add this as part of the proposal when drafting it, we realized that it would be a useful feature for it. This way, the users can assign attributes on behalf of someone else, for example, if they are not able to do it themselves or if the attribute is earned through an off-chain activity.</li>
+  <li><strong>How do we ensure that attribute assignment on someone else’s behalf is legitimate?</strong><br />
+We could add delegates to the proposal; when a user delegates their right to assign attributes to someone else, but having the ability to do so opens up the possibility for abuse and improper setting of attributes.<br />
+Using ECDSA signatures, we can ensure that the user has given their consent to assign attribute on their behalf. This way, the user can sign a message with the parameters of the attribute and the signature can be submitted by someone else.</li>
+  <li><strong>Should we add chain ID as a parameter when assigning attribute to a token?</strong><br />
+We decided against this as we feel that additional parameter would rarely be used and would add additional cost to the attribute assignment transactions. If the collection smart contract wants to utilize on-chain token attributes, it requires the reactions to be recorded on the same chain. Marketplaces and wallets integrating this proposal will rely on attributes to reside in the same chain as well, because if chain ID parameter was supported this would mean that they would need to query the repository smart contract on all of the chains the repository is deployed in order to get the attributes of a given token.<br />
+Additionally, if the collection creator wants users to record their reactions on a different chain, they can still direct the users to do just that. The repository does not validate the existence of the token being reacted to (except in an instace where the attribute can be modified by the token’s owner), which in theory means that you can assign an attribute to non-existent token or to a token that does not exist yet.</li>
+  <li><strong>How should we reduce the cost of string usage in the repository?</strong>
+One fo the main issues we were dealing with while designing the proposal is the cost of string usage. We considered using bytes instead of strings, but decided against it as it would require the users to encode and decode the strings themselves.<br />
+The solution for reducing the cost was to use a string indices. This means that the cost of setting a new string attribute or key will only be paid by the first user to do so. The subsequent users will only pay the cost of setting the index of the string attribute or key.<br />
+We also extended this gas-saving approach to be applicable across the entire repository. This means that if the string was already set by one collection, any other collection using the same string will not have to pay the cost of setting the string again.</li>
+</ol>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>The Attributes repository standard is fully compatible with <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> and with the robust tooling available for implementations of ERC-721 as well as with the existing ERC-721 infrastructure.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Tests are included in <a href="../assets/eip-7508/test/attributesRepository.ts"><code class="language-plaintext highlighter-rouge">attributesRepository.ts</code></a>.</p>
+
+<p>To run them in terminal, you can use the following commands:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ../assets/eip-7508
+pnpm i
+pnpm hardhat test
+</code></pre></div></div>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>See <a href="../assets/eip-7508/contracts/AttributesRepository.sol"><code class="language-plaintext highlighter-rouge">AttributesRepository.sol</code></a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The proposal does not envision handling any form of assets from the user, so the assets should not be at risk when interacting with an Attributes repository.</p>
+
+<p>The ability to use ECDSA signatures to set attributes on someone else’s behalf introduces the risk of a replay attack, which the format of the message to be signed guards against. The <code class="language-plaintext highlighter-rouge">DOMAIN_SEPARATOR</code> used in the message to be signed is unique to the repository smart contract of the chain it is deployed on. This means that the signature is invalid on any other chain and the attributes repositories deployed on them should revert the operation if a replay attack is attempted.</p>
+
+<p>Another thing to consider is the ability of presigned message reuse. Since the message includes the signature validity deadline, the message can be reused any number of times before the deadline is reached. The proposal only allows for a single value for a given key to be set, so the presigned message can not be abused to further modify the attribute value. However, if the service using the repository relies on the ability to revert or modify the attribute after certain actions, a valid presigned message can be used to re-assign the attribute of the token. We suggest that the services using the repository in cnjunction with presigned messages use deadlines that invalidate presigned messages after a reasonalby short period of time.</p>
+
+<p>Caution is advised when dealing with non-audited contracts.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

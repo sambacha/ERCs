@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Exclusive Claimable Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Exclusive Claimable Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-3135" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-3135" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Exclusive Claimable Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>This standard defines a token which can be claimed only by token issuer with payer’s signature.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>This EIP defines a set of additions to the default token standard such as ERC-20, that allows online/offline service providers establish micropayment channels with any number of users by signing and verifying messages about the consumption of token off chain. Using this mechanism will reduce interactions with blockchain to minimal for both participants, thus saving gas and improve performance.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There are two main purposes of this EIP, one is to reduce interactions with blockchain, the second is to link Ethereum to real-world payment problems.</p>
+
+<p>Many small businesses want to build payment system based on blockchain but find it difficult. There are basically two ways:</p>
+
+<ol>
+  <li>Directly pay with token. There are many wallet can receive and transfer token but transactions on Ethereum cost gas and take time to confirm.</li>
+  <li>User lock token on payment smart contract and service provider use payment messages signed by user to release token, establishing a micropayment channel. The advantage is interactions with blockchain is reduced and the signing/verifying process is off-chain. But interact with payment contract needs service provider to build a DApp, which require resources many small businesses do not have. Even if they managed to build DApps, they are all different, not standardized. Also, user should have a wallet with DApp browser and has to learn how to use it.</li>
+</ol>
+
+<p>This EIP helps to standardize the interactions of micropayment system, and make it possible for wallet build a universal UI in the future.</p>
+
+<h2 id="specification">Specification</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">/// @return Image url of this token or descriptive resources
+</span><span class="k">function</span> <span class="n">iconUrl</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+
+<span class="c1">/// @return Issuer of this token. Only issuer can execute claim function
+</span><span class="k">function</span> <span class="n">issuer</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+<span class="cm">/**
+ *  @notice   Remove consumption from payer's deposite
+ *  @dev      Check if msg.sender == issuer
+ *  @param    from          Payer's address
+ *  @param    consumption   How many token is consumed in this epoch, specified
+ *  @param    epoch         Epoch increased by 1 after claim or withdraw, at the beginning of each epoch, consumption goes back to 0
+ *  @param    signature     Signature of payment message signed by payer
+*/</span>
+<span class="k">function</span> <span class="n">claim</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">consumption</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">epoch</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">signature</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="n">transferIssuer</span><span class="p">(</span><span class="kt">address</span> <span class="n">newIssuer</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+<span class="c1">/// @notice   Move amount from payer's token balance to deposite balance to ensure payment is sufficient
+</span><span class="k">function</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+<span class="cm">/**
+ *  @notice   Give remaining deposite balance back to "to" account, act as "refund" function
+ *  @dev      In prepayment module, withdraw is executed from issuer account
+ *            In lock-release module, withdraw is executed from user account
+ *  @param    to            the account receiving remaining deposite
+ *  @param    amount        how many token is returned
+*/</span>
+<span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="n">depositBalanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">user</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">depositBalance</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">epoch</span><span class="p">);</span>
+
+<span class="k">event</span> <span class="n">Deposit</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">amount</span>
+<span class="p">);</span>
+
+<span class="k">event</span> <span class="n">Withdraw</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">amount</span>
+<span class="p">);</span>
+    
+<span class="k">event</span> <span class="n">TransferIssuer</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">oldIssuer</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">newIssuer</span>
+<span class="p">);</span>
+
+<span class="k">event</span> <span class="n">Claim</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">epoch</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">consumption</span>
+<span class="p">);</span>
+
+</code></pre></div></div>
+
+<h3 id="signature">signature</h3>
+
+<p>the pseudo code generating an ECDSA signature:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sign(keccak256(abi_encode(
+    "\x19Ethereum Signed Message:\n32", 
+        keccak256(abi_encode(
+            token_address,
+            payer_address,
+            token_issuer,
+            token_consumption,        //calculated by user client
+            epoch
+        ))
+    ))
+,private_key)
+
+</code></pre></div></div>
+
+<h3 id="verification-process">verification process</h3>
+
+<p>the verification contains check about both signature and token_consumption</p>
+
+<p>the pseudo code run by verification server is as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+serving_loop:
+
+    for {
+        /**
+         * unpaied_consumption is calculated by provider
+         * signed_consumption is claimable amount
+         * tolerance allows payer "owes" provider to a certain degree
+        */
+        //getSignedConsumption returns amount that are already claimable 
+        if(unpaied_consumption &lt;  signed_consumption + tolerance){
+            informUser("user need charge", unpaied_consumption)
+            interruptService() 
+        }else{
+            isServing() || recoverService()
+        }
+    }
+
+verification_loop:
+
+    for {
+        message = incomingMessage()
+        if(recover_signer(message, signature) != payer_address){
+            informUser("check signature failed", hash(message))
+            continue
+        }
+
+        /**
+        * optional: when using echo server to sync messages between verification servers
+        * more info about this in Security Considerations section
+        */
+        if(query(message) != message){
+            informUser("message outdate", hash(message))
+            continue   
+        }
+
+        if(epoch != message.epoch || message.consumption &gt; getDepositBalance()){
+            informUser("invalid message", epoch, unpaied_consumption)
+            continue
+        }
+       
+        signed_consumption = message.consumption
+        save(message)
+    }
+    
+claim_process:
+
+    if(claim()){
+        unpaied_consumption -= signed_consumption
+        signed_consumption = 0
+        epoch+=1
+    }
+
+</code></pre></div></div>
+<h3 id="about-withdraw">About withdraw</h3>
+
+<p>The withdraw function is slightly different based on business models</p>
+
+<ol>
+  <li>prepayment model</li>
+</ol>
+
+<p>In prepayment business model such as using token as recharge card of general store, the user pays (crypto)currency to store in advance for claimable token as recharge card (with bonus or discount). When checking out, the customer signs a message with updated consumption (old consumption + consumption this time) to store and store verifies this message off chain. The shopping process loops without any blockchain involved, until the customer wants to return the card and get money back. Because the store already holds all currency, the withdraw function should be executed by token issuer (store) to return remaining deposit balance after claim. The prepayment model can easily be built into a wallet with QR-code scanning function.</p>
+
+<ol>
+  <li>lock-release model</li>
+</ol>
+
+<p>If we run a paid end-to-end encrypted e-mail service that accepts token as payment, we can use lock-release model. Unlike prepayment, we charge X * N token for an e-mail sent to N recipients. In this “pay for usage” scenario, the counting of services happens on both client and server side. The client should not trust charge amount given by server in case the it’s malfunctioning or malicious. When client decide not to trust server, it stops signing messages, but some of token is taken hostage in deposit balance. To fix this problem, the withdraw function should be executed by payer account with limitation such as epoch didn’t change in a month.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This EIP targets on ERC-20 tokens due to its widespread adoption. However, this extension is designed to be compatible with other token standard.</p>
+
+<p>The reason we chose to implement those functions in token contract rather than a separate record contract is as follows:</p>
+<ul>
+  <li>Token can transfer is more convenient and more general than interact with DApp</li>
+  <li>Token is more standardized and has better UI support</li>
+  <li>Token is equal to service, make token economy more prosperous</li>
+  <li>Remove the approve process</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This EIP is fully backwards compatible as its implementation extends the functionality of <a href="./eip-20.md">ERC-20</a>.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="n">StampBalance</span><span class="p">)</span> <span class="k">private</span> <span class="n">_depositBalance</span><span class="p">;</span>
+    
+<span class="k">struct</span> <span class="n">StampBalance</span><span class="p">{</span>
+    <span class="kt">uint256</span> <span class="nb">balance</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">epoch</span><span class="p">;</span>
+<span class="p">}</span>
+    
+<span class="k">function</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">override</span> <span class="k">external</span><span class="p">{</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">_balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]);</span>
+    <span class="n">_balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">_balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">].</span><span class="n">sub</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="n">_depositBalance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">].</span><span class="nb">balance</span> <span class="o">=</span> <span class="n">_depositBalance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">].</span><span class="nb">balance</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="k">emit</span> <span class="n">Deposit</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">)</span> <span class="k">override</span> <span class="n">onlyIssuer</span> <span class="k">external</span><span class="p">{</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">_depositBalance</span><span class="p">[</span><span class="n">to</span><span class="p">].</span><span class="nb">balance</span><span class="p">);</span>
+    <span class="n">_depositBalance</span><span class="p">[</span><span class="n">to</span><span class="p">].</span><span class="nb">balance</span> <span class="o">=</span> <span class="n">_depositBalance</span><span class="p">[</span><span class="n">to</span><span class="p">].</span><span class="nb">balance</span><span class="p">.</span><span class="n">sub</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="n">_depositBalance</span><span class="p">[</span><span class="n">to</span><span class="p">].</span><span class="n">epoch</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">_balances</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">_balances</span><span class="p">[</span><span class="n">to</span><span class="p">].</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="k">emit</span> <span class="n">Withdraw</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+    
+<span class="k">function</span> <span class="n">depositBalanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">user</span><span class="p">)</span> <span class="k">override</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">depositBalance</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">epoch</span><span class="p">){</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">_depositBalance</span><span class="p">[</span><span class="n">user</span><span class="p">].</span><span class="nb">balance</span><span class="p">,</span> <span class="n">_depositBalance</span><span class="p">[</span><span class="n">user</span><span class="p">].</span><span class="n">epoch</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// prepayment model
+</span><span class="k">function</span> <span class="n">claim</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">credit</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">epoch</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">override</span> <span class="n">onlyIssuer</span> <span class="k">external</span><span class="p">{</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">credit</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_depositBalance</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">epoch</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_depositBalance</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="nb">balance</span> <span class="o">&gt;=</span> <span class="n">credit</span><span class="p">);</span>
+    <span class="kt">bytes32</span> <span class="n">message</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="nb">this</span><span class="p">,</span> <span class="n">from</span><span class="p">,</span> <span class="n">_issuer</span><span class="p">,</span> <span class="n">credit</span><span class="p">,</span> <span class="n">epoch</span><span class="p">));</span>
+    <span class="kt">bytes32</span> <span class="n">msgHash</span> <span class="o">=</span> <span class="n">prefixed</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">recoverSigner</span><span class="p">(</span><span class="n">msgHash</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span> <span class="o">==</span> <span class="n">from</span><span class="p">);</span>
+    <span class="n">_depositBalance</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="nb">balance</span> <span class="o">=</span> <span class="n">_depositBalance</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="nb">balance</span><span class="p">.</span><span class="n">sub</span><span class="p">(</span><span class="n">credit</span><span class="p">);</span>
+    <span class="n">_balances</span><span class="p">[</span><span class="n">_issuer</span><span class="p">]</span> <span class="o">=</span> <span class="n">_balances</span><span class="p">[</span><span class="n">_issuer</span><span class="p">].</span><span class="n">add</span><span class="p">(</span><span class="n">credit</span><span class="p">);</span>
+    <span class="n">_depositBalance</span><span class="p">[</span><span class="n">from</span><span class="p">].</span><span class="n">epoch</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">emit</span> <span class="n">Claim</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">credit</span><span class="p">,</span> <span class="n">epoch</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">prefixed</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">hash</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"</span><span class="se">\x19</span><span class="s">Ethereum Signed Message:</span><span class="se">\n</span><span class="s">32"</span><span class="p">,</span> <span class="n">hash</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">recoverSigner</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">message</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">sig</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span>  <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">)</span> <span class="o">=</span> <span class="n">splitSignature</span><span class="p">(</span><span class="n">sig</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">ecrecover</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">splitSignature</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">sig</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">sig</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">65</span><span class="p">);</span>
+    <span class="k">assembly</span> <span class="p">{</span>
+        <span class="n">r</span> <span class="o">:=</span> <span class="n">mload</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+        <span class="n">s</span> <span class="o">:=</span> <span class="n">mload</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="mi">64</span><span class="p">))</span>
+        <span class="n">v</span> <span class="o">:=</span> <span class="kt">byte</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mload</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="mi">96</span><span class="p">)))</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>By restricting claim function to issuer, there is no race condition on chain layer. However double spending problem may occur when the issuer use multiple verifiers and payer signs many payment messages simultaneously. Some of those messages may get chance to be checked valid though only the message with the largest consumption can be claimed. This problem can be fixed by introducing an echo server which accepts messages from verifiers, returns the message sequentially with largest consumption and biggest epoch number. If a verifier gets an answer different from the message he send, it updates the message from echo server as the last message it receives along with local storage of the status about this payer. Then the verifier asks the payer again for a new message.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

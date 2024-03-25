@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Token Bound Function Oracle AMM | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Token Bound Function Oracle AMM | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7527" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7527" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Token Bound Function Oracle AMM</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal outlines interfaces for wrapping <a href="./eip-20.md">ERC-20</a> or ETH to <a href="./eip-721.md">ERC-721</a> and unwrap ERC-721 to ERC-20 or ETH. A function oracle feeds mint/burn prices based on an embedded equation of Function Oracle Automated Market Maker(FOAMM), which executes and clears the mint and burn of NFT.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Liquidity can be a significant challenge in decentralized systems, especially for unique or less commonly traded tokens like NFTs. To foster a trustless NFT ecosystem, the motivation behind Function Oracle Automated Market Maker(FOAMM) is to provide automated pricing solutions for NFTs with liquidity through transparent, smart contract mechanisms.</p>
+
+<p>This ERC provides innovative solutions for the following aspects:</p>
+
+<ul>
+  <li>Automated Price Discovery</li>
+  <li>Liquidity Enhancement</li>
+</ul>
+
+<h3 id="automated-price-discovery">Automated Price Discovery</h3>
+
+<p>Transactions under FOAMM can occur without the need for a matching counterparty. When interacting directly with the pool, FOAMM automatically feeds prices based on the oracle with predefined function.</p>
+
+<h3 id="liquidity-enhancement">Liquidity Enhancement</h3>
+
+<p>In traditional DEX models, liquidity is supplied by external parties, known as Liquidity Providers(LP). These LPs deposit tokens into liquidity pools, facilitating exchanges by providing the liquidity. The removal or withdrawal of these LPs can introduce significant volatility, as it directly impacts the available liquidity in the market.</p>
+
+<p>In a FOAMM system, the liquidity is added or removed internally through <code class="language-plaintext highlighter-rouge">wrap</code> or <code class="language-plaintext highlighter-rouge">unwrap</code>. FOAMM reduces reliance on external LPs and mitigates the risk of volatility caused by their sudden withdrawal, as the liquidity is continuously replenished and maintained through ongoing participant interactions.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>Contract Interfaces:</p>
+
+<p>Three interfaces are included here: <code class="language-plaintext highlighter-rouge">Agency</code>, <code class="language-plaintext highlighter-rouge">App</code>, and <code class="language-plaintext highlighter-rouge">Factory</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Agency</code> and <code class="language-plaintext highlighter-rouge">App</code> MAY be implemented by the same contract or MAY be separately implemented. If separately implemented, they SHALL be mutually bounded and not upgradable after initialization.</p>
+
+<p><code class="language-plaintext highlighter-rouge">App</code> SHALL implement <code class="language-plaintext highlighter-rouge">onlyAgency()</code> modifier and <code class="language-plaintext highlighter-rouge">mint</code> and <code class="language-plaintext highlighter-rouge">burn</code> SHALL apply <code class="language-plaintext highlighter-rouge">onlyAgency()</code> as a modifier, which restricts calls to <code class="language-plaintext highlighter-rouge">Mint</code> and <code class="language-plaintext highlighter-rouge">Burn</code> only have effect if they are called through the corresponding <code class="language-plaintext highlighter-rouge">Agency</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Agency</code> is OPTIONAL to implement <code class="language-plaintext highlighter-rouge">onlyApp()</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">Factory</code> interface is OPTIONAL. It is most useful if <code class="language-plaintext highlighter-rouge">Agency</code> and <code class="language-plaintext highlighter-rouge">App</code> need to be deployed repeatedly.</p>
+
+<p>Function Oracle is implemented through <code class="language-plaintext highlighter-rouge">getWrapOracle</code> and <code class="language-plaintext highlighter-rouge">getUnwrapOracle</code>, which feeds prices based on parameters and mathematical equations defined in the functions.</p>
+
+<p>FOAMM is implemented through <code class="language-plaintext highlighter-rouge">wrap</code> and <code class="language-plaintext highlighter-rouge">unwrap</code>, which calls <code class="language-plaintext highlighter-rouge">getWrapOracle</code> and <code class="language-plaintext highlighter-rouge">getUnwrapOracle</code> to get the feed and automatically clears. To perform <code class="language-plaintext highlighter-rouge">wrap</code>, FOAMM receives the premium and initiate <code class="language-plaintext highlighter-rouge">mint</code> in <code class="language-plaintext highlighter-rouge">App</code>. To perform <code class="language-plaintext highlighter-rouge">unwrap</code>, FOAMM transfer the premium and initiate <code class="language-plaintext highlighter-rouge">burn</code> in <code class="language-plaintext highlighter-rouge">App</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Agency</code> serves as a single entry point for all <code class="language-plaintext highlighter-rouge">mint</code> and <code class="language-plaintext highlighter-rouge">burn</code> transfer.</p>
+
+<h3 id="agency-interface">Agency Interface</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pragma solidity ^0.8.20;
+
+/**
+ * @dev The settings of the agency.
+ * @param currency The address of the currency. If `currency` is 0, the currency is Ether.
+ * @param premium The base premium of the currency.
+ * @param feeRecipient The address of the fee recipient.
+ * @param mintFeePercent The fee of minting.
+ * @param burnFeePercent The fee of burning.
+ */
+struct Asset {
+    address currency;
+    uint256 premium;
+    address feeRecipient;
+    uint16 mintFeePercent;
+    uint16 burnFeePercent;
+}
+
+interface IERC7527Agency {
+    /**
+     * @dev Allows the account to receive Ether
+     *
+     * Accounts MUST implement a `receive` function.
+     *
+     * Accounts MAY perform arbitrary logic to restrict conditions
+     * under which Ether can be received.
+     */
+    receive() external payable;
+
+    /**
+     * @dev Emitted when `tokenId` token is wrapped.
+     * @param to The address of the recipient of the newly created non-fungible token.
+     * @param tokenId The identifier of the newly created non-fungible token.
+     * @param price The price of wrapping.
+     * @param fee The fee of wrapping.
+     */
+    event Wrap(address indexed to, uint256 indexed tokenId, uint256 price, uint256 fee);
+
+    /**
+     * @dev Emitted when `tokenId` token is unwrapped.
+     * @param to The address of the recipient of the currency.
+     * @param tokenId The identifier of the non-fungible token to unwrap.
+     * @param price The price of unwrapping.
+     * @param fee The fee of unwrapping.
+     */
+    event Unwrap(address indexed to, uint256 indexed tokenId, uint256 price, uint256 fee);
+
+    /**
+     * @dev Wrap currency premium into a non-fungible token.
+     * @param to The address of the recipient of the newly created non-fungible token.
+     * @param data The data to encode into ifself and the newly created non-fungible token.
+     * @return The identifier of the newly created non-fungible token.
+     */
+    function wrap(address to, bytes calldata data) external payable returns (uint256);
+
+    /**
+     * @dev Unwrap a non-fungible token into currency premium.
+     * @param to The address of the recipient of the currency.
+     * @param tokenId The identifier of the non-fungible token to unwrap.
+     * @param data The data to encode into ifself and the non-fungible token with identifier `tokenId`.
+     */
+    function unwrap(address to, uint256 tokenId, bytes calldata data) external payable;
+
+    /**
+     * @dev Returns the strategy of the agency.
+     * @return app The address of the app.
+     * @return asset The asset of the agency.
+     * @return attributeData The attributeData of the agency.
+     */
+    function getStrategy() external view returns (address app, Asset memory asset, bytes memory attributeData);
+
+    /**
+     * @dev Returns the price and fee of unwrapping.
+     * @param data The data to encode to calculate the price and fee of unwrapping.
+     * @return price The price of wrapping.
+     * @return fee The fee of wrapping.
+     */
+    function getUnwrapOracle(bytes memory data) external view returns (uint256 price, uint256 fee);
+
+    /**
+     * @dev Returns the price and fee of wrapping.
+     * @param data The data to encode to calculate the price and fee of wrapping.
+     * @return price The price of wrapping.
+     * @return fee The fee of wrapping.
+     */
+    function getWrapOracle(bytes memory data) external view returns (uint256 price, uint256 fee);
+}
+</code></pre></div></div>
+
+<h3 id="app-interface">App Interface</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ERC7527App</code> SHALL inherit <code class="language-plaintext highlighter-rouge">name</code> from interface <code class="language-plaintext highlighter-rouge">ERC721Metadata</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pragma solidity ^0.8.20;
+
+interface IERC7527App {
+    /**
+     * @dev Returns the maximum supply of the non-fungible token.
+     */
+    function getMaxSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the name of the non-fungible token with identifier `id`.
+     * @param id The identifier of the non-fungible token.
+     */
+    function getName(uint256 id) external view returns (string memory);
+
+    /**
+     * @dev Returns the agency of the non-fungible token.
+     */
+    function getAgency() external view returns (address payable);
+
+    /**
+     * @dev Sets the agency of the non-fungible token.
+     * @param agency The agency of the non-fungible token.
+     */
+    function setAgency(address payable agency) external;
+
+    /**
+     * @dev Mints a non-fungible token to `to`.
+     * @param to The address of the recipient of the newly created non-fungible token.
+     * @param data The data to encode into the newly created non-fungible token.
+     */
+    function mint(address to, bytes calldata data) external returns (uint256);
+
+    /**
+     * @dev Burns a non-fungible token with identifier `tokenId`.
+     * @param tokenId The identifier of the non-fungible token to burn.
+     * @param data The data to encode into the non-fungible token with identifier `tokenId`.
+     */
+    function burn(uint256 tokenId, bytes calldata data) external;
+}
+</code></pre></div></div>
+
+<p>Token ID can be specified in <code class="language-plaintext highlighter-rouge">data</code> parameter of <code class="language-plaintext highlighter-rouge">mint</code> function.</p>
+
+<h3 id="factory-interface">Factory Interface</h3>
+
+<p>If a factory is needed to deploy bounded App and Agency, the factory SHALL implement the following interface:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pragma solidity ^0.8.20;
+
+import {Asset} from "./IERC7527Agency.sol";
+
+/**
+ * @dev The settings of the agency.
+ * @param implementation The address of the agency implementation.
+ * @param asset The parameter of asset of the agency.
+ * @param immutableData The immutable data are stored in the code region of the created proxy contract of agencyImplementation.
+ * @param initData If init data is not empty, calls proxy contract of agencyImplementation with this data.
+ */
+struct AgencySettings {
+    address payable implementation;
+    Asset asset;
+    bytes immutableData;
+    bytes initData;
+}
+
+/**
+ * @dev The settings of the app.
+ * @param implementation The address of the app implementation.
+ * @param immutableData The immutable data are stored in the code region of the created proxy contract of appImplementation.
+ * @param initData If init data is not empty, calls proxy contract of appImplementation with this data.
+ */
+struct AppSettings {
+    address implementation;
+    bytes immutableData;
+    bytes initData;
+}
+
+interface IERC7527Factory {
+    /**
+     * @dev Deploys a new agency and app clone and initializes both.
+     * @param agencySettings The settings of the agency.
+     * @param appSettings The settings of the app.
+     * @param data The data is additional data, it has no specified format and it is sent in call to `factory`.
+     * @return appInstance The address of the created proxy contract of appImplementation.
+     * @return agencyInstance The address of the created proxy contract of agencyImplementation.
+     */
+    function deployWrap(AgencySettings calldata agencySettings, AppSettings calldata appSettings, bytes calldata data)
+        external
+        returns (address, address);
+}
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="prior-interfaces">Prior Interfaces</h3>
+
+<p><a href="./eip-5679.md">ERC-5679</a> proposed <code class="language-plaintext highlighter-rouge">IERC5679Ext721</code> interface for introducing a consistent way to extend <a href="./eip-721.md">ERC-721</a> token standards for minting and burning. To ensure the backward compatibility, considering some contracts which do not implement <code class="language-plaintext highlighter-rouge">ERC721TokenReceiver</code>, <code class="language-plaintext highlighter-rouge">IERC7527App</code> employ <code class="language-plaintext highlighter-rouge">mint</code> function instead of <code class="language-plaintext highlighter-rouge">safeMint</code>. To ensure the safety and the uniqueness of mutual bound, the <code class="language-plaintext highlighter-rouge">_from</code> parameter of the <code class="language-plaintext highlighter-rouge">burn</code> function in <code class="language-plaintext highlighter-rouge">IERC5679Ext721</code> must be the contract address of the bounded agency. Thus, <code class="language-plaintext highlighter-rouge">burn</code> function in <code class="language-plaintext highlighter-rouge">IERC7527App</code> does not contain the <code class="language-plaintext highlighter-rouge">_from</code> parameter.</p>
+
+<h3 id="mutual-bound">Mutual Bound</h3>
+
+<p>Implement contracts for <code class="language-plaintext highlighter-rouge">IERC7527App</code> and <code class="language-plaintext highlighter-rouge">IERC7527Agency</code> so that they are each other’s only owner. The wrap process is to check the premium amount of the fungible token received and then mint non-fungible token in the App. Only the owner or an approver of the non-fungible token can unwrap it.</p>
+
+<h3 id="implementation-diversity">Implementation Diversity</h3>
+
+<p>Users can customize function and fee percentage when implement the Agency and the App interfaces.</p>
+
+<p>Different Agency implementations have distinct wrap, unwrap function logic, and different oracleFunction. Users can customize the currency, initial price, fee receiving address, fee rate, etc., to initialize the Agency contract.</p>
+
+<p>Different App implementations cater to various use cases. Users can initialize the App contract.</p>
+
+<p>Factory is not required. Factory implementation is need-based. Users can deploy their own contracts by selecting different Agency implementations and different App implementations through the Factory, combining them to create various products.</p>
+
+<h3 id="currency-types">Currency types</h3>
+
+<p><code class="language-plaintext highlighter-rouge">currency</code> in <code class="language-plaintext highlighter-rouge">IERC7527Agency</code> is the address of fungible token. <code class="language-plaintext highlighter-rouge">Asset</code> can only define one type of <code class="language-plaintext highlighter-rouge">currency</code> as the fungible token in the system. <code class="language-plaintext highlighter-rouge">currency</code> supports various kinds of fungible tokens including ETH and <a href="./eip-20.md">ERC-20</a>.</p>
+
+<h3 id="token-id">Token id</h3>
+
+<p>For each wrap process, a unique <code class="language-plaintext highlighter-rouge">tokenId</code> should be generated. This <code class="language-plaintext highlighter-rouge">tokenId</code> is essential for verification during the unwrap process. It also serves as the exclusive credential for the token. This mechanism ensures the security of assets in contracts.</p>
+
+<h3 id="wrap-and-mint">Wrap and Mint</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">strategy</code> is set while implementing the Agency interface, and it should be ensured not upgradable once deployed.</p>
+
+<p>When executing the <code class="language-plaintext highlighter-rouge">wrap</code> function, the predetermined strategy parameters are passed into the <code class="language-plaintext highlighter-rouge">getWrapOracle</code> function to fetch the current premium and fee. The respective premium is then transferred to the Agency instance; the fee, according to <code class="language-plaintext highlighter-rouge">mintFeePercent</code> is transferred to <code class="language-plaintext highlighter-rouge">feeRecipient</code>. Subsequently, the App mints the NFT to the user’s address.</p>
+
+<p>Premium(tokens) transferred into the Agency cannot be moved, except through the unwrap process. The act of executing wrap is the sole trigger for the mint process.</p>
+
+<h3 id="unwrap-and-burn">Unwrap and Burn</h3>
+
+<p>When executing the <code class="language-plaintext highlighter-rouge">unwrap</code> function, predetermined strategy parameters are passed into the <code class="language-plaintext highlighter-rouge">getUnwrapOracle</code> function to read the current premium and fee. The App burns the NFT. Then, the corresponding premium, subtracting the fee according to <code class="language-plaintext highlighter-rouge">burnFeePercent</code>, is then transferred to the user’s address; the fee is transferred to <code class="language-plaintext highlighter-rouge">feeRecipient</code>. The act of executing ‘unwrap’ is the sole trigger for the ‘burn’ process.</p>
+
+<h3 id="two-interfaces-use-together">Two interfaces use together</h3>
+
+<p><code class="language-plaintext highlighter-rouge">IERC7527App</code> and <code class="language-plaintext highlighter-rouge">IERC7527Agency</code> can be implemented together for safety, but they can be independently implemented before initialization for flexibiliy.</p>
+
+<h3 id="pricing">Pricing</h3>
+
+<p><code class="language-plaintext highlighter-rouge">getWrapOracle</code> and <code class="language-plaintext highlighter-rouge">getUnwrapOracle</code> are used to fetch the current premium and fee. They implement on-chain price fetching through oracle functions. They not only support fetching the premium and fee during the wrap and unwrap processes but also support other contracts calling them to obtain the premium and fee, such as lending contracts.</p>
+
+<p>They can support function oracle based on on-chain and off-chain parameters, but on-chain parameters are suggested only for consensus of on-chain reality.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues found.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pragma solidity ^0.8.20;
+
+import {
+    ERC721Enumerable,
+    ERC721,
+    IERC721Enumerable
+} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import {ClonesWithImmutableArgs} from "clones-with-immutable-args/ClonesWithImmutableArgs.sol";
+import {IERC7527App} from "./interfaces/IERC7527App.sol";
+import {IERC7527Agency, Asset} from "./interfaces/IERC7527Agency.sol";
+import {IERC7527Factory, AgencySettings, AppSettings} from "./interfaces/IERC7527Factory.sol";
+
+contract ERC7527Agency is IERC7527Agency {
+    using Address for address payable;
+
+    receive() external payable {}
+
+    function unwrap(address to, uint256 tokenId, bytes calldata data) external payable override {
+        (address _app, Asset memory _asset,) = getStrategy();
+        require(_isApprovedOrOwner(_app, msg.sender, tokenId), "LnModule: not owner");
+        IERC7527App(_app).burn(tokenId, data);
+        uint256 _sold = IERC721Enumerable(_app).totalSupply();
+        (uint256 premium, uint256 burnFee) = getUnwrapOracle(abi.encode(_sold));
+        _transfer(address(0), payable(to), premium - burnFee);
+        _transfer(address(0), _asset.feeRecipient, burnFee);
+        emit Unwrap(to, tokenId, premium, burnFee);
+    }
+
+    function wrap(address to, bytes calldata data) external payable override returns (uint256) {
+        (address _app, Asset memory _asset,) = getStrategy();
+        uint256 _sold = IERC721Enumerable(_app).totalSupply();
+        (uint256 premium, uint256 mintFee) = getWrapOracle(abi.encode(_sold));
+        require(msg.value &gt;= premium + mintFee, "ERC7527Agency: insufficient funds");
+        _transfer(address(0), _asset.feeRecipient, mintFee);
+        if (msg.value &gt; premium + mintFee) {
+            _transfer(address(0), payable(msg.sender), msg.value - premium - mintFee);
+        }
+        uint256 id_ = IERC7527App(_app).mint(to, data);
+        require(_sold + 1 == IERC721Enumerable(_app).totalSupply(), "ERC7527Agency: Reentrancy");
+        emit Wrap(to, id_, premium, mintFee);
+        return id_;
+    }
+
+    function getStrategy() public pure override returns (address app, Asset memory asset, bytes memory attributeData) {
+        uint256 offset = _getImmutableArgsOffset();
+        address currency;
+        uint256 premium;
+        address payable awardFeeRecipient;
+        uint16 mintFeePercent;
+        uint16 burnFeePercent;
+        assembly {
+            app := shr(0x60, calldataload(add(offset, 0)))
+            currency := shr(0x60, calldataload(add(offset, 20)))
+            premium := calldataload(add(offset, 40))
+            awardFeeRecipient := shr(0x60, calldataload(add(offset, 72)))
+            mintFeePercent := shr(0xf0, calldataload(add(offset, 92)))
+            burnFeePercent := shr(0xf0, calldataload(add(offset, 94)))
+        }
+        asset = Asset(currency, premium, awardFeeRecipient, mintFeePercent, burnFeePercent);
+        attributeData = "";
+    }
+
+    function getUnwrapOracle(bytes memory data) public pure override returns (uint256 premium, uint256 fee) {
+        uint256 input = abi.decode(data, (uint256));
+        (, Asset memory _asset,) = getStrategy();
+        premium = _asset.premium + input * _asset.premium / 100;
+        fee = premium * _asset.burnFeePercent / 10000;
+    }
+
+    function getWrapOracle(bytes memory data) public pure override returns (uint256 premium, uint256 fee) {
+        uint256 input = abi.decode(data, (uint256));
+        (, Asset memory _asset,) = getStrategy();
+        premium = _asset.premium + input * _asset.premium / 100;
+        fee = premium * _asset.mintFeePercent / 10000;
+    }
+
+    function _transfer(address currency, address recipient, uint256 premium) internal {
+        if (currency == address(0)) {
+            payable(recipient).sendValue(premium);
+        } else {
+            IERC20(currency).transfer(recipient, premium);
+        }
+    }
+
+    function _isApprovedOrOwner(address app, address spender, uint256 tokenId) internal view virtual returns (bool) {
+        IERC721Enumerable _app = IERC721Enumerable(app);
+        address _owner = _app.ownerOf(tokenId);
+        return (spender == _owner || _app.isApprovedForAll(_owner, spender) || _app.getApproved(tokenId) == spender);
+    }
+    /// @return offset The offset of the packed immutable args in calldata
+
+    function _getImmutableArgsOffset() internal pure returns (uint256 offset) {
+        // solhint-disable-next-line no-inline-assembly
+        assembly {
+            offset := sub(calldatasize(), add(shr(240, calldataload(sub(calldatasize(), 2))), 2))
+        }
+    }
+}
+
+contract ERC7527App is ERC721Enumerable, IERC7527App {
+    constructor() ERC721("ERC7527App", "EA") {}
+
+    address payable private _oracle;
+
+    modifier onlyAgency() {
+        require(msg.sender == _getAgency(), "only agency");
+        _;
+    }
+
+    function getName(uint256) external pure returns (string memory) {
+        return "App";
+    }
+
+    function getMaxSupply() public pure override returns (uint256) {
+        return 100;
+    }
+
+    function getAgency() external view override returns (address payable) {
+        return _getAgency();
+    }
+
+    function setAgency(address payable oracle) external override {
+        require(_getAgency() == address(0), "already set");
+        _oracle = oracle;
+    }
+
+    function mint(address to, bytes calldata data) external override onlyAgency returns (uint256 tokenId) {
+        require(totalSupply() &lt; getMaxSupply(), "max supply reached");
+        tokenId = abi.decode(data, (uint256));
+        _mint(to, tokenId);
+    }
+
+    function burn(uint256 tokenId, bytes calldata) external override onlyAgency {
+        _burn(tokenId);
+    }
+
+    function _getAgency() internal view returns (address payable) {
+        return _oracle;
+    }
+}
+
+contract ERC7527Factory is IERC7527Factory {
+    using ClonesWithImmutableArgs for address;
+
+    function deployWrap(AgencySettings calldata agencySettings, AppSettings calldata appSettings, bytes calldata)
+        external
+        override
+        returns (address appInstance, address agencyInstance)
+    {
+        appInstance = appSettings.implementation.clone(appSettings.immutableData);
+        {
+            agencyInstance = address(agencySettings.implementation).clone(
+                abi.encodePacked(
+                    appInstance,
+                    agencySettings.asset.currency,
+                    agencySettings.asset.premium,
+                    agencySettings.asset.feeRecipient,
+                    agencySettings.asset.mintFeePercent,
+                    agencySettings.asset.burnFeePercent,
+                    agencySettings.immutableData
+                )
+            );
+        }
+
+        IERC7527App(appInstance).setAgency(payable(agencyInstance));
+        if (agencySettings.initData.length != 0) {
+            (bool success, bytes memory result) = agencyInstance.call(agencySettings.initData);
+
+            if (!success) {
+                assembly {
+                    revert(add(result, 32), mload(result))
+                }
+            }
+        }
+
+        if (appSettings.initData.length != 0) {
+            (bool success, bytes memory result) = appInstance.call(appSettings.initData);
+
+            if (!success) {
+                assembly {
+                    revert(add(result, 32), mload(result))
+                }
+            }
+        }
+    }
+}
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="fraud-prevention">Fraud Prevention</h3>
+
+<p>Consider the following for the safety of the contracts:</p>
+
+<ul>
+  <li>
+    <p>Check whether modifiers <code class="language-plaintext highlighter-rouge">onlyAgency()</code> and <code class="language-plaintext highlighter-rouge">onlyApp()</code> are proporly implemented and applied.</p>
+  </li>
+  <li>
+    <p>Check the function strategies.</p>
+  </li>
+  <li>
+    <p>Check whether the contracts can be subject to re-entrancy attack.</p>
+  </li>
+  <li>
+    <p>Check whether all non-fungible tokens can be unwrapped with the premium calculated from FOAMM.</p>
+  </li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

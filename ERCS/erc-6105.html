@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>No Intermediary NFT Trading Protocol | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="No Intermediary NFT Trading Protocol | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6105" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6105" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">No Intermediary NFT Trading Protocol</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This ERC adds a marketplace functionality to <a href="./eip-721.md">ERC-721</a> to enable non-fungible token trading without relying on an intermediary trading platform. At the same time, creators may implement more diverse royalty schemes.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Most current NFT trading relies on an NFT trading platform acting as an intermediary, which has the following problems:</p>
+
+<ol>
+  <li>Security concerns arise from authorization via the <code class="language-plaintext highlighter-rouge">setApprovalForAll</code> function. The permissions granted to NFT trading platforms expose unnecessary risks. Should a problem occur with the trading platform contract, it would result in significant losses to the industry as a whole. Additionally, if a user has authorized the trading platform to handle their NFTs, it allows a phishing scam to trick the user into signing a message that allows the scammer to place an order at a low price on the NFT trading platform and designate themselves as the recipient. This can be difficult for ordinary users to guard against.</li>
+  <li>High trading costs are a significant issue. On one hand, as the number of trading platforms increases, the liquidity of NFTs becomes dispersed. If a user needs to make a deal quickly, they must authorize and place orders on multiple platforms, which increases the risk exposure and requires additional gas expenditures for each authorization. For example, taking BAYC as an example, with a total supply of 10,000 and over 6,000 current holders, the average number of BAYC held by each holder is less than 2. While <code class="language-plaintext highlighter-rouge">setApprovalForAll</code> saves on gas expenditure for pending orders on a single platform, authorizing multiple platforms results in an overall increase in gas expenditures for users. On the other hand, trading service fees charged by trading platforms must also be considered as a cost of trading, which are often much higher than the required gas expenditures for authorization.</li>
+  <li>Aggregators provide a solution by aggregating liquidity, but the decision-making process is centralized. Furthermore, as order information on trading platforms is off-chain, the aggregator’s efficiency in obtaining data is affected by the frequency of the trading platform’s API and, at times, trading platforms may suspend the distribution of APIs and limit their frequency.</li>
+  <li>The project parties’ royalty income is dependent on centralized decision-making by NFT trading platforms. Some trading platforms implement optional royalty without the consent of project parties, which is a violation of their interests.</li>
+  <li>NFT trading platforms are not resistant to censorship. Some platforms have delisted a number of NFTs and the formulation and implementation of delisting rules are centralized and not transparent enough. In the past, some NFT trading platforms have failed and wrongly delisted certain NFTs, leading to market panic.</li>
+</ol>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL
+NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”,
+and “OPTIONAL” in this document are to be interpreted as described in RFC 2119
+and RFC 8174.</p>
+
+<p>Compliant contracts MUST implement the following interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IERC6105</span> <span class="p">{</span>
+
+  <span class="c1">/// @notice Emitted when a token is listed for sale or delisted
+</span>  <span class="c1">/// @dev The zero `salePrice` indicates that the token is not for sale
+</span>  <span class="c1">///      The zero `expires` indicates that the token is not for sale
+</span>  <span class="c1">/// @param tokenId - identifier of the token being listed
+</span>  <span class="c1">/// @param from - address of who is selling the token
+</span>  <span class="c1">/// @param salePrice - the price the token is being sold for
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the buyer could buy the token before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token or zero address
+</span>  <span class="c1">///                         The zero address indicates that the supported token is ETH
+</span>  <span class="c1">///                         Buyer needs to purchase item with supported token
+</span>  <span class="c1">/// @param benchmarkPrice - Additional price parameter, may be used when calculating royalties
+</span>  <span class="k">event</span> <span class="n">UpdateListing</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span>
+    <span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">benchmarkPrice</span>
+    <span class="p">);</span>
+
+  <span class="c1">/// @notice Emitted when a token is being purchased
+</span>  <span class="c1">/// @param tokenId - identifier of the token being purchased
+</span>  <span class="c1">/// @param from - address of who is selling the token
+</span>  <span class="c1">/// @param to - address of who is buying the token 
+</span>  <span class="c1">/// @param salePrice - the price the token is being sold for
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token or zero address
+</span>  <span class="c1">///                         The zero address indicates that the supported token is ETH
+</span>  <span class="c1">///                         Buyer needs to purchase item with supported token
+</span>  <span class="c1">/// @param royalties - The amount of royalties paid on this purchase
+</span>  <span class="k">event</span> <span class="n">Purchased</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">royalties</span>
+    <span class="p">);</span>
+
+  <span class="c1">/// @notice Create or update a listing for `tokenId`
+</span>  <span class="c1">/// @dev `salePrice` MUST NOT be set to zero
+</span>  <span class="c1">/// @param tokenId - identifier of the token being listed
+</span>  <span class="c1">/// @param salePrice - the price the token is being sold for
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the buyer could buy the token before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token or zero address
+</span>  <span class="c1">///                         The zero address indicates that the supported token is ETH
+</span>  <span class="c1">///                         Buyer needs to purchase item with supported token
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist
+</span>  <span class="c1">/// - Caller must be owner, authorised operators or approved address of the token
+</span>  <span class="c1">/// - `salePrice` must not be zero
+</span>  <span class="c1">/// - `expires` must be valid
+</span>  <span class="c1">/// - Must emit an {UpdateListing} event.
+</span>  <span class="k">function</span> <span class="n">listItem</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span>
+    <span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Create or update a listing for `tokenId` with `benchmarkPrice`
+</span>  <span class="c1">/// @dev `salePrice` MUST NOT be set to zero
+</span>  <span class="c1">/// @param tokenId - identifier of the token being listed
+</span>  <span class="c1">/// @param salePrice - the price the token is being sold for
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the buyer could buy the token before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token or zero address
+</span>  <span class="c1">///                         The zero address indicates that the supported token is ETH
+</span>  <span class="c1">///                         Buyer needs to purchase item with supported token
+</span>  <span class="c1">/// @param benchmarkPrice - Additional price parameter, may be used when calculating royalties
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist
+</span>  <span class="c1">/// - Caller must be owner, authorised operators or approved address of the token
+</span>  <span class="c1">/// - `salePrice` must not be zero
+</span>  <span class="c1">/// - `expires` must be valid
+</span>  <span class="c1">/// - Must emit an {UpdateListing} event.
+</span>  <span class="k">function</span> <span class="n">listItem</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span>
+    <span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">benchmarkPrice</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+ 
+  <span class="c1">/// @notice Remove the listing for `tokenId`
+</span>  <span class="c1">/// @param tokenId - identifier of the token being delisted
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist and be listed for sale
+</span>  <span class="c1">/// - Caller must be owner, authorised operators or approved address of the token
+</span>  <span class="c1">/// - Must emit an {UpdateListing} event
+</span>  <span class="k">function</span> <span class="n">delistItem</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+ 
+  <span class="c1">/// @notice Buy a token and transfer it to the caller
+</span>  <span class="c1">/// @dev `salePrice` and `supportedToken` must match the expected purchase price and token to prevent front-running attacks
+</span>  <span class="c1">/// @param tokenId - identifier of the token being purchased
+</span>  <span class="c1">/// @param salePrice - the price the token is being sold for
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token or zero address
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist and be listed for sale
+</span>  <span class="c1">/// - `salePrice` must matches the expected purchase price to prevent front-running attacks
+</span>  <span class="c1">/// - `supportedToken` must matches the expected purchase token to prevent front-running attacks
+</span>  <span class="c1">/// - Caller must be able to pay the listed price for `tokenId`
+</span>  <span class="c1">/// - Must emit a {Purchased} event
+</span>  <span class="k">function</span> <span class="n">buyItem</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span> <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Return the listing for `tokenId`
+</span>  <span class="c1">/// @dev The zero sale price indicates that the token is not for sale
+</span>  <span class="c1">///      The zero expires indicates that the token is not for sale
+</span>  <span class="c1">///      The zero supported token address indicates that the supported token is ETH
+</span>  <span class="c1">/// @param tokenId identifier of the token being queried
+</span>  <span class="c1">/// @return the specified listing (sale price, expires, supported token, benchmark price)
+</span>  <span class="k">function</span> <span class="n">getListing</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint64</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="optional-collection-offer-extention">Optional collection offer extention</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// The collection offer extension is OPTIONAL for ERC-6105 smart contracts. This allows smart contract to support collection offer functionality.
+</span><span class="k">interface</span> <span class="n">IERC6105CollectionOffer</span> <span class="p">{</span>
+
+  <span class="c1">/// @notice Emitted when the collection receives an offer or an offer is canceled
+</span>  <span class="c1">/// @dev The zero `salePrice` indicates that the collection offer of the token is canceled
+</span>  <span class="c1">///      The zero `expires` indicates that the collection offer of the token is canceled
+</span>  <span class="c1">/// @param from - address of who make collection offer
+</span>  <span class="c1">/// @param amount - the amount the offerer wants to buy at `salePrice` per token
+</span>  <span class="c1">/// @param salePrice - the price of each token is being offered for the collection
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the offer could be accepted before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported ERC20 token
+</span>  <span class="c1">///                          Buyer wants to purchase items with supported token
+</span>  <span class="k">event</span> <span class="n">UpdateCollectionOffer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span> <span class="p">,</span><span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span> <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Create or update an offer for the collection
+</span>  <span class="c1">/// @dev `salePrice` MUST NOT be set to zero
+</span>  <span class="c1">/// @param amount - the amount the offerer wants to buy at `salePrice` per token
+</span>  <span class="c1">/// @param salePrice - the price of each token is being offered for the collection
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the offer could be accepted before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token
+</span>  <span class="c1">///                         Buyer wants to purchase items with supported token
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - The caller must have enough supported tokens, and has approved the contract a sufficient amount
+</span>  <span class="c1">/// - `salePrice` must not be zero
+</span>  <span class="c1">/// - `amount` must not be zero
+</span>  <span class="c1">/// - `expires` must be valid
+</span>  <span class="c1">/// - Must emit an {UpdateCollectionOffer} event
+</span>  <span class="k">function</span> <span class="n">makeCollectionOffer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span> <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Accepts collection offer and transfers the token to the buyer
+</span>  <span class="c1">/// @dev `salePrice` and `supportedToken` must match the expected purchase price and token to prevent front-running attacks
+</span>  <span class="c1">///      When the trading is completed, the `amount` of NFTs the buyer wants to purchase needs to be reduced by 1
+</span>  <span class="c1">/// @param tokenId - identifier of the token being offered
+</span>  <span class="c1">/// @param salePrice - the price the token is being offered for
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token
+</span>  <span class="c1">/// @param buyer - address of who wants to buy the token
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist and and be offered for
+</span>  <span class="c1">/// - Caller must be owner, authorised operators or approved address of the token
+</span>  <span class="c1">/// - Must emit a {Purchased} event
+</span>  <span class="k">function</span> <span class="n">acceptCollectionOffer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span> <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">,</span> <span class="kt">address</span> <span class="n">buyer</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Accepts collection offer and transfers the token to the buyer
+</span>  <span class="c1">/// @dev `salePrice` and `supportedToken` must match the expected purchase price and token to prevent front-running attacks
+</span>  <span class="c1">///      When the trading is completed, the `amount` of NFTs the buyer wants to purchase needs to be reduced by 1
+</span>  <span class="c1">/// @param tokenId - identifier of the token being offered
+</span>  <span class="c1">/// @param salePrice - the price the token is being offered for
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token
+</span>  <span class="c1">/// @param buyer - address of who wants to buy the token
+</span>  <span class="c1">/// @param benchmarkPrice - additional price parameter, may be used when calculating royalties
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist and and be offered for
+</span>  <span class="c1">/// - Caller must be owner, authorised operators or approved address of the token
+</span>  <span class="c1">/// - Must emit a {Purchased} event
+</span>  <span class="k">function</span> <span class="n">acceptCollectionOffer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span> <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">,</span> <span class="kt">address</span> <span class="n">buyer</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">benchmarkPrice</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Removes the offer for the collection
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - Caller must be the offerer
+</span>  <span class="c1">/// - Must emit an {UpdateCollectionOffer} event
+</span>  <span class="k">function</span> <span class="n">cancelCollectionOffer</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Returns the offer for `tokenId` maked by `buyer`
+</span>  <span class="c1">/// @dev The zero amount indicates there is no offer
+</span>  <span class="c1">///      The zero sale price indicates there is no offer
+</span>  <span class="c1">///      The zero expires indicates that there is no offer
+</span>  <span class="c1">/// @param buyer address of who wants to buy the token
+</span>  <span class="c1">/// @return the specified offer (amount, sale price, expires, supported token)
+</span>  <span class="k">function</span> <span class="n">getCollectionOffer</span><span class="p">(</span><span class="kt">address</span> <span class="n">buyer</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint64</span><span class="p">,</span> <span class="kt">address</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="optional-item-offer-extention">Optional item offer extention</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// The item offer extension is OPTIONAL for ERC-6105 smart contracts. This allows smart contract to support item offer functionality.
+</span><span class="k">interface</span> <span class="n">IERC6105ItemOffer</span> <span class="p">{</span>
+
+  <span class="c1">/// @notice Emitted when a token receives an offer or an offer is canceled
+</span>  <span class="c1">/// @dev The zero `salePrice` indicates that the offer of the token is canceled
+</span>  <span class="c1">///      The zero `expires` indicates that the offer of the token is canceled
+</span>  <span class="c1">/// @param tokenId - identifier of the token being offered
+</span>  <span class="c1">/// @param from - address of who wants to buy the token
+</span>  <span class="c1">/// @param salePrice - the price the token is being offered for
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the offer could be accepted before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token
+</span>  <span class="c1">///                          Buyer wants to purchase item with supported token
+</span>  <span class="k">event</span> <span class="n">UpdateItemOffer</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span>
+    <span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span>
+    <span class="p">);</span>
+
+  <span class="c1">/// @notice Create or update an offer for `tokenId`
+</span>  <span class="c1">/// @dev `salePrice` MUST NOT be set to zero
+</span>  <span class="c1">/// @param tokenId - identifier of the token being offered
+</span>  <span class="c1">/// @param salePrice - the price the token is being offered for
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the offer could be accepted before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token
+</span>  <span class="c1">///                         Buyer wants to purchase item with supported token
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist
+</span>  <span class="c1">/// - The caller must have enough supported tokens, and has approved the contract a sufficient amount
+</span>  <span class="c1">/// - `salePrice` must not be zero
+</span>  <span class="c1">/// - `expires` must be valid
+</span>  <span class="c1">/// - Must emit an {UpdateItemOffer} event.
+</span>  <span class="k">function</span> <span class="n">makeItemOffer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span> <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Remove the offer for `tokenId`
+</span>  <span class="c1">/// @param tokenId - identifier of the token being canceled offer
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist and be offered for
+</span>  <span class="c1">/// - Caller must be the offerer
+</span>  <span class="c1">/// - Must emit an {UpdateItemOffer} event
+</span>  <span class="k">function</span> <span class="n">cancelItemOffer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Accept offer and transfer the token to the buyer
+</span>  <span class="c1">/// @dev `salePrice` and `supportedToken` must match the expected purchase price and token to prevent front-running attacks
+</span>  <span class="c1">///      When the trading is completed, the offer infomation needs to be removed
+</span>  <span class="c1">/// @param tokenId - identifier of the token being offered
+</span>  <span class="c1">/// @param salePrice - the price the token is being offered for
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token
+</span>  <span class="c1">/// @param buyer - address of who wants to buy the token
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist and be offered for
+</span>  <span class="c1">/// - Caller must be owner, authorised operators or approved address of the token
+</span>  <span class="c1">/// - Must emit a {Purchased} event
+</span>  <span class="k">function</span> <span class="n">acceptItemOffer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span> <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">,</span> <span class="kt">address</span> <span class="n">buyer</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Accepts offer and transfers the token to the buyer
+</span>  <span class="c1">/// @dev `salePrice` and `supportedToken` must match the expected purchase price and token to prevent front-running attacks
+</span>  <span class="c1">///      When the trading is completed, the offer infomation needs to be removed
+</span>  <span class="c1">/// @param tokenId - identifier of the token being offered
+</span>  <span class="c1">/// @param salePrice - the price the token is being offered for
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token
+</span>  <span class="c1">/// @param buyer - address of who wants to buy the token
+</span>  <span class="c1">/// @param benchmarkPrice - additional price parameter, may be used when calculating royalties
+</span>  <span class="c1">/// Requirements:
+</span>  <span class="c1">/// - `tokenId` must exist and be offered for
+</span>  <span class="c1">/// - Caller must be owner, authorised operators or approved address of the token
+</span>  <span class="c1">/// - Must emit a {Purchased} event
+</span>  <span class="k">function</span> <span class="n">acceptItemOffer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span> <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">,</span> <span class="kt">address</span> <span class="n">buyer</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">benchmarkPrice</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Return the offer for `tokenId` maked by `buyer`
+</span>  <span class="c1">/// @dev The zero sale price indicates there is no offer
+</span>  <span class="c1">///      The zero expires indicates that there is no offer
+</span>  <span class="c1">/// @param tokenId identifier of the token being queried
+</span>  <span class="c1">/// @param buyer address of who wants to buy the token
+</span>  <span class="c1">/// @return the specified offer (sale price, expires, supported token)
+</span>  <span class="k">function</span> <span class="n">getItemOffer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">buyer</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint64</span><span class="p">,</span> <span class="kt">address</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="considerations-for-some-local-variables">Considerations for some local variables</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">salePrice</code> in the <code class="language-plaintext highlighter-rouge">listItem</code> function cannot be set to zero. Firstly, it is a rare occurrence for a caller to set the price to 0, and when it happens, it is often due to an operational error which can result in loss of assets. Secondly, a caller needs to spend gas to call this function, so if he can set the token price to 0, his income would be actually negative at this time, which does not conform to the concept of ‘economic man’ in economics. Additionally, a token price of 0 indicates that the item is not for sale, making the reference implementation more concise.</p>
+
+<p>Setting <code class="language-plaintext highlighter-rouge">expires</code> in the <code class="language-plaintext highlighter-rouge">listItem</code> function allows callers to better manage their listings. If a listing expires automatically, the token owner will no longer need to manually <code class="language-plaintext highlighter-rouge">delistItem</code>, thus saving gas.</p>
+
+<p>Setting <code class="language-plaintext highlighter-rouge">supportedToken</code> in the <code class="language-plaintext highlighter-rouge">listItem</code> function allows the caller or contract owner to choose which tokens they want to accept, rather than being limited to a single token.</p>
+
+<p>The rationales of variable setting in the <code class="language-plaintext highlighter-rouge">acceptCollectionOffer</code> and <code class="language-plaintext highlighter-rouge">acceptItemOffer</code> functions are the same as described above.</p>
+
+<h3 id="more-diverse-royalty-schemes">More diverse royalty schemes</h3>
+
+<p>By introducing the parameter <code class="language-plaintext highlighter-rouge">benchmarkPrice</code> in the <code class="language-plaintext highlighter-rouge">listItem</code>, <code class="language-plaintext highlighter-rouge">acceptCollectionOffer</code> and <code class="language-plaintext highlighter-rouge">acceptItemOffer</code> functions, the <code class="language-plaintext highlighter-rouge">_salePrice</code> in the <code class="language-plaintext highlighter-rouge">royaltyInfo(uint256 _tokenId, uint256 _salePrice)</code> function in the <a href="./eip-2981.md">ERC-2981</a> interface can be changed to <code class="language-plaintext highlighter-rouge">taxablePrice</code>, making the ERC-2981 royalty scheme more diverse. Here are several examples of royalty schemes:</p>
+
+<p><code class="language-plaintext highlighter-rouge">(address royaltyRecipient, uint256 royalties) = royaltyInfo(tokenId, taxablePrice)</code></p>
+
+<ol>
+  <li>Value-added Royalty (VAR, royalties are only charged on the part of the seller’s profit）: <code class="language-plaintext highlighter-rouge">taxablePrice=max(salePrice- historicalPrice, 0)</code></li>
+  <li>Sale Royalty (SR): <code class="language-plaintext highlighter-rouge">taxablePrice=salePrice</code></li>
+  <li>Capped Royalty(CR): <code class="language-plaintext highlighter-rouge">taxablePrice=min(salePrice, constant)</code></li>
+  <li>Quantitative Royalty(QR, each token trading pays a fixed royalties): <code class="language-plaintext highlighter-rouge">taxablePrice= constant</code></li>
+</ol>
+
+<h3 id="optional-blocklist">Optional Blocklist</h3>
+
+<p>Some viewpoints suggest that tokens should be prevented from trading on intermediary markets that do not comply with royalty schemes, but this standard only provides a functionality for non-intermediary NFT trading and does not offer a standardized interface to prevent tokens from trading on these markets. If deemed necessary to better protect the interests of the project team and community, they may consider adding a blocklist to their implementation contracts to prevent NFTs from being traded on platforms that do not comply with the project’s royalty scheme.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is compatible with <a href="./eip-721.md">ERC-721</a> and <a href="./eip-2981.md">ERC-2981</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">8</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/ERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/common/ERC2981.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/IERC20.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/security/ReentrancyGuard.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC6105.sol"</span><span class="p">;</span>
+
+<span class="c1">/// @title No Intermediary NFT Trading Protocol with Value-added Royalty
+/// @dev The royalty scheme used by this reference implementation is Value-Added Royalty
+</span><span class="k">contract</span> <span class="n">ERC6105</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">ERC2981</span><span class="p">,</span> <span class="n">IERC6105</span><span class="p">,</span> <span class="n">ReentrancyGuard</span><span class="p">{</span>
+
+  <span class="c1">/// @dev A structure representing a listed token
+</span>  <span class="c1">///      The zero `salePrice` indicates that the token is not for sale
+</span>  <span class="c1">///      The zero `expires` indicates that the token is not for sale
+</span>  <span class="c1">/// @param salePrice - the price the token is being sold for
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the buyer could buy the token before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported ERC20 token or zero address
+</span>  <span class="c1">///                         The zero address indicates that the supported token is ETH
+</span>  <span class="c1">///                         Buyer needs to purchase item with supported token
+</span>  <span class="c1">/// @param historicalPrice - The price at which the seller last bought this token
+</span>  <span class="k">struct</span> <span class="n">Listing</span> <span class="p">{</span>
+    <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">;</span>
+    <span class="kt">uint64</span> <span class="n">expires</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">historicalPrice</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Mapping from token Id to listing index
+</span>  <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">Listing</span><span class="p">)</span> <span class="k">private</span> <span class="n">_listings</span><span class="p">;</span>
+
+  <span class="k">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name_</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol_</span><span class="p">)</span>
+    <span class="n">ERC721</span><span class="p">(</span><span class="n">name_</span><span class="p">,</span> <span class="n">symbol_</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+  <span class="c1">/// @notice Create or update a listing for `tokenId`
+</span>  <span class="c1">/// @dev `salePrice` MUST NOT be set to zero
+</span>  <span class="c1">/// @param tokenId - identifier of the token being listed
+</span>  <span class="c1">/// @param salePrice - the price the token is being sold for
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the buyer could buy the token before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported ERC20 token or zero address
+</span>  <span class="c1">///                         The zero address indicates that the supported token is ETH
+</span>  <span class="c1">///                         Buyer needs to purchase item with supported token
+</span>  <span class="k">function</span> <span class="n">listItem</span> <span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span>
+    <span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">virtual</span><span class="p">{</span>
+        <span class="n">listItem</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">salePrice</span><span class="p">,</span> <span class="n">expires</span><span class="p">,</span> <span class="n">supportedToken</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+  <span class="c1">/// @notice Create or update a listing for `tokenId` with `historicalPrice`
+</span>  <span class="c1">/// @dev `price` MUST NOT be set to zero
+</span>  <span class="c1">/// @param tokenId - identifier of the token being listed
+</span>  <span class="c1">/// @param salePrice - the price the token is being sold for
+</span>  <span class="c1">/// @param expires - UNIX timestamp, the buyer could buy the token before expires
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported ERC20 token or zero address
+</span>  <span class="c1">///                         The zero address indicates that the supported token is ETH
+</span>  <span class="c1">///                         Buyer needs to purchase item with supported token
+</span>  <span class="c1">/// @param historicalPrice - The price at which the seller last bought this token
+</span>  <span class="k">function</span> <span class="n">listItem</span> <span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span>
+    <span class="kt">uint64</span> <span class="n">expires</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">historicalPrice</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span><span class="p">{</span>
+
+    <span class="kt">address</span> <span class="n">tokenOwner</span> <span class="o">=</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">salePrice</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"ERC6105: token sale price MUST NOT be set to zero"</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">expires</span> <span class="o">&gt;</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="s">"ERC6105: invalid expires"</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_isApprovedOrOwner</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC6105: caller is not owner nor approved"</span><span class="p">);</span>
+
+    <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">Listing</span><span class="p">(</span><span class="n">salePrice</span><span class="p">,</span> <span class="n">expires</span><span class="p">,</span> <span class="n">supportedToken</span><span class="p">,</span> <span class="n">historicalPrice</span><span class="p">);</span>
+    <span class="k">emit</span> <span class="n">UpdateListing</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">tokenOwner</span><span class="p">,</span> <span class="n">salePrice</span><span class="p">,</span> <span class="n">expires</span><span class="p">,</span> <span class="n">supportedToken</span><span class="p">,</span> <span class="n">historicalPrice</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">/// @notice Remove the listing for `tokenId`
+</span>  <span class="c1">/// @param tokenId - identifier of the token being listed
+</span>  <span class="k">function</span> <span class="n">delistItem</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">virtual</span><span class="p">{</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_isApprovedOrOwner</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC6105: caller is not owner nor approved"</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_isForSale</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC6105: invalid listing"</span> <span class="p">);</span>
+
+    <span class="n">_removeListing</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">/// @notice Buy a token and transfers it to the caller
+</span>  <span class="c1">/// @dev `salePrice` and `supportedToken` must match the expected purchase price and token to prevent front-running attacks
+</span>  <span class="c1">/// @param tokenId - identifier of the token being purchased
+</span>  <span class="c1">/// @param salePrice - the price the token is being sold for
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported token or zero address
+</span>  <span class="k">function</span> <span class="n">buyItem</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">,</span> <span class="kt">address</span> <span class="n">supportedToken</span><span class="p">)</span> <span class="k">external</span> <span class="n">nonReentrant</span> <span class="k">payable</span> <span class="k">virtual</span><span class="p">{</span>
+    <span class="kt">address</span> <span class="n">tokenOwner</span> <span class="o">=</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+    <span class="kt">address</span> <span class="n">buyer</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">historicalPrice</span> <span class="o">=</span> <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">historicalPrice</span><span class="p">;</span>
+
+    <span class="nb">require</span><span class="p">(</span><span class="n">salePrice</span> <span class="o">==</span> <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">salePrice</span><span class="p">,</span> <span class="s">"ERC6105: inconsistent prices"</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">supportedToken</span> <span class="o">==</span>  <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">supportedToken</span><span class="p">,</span><span class="s">"ERC6105: inconsistent tokens"</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_isForSale</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC6105: invalid listing"</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Handle royalties
+</span>    <span class="p">(</span><span class="kt">address</span> <span class="n">royaltyRecipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">royalties</span><span class="p">)</span> <span class="o">=</span> <span class="n">_calculateRoyalties</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">salePrice</span><span class="p">,</span> <span class="n">historicalPrice</span><span class="p">);</span>
+
+    <span class="kt">uint256</span> <span class="n">payment</span> <span class="o">=</span> <span class="n">salePrice</span> <span class="o">-</span> <span class="n">royalties</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">supportedToken</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">)){</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">salePrice</span><span class="p">,</span> <span class="s">"ERC6105: incorrect value"</span><span class="p">);</span>
+        <span class="n">_processSupportedTokenPayment</span><span class="p">(</span><span class="n">royalties</span><span class="p">,</span> <span class="n">buyer</span><span class="p">,</span> <span class="n">royaltyRecipient</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+        <span class="n">_processSupportedTokenPayment</span><span class="p">(</span><span class="n">payment</span><span class="p">,</span> <span class="n">buyer</span><span class="p">,</span> <span class="n">tokenOwner</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">num</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">supportedToken</span><span class="p">).</span><span class="n">allowance</span><span class="p">(</span><span class="n">buyer</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+        <span class="nb">require</span> <span class="p">(</span><span class="n">num</span> <span class="o">&gt;=</span> <span class="n">salePrice</span><span class="p">,</span> <span class="s">"ERC6105: insufficient allowance"</span><span class="p">);</span>
+        <span class="n">_processSupportedTokenPayment</span><span class="p">(</span><span class="n">royalties</span><span class="p">,</span> <span class="n">buyer</span><span class="p">,</span> <span class="n">royaltyRecipient</span><span class="p">,</span> <span class="n">supportedToken</span><span class="p">);</span>
+        <span class="n">_processSupportedTokenPayment</span><span class="p">(</span><span class="n">payment</span><span class="p">,</span> <span class="n">buyer</span><span class="p">,</span> <span class="n">tokenOwner</span><span class="p">,</span> <span class="n">supportedToken</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">_transfer</span><span class="p">(</span><span class="n">tokenOwner</span><span class="p">,</span> <span class="n">buyer</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+    <span class="k">emit</span> <span class="n">Purchased</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">tokenOwner</span><span class="p">,</span> <span class="n">buyer</span><span class="p">,</span> <span class="n">salePrice</span><span class="p">,</span> <span class="n">supportedToken</span><span class="p">,</span> <span class="n">royalties</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">/// @notice Return the listing for `tokenId`
+</span>  <span class="c1">/// @dev The zero sale price indicates that the token is not for sale
+</span>  <span class="c1">///      The zero expires indicates that the token is not for sale
+</span>  <span class="c1">///      The zero supported token address indicates that the supported token is ETH
+</span>  <span class="c1">/// @param tokenId identifier of the token being queried
+</span>  <span class="c1">/// @return the specified listing (sale price, expires, supported token, benchmark price)
+</span>  <span class="k">function</span> <span class="n">getListing</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint64</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">salePrice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">expires</span> <span class="o">&gt;=</span>  <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">){</span>
+    <span class="kt">uint256</span> <span class="n">salePrice</span> <span class="o">=</span> <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">salePrice</span><span class="p">;</span>
+    <span class="kt">uint64</span> <span class="n">expires</span> <span class="o">=</span> <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">expires</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span> <span class="o">=</span>  <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">supportedToken</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">historicalPrice</span> <span class="o">=</span> <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">historicalPrice</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">salePrice</span><span class="p">,</span> <span class="n">expires</span><span class="p">,</span> <span class="n">supportedToken</span><span class="p">,</span> <span class="n">historicalPrice</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">/// @dev Remove the listing for `tokenId`
+</span>  <span class="c1">/// @param tokenId - identifier of the token being delisted
+</span>  <span class="k">function</span> <span class="n">_removeListing</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span><span class="p">{</span>
+    <span class="kt">address</span> <span class="n">tokenOwner</span> <span class="o">=</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+    <span class="k">delete</span> <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+    <span class="k">emit</span> <span class="n">UpdateListing</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">tokenOwner</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">/// @dev Check if the token is for sale
+</span>  <span class="k">function</span> <span class="n">_isForSale</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">salePrice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">_listings</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">expires</span> <span class="o">&gt;=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>    
+  <span class="p">}</span>
+  
+  <span class="c1">/// @dev Handle Value Added Royalty
+</span>  <span class="k">function</span> <span class="n">_calculateRoyalties</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">price</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">historicalPrice</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">){</span>
+    <span class="kt">uint256</span> <span class="n">taxablePrice</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">price</span> <span class="o">&gt;</span> <span class="n">historicalPrice</span><span class="p">){</span>
+      <span class="n">taxablePrice</span> <span class="o">=</span> <span class="n">price</span> <span class="o">-</span> <span class="n">historicalPrice</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+      <span class="n">taxablePrice</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">(</span><span class="kt">address</span> <span class="n">royaltyRecipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">royalties</span><span class="p">)</span> <span class="o">=</span> <span class="n">royaltyInfo</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">taxablePrice</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">royaltyRecipient</span><span class="p">,</span> <span class="n">royalties</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">/// @dev Process a `supportedToken` of `amount` payment to `recipient`.
+</span>  <span class="c1">/// @param amount - the amount to send
+</span>  <span class="c1">/// @param from - the payment payer
+</span>  <span class="c1">/// @param recipient - the payment recipient
+</span>  <span class="c1">/// @param supportedToken - contract addresses of supported ERC20 token or zero address
+</span>  <span class="c1">///                         The zero address indicates that the supported token is ETH
+</span>  <span class="k">function</span> <span class="n">_processSupportedTokenPayment</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">supportedToken</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">supportedToken</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="p">{</span>
+      <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,)</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="n">recipient</span><span class="p">).</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">amount</span><span class="p">}(</span><span class="s">""</span><span class="p">);</span>
+      <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">"Ether Transfer Fail"</span><span class="p">);</span> 
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">)</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">supportedToken</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">"Supported Token Transfer Fail"</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  
+  <span class="c1">/// @dev See {IERC165-supportsInterface}.
+</span>  <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">(</span><span class="n">ERC721</span><span class="p">,</span> <span class="n">ERC2981</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">return</span> <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC6105</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span> <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceId</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">/// @dev Before transferring the NFT, need to delete listing
+</span>  <span class="k">function</span> <span class="n">_beforeTokenTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">batchSize</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">override</span><span class="p">{</span>
+      <span class="nb">super</span><span class="p">.</span><span class="n">_beforeTokenTransfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">batchSize</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">_isForSale</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)){</span>
+          <span class="n">_removeListing</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">buyItem</code> function, as well as the <code class="language-plaintext highlighter-rouge">acceptCollectionOffer</code> and <code class="language-plaintext highlighter-rouge">acceptItemOffer</code> functions, has a potential front-running risk.  Must check that <code class="language-plaintext highlighter-rouge">salePrice</code> and <code class="language-plaintext highlighter-rouge">supportedToken</code> match the expected price and token to prevent front-running attacks</p>
+
+<p>There is a potential re-entrancy risk with the <code class="language-plaintext highlighter-rouge">acceptCollectionOffer</code> and <code class="language-plaintext highlighter-rouge">acceptItemOffer</code> functions. Make sure to obey the checks, effects, interactions pattern or use a reentrancy guard.</p>
+
+<p>If a buyer uses <a href="./eip-20.md">ERC-20</a> tokens to purchase an NFT, the buyer needs to first call the <code class="language-plaintext highlighter-rouge">approve(address spender, uint256 amount)</code> function of the ERC-20 token to grant the NFT contract access to a certain <code class="language-plaintext highlighter-rouge">amount</code> of tokens. Please make sure to authorize an appropriate <code class="language-plaintext highlighter-rouge">amount</code>. Furthermore, caution is advised when dealing with non-audited contracts.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Interest Rate Swaps | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Interest Rate Swaps | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7586" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7586" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Interest Rate Swaps</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal introduces a standardized framework for on-chain interest rate swaps. The proposed standard aims to facilitate the seamless exchange of fixed and floating interest rate cash flows between parties, providing a foundation for decentralized finance (DeFi) applications.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Interest Rate Swapping (IRS) denotes a derivative contract wherein two parties mutually consent to exchange a series of forthcoming interest payments based on a specified notional amount. This financial instrument serves as a strategic tool for hedging against interest rate fluctuations. The mechanism entails the utilization of a benchmark index to facilitate the exchange between a variable interest rate and a fixed rate. Despite its widespread use, there is currently an absence of a standardized framework that enables the representation of IRS contracts on blockchain platforms.</p>
+
+<p>This proposal addresses this gap by establishing a consistent and transparent methodology for representing IRS contracts within the blockchain environment. By doing so, it would enhance the interoperability, security, and efficiency of interest rate swap transactions on distributed ledger technology.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="example-flow">Example Flow</h3>
+
+<p><img src="../assets/eip-7586/irs.jpeg" alt="alt text" title="IRS diagram" /></p>
+
+<p>Every contract compliant with this ERC MUST implement the following interface. The contract MUST inherit from <a href="./eip-20"><code class="language-plaintext highlighter-rouge">ERC20</code></a> to tokenize the swap cash flows.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="cm">/**
+* @title ERC-7586 Interest Rate Swaps
+*/</span>
+<span class="k">interface</span> <span class="n">IERC7586</span> <span class="cm">/** is ERC20, ERC165 */</span> <span class="p">{</span>
+    <span class="c1">// events
+</span>    <span class="cm">/**
+    * @notice MUST be emitted when interest rates are swapped
+    * @param _amount the interest difference to be transferred
+    * @param _account the recipient account to send the interest difference to. MUST be either the `payer` or the `receiver`
+    */</span>
+    <span class="k">event</span> <span class="n">Swap</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_account</span><span class="p">);</span>
+
+    <span class="cm">/**
+    * @notice MUST be emitted when the swap contract is terminated
+    * @param _payer the swap payer
+    * @param _receiver the swap receiver
+    */</span>
+    <span class="k">event</span> <span class="n">TerminateSwap</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_payer</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_receiver</span><span class="p">);</span>
+
+    <span class="c1">// functions
+</span>    <span class="cm">/**
+    *  @notice Returns the IRS `payer` account address. The party who agreed to pay fixed interest
+    */</span>
+    <span class="k">function</span> <span class="n">fixedInterestPayer</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns the IRS `receiver` account address. The party who agreed to pay floating interest
+    */</span>
+    <span class="k">function</span> <span class="n">floatingInterestPayer</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+    * @notice Returns the number of decimals the swap rate and spread use - e.g. `4` means to divide the rates by `10000`
+    *         To express the interest rates in basis points unit, the decimal MUST be equal to `2`. This means rates MUST be divided by `100`
+    *         1 basis point = 0.01% = 0.0001
+    *         ex: if interest rate = 2.5%, then swapRate() =&gt; 250 `basis points`
+    */</span>
+    <span class="k">function</span> <span class="n">ratesDecimals</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint8</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns the fixed interest rate
+    */</span>
+    <span class="k">function</span> <span class="n">swapRate</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns the floating rate spread, i.e. the fixed part of the floating interest rate
+    *
+    *          floatingRate = benchmark + spread
+    */</span>
+    <span class="k">function</span> <span class="n">spread</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    * @notice Returns the contract address of the asset to be transferred when swapping IRS. Depending on what the two parties agreed upon, this could be a currency, etc.
+    *         Example: If the two parties agreed to swap interest rates in USDC, then this function should return the USDC contract address.
+    *                  This address SHOULD be used in the `swap` function to transfer the interest difference to either the `payer` or the `receiver`. Example: IERC(assetContract).transfer
+    */</span>
+    <span class="k">function</span> <span class="n">assetContract</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns the notional amount in unit of asset to be transferred when swapping IRS. This amount serves as the basis for calculating the interest payments, and may not be exchanged
+    *          Example: If the two parties aggreed to swap interest rates in USDC, then the notional amount may be equal to 1,000,000 USDC 
+    */</span>
+    <span class="k">function</span> <span class="n">notionalAmount</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns the interest payment frequency
+    */</span>
+    <span class="k">function</span> <span class="n">paymentFrequency</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns an array of specific dates on which the interest payments are exchanged. Each date MUST be a Unix timestamp like the one returned by block.timestamp
+    *          The length of the array returned by this function MUST equal the total number of swaps that should be realized
+    *
+    *  OPTIONAL
+    */</span>
+    <span class="k">function</span> <span class="n">paymentDates</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns the starting date of the swap contract. This is a Unix Timestamp like the one returned by block.timestamp
+    */</span>
+    <span class="k">function</span> <span class="n">startingDate</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns the maturity date of the swap contract. This is a Unix Timestamp like the one returned by block.timestamp
+    */</span>
+    <span class="k">function</span> <span class="n">maturityDate</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns the benchmark in basis point unit
+    *          Example: value of one the following rates: CF BIRC, EURIBOR, HIBOR, SHIBOR, SOFR, SONIA, TONAR, etc.
+    */</span>
+    <span class="k">function</span> <span class="n">benchmark</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Returns the oracle contract address for the benchmark rate, or the zero address when the two parties agreed to set the benchmark manually.
+    *          This contract SHOULD be used to fetch real time benchmark rate
+    *          Example: Contract address for `CF BIRC`
+    *
+    *  OPTIONAL. The two parties MAY agree to set the benchmark manually
+    */</span>
+    <span class="k">function</span> <span class="n">oracleContractForBenchmark</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Makes swap calculation and transfers the interest difference to either the `payer` or the `receiver`
+    */</span>
+    <span class="k">function</span> <span class="n">swap</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  @notice Terminates the swap contract before its maturity date. MUST be called by either the `payer`or the `receiver`.
+    */</span>
+    <span class="k">function</span> <span class="n">terminateSwap</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h3 id="tokenization-of-swap-cash-flows">Tokenization of Swap Cash Flows</h3>
+
+<p>The interest payments associated with the IRS MUST be tokenized by issuing digital <a href="./eip-20">ERC-20</a> tokens to the respective parties according to the terms of the swap. Each token SHOULD represent a specific interest payment. Every time a swap happens (the <code class="language-plaintext highlighter-rouge">swap</code> function is called), one token MUST be burned from each party.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This standard allows parties involved in the IRS contract to define essential parameters such as notional amount, interest rates, payment frequency, and payment dates. This flexibility accommodates a diverse range of financial agreements, catering to the unique needs of different participants.</p>
+
+<p>To accommodate a wide array of use cases, the standard introduces optional features such as payment dates and manual benchmark setting. This allows parties to tailor the contract to specific requirements, while maintaining a core set of functions for essential functionality.</p>
+
+<p>To ensure real-time and accurate benchmark rates, the standard integrates with oracles. Parties have the option to use oracles for fetching benchmark rates, enhancing the reliability and accuracy of interest rate calculations.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is backward compatible with ERC-20.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The complete reference implementation can be found <a href="../assets/eip-7586/ERC7586.sol">here</a>.</p>
+
+<p>This reference implementation serves as a foundation for the implementation of more advanced types of swaps.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Security considerations of various types must be thoroughly evaluated</p>
+
+<ul>
+  <li>Interest Rate Risk: This pertains to the potential impact of fluctuations in interest rates.</li>
+  <li>Credit Risk: There exists the possibility that one or both parties may default on their respective responsibilities.</li>
+  <li>ERC-20 Risks: All security aspects outlined in the ERC-20 standard must be taken into account.</li>
+</ul>
+
+<p>Both parties must acknowledge their awareness of these security risks before proceeding with the implementation of the standard.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

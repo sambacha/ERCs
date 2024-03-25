@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Public Cross Port | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Public Cross Port | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7533" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7533" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Public Cross Port</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The objective of Public Cross Port (PCP) is to securely and efficiently connect various EVM chains. It replaces the method of pushing message to multiple chains with a method of pulling messages from multiple chains, significantly reducing the number of cross-chain bridges and gas cost, as more cross-chain bridge projects are built on PCP, the overall security increases.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Currently, there are official cross-chain bridges between L2 and L1, but not between L2s. If there are 10 L2 chains that need to cross-chain with each other, it would require 10 x 9 = 90 cross-chain bridges. However, if a pull mechanism is used to merge messages from the other 9 chains into one transaction synchronized to its own chain, only 10 cross-chain bridges would be needed. This significantly reduces the number of cross-chain bridges required and minimizes gas cost.</p>
+
+<p>This implementation, with the participation of multiple cross-chain bridge projects, would greatly enhance security. There is currently a considerable amount of redundant construction of cross-chain bridges, which does not contribute to improved security. By using a standardized <code class="language-plaintext highlighter-rouge">SendPort</code> contract, if the same cross-chain message is being transported by multiple redundant bridges, the validation on the target chain’s <code class="language-plaintext highlighter-rouge">IReceivePort</code> should yield the same result. This result, confirmed by multiple cross-chain bridge projects, provides much higher security than relying on a single confirmation. The purpose of this EIP is to encourage more cross-chain bridge projects to participate, transforming redundant construction into enhanced security.</p>
+
+<p>To attract cross-chain bridge projects to participate, aside from reducing the number of bridges and gas cost, the use of the Hash MerkleTree data structure in the <code class="language-plaintext highlighter-rouge">SendPort</code> ensures that adding cross-chain messages does not increase the overhead of the bridges. Only a small-sized root is required for the transportation of cross-chain bridges, further saving gas.</p>
+
+<h3 id="use-case">Use case</h3>
+
+<p>This EIP divides the cross-chain ecosystem into 3 layers and defines the <code class="language-plaintext highlighter-rouge">SendPort</code> contract and <code class="language-plaintext highlighter-rouge">IReceivePort</code> interface at the foundational layer. The implementation of the other layers is left to ecosystem project participants.</p>
+
+<p><img src="../assets/eip-7533/0.png" alt="" /></p>
+
+<p>On top of cross-chain messaging, applications can use bridges as service, such like Token cross.</p>
+
+<p>Cross-chain messaging bridges can be combined with Token cross-chain functionality, as shown in the code example at Reference Implementation. Alternatively, they can be separated. Taking the example of an NFT cross-chain application, it can reuse the messaging bridge of Tokens, and even leverage multiple messaging bridges. Reusing multiple bridges for message verification can significantly enhance security without incurring additional costs for cross-chain and verification services.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>The essence of cross-chain is to inform the target chain about events happening on the source chain. This process can be divided into 3 steps. The following diagram illustrates the overall principle:</p>
+
+<p><img src="../assets/eip-7533/1.png" alt="" /></p>
+
+<h3 id="1add-cross-chain-message">1.Add cross-chain message</h3>
+
+<p>Under this EIP, a <code class="language-plaintext highlighter-rouge">SendPort</code> contract is deployed on each chain. It is responsible for collecting cross-chain messages on that chain and packing them. <code class="language-plaintext highlighter-rouge">SendPort</code> operates as a public, permissionless, administrator-free, and automatic system. Cross-chain bridge operators retrieve cross-chain messages from <code class="language-plaintext highlighter-rouge">SendPort</code> and transport it to the target chain to complete the cross-chain messaging process.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">SendPort</code> contract can serve for multiple bridges and is responsible for collecting events (i.e., cross-chain messages) that occur on that chain and packing them into a MerkleTree. For example, let’s consider a scenario where a Bridge contract receives a user’s USDT deposit. It can send the hash of this event and the ID of the target chain to the <code class="language-plaintext highlighter-rouge">SendPort</code> contract. <code class="language-plaintext highlighter-rouge">SendPort</code> adds this information, along with the hash of the sender’s address (i.e., the Bridge contract’s address), as a leaf in an array. After collecting a certain number of leaves for a period of time (e.g., 1 minute), <code class="language-plaintext highlighter-rouge">SendPort</code> automatically packs them into a MerkleTree and begins the next collection phase. <code class="language-plaintext highlighter-rouge">SendPort</code>’s role is solely focused on event collection and packing. It operates autonomously without the need for management. So no need to repeat deploy <code class="language-plaintext highlighter-rouge">SendPort</code> on each chain, <strong>RECOMMENDED</strong> one chain one <code class="language-plaintext highlighter-rouge">SendPort</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">SendPort.addMsgHash()</code> function can be called by different cross-chain bridge projects or any other contract. The function does not require permission, which means that there is a possibility of incorrect or fraudulent messages being sent. To prevent fraud, <code class="language-plaintext highlighter-rouge">SendPort</code> includes the sender’s address in the packing process. This indicates that the <code class="language-plaintext highlighter-rouge">sender</code> intends to send the information <code class="language-plaintext highlighter-rouge">msgHash</code> to the <code class="language-plaintext highlighter-rouge">toChainId</code> chain. When this information is decoded on the target chain, it can help prevent fraudulent activities.</p>
+
+<h3 id="2pull-roots--set-roots">2.Pull roots &amp; Set roots</h3>
+
+<p>Upon the completion of packing a new MerkleTree, the package carrier (usually the cross-chain bridge project) pulls the root from multiple chains and stores it in the <code class="language-plaintext highlighter-rouge">IReceivePort</code> contract of each chain.</p>
+
+<p>A root contains messages from one source chain to multiple target chains. For the package carrier, the root <strong>MAY</strong> not contain relevant messages or <strong>MAY</strong> not include messages intended for a specific target chain. Therefore, the package carrier has the discretion to decide whether or not to transport the root to a particular target chain, based on its relevance.</p>
+
+<p>Hence, the <code class="language-plaintext highlighter-rouge">IReceivePort</code> contract is not unique and is implemented by the package carrier based on the <code class="language-plaintext highlighter-rouge">IReceivePort</code> interface. With multiple package carriers, there will be multiple <code class="language-plaintext highlighter-rouge">IReceivePort</code> contracts.</p>
+
+<h3 id="3verify-cross-chain-message">3.Verify cross-chain message</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">IReceivePort</code> contract stores the roots of each chain, allowing it to verify the authenticity of messages when provided with the complete message. It is important to note that the root itself cannot be used to decipher the message; it can only be used to validate its authenticity. The complete message can be retrieved from the <code class="language-plaintext highlighter-rouge">SendPort</code> contract of the source chain.</p>
+
+<p>Since the roots originate from the same <code class="language-plaintext highlighter-rouge">SendPort</code>, the roots in different <code class="language-plaintext highlighter-rouge">IReceivePort</code> contracts <strong>SHOULD</strong> be identical. In other words, if a message is authentic, it <strong>SHOULD</strong> be able to be verified as authentic across different <code class="language-plaintext highlighter-rouge">IReceivePort</code> contracts. This significantly enhances security. It is similar to the principle of multi-signature, where if the majority of <code class="language-plaintext highlighter-rouge">IReceivePort</code> contracts verify a message as authentic, it is likely to be true. Conversely, any <code class="language-plaintext highlighter-rouge">IReceivePort</code> contracts that verify the message as false may indicate a potential hacker attack or a failure in the corresponding cross-chain bridge. This decentralized participation model ensures that the security of the system is not compromised by single points of failure. It transforms redundant construction into an improvement in security.</p>
+
+<p>Regarding data integrity:</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">SendPort</code> retains all roots and continuous index numbers without deletion or modification. The <code class="language-plaintext highlighter-rouge">IReceivePort</code> contracts of each cross-chain bridge <strong>SHOULD</strong> also follow this approach.</p>
+
+<h3 id="isendport-interface"><code class="language-plaintext highlighter-rouge">ISendPort</code> Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">ISendPort</span> <span class="p">{</span>
+    <span class="k">event</span> <span class="n">MsgHashAdded</span><span class="p">(</span><span class="kt">uint</span> <span class="k">indexed</span> <span class="n">packageIndex</span><span class="p">,</span> <span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">msgHash</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">toChainId</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">leaf</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">Packed</span><span class="p">(</span><span class="kt">uint</span> <span class="k">indexed</span> <span class="n">packageIndex</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">packTime</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">root</span><span class="p">);</span>
+
+    <span class="k">struct</span> <span class="n">Package</span> <span class="p">{</span>
+        <span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">root</span><span class="p">;</span>
+        <span class="kt">bytes32</span><span class="p">[]</span> <span class="n">leaves</span><span class="p">;</span>
+        <span class="kt">uint</span> <span class="n">createTime</span><span class="p">;</span>
+        <span class="kt">uint</span> <span class="n">packTime</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">addMsgHash</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">msgHash</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">toChainId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">pack</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">getPackage</span><span class="p">(</span><span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Package</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getPendingPackage</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Package</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Package</code>: Collects cross-chain messages within a certain period and packs them into a single package.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">packageIndex</code>: The index of the package, starting from 0.</li>
+      <li><code class="language-plaintext highlighter-rouge">root</code>: The root generated by the MerkleTree from the <code class="language-plaintext highlighter-rouge">leaves</code>, representing the packed package.</li>
+      <li><code class="language-plaintext highlighter-rouge">leaves</code>: Each leaf represents a cross-chain message, and it is a hash calculated from <code class="language-plaintext highlighter-rouge">msgHash</code>, <code class="language-plaintext highlighter-rouge">sender</code>, and <code class="language-plaintext highlighter-rouge">toChainId</code>.
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">msgHash</code>: The hash of the message, passed in from an external contract.</li>
+          <li><code class="language-plaintext highlighter-rouge">sender</code>: The address of the external contract, no need to pass it in explicitly.</li>
+          <li><code class="language-plaintext highlighter-rouge">toChainId</code>: The chain ID of the target chain, passed in from an external contract.</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">createTime</code>: The timestamp when the package started collecting messages. It is also the timestamp when the previous package was packed.</li>
+      <li><code class="language-plaintext highlighter-rouge">packTime</code>: The timestamp when the package was packed. After packing, no more leaves can be added.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">addMsgHash()</code>: The external contract sends the hash of cross-chain messages to the SendPort.</li>
+  <li><code class="language-plaintext highlighter-rouge">pack()</code>: Manually triggers the packing process. Typically, it is automatically triggered when the last submitter submits his message. If waiting for the last submitter takes too long, the packing process can be manually triggered.</li>
+  <li><code class="language-plaintext highlighter-rouge">getPackage()</code>: Retrieves each package in the SendPort, including both packed and pending packages.</li>
+  <li><code class="language-plaintext highlighter-rouge">getPendingPackage()</code>: Retrieves the pending package in the SendPort.</li>
+</ul>
+
+<h3 id="ireceiveport-interface"><code class="language-plaintext highlighter-rouge">IReceivePort</code> Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IReceivePort</span> <span class="p">{</span>
+    <span class="k">event</span> <span class="n">PackageReceived</span><span class="p">(</span><span class="kt">uint</span> <span class="k">indexed</span> <span class="n">fromChainId</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">packageIndex</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">root</span><span class="p">);</span>
+
+    <span class="k">struct</span> <span class="n">Package</span> <span class="p">{</span>
+        <span class="kt">uint</span> <span class="n">fromChainId</span><span class="p">;</span>
+        <span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">root</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">receivePackages</span><span class="p">(</span><span class="n">Package</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">packages</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">getRoot</span><span class="p">(</span><span class="kt">uint</span> <span class="n">fromChainId</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">verify</span><span class="p">(</span>
+        <span class="kt">uint</span> <span class="n">fromChainId</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">,</span>
+        <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">proof</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">msgHash</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">sender</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Package</code>: Collects cross-chain messages within a certain period and bundles them into a single package.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">fromChainId</code>: The chain from which the package originates.</li>
+      <li><code class="language-plaintext highlighter-rouge">packageIndex</code>: The index of the package, starting from 0.</li>
+      <li><code class="language-plaintext highlighter-rouge">root</code>: The root generated by the MerkleTree from the <code class="language-plaintext highlighter-rouge">leaves</code>, representing the packed package.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">receivePackages()</code>: Receive multiple roots from different source chains’s SendPort.</li>
+  <li><code class="language-plaintext highlighter-rouge">getRoot()</code>: Retrieves a specific root from a particular chain.</li>
+  <li><code class="language-plaintext highlighter-rouge">verify()</code>: Verifies if the message on the source chain was sent by the sender.</li>
+</ul>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The traditional approach involves using a push method, as depicted in the following diagram:</p>
+
+<p><img src="../assets/eip-7533/2.png" alt="" /></p>
+
+<p>If there are 6 chains, each chain needs to push to the other 5 chains, resulting in the requirement of 30 cross-chain bridges, as shown in the diagram below:</p>
+
+<p><img src="../assets/eip-7533/3.png" alt="" /></p>
+
+<p>When N chains require cross-chain communication with each other, the number of cross-chain bridges needed is calculated as: num = N * (N - 1).</p>
+
+<p>Using the pull approach allows the batch of cross-chain messages from 5 chains into 1 transaction, significantly reducing the number of required cross-chain bridges, as illustrated in the following diagram:</p>
+
+<p><img src="../assets/eip-7533/4.png" alt="" /></p>
+
+<p>If each chain pulls messages from the other 5 chains onto its own chain, only 6 cross-chain bridges are necessary. For N chains requiring cross-chain communication, the number of cross-chain bridges needed is: num = N.</p>
+
+<p>Thus, the pull approach can greatly reduce the number of cross-chain bridges.</p>
+
+<p>The MerkleTree data structure efficiently compresses the size of cross-chain messages. Regardless of the number of cross-chain messages, they can be compressed into a single root, represented as a byte32 value. The package carrier only needs to transport the root, resulting in low gas cost.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This EIP does not change the consensus layer, so there are no backwards compatibility issues for Ethereum as a whole.</p>
+
+<p>This EIP does not change other ERC standars, so there are no backwards compatibility issues for Ethereum applications.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Below is an example contract for a cross-chain bridge:</p>
+
+<h3 id="sendportsol"><code class="language-plaintext highlighter-rouge">SendPort.sol</code></h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./ISendPort.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">SendPort</span> <span class="k">is</span> <span class="n">ISendPort</span> <span class="p">{</span>
+    <span class="kt">uint</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">PACK_INTERVAL</span> <span class="o">=</span> <span class="mi">6000</span><span class="p">;</span>
+    <span class="kt">uint</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">MAX_PACKAGE_MESSAGES</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+
+    <span class="kt">uint</span> <span class="k">public</span> <span class="n">pendingIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint</span> <span class="o">=&gt;</span> <span class="n">Package</span><span class="p">)</span> <span class="k">public</span> <span class="n">packages</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">packages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Package</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="k">new</span> <span class="kt">bytes32</span><span class="p">[](</span><span class="mi">0</span><span class="p">),</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">addMsgHash</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">msgHash</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">toChainId</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">leaf</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">msgHash</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">toChainId</span><span class="p">)</span>
+        <span class="p">);</span>
+        <span class="n">Package</span> <span class="k">storage</span> <span class="n">pendingPackage</span> <span class="o">=</span> <span class="n">packages</span><span class="p">[</span><span class="n">pendingIndex</span><span class="p">];</span>
+        <span class="n">pendingPackage</span><span class="p">.</span><span class="n">leaves</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">leaf</span><span class="p">);</span>
+
+        <span class="k">emit</span> <span class="n">MsgHashAdded</span><span class="p">(</span><span class="n">pendingPackage</span><span class="p">.</span><span class="n">packageIndex</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">msgHash</span><span class="p">,</span> <span class="n">toChainId</span><span class="p">,</span> <span class="n">leaf</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">pendingPackage</span><span class="p">.</span><span class="n">leaves</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;=</span> <span class="n">MAX_PACKAGE_MESSAGES</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">"MAX_PACKAGE_MESSAGES"</span><span class="p">,</span> <span class="n">pendingPackage</span><span class="p">.</span><span class="n">leaves</span><span class="p">.</span><span class="n">length</span><span class="p">);</span>
+            <span class="n">_pack</span><span class="p">();</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// console.log("block.timestamp", block.timestamp);
+</span>        <span class="k">if</span> <span class="p">(</span><span class="n">pendingPackage</span><span class="p">.</span><span class="n">createTime</span> <span class="o">+</span> <span class="n">PACK_INTERVAL</span> <span class="o">&lt;=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">"PACK_INTERVAL"</span><span class="p">,</span> <span class="n">pendingPackage</span><span class="p">.</span><span class="n">createTime</span><span class="p">,</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">);</span>
+            <span class="n">_pack</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">pack</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">packages</span><span class="p">[</span><span class="n">pendingIndex</span><span class="p">].</span><span class="n">createTime</span> <span class="o">+</span> <span class="n">PACK_INTERVAL</span> <span class="o">&lt;=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="s">"SendPort::pack: pack interval too short"</span><span class="p">);</span>
+
+       <span class="n">_pack</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getPackage</span><span class="p">(</span><span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Package</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">packages</span><span class="p">[</span><span class="n">packageIndex</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getPendingPackage</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Package</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">packages</span><span class="p">[</span><span class="n">pendingIndex</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_pack</span><span class="p">()</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="n">Package</span> <span class="k">storage</span> <span class="n">pendingPackage</span> <span class="o">=</span> <span class="n">packages</span><span class="p">[</span><span class="n">pendingIndex</span><span class="p">];</span>
+        <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_leaves</span> <span class="o">=</span> <span class="n">pendingPackage</span><span class="p">.</span><span class="n">leaves</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">_leaves</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">_leaves</span> <span class="o">=</span> <span class="n">_computeLeaves</span><span class="p">(</span><span class="n">_leaves</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">pendingPackage</span><span class="p">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">_leaves</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="n">pendingPackage</span><span class="p">.</span><span class="n">packTime</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">;</span>
+
+        <span class="k">emit</span> <span class="n">Packed</span><span class="p">(</span><span class="n">pendingPackage</span><span class="p">.</span><span class="n">packageIndex</span><span class="p">,</span> <span class="n">pendingPackage</span><span class="p">.</span><span class="n">packTime</span><span class="p">,</span> <span class="n">pendingPackage</span><span class="p">.</span><span class="n">root</span><span class="p">);</span>
+
+        <span class="n">pendingIndex</span> <span class="o">=</span> <span class="n">pendingPackage</span><span class="p">.</span><span class="n">packageIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">packages</span><span class="p">[</span><span class="n">pendingIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">Package</span><span class="p">(</span><span class="n">pendingIndex</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="k">new</span> <span class="kt">bytes32</span><span class="p">[](</span><span class="mi">0</span><span class="p">),</span> <span class="n">pendingPackage</span><span class="p">.</span><span class="n">packTime</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_computeLeaves</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_leaves</span><span class="p">)</span> <span class="k">pure</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_nextLeaves</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_leaves</span><span class="p">.</span><span class="n">length</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">_nextLeaves</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">bytes32</span><span class="p">[](</span><span class="n">_leaves</span><span class="p">.</span><span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+            <span class="kt">bytes32</span> <span class="n">computedHash</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">_leaves</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">computedHash</span> <span class="o">=</span> <span class="n">_hashPair</span><span class="p">(</span><span class="n">_leaves</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">_leaves</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+                <span class="n">_nextLeaves</span><span class="p">[</span><span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">computedHash</span><span class="p">;</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="kt">bytes32</span> <span class="n">lastLeaf</span> <span class="o">=</span> <span class="n">_leaves</span><span class="p">[</span><span class="n">_leaves</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+            <span class="n">_nextLeaves</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">bytes32</span><span class="p">[]((</span><span class="n">_leaves</span><span class="p">.</span><span class="n">length</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+            <span class="kt">bytes32</span> <span class="n">computedHash</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">_leaves</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">computedHash</span> <span class="o">=</span> <span class="n">_hashPair</span><span class="p">(</span><span class="n">_leaves</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">_leaves</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+                <span class="n">_nextLeaves</span><span class="p">[</span><span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">computedHash</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">_nextLeaves</span><span class="p">[</span><span class="n">_nextLeaves</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">lastLeaf</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_hashPair</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">a</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">b</span><span class="p">)</span> <span class="k">private</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span> <span class="o">?</span> <span class="n">_efficientHash</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">:</span> <span class="n">_efficientHash</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_efficientHash</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">a</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">b</span><span class="p">)</span> <span class="k">private</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">/// @solidity memory-safe-assembly
+</span>        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">:=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>External featrues:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PACK_INTERVAL</code>: The minimum time interval between two consecutive packing operations. If this interval is exceeded, a new packing operation can be initiated.</li>
+  <li><code class="language-plaintext highlighter-rouge">MAX_PACKAGE_MESSAGES</code>: Once <code class="language-plaintext highlighter-rouge">MAX_PACKAGE_MESSAGES</code> messages are collected, a packing operation is triggered immediately. This takes precedence over the <code class="language-plaintext highlighter-rouge">PACK_INTERVAL</code> setting.</li>
+</ul>
+
+<h3 id="receiveportsol"><code class="language-plaintext highlighter-rouge">ReceivePort.sol</code></h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/access/Ownable.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IReceivePort.sol"</span><span class="p">;</span>
+
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ReceivePort</span> <span class="k">is</span> <span class="n">IReceivePort</span><span class="p">,</span> <span class="n">Ownable</span> <span class="p">{</span>
+
+    <span class="c1">//fromChainId =&gt; packageIndex =&gt; root
+</span>    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint</span> <span class="o">=&gt;</span> <span class="k">mapping</span><span class="p">(</span><span class="kt">uint</span> <span class="o">=&gt;</span> <span class="kt">bytes32</span><span class="p">))</span> <span class="k">public</span> <span class="n">roots</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="k">function</span> <span class="n">receivePackages</span><span class="p">(</span><span class="n">Package</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">packages</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">packages</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Package</span> <span class="k">calldata</span> <span class="n">p</span> <span class="o">=</span> <span class="n">packages</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">fromChainId</span><span class="p">][</span><span class="n">p</span><span class="p">.</span><span class="n">packageIndex</span><span class="p">]</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ReceivePort::receivePackages: package already exist"</span><span class="p">);</span>
+            <span class="n">roots</span><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">fromChainId</span><span class="p">][</span><span class="n">p</span><span class="p">.</span><span class="n">packageIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">root</span><span class="p">;</span>
+
+            <span class="k">emit</span> <span class="n">PackageReceived</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">fromChainId</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">packageIndex</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">root</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getRoot</span><span class="p">(</span><span class="kt">uint</span> <span class="n">fromChainId</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">roots</span><span class="p">[</span><span class="n">fromChainId</span><span class="p">][</span><span class="n">packageIndex</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">verify</span><span class="p">(</span>
+        <span class="kt">uint</span> <span class="n">fromChainId</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">,</span>
+        <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">proof</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">msgHash</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">sender</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">leaf</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">msgHash</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">block</span><span class="p">.</span><span class="n">chainid</span><span class="p">)</span>
+        <span class="p">);</span>
+        <span class="k">return</span> <span class="n">_processProof</span><span class="p">(</span><span class="n">proof</span><span class="p">,</span> <span class="n">leaf</span><span class="p">)</span> <span class="o">==</span> <span class="n">roots</span><span class="p">[</span><span class="n">fromChainId</span><span class="p">][</span><span class="n">packageIndex</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_processProof</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">proof</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">leaf</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">computedHash</span> <span class="o">=</span> <span class="n">leaf</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">proof</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">computedHash</span> <span class="o">=</span> <span class="n">_hashPair</span><span class="p">(</span><span class="n">computedHash</span><span class="p">,</span> <span class="n">proof</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">computedHash</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_hashPair</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">a</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">b</span><span class="p">)</span> <span class="k">private</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span> <span class="o">?</span> <span class="n">_efficientHash</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">:</span> <span class="n">_efficientHash</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_efficientHash</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">a</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">b</span><span class="p">)</span> <span class="k">private</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">/// @solidity memory-safe-assembly
+</span>        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">:=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="bridgeexamplesol"><code class="language-plaintext highlighter-rouge">BridgeExample.sol</code></h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/IERC20.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./ISendPort.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./ReceivePort.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">BridgeExample</span> <span class="k">is</span> <span class="n">ReceivePort</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">SafeERC20</span> <span class="k">for</span> <span class="n">IERC20</span><span class="p">;</span>
+
+    <span class="n">ISendPort</span> <span class="k">public</span> <span class="n">sendPort</span><span class="p">;</span>
+
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">usedMsgHashes</span><span class="p">;</span>
+
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint</span> <span class="o">=&gt;</span> <span class="kt">address</span><span class="p">)</span> <span class="k">public</span> <span class="n">trustBridges</span><span class="p">;</span>
+
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">address</span><span class="p">)</span> <span class="k">public</span> <span class="n">crossPairs</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">sendPortAddr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sendPort</span> <span class="o">=</span> <span class="n">ISendPort</span><span class="p">(</span><span class="n">sendPortAddr</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">setTrustBridge</span><span class="p">(</span><span class="kt">uint</span> <span class="n">chainId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">bridge</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+        <span class="n">trustBridges</span><span class="p">[</span><span class="n">chainId</span><span class="p">]</span> <span class="o">=</span> <span class="n">bridge</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">setCrossPair</span><span class="p">(</span><span class="kt">address</span> <span class="n">fromTokenAddr</span><span class="p">,</span> <span class="kt">address</span> <span class="n">toTokenAddr</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+        <span class="n">crossPairs</span><span class="p">[</span><span class="n">fromTokenAddr</span><span class="p">]</span> <span class="o">=</span> <span class="n">toTokenAddr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getLeaves</span><span class="p">(</span><span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">start</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">num</span><span class="p">)</span> <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ISendPort</span><span class="p">.</span><span class="n">Package</span> <span class="k">memory</span> <span class="n">p</span> <span class="o">=</span> <span class="n">sendPort</span><span class="p">.</span><span class="n">getPackage</span><span class="p">(</span><span class="n">packageIndex</span><span class="p">);</span>
+        <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">bytes32</span><span class="p">[](</span><span class="n">num</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">leaves</span><span class="p">.</span><span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">leaves</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">start</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">transferTo</span><span class="p">(</span>
+        <span class="kt">uint</span> <span class="n">toChainId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">fromTokenAddr</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">receiver</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">msgHash</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">toChainId</span><span class="p">,</span> <span class="n">fromTokenAddr</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">receiver</span><span class="p">)</span>
+        <span class="p">);</span>
+        <span class="n">sendPort</span><span class="p">.</span><span class="n">addMsgHash</span><span class="p">(</span><span class="n">msgHash</span><span class="p">,</span> <span class="n">toChainId</span><span class="p">);</span>
+
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">fromTokenAddr</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span>
+        <span class="kt">uint</span> <span class="n">fromChainId</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">packageIndex</span><span class="p">,</span>
+        <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">proof</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">fromTokenAddr</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">receiver</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">msgHash</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">block</span><span class="p">.</span><span class="n">chainid</span><span class="p">,</span> <span class="n">fromTokenAddr</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">receiver</span><span class="p">)</span>
+        <span class="p">);</span>
+
+        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">usedMsgHashes</span><span class="p">[</span><span class="n">msgHash</span><span class="p">],</span> <span class="s">"transferFrom: Used msgHash"</span><span class="p">);</span>
+
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">verify</span><span class="p">(</span>
+                <span class="n">fromChainId</span><span class="p">,</span>
+                <span class="n">packageIndex</span><span class="p">,</span>
+                <span class="n">proof</span><span class="p">,</span>
+                <span class="n">msgHash</span><span class="p">,</span>
+                <span class="n">trustBridges</span><span class="p">[</span><span class="n">fromChainId</span><span class="p">]</span>
+            <span class="p">),</span>
+            <span class="s">"transferFrom: verify failed"</span>
+        <span class="p">);</span>
+
+        <span class="n">usedMsgHashes</span><span class="p">[</span><span class="n">msgHash</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+        <span class="kt">address</span> <span class="n">toTokenAddr</span> <span class="o">=</span> <span class="n">crossPairs</span><span class="p">[</span><span class="n">fromTokenAddr</span><span class="p">];</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">toTokenAddr</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"transferFrom: fromTokenAddr is not crossPair"</span><span class="p">);</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">toTokenAddr</span><span class="p">).</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">receiver</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Regarding competition and double spending among cross-chain bridges:</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">SendPort</code> is responsible for one task: packing the messages to be cross-chain transferred. The transmission and verification of messages are implemented independently by each cross-chain bridge project. The objective is to ensure that the cross-chain messages obtained by different cross-chain bridges on the source chain are consistent. Therefore, there is no need for competition among cross-chain bridges for the right to transport or validate roots. Each bridge operates independently. If a cross-chain bridge has bugs in its implementation, it poses a risk to itself but does not affect other cross-chain bridges.</p>
+
+<p><strong>Suggestions</strong>:</p>
+
+<ol>
+  <li>Don’t let <code class="language-plaintext highlighter-rouge">IReceivePort.receivePackages()</code> be called by anyone.</li>
+  <li>When performing verification, store the verified <code class="language-plaintext highlighter-rouge">msgHash</code> to avoid double spending during subsequent verifications.</li>
+  <li>Don’t trust all senders in the MerkleTree.</li>
+</ol>
+
+<p>Regarding the forgery of cross-chain messages:</p>
+
+<p>Since the <code class="language-plaintext highlighter-rouge">SendPort</code> is a public contract without usage restrictions, anyone can send arbitrary cross-chain messages to it. The <code class="language-plaintext highlighter-rouge">SendPort</code> includes the <code class="language-plaintext highlighter-rouge">msg.sender</code> in the packing process. If a hacker attempts to forge a cross-chain message, the hacker’s address will be included in the packing along with the forged message. During verification, the hacker’s address can be identified. This is why it is suggested to not trust all senders in the MerkleTree.</p>
+
+<p>Regarding the sequnce of messages:</p>
+
+<p>While the <code class="language-plaintext highlighter-rouge">SendPort</code> sorts received cross-chain messages by time, there is no guarantee of sequnce during verification. For example, if a user performs a cross-chain transfer of 10 ETH and then 20 USDT, on the target chain, he may withdraw the 20 USDT first and then the 10 ETH, or vice versa. The specific sequnce depends on the implementation of the <code class="language-plaintext highlighter-rouge">IReceivePort</code>.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

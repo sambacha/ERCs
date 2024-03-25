@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Compressed Integers | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Compressed Integers | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-3772" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-3772" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Compressed Integers</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This document specifies compression of <code class="language-plaintext highlighter-rouge">uint256</code> to smaller data structures like <code class="language-plaintext highlighter-rouge">uint64</code>, <code class="language-plaintext highlighter-rouge">uint96</code>, <code class="language-plaintext highlighter-rouge">uint128</code>, for optimizing costs for storage. The smaller data structure (represented as <code class="language-plaintext highlighter-rouge">cintx</code>) is divided into two parts, in the first one we store <code class="language-plaintext highlighter-rouge">significant</code> bits and in the other number of left <code class="language-plaintext highlighter-rouge">shift</code>s needed on the significant bits to decompress. This document also includes two specifications for decompression due to the nature of compression being lossy, i.e. it causes underflow.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<ul>
+  <li>Storage is costly, each storage slot costs almost $0.8 to initialize and $0.2 to update (20 gwei, 2000 ETHUSD).</li>
+  <li>Usually, we store money amounts in <code class="language-plaintext highlighter-rouge">uint256</code> which takes up one entire slot.</li>
+  <li>If it’s DAI value, the range we work with most is 0.001 DAI to 1T DAI (or 10<sup>12</sup>). If it’s ETH value, the range we work with most is 0.000001 ETH to 1B ETH. Similarly, any token of any scale has a reasonable range of 10<sup>15</sup> amounts that we care/work with.</li>
+  <li>However, uint256 type allows us to represent $10<sup>-18</sup> to $10<sup>58</sup>, and most of it is a waste. In technical terms, we have the probability distribution for values larger than $10<sup>15</sup> and smaller than $10<sup>-3</sup> as negligible (i.e. P[val &gt; 10<sup>15</sup>] ≈ 0 and P[val &lt; 10<sup>-3</sup>] ≈ 0).</li>
+  <li>Number of bits required to represent 10<sup>15</sup> values = log<sub>2</sub>(10<sup>15</sup>) = 50 bits. So just 50 bits (instead of 256) are reasonably enough to represent a practical range of money, causing a very negligible difference.</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>In this specification, the structure for representing a compressed value is represented using <code class="language-plaintext highlighter-rouge">cintx</code>, where x is the number of bits taken by the entire compressed value. On the implementation level, an <code class="language-plaintext highlighter-rouge">uintx</code> can be used for storing a <code class="language-plaintext highlighter-rouge">cintx</code> value.</p>
+
+<h3 id="compression">Compression</h3>
+
+<h4 id="uint256-into-cint64-up-to-cint120">uint256 into cint64 (up to cint120)</h4>
+
+<p>The rightmost, or least significant, 8 bits in <code class="language-plaintext highlighter-rouge">cintx</code> are reserved for storing the shift and the rest available bits are used to store the significant bits starting from the first <code class="language-plaintext highlighter-rouge">1</code> bit in <code class="language-plaintext highlighter-rouge">uintx</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">cint64</span> <span class="p">{</span> <span class="kt">uint56</span> <span class="n">significant</span><span class="p">;</span> <span class="kt">uint8</span> <span class="n">shift</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c1">// ...
+</span>
+<span class="k">struct</span> <span class="n">cint120</span> <span class="p">{</span> <span class="kt">uint112</span> <span class="n">significant</span><span class="p">;</span> <span class="kt">uint8</span> <span class="n">shift</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="uint256-into-cint128-up-to-cint248">uint256 into cint128 (up to cint248)</h4>
+
+<p>The rightmost, or least significant, 7 bits in <code class="language-plaintext highlighter-rouge">cintx</code> are reserved for storing the shift and the rest available bits are used to store the significant bits starting from the first one bit in <code class="language-plaintext highlighter-rouge">uintx</code>.</p>
+
+<blockquote>
+  <p>In the following code example, <code class="language-plaintext highlighter-rouge">uint7</code> is used just for representation purposes only, but it should be noted that uints in Solidity are in multiples of 8.</p>
+</blockquote>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">cint128</span> <span class="p">{</span> <span class="kt">uint121</span> <span class="n">significant</span><span class="p">;</span> <span class="kt">uint7</span> <span class="n">shift</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c1">// ...
+</span>
+<span class="k">struct</span> <span class="n">cint248</span> <span class="p">{</span> <span class="kt">uint241</span> <span class="n">significant</span><span class="p">;</span> <span class="kt">uint7</span> <span class="n">shift</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Example:
+uint256 value: 2**100, binary repr: 1000000...(hundred zeros)
+cint64 { significant: 10000000...(55 zeros), shift: 00101101 (45 in decimal)}
+
+Example:
+uint256 value: 2**100-1, binary repr: 111111...(hundred ones)
+cint64 { significant: 11111111...(56 ones), shift: 00101100 (44 in decimal) }
+</code></pre></div></div>
+
+<h3 id="decompression">Decompression</h3>
+
+<p>Two decompression methods are defined: a normal <code class="language-plaintext highlighter-rouge">decompress</code> and a <code class="language-plaintext highlighter-rouge">decompressRoundingUp</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">library</span> <span class="n">CInt64</span> <span class="p">{</span>
+    <span class="c1">// packs the uint256 amount into a cint64
+</span>    <span class="k">function</span> <span class="n">compress</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="n">cint64</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="c1">// unpacks cint64, by shifting the significant bits left by shift
+</span>    <span class="k">function</span> <span class="n">decompress</span><span class="p">(</span><span class="n">cint64</span><span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="c1">// unpacks cint64, by shifting the significant bits left by shift
+</span>    <span class="c1">// and having 1s in the shift bits
+</span>    <span class="k">function</span> <span class="n">decompressRoundingUp</span><span class="p">(</span><span class="n">cint64</span><span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="normal-decompression">Normal Decompression</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">significant</code> bits in the <code class="language-plaintext highlighter-rouge">cintx</code> are moved to a <code class="language-plaintext highlighter-rouge">uint256</code> space and shifted left by <code class="language-plaintext highlighter-rouge">shift</code>.</p>
+
+<blockquote>
+  <p>NOTE: In the following example, cint16 is used for visual demonstration purposes. But it should be noted that it is definitely not safe for storing money amounts because its significant bits capacity is 8, while at least 50 bits are required for storing money amounts.</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Example:
+cint16{significant:11010111, shift:00000011}
+decompressed uint256: 11010111000 // shifted left by 3
+
+Example:
+cint64 { significant: 11111111...(56 ones), shift: 00101100 (44 in decimal) }
+decompressed uint256: 1111...(56 ones)0000...(44 zeros)
+</code></pre></div></div>
+
+<h4 id="decompression-along-with-rounding-up">Decompression along with rounding up</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">significant</code> bits in the <code class="language-plaintext highlighter-rouge">cintx</code> are moved to a <code class="language-plaintext highlighter-rouge">uint256</code> space and shifted left by <code class="language-plaintext highlighter-rouge">shift</code> and the least significant <code class="language-plaintext highlighter-rouge">shift</code> bits are <code class="language-plaintext highlighter-rouge">1</code>s.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Example:
+cint16{significant:11011110, shift:00000011}
+decompressed rounded up value: 11011110111 // shifted left by 3 and 1s instead of 0s
+
+Example:
+cint64 { significant: 11111111...(56 ones), shift: 00101100 (44 in decimal) }
+decompressed uint256: 1111...(100 ones)
+</code></pre></div></div>
+
+<p>This specification is to be used by a new smart contract for managing its internal state so that any state mutating calls to it can be cheaper. These compressed values on a smart contract’s state are something that should not be exposed to the external world (other smart contracts or clients). A smart contract should expose a decompressed value if needed.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">significant</code> bits are stored in the most significant part of <code class="language-plaintext highlighter-rouge">cintx</code> while <code class="language-plaintext highlighter-rouge">shift</code> bits in the least significant part, to help prevent obvious dev mistakes. For e.g. a number smaller than 2<sup>56</sup>-1 its compressed <code class="language-plaintext highlighter-rouge">cint64</code> value would be itself if the arrangement were to be opposite than specified. If a developer forgets to uncompress a value before using it, this case would still pass if the compressed value is the same as decompressed value.</li>
+  <li>It should be noted that using <code class="language-plaintext highlighter-rouge">cint64</code> doesn’t render gas savings automatically. The solidity compiler needs to pack more data into the same storage slot.</li>
+  <li>Also the packing and unpacking adds some small cost too.</li>
+  <li>Though this design can also be seen as a binary floating point representation, however using floating point numbers on EVM is not in the scope of this ERC. The primary goal of floating point numbers is to be able to represent a wider range in an available number of bits, while the goal of compression in this ERC is to keep as much precision as possible. Hence, it specifies for the use of minimum exponent/shift bits (i.e 8 up to <code class="language-plaintext highlighter-rouge">uint120</code> and 7 up to <code class="language-plaintext highlighter-rouge">uint248</code>).</li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// uses 3 slots
+</span><span class="k">struct</span> <span class="n">UserData1</span> <span class="p">{</span>
+    <span class="kt">uint64</span> <span class="n">amountCompressed</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="n">hash</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">beneficiary</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// uses 2 slots
+</span><span class="k">struct</span> <span class="n">UserData2</span> <span class="p">{</span>
+    <span class="kt">uint64</span> <span class="n">amountCompressed</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">beneficiary</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="n">hash</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>There are no known backward-incompatible issues.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>On the implementation level <code class="language-plaintext highlighter-rouge">uint64</code> may be used directly, or with custom types introduced in 0.8.9.</p>
+
+<pre><code class="language-soldity">function compress(uint256 full) public pure returns (uint64 cint) {
+    uint8 bits = mostSignificantBitPosition(full);
+    if (bits &lt;= 55) {
+        cint = uint64(full) &lt;&lt; 8;
+    } else {
+        bits -= 55;
+        cint = (uint64(full &gt;&gt; bits) &lt;&lt; 8) + bits;
+    }
+}
+
+function decompress(uint64 cint) public pure returns (uint256 full) {
+    uint8 bits = uint8(cint % (1 &lt;&lt; 9));
+    full = uint256(cint &gt;&gt; 8) &lt;&lt; bits;
+}
+
+function decompressRoundingUp(uint64 cint) public pure returns (uint256 full) {
+    uint8 bits = uint8(cint % (1 &lt;&lt; 9));
+    full = uint256(cint &gt;&gt; 8) &lt;&lt; bits + ((1 &lt;&lt; bits) - 1);
+}
+</code></pre>
+
+<p>The above gist has <code class="language-plaintext highlighter-rouge">library CInt64</code> that contains demonstrative logic for compression, decompression, and arithmetic for <code class="language-plaintext highlighter-rouge">cint64</code>. The gist also has an example contract that uses the library for demonstration purposes.</p>
+
+<p>The CInt64 format is intended only for storage, while dev should convert it to uint256 form using suitable logic (decompress or decompressRoundingUp) to perform any arithmetic on it.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The following security considerations are discussed:</p>
+
+<ol>
+  <li>Effects due to lossy compression
+    <ul>
+      <li>Error estimation for <code class="language-plaintext highlighter-rouge">cint64</code></li>
+      <li>Handling the error</li>
+    </ul>
+  </li>
+  <li>Losing precision due to incorrect use of <code class="language-plaintext highlighter-rouge">cintx</code></li>
+  <li>Compressing something other than money <code class="language-plaintext highlighter-rouge">uint256</code>s.</li>
+</ol>
+
+<h3 id="1-effects-due-to-lossy-compression">1. Effects due to lossy compression</h3>
+
+<p>When a value is compressed, it causes underflow, i.e. some less significant bits are sacrificed. This results in a <code class="language-plaintext highlighter-rouge">cintx</code> value whose decompressed value is less than or equal to the actual <code class="language-plaintext highlighter-rouge">uint256</code> value.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">uint</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">100</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 100 # of 1s in binary format
+</span><span class="kt">uint</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">compress</span><span class="p">().</span><span class="n">decompress</span><span class="p">();</span>
+
+<span class="n">a</span> <span class="o">&gt;</span> <span class="n">c</span><span class="p">;</span> <span class="c1">// true
+</span><span class="n">a</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="mi">56</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">c</span><span class="p">;</span> <span class="c1">// true
+</span>
+<span class="c1">// Visual example:
+// before: 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+// after:  1111111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000
+</span></code></pre></div></div>
+
+<h4 id="error-estimation-for-cint64">Error estimation for cint64</h4>
+
+<p>Let’s consider we have a <code class="language-plaintext highlighter-rouge">value</code> of the order 2<sup>m</sup> (less than 2<sup>m</sup> and greater than or equal to 2<sup>m-1</sup>).</p>
+
+<p>For all values such that 2<sup>m</sup> - 1 - (2<sup>m-56</sup> - 1) &lt;= <code class="language-plaintext highlighter-rouge">value</code> &lt;= 2<sup>m</sup> - 1, the compressed value <code class="language-plaintext highlighter-rouge">cvalue</code> is 2<sup>m</sup> - 1 - (2<sup>m-56</sup> - 1).</p>
+
+<p>The maximum error is 2<sup>m-56</sup> - 1, approximating it to decimal: 10<sup>n-17</sup> (log<sub>2</sub>(56) is 17). Here <code class="language-plaintext highlighter-rouge">n</code> is number of decimal digits + 1.</p>
+
+<p>For e.g. compressing a value of the order $1,000,000,000,000 (or 1T or 10<sup>12</sup>) to <code class="language-plaintext highlighter-rouge">cint64</code>, the maximum error turns out to be 10<sup>12+1-17</sup> = $10<sup>-4</sup> = $0.0001. This means the precision after 4 decimal places is lost, or we can say that the uncompressed value is at maximum $0.0001 smaller. Similarly, if someone is storing $1,000,000 into <code class="language-plaintext highlighter-rouge">cint64</code>, the uncompressed value would be at maximum $0.0000000001 smaller. In comparison, the storage costs are almost $0.8 to initialize and $0.2 to update (20 gwei, 2000 ETHUSD).</p>
+
+<h4 id="handling-the-error">Handling the error</h4>
+
+<p>Note that compression makes the value slightly smaller (underflow). But we also have another operation that also does that. In integer math, the division is a lossy operation (causing underflow). For instance,</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">10000001</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">5000000</span> <span class="c1">// true
+</span></code></pre></div></div>
+
+<p>The result of the division operation is not always exact, but it’s smaller than the actual value, in some cases as in the above example. Though, most engineers try to reduce this effect by doing all the divisions at the end.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1001 / 2 * 301 == 150500 // true
+1001 * 301 / 2 == 150650 // true
+</code></pre></div></div>
+
+<p>The division operation has been in use in the wild, and plenty of lossy integer divisions have taken place, causing DeFi users to get very very slightly less withdrawal amounts, which they don’t even notice. If been careful, then the risk is very negligible. Compression is similar, in the sense that it is also a division by 2<sup>shift</sup>. If been careful with this too, the effects are minimized.</p>
+
+<p>In general, one should follow the rule:</p>
+
+<ol>
+  <li>When a smart contract has to transfer a compressed amount to a user, they should use a rounded down value (by using <code class="language-plaintext highlighter-rouge">amount.decompress()</code>).</li>
+  <li>When a smart contract has to transferFrom a compressed amount from a user to itself, i.e charging for some bill, they should use a rounded up value (by using <code class="language-plaintext highlighter-rouge">amount.decompressUp()</code>).</li>
+</ol>
+
+<p>The above ensures that smart contract does not loose money due to the compression, it is the user who receives less funds or pays more funds. The extent of rounding is something that is negligible enough for the user. Also just to mention, this rounding up and down pattern is observed in many projects including UniswapV3.</p>
+
+<h3 id="2-losing-precision-due-to-incorrect-use-of-cintx">2. Losing precision due to incorrect use of <code class="language-plaintext highlighter-rouge">cintx</code></h3>
+
+<p>This is an example where dev errors while using compression can be a problem.</p>
+
+<p>Usual user amounts mostly have an max entropy of 50, i.e. 10<sup>15</sup> (or 2<sup>50</sup>) values in use, that is the reason why we find uint56 enough for storing significant bits. However, let’s see an example:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">uint64</span> <span class="n">sharesC</span> <span class="o">=</span> <span class="c1">// reading compressed value from storage;
+</span><span class="kt">uint64</span> <span class="n">price</span> <span class="o">=</span> <span class="c1">// CALL;
+</span><span class="kt">uint64</span> <span class="n">amountC</span> <span class="o">=</span> <span class="n">sharesC</span><span class="p">.</span><span class="n">cmuldiv</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="n">PRICE_UNIT</span><span class="p">);</span>
+<span class="n">user</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">amountC</span><span class="p">.</span><span class="n">uncompress</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>The above code results in a serious precision loss. <code class="language-plaintext highlighter-rouge">sharesC</code> has an entropy of 50, as well as <code class="language-plaintext highlighter-rouge">priceC</code> also has an entropy of 50. When we multiply them, we get a value that contains entropies of both, and hence, an entropy of 100. After multiplication is done, <code class="language-plaintext highlighter-rouge">cmul</code> compresses the value, which drops the entropy of <code class="language-plaintext highlighter-rouge">amountC</code> to 56 (as we have uint56 there to store significant bits).</p>
+
+<p>To prevent entropy/precision from dropping, we get out from compression.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">uint64</span> <span class="n">sharesC</span> <span class="o">=</span> <span class="n">shares</span><span class="p">.</span><span class="n">compress</span><span class="p">();</span>
+<span class="kt">uint64</span> <span class="n">priceC</span> <span class="o">=</span> <span class="n">price</span><span class="p">.</span><span class="n">compress</span><span class="p">();</span>
+<span class="kt">uint256</span> <span class="n">amount</span> <span class="o">=</span> <span class="n">sharesC</span><span class="p">.</span><span class="n">uncompress</span><span class="p">()</span> <span class="o">*</span> <span class="n">price</span> <span class="o">/</span> <span class="n">PRICE_UNIT</span><span class="p">;</span>
+<span class="n">user</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Compression is only useful when writing to storage while doing arithmetic with them should be done very carefully.</p>
+
+<h3 id="3-compressing-something-other-than-money-uint256s">3. Compressing something other than money <code class="language-plaintext highlighter-rouge">uint256</code>s.</h3>
+
+<p>Compressed Integers is intended to only compress money amount. Technically there are about 10<sup>77</sup> values that a <code class="language-plaintext highlighter-rouge">uint256</code> can store but most of those values have a flat distribution i.e. the probability is 0 or extremely negligible. (What is a probability that a user would be depositing 1000T DAI or 1T ETH to a contract? In normal circumstances it doesn’t happen, unless someone has full access to the mint function). Only the amounts that people work with have a non-zero distribution ($0.001 DAI to $1T or 10<sup>15</sup> to 10<sup>30</sup> in uint256). 50 bits are enough to represent this information, just to round it we use 56 bits for precision.</p>
+
+<p>Using the same method for compressing something else which have a completely different probability distribution will likely result in a problem. It’s best to just not compress if you’re not sure about the distribution of values your <code class="language-plaintext highlighter-rouge">uint256</code> is going to take. And also, for things you think you are sure about using compression for, it’s better to give more thought if compression can result in edge cases (e.g. in previous multiplication example).</p>
+
+<h3 id="4-compressing-stable-vs-volatile-money-amounts">4. Compressing Stable vs Volatile money amounts</h3>
+
+<p>Since we have a dynamic <code class="language-plaintext highlighter-rouge">uint8 shift</code> value that can move around. So even if you wanted to represent 1 Million SHIBA INU tokens or 0.0002 WBTC (both $10 as of this writing), cint64 will pick its top 56 significant bits which will take care of the value representation.</p>
+
+<p>It can be a problem for volatile tokens if the coin is extremely volatile wrt user’s native currency. Imagine a very unlikely case where a coin goes 2<sup>56</sup>x up (price went up by 10<sup>16</sup> lol). In such cases <code class="language-plaintext highlighter-rouge">uint56</code> might not be enough as even its least significant bit is very valuable. If such insanely volatile tokens are to be stored, you should store more significant bits, i.e. using <code class="language-plaintext highlighter-rouge">cint96</code> or <code class="language-plaintext highlighter-rouge">cint128</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">cint64</code> has 56 bits for storing significant, when only 50 were required. Hence there are 6 extra bits, which means that it is fine if the $ value of the cryptocurrency stored in cint64 increases by 2<sup>6</sup> or 64x. If the value goes down it’s not a problem.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

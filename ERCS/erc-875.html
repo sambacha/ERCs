@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Simpler NFT standard with batching and native atomic swaps | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Simpler NFT standard with batching and native atomic swaps | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-875" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-875" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Simpler NFT standard with batching and native atomic swaps</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="summary">Summary</h2>
+<p>A simple non fungible token standard that allows batching tokens into lots and settling p2p atomic transfers in one transaction. You can test out an example implementation on rinkeby here: https://rinkeby.etherscan.io/address/0xffab5ce7c012bc942f5ca0cd42c3c2e1ae5f0005 and view the repo here: https://github.com/alpha-wallet/ERC-Example</p>
+
+<h2 id="purpose">Purpose</h2>
+<p>While other standards allow the user to transfer a non-fungible token, they require one transaction per token, this is heavy on gas and partially responsible for clogging the ethereum network. There are also few definitions for how to do a simple atomic swap.</p>
+
+<h2 id="rinkeby-example">Rinkeby example</h2>
+<p>This standard has been implemented in an example contract on rinkeby: https://rinkeby.etherscan.io/address/0xffab5ce7c012bc942f5ca0cd42c3c2e1ae5f0005</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="function-name-constant-returns-string-name">function name() constant returns (string name)</h3>
+
+<p>returns the name of the contract e.g. CarLotContract</p>
+
+<h3 id="function-symbol-constant-returns-string-symbol">function symbol() constant returns (string symbol)</h3>
+
+<p>Returns a short string of the symbol of the in-fungible token, this should be short and generic as each token is non-fungible.</p>
+
+<h3 id="function-balanceofaddress-_owner-public-view-returns-uint256-balance">function balanceOf(address _owner) public view returns (uint256[] balance)</h3>
+
+<p>Returns an array of the users balance.</p>
+
+<h3 id="function-transferaddress-_to-uint256-_tokens-public">function transfer(address _to, uint256[] _tokens) public;</h3>
+
+<p>Transfer your unique tokens to an address by adding an array of the token indices. This compares favourable to ERC721 as you can transfer a bulk of tokens in one go rather than one at a time. This has a big gas saving as well as being more convenient.</p>
+
+<h3 id="function-transferfromaddress-_from-address-_to-uint256-_tokens-public">function transferFrom(address _from, address _to, uint256[] _tokens) public;</h3>
+
+<p>Transfer a variable amount of tokens from one user to another. This can be done from an authorised party with a specified key e.g. contract owner.</p>
+
+<h2 id="optional-functions">Optional functions</h2>
+
+<h3 id="function-totalsupply-constant-returns-uint256-totalsupply">function totalSupply() constant returns (uint256 totalSupply);</h3>
+
+<p>Returns the total amount of tokens in the given contract, this should be optional as assets might be allocated and issued on the fly. This means that supply is not always fixed.</p>
+
+<h3 id="function-ownerofuint256-_tokenid-public-view-returns-address-_owner">function ownerOf(uint256 _tokenId) public view returns (address _owner);</h3>
+
+<p>Returns the owner of a particular token, I think this should be optional as not every token contract will need to track the owner of a unique token and it costs gas to loop and map the token id owners each time the balances change.</p>
+
+<h3 id="function-tradeuint256-expirytimestamp-uint256-tokenindices-uint8-v-bytes32-r-bytes32-s-public-payable">function trade(uint256 expiryTimeStamp, uint256[] tokenIndices, uint8 v, bytes32 r, bytes32 s) public payable</h3>
+
+<p>A function which allows a user to sell a batch of non-fungible tokens without paying for the gas fee (only the buyer has to) in a p2p atomic swap. This is achieved by signing an attestation containing the amount of tokens to sell, the contract address, an expiry timestamp, the price and a prefix containing the ERC spec name and chain id. A buyer can then pay for the deal in one transaction by attaching the appropriate ether to satisfy the deal.</p>
+
+<p>This design is also more efficient as it allows orders to be done offline until settlement as opposed to creating orders in a smart contract and updating them. The expiry timestamp protects the seller against people using old orders.</p>
+
+<p>This opens up the gates for a p2p atomic swap but should be optional to this standard as some may not have use for it.</p>
+
+<p>Some protections need to be added to the message such as encoding the chain id, contract address and the ERC spec name to prevent replays and spoofing people into signing message that allow a trade.</p>
+
+<h2 id="interface">Interface</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">ERC165</span> 
+<span class="p">{</span>
+            <span class="c1">/// @notice Query if a contract implements an interface
+</span>            <span class="c1">/// @param interfaceID The interface identifier, as specified in ERC-165
+</span>            <span class="c1">/// @dev Interface identification is specified in ERC-165. This function
+</span>            <span class="c1">///  uses less than 30,000 gas.
+</span>            <span class="c1">/// @return `true` if the contract implements `interfaceID` and
+</span>            <span class="c1">///  `interfaceID` is not 0xffffffff, `false` otherwise
+</span>            <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">ERC875</span> <span class="cm">/* is ERC165 */</span>
+<span class="p">{</span>
+  <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="n">tokenIndices</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="k">constant</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">symbol</span><span class="p">()</span> <span class="k">constant</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="n">symbol</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="n">_balances</span><span class="p">);</span>
+  <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="n">_tokens</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="n">_tokens</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//If you want the standard functions with atomic swap trading added
+</span><span class="k">interface</span> <span class="n">ERC875WithAtomicSwapTrading</span> <span class="k">is</span> <span class="n">ERC875</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">trade</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">expiryTimeStamp</span><span class="p">,</span> 
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="n">tokenIndices</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> 
+        <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> 
+        <span class="kt">bytes32</span> <span class="n">s</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">payable</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="example-implementation">Example implementation</h2>
+
+<p>Please visit this <a href="https://github.com/alpha-wallet/ERC875">repo</a> to see an example implementation</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

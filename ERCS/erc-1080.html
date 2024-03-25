@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Recoverable Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Recoverable Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1080" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1080" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Recoverable Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A standard interface for tokens that support chargebacks, theft prevention, and lost &amp; found resolutions.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>The following standard allows for the implementation of a standard API for tokens extending ERC-20 or ERC-791. This standard provides basic functionality to recover stolen or lost accounts, as well as provide for the chargeback of tokens.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>To mitigate the effects of reasonably provable token or asset loss or theft and to help resolve other conflicts. Ethereum’s protocol should not be modified because of loss, theft, or conflicts, but it is possible to solve these problems in the smart contract layer.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h2 id="recoverabletoken">RecoverableToken</h2>
+
+<h3 id="methods">Methods</h3>
+
+<h4 id="claimlost">claimLost</h4>
+
+<p>Reports the <code class="language-plaintext highlighter-rouge">lostAccount</code> address as being lost. MUST trigger the <code class="language-plaintext highlighter-rouge">AccountClaimedLost</code> event.</p>
+
+<p>After the time configured in <code class="language-plaintext highlighter-rouge">getLostAccountRecoveryTimeInMinutes</code> the implementer MUST provide a mechanism for determining the correct owner of the tokens held and moving the tokens to a new account.</p>
+
+<p>Account recoveries must trigger the <code class="language-plaintext highlighter-rouge">AccountRecovered</code> event.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">claimLost</span><span class="p">(</span><span class="nx">address</span> <span class="nx">lostAccount</span><span class="p">)</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span> <span class="nx">success</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="cancellostclaim">cancelLostClaim</h4>
+
+<p>Reports the <code class="language-plaintext highlighter-rouge">msg.sender</code>’s account as being not being lost. MUST trigger the <code class="language-plaintext highlighter-rouge">AccountClaimedLostCanceled</code> event.</p>
+
+<p>MUST fail if an account recovery process has already begun.</p>
+
+<p>Otherwise, this method MUST stop a dispute from being started to recover funds.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">claimLost</span><span class="p">()</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span> <span class="nx">success</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="reportstolen">reportStolen</h4>
+
+<p>Reports the current address as being stolen. MUST trigger the <code class="language-plaintext highlighter-rouge">AccountFrozen</code> event.
+Successful calls MUST result in the <code class="language-plaintext highlighter-rouge">msg.sender</code>’s tokens being frozen.</p>
+
+<p>The implementer MUST provide a mechanism for determining the correct owner of the tokens held and moving the tokens to a new account.</p>
+
+<p>Account recoveries must trigger the <code class="language-plaintext highlighter-rouge">AccountRecovered</code> event.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">reportStolen</span><span class="p">()</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span> <span class="nx">success</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="chargeback">chargeback</h4>
+
+<p>Requests a reversal of transfer on behalf of <code class="language-plaintext highlighter-rouge">msg.sender</code>.</p>
+
+<p>The implementer MUST provide a mechanism for determining the correct owner of the tokens disputed and moving the tokens to the correct account.</p>
+
+<p>MUST comply with sender’s chargeback window as value configured by <code class="language-plaintext highlighter-rouge">setPendingTransferTimeInMinutes</code>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">chargeback</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">pendingTransferNumber</span><span class="p">)</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span> <span class="nx">success</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="getpendingtransfertimeinminutes">getPendingTransferTimeInMinutes</h4>
+
+<p>Get the time an account has to chargeback a transfer.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">getPendingTransferTime</span><span class="p">(</span><span class="nx">address</span> <span class="nx">account</span><span class="p">)</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">uint256</span> <span class="nx">minutes</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="setpendingtransfertimeinminutes">setPendingTransferTimeInMinutes</h4>
+
+<p>Sets the time <code class="language-plaintext highlighter-rouge">msg.sender</code>’s account has to chargeback a transfer.</p>
+
+<p>MUST NOT change the time if the account has any pending transfers.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">setPendingTransferTime</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">minutes</span><span class="p">)</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span> <span class="nx">success</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="getlostaccountrecoverytimeinminutes">getLostAccountRecoveryTimeInMinutes</h4>
+
+<p>Get the time account has to wait before a lost account dispute can start.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">getLostAccountRecoveryTimeInMinutes</span><span class="p">(</span><span class="nx">address</span> <span class="nx">account</span><span class="p">)</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">uint256</span> <span class="nx">minutes</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="setlostaccountrecoverytimeinminutes">setLostAccountRecoveryTimeInMinutes</h4>
+
+<p>Sets the time <code class="language-plaintext highlighter-rouge">msg.sender</code>’s account has to sit before a lost account dispute can start.</p>
+
+<p>MUST NOT change the time if the account has open disputes.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">setLostAccountRecoveryTimeInMinutes</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">minutes</span><span class="p">)</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span> <span class="nx">success</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="events">Events</h3>
+
+<h4 id="accountrecovered">AccountRecovered</h4>
+
+<p>The recovery of an account that was lost or stolen.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">event</span> <span class="nx">AccountClaimedLost</span><span class="p">(</span><span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">account</span><span class="p">,</span> <span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">newAccount</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="accountclaimedlostcanceled">AccountClaimedLostCanceled</h4>
+
+<p>An account claimed as being lost.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">event</span> <span class="nx">AccountClaimedLost</span><span class="p">(</span><span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">account</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="accountclaimedlost">AccountClaimedLost</h4>
+
+<p>An account claimed as being lost.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">event</span> <span class="nx">AccountClaimedLost</span><span class="p">(</span><span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">account</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="pendingtransfer">PendingTransfer</h4>
+
+<p>A record of a transfer pending.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">event</span> <span class="nx">PendingTransfer</span><span class="p">(</span><span class="nx">address</span> <span class="nx">indexed</span> <span class="k">from</span><span class="p">,</span> <span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">to</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">pendingTransferNumber</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="chargebackrequested">ChargebackRequested</h4>
+
+<p>A record of a chargeback being requested.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">event</span> <span class="nx">ChargebackRequested</span><span class="p">(</span><span class="nx">address</span> <span class="nx">indexed</span> <span class="k">from</span><span class="p">,</span> <span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">to</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">pendingTransferNumber</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="chargeback-1">Chargeback</h4>
+
+<p>A record of a transfer being reversed.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">event</span> <span class="nx">Chargeback</span><span class="p">(</span><span class="nx">address</span> <span class="nx">indexed</span> <span class="k">from</span><span class="p">,</span> <span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">to</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">indexed</span> <span class="nx">pendingTransferNumber</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="accountfrozen">AccountFrozen</h4>
+
+<p>A record of an account being frozen. MUST trigger when an account is frozen.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">event</span> <span class="nx">AccountFrozen</span><span class="p">(</span><span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">reported</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<ul>
+  <li>A recoverable token standard can provide configurable safety for users or contracts who desire this safety.</li>
+  <li>Implementations of this standard will give users the ability to select a dispute resolution process on an opt-in basis and benefit the community by decreasing the necessity of consideration of token recovery actions.</li>
+</ul>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>Pending.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

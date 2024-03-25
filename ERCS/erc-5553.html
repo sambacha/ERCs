@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Representing IP and its Royalty Structure | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Representing IP and its Royalty Structure | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5553" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5553" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Representing IP and its Royalty Structure</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+<p>This proposal introduces a generic way to represent intellectual property on chain, along with a refined royalty representation mechanism and associated metadata link. This standard is not associated with a specific type of IP and could represent many types of IP, such as musical IP, videos, books, images, and more.
+The standard is kept very generic to allow the industry to evolve new ecosystems that can all rely on the same basic standard at their core.</p>
+
+<p>This standard allows market participants to:
+1) Observe the canonical on-chain representation of an intellectual property
+2) Discover its attached metadata
+3) Discover its related royalty structure
+4) This will enable building registration, licensing, and payout mechanisms for intellectual property assets in the future.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There is no accepted standard mechanism to license intellectual property or to represent it, except using traditional NFTs. However, regular NFTs only represent a collectible item use case and cannot easily represent more complicated use cases of licensing IP for different types of uses.
+We can enable such licensing mechanisms if we can:</p>
+
+<p>1) Declare that IP exists, SEPARATELY from its purchase ability
+2) Declare possibly multiple interested parties to be paid for such IP</p>
+
+<p>For 1, no standard exists today.</p>
+
+<p>For 2, traditional split standards exist based on NFT purchases or through mechanisms like 0xsplits. While these solve the main problem, they do not contain the ability to name multiple types of collaboration participants.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p><strong>contracts that want to represent IP on chain MUST implement <a href="./eip-721.md">EIP-721</a> AND this Proposal</strong></p>
+
+<p>This standard extends <a href="./eip-721.md">EIP-721</a> with the following <code class="language-plaintext highlighter-rouge">IIPRepresentation</code> (IPR for short) interface.
+Implementers of this standard <strong>MUST</strong> have all of the following functions:</p>
+
+<h3 id="royaltyportiontokens-function">royaltyPortionTokens() function</h3>
+<p>This function MUST return an array of addresses related to <a href="./eip-20.md">EIP-20</a> tokens that MUST represent royalty portions to different types of interested parties. These royalty portion tokens represent a more granular and streamlined way to declare royalty splits for multiple collaboration participants for the creation of the IP.</p>
+
+<p>For example, for a musical IP, we might have two tokens representing the composition/writing/publishing royalty portion side and the recording/master side. These royalty portion tokens are distributed to the collaboration participants and can later be queried by the various holders to distribute royalties. I.e., if one holds 10% of a royalty portion token, that holder will get 10% of the financial distribution related to that type of royalty.</p>
+
+<h3 id="metadatauri-function">metadataURI() function</h3>
+<p>This function MUST return the URI to a metadata file containing any required metadata for the IP or an empty string. Each IP type MAY implement its metadata standard, defined separately. The file MUST be hosted in IPFS, Arweave, or other decentralized content-addressable systems in which the file’s contents are not changeable without changing the URI.</p>
+
+<h3 id="changemetadatauri-function">changeMetadataURI() function</h3>
+<p>This function allows changing the metadata URI to point to a new version of the metadata file. Calling this function MUST trigger the event <code class="language-plaintext highlighter-rouge">MetadataChanged</code> in case of success.</p>
+
+<h3 id="ledger-function">ledger() function</h3>
+<p>This function MUST return the registry or registrar contract address or an EOA account that initialized the IP and associated royalty tokens. An IP representation MAY be registered in multiple places by different actors for different purposes. This function enables market participants to discover which registry mechanism is the parent of the IP and might have special access rights to manage the IP.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">'@openzeppelin/contracts/interfaces/IERC165.sol'</span><span class="p">;</span>
+
+
+<span class="c1">///
+/// @dev Interface for Intellectual Property Representation
+///
+</span><span class="k">interface</span> <span class="n">IIPRepresentation</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+    
+    <span class="c1">/// @notice Called with the new URI to an updated metadata file
+</span>    <span class="c1">/// @param _newUri - the URI pointing to a metadata file (file standard is up to the implementer)
+</span>    <span class="c1">/// @param _newFileHash - The hash of the new metadata file for future reference and verification
+</span>    <span class="k">function</span> <span class="n">changeMetadataURI</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">_newUri</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">_newFileHash</span><span class="p">)</span> <span class="k">external</span> <span class="p">;</span>
+
+    <span class="c1">/// @return array of addresses of ERC20 tokens representing royalty portion in the IP
+</span>    <span class="c1">/// @dev i.e implementing ERC5501 (IRoyaltyInterestToken interface)
+</span>    <span class="k">function</span> <span class="n">royaltyPortionTokens</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">/// @return the address of the contract or EOA that initialized the IP registration
+</span>    <span class="c1">/// @dev i.e., a registry or registrar, to be implemented in the future
+</span>    <span class="k">function</span> <span class="n">ledger</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">/// @return the URI of the current metadata file for the II P
+</span>    <span class="k">function</span> <span class="n">metadataURI</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">/// @dev event to be triggered whenever metadata URI is changed
+</span>    <span class="c1">/// @param byAddress the addresses that triggered this operation
+</span>    <span class="c1">/// @param oldURI the URI to the old metadata file before the change
+</span>    <span class="c1">/// @param oldFileHash the hash of the old metadata file before the change
+</span>    <span class="c1">/// @param newURI the URI to the new metadata file 
+</span>    <span class="c1">/// @param newFileHash the hash of the new metadata file 
+</span>    <span class="k">event</span> <span class="n">MetadaDataChanged</span><span class="p">(</span><span class="kt">address</span> <span class="n">byAddress</span><span class="p">,</span> <span class="kt">string</span> <span class="n">oldURI</span><span class="p">,</span> <span class="kt">string</span> <span class="n">oldFileHash</span><span class="p">,</span> <span class="kt">string</span> <span class="n">newURI</span><span class="p">,</span> <span class="kt">string</span> <span class="n">newFileHash</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="returning-an-array-of-eip-20-tokens-presents-a-more-robust-royalty-portions-structure">Returning an array of EIP-20 tokens presents a more robust royalty portions structure/</h3>
+
+<p>Current royalty implementations deal only with a single type of royalty payment: NFT sales. They also only allow a single type of royalty - i.e., Music NFTs cannot pay different people in different scenarios.
+In other words, currently, a royalty split works the same way no matter what type of purchase or license deal has happened for all parties involved.</p>
+
+<p>With this proposal, multiple <strong>types</strong> of royalty scenarios are allowed. A classic case is the music industry, in which we have writing/composition royalties and recording/master royalties. Different licensing types will pay different percentages to different parties based on context.</p>
+
+<p>In the case of a song cover, a license payment formula can be created so that that 
+a) Original IP’s writers get paid for using the lyrics or composition of the song
+b) recording artists of the original song do not get paid since their recording is not used
+c) recording artists of the new IP will get paid
+d) there are no writing royalties for the creators of the cover.</p>
+
+<p>Moreover, this EIP has a single structure that connects to all types of royalty types and allows finding them more easily.
+Lastly, moving EIP-20 tokens around is much easier than managing an 0xsplits contract.</p>
+
+<h3 id="separating-the-ip-contract-from-the-collectible-and-licensing-nfts-enables-scaling-licensing-types">Separating the IP contract from the collectible and licensing NFTs enables scaling licensing types</h3>
+<p>By separating the canonical version of the IP from its various licensed uses (NFT purchase, streaming, usage of art and more.), this EIP introduces a path for an ecosystem of various license types and payment distributions to evolve.
+In other words, when people use this scheme, they will not start by creating a music NFT or art NFT; they start by creating the IP Representation and then create types of licenses or collectibles for it, each as its own sellable NFT.</p>
+
+<h3 id="a-single-pointer-to-the-ips-metadata">A single pointer to the IP’s metadata</h3>
+<p>The IPR points to metadata housed in IPFS or Arweave and allows changing it and keeping track of the changes in a simple and standard way. Today the only metadata standard is NFT metadata extension, but it is impossible to know to which standard the document adheres. With different IP types, different metadata standards for different IP types can be formulated and have a simple, easy place to discover attached metadata.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<h4 id="implementing-a-musical-ip-representation-mipr-for-short-based-on-iiprepresentation">Implementing a Musical IP Representation (MIPR for short) based on IIPRepresentation</h4>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">'@openzeppelin/contracts/token/ERC721/ERC721.sol'</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./interfaces/IIPRepresentation.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./interfaces/Structs.sol"</span><span class="p">;</span>
+
+
+<span class="k">contract</span> <span class="n">MusicalIP</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">IIPRepresentation</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="k">public</span> <span class="n">songLedger</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="k">public</span> <span class="n">compToken</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="k">public</span> <span class="n">recToken</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="k">public</span> <span class="n">metadataURI</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="k">public</span> <span class="n">fileHash</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">tokenId</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="k">public</span> <span class="n">activated</span> <span class="o">=</span><span class="nb">false</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span><span class="p">(</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">IERC165</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span>
+            <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IIPRepresentation</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span>
+            <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getInterfaceId</span><span class="p">()</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">type</span><span class="p">(</span><span class="n">IIPRepresentation</span><span class="p">).</span><span class="n">interfaceId</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">constructor</span> <span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_songLedger</span><span class="p">,</span>
+        <span class="n">SongMintingParams</span> <span class="k">memory</span> <span class="n">_params</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_compAddress</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_recAddress</span>
+        <span class="p">)</span>
+    <span class="n">ERC721</span><span class="p">(</span><span class="n">_params</span><span class="p">.</span><span class="n">shortName</span><span class="p">,</span> <span class="n">_params</span><span class="p">.</span><span class="n">symbol</span><span class="p">){</span>
+
+        <span class="n">songLedger</span> <span class="o">=</span> <span class="n">_songLedger</span><span class="p">;</span>
+        <span class="n">compToken</span> <span class="o">=</span> <span class="n">_compAddress</span><span class="p">;</span>
+        <span class="n">recToken</span> <span class="o">=</span> <span class="n">_recAddress</span><span class="p">;</span>
+        <span class="n">metadataURI</span> <span class="o">=</span> <span class="n">_params</span><span class="p">.</span><span class="n">metadataUri</span><span class="p">;</span>
+        <span class="n">fileHash</span> <span class="o">=</span> <span class="n">_params</span><span class="p">.</span><span class="n">fileHash</span><span class="p">;</span>
+        <span class="n">tokenId</span> <span class="o">=</span> <span class="n">_tokenId</span><span class="p">;</span>
+        
+        <span class="n">_safeMint</span><span class="p">(</span><span class="n">_songLedger</span><span class="p">,</span> <span class="n">_tokenId</span><span class="p">);</span>
+        <span class="k">emit</span> <span class="n">Minted</span><span class="p">(</span><span class="n">_params</span><span class="p">.</span><span class="n">shortName</span><span class="p">,</span><span class="n">_songLedger</span><span class="p">,</span><span class="n">_compAddress</span><span class="p">,</span><span class="n">_recAddress</span><span class="p">,</span><span class="n">_msgSender</span><span class="p">(),</span><span class="n">tokenId</span><span class="p">,</span><span class="n">_params</span><span class="p">.</span><span class="n">metadataUri</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">changeMetadataURI</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">_newURI</span><span class="p">,</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">_newFileHash</span><span class="p">)</span> <span class="k">public</span> 
+     <span class="p">{</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">oldURI</span> <span class="o">=</span> <span class="n">metadataURI</span><span class="p">;</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">oldHash</span> <span class="o">=</span> <span class="n">fileHash</span><span class="p">;</span>
+        <span class="n">metadataURI</span> <span class="o">=</span> <span class="n">_newURI</span><span class="p">;</span> 
+        <span class="n">fileHash</span> <span class="o">=</span> <span class="n">_newFileHash</span><span class="p">;</span>
+        
+        <span class="k">emit</span> <span class="n">MetadataChanged</span><span class="p">(</span><span class="n">oldURI</span><span class="p">,</span> <span class="n">oldHash</span><span class="p">,</span><span class="n">_newURI</span><span class="p">,</span><span class="n">_newFileHash</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">function</span> <span class="n">royaltyPortionTokens</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">items</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span> 
+        <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">compToken</span><span class="p">;</span>
+        <span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">recToken</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">items</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="n">ledger</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">return</span> <span class="n">songLedger</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">event</span> <span class="n">MetadataChanged</span><span class="p">(</span>
+        <span class="kt">string</span>  <span class="n">oldUri</span><span class="p">,</span> <span class="kt">string</span> <span class="n">oldFileHash</span><span class="p">,</span>
+        <span class="kt">string</span>  <span class="n">newUri</span><span class="p">,</span> <span class="kt">string</span> <span class="n">newFileHash</span>
+        <span class="p">);</span>
+    <span class="k">event</span> <span class="n">Minted</span><span class="p">(</span>
+        <span class="kt">string</span>  <span class="n">abbvName</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">ledger</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">compToken</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">recToken</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">creator</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">metadataUri</span>
+        <span class="p">);</span>
+<span class="p">}</span>
+
+
+
+</code></pre></div></div>
+
+<h4 id="deploying-a-new-musical-ip-using-a-simple-song-registry-contract">Deploying a new Musical IP using a simple song registry contract</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/Counters.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./MusicalIP.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./CompositionRoyaltyToken.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./RecordingRoyaltyToken.sol"</span><span class="p">;</span>
+
+
+<span class="k">contract</span> <span class="n">SimpleSongLedger</span> <span class="k">is</span> <span class="n">IERC721Receiver</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">Counters</span> <span class="k">for</span> <span class="n">Counters</span><span class="p">.</span><span class="n">Counter</span><span class="p">;</span>
+    <span class="n">Counters</span><span class="p">.</span><span class="n">Counter</span> <span class="k">private</span> <span class="n">mipIds</span><span class="p">;</span>
+      <span class="k">function</span> <span class="n">onERC721Received</span><span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span><span class="p">)</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">IERC721Receiver</span><span class="p">.</span><span class="n">onERC721Received</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">mintSong</span><span class="p">(</span><span class="n">SongMintingParams</span> <span class="k">memory</span> <span class="n">_params</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="n">CompositionRoyaltyToken</span> <span class="n">comp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CompositionRoyaltyToken</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span><span class="s">"SONGCOMP"</span><span class="p">,</span><span class="s">"COMP"</span><span class="p">);</span>
+        <span class="n">RecordingRoyaltyToken</span> <span class="n">rec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RecordingRoyaltyToken</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span><span class="s">"SONGREC"</span><span class="p">,</span><span class="s">"REC"</span><span class="p">);</span>
+        <span class="n">mipIds</span><span class="p">.</span><span class="n">increment</span><span class="p">();</span>
+
+        <span class="n">MusicalIP</span> <span class="n">mip</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MusicalIP</span><span class="p">(</span>
+                                        <span class="n">mipIds</span><span class="p">.</span><span class="n">current</span><span class="p">(),</span>
+                                        <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+                                        <span class="n">_params</span><span class="p">,</span>
+                                        <span class="kt">address</span><span class="p">(</span><span class="n">comp</span><span class="p">),</span>
+                                        <span class="kt">address</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+                                    <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>There might be potential security challenges of attackers persuading holders of royalty portion tokens to send them those tokens and gaining royalty portion in various IPRs. However, these are not specific to royalties and are a common issue with EIP-20 tokens.</p>
+
+<p>In the case of the IP registration ownership, it will be recommended that registry contracts own the IP registration, which will be non-transferrable (account bound to the registry that created it).</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

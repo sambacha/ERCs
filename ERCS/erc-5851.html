@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>On-Chain Verifiable Credentials | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="On-Chain Verifiable Credentials | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5851" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5851" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">On-Chain Verifiable Credentials</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal introduces a method of certifying that a particular address meets a claim, and a method of verifying those certifications using on-chain metadata. Claims are assertions or statements made about a subject having certain properties that may be met conditions (for example: <code class="language-plaintext highlighter-rouge">age &gt;= 18</code>), and are certified by issuers using a Soundbound Token (SBT).</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>On-chain issuance of verifiable attestations are essential for use-case like:</p>
+
+<ul>
+  <li>Avoiding Sybil attacks with one person one vote</li>
+  <li>Participation in certain events with credentials</li>
+  <li>Compliance to government financial regulations etc.</li>
+</ul>
+
+<p>We are proposing a standard claims structure for Decentralized Identity (DID) issuers and verifier entities to create smart contracts in order to provide on-chain commitment of the off-chain verification process, and once the given address is associated with the given attestation of the identity verification off-chain, the issuers can then onboard other verifiers (i.e. governance, financial institution, non-profit organization, web3 related cooperation) to define the condition of the ownership of the user in order to reduce the technical barriers and overhead of current implementations.</p>
+
+<p>The motivation behind this proposal is to create a standard for verifier and issuer smart contracts to communicate with each other in a more efficient way. This will reduce the cost of KYC processes, and provide the possibility for on-chain KYC checks.  By creating a standard for communication between verifiers and issuers, it will create an ecosystem in which users can be sure their data is secure and private. This will ultimately lead to more efficient KYC processes and help create a more trustful environment for users. It will also help to ensure that all verifier and issuer smart contracts are up-to-date with the most recent KYC regulations.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="definitions">Definitions</h3>
+
+<ul>
+  <li>
+    <p>Zero-Knowledge Proof (ZKP): a cryptographic device that can convince a verifier that an assertion is correct without revealing all of the inputs to the assertion.</p>
+  </li>
+  <li>
+    <p>Soulbound Token (SBT): A non-fungible and non-transferrable token that is used for defining the identity of the users.</p>
+  </li>
+  <li>
+    <p>SBT Certificate: An SBT that represents the ownership of ID signatures corresponding to the claims defined in <code class="language-plaintext highlighter-rouge">function standardClaim()</code>.</p>
+  </li>
+  <li>
+    <p>Verifiable Credential (VC): A collection of claims made by an issuer. These are temper evident credentials that allow the holders to prove that they posses certain characteristics (for example, passport verification, constraints like value of tokens in your wallet, etc) as demanded by the verifier entity.</p>
+  </li>
+  <li>
+    <p>Claim: An assertion that the DID Holder must fulfill to be verified.</p>
+  </li>
+  <li>
+    <p>Holder: The entity that stores the claim, such as a digital identity provider or a DID registry. The holder is responsible for validating the claim and providing verifiable evidence of the claim.</p>
+  </li>
+  <li>
+    <p>Claimer: The party making a claim, such as in an identity verification process.</p>
+  </li>
+  <li>
+    <p>Issuer: The entity that creates a verifiable credential from claims about one or more subjects to a holder. Example issuers include governments, corporations, non-profit organizations, trade associations, and individuals.</p>
+  </li>
+  <li>
+    <p>Verifier: An entity that validates data provided by an issuer of verifiable credentials, determining its accuracy, origin, currency and trustworthiness.</p>
+  </li>
+</ul>
+
+<h3 id="metadata-standard">Metadata Standard</h3>
+
+<p>Claims MUST be exposed in the following structures:</p>
+
+<h4 id="1-metadata-information">1. Metadata information</h4>
+
+<p>Each claim requirement MUST be exposed using the following structure:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="cm">/** Metadata
+    * 
+    * @param title defines the name of the claim field
+    * @param _type is the type of the data (bool,string,address,bytes,..)
+    * @param description additional information about claim details.
+     */</span>
+    <span class="k">struct</span> <span class="n">Metadata</span> <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">title</span><span class="p">;</span>
+        <span class="kt">string</span> <span class="n">_type</span><span class="p">;</span>
+        <span class="kt">string</span> <span class="n">description</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="2-values-information">2. Values Information</h4>
+
+<p>This following structure will be used to define the actual claim information, based on the description of the <code class="language-plaintext highlighter-rouge">Metadata</code> structure, the structure is the same as <code class="language-plaintext highlighter-rouge">Values</code> structure of <a href="./eip-3475.md">EIP-3475</a>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="k">struct</span> <span class="n">Values</span><span class="p">{</span>
+       <span class="kt">string</span> <span class="n">stringValue</span><span class="p">;</span>
+       <span class="kt">uint</span> <span class="n">uintValue</span><span class="p">;</span>
+       <span class="kt">address</span> <span class="n">addressValue</span><span class="p">;</span>
+       <span class="kt">bool</span> <span class="n">boolValue</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="3-claim-structure">3. Claim structure</h4>
+
+<p>Claims (eg. <code class="language-plaintext highlighter-rouge">age &gt;= 18</code>, jurisdiction in allowlist, etc.) are represented by one or many instances of the <code class="language-plaintext highlighter-rouge">Claim</code> structure below:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="cm">/** Claims
+    * 
+    * Claims structure consist of the conditions and value that holder claims to associate and verifier has to validate them.
+    * @notice the below given parameters are for reference purposes only, developers can optimize the fields that are needed to be represented on-chain by using schemes like TLV, encoding into base64 etc.
+    * @dev structure that defines the parameters for specific claims of the SBT certificate
+    * @notice this structure is used for the verification process, it contains the metadata, logic and expectation
+    * @notice logic can represent either the enum format for defining the different operations, or they can be logic operators (stored in form of ASCII figure based on unicode standard). like  e.g: 
+("⊄" = U+2284, "⊂" = U+2282,  "&lt;" = U+003C , "&lt;=" = U + 2265,"==" = U + 003D, "!="U + 2260, "&gt;=" = U + 2265,"&gt;" =  U + 2262).
+    */</span>
+    <span class="k">struct</span> <span class="n">Claim</span> <span class="p">{</span>
+        <span class="n">Metadata</span> <span class="n">metadata</span><span class="p">;</span>
+        <span class="kt">string</span> <span class="n">logic</span><span class="p">;</span>
+        <span class="n">Values</span> <span class="n">expectation</span><span class="p">;</span>
+   
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>description of some logic functions that can be used are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⊄</td>
+      <td>does not belong to the set of values (or range) defined by the corresponding <code class="language-plaintext highlighter-rouge">Values</code></td>
+    </tr>
+    <tr>
+      <td>⊂</td>
+      <td>condition that the parameter belongs to one of values defined by the <code class="language-plaintext highlighter-rouge">Values</code></td>
+    </tr>
+    <tr>
+      <td>&lt;</td>
+      <td>condition that the parameter is greater than  value defined by the <code class="language-plaintext highlighter-rouge">Values</code></td>
+    </tr>
+    <tr>
+      <td>==</td>
+      <td>condition that the parameter is strictly equal to the value defined by the <code class="language-plaintext highlighter-rouge">Values</code> structure</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="claim-example">Claim Example</h4>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"title"</span><span class="p">:</span><span class="s2">"age"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"unit"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"age of the person based on the birth date on the legal document"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"logic"</span><span class="p">:</span><span class="s2">"&gt;="</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"value"</span><span class="p">:</span><span class="s2">"18"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Defines the condition encoded for the index 1 (i.e the holder must be equal or more than 18 years old).</p>
+
+<h3 id="interface-specification">Interface specification</h3>
+
+<h4 id="verifier">Verifier</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="c1">/// @notice getter function to validate if the address `claimer` is the holder of the claim defined by the tokenId `SBTID`
+</span>    <span class="c1">/// @dev it MUST be defining the conditional operator (logic explained below) to allow the application to convert it into code logic 
+</span>    <span class="c1">/// @dev logic given here MUST be the conditiaonl operator, MUST be one of ("⊄", "⊂", "&lt;", "&lt;=", "==", "!=", "&gt;=", "&gt;")
+</span>    <span class="c1">/// @param claimer is the EOA address that wants to validate the SBT issued to it by the issuer. 
+</span>    <span class="c1">/// @param SBTID is the Id of the SBT that user is the claimer.
+</span>    <span class="c1">/// @return true if the assertion is valid, else false
+</span>    <span class="cm">/**
+    example ifVerified(0xfoo, 1) =&gt; true will mean that 0xfoo is the holder of the SBT identity token defined by tokenId of the given collection. 
+    */</span>
+    <span class="k">function</span> <span class="n">ifVerified</span><span class="p">(</span><span class="kt">address</span> <span class="n">claimer</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">SBTID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="issuer">Issuer</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  
+    <span class="c1">/// @notice getter function to fetch the on-chain identification logic for the given identity holder.
+</span>    <span class="c1">/// @dev it MUST not be defined for address(0). 
+</span>    <span class="c1">/// @param SBTID is the Id of the SBT that the user is the claimer.
+</span>    <span class="c1">/// @return the struct array of all the descriptions of condition metadata that is defined by the administrator for the given KYC provider.
+</span>    <span class="cm">/**
+    ex: standardClaim(1) --&gt; {
+    { "title":"age",
+        "type": "uint",
+        "description": "age of the person based on the birth date on the legal document",
+        },
+       "logic": "&gt;=",
+    "value":"18"  
+    }
+    Defines the condition encoded for the identity index 1, defining the identity condition that holder must be equal or more than 18 years old.
+    **/</span>
+
+    <span class="k">function</span> <span class="n">standardClaim</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">SBTID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Claim</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice function for setting the claim requirement logic (defined by Claims metadata) details for the given identity token defined by SBTID.
+</span>    <span class="c1">/// @dev it should only be called by the admin address.
+</span>    <span class="c1">/// @param SBTID is the Id of the SBT-based identity certificate for which the admin wants to define the Claims.
+</span>    <span class="c1">/// @param `claims` is the struct array of all the descriptions of condition metadata that is defined by the administrator. check metadata section for more information.
+</span>    <span class="cm">/**
+    example: changeStandardClaim(1, { "title":"age",
+            "type": "uint",
+            "description": "age of the person based on the birth date on the legal document",
+            },
+        "logic": "&gt;=",
+        "value":"18"  
+    }); 
+    will correspond to the functionality that admin needs to adjust the standard claim for the identification SBT with tokenId = 1, based on the conditions described in the Claims array struct details.
+    **/</span>
+
+    <span class="k">function</span> <span class="n">changeStandardClaim</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">SBTID</span><span class="p">,</span> <span class="n">Claim</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_claims</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice function which uses the ZKProof protocol to validate the identity based on the given 
+</span>    <span class="c1">/// @dev it should only be called by the admin address.
+</span>    <span class="c1">/// @param SBTID is the Id of the SBT-based identity certificate for which admin wants to define the Claims.
+</span>    <span class="c1">/// @param claimer is the address that needs to be proven as the owner of the SBT defined by the tokenID.
+</span>    <span class="cm">/**
+    example: certify(0xA....., 10) means that admin assigns the DID badge with id 10 to the address defined by the `0xA....` wallet.
+    */</span>
+    <span class="k">function</span> <span class="n">certify</span><span class="p">(</span><span class="kt">address</span> <span class="n">claimer</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">SBTID</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice function which uses the ZKProof protocol to validate the identity based on the given 
+</span>    <span class="c1">/// @dev it should only be called by the admin address.
+</span>    <span class="c1">/// @param SBTID is the Id of the SBT-based identity certificate for which the admin wants to define the Claims.
+</span>    <span class="c1">/// @param claimer is the address that needs to be proven as the owner of the SBT defined by the tokenID.
+</span>    <span class="cm">/* eg: revoke(0xfoo,1): means that KYC admin revokes the SBT certificate number 1 for the address '0xfoo'. */</span>
+    <span class="k">function</span> <span class="n">revoke</span><span class="p">(</span><span class="kt">address</span> <span class="n">certifying</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">SBTID</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<h4 id="events">Events</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="cm">/** 
+    * standardChanged
+    * @notice standardChanged MUST be triggered when claims are changed by the admin. 
+    * @dev standardChanged MUST also be triggered for the creation of a new SBTID.
+    e.g : emit StandardChanged(1, Claims(Metadata('age', 'uint', 'age of the person based on the birth date on the legal document' ), "&gt;=", "18");
+    is emitted when the Claim condition is changed which allows the certificate holder to call the functions with the modifier, claims that the holder must be equal or more than 18 years old.
+    */</span>
+    <span class="k">event</span> <span class="n">StandardChanged</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">SBTID</span><span class="p">,</span> <span class="n">Claim</span><span class="p">[]</span> <span class="n">_claims</span><span class="p">);</span>
+    
+    <span class="cm">/** 
+    * certified
+    * @notice certified MUST be triggered when the SBT certificate is given to the certifying address. 
+    * eg: Certified(0xfoo,2); means that wallet holder address `0xfoo` is certified to hold a certificate issued with id 2, and thus can satisfy all the conditions defined by the required interface.
+    */</span>
+    <span class="k">event</span> <span class="n">Certified</span><span class="p">(</span><span class="kt">address</span> <span class="n">claimer</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">SBTID</span><span class="p">);</span>
+    
+    <span class="cm">/** 
+    * revoked
+    * @notice revoked MUST be triggered when the SBT certificate is revoked. 
+    * eg: Revoked( 0xfoo,1); means that entity user 0xfoo has been revoked to all the function access defined by the SBT ID 1.
+    */</span>
+    <span class="k">event</span> <span class="n">Revoked</span><span class="p">(</span><span class="kt">address</span> <span class="n">claimer</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">SBTID</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>TBD</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<ul>
+  <li>This EIP is backward compliant for the contracts that keep intact the metadata structure of previous issued SBT’s with their ID and claim requirement details.
+    <ul>
+      <li>For e.g if the DeFI provider (using the modifiers to validate the ownership of required SBT by owner) wants the admin to change the logic of verification or remove certain claim structure, the previous holders of the certificates will be affected by these changes.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Test cases for the minimal reference implementation can be found <a href="../assets/eip-5851/contracts/test.sol">here</a> for using transaction verification regarding whether the users hold the tokens or not. Use Remix IDE to compile and test the contracts.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The <a href="../assets/eip-5851/contracts/interfaces/IERC5851.sol">interface</a> is divided into two separate implementations:</p>
+
+<ul>
+  <li>
+    <p><a href="../assets/eip-5851/contracts/ERC5851Verifier.sol">EIP-5851 Verifier</a> is a simple modifier that needs to be imported by functions that are to be only called by holders of the SBT certificates. Then the modifier will call the issuer contract to verifiy if the claimer has the SBT certifcate in question.</p>
+  </li>
+  <li>
+    <p><a href="../assets/eip-5851/contracts/ERC5851Issuer.sol">EIP-5851 Issuer</a> is an example of an identity certificate that can be assigned by a KYC controller contract. This is a full implementation of the standard interface.</p>
+  </li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<ol>
+  <li>Implementation of functional interfaces for creating KYC on SBT (i.e <code class="language-plaintext highlighter-rouge">changeStandardClaim()</code>, <code class="language-plaintext highlighter-rouge">certify()</code> and <code class="language-plaintext highlighter-rouge">revoke()</code>) are dependent on the admin role. Thus the developer must insure security of admin role and rotation of this role to the entity entrusted by the KYC attestation service provider and DeFI protocols that are using this attestation service.</li>
+</ol>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

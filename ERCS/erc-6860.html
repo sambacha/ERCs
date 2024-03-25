@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Web3 URL to EVM Call Message Translation | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Web3 URL to EVM Call Message Translation | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6860" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6860" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Web3 URL to EVM Call Message Translation</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard translates an <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a> URI like <code class="language-plaintext highlighter-rouge">web3://uniswap.eth/</code> to an EVM message such as:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EVMMessage {
+   To: 0xaabbccddee.... // where uniswap.eth's address registered at ENS
+   Calldata: 0x
+   ...
+}
+</code></pre></div></div>
+
+<p>⚠️ This proposal updates <a href="./eip-4804.md">ERC-4804</a> with minor corrections, clarifications and modifications.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Currently, reading data from Web3 generally relies on a translation done by a Web2 proxy to Web3 blockchain. The translation is mostly done by the proxies such as dApp websites/node service provider/etherscan, which are out of the control of users. The standard here aims to provide a simple way for Web2 users to directly access the content of Web3, especially on-chain Web contents such as SVG/HTML.  Moreover, this standard enables interoperability with other standards already compatible with URIs, like SVG/HTML.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>This specification only defines read-only (i.e. Solidity’s <code class="language-plaintext highlighter-rouge">view</code> functions) semantics. State modifying functions may be defined as a future extension.</p>
+
+<p>This specification uses the Augmented Backus-Naur Form (ABNF) notation of <a href="https://www.rfc-editor.org/rfc/rfc2234">RFC 2234</a>. The complete URI syntax is listed in Appendix A.</p>
+
+<p>A Web3 URL is an ASCII string in the following form :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3URL         = schema "://" [ userinfo "@" ] contractName [ ":" chainid ] pathQuery
+schema          = "w3" / "web3"
+userinfo        = address
+</code></pre></div></div>
+
+<p><strong>userinfo</strong> indicates which user is calling the EVM, i.e., “From” field in EVM call message. If not specified, the protocol will use 0x0 as the sender address.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>contractName    = address 
+                / domainName
+address         = "0x" 20( HEXDIG HEXDIG )
+domainName      = *( unreserved / pct-encoded / sub-delims ) ; As in RFC 3986
+</code></pre></div></div>
+
+<p><strong>contractName</strong> indicates the contract to be called, i.e., the “To” field in the EVM call message. If the <strong>contractName</strong> is an address then it will be used for the “To” field. Otherwise, <strong>contractName</strong> is a domain name from a domain name service, and it must be resolved to an address to use for the “To” field.</p>
+
+<p>The way to resolve the domain name from a domain name service to an address is specified in <a href="./eip-6821.md">ERC-6821</a> for the Ethereum Name service, and will be discussed in later ERCs for other name services.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chainid         = %x31-39 *DIGIT
+</code></pre></div></div>
+
+<p><strong>chainid</strong> indicates which chain to resolve <strong>contractName</strong> and call the message. If not specified, the protocol will use the primary chain of the name service provider used, e.g., 1 for eth. If no name service provider was used, the default chainid is 1.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pathQuery       = mPathQuery ; path+query for manual mode
+                / aPathQuery ; path+query for auto mode
+</code></pre></div></div>
+
+<p><strong>pathQuery</strong>, made of the path and optional query, will have a different structure whether the resolve mode is “manual” or “auto”.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3UrlRef      = web3URL 
+                / relativeWeb3URL
+relativeWeb3URL = relPathQuery
+relPathQuery    = relMPathQuery ; Relative URL path+query for manual mode
+                / relAPathQuery ; Relative URL path+query for auto mode
+</code></pre></div></div>
+
+<p>Relative URLs are supported, but the support differs based on the resolve mode.</p>
+
+<h3 id="resolve-mode">Resolve Mode</h3>
+
+<p>Once the “To” address and chainid are determined, the protocol will check the resolver mode of contract by calling the <code class="language-plaintext highlighter-rouge">resolveMode</code> method of the “To” address. The Solidity signature of <code class="language-plaintext highlighter-rouge">resolveMode</code> is:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">resolveMode</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The protocol currently supports two resolve modes: auto and manual.</p>
+
+<ul>
+  <li>The manual mode will be used if the <code class="language-plaintext highlighter-rouge">resolveMode</code> return value is <code class="language-plaintext highlighter-rouge">0x6d616e75616c0000000000000000000000000000000000000000000000000000</code>, i.e., “manual” in bytes32</li>
+  <li>The auto mode will be used if :
+    <ul>
+      <li>the <code class="language-plaintext highlighter-rouge">resolveMode</code> return value is <code class="language-plaintext highlighter-rouge">0x6175746f00000000000000000000000000000000000000000000000000000000</code>, i.e, “auto” in bytes32, or</li>
+      <li>the <code class="language-plaintext highlighter-rouge">resolveMode</code> return value is <code class="language-plaintext highlighter-rouge">0x0000000000000000000000000000000000000000000000000000000000000000</code>, or</li>
+      <li>the call to <code class="language-plaintext highlighter-rouge">resolveMode</code> throws an error (method not implemented or error thrown from the method)</li>
+    </ul>
+  </li>
+  <li>Otherwise, the protocol will fail the request with the error “unsupported resolve mode”.</li>
+</ul>
+
+<h4 id="manual-mode">Manual Mode</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mPathQuery      = mPath [ "?" mQuery ]
+
+mPath           = mPathAbempty ; begins with "/" or is empty
+mPathAbempty    = [ *( "/" segment ) "/" segment [ "." fileExtension ] ]
+segment         = *pchar ; as in RFC 3986
+fileExtension   = 1*( ALPHA / DIGIT )
+
+mQuery = *( pchar / "/" / "?" ) ; as in RFC 3986
+</code></pre></div></div>
+
+<p>The manual mode will use the raw <strong>mPathQuery</strong> as calldata of the message directly (no percent-encoding decoding will be done). If <strong>mPathQuery</strong> is empty, the sent calldata will be <code class="language-plaintext highlighter-rouge">/</code> (0x2f).</p>
+
+<p>The returned message data will be treated as ABI-encoded bytes and the decoded bytes will be returned to the frontend.</p>
+
+<p>The MIME type returned to the frontend is <code class="language-plaintext highlighter-rouge">text/html</code> by default, but will be overriden if a <strong>fileExtension</strong>  is present. In this case, the MIME type will be deduced from the filename extension.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>relMPathQuery   = relMPath [ "?" mQuery ]
+relMPath        = mPathAbsolute ; begins with "/" but not "//"
+                / mPathNoscheme ; begins with a non-colon segment
+                / mPathEmpty    ; zero characters
+
+mPathAbsolute   = "/" [ segmentNz *( "/" segment ) ] [ "." fileExtension ]
+mPathNoscheme   = segmentNzNc *( "/" segment ) [ "." fileExtension ]
+mPathEmpty      = 0&lt;pchar&gt;
+
+segmentNz       = 1*pchar ; as in RFC 3986
+segmentNzNc     = 1*( unreserved / pct-encoded / sub-delims / "@" )
+                ; as in RFC 3986: non-zero-length segment without any colon ":"
+</code></pre></div></div>
+
+<p>Support for manual mode relative URLs is similar to HTTP URLs : URLs relative to the current contract are allowed, both with an absolute path and a relative path.</p>
+
+<h4 id="auto-mode">Auto Mode</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aPathQuery      = aPath [ "?" aQuery ]
+aPath           = [ "/" [ method *( "/" argument ) ] ]
+</code></pre></div></div>
+
+<p>In the auto mode, if <strong>aPath</strong> is empty or “/”, then the protocol will call the target contract with empty calldata. Otherwise, the calldata of the EVM message will use standard Solidity contract ABI.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>method          = ( ALPHA / "$" / "_" ) *( ALPHA / DIGIT / "$" / "_" )
+</code></pre></div></div>
+
+<p><strong>method</strong> is a string of the function method to be called</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>argument        = boolArg
+                / uintArg
+                / intArg
+                / addressArg
+                / bytesArg
+                / stringArg
+boolArg         = [ "bool!" ] ( "true" / "false" )
+uintArg         = [ "uint" [ intSizes ] "!" ] 1*DIGIT
+intArg          = "int" [ intSizes ] "!" 1*DIGIT
+intSizes        = "8" / "16" / "24" / "32" / "40" / "48" / "56" / "64" / "72" / "80" / "88" / "96" / "104" / "112" / "120" / "128" / "136" / "144" / "152" / "160" / "168" / "176" / "184" / "192" / "200" / "208" / "216" / "224" / "232" / "240" / "248" / "256"
+addressArg      = [ "address!" ] ( address / domainName )
+bytesArg        = [ "bytes!" ] bytes
+                / "bytes1!0x" 1( HEXDIG HEXDIG )
+                / "bytes2!0x" 2( HEXDIG HEXDIG )
+                ...
+                / "bytes32!0x" 32( HEXDIG HEXDIG )
+stringArg       = "string!" *pchar [ "." fileExtension ]
+</code></pre></div></div>
+
+<p><strong>argument</strong> is an argument of the method with a type-agnostic syntax of <code class="language-plaintext highlighter-rouge">[ type "!" ] value</code>. If <strong>type</strong> is specified, the value will be translated to the corresponding type. The protocol currently supports these basic types: bool, int, uint, int&lt;X&gt;, uint&lt;X&gt; (with X ranging from 8 to 256 in steps of 8), address, bytes&lt;X&gt; (with X ranging from 1 to 32), bytes, and string. If <strong>type</strong> is not specified, then the type will be automatically detected using the following rule in a sequential way:</p>
+
+<ol>
+  <li><strong>type</strong>=”uint256”, if <strong>value</strong> is digits; or</li>
+  <li><strong>type</strong>=”bytes32”, if <strong>value</strong> is in the form of 0x+32-byte-data hex; or</li>
+  <li><strong>type</strong>=”address”, if <strong>value</strong> is in the form of 0x+20-byte-data hex; or</li>
+  <li><strong>type</strong>=”bytes”, if <strong>value</strong> is in the form of 0x followed by any number of bytes besides 20 or 32; or</li>
+  <li><strong>type</strong>=”bool”, if <strong>value</strong> is either <code class="language-plaintext highlighter-rouge">true</code> or <code class="language-plaintext highlighter-rouge">false</code>; or</li>
+  <li>else <strong>type</strong>=”address” and parse the argument as a domain name. If unable to resolve the domain name, an unsupported name service provider error will be returned.</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aQuery          = attribute *( "&amp;" attribute )
+attribute       = attrName "=" attrValue
+attrName        = "returns"
+                / "returnTypes"
+attrValue       = [ "(" [ retTypes ] ")" ]
+retTypes        = retType *( "," retType )
+retType         = retRawType *( "[" [ %x31-39 *DIGIT ] "]" )
+retRawType      = "(" retTypes ")"
+                / retBaseType
+retBaseType      = "bool" / "uint" [ intSizes ] / "int" [ intSize ] / "address" / "bytes" [ bytesSizes ] / "string"
+bytesSizes      = %x31-39              ; 1-9
+                / ( "1" / "2" ) DIGIT  ; 10-29
+                / "31" / "32"          ; 31-32
+</code></pre></div></div>
+
+<p>The “returns” attribute in <strong>aQuery</strong> tells the format of the returned data. It follows the syntax of the arguments part of the ethereum ABI function signature (<code class="language-plaintext highlighter-rouge">uint</code> and <code class="language-plaintext highlighter-rouge">int</code> aliases are authorized).</p>
+
+<ul>
+  <li>If the “returns” attribute value is undefined or empty, the returned message data will be treated as ABI-encoded bytes and the decoded bytes will be returned to the frontend. The MIME type returned to the frontend will be undefined by default, but will be overriden if the last argument is of string type and has a <strong>fileExtension</strong>, in which case the MIME type will be deduced from the filename extension. (Note that <strong>fileExtension</strong> is not excluded from the string argument given to the smartcontract)</li>
+  <li>If the “returns” attribute value is equal to “()”, the raw bytes of the returned message data will be returned, encoded as a “0x”-prefixed hex string in an array in JSON format: <code class="language-plaintext highlighter-rouge">["0xXXXXX"]</code></li>
+  <li>Otherwise, the returned message data will be ABI-decoded in the data types specified in the <strong>returns</strong> value and encoded in JSON format. The encoding of the data will follow the Ethereum JSON-RPC format:
+    <ul>
+      <li>Unformatted data (bytes, address) will be encoded as hex, prefixed with “0x”, two hex digits per byte</li>
+      <li>Quantities (integers) will be encoded as hex, prefix with “0x”, the most compact representation (slight exception: zero should be represented as “0x0”)</li>
+      <li>Boolean and strings will be native JSON boolean and strings</li>
+    </ul>
+  </li>
+</ul>
+
+<p>If multiple “returns” attributes are present, the value of the last “returns” attribute will be applied. Note that “returnTypes” is the alias of “returns”, but it is not recommended to use and is mainly for <a href="./eip-4804.md">ERC-4804</a> backward-compatible purpose.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>relAPathQuery   = aPath [ "?" aQuery ]
+</code></pre></div></div>
+
+<p>Support for auto mode relative URLs is limited : URLs relative to the current contract are allowed and will either reference itself (empty), the <code class="language-plaintext highlighter-rouge">/</code> path or a full method and its arguments.</p>
+
+<h3 id="examples">Examples</h3>
+
+<h4 id="example-1a">Example 1a</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://w3url.eth/
+</code></pre></div></div>
+
+<p>where the contract of <strong>w3url.eth</strong> is in manual mode.</p>
+
+<p>The protocol will find the address of <strong>w3url.eth</strong> from ENS in chainid 1 (Mainnet). Then the protocol will call the address with “Calldata” = <code class="language-plaintext highlighter-rouge">keccak("resolveMode()")[0:4]</code> = “0xDD473FAE”, which returns “manual” in ABI-type “(bytes32)”. After determining the manual mode of the contract, the protocol will call the address with “To” = <strong>contractAddress</strong> and “Calldata” = “0x2F”. The returned data will be treated as ABI-type “(bytes)”, and the decoded bytes will be returned to the frontend, with the information that the MIME type is <code class="language-plaintext highlighter-rouge">text/html</code>.</p>
+
+<h4 id="example-1b">Example 1b</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://w3url.eth/
+</code></pre></div></div>
+
+<p>where the contract of <strong>w3url.eth</strong> is in auto mode.</p>
+
+<p>The protocol will find the address of <strong>w3url.eth</strong> from ENS in chainid 1 (Mainnet). Then the protocol will call the address with “Calldata” = <code class="language-plaintext highlighter-rouge">keccak("resolveMode()")[0:4]</code> = “0xDD473FAE”, which returns “”, i.e., the contract is in auto mode. After determining the auto mode of the contract, the protocol will call the address with “To” = <strong>contractAddress</strong> and “Calldata” = “”. The returned data will be treated as ABI-type “(bytes)”, and the decoded bytes will be returned to the frontend, with the information that the MIME type is undefined.</p>
+
+<h4 id="example-2">Example 2</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://cyberbrokers-meta.eth/renderBroker/9999
+</code></pre></div></div>
+
+<p>where the contract of <strong>cyberbrokers-meta.eth</strong> is in auto mode.</p>
+
+<p>The protocol will find the address of <strong>cyberbrokers-meta.eth</strong> from ENS on chainid 1 (Mainnet). Then the protocol will call the address with “Calldata” = <code class="language-plaintext highlighter-rouge">keccak("resolveMode()")[0:4]</code> = “0xDD473FAE”, which returns “”, i.e., the contract is in auto mode. After determining the auto mode of the contract, the protocol will call the address with “To” = <strong>contractAddress</strong> and “Calldata” = “0x” + <code class="language-plaintext highlighter-rouge">keccak("renderBroker(uint256)")[0:4] + abi.encode(uint256(9999))</code>. The returned data will be treated as ABI-type “(bytes)”, and the decoded bytes will be returned to the frontend, with the information that the MIME type is undefined.</p>
+
+<h4 id="example-3">Example 3</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://vitalikblog.eth:5/
+</code></pre></div></div>
+
+<p>where the contract of <strong>vitalikblog.eth:5</strong> is in manual mode.</p>
+
+<p>The protocol will find the address of <strong>vitalikblog.eth</strong> from ENS on chainid 5 (Goerli). Then after determing the contract is in manual mode, the protocol will call the address with “To” = <strong>contractAddress</strong> and “Calldata” = “0x2F” with chainid = 5. The returned data will be treated as ABI-type “(bytes)”, and the decoded bytes will be returned to the frontend, with the information that the MIME type is <code class="language-plaintext highlighter-rouge">text/html</code>.</p>
+
+<h4 id="example-4">Example 4</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://0xe4ba0e245436b737468c206ab5c8f4950597ab7f:42170/
+</code></pre></div></div>
+
+<p>where the contract “0xe4ba0e245436b737468c206ab5c8f4950597ab7f:42170” is in manual mode.</p>
+
+<p>After determing the contract is in manual mode, the protocol will call the address with “To” = “0xe4ba0e245436b737468c206ab5c8f4950597ab7f” and “Calldata” = “0x2F” with chainid = 42170 (Arbitrum Nova). The returned data will be treated as ABI-type “(bytes)”, and the decoded bytes will be returned to the frontend, with the information that the MIME type is <code class="language-plaintext highlighter-rouge">text/html</code>.</p>
+
+<h4 id="example-5">Example 5</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/balanceOf/vitalik.eth?returns=(uint256)
+</code></pre></div></div>
+
+<p>where the contract “0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48” is in auto mode.</p>
+
+<p>The protocol will find the addresses of <strong>vitalik.eth</strong> from ENS on chainid 1 (Mainnet) and then call the method “balanceOf(address)” of the contract with the <strong>vitalik.eth</strong>’s address. The returned data from the call of the contract will be treated as ABI-type “(uint256)”, and the decoded data will be returned to the frontend in JSON format like <code class="language-plaintext highlighter-rouge">[ "0x9184e72a000" ]</code>, with the information that the MIME type is <code class="language-plaintext highlighter-rouge">application/json</code>.</p>
+
+<h4 id="example-6">Example 6</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/balanceOf/vitalik.eth?returns=()
+</code></pre></div></div>
+
+<p>where the contract ”0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48“ is in auto mode.</p>
+
+<p>The protocol will find the address of <strong>vitalik.eth</strong> from ENS on chainid 1 (Mainnet) and then call the method “balanceOf(address)” of the address. The returned data from the call of the contract will be treated as raw bytes and will be encoded in JSON format like <code class="language-plaintext highlighter-rouge">["0x000000000000000000000000000000000000000000000000000009184e72a000"]</code> and returned to the frontend, with the information that the MIME type is <code class="language-plaintext highlighter-rouge">application/json</code>.</p>
+
+<h3 id="appendix-a-complete-abnf-for-web3-urls">Appendix A: Complete ABNF for Web3 URLs</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3URL         = schema "://" [ userinfo "@" ] contractName [ ":" chainid ] pathQuery
+schema          = "w3" / "web3"
+userinfo        = address
+contractName    = address 
+                / domainName
+chainid         = %x31-39 *DIGIT
+
+pathQuery       = mPathQuery ; path+query for manual mode
+                / aPathQuery ; path+query for auto mode
+
+web3UrlRef      = web3URL 
+                / relativeWeb3URL
+relativeWeb3URL = relPathQuery
+relPathQuery    = relMPathQuery ; Relative URL path+query for manual mode
+                / relAPathQuery ; Relative URL path+query for auto mode
+
+mPathQuery      = mPath [ "?" mQuery ]
+mPath           = mPathAbempty ; begins with "/" or is empty
+
+relMPathQuery   = relMPath [ "?" mQuery ]
+relMPath        = mPathAbsolute ; begins with "/" but not "//"
+                / mPathNoscheme ; begins with a non-colon segment
+                / mPathEmpty    ; zero characters
+
+mPathAbempty    = [ *( "/" segment ) "/" segment [ "." fileExtension ] ]
+mPathAbsolute   = "/" [ segmentNz *( "/" segment ) ] [ "." fileExtension ]
+mPathNoscheme   = segmentNzNc *( "/" segment ) [ "." fileExtension ]
+mPathEmpty      = 0&lt;pchar&gt;
+
+segment         = *pchar ; as in RFC 3986
+segmentNz       = 1*pchar ; as in RFC 3986
+segmentNzNc     = 1*( unreserved / pct-encoded / sub-delims / "@" )
+                ; as in RFC 3986: non-zero-length segment without any colon ":"
+
+mQuery          = *( pchar / "/" / "?" ) ; as in RFC 3986
+
+aPathQuery      = aPath [ "?" aQuery ]
+aPath           = [ "/" [ method *( "/" argument ) ] ]
+relAPathQuery   = aPath [ "?" aQuery ]
+method          = ( ALPHA / "$" / "_" ) *( ALPHA / DIGIT / "$" / "_" )
+argument        = boolArg
+                / uintArg
+                / intArg
+                / addressArg
+                / bytesArg
+                / stringArg
+boolArg         = [ "bool!" ] ( "true" / "false" )
+uintArg         = [ "uint" [ intSizes ] "!" ] 1*DIGIT
+intArg          = "int" [ intSizes ] "!" 1*DIGIT
+intSizes        = "8" / "16" / "24" / "32" / "40" / "48" / "56" / "64" / "72" / "80" / "88" / "96" / "104" / "112" / "120" / "128" / "136" / "144" / "152" / "160" / "168" / "176" / "184" / "192" / "200" / "208" / "216" / "224" / "232" / "240" / "248" / "256"
+addressArg      = [ "address!" ] ( address / domainName )
+bytesArg        = [ "bytes!" ] bytes
+                / "bytes1!0x" 1( HEXDIG HEXDIG )
+                / "bytes2!0x" 2( HEXDIG HEXDIG )
+                / "bytes3!0x" 3( HEXDIG HEXDIG )
+                / "bytes4!0x" 4( HEXDIG HEXDIG )
+                / "bytes5!0x" 5( HEXDIG HEXDIG )
+                / "bytes6!0x" 6( HEXDIG HEXDIG )
+                / "bytes7!0x" 7( HEXDIG HEXDIG )
+                / "bytes8!0x" 8( HEXDIG HEXDIG )
+                / "bytes9!0x" 9( HEXDIG HEXDIG )
+                / "bytes10!0x" 10( HEXDIG HEXDIG )
+                / "bytes11!0x" 11( HEXDIG HEXDIG )
+                / "bytes12!0x" 12( HEXDIG HEXDIG )
+                / "bytes13!0x" 13( HEXDIG HEXDIG )
+                / "bytes14!0x" 14( HEXDIG HEXDIG )
+                / "bytes15!0x" 15( HEXDIG HEXDIG )
+                / "bytes16!0x" 16( HEXDIG HEXDIG )
+                / "bytes17!0x" 17( HEXDIG HEXDIG )
+                / "bytes18!0x" 18( HEXDIG HEXDIG )
+                / "bytes19!0x" 19( HEXDIG HEXDIG )
+                / "bytes20!0x" 20( HEXDIG HEXDIG )
+                / "bytes21!0x" 21( HEXDIG HEXDIG )
+                / "bytes22!0x" 22( HEXDIG HEXDIG )
+                / "bytes23!0x" 23( HEXDIG HEXDIG )
+                / "bytes24!0x" 24( HEXDIG HEXDIG )
+                / "bytes25!0x" 25( HEXDIG HEXDIG )
+                / "bytes26!0x" 26( HEXDIG HEXDIG )
+                / "bytes27!0x" 27( HEXDIG HEXDIG )
+                / "bytes28!0x" 28( HEXDIG HEXDIG )
+                / "bytes29!0x" 29( HEXDIG HEXDIG )
+                / "bytes30!0x" 30( HEXDIG HEXDIG )
+                / "bytes31!0x" 31( HEXDIG HEXDIG )
+                / "bytes32!0x" 32( HEXDIG HEXDIG )
+stringArg       = "string!" *pchar [ "." fileExtension ]
+
+aQuery          = attribute *( "&amp;" attribute )
+attribute       = attrName "=" attrValue
+attrName        = "returns"
+                / "returnTypes"
+attrValue       = [ "(" [ retTypes ] ")" ]
+retTypes        = retType *( "," retType )
+retType         = retRawType *( "[" [ %x31-39 *DIGIT ] "]" )
+retRawType      = "(" retTypes ")"
+                / retBaseType
+retBaseType      = "bool" / "uint" [ intSizes ] / "int" [ intSize ] / "address" / "bytes" [ bytesSizes ] / "string"
+bytesSizes      = %x31-39              ; 1-9
+                / ( "1" / "2" ) DIGIT  ; 10-29
+                / "31" / "32"          ; 31-32
+
+domainName      = *( unreserved / pct-encoded / sub-delims ) ; As in RFC 3986
+
+fileExtension   = 1*( ALPHA / DIGIT )
+
+address         = "0x" 20( HEXDIG HEXDIG )
+bytes           = "0x" *( HEXDIG HEXDIG )
+
+pchar           = unreserved / pct-encoded / sub-delims / ":" / "@" ; As in RFC 3986
+
+pct-encoded     = "%" HEXDIG HEXDIG ; As in RFC 3986
+
+unreserved      = ALPHA / DIGIT / "-" / "." / "_" / "~" ; As in RFC 3986
+sub-delims    = "!" / "$" / "&amp;" / "'" / "(" / ")"
+                / "*" / "+" / "," / ";" / "=" ; As in RFC 3986
+
+</code></pre></div></div>
+
+<h3 id="appendix-b-changes-versus-erc-4804">Appendix B: Changes versus <a href="./eip-4804.md">ERC-4804</a></h3>
+
+<h4 id="corrections">Corrections</h4>
+
+<ul>
+  <li>Manual mode : <a href="./eip-4804.md">ERC-4804</a> stipulates that there is no interpretation of the path [ “?” query ]. This ERC indicates that there is in fact an interpretation of the path, for MIME type determination purpose.</li>
+  <li>Auto mode : If there is no <strong>returns</strong> attribute in <strong>query</strong>, <a href="./eip-4804.md">ERC-4804</a> stipulates that the returned data is treated as ABI-encoded bytes32. This ERC indicates that in fact the returned data is treated as ABI-encoded bytes.</li>
+</ul>
+
+<h4 id="clarifications">Clarifications</h4>
+
+<ul>
+  <li>Formal specification: This ERC add a ABNF definition of the URL format.</li>
+  <li>Resolve mode: This ERC indicates more details on how the resolve mode is determined.</li>
+  <li>Manual mode : This ERC indicates how to deal with URI-percent-encoding, the return data, and how the MIME type is determined.</li>
+  <li>Auto mode : This ERC indicates in more details the encoding of the argument values, as well as the format and handling of the <strong>returns</strong> value.</li>
+  <li>Examples : This ERC add more details to the examples.</li>
+</ul>
+
+<h4 id="modifications">Modifications</h4>
+
+<ul>
+  <li>Protocol name: <a href="./eip-4804.md">ERC-4804</a> mentionned <code class="language-plaintext highlighter-rouge">ethereum-web3://</code> and <code class="language-plaintext highlighter-rouge">eth-web3://</code>, these are removed.</li>
+  <li>Auto mode: Supported types: <a href="./eip-4804.md">ERC-4804</a> supported only uint256, bytes32, address, bytes, and string. This ERC add more types.</li>
+  <li>Auto mode: Encoding of returned integers when a <strong>returns</strong> attribute is specified: <a href="./eip-4804.md">ERC-4804</a> suggested in example 5 to encode integers as strings. This ERC indicates to follow the Ethereum JSON RPC spec and encode integers as a hex string, prefixed with “0x”.</li>
+</ul>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The purpose of the proposal is to add a decentralized presentation layer for Ethereum.  With the layer, we are able to render any web content (including HTML/CSS/JPG/PNG/SVG, etc) on-chain using human-readable URLs, and thus EVM can be served as a decentralized backend.  The design of the standard is based on the following principles:</p>
+
+<ul>
+  <li>
+    <p><strong>Human-readable</strong>.  The Web3 URL should be easily recognized by human similar to Web2 URL (<code class="language-plaintext highlighter-rouge">http://</code>).  As a result, we support names from name services to replace address for better readability.  In addition, instead of using calldata in hex, we use human-readable method + arguments and translate them to calldata for better readability.</p>
+  </li>
+  <li>
+    <p><strong>Maximum-Compatible with HTTP-URL standard</strong>.  The Web3 URL should be compatible with HTTP-URL standard including relative pathing, query, fragment, percent-encoding, etc so that the support of existing HTTP-URL (e.g., by browser) can be easily extended to Web3 URL with minimal modification.  This also means that existing Web2 users can easily migrate to Web3 with minimal extra knowledge of this standard.</p>
+  </li>
+  <li>
+    <p><strong>Simple</strong>.  Instead of providing explicit types in arguments, we use a “maximum likelihood” principle of auto-detecting the types of the arguments such as address, bytes32, and uint256.  This could greatly minimize the length of URL, while avoiding confusion.  In addition, explicit types are also supported to clear the confusion if necessary.</p>
+  </li>
+  <li>
+    <p><strong>Flexible</strong>.  The contract is able to override the encoding rule so that the contract has fine-control of understanding the actual Web resources that the users want to locate.</p>
+  </li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>No security considerations were found.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

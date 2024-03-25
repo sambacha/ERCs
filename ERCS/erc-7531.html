@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Staked ERC-721 Ownership Recognition | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Staked ERC-721 Ownership Recognition | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7531" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7531" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Staked ERC-721 Ownership Recognition</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The ownership of <a href="./eip-721.md">ERC-721</a> tokens when staked in a pool presents challenges, particularly when it involves older, non-lockable NFTs like, for example, Crypto Punks or Bored Ape Yacht Club (BAYC) tokens. This proposal introduces an interface to address these challenges by allowing staked NFTs to be recognized by their original owners, even after they’ve been staked.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Recent solutions involve retaining NFT ownership while “locking” an NFT letting the owner keeping its ownership. However, this requires the NFT contract to implement lockable functionality. Early NFTs were not originally designed as lockable and so they must be staked transferring the ownership to the staking contract.</p>
+
+<p>This prevents the original owner from accessing valuable privileges and benefits associated with their NFTs.</p>
+
+<p>For example:</p>
+
+<ul>
+  <li>A BAYC NFT holder would lose access to the BAYC Yacht Club and member events when staked.</li>
+  <li>A CryptoPunks holder may miss out on special airdrops or displays only available to verified owners.</li>
+  <li>Owners of other early NFTs like EtherRocks would lose the social status of provable ownership when staked.</li>
+</ul>
+
+<p>By maintaining a record of the original owner, the proposed interface allows these original perks to remain accessible even when the NFT is staked elsewhere. This compatibility is critical for vintage NFT projects lacking native locking mechanisms.</p>
+
+<p>Another important right, is the right to use an asset. For example an NFT can be used to play a game. If the NFT is lent to a user, the ownership of the NFT is transferred to the lending contract. In this case, it can be hard to identify the wallet that has the right to us the NFT in the game, which should be the user.</p>
+
+<p>The interface provides a simple, elegant way to extend staking compatibility to legacy NFTs without affecting their core functionality or benefits of ownership.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>The interface is defined as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IERC7531</span> <span class="p">{</span>
+
+  <span class="cm">/**
+   * @notice MUST be emitted when the token's technical owner (the contract holding the token) is different 
+   *      from its actual owner (the entity with rights over the token). 
+   * @dev This scenario is common in staking, where a staking contract is the technical owner. The event MUST  
+   *      be emitted in the same or any subsequent block as the Transfer event for the token. 
+   *      A later Transfer event involving the same token supersedes this RightsHolderChange event.
+   *      To ensure authenticity, entities listening to this event MUST verify that the contract emitting
+   *      the event matches the token's current owner as per the related Transfer event.
+   *
+   * @param tokenAddress The address of the token contract.
+   * @param tokenId The ID of the token.
+   * @param holder The address of the actual rights holder of the token.
+   * @param right The type of right held by the holder. The initial supported rights are:
+   *
+   *           0x399d2b36   // bytes4(keccak256("ownership"))
+   *           0x230a5961   // bytes4(keccak256("usage"))
+   *
+   *        This allows projects to add more rights without breaking compatibility with this interface. See IERC7531Rights for more details.
+   */</span>
+  <span class="k">event</span> <span class="n">RightsHolderChange</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">tokenAddress</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">holder</span><span class="p">,</span> <span class="kt">bytes4</span> <span class="n">right</span><span class="p">);</span>
+
+  <span class="cm">/**
+   * @dev Returns the address of the entity with rights over the token, distinct from the current owner.
+   *      The function MUST revert if the token does not exist or is not currently held.
+   *
+   * @param tokenAddress The address of the ERC-721 contract.
+   * @param tokenId The ID of the token.
+   * @param rights The type of rights held by the holder.
+   * @return The address of the entity with rights over the token.
+   */</span>
+  <span class="k">function</span> <span class="n">rightsHolderOf</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">tokenAddress</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+    <span class="kt">bytes4</span> <span class="n">right</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">RightsHolderChange</code> event is crucial for accurately identifying the actual owner of a held token. In scenarios where a token is staked in a contract, the <a href="./eip-721.md">ERC-721</a> Transfer event would incorrectly assign ownership to the staking contract itself. The <code class="language-plaintext highlighter-rouge">RightsHolderChange</code> event addresses this discrepancy by explicitly signaling the real owner of the token rights.</p>
+
+<h3 id="timing-of-event-emission">Timing of Event Emission:</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">RightsHolderChange</code> event MUST be emitted either in the same block as the corresponding <code class="language-plaintext highlighter-rouge">Transfer</code> event or in any subsequent block. This approach offers flexibility for existing pools to upgrade their systems without compromising past compatibility. Specifically, staking pools can emit this event for all previously staked tokens, or they can allow users to actively reclaim their ownership. In the latter case, the event SHOULD be emitted as part of the ownership reclamation process. This flexibility ensures that the system can adapt to both current and future states while accurately reflecting the actual ownership of held tokens.</p>
+
+<h3 id="invalidation-of-previous-rightsholderchange-events">Invalidation of Previous <code class="language-plaintext highlighter-rouge">RightsHolderChange</code> Events:</h3>
+
+<p>To maintain compatibility with the broader ecosystem and optimize for gas efficiency, any new <code class="language-plaintext highlighter-rouge">Transfer</code> event involving the same token invalidates any previous <code class="language-plaintext highlighter-rouge">RightsHolderChange</code> event. This approach ensures that the most recent <code class="language-plaintext highlighter-rouge">Transfer</code> event reliably reflects the current ownership status, negating the need for additional events upon unstaking.</p>
+
+<h3 id="nft-extension">NFT extension</h3>
+
+<p>The two default rights are:</p>
+<ul>
+  <li>0x399d2b36   // bytes4(keccak256(“ownership”))</li>
+  <li>0x230a5961   // bytes4(keccak256(“usage”))</li>
+</ul>
+
+<p>However, there can ben NFTs that only need to validate the ownership, others may need to validate the usage, and others may need to validate both, some other NFT may need to manage totally different rights.</p>
+
+<p>To give NFTs the necessary flexibility, we also propose the following RECOMMENDED but OPTIONAL extension.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IERC7531Rights</span> <span class="p">{</span>
+  
+  <span class="cm">/**
+   * @dev Returns the list of rights supported by the NFT.
+   * @return The list of rights supported by the NFT.
+   */</span>
+  <span class="k">function</span> <span class="n">supportedERC7531Rights</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+  
+  <span class="cm">/**
+   * @dev Returns whether the NFT supports a specific right.
+   * @param right The right to check.
+   * @return Whether the NFT supports the right.
+   */</span>
+  <span class="k">function</span> <span class="n">supportsERC7531Right</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">right</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>It allows NFTs to return the list of rights it supports, and projects to verify it the NFT supports a specific right. Since the rights are identified by the bytes4 hash of the right name, when introducing new rights, NFT projects SHOULD make public statements about the string that corresponds to the bytes4 hash and explain the rationale for it.</p>
+
+<p>If the NFT does not support the interface (for example, if an existing NFT), project using NFTs SHOULD consider only the standard rights.</p>
+
+<p>NFT Projects SHOULD adhere to pre-existing rights, when possible, to avoid the proliferation of rights that could make the system less efficient and more complex.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="addressing-non-lockable-nft-challenges">Addressing Non-Lockable NFT Challenges:</h3>
+
+<p>Non-lockable NFTs present a unique challenge in decentralized ecosystems, especially in scenarios involving staking or delegating usage rights. The standard <a href="./eip-721.md">ERC-721</a> <code class="language-plaintext highlighter-rouge">ownerOf</code> function returns the current owner of the NFT, which, in the case of staking, would be the staking pool contract. This transfer of ownership to the staking pool, even if temporary, can disrupt the utility or privileges tied to the NFT, such as participation in governance, access to exclusive content, or utility within a specific ecosystem.</p>
+
+<h3 id="the-rightsholderof-method">The <code class="language-plaintext highlighter-rouge">rightsHolderOf</code> Method:</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">rightsHolderOf</code> method provides a solution to this challenge. By maintaining a record of the original owner or the rightful holder of certain privileges associated with the NFT, this method ensures that the underlying utility of the NFT is preserved, even when the NFT itself is held in a pool.</p>
+
+<h3 id="technical-advantages">Technical Advantages:</h3>
+
+<ol>
+  <li>
+    <p>Preservation of Utility: This approach allows NFT owners to leverage their assets in staking pools or other smart contracts without losing access to the benefits associated with the NFT. This is particularly important for NFTs that confer ongoing benefits or rights.</p>
+  </li>
+  <li>
+    <p>Enhanced Flexibility: The method offers greater flexibility for NFT owners, allowing them to participate in staking and other DeFi activities without relinquishing the intrinsic benefits of their NFTs.</p>
+  </li>
+  <li>
+    <p>Compatibility and Interoperability: By introducing a new method instead of altering the existing ownerOf function, this EIP ensures backward compatibility with existing <a href="./eip-721.md">ERC-721</a> contracts. This is crucial for maintaining interoperability across various platforms and applications in the NFT space.</p>
+  </li>
+  <li>
+    <p>Event-Driven Updates: The <code class="language-plaintext highlighter-rouge">RightsHolderChange</code> event facilitates real-time tracking of the rights-holder of an NFT. This is particularly useful for third-party platforms and services that rely on up-to-date ownership information to provide services or privileges.</p>
+  </li>
+</ol>
+
+<h3 id="addressing-potential-misuse">Addressing Potential Misuse:</h3>
+
+<p>While this approach introduces a layer of complexity, it also comes with the need for diligent implementation to prevent misuse, such as the wrongful assignment of rights. This EIP outlines security considerations and best practices to mitigate such risks.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is fully backwards compatible with existing <a href="./eip-721.md">ERC-721</a> contracts. It can seamlessly integrate with existing upgradeable staking pools, provided they choose to adopt it. It does not require changes to the <a href="./eip-721.md">ERC-721</a> standard but acts as an enhancement for staking pools.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>A potential risk with this interface is the improper assignment of ownership by a staking pool to a different wallet. This could allow that wallet to access privileges associated with the NFT, which might not be intended by the true owner. However, it is important to note that this risk is lower than transferring full legal ownership of the NFT to the staking pool, as the interface only enables recognizing the staker, not replacing the actual owner on-chain.</p>
+
+<h3 id="event-authenticity">Event Authenticity:</h3>
+
+<p>There is a concern regarding the potential emission of fake <code class="language-plaintext highlighter-rouge">RightsHolderChange</code> events. Since any contract can emit such an event, there’s a risk of misinformation or misrepresentation of ownership. It is crucial for entities listening to the <code class="language-plaintext highlighter-rouge">RightsHolderChange</code> event to verify that the emitting contract is indeed the current owner of the token. This validation is essential to ensure the accuracy of ownership information and to mitigate the risks associated with deceptive event emissions.</p>
+
+<h3 id="reducing-the-risk-of-inaccurate-ownership-records">Reducing the Risk of Inaccurate Ownership Records:</h3>
+
+<p>While improper use of this interface poses some risk of inaccurate ownership records, this is an inherent issue with any staking arrangement. The risk is somewhat mitigated by the fact that the owner retains custody rather than transferring ownership.</p>
+
+<h3 id="due-diligence">Due Diligence:</h3>
+
+<p>Consumers of privilege-granting NFTs should exercise due diligence when evaluating staking providers. Signs of mismanagement or fraud should be carefully assessed. The interface itself does not enable new manipulation capabilities, but caution is always prudent when interacting with smart contracts and staking pools.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

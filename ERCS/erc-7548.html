@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Open IP Protocol built on NFTs | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Open IP Protocol built on NFTs | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7548" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7548" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Open IP Protocol built on NFTs</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal aims to establish a standardized method for creating new intellectual properties (IPs) by remixing multiple existing IPs in a decentralized manner.</p>
+
+<p>The protocol is built on the foundation of NFTs (Non-Fungible Tokens). Within this protocol, each intellectual property is represented as an NFT. It extends the <a href="./eip-721.md">ERC-721</a> standard, enabling users to generate a new NFT by remixing multiple existing NFTs. To ensure transparency and traceability in the creation process, the relationships between the new NFT and the original NFTs are recorded on the blockchain and made publicly accessible.</p>
+
+<p>Furthermore, to enhance the liquidity of IP, users not only have the ability to remix NFTs they own but can also grant permission to others to participate in the creation of new NFTs using their own NFTs.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The internet is flooded with fresh content every day, but with the traditional IP infrastructure, IP registration and licensing is a headache for digital creators. The rapid creation of content has eclipsed the slower pace of IP registration, leaving much of this content unprotected. This means digital creators can’t fairly earn from their work’s spread.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Traditional IP Infrastructure</th>
+      <th>Open IP Infrastructure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>IP Registration</td>
+      <td>Long waits, heaps of paperwork, and tedious back-and-forths.</td>
+      <td>An NFT represents intellectual property; the owner of the NFT holds the rights to the IP.</td>
+    </tr>
+    <tr>
+      <td>IP Licensing</td>
+      <td>Lengthy discussions, legal jargon, and case-by-case agreements.</td>
+      <td>A one-stop global IP licensing market that supports various licensing agreements.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With this backdrop, we’re passionate about building an Open IP ecosystem tailored for today’s digital creators. Here, with just a few clicks, creators can register, license, and monetize their content globally, without geographical or linguistic barriers.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST,” “MUST NOT,” “REQUIRED,” “SHALL,” “SHALL NOT,” “SHOULD,” “SHOULD NOT,” “RECOMMENDED,” “MAY,” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p><strong>Interface</strong></p>
+
+<p>This protocol standardizes how to remix multiple existing NFTs and create a new NFT derivative work (known as a combo), while their relationships can be traced on the blockchain. It contains three core modules, remix module, network module, and license module.</p>
+
+<h3 id="remix-module">Remix Module</h3>
+
+<p>This module extends the ERC-721 standard and enables users to create a new NFT by remixing multiple existing NFTs, whether they’re ERC-721 or <a href="./eip-1155.md">ERC-1155</a>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC721X</span> <span class="p">{</span>
+    <span class="c1">// Events
+</span>
+    <span class="c1">/// @dev Emits when a combo is minted.
+</span>    <span class="c1">/// @param owner The owner address of the newly minted combo
+</span>    <span class="c1">/// @param comboId The newly minted combo identifier
+</span>    <span class="k">event</span> <span class="n">ComboMinted</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">comboId</span><span class="p">);</span>
+
+    <span class="c1">// Structs
+</span>
+    <span class="c1">/// @param tokenAddress The NFT's collection address
+</span>    <span class="c1">/// @param tokenId The NFT identifier
+</span>    <span class="k">struct</span> <span class="n">Token</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">tokenAddress</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @param amount The number of NFTs used
+</span>    <span class="c1">/// @param licenseId Which license to be used to verify this component
+</span>    <span class="k">struct</span> <span class="n">Component</span> <span class="p">{</span>
+        <span class="n">Token</span> <span class="n">token</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">licenseId</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Functions
+</span>
+    <span class="c1">/// @dev Mints a NFT by remixing multiple existing NFTs.
+</span>    <span class="c1">/// @param components The NFTs remixed to mint a combo
+</span>    <span class="c1">/// @param hash The hash representing the algorithm about how to generate the combo's metadata when remixing multiple existing NFTs.
+</span>    <span class="k">function</span> <span class="n">mint</span><span class="p">(</span>
+        <span class="n">Component</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">components</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">calldata</span> <span class="n">hash</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @dev Retrieve a combo's components.
+</span>    <span class="k">function</span> <span class="n">getComponents</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">comboId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Component</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="license-module">License Module</h3>
+
+<p>By default, users can only remix multiple NFTs they own to create new NFT derivative works. This module enables NFT holders to grant others permission to use their NFTs in the remixing process.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./IERC721X.sol"</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">ILicense</span> <span class="p">{</span>
+    <span class="c1">/// @dev Verify the permission when minting a combo
+</span>    <span class="c1">/// @param user The minter
+</span>    <span class="c1">/// @param combo The new NFT to be minted by remixing multiple existing NFTs
+</span>    <span class="c1">/// @return components The multiple existing NFTs used to mint the new combo
+</span>    <span class="k">function</span> <span class="n">verify</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">user</span><span class="p">,</span>
+        <span class="n">IERC721X</span><span class="p">.</span><span class="n">Token</span> <span class="k">calldata</span> <span class="n">combo</span><span class="p">,</span>
+        <span class="n">IERC721X</span><span class="p">.</span><span class="n">Component</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">components</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="network-module">Network Module</h3>
+
+<p>This module follows the singleton pattern and is used to track all relationships between the original NFTs and their NFT derivative works.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./IERC721X.sol"</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">INFTNetIndexer</span> <span class="p">{</span>
+    <span class="c1">/// @dev Verify if the `child` was created by remixing the `parent` with other NFTs.
+</span>    <span class="c1">/// @param parent Any NFT
+</span>    <span class="c1">/// @param child Any NFT
+</span>    <span class="k">function</span> <span class="n">isParent</span><span class="p">(</span>
+        <span class="n">IERC721X</span><span class="p">.</span><span class="n">Token</span> <span class="k">calldata</span> <span class="n">parent</span><span class="p">,</span>
+        <span class="n">IERC721X</span><span class="p">.</span><span class="n">Token</span> <span class="k">calldata</span> <span class="n">child</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Verify if `a` and `b` have common `parent`s
+</span>    <span class="c1">/// @param a Any NFT
+</span>    <span class="c1">/// @param b Any NFT
+</span>    <span class="k">function</span> <span class="n">isSibling</span><span class="p">(</span>
+        <span class="n">IERC721X</span><span class="p">.</span><span class="n">Token</span> <span class="k">calldata</span> <span class="n">a</span><span class="p">,</span>
+        <span class="n">IERC721X</span><span class="p">.</span><span class="n">Token</span> <span class="k">calldata</span> <span class="n">b</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="n">IERC721X</span><span class="p">.</span><span class="n">Token</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">commonParents</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Return all parents of a `token`
+</span>    <span class="c1">/// @param token Any NFT
+</span>    <span class="c1">/// @return parents All NFTs used to mint the `token`
+</span>    <span class="k">function</span> <span class="n">getParents</span><span class="p">(</span>
+        <span class="n">IERC721X</span><span class="p">.</span><span class="n">Token</span> <span class="k">calldata</span> <span class="n">token</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">IERC721X</span><span class="p">.</span><span class="n">Token</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">parents</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The Open IP Protocol is built on the “1 premise, 2 extensions, 1 constant” principle.</p>
+
+<p>The “1 premise” means that for any IP in the Open IP ecosystem, an NFT stands for that IP. So, if you have the NFT, you own the IP. That’s why the Open IP Protocol is designed as an extended protocol compatible with ERC-721.</p>
+
+<p>The “2 extensions” refer to the diversification of IP licensing and remixing.</p>
+
+<ul>
+  <li>
+    <p>IP licensing methods are diverse. For example, delegating an NFT to someone else is one type of licensing, setting a price for the number of usage rights is another type of licensing, and even pricing based on auction, AMM, or other pricing mechanisms can develop different licensing methods. Therefore, the license module is designed allowing various custom licensing methods.</p>
+  </li>
+  <li>
+    <p>IP remixing rules are also diverse. When remixing multiple existing NFTs, whether to support ERC-1155, whether to limit the range of NFT selection, and whether the NFT is consumed after remixing, there is no standard. So, the remix module is designed to support custom remixing rules.</p>
+  </li>
+</ul>
+
+<p>The “1 constant” refers to the fact that the traceability information of IP licensing is always public and unchangeable. Regardless of how users license or remix IPs, the relationship between the original and new IPs remains consistent. Moreover, if all IP relationships are recorded in the same database, it would create a vast IP network. If other social or gaming dApps leverage this network, it can lead to entirely novel user experiences. Hence, this protocol’s network module is designed as a singleton.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal is fully backwards compatible with the existing ERC-721 standard, extending the standard with new functions that do not affect the core functionality.</p>
+
+<!-- TODO: add reference implementation -->
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>This standard highlights several security concerns that need attention:</p>
+
+<ul>
+  <li>
+    <p><strong>Ownership and Permissions</strong>: Only the NFT owner or those granted by them should be allowed to remix NFTs into NFT derivative works. It’s vital to have strict access controls to prevent unauthorized creations.</p>
+  </li>
+  <li>
+    <p><strong>Reentrancy Risks</strong>: Creating derivative works might require interacting with multiple external contracts, like the remix, license, and network modules. This could open the door to reentrancy attacks, so protective measures are necessary.</p>
+  </li>
+  <li>
+    <p><strong>Gas Usage</strong>: Remixing NFTs can be computation-heavy and involve many contract interactions, which might result in high gas fees. It’s important to optimize these processes to keep costs down and maintain user-friendliness.</p>
+  </li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

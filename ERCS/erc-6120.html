@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Universal Token Router | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Universal Token Router | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6120" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6120" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Universal Token Router</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>ETH is designed with <em>transfer-and-call</em> as the default behavior in a transaction. Unfortunately, <a href="./eip-20.md">ERC-20</a> is not designed with that pattern in mind and newer standards cannot apply to the token contracts that have already been deployed.</p>
+
+<p>Application and router contracts must use the <em>approve-then-call</em> pattern, which costs additional $n\times m\times l$ <code class="language-plaintext highlighter-rouge">approve</code> (or <code class="language-plaintext highlighter-rouge">permit</code>) signatures for $n$ contracts, $m$ tokens, and $l$ accounts. Not only these allowance transactions create a bad user experience, cost a lot of user fees and network storage, but they also put users at serious security risks as they often have to approve unaudited, unverified, and upgradable proxy contracts. The <em>approve-then-call</em> pattern is also quite error-prone, as many allowance-related bugs and exploits have been found recently.</p>
+
+<p>The Universal Token Router (UTR) separates the token allowance from the application logic, allowing any token to be spent in a contract call the same way with ETH, without approving any other application contracts.</p>
+
+<p>Tokens approved to the Universal Token Router can only be spent in transactions directly signed by their owner, and they have clearly visible token transfer behavior, including token types (ETH, <a href="./eip-20.md">ERC-20</a>, <a href="./eip-721.md">ERC-721</a> or <a href="./eip-1155.md">ERC-1155</a>), <code class="language-plaintext highlighter-rouge">amountIn</code>, <code class="language-plaintext highlighter-rouge">amountOutMin</code>, and <code class="language-plaintext highlighter-rouge">recipient</code>.</p>
+
+<p>The Universal Token Router contract is deployed using the <a href="./eip-1014.md">EIP-1014</a> SingletonFactory contract at <code class="language-plaintext highlighter-rouge">0x8Bd6072372189A12A2889a56b6ec982fD02b0B87</code> across all EVM-compatible networks. This enables new token contracts to pre-configure it as a trusted spender, eliminating the need for approval transactions during their interactive usage.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>When users approve their tokens to a contract, they trust that:</p>
+
+<ul>
+  <li>it only spends the tokens with their permission (from <code class="language-plaintext highlighter-rouge">msg.sender</code> or <code class="language-plaintext highlighter-rouge">ecrecover</code>)</li>
+  <li>it does not use <code class="language-plaintext highlighter-rouge">delegatecall</code> (e.g. upgradable proxies)</li>
+</ul>
+
+<p>By ensuring the same security conditions above, the Universal Token Router can be shared by all interactive applications, saving most approval transactions for old tokens and <strong>ALL</strong> approval transactions for new tokens.</p>
+
+<p>Before this EIP, when users sign transactions to spend their approved tokens, they trust the front-end code entirely to construct those transactions honestly and correctly. This puts them at great risk of phishing sites.</p>
+
+<p>The Universal Token Router function arguments can act as a manifest for users when signing a transaction. With the support from wallets, users can see and review their expected token behavior instead of blindly trusting the application contracts and front-end code. Phishing sites will be much easier to detect and avoid for users.</p>
+
+<p>Most of the application contracts are already compatible with the Universal Token Router and can use it to have the following benefits:</p>
+
+<ul>
+  <li>Securely share the user token allowance with all other applications.</li>
+  <li>Update their peripheral contracts as often as they want.</li>
+  <li>Save development and security audit costs on router contracts.</li>
+</ul>
+
+<p>The Universal Token Router promotes the <strong>security-by-result</strong> model in decentralized applications instead of <strong>security-by-process</strong>. By directly querying token balance change for output verification, user transactions can be secured even when interacting with erroneous or malicious contracts. With non-token results, application helper contracts can provide additional result-checking functions for UTR’s output verification.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>The main interface of the UTR contract:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IUniversalTokenRouter</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">exec</span><span class="p">(</span>
+        <span class="n">Output</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">outputs</span><span class="p">,</span>
+        <span class="n">Action</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">actions</span>
+    <span class="p">)</span> <span class="k">payable</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="output-verification">Output Verification</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Output</code> defines the expected token balance change for verification.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Output</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">recipient</span><span class="p">;</span>
+    <span class="kt">uint</span> <span class="n">eip</span><span class="p">;</span>           <span class="c1">// token standard: 0 for ETH or EIP number
+</span>    <span class="kt">address</span> <span class="n">token</span><span class="p">;</span>      <span class="c1">// token contract address
+</span>    <span class="kt">uint</span> <span class="n">id</span><span class="p">;</span>            <span class="c1">// token id for ERC-721 and ERC-1155
+</span>    <span class="kt">uint</span> <span class="n">amountOutMin</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Token balances of the <code class="language-plaintext highlighter-rouge">recipient</code> address are recorded at the beginning and the end of the <code class="language-plaintext highlighter-rouge">exec</code> function for each item in <code class="language-plaintext highlighter-rouge">outputs</code>. Transaction will revert with <code class="language-plaintext highlighter-rouge">INSUFFICIENT_OUTPUT_AMOUNT</code> if any of the balance changes are less than its <code class="language-plaintext highlighter-rouge">amountOutMin</code>.</p>
+
+<p>A special id <code class="language-plaintext highlighter-rouge">ERC_721_BALANCE</code> is reserved for ERC-721, which can be used in output actions to verify the total amount of all ids owned by the <code class="language-plaintext highlighter-rouge">recipient</code> address.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ERC_721_BALANCE</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">'UniversalTokenRouter.ERC_721_BALANCE'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="action">Action</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Action</code> defines the token inputs and the contract call.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Action</span> <span class="p">{</span>
+    <span class="n">Input</span><span class="p">[]</span> <span class="n">inputs</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">code</span><span class="p">;</span>       <span class="c1">// contract code address
+</span>    <span class="kt">bytes</span> <span class="n">data</span><span class="p">;</span>         <span class="c1">// contract input data
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>The action code contract MUST implement the <a href="./eip-165.md">ERC-165</a> interface with the ID <code class="language-plaintext highlighter-rouge">0x61206120</code> in order to be called by the UTR. This interface check prevents direct invocation of token <em>allowance-spending</em> functions (e.g., <code class="language-plaintext highlighter-rouge">transferFrom</code>) by the UTR. Therefore, new token contracts MUST NOT implement this interface ID.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="k">contract</span> <span class="n">NotToken</span> <span class="k">is</span> <span class="n">ERC165</span> <span class="p">{</span>
+    <span class="c1">// IERC165-supportsInterface
+</span>    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span>
+            <span class="n">interfaceId</span> <span class="o">==</span> <span class="mh">0x61206120</span> <span class="o">||</span>
+            <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceId</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">Application</span> <span class="k">is</span> <span class="n">NotToken</span> <span class="p">{</span>
+    <span class="c1">// this contract can be used with the UTR
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="input">Input</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Input</code> defines the input token to transfer or prepare before the action contract is executed.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Input</span> <span class="p">{</span>
+    <span class="kt">uint</span> <span class="n">mode</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">recipient</span><span class="p">;</span>
+    <span class="kt">uint</span> <span class="n">eip</span><span class="p">;</span>           <span class="c1">// token standard: 0 for ETH or EIP number
+</span>    <span class="kt">address</span> <span class="n">token</span><span class="p">;</span>      <span class="c1">// token contract address
+</span>    <span class="kt">uint</span> <span class="n">id</span><span class="p">;</span>            <span class="c1">// token id for ERC-721 and ERC-1155
+</span>    <span class="kt">uint</span> <span class="n">amountIn</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">mode</code> takes one of the following values:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PAYMENT = 0</code>: pend a payment for the token to be transferred from <code class="language-plaintext highlighter-rouge">msg.sender</code> to the <code class="language-plaintext highlighter-rouge">recipient</code> by calling <code class="language-plaintext highlighter-rouge">UTR.pay</code> from anywhere in the same transaction.</li>
+  <li><code class="language-plaintext highlighter-rouge">TRANSFER = 1</code>: transfer the token directly from <code class="language-plaintext highlighter-rouge">msg.sender</code> to the <code class="language-plaintext highlighter-rouge">recipient</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">CALL_VALUE = 2</code>: record the <code class="language-plaintext highlighter-rouge">ETH</code> amount to pass to the action as the call <code class="language-plaintext highlighter-rouge">value</code>.</li>
+</ul>
+
+<p>Each input in the <code class="language-plaintext highlighter-rouge">inputs</code> argument is processed sequentially. For simplicity, duplicated <code class="language-plaintext highlighter-rouge">PAYMENT</code> and <code class="language-plaintext highlighter-rouge">CALL_VALUE</code> inputs are valid, but only the last <code class="language-plaintext highlighter-rouge">amountIn</code> value is used.</p>
+
+<h4 id="payment-input">Payment Input</h4>
+
+<p><code class="language-plaintext highlighter-rouge">PAYMENT</code> is the recommended mode for application contracts that use the <em>transfer-in-callback</em> pattern. E.g., flashloan contracts, Uniswap/v3-core, Derivable, etc.</p>
+
+<p>For each <code class="language-plaintext highlighter-rouge">Input</code> with <code class="language-plaintext highlighter-rouge">PAYMENT</code> mode, at most <code class="language-plaintext highlighter-rouge">amountIn</code> of the token can be transferred from <code class="language-plaintext highlighter-rouge">msg.sender</code> to the <code class="language-plaintext highlighter-rouge">recipient</code> by calling <code class="language-plaintext highlighter-rouge">UTR.pay</code> from anywhere in the same transaction.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UTR
+ |
+ | PAYMENT
+ | (payments pended for UTR.pay)
+ |
+ |                                  Application Contracts
+action.code.call ---------------------&gt; |
+                                        |
+UTR.pay &lt;----------------------- (call) |
+                                        |
+ | &lt;-------------------------- (return) |
+ |
+ | (clear all pending payments)
+ |
+END
+</code></pre></div></div>
+
+<p>Token’s allowance and <code class="language-plaintext highlighter-rouge">PAYMENT</code> are essentially different as:</p>
+
+<ul>
+  <li>allowance: allow a specific <code class="language-plaintext highlighter-rouge">spender</code> to transfer the token to anyone at any time.</li>
+  <li><code class="language-plaintext highlighter-rouge">PAYMENT</code>: allow anyone to transfer the token to a specific <code class="language-plaintext highlighter-rouge">recipient</code> only in that transaction.</li>
+</ul>
+
+<h5 id="spend-payment">Spend Payment</h5>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IUniversalTokenRouter</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">pay</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">payment</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To call <code class="language-plaintext highlighter-rouge">pay</code>, the <code class="language-plaintext highlighter-rouge">payment</code> param must be encoded as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">payment</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">payer</span><span class="p">,</span>      <span class="c1">// address
+</span>    <span class="n">recipient</span><span class="p">,</span>  <span class="c1">// address
+</span>    <span class="n">eip</span><span class="p">,</span>        <span class="c1">// uint256
+</span>    <span class="n">token</span><span class="p">,</span>      <span class="c1">// address
+</span>    <span class="n">id</span>          <span class="c1">// uint256
+</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">payment</code> bytes can also be used by adapter UTR contracts to pass contexts and payloads for performing custom payment logic.</p>
+
+<h5 id="discard-payment">Discard Payment</h5>
+
+<p>Sometimes, it’s useful to discard the payment instead of performing the transfer, for example, when the application contract wants to burn its own token from <code class="language-plaintext highlighter-rouge">payment.payer</code>. The following function can be used to verify the payment to the caller’s address and discard a portion of it.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IUniversalTokenRouter</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">discard</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">payment</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Please refer to the <a href="#discard-payment-1">Discard Payment</a> section in the <strong>Security Considerations</strong> for an important security note.</p>
+
+<h5 id="payment-lifetime">Payment Lifetime</h5>
+
+<p>Payments are recorded in the UTR storage and intended to be spent by <code class="language-plaintext highlighter-rouge">input.action</code> external calls only within that transaction. All payment storages will be cleared before the <code class="language-plaintext highlighter-rouge">UTR.exec</code> ends.</p>
+
+<h3 id="native-token-tranfer">Native Token Tranfer</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">UTR</code> SHOULD have a <code class="language-plaintext highlighter-rouge">receive()</code> function for user execution logic that requires transferring ETH in. The <code class="language-plaintext highlighter-rouge">msg.value</code> transferred into the router can be spent in multiple inputs across different actions. While the caller takes full responsibility for the movement of <code class="language-plaintext highlighter-rouge">ETH</code> in and out of the router, the <code class="language-plaintext highlighter-rouge">exec</code> function SHOULD refund any remaining <code class="language-plaintext highlighter-rouge">ETH</code> before the function ends.</p>
+
+<p>Please refer to the <a href="#reentrancy">Reentrancy</a> section in the <strong>Security Considerations</strong> for information on reentrancy risks and mitigation.</p>
+
+<h3 id="usage-examples">Usage Examples</h3>
+
+<h4 id="uniswap-v2-router">Uniswap V2 Router</h4>
+
+<p>Legacy function:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">UniswapV2Router01</span><span class="p">.</span><span class="n">swapExactTokensForTokens</span><span class="p">(</span>
+    <span class="kt">uint</span> <span class="n">amountIn</span><span class="p">,</span>
+    <span class="kt">uint</span> <span class="n">amountOutMin</span><span class="p">,</span>
+    <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">path</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint</span> <span class="n">deadline</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">UniswapV2Helper01.swapExactTokensForTokens</code> is a modified version of it without the token transfer part.</p>
+
+<p>This transaction is signed by users to execute the swap instead of the legacy function:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">UniversalTokenRouter</span><span class="p">.</span><span class="nx">exec</span><span class="p">([{</span>
+    <span class="na">recipient</span><span class="p">:</span> <span class="nx">to</span><span class="p">,</span>
+    <span class="na">eip</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="na">token</span><span class="p">:</span> <span class="nx">path</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">amountOutMin</span><span class="p">,</span>
+<span class="p">}],</span> <span class="p">[{</span>
+    <span class="na">inputs</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">mode</span><span class="p">:</span> <span class="nx">TRANSFER</span><span class="p">,</span>
+        <span class="na">recipient</span><span class="p">:</span> <span class="nx">UniswapV2Library</span><span class="p">.</span><span class="nx">pairFor</span><span class="p">(</span><span class="nx">factory</span><span class="p">,</span> <span class="nx">path</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">path</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="na">eip</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="na">token</span><span class="p">:</span> <span class="nx">path</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="na">amountIn</span><span class="p">:</span> <span class="nx">amountIn</span><span class="p">,</span>
+    <span class="p">}],</span>
+    <span class="na">code</span><span class="p">:</span> <span class="nx">UniswapV2Helper01</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="nx">encodeFunctionData</span><span class="p">(</span><span class="dl">"</span><span class="s2">swapExactTokensForTokens</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span>
+        <span class="nx">amountIn</span><span class="p">,</span>
+        <span class="nx">amountOutMin</span><span class="p">,</span>
+        <span class="nx">path</span><span class="p">,</span>
+        <span class="nx">to</span><span class="p">,</span>
+        <span class="nx">deadline</span><span class="p">,</span>
+    <span class="p">]),</span>
+<span class="p">}])</span>
+</code></pre></div></div>
+
+<h4 id="uniswap-v3-router">Uniswap V3 Router</h4>
+
+<p>Legacy router contract:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">SwapRouter</span> <span class="p">{</span>
+    <span class="c1">// this function is called by pool to pay the input tokens
+</span>    <span class="k">function</span> <span class="n">pay</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">token</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">payer</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">value</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="c1">// pull payment
+</span>        <span class="n">TransferHelper</span><span class="p">.</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">payer</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The helper contract to use with the <code class="language-plaintext highlighter-rouge">UTR</code>:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">SwapHelper</span> <span class="p">{</span>
+    <span class="c1">// this function is called by pool to pay the input tokens
+</span>    <span class="k">function</span> <span class="n">pay</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">token</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">payer</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">value</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="c1">// pull payment
+</span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">payment</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">payer</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">UTR</span><span class="p">.</span><span class="n">pay</span><span class="p">(</span><span class="n">payment</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This transaction is signed by users to execute the <code class="language-plaintext highlighter-rouge">exactInput</code> functionality using <code class="language-plaintext highlighter-rouge">PAYMENT</code> mode:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">UniversalTokenRouter</span><span class="p">.</span><span class="nx">exec</span><span class="p">([{</span>
+    <span class="na">eip</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="na">token</span><span class="p">:</span> <span class="nx">tokenOut</span><span class="p">,</span>
+    <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">amountOutMin</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">recipient</span><span class="p">:</span> <span class="nx">to</span><span class="p">,</span>
+<span class="p">}],</span> <span class="p">[{</span>
+    <span class="na">inputs</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">mode</span><span class="p">:</span> <span class="nx">PAYMENT</span><span class="p">,</span>
+        <span class="na">eip</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="na">token</span><span class="p">:</span> <span class="nx">tokenIn</span><span class="p">,</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="na">amountIn</span><span class="p">:</span> <span class="nx">amountIn</span><span class="p">,</span>
+        <span class="na">recipient</span><span class="p">:</span> <span class="nx">pool</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
+    <span class="p">}],</span>
+    <span class="na">code</span><span class="p">:</span> <span class="nx">SwapHelper</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="nx">encodeFunctionData</span><span class="p">(</span><span class="dl">"</span><span class="s2">exactInput</span><span class="dl">"</span><span class="p">,</span> <span class="p">[...]),</span>
+<span class="p">}])</span>
+</code></pre></div></div>
+
+<h4 id="allowance-adapter">Allowance Adapter</h4>
+
+<p>A simple non-reentrancy ERC-20 adapter for aplication and router contracts that use direct allowance.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">AllowanceAdapter</span> <span class="k">is</span> <span class="n">ReentrancyGuard</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">Input</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">token</span><span class="p">;</span>
+        <span class="kt">uint</span> <span class="n">amountIn</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">approveAndCall</span><span class="p">(</span>
+        <span class="n">Input</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">inputs</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">spender</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">leftOverRecipient</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="n">nonReentrant</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">inputs</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Input</span> <span class="k">memory</span> <span class="n">input</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">IERC20</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">token</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="n">spender</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">amountIn</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">result</span><span class="p">)</span> <span class="o">=</span> <span class="n">spender</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">}(</span><span class="n">data</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">assembly</span> <span class="p">{</span>
+                <span class="nb">revert</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">mload</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">inputs</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Input</span> <span class="k">memory</span> <span class="n">input</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="c1">// clear all allowance
+</span>            <span class="n">IERC20</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">token</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="n">spender</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+            <span class="kt">uint</span> <span class="n">leftOver</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">leftOver</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">TransferHelper</span><span class="p">.</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">token</span><span class="p">,</span> <span class="n">leftOverRecipient</span><span class="p">,</span> <span class="n">leftOver</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This transaction is constructed to utilize the <code class="language-plaintext highlighter-rouge">UTR</code> to interact with Uniswap V2 Router without approving any token to it:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">routerData</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">uniswapRouter</span><span class="p">.</span><span class="nx">populateTransaction</span><span class="p">.</span><span class="nx">swapExactTokensForTokens</span><span class="p">(</span>
+    <span class="nx">amountIn</span><span class="p">,</span>
+    <span class="nx">amountOutMin</span><span class="p">,</span>
+    <span class="nx">path</span><span class="p">,</span>
+    <span class="nx">to</span><span class="p">,</span>
+    <span class="nx">deadline</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">adapterData</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">adapter</span><span class="p">.</span><span class="nx">populateTransaction</span><span class="p">.</span><span class="nx">approveAndCall</span><span class="p">(</span>
+    <span class="p">[{</span>
+        <span class="na">token</span><span class="p">:</span> <span class="nx">path</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="nx">amountIn</span><span class="p">,</span>
+    <span class="p">}],</span>
+    <span class="nx">uniswapRouter</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
+    <span class="nx">routerData</span><span class="p">,</span>
+    <span class="nx">leftOverRecipient</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">await</span> <span class="nx">utr</span><span class="p">.</span><span class="nx">exec</span><span class="p">([],</span> <span class="p">[{</span>
+    <span class="na">inputs</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">mode</span><span class="p">:</span> <span class="nx">TRANSFER</span><span class="p">,</span>
+        <span class="na">recipient</span><span class="p">:</span> <span class="nx">adapter</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
+        <span class="na">eip</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="na">token</span><span class="p">:</span> <span class="nx">path</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">amountIn</span><span class="p">,</span>
+    <span class="p">}],</span>
+    <span class="na">code</span><span class="p">:</span> <span class="nx">adapter</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="nx">adapterData</span><span class="p">,</span>
+<span class="p">}])</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">Permit</code> type signature is not supported since the purpose of the Universal Token Router is to eliminate all interactive <code class="language-plaintext highlighter-rouge">approve</code> signatures for new tokens, and <em>most</em> for old tokens.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<h3 id="tokens">Tokens</h3>
+
+<p>Old token contracts (ERC-20, ERC-721 and ERC-1155) require approval for the Universal Token Router once for each account.</p>
+
+<p>New token contracts can pre-configure the Universal Token Router as a trusted spender, and no approval transaction is required for interactive usage.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC20/ERC20.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @dev Implementation of the {ERC20} token standard that support a trusted ERC6120 contract as an unlimited spender.
+ */</span>
+<span class="k">contract</span> <span class="n">ERC20WithUTR</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="kr">immutable</span> <span class="n">UTR</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Sets the values for {name}, {symbol} and ERC6120's {utr} address.
+     *
+     * All three of these values are immutable: they can only be set once during
+     * construction.
+     *
+     * @param utr can be zero to disable trusted ERC6120 support.
+     */</span>
+    <span class="k">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol</span><span class="p">,</span> <span class="kt">address</span> <span class="n">utr</span><span class="p">)</span> <span class="n">ERC20</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">UTR</span> <span class="o">=</span> <span class="n">utr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev See {IERC20-allowance}.
+     */</span>
+    <span class="k">function</span> <span class="n">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">spender</span> <span class="o">==</span> <span class="n">UTR</span> <span class="o">&amp;&amp;</span> <span class="n">spender</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">type</span><span class="p">(</span><span class="kt">uint256</span><span class="p">).</span><span class="n">max</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">.</span><span class="n">allowance</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">spender</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * Does not check or update the allowance if `spender` is the UTR.
+     */</span>
+    <span class="k">function</span> <span class="n">_spendAllowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">spender</span> <span class="o">==</span> <span class="n">UTR</span> <span class="o">&amp;&amp;</span> <span class="n">spender</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nb">super</span><span class="p">.</span><span class="n">_spendAllowance</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">spender</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="applications">Applications</h3>
+
+<p>The only application contracts <strong>INCOMPATIBLE</strong> with the UTR are contracts that use <code class="language-plaintext highlighter-rouge">msg.sender</code> as the beneficiary address in their internal storage without any function for ownership transfer.</p>
+
+<p>All application contracts that accept <code class="language-plaintext highlighter-rouge">recipient</code> (or <code class="language-plaintext highlighter-rouge">to</code>) argument as the beneficiary address are compatible with the UTR out of the box.</p>
+
+<p>Application contracts that transfer tokens (ERC-20, ERC-721, and ERC-1155) to <code class="language-plaintext highlighter-rouge">msg.sender</code> need additional adapters to add a <code class="language-plaintext highlighter-rouge">recipient</code> to their functions.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// sample adapter contract for WETH
+</span><span class="k">contract</span> <span class="n">WethAdapter</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="n">IWETH</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">deposit</span><span class="p">(){</span><span class="n">value</span><span class="o">:</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">};</span>
+        <span class="n">TransferHelper</span><span class="p">.</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">WETH</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Additional helper and adapter contracts might be needed, but they’re mostly peripheral and non-intrusive. They don’t hold any tokens or allowances, so they can be frequently updated and have little to no security impact on the core application contracts.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>A reference implementation by Derivable Labs and audited by Hacken.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title The implemetation of the EIP-6120.
+/// @author Derivable Labs
+</span><span class="k">contract</span> <span class="n">UniversalTokenRouter</span> <span class="k">is</span> <span class="n">ERC165</span><span class="p">,</span> <span class="n">IUniversalTokenRouter</span> <span class="p">{</span>
+    <span class="kt">uint256</span> <span class="k">constant</span> <span class="n">PAYMENT</span>       <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="k">constant</span> <span class="n">TRANSFER</span>      <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="k">constant</span> <span class="n">CALL_VALUE</span>    <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="kt">uint256</span> <span class="k">constant</span> <span class="n">EIP_ETH</span>       <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="kt">uint256</span> <span class="k">constant</span> <span class="n">ERC_721_BALANCE</span> <span class="o">=</span> <span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">'UniversalTokenRouter.ERC_721_BALANCE'</span><span class="p">));</span>
+
+    <span class="c1">/// @dev transient pending payments
+</span>    <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="n">t_payments</span><span class="p">;</span>
+
+    <span class="c1">/// @dev accepting ETH for user execution (e.g. WETH.withdraw)
+</span>    <span class="k">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+
+    <span class="c1">/// The main entry point of the router
+</span>    <span class="c1">/// @param outputs token behaviour for output verification
+</span>    <span class="c1">/// @param actions router actions and inputs for execution
+</span>    <span class="k">function</span> <span class="n">exec</span><span class="p">(</span>
+        <span class="n">Output</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">outputs</span><span class="p">,</span>
+        <span class="n">Action</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">actions</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+    <span class="kr">unchecked</span> <span class="p">{</span>
+        <span class="c1">// track the expected balances before any action is executed
+</span>        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">outputs</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Output</span> <span class="k">memory</span> <span class="n">output</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">_balanceOf</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+            <span class="kt">uint256</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">output</span><span class="p">.</span><span class="n">amountOutMin</span> <span class="o">+</span> <span class="nb">balance</span><span class="p">;</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">expected</span> <span class="o">&gt;=</span> <span class="nb">balance</span><span class="p">,</span> <span class="s">'UTR: OUTPUT_BALANCE_OVERFLOW'</span><span class="p">);</span>
+            <span class="n">output</span><span class="p">.</span><span class="n">amountOutMin</span> <span class="o">=</span> <span class="n">expected</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kt">address</span> <span class="n">sender</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">actions</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Action</span> <span class="k">memory</span> <span class="n">action</span> <span class="o">=</span> <span class="n">actions</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="kt">uint256</span> <span class="n">value</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">action</span><span class="p">.</span><span class="n">inputs</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">Input</span> <span class="k">memory</span> <span class="n">input</span> <span class="o">=</span> <span class="n">action</span><span class="p">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+                <span class="kt">uint256</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">input</span><span class="p">.</span><span class="n">mode</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="n">CALL_VALUE</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// eip and id are ignored
+</span>                    <span class="n">value</span> <span class="o">=</span> <span class="n">input</span><span class="p">.</span><span class="n">amountIn</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="n">PAYMENT</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="kt">bytes32</span> <span class="n">key</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">recipient</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">eip</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">token</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">id</span><span class="p">));</span>
+                        <span class="n">t_payments</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">input</span><span class="p">.</span><span class="n">amountIn</span><span class="p">;</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="n">TRANSFER</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">_transferToken</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">recipient</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">eip</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">token</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">amountIn</span><span class="p">);</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="nb">revert</span><span class="p">(</span><span class="s">'UTR: INVALID_MODE'</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">action</span><span class="p">.</span><span class="n">code</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="n">action</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nb">require</span><span class="p">(</span>
+                    <span class="n">ERC165Checker</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">action</span><span class="p">.</span><span class="n">code</span><span class="p">,</span> <span class="mh">0x61206120</span><span class="p">),</span>
+                    <span class="s">"UTR: NOT_CALLABLE"</span>
+                <span class="p">);</span>
+                <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">result</span><span class="p">)</span> <span class="o">=</span> <span class="n">action</span><span class="p">.</span><span class="n">code</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">value</span><span class="p">}(</span><span class="n">action</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">assembly</span> <span class="p">{</span>
+                        <span class="nb">revert</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="mi">32</span><span class="p">),</span><span class="n">mload</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="c1">// clear all transient storages
+</span>            <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">action</span><span class="p">.</span><span class="n">inputs</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">Input</span> <span class="k">memory</span> <span class="n">input</span> <span class="o">=</span> <span class="n">action</span><span class="p">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">PAYMENT</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// transient storages
+</span>                    <span class="kt">bytes32</span> <span class="n">key</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span>
+                        <span class="n">sender</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">recipient</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">eip</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">token</span><span class="p">,</span> <span class="n">input</span><span class="p">.</span><span class="n">id</span>
+                    <span class="p">));</span>
+                    <span class="k">delete</span> <span class="n">t_payments</span><span class="p">[</span><span class="n">key</span><span class="p">];</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// refund any left-over ETH
+</span>        <span class="kt">uint256</span> <span class="n">leftOver</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">leftOver</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">TransferHelper</span><span class="p">.</span><span class="n">safeTransferETH</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">leftOver</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c1">// verify balance changes
+</span>        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">outputs</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Output</span> <span class="k">memory</span> <span class="n">output</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">_balanceOf</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+            <span class="c1">// NOTE: output.amountOutMin is reused as `expected`
+</span>            <span class="nb">require</span><span class="p">(</span><span class="nb">balance</span> <span class="o">&gt;=</span> <span class="n">output</span><span class="p">.</span><span class="n">amountOutMin</span><span class="p">,</span> <span class="s">'UTR: INSUFFICIENT_OUTPUT_AMOUNT'</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="p">}</span>
+    
+    <span class="c1">/// Spend the pending payment. Intended to be called from the input.action.
+</span>    <span class="c1">/// @param payment encoded payment data
+</span>    <span class="c1">/// @param amount token amount to pay with payment
+</span>    <span class="k">function</span> <span class="n">pay</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">payment</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="n">discard</span><span class="p">(</span><span class="n">payment</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+        <span class="p">(</span>
+            <span class="kt">address</span> <span class="n">sender</span><span class="p">,</span>
+            <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span>
+            <span class="kt">uint256</span> <span class="n">eip</span><span class="p">,</span>
+            <span class="kt">address</span> <span class="n">token</span><span class="p">,</span>
+            <span class="kt">uint256</span> <span class="n">id</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">payment</span><span class="p">,</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">));</span>
+        <span class="n">_transferToken</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">eip</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// Discard a part of a pending payment. Can be called from the input.action
+</span>    <span class="c1">/// to verify the payment without transfering any token.
+</span>    <span class="c1">/// @param payment encoded payment data
+</span>    <span class="c1">/// @param amount token amount to pay with payment
+</span>    <span class="k">function</span> <span class="n">discard</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">payment</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">key</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">payment</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">t_payments</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">amount</span><span class="p">,</span> <span class="s">'UTR: INSUFFICIENT_PAYMENT'</span><span class="p">);</span>
+        <span class="kr">unchecked</span> <span class="p">{</span>
+            <span class="n">t_payments</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">-=</span> <span class="n">amount</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// IERC165-supportsInterface
+</span>    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span>
+            <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IUniversalTokenRouter</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span>
+            <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_transferToken</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">sender</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">eip</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">token</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">id</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mi">20</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">TransferHelper</span><span class="p">.</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mi">1155</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">IERC1155</span><span class="p">(</span><span class="n">token</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mi">721</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">IERC721</span><span class="p">(</span><span class="n">token</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nb">revert</span><span class="p">(</span><span class="s">"UTR: INVALID_EIP"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_balanceOf</span><span class="p">(</span>
+        <span class="n">Output</span> <span class="k">memory</span> <span class="n">output</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="nb">balance</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">eip</span> <span class="o">=</span> <span class="n">output</span><span class="p">.</span><span class="n">eip</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mi">20</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">recipient</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mi">1155</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IERC1155</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">recipient</span><span class="p">,</span> <span class="n">output</span><span class="p">.</span><span class="n">id</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="mi">721</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">ERC_721_BALANCE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">IERC721</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">recipient</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">try</span> <span class="n">IERC721</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">token</span><span class="p">).</span><span class="n">ownerOf</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">currentOwner</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">currentOwner</span> <span class="o">==</span> <span class="n">output</span><span class="p">.</span><span class="n">recipient</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">eip</span> <span class="o">==</span> <span class="n">EIP_ETH</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">output</span><span class="p">.</span><span class="n">recipient</span><span class="p">.</span><span class="nb">balance</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nb">revert</span><span class="p">(</span><span class="s">"UTR: INVALID_EIP"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="erc-165-tokens">ERC-165 Tokens</h3>
+
+<p>Token contracts must <strong>NEVER</strong> support the ERC-165 interface with the ID <code class="language-plaintext highlighter-rouge">0x61206120</code>, as it is reserved for non-token contracts to be called with the UTR. Any token with the interface ID <code class="language-plaintext highlighter-rouge">0x61206120</code> approved to the UTR can be spent by anyone, without any restrictions.</p>
+
+<h3 id="reentrancy">Reentrancy</h3>
+
+<p>Tokens transferred to the UTR contract will be permanently lost, as there is no way to transfer them out. Applications that require an intermediate address to hold tokens should use their own Helper contract with a reentrancy guard for secure execution.</p>
+
+<p>ETH must be transferred to the UTR contracts before the value is spent in an action call (using <code class="language-plaintext highlighter-rouge">CALL_VALUE</code>). This ETH value can be siphoned out of the UTR using a re-entrant call inside an action code or rogue token functions. This exploit will not be possible if users don’t transfer more ETH than they will spend in that transaction.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// transfer 100 in, but spend only 60,
+// so at most 40 wei can be exploited in this transaction
+</span><span class="n">UniversalTokenRouter</span><span class="p">.</span><span class="n">exec</span><span class="p">([</span>
+    <span class="p">...</span>
+<span class="p">],</span> <span class="p">[{</span>
+    <span class="n">inputs</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="n">mode</span><span class="o">:</span> <span class="n">CALL_VALUE</span><span class="p">,</span>
+        <span class="n">eip</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="n">token</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">id</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">amountIn</span><span class="o">:</span> <span class="mi">60</span><span class="p">,</span>   <span class="c1">// spend 60
+</span>        <span class="n">recipient</span><span class="o">:</span> <span class="n">AddressZero</span><span class="p">,</span>
+    <span class="p">}],</span>
+    <span class="p">...</span>
+<span class="p">}],</span> <span class="p">{</span>
+    <span class="n">value</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>   <span class="c1">// transfer 100 in
+</span><span class="p">})</span>
+</code></pre></div></div>
+
+<h3 id="discard-payment-1">Discard Payment</h3>
+
+<p>The result of the <code class="language-plaintext highlighter-rouge">pay</code> function can be checked by querying the balance after the call, allowing the UTR contract to be called in a trustless manner. However, due to the inability to verify the execution of the <code class="language-plaintext highlighter-rouge">discard</code> function, it should only be used with a trusted UTR contract.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

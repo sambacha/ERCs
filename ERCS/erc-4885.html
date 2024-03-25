@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Subscription NFTs and Multi Tokens | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Subscription NFTs and Multi Tokens | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4885" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4885" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Subscription NFTs and Multi Tokens</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The following standard allows for the implementation of a standard API for subscribing to non-fungible and multi tokens. <a href="./eip-20.md">EIP-20</a> tokens are deposited in exchange for subscription tokens that give the right to use said non-fungible and multi tokens for a specified time limited or unlimited period.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>This standard offers a flexible, general purpose way to subscribe to the use of assets or services offered by <a href="./eip-721.md">EIP-721</a> or <a href="./eip-1155.md">EIP-1155</a> contracts. From here on in, for the sake of simplicity, these contracts will be known as NFTs; the provider is the issuer of said NFTs and the subscriber(s) uses them.</p>
+
+<p>This proposal was originally conceived from the want to give creators of music and film, back control. The distribution and delivery of digital content is currently the purview of centralised tech corporations who offer homogeneous subscription models to their customers. This proposal specifies a standard for dapp developers to give creators the ability to set their own custom subscription models and hence, open up new revenue streams that can lead to decentralised distribution and delivery models.</p>
+
+<p>Use cases include any sort of periodic (e.g. daily, weekly, monthly, quarterly, yearly/annual, or seasonal) use of or access to assets or services such as:</p>
+
+<ul>
+  <li>Subscriptions for streaming music, video, e-learning or book/news services</li>
+  <li>Sharing of digital assets among subscribers</li>
+  <li>Club memberships such as health clubs</li>
+  <li>Season tickets for sports and e-sports</li>
+  <li>Agreement between parties to exchange fixed rate subscription stream with variable income in DeFi</li>
+  <li>Renting in-game assets</li>
+  <li>Etc.</li>
+</ul>
+
+<p>The subscription token borrows a few functions from the EIP-20 specification. An implementer is free to implement the rest of the standard; allowing for example subscription tokens to be transferred in secondary markets, sent as gifts or for refunds etc.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The subscriber deposits EIP-20 to receive an NFT and subscription. Subscription tokens balance automatically decreases linearly over the lifetime of usage of the NFT, and use of the NFT is disabled once the subscription token balance falls to zero. The subscriber can top up the balance to extend the lifetime of the subscription by depositing EIP-20 tokens in exchange for more subscription tokens.</p>
+
+<p>Smart contracts implementing this EIP standard MUST implement the <a href="./eip-165.md">EIP-165</a> supportsInterface function and MUST return the constant value true if 0xC1A48422 is passed through the interfaceID argument. Note that revert in this document MAY mean a require, throw (not recommended as depreciated) or revert solidity statement with or without error messages.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">ISubscriptionToken</span> <span class="p">{</span>
+    <span class="cm">/**
+        @dev This emits when the subscription token constructor or initialize method is
+        executed.
+        @param name The name of the subscription token
+        @param symbol The symbol of the subscription token
+        @param provider The provider of the subscription whom receives the deposits
+        @param subscriptionToken The subscription token contract address
+        @param baseToken The ERC-20 compatible token to use for the deposits.
+        @param nft Address of the `nft` contract that the provider mints/transfers from.
+        All tokenIds referred to in this interface MUST be token instances of this `nft` contract.
+    */</span>
+    <span class="k">event</span> <span class="n">InitializeSubscriptionToken</span><span class="p">(</span>
+        <span class="kt">string</span> <span class="n">name</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">symbol</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">provider</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">subscriptionToken</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">baseToken</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">nft</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">uri</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+        @dev This emits for every new subscriber to `nft` contract of token `tokenId`.
+        `subscriber` MUST have received `nft` of token `tokenId` in their account.
+        @param subscriber The subscriber account
+        @param tokenId MUST be token id of `nft` sent to `subscriber`
+        @param uri MUST be uri of the `nft` that was sent to `subscriber` or empty string
+    */</span>
+    <span class="k">event</span> <span class="n">SubscribeToNFT</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">subscriber</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="n">uri</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+        @dev Emits when `subscriber` deposits ERC-20 of token type `baseToken` via the `deposit method.
+        This tops up `subscriber` balance of subscription tokens
+        @param depositAmount The amount of ERC-20 of type `baseToken` deposited
+        @param subscriptionTokenAmount The amount of subscription tokens sent in exchange to `subscriber`
+        @param subscriptionPeriod Amount of additional time in seconds subscription is extended
+    */</span>
+    <span class="k">event</span> <span class="n">Deposit</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">subscriber</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">depositAmount</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">subscriptionTokenAmount</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">subscriptionPeriod</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+        @return The name of the subscription token
+    */</span>
+    <span class="k">function</span> <span class="n">name</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @return The symbol of the subscription token
+    */</span>
+    <span class="k">function</span> <span class="n">symbol</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Subscribes `subscriber` to `nft` of 'tokenId'. `subscriber` MUST receive `nft`
+        of token `tokenId` in their account.
+        @dev MUST revert if `subscriber` is already subscribed to `nft` of 'tokenId'
+        MUST revert if 'nft' has not approved the `subscriptionToken` contract address as operator.
+        @param subscriber The subscriber account. MUST revert if zero address.
+        @param tokenId MUST be token id of `nft` contract sent to `subscriber`
+        `tokenId` emitted from event `SubscribeToNFT` MUST be the same as tokenId except when
+        tokenId is zero; allows OPTIONAL tokenid that is then set internally and minted by
+        `nft` contract
+        @param uri The OPTIONAL uri of the `nft`.
+        `uri` emitted from event `SubscribeToNFT` MUST be the same as uri except when uri is empty.
+    */</span>
+    <span class="k">function</span> <span class="n">subscribeToNFT</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">subscriber</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">uri</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+        @notice Top up balance of subscription tokens held by `subscriber`
+        @dev MUST revert if `subscriber` is not subscribed to `nft` of 'tokenId'
+        MUST revert if 'nft' has not approved the `subscriptionToken` contract address as operator.
+        @param subscriber The subscriber account. MUST revert if zero address.
+        @param tokenId The token id of `nft` contract to subscribe to
+        @param depositAmount The amount of ERC-20 token of contract address `baseToken` to deposit
+        in exchange for subscription tokens of contract address `subscriptionToken`
+    */</span>
+    <span class="k">function</span> <span class="n">deposit</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">subscriber</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">depositAmount</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="cm">/**
+        @return The balance of subscription tokens held by `subscriber`.
+        RECOMMENDED that the balance decreases linearly to zero for time limited subscriptions
+        RECOMMENDED that the balance remains the same for life long subscriptions
+        MUST return zero balance if the `subscriber` does not hold `nft` of 'tokenId'
+        MUST revert if subscription has not yet started via the `deposit` function
+        When the balance is zero, the use of `nft` of `tokenId` MUST NOT be allowed for `subscriber`
+    */</span>
+    <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">subscriber</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="subscription-token-balances">Subscription token balances</h3>
+
+<p>An example implementation mints an amount of subscription token that totals to one subscription token per day of the subscription period length paid for by the subscriber; for example a week would be for seven subscription tokens. The subscription token balance then decreases automatically at a rate of one token per day continuously and linearly over time until zero. The <code class="language-plaintext highlighter-rouge">balanceOf</code> function can be implemented lazily by calculating the amount of subscription tokens left only when it is called as a view function, thus has no gas cost.</p>
+
+<h3 id="subscription-token-price">Subscription token price</h3>
+
+<p>Subscription token price paid per token per second can be calculated from the <code class="language-plaintext highlighter-rouge">Deposit</code> event parameters as
+<code class="language-plaintext highlighter-rouge">depositAmount</code> / (<code class="language-plaintext highlighter-rouge">subscriptionTokenAmount</code> * <code class="language-plaintext highlighter-rouge">subscriptionPeriod</code>)</p>
+
+<h3 id="nft-metadata">NFT metadata</h3>
+
+<p>The NFT’s metadata can store information of the asset/service offered to the subscriber by the provider for the duration of the subscription. This MAY be the terms and conditions of the agreed subscription service offered by the provider to the subscriber. It MAY also be the metadata of the NFT asset if this is offered directly. This standard is kept purposely general to cater for many different use cases of NFTs.</p>
+
+<h3 id="subscription-expiry">Subscription expiry</h3>
+
+<p>When the subscription token balance falls to zero for a subscriber (signifying that the subscription has expired) then it is up to the implementer on how to handle this for their particular use case. For example, a provider may stop streaming media service to a subscriber. For an NFT that represents an image stored off-chain, perhaps the NFT’s <code class="language-plaintext highlighter-rouge">uri</code> function no longer returns back a link to its metadata.</p>
+
+<h3 id="caveats">Caveats</h3>
+
+<p>With some traditional subscription models based on fiat currencies, the subscribers’ saved payment credentials are used to automatically purchase to extend the subscription period, at or just before expiry. This feature is not possible in this proposal specification as recurring payments will have to have allowance approved for signed by a subscriber for each payment when using purely cryptocurrencies.</p>
+
+<p>This proposal does not deal with pausing subscriptions directly, implementers can write their own or inherit off 3rd party smart contract abstractions such as OpenZeppelin’s Pausable. In that case, <code class="language-plaintext highlighter-rouge">balanceOf</code> method would need extra logic and storage to account for the length of time the subscription tokens were paused.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="tokenisation-of-subscriptions">Tokenisation of subscriptions</h3>
+
+<p>The subscription itself has value when it is exchanged for a deposit. This proposal enables subscriptions to be ‘tokenised’ thus secondary markets can exist where the subscription tokens can be bought and sold. For example, a fan might want to sell their season ticket, that gives access to live sporting events, on to another fan. This would not be as easily possible if there was only a date expiry extension feature added to NFTs.
+An implementer can simply implement the rest of the EIP-20 functions for subscription tokens to be traded. It is left to the implementer to decide if the subscription service offered is non-fungible or fungible. If non-fungible then buying the subscription tokens would simply give the same period left to expiration. If fungible and the purchaser already had an existing subscription for the same service then their total subscription period can be extended by the amount of subscription tokens bought.</p>
+
+<h3 id="cater-for-current-and-future-uses-of-nfts">Cater for current and future uses of NFTs</h3>
+
+<p>This proposal purposely keeps <code class="language-plaintext highlighter-rouge">tokenId</code> and <code class="language-plaintext highlighter-rouge">uri</code> optional in the <code class="language-plaintext highlighter-rouge">subcribeToNFT</code> method to keep the specification general purpose. Some use cases such as pre-computed image NFT collections don’t require a different ‘uri’, just a different <code class="language-plaintext highlighter-rouge">tokenId</code> for each NFT. However, in other use cases such as those that require legal contracts between both parties, individual <code class="language-plaintext highlighter-rouge">uri</code> links are probably required as the NFT’s metadata may require information from both parties to be stored on immutable storage.</p>
+
+<h3 id="giving-back-users-control">Giving back users control</h3>
+
+<p>Traditional subscription models, particularly with streaming services, control of the subscription model is totally with that of the central service provider. This proposal gives decentralised services a standard way to give control back to their users. Hence each user is able to develop their own subscription eco system and administer it towards one that suits theirs and their subscribers’ needs.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>A subscription token contract can be fully compatible with EIP-20 specification to allow, for example, transfers from one subscriber to another subscriber or user. EIP-20 methods <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">symbol</code> and <code class="language-plaintext highlighter-rouge">balanceOf</code> are already part of the specification of this proposal, and it is left to the implementer to choose whether to implement the rest of EIP-20’s interface by considering their own use case.</p>
+
+<p>Use of subscription tokens is in effect an indirect way to control the lifetime of an NFT. As such it is assumed that this arrangement would work best when the NFTs and subscription token contracts subscribing to the NFTs, are deployed by the same platform or decentralised app. It MUST NOT have an impact or dependencies to existing NFTs that have not approved the subscription token as an operator. Indeed in this case, any other parties wouldn’t be aware of and any NFT lifetime dependencies will be ignored, hence should not work anyway. To this end, this proposal specifies that the ‘nft’ MUST have approved the <code class="language-plaintext highlighter-rouge">subscriptionToken</code> contract address as operator.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>It is normal for service providers to receive subscriber payments upfront before the subscriber gets to use the service. Indeed this proposal via the <code class="language-plaintext highlighter-rouge">deposit</code> method follows this remit. It would therefore be possible that a service provider sets up, receives the deposits and then does not provide or provides the service poorly to its subscribers. This happens in the traditional world too and this proposal does not cover how to resolve this.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">subscribeToNFT</code> method takes a parameter <code class="language-plaintext highlighter-rouge">uri</code> link to the <code class="language-plaintext highlighter-rouge">nft</code> metadata. It is possible if stored on centralised storage that the owners can change the metadata, or perhaps the metadata is hacked which is an issue with vanilla NFT contracts too. But because the <code class="language-plaintext highlighter-rouge">uri</code> is provided at the time of subscription rather then deployment, it is RECOMMENDED that where the use case requires, implementers ensure that the <code class="language-plaintext highlighter-rouge">uri</code> link is to immutable storage.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Multi-User NFT Extension | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Multi-User NFT Extension | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7507" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7507" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Multi-User NFT Extension</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard is an extension of <a href="./eip-721.md">ERC-721</a>. It proposes a new role <code class="language-plaintext highlighter-rouge">user</code> in addition to <code class="language-plaintext highlighter-rouge">owner</code> for a token. A token can have multiple users under separate expiration time. It allows the subscription model where an NFT can be subscribed non-exclusively by different users.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Some NFTs represent IP assets, and IP assets have the need to be licensed for access without transferring ownership. The subscription model is a very common practice for IP licensing where multiple users can subscribe to an NFT to obtain access. Each subscription is usually time limited and will thus be recorded with an expiration time.</p>
+
+<p>Existing <a href="./eip-4907.md">ERC-4907</a> introduces a similar feature, but does not allow for more than one user. It is more suitable in the rental scenario where a user gains an exclusive right of use to an NFT before the next user. This rental model is common for NFTs representing physical assets like in games, but not very useful for shareable IP assets.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>Solidity interface available at <a href="../assets/eip-7507/contracts/IERC7507.sol"><code class="language-plaintext highlighter-rouge">IERC7507.sol</code></a>:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IERC7507</span> <span class="p">{</span>
+
+    <span class="c1">/// @notice Emitted when the expires of a user for an NFT is changed
+</span>    <span class="k">event</span> <span class="n">UpdateUser</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">user</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">expires</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the user expires of an NFT
+</span>    <span class="c1">/// @param tokenId The NFT to get the user expires for
+</span>    <span class="c1">/// @param user The user to get the expires for
+</span>    <span class="c1">/// @return The user expires for this NFT
+</span>    <span class="k">function</span> <span class="n">userExpires</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">user</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Set the user expires of an NFT
+</span>    <span class="c1">/// @param tokenId The NFT to set the user expires for
+</span>    <span class="c1">/// @param user The user to set the expires for
+</span>    <span class="c1">/// @param expires The user could use the NFT before expires in UNIX timestamp
+</span>    <span class="k">function</span> <span class="n">setUser</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">user</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">expires</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This standard complements <a href="./eip-4907.md">ERC-4907</a> to support multi-user feature. Therefore the proposed interface tries to keep consistent using the same naming for functions and parameters.</p>
+
+<p>However, we didn’t include the corresponding <code class="language-plaintext highlighter-rouge">usersOf(uint256 tokenId)</code> function as that would imply the implemention has to support enumerability over multiple users. It is not always necessary, for example, in the case of open subscription. So we decide not to add it to the interface and leave the choice up to the implementers.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backwards compatibility issues found.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Test cases available available at: <a href="../assets/eip-7507/test/ERC7507.test.ts"><code class="language-plaintext highlighter-rouge">ERC7507.test.ts</code></a>:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">loadFixture</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@nomicfoundation/hardhat-toolbox/network-helpers</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">expect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">chai</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ethers</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">hardhat</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">NAME</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">NAME</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">SYMBOL</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">SYMBOL</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">TOKEN_ID</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">EXPIRATION</span> <span class="o">=</span> <span class="mi">2000000000</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">YEAR</span> <span class="o">=</span> <span class="mi">31536000</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERC7507</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+  <span class="k">async</span> <span class="kd">function</span> <span class="nx">deployContractFixture</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">[</span><span class="nx">deployer</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">user1</span><span class="p">,</span> <span class="nx">user2</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">getSigners</span><span class="p">();</span>
+
+    <span class="kd">const</span> <span class="nx">contract</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">deployContract</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERC7507</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="nx">NAME</span><span class="p">,</span> <span class="nx">SYMBOL</span><span class="p">],</span> <span class="nx">deployer</span><span class="p">);</span>
+    <span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">TOKEN_ID</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">contract</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">user1</span><span class="p">,</span> <span class="nx">user2</span> <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Functions</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should not set user if not owner or approved</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="p">{</span> <span class="nx">contract</span><span class="p">,</span> <span class="nx">user1</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loadFixture</span><span class="p">(</span><span class="nx">deployContractFixture</span><span class="p">);</span>
+
+      <span class="k">await</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">contract</span><span class="p">.</span><span class="nx">setUser</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user1</span><span class="p">,</span> <span class="nx">EXPIRATION</span><span class="p">))</span>
+        <span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">revertedWith</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERC7507: caller is not owner or approved</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should return zero expiration for nonexistent user</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="p">{</span> <span class="nx">contract</span><span class="p">,</span> <span class="nx">user1</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loadFixture</span><span class="p">(</span><span class="nx">deployContractFixture</span><span class="p">);</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">userExpires</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user1</span><span class="p">)).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should set users and then update</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="p">{</span> <span class="nx">contract</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">user1</span><span class="p">,</span> <span class="nx">user2</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loadFixture</span><span class="p">(</span><span class="nx">deployContractFixture</span><span class="p">);</span>
+
+      <span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">owner</span><span class="p">).</span><span class="nx">setUser</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user1</span><span class="p">,</span> <span class="nx">EXPIRATION</span><span class="p">);</span>
+      <span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">owner</span><span class="p">).</span><span class="nx">setUser</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user2</span><span class="p">,</span> <span class="nx">EXPIRATION</span><span class="p">);</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">userExpires</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user1</span><span class="p">)).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">EXPIRATION</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">userExpires</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user2</span><span class="p">)).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">EXPIRATION</span><span class="p">);</span>
+
+      <span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">owner</span><span class="p">).</span><span class="nx">setUser</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user1</span><span class="p">,</span> <span class="nx">EXPIRATION</span> <span class="o">+</span> <span class="nx">YEAR</span><span class="p">);</span>
+      <span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">owner</span><span class="p">).</span><span class="nx">setUser</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">userExpires</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user1</span><span class="p">)).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">EXPIRATION</span> <span class="o">+</span> <span class="nx">YEAR</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">userExpires</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user2</span><span class="p">)).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Events</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should emit event when set user</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="p">{</span> <span class="nx">contract</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">user1</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loadFixture</span><span class="p">(</span><span class="nx">deployContractFixture</span><span class="p">);</span>
+
+      <span class="k">await</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">contract</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">owner</span><span class="p">).</span><span class="nx">setUser</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user1</span><span class="p">,</span> <span class="nx">EXPIRATION</span><span class="p">))</span>
+        <span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">contract</span><span class="p">,</span> <span class="dl">"</span><span class="s2">UpdateUser</span><span class="dl">"</span><span class="p">).</span><span class="nx">withArgs</span><span class="p">(</span><span class="nx">TOKEN_ID</span><span class="p">,</span> <span class="nx">user1</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">EXPIRATION</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Reference implementation available at: <a href="../assets/eip-7507/contracts/ERC7507.sol"><code class="language-plaintext highlighter-rouge">ERC7507.sol</code></a>:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/ERC721.sol"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./IERC7507.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ERC7507</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">IERC7507</span> <span class="p">{</span>
+
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint64</span><span class="p">))</span> <span class="k">private</span> <span class="n">_expires</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">(</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol</span>
+    <span class="p">)</span> <span class="n">ERC721</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span>
+        <span class="kt">bytes4</span> <span class="n">interfaceId</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC7507</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span> <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">userExpires</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">user</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC7507: query for nonexistent token"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">_expires</span><span class="p">[</span><span class="n">tokenId</span><span class="p">][</span><span class="n">user</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">setUser</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">user</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">expires</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_isApprovedOrOwner</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC7507: caller is not owner or approved"</span><span class="p">);</span>
+        <span class="n">_expires</span><span class="p">[</span><span class="n">tokenId</span><span class="p">][</span><span class="n">user</span><span class="p">]</span> <span class="o">=</span> <span class="n">expires</span><span class="p">;</span>
+        <span class="k">emit</span> <span class="n">UpdateUser</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">expires</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>No security considerations found.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

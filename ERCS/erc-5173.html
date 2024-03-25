@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>NFT Future Rewards (nFR) | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="NFT Future Rewards (nFR) | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5173" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5173" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">NFT Future Rewards (nFR)</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP introduces the NFT Future Rewards (nFR) extension for <a href="./eip-721.md">EIP-721</a> tokens (NFTs). nFR allows owners to benefit from future price appreciation even after selling their tokens. This establishes a Provenance Value Amplification (PVA) framework where creators, buyers, and sellers collaborate to collectively increase value. This innovative approach disrupts the current zero-sum trading paradigm by creating a fairer and more rewarding system for all participants.</p>
+
+<p><a href="./eip-5173.md">ERC-5173</a> fosters a sustainable and collaborative trading environment by aligning the interests of service providers and users. Compliant token owners enjoy price increases during holding and continue receiving nFRs after selling. By eliminating competition and promoting shared prosperity, nFR fosters strong bonds within the NFT ecosystem. The framework ensures equitable profit distribution across all historical owners, including the original minter.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The current trading landscape is often marred by unfair practices like spoofing, insider trading, and wash trading. These activities disadvantage average traders caught in cycles of fear and greed. However, the rise of NFTs and their inherent transaction tracking capability presents an opportunity to disrupt this unequal value distribution.</p>
+
+<p>ERC-5173 introduces a standardized profit-sharing model across the entire ownership history of an NFT, benefiting all market participants. It creates a Flow of provenance where buyers and owners are rewarded for their contributions to price discovery. This model fosters aligned interests and establishes a mutually beneficial economic structure for both buyers and sellers.</p>
+
+<p>NFTs can accurately reflect the contributions of their owners to their value. By recording every price change of each ERC-5173 token, we can establish a Future Rewards program that fairly compensates owners. This program aims to level the playing field and provide average traders with a better chance at success.</p>
+
+<p>In addition to promoting this novel gift economic model, the nFR framework discourages illicit activities that circumvent artist and marketplace rules. This fosters a transparent and trustworthy trading ecosystem.</p>
+
+<p>Applied to the exchange of wrapped <a href="./eip-20.md">EIP-20</a> tokens, this value-amplification construct has the potential to transform the asset transaction sector by integrating identities within the time and sales (T&amp;S) data. This inclusive attribute affords a holistic perspective of each trade, infusing an additional layer of depth into the trading experience.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>The following is an extension of the <a href="./eip-721.md">ERC-721</a> standard.</p>
+
+<p><a href="./eip-721.md">ERC-721</a>-compliant contracts MAY implement this EIP for rewards to provide a standard method of rewarding future buyers and previous owners with realized profits in the future.</p>
+
+<p>Implementers of this standard MUST have all of the following functions:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/introspection/IERC165.sol"</span><span class="p">;</span>
+
+<span class="cm">/*
+ *
+ * @dev Interface for the Future Rewards Token Standard.
+ *
+ * A standardized way to receive future rewards for non-fungible tokens (NFTs.)
+ *
+ */</span>
+<span class="k">interface</span> <span class="n">IERC5173</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+
+    <span class="k">event</span> <span class="n">FRClaimed</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">amount</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">FRDistributed</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">soldPrice</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">allocatedFR</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">Listed</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">salePrice</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">Unlisted</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">Bought</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">salePrice</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">list</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">unlist</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">buy</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">payable</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">releaseFR</span><span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">account</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">retrieveFRInfo</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint8</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">retrieveAllottedFR</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">retrieveListInfo</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">bool</span><span class="p">);</span>
+    
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>An nFR contract MUST implement and update for each Token ID. The data in the <code class="language-plaintext highlighter-rouge">FRInfo</code> struct MAY either be stored wholly in a single mapping, or MAY be broken down into several mappings. The struct MUST either be exposed in a public mapping or mappings, or MUST have public functions that access the private data. This is for client-side data fetching and verification.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">struct</span> <span class="n">FRInfo</span> <span class="p">{</span>
+        <span class="kt">uint8</span> <span class="n">numGenerations</span><span class="p">;</span> <span class="c1">//  Number of generations corresponding to that Token ID
+</span>        <span class="kt">uint256</span> <span class="n">percentOfProfit</span><span class="p">;</span> <span class="c1">// Percent of profit allocated for FR, scaled by 1e18
+</span>        <span class="kt">uint256</span> <span class="n">successiveRatio</span><span class="p">;</span> <span class="c1">// The common ratio of successive in the geometric sequence, used for distribution calculation
+</span>        <span class="kt">uint256</span> <span class="n">lastSoldPrice</span><span class="p">;</span> <span class="c1">// Last sale price in ETH mantissa
+</span>        <span class="kt">uint256</span> <span class="n">ownerAmount</span><span class="p">;</span> <span class="c1">// Amount of owners the Token ID has seen
+</span>        <span class="kt">address</span><span class="p">[]</span> <span class="n">addressesInFR</span><span class="p">;</span> <span class="c1">// The addresses currently in the FR cycle
+</span><span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">ListInfo</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">;</span> <span class="c1">// ETH mantissa of the listed selling price
+</span>        <span class="kt">address</span> <span class="n">lister</span><span class="p">;</span> <span class="c1">// Owner/Lister of the Token
+</span>        <span class="kt">bool</span> <span class="n">isListed</span><span class="p">;</span> <span class="c1">// Boolean indicating whether the Token is listed or not
+</span><span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Additionally, an nFR smart contract MUST store the corresponding <code class="language-plaintext highlighter-rouge">ListInfo</code> for each Token ID in a mapping. A method to retrieve a Token ID’s corresponding <code class="language-plaintext highlighter-rouge">ListInfo</code> MUST also be accessible publicly.</p>
+
+<p>An nFR smart contract MUST also store and update the amount of Ether allocated to a specific address using the <code class="language-plaintext highlighter-rouge">_allotedFR</code> mapping. The <code class="language-plaintext highlighter-rouge">_allottedFR</code> mapping MUST either be public or have a function to fetch the FR payment allotted to a specific address.</p>
+
+<h3 id="percent-fixed-point">Percent Fixed Point</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">allocatedFR</code> MUST be calculated using a percentage fixed point with a scaling factor of 1e18 (X/1e18) - such as “5e16” - for 5%. This is REQUIRED to maintain uniformity across the standard. The max and min values would be - 1e18 - 1.</p>
+
+<h3 id="default-fr-info">Default FR Info</h3>
+
+<p>A default <code class="language-plaintext highlighter-rouge">FRInfo</code> MUST be stored in order to be backward compatible with <a href="./eip-721.md">ERC-721</a> mint functions. It MAY also have a function to update the <code class="language-plaintext highlighter-rouge">FRInfo</code>, assuming it has not been hard-coded.</p>
+
+<h3 id="erc-721-overrides">ERC-721 Overrides</h3>
+
+<p>An nFR-compliant smart contract MUST override the <a href="./eip-721.md">ERC-721</a> <code class="language-plaintext highlighter-rouge">_mint</code>, <code class="language-plaintext highlighter-rouge">_transfer</code>, and <code class="language-plaintext highlighter-rouge">_burn</code> functions. When overriding the <code class="language-plaintext highlighter-rouge">_mint</code> function, a default FR model is REQUIRED to be established if the mint is to succeed when calling the <a href="./eip-721.md">ERC-721</a> <code class="language-plaintext highlighter-rouge">_mint</code> function and not the nFR <code class="language-plaintext highlighter-rouge">_mint</code> function. It is also to update the owner amount and directly add the recipient address to the FR cycle. When overriding the <code class="language-plaintext highlighter-rouge">_transfer</code> function, the smart contract SHALL consider the NFT as sold for 0 ETH, and update the state accordingly after a successful transfer. This is to prevent FR circumvention. Additionally, the <code class="language-plaintext highlighter-rouge">_transfer</code> function SHALL prevent the caller from transferring the token to themselves or an address that is already in the FR sliding window, this can be done through a require statement that ensures that the sender or an address in the FR sliding window is not the recipient, otherwise, it’d be possible to fill up the FR sequence with one’s own address or duplicate addresses. Finally, when overriding the <code class="language-plaintext highlighter-rouge">_burn</code> function, the smart contract SHALL delete the <code class="language-plaintext highlighter-rouge">FRInfo</code> and <code class="language-plaintext highlighter-rouge">ListInfo</code> corresponding to that Token ID after a successful burn.</p>
+
+<p>Additionally, the <a href="./eip-721.md">ERC-721</a> <code class="language-plaintext highlighter-rouge">_checkOnERC721Received</code> function MAY be explicitly called after mints and transfers if the smart contract aims to have safe transfers and mints.</p>
+
+<h3 id="safe-transfers">Safe Transfers</h3>
+
+<p>If the wallet/broker/auction application will accept safe transfers, then it MUST implement the <a href="./eip-721.md">ERC-721</a> wallet interface.</p>
+
+<h3 id="listing-unlisting-and-buying">Listing, Unlisting, and Buying</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">list</code>, <code class="language-plaintext highlighter-rouge">unlist</code>, and <code class="language-plaintext highlighter-rouge">buy</code> functions MUST be implemented, as they provide the capability to sell a token.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">list</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">salePrice</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+   <span class="c1">//...
+</span><span class="p">}</span>
+
+
+<span class="k">function</span> <span class="n">unlist</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+   <span class="c1">//...
+</span><span class="p">}</span>
+
+<span class="k">function</span> <span class="n">buy</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">payable</span> <span class="p">{</span>
+   <span class="c1">//...
+</span><span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">list</code> function accepts a <code class="language-plaintext highlighter-rouge">tokenId</code> and a <code class="language-plaintext highlighter-rouge">salePrice</code> and updates the corresponding <code class="language-plaintext highlighter-rouge">ListInfo</code> for that given <code class="language-plaintext highlighter-rouge">tokenId</code> after ensuring that the <code class="language-plaintext highlighter-rouge">msg.sender</code> is either approved or the owner of the token. The <code class="language-plaintext highlighter-rouge">list</code> function SHOULD emit the <code class="language-plaintext highlighter-rouge">Listed</code> event. The function signifies that the token is listed and at what price it is listed for.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">unlist</code> function accepts a <code class="language-plaintext highlighter-rouge">tokenId</code> and it deletes the corresponding <code class="language-plaintext highlighter-rouge">ListInfo</code> after the owner verifications have been met. The <code class="language-plaintext highlighter-rouge">unlist</code> function SHOULD emit the <code class="language-plaintext highlighter-rouge">Unlisted</code> event.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">buy</code> function accepts a <code class="language-plaintext highlighter-rouge">tokenId</code> and MUST be payable. It MUST verify that the <code class="language-plaintext highlighter-rouge">msg.value</code> matches the token’s <code class="language-plaintext highlighter-rouge">salePrice</code> and that the token is listed, before proceeding and calling the FR <code class="language-plaintext highlighter-rouge">_transferFrom</code> function. The function MUST also verify that the buyer is not already in the FR sliding window. This is to ensure the values are valid and will also allow for the necessary FR to be held in the contract. The <code class="language-plaintext highlighter-rouge">buy</code> function SHOULD emit the <code class="language-plaintext highlighter-rouge">Bought</code> event.</p>
+
+<h3 id="future-rewards-_transferfrom-function">Future Rewards <code class="language-plaintext highlighter-rouge">_transferFrom</code> Function</h3>
+
+<p>The FR <code class="language-plaintext highlighter-rouge">_transferFrom</code> function MUST be called by all nFR-supporting smart contracts, though the accommodations for non-nFR-supporting contracts MAY also be implemented to ensure backwards compatibility.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">soldPrice</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">payable</span> <span class="p">{</span>
+       <span class="c1">//...
+</span><span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Based on the stored <code class="language-plaintext highlighter-rouge">lastSoldPrice</code>, the smart contract will determine whether the sale was profitable after calling the <a href="./eip-721.md">ERC-721</a> transfer function and transferring the NFT. If it was not profitable, the smart contract SHALL update the last sold price for the corresponding Token ID, increment the owner amount, shift the generations, and transfer all of the <code class="language-plaintext highlighter-rouge">msg.value</code> to the <code class="language-plaintext highlighter-rouge">lister</code> depending on the implementation. Otherwise, if the transaction was profitable, the smart contract SHALL call the <code class="language-plaintext highlighter-rouge">_distributeFR</code> function, then update the <code class="language-plaintext highlighter-rouge">lastSoldPrice</code>, increment the owner amount, and finally shift generations. The <code class="language-plaintext highlighter-rouge">_distributeFR</code> function or the FR <code class="language-plaintext highlighter-rouge">_transferFrom</code> MUST return the difference between the allocated FR that is to be distributed amongst the <code class="language-plaintext highlighter-rouge">_addressesInFR</code> and the <code class="language-plaintext highlighter-rouge">msg.value</code> to the <code class="language-plaintext highlighter-rouge">lister</code>. Once the operations have completed, the function MUST clear the corresponding <code class="language-plaintext highlighter-rouge">ListInfo</code>. Similarly to the <code class="language-plaintext highlighter-rouge">_transfer</code> override, the FR <code class="language-plaintext highlighter-rouge">_transferFrom</code> SHALL ensure that the recipient is not the sender of the token or an address in the FR sliding window.</p>
+
+<h3 id="future-rewards-calculation">Future Rewards Calculation</h3>
+
+<p>Marketplaces that support this standard MAY implement various methods of calculating or transferring Future Rewards to the previous owners.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">function</span> <span class="n">_calculateFR</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">totalProfit</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">buyerReward</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">successiveRatio</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">ownerAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">windowSize</span><span class="p">)</span> <span class="k">pure</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//...        
+</span><span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>In this example (<em>Figure 1</em>), a seller is REQUIRED to share a portion of their net profit with 10 previous holders of the token. Future Rewards will also be paid to the same seller as the value of the token increases from up to 10 subsequent owners.</p>
+
+<p>When an owner loses money during their holding period, they MUST NOT be obligated to share Future Rewards distributions, since there is no profit to share. However, he SHALL still receive a share of Future Rewards distributions from future generations of owners, if they are profitable.</p>
+
+<p><img src="../assets/eip-5173/Total_FR_Payout_Distribution-geo.png" alt="Figure 1: Geometric sequence distribution" /></p>
+
+<p><em>Figure 1: Geometric sequence distribution</em></p>
+
+<p>The buyers/owners receive a portion ( r ) of the realized profit  (P ) from an NFT transaction. The remaining proceeds go to the seller.</p>
+
+<p>As a result of defining a sliding window mechanism ( n ), we can determine which previous owners will receive distributions. The owners are arranged in a queue, starting with the earliest owner and ending with the owner immediately before the current owner (the Last Generation). The First Generation is the last of the next n generations. There is a fixed-size profit distribution window from the First Generation to the Last Generation.</p>
+
+<p>The profit distribution SHALL be only available to previous owners who fall within the window.</p>
+
+<p>In this example, there SHALL be a portion of the proceeds awarded to the Last Generation owner (the owner immediately prior to the current seller) based on the geometric sequence in which profits are distributed. The larger portion of the proceeds SHALL go to the Mid-Gen owners, the earlier the greater, until the last eligible owner is determined by the sliding window, the First Generation. Owners who purchase earlier SHALL receive a greater reward, with first-generation owners receiving the greatest reward.</p>
+
+<h3 id="future-rewards-distribution">Future Rewards Distribution</h3>
+
+<p><img src="../assets/eip-5173/nFR_Standard_Outline.jpeg" alt="Figure 2: NFT Owners' Future Rewards (nFR)" /></p>
+
+<p><em>Figure 2: NFT Owners’ Future Rewards (nFR)</em></p>
+
+<p><em>Figure 2</em> illustrates an example of a five-generation Future Rewards Distribution program based on an owner’s realized profit.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">function</span> <span class="n">_distributeFR</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">soldPrice</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+       <span class="c1">//...
+</span>
+        <span class="k">emit</span> <span class="n">FRDistributed</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">soldPrice</span><span class="p">,</span> <span class="n">allocatedFR</span><span class="p">);</span>
+ <span class="p">}</span>
+ 
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">_distributeFR</code> function MUST be called in the FR <code class="language-plaintext highlighter-rouge">_transferFrom</code> function if there is a profitable sale. The function SHALL determine the addresses eligible for FR, which would essentially be, excluding the last address in <code class="language-plaintext highlighter-rouge">addressesInFR</code> in order to prevent any address from paying itself. If the function determines there are no addresses eligible, i.e., it is the first sale, then it SHALL either <code class="language-plaintext highlighter-rouge">return 0</code> if <code class="language-plaintext highlighter-rouge">_transferFrom</code> is handling FR payment or send <code class="language-plaintext highlighter-rouge">msg.value</code> to the <code class="language-plaintext highlighter-rouge">lister</code>. The function SHALL calculate the difference between the current sale price and the <code class="language-plaintext highlighter-rouge">lastSoldPrice</code>, then it SHALL call the <code class="language-plaintext highlighter-rouge">_calculateFR</code> function to receive the proper distribution of FR. Then it SHALL distribute the FR accordingly, making order adjustments as necessary. Then, the contract SHALL calculate the total amount of FR that was distributed (<code class="language-plaintext highlighter-rouge">allocatedFR</code>), in order to return the difference of the <code class="language-plaintext highlighter-rouge">soldPrice</code> and <code class="language-plaintext highlighter-rouge">allocatedFR</code> to the <code class="language-plaintext highlighter-rouge">lister</code>. Finally, it SHALL emit the <code class="language-plaintext highlighter-rouge">FRDistributed</code> event. Additionally, the function MAY return the allocated FR, which would be received by the FR <code class="language-plaintext highlighter-rouge">_transferFrom</code> function, if the <code class="language-plaintext highlighter-rouge">_transferFrom</code> function is sending the <code class="language-plaintext highlighter-rouge">allocatedFR</code> to the <code class="language-plaintext highlighter-rouge">lister</code>.</p>
+
+<h3 id="future-rewards-claiming">Future Rewards Claiming</h3>
+
+<p>The future Rewards payments SHOULD utilize a pull-payment model, similar to that demonstrated by OpenZeppelin with their PaymentSplitter contract. The event  FRClaimed would be triggered after a successful claim has been made.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">function</span> <span class="n">releaseFR</span><span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">account</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="c1">//...
+</span><span class="p">}</span>
+
+</code></pre></div></div>
+
+<h3 id="owner-generation-shifting">Owner Generation Shifting</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">_shiftGenerations</code> function MUST be called regardless of whether the sale was profitable or not. As a result, it will be called in the <code class="language-plaintext highlighter-rouge">_transfer</code> <a href="./eip-721.md">ERC-721</a> override function and the FR <code class="language-plaintext highlighter-rouge">transferFrom</code> function. The function SHALL remove the oldest account from the corresponding <code class="language-plaintext highlighter-rouge">_addressesInFR</code> array. This calculation will take into account the current length of the array versus the total number of generations for a given token ID.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="fixed-percentage-to-1018">Fixed Percentage to 10^18</h3>
+
+<p>Considering Fixed-Point Arithmetic is to be enforced, it is logical to have 1e18 represent 100% and 1e16 represent 1% for Fixed-Point operations. This method of handling percents is also commonly seen in many Solidity libraries for Fixed-Point operations.</p>
+
+<h3 id="emitting-event-for-payment">Emitting Event for Payment</h3>
+
+<p>Since each NFT contract is independent, and while a marketplace contract can emit events when an item is sold, choosing to emit an event for payment is important. As the royalty and FR recipient may not be aware of/watching for a secondary sale of their NFT, they would never know that they received a payment except that their ETH wallet has been increased randomly.</p>
+
+<p>The recipient of the secondary sale will therefore be able to verify that the payment has been received by calling the parent contract of the NFT being sold, as implemented in <a href="./eip-2981.md">ERC-2981</a>.</p>
+
+<h3 id="number-of-generations-of-all-owners--n--vs-number-of-generations-of-only-profitable-owners">Number of Generations of All Owners ( n ) vs Number of Generations of Only Profitable Owners</h3>
+
+<p>It is the number of generations of all owners, not just those who are profitable, that determines the number of owners from which the subsequent owners’ profits will be shared, see <em>Figure 3</em>. As part of the effort to discourage “ownership hoarding,” Future Rewards distributions will not be made to the current owner/purchaser if all the owners lose money holding the NFT. Further information can be found under Security Considerations.</p>
+
+<p><img src="../assets/eip-5173/Losing_owners.jpeg" alt="Figure 3: Losing owners" /></p>
+
+<p><em>Figure 3: Losing owners</em></p>
+
+<h3 id="single-vs-multigenerations">Single vs Multigenerations</h3>
+
+<p>In a single generation reward, the new buyer/owner receives a share of the next single generation’s realized profit only. In a multigenerational reward system, buyers will have future rewards years after their purchase. The NFT should have a long-term growth potential and a substantial dividend payout would be possible in this case.</p>
+
+<p>We propose that the marketplace operator can choose between a single generational distribution system and a multigenerational distribution system.</p>
+
+<h3 id="direct-fr-payout-by-the-seller-vs-smart-contract-managed-payout">Direct FR Payout by the Seller vs Smart Contract-managed Payout</h3>
+
+<p>FR payouts directly derived from the sale proceeds are immediate and final. As part of the fraud detection detailed later in the Security Considerations section, we selected a method in which the smart contract calculates all the FR amounts for each generation of previous owners, and handles payout according to other criteria set by the marketplace, such as reduced or delayed payments for wallet addresses with low scores, or a series of consecutive orders detected using a time-heuristic analysis.</p>
+
+<h3 id="equal-vs-linear-reward-distributions">Equal vs Linear Reward Distributions</h3>
+
+<h4 id="equal-fr-payout">Equal FR Payout</h4>
+
+<p><img src="../assets/eip-5173/Total_FR_Payout_Distribution-flat.png?raw=true" alt="Figure 4: Equal, linear reward distribution" /></p>
+
+<p><em>Figure 4: Equal, linear reward distribution</em></p>
+
+<p>FR distributions from the realization of profits by later owners are distributed equally to all eligible owners (<em>Figure 4</em>). The exponential reward curve, however, may be more desirable, as it gives a slightly larger share to the newest buyer. Additionally, this distribution gives the earliest generations the largest portions as their FR distributions near the end, so they receive higher rewards for their early involvement, but the distribution is not nearly as extreme as one based on arithmetic sequences (<em>Figure 5</em>).</p>
+
+<p>This system does not discriminate against any buyer because each buyer will go through the same distribution curve.</p>
+
+<h4 id="straight-line-arithmetic-sequence-fr-payout">Straight line arithmetic sequence FR payout</h4>
+
+<p><img src="../assets/eip-5173/Arithmetic_Sequence_FR_Payout_Distribution.png?raw=true" alt="Figure 5: Arithmetic sequence distribution" /></p>
+
+<p><em>Figure 5: Arithmetic sequence distribution</em></p>
+
+<p>The profit is distributed according to the arithmetic sequence, which is 1, 2, 3, … and so on. The first owner will receive 1 portion, the second owner will receive 2 portions, the third owner will receive 3 portions, etc.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal is fully compatible with current <a href="./eip-721.md">ERC-721</a> standards and <a href="./eip-2981.md">ERC-2981</a>. It can also be easily adapted to work with <a href="./eip-1155.md">ERC-1155</a>.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p><a href="../assets/eip-5173/Implementation/nFRImplementation.sol">This contract</a> contains the reference implementation for this proposal.</p>
+
+<p><a href="../assets/eip-5173/animate-1920x1080-1750-frames.gif?raw=true">Here is a visualization of the test case</a>.</p>
+
+<p>As a result of implementing ERC-5173, a new project has been launched called untrading.org.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>This implementation uses OpenZeppelin contracts and the PRB Math library created by Paul R Berg for fixed-point arithmetic. It demonstrates the interface for the nFR standard, an nFR standard-compliant extension, and an <a href="./eip-721.md">ERC-721</a> implementation using the extension.</p>
+
+<p>The code for the reference implementation is <a href="../assets/eip-5173/Implementation/nFRImplementation.sol">here</a>.</p>
+
+<h3 id="distribution-of-nft-royalties-to-artists-and-creators">Distribution of NFT Royalties to Artists and Creators</h3>
+
+<p>We agree that artists’ royalties should be uniform and on-chain. We support <a href="./eip-2981.md">ERC-2981</a> NFT royalty Standard proposal.</p>
+
+<p>All platforms can support royalty rewards for the same NFT based on on-chain parameters and functions:</p>
+
+<ul>
+  <li>No profit, no profit sharing, no cost;</li>
+  <li>The question of “who owned it” is often crucial to the provenance and value of a collectible;</li>
+  <li>The previous owner should be re-compensated for their ownership;</li>
+  <li>And the buyer/owner incentive in FR eliminates any motive to circumvent the royalty payout schemes;</li>
+</ul>
+
+<h3 id="distribution-of-nft-owners-future-rewards-frs">Distribution of NFT Owners’ Future Rewards (FRs)</h3>
+
+<h4 id="future-rewards-calculation-1">Future Rewards calculation</h4>
+
+<p>Any realized profits (P) when an NFT is sold are distributed among the buyers/owners. The previous owners will take a fixed portion of the profit (P), and this portion is called Future Rewards (FRs). The seller takes the rest of the profits.</p>
+
+<p>We define a sliding window mechanism to decide which previous owners will be involved in the profit distribution. Let’s imagine the owners as a queue starting from the first hand owner to the current owner. The profit distribution window starts from the previous owner immediately to the current owner and extends towards the first owner, and the size of the windows is fixed. Only previous owners located inside the window will join the profit distribution.</p>
+
+<p><img src="../assets/eip-5173/nFR_distribution_formula.png?raw=true" alt="Future Rewards calculation formula" /></p>
+
+<p>In this equation:</p>
+
+<ul>
+  <li>P is the total profit, the difference between the selling price minus the buying price;</li>
+  <li>r is buyer reward ratio of the total P;</li>
+  <li>g is the common ratio of successive in the geometric sequence;</li>
+  <li>n is the actual number of owners eligible and participating in the future rewards sharing. To calculate n, we have n = min(m, w), where m is the current number of owners for a token, and w is the window size of the profit distribution sliding window algorithm</li>
+</ul>
+
+<h4 id="converting-into-code">Converting into Code</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="c1">//...
+</span>
+<span class="cm">/* Assumes usage of a Fixed Point Arithmetic library (prb-math) for both int256 and uint256, and OpenZeppelin Math utils for Math.min. */</span>
+<span class="k">function</span> <span class="n">_calculateFR</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">P</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">r</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">g</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">m</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">w</span><span class="p">)</span> <span class="k">pure</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">n</span> <span class="o">=</span> <span class="n">Math</span><span class="p">.</span><span class="n">min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">FR</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">uint256</span><span class="p">[](</span><span class="n">n</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">uint256</span> <span class="n">pi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">successiveRatio</span> <span class="o">!=</span> <span class="mi">1e18</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kt">int256</span> <span class="n">v1</span> <span class="o">=</span> <span class="mi">1e18</span> <span class="o">-</span> <span class="kt">int256</span><span class="p">(</span><span class="n">g</span><span class="p">).</span><span class="n">powu</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+                <span class="kt">int256</span> <span class="n">v2</span> <span class="o">=</span> <span class="kt">int256</span><span class="p">(</span><span class="n">g</span><span class="p">).</span><span class="n">powu</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="kt">int256</span> <span class="n">v3</span> <span class="o">=</span> <span class="kt">int256</span><span class="p">(</span><span class="n">P</span><span class="p">).</span><span class="n">mul</span><span class="p">(</span><span class="kt">int256</span><span class="p">(</span><span class="n">r</span><span class="p">));</span>
+                <span class="kt">int256</span> <span class="n">v4</span> <span class="o">=</span> <span class="n">v3</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">1e18</span> <span class="o">-</span> <span class="kt">int256</span><span class="p">(</span><span class="n">g</span><span class="p">));</span>
+                <span class="n">pi</span> <span class="o">=</span> <span class="kt">uint256</span><span class="p">(</span><span class="n">v4</span> <span class="o">*</span> <span class="n">v2</span> <span class="o">/</span> <span class="n">v1</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">pi</span> <span class="o">=</span> <span class="n">P</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="n">r</span><span class="p">).</span><span class="n">div</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="n">FR</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">pi</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">FR</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>The complete implementation code can be found <a href="../assets/eip-5173/Implementation/nFRImplementation.sol">here</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="payment-attacks">Payment Attacks</h3>
+
+<p>As this ERC introduces royalty and realized profit rewards collection, distribution, and payouts to the ERC-721 standard, the attack vectors increase. As discussed by Andreas Freund regarding mitigations to phishing attacks, we recommend reentrancy protection for all payment functions to reduce the most significant attack vectors for payments and payouts.</p>
+
+<h3 id="royalty-circumventing">Royalty Circumventing</h3>
+
+<p>Many methods are being used to avoid paying royalties to creators under the current <a href="./eip-721.md">ERC-721</a> standard. Through an under-the-table transaction, the new buyer’s cost basis will be reduced to zero, increasing their FR liability to the full selling price. Everyone, either the buyer or seller, would pay a portion of the previous owner’s net realized profits ( P x r ). Acting in his or her own interests, the buyer rejects any loyalty circumventing proposal.</p>
+
+<h3 id="fr-hoarding-through-wash-sales">FR Hoarding through Wash Sales</h3>
+
+<p>Quantexa blog and beincrypto articles have reported widespread wash trading on all unregulated cryptocurrency trading platforms and NFT marketplaces. The use of wash trading by dishonest actors can lead to an unfair advantage, as well as inflated prices and money laundering. When a single entity becomes multiple generations of owners to accumulate more rewards in the future, the validity of the system is undermined.</p>
+
+<h4 id="wash-trading-by-users">Wash trading by users</h4>
+
+<p>Using a different wallet address, an attacker can “sell” the NFT to themselves at a loss. It is possible to repeat this process n times in order to maximize their share of the subsequent FR distributions (<em>Figure 6</em>). A wallet ranking score can partially alleviate this problem. It is evident that a brand new wallet is a red flag, and the marketplace may withhold FR distribution from it if it has a short transaction history (i.e. fewer than a certain number of transactions).</p>
+
+<p>We do not want a large portion of future rewards to go to a small number of wash traders. Making such practices less profitable is one way to discourage wash trading and award hoarding. It can be partially mitigated, for example, by implementing a wallet-score and holding period-based incentive system. The rewards for both parties are reduced if a new wallet is used or if a holding period is less than a certain period.</p>
+
+<p><img src="../assets/eip-5173/Same_owner_using_different_wallets.jpeg" alt="Figure 6: Same owner using different wallets" /></p>
+
+<p><em>Figure 6: Same owner using different wallets</em></p>
+
+<h4 id="wash-trading-by-the-marketplace-operator">Wash trading by the marketplace operator</h4>
+
+<p>However, the biggest offender appears to be the marketplace, which engages heavily in wash trading, or simply does not care about it, according to Decrypt. The authors have personally experienced this phenomenon. A senior executive of a top-5 cryptocurrency exchange boasted during a mid-night drinking session in 2018, that they had “brushed” (wash-traded) certain newly listed tokens, which they called “marketmaking.” The exchange is still ranked among the top five crypto exchanges today.</p>
+
+<p>Many of these companies engage in wash trading on their own or collude with certain users, and royalties and FR payments are reimbursed under the table. It is crucial that all exchanges have robust features to prevent self-trading. Users should be able to observe watchers transparently. Marketplaces should provide their customers with free access to an on-chain transaction monitoring service like Chainalysis Reactor.</p>
+
+<h3 id="longcyclical-fr-entitled-owner-generations">Long/Cyclical FR-Entitled Owner Generations</h3>
+
+<p>In most cases, malicious actors will create excessively long or cyclical Future Rewards Owner Generations that will result in applications that attempt to distribute FR or shift generations running out of gas and not functioning. Therefore, clients are responsible for verifying that the contract with which they interact has an appropriate number of generations, so that looping over will not deplete the gas.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

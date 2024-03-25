@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Rental NFT, NFT User Extension | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Rental NFT, NFT User Extension | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5006" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5006" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Rental NFT, NFT User Extension</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard is an extension of <a href="./eip-1155.md">ERC-1155</a>. It proposes an additional role (<code class="language-plaintext highlighter-rouge">user</code>) which can be granted to addresses that represent a <code class="language-plaintext highlighter-rouge">user</code> of the assets rather than an <code class="language-plaintext highlighter-rouge">owner</code>.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Like <a href="./eip-721.md">ERC-721</a>, <a href="./eip-1155.md">ERC-1155</a> tokens may have utility of some kind. The people who “use” the token may be different than the people who own it (such as in a rental). Thus, it would be useful to have separate roles for the “owner” and the “user” so that the “user” would not be able to take actions that the owner could (for example, transferring ownership).</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC5006</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">UserRecord</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">;</span>
+        <span class="kt">uint64</span> <span class="n">amount</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">user</span><span class="p">;</span>
+        <span class="kt">uint64</span> <span class="n">expiry</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="cm">/**
+     * @dev Emitted when permission for `user` to use `amount` of `tokenId` token owned by `owner`
+     * until `expiry` are given.
+     */</span>
+    <span class="k">event</span> <span class="n">CreateUserRecord</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">recordId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint64</span>  <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">user</span><span class="p">,</span>
+        <span class="kt">uint64</span>  <span class="n">expiry</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Emitted when record of `recordId` are deleted. 
+     */</span>
+    <span class="k">event</span> <span class="n">DeleteUserRecord</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">recordId</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the usable amount of `tokenId` tokens  by `account`.
+     */</span>
+    <span class="k">function</span> <span class="n">usableBalanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the amount of frozen tokens of token type `id` by `account`.
+     */</span>
+    <span class="k">function</span> <span class="n">frozenBalanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the `UserRecord` of `recordId`.
+     */</span>
+    <span class="k">function</span> <span class="n">userRecordOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">recordId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="n">UserRecord</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Gives permission to `user` to use `amount` of `tokenId` token owned by `owner` until `expiry`.
+     *
+     * Emits a {CreateUserRecord} event.
+     *
+     * Requirements:
+     *
+     * - If the caller is not `owner`, it must be have been approved to spend ``owner``'s tokens
+     * via {setApprovalForAll}.
+     * - `owner` must have a balance of tokens of type `id` of at least `amount`.
+     * - `user` cannot be the zero address.
+     * - `amount` must be greater than 0.
+     * - `expiry` must after the block timestamp.
+     */</span>
+    <span class="k">function</span> <span class="n">createUserRecord</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">user</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint64</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">uint64</span> <span class="n">expiry</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Atomically delete `record` of `recordId` by the caller.
+     *
+     * Emits a {DeleteUserRecord} event.
+     *
+     * Requirements:
+     *
+     * - the caller must have allowance.
+     */</span>
+    <span class="k">function</span> <span class="n">deleteUserRecord</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">recordId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">supportsInterface</code> method MUST return <code class="language-plaintext highlighter-rouge">true</code> when called with <code class="language-plaintext highlighter-rouge">0xc26d96cc</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This model is intended to facilitate easy implementation. The following are some problems that are solved by this standard:</p>
+
+<h3 id="clear-rights-assignment">Clear Rights Assignment</h3>
+
+<p>With Dual “owner” and “user” roles, it becomes significantly easier to manage what lenders and borrowers can and cannot do with the NFT (in other words, their rights).  For example, for the right to transfer ownership, the project simply needs to check whether the address taking the action represents the owner or the user and prevent the transaction if it is the user.  Additionally, owners can control who the user is and it is easy for other projects to assign their own rights to either the owners or the users.</p>
+
+<h3 id="easy-third-party-integration">Easy Third-Party Integration</h3>
+
+<p>In the spirit of permissionless interoperability, this standard makes it easier for third-party protocols to manage NFT usage rights without permission from the NFT issuer or the NFT application. Once a project has adopted the additional <code class="language-plaintext highlighter-rouge">user</code> role, any other project can directly interact with these features and implement their own type of transaction. For example, a PFP NFT using this standard can be integrated into both a rental platform where users can rent the NFT for 30 days AND, at the same time, a mortgage platform where users can use the NFT while eventually buying ownership of the NFT with installment payments. This would all be done without needing the permission of the original PFP project.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>As mentioned in the specifications section, this standard can be fully ERC compatible by adding an extension function set, and there are no conflicts between <a href="./eip-5006.md">ERC-5006</a> and ERC-1155.</p>
+
+<p>In addition, new functions introduced in this standard have many similarities with the existing functions in ERC-1155. This allows developers to easily adopt the standard quickly.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Test cases are included in <a href="../assets/eip-5006/test/test.ts">test.js</a>.</p>
+
+<p>Run in terminal:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">cd ../assets/eip-5006</code></li>
+  <li><code class="language-plaintext highlighter-rouge">npm install</code></li>
+  <li><code class="language-plaintext highlighter-rouge">npx hardhat test</code></li>
+</ol>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>See <a href="../assets/eip-5006/contracts/ERC5006.sol"><code class="language-plaintext highlighter-rouge">ERC5006.sol</code></a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>This EIP standard can completely protect the rights of the owner, the owner can change the NFT user, the user can not transfer the NFT.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

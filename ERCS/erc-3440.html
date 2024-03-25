@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>ERC-721 Editions Standard | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="ERC-721 Editions Standard | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-3440" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-3440" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">ERC-721 Editions Standard</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>This standard addresses an extension to the <a href="./eip-721.md">ERC-721 specification</a> by allowing signatures on NFTs representing works of art. This provides improved provenance by creating functionality for an artist to designate an original and signed limited-edition prints of their work.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>ERC-3440 is an ERC-721 extension specifically designed to make NFTs more robust for works of art. This extends the original ERC-721 spec by providing the ability to designate the original and limited-edition prints with a specialized enumeration extension similar to the <a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/extensions/ERC721Enumerable.sol">original 721 extension</a> built-in. The key improvement of this extension is allowing artists to designate the limited nature of their prints and provide a signed piece of data that represents their unique signature to a given token Id, much like an artist would sign a print of their work.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>Currently the link between a NFT and the digital work of art is only enforced in the token metadata stored in the shared <code class="language-plaintext highlighter-rouge">tokenURI</code> state of a NFT. While the blockchain provides an immutable record of history back to the origin of an NFT, often the origin is not a key that an artist maintains as closely as they would a hand written signature.</p>
+
+<p>An edition is a printed replica of an original piece of art. ERC-721 is not specifically designed to be used for works of art, such as digital art and music. ERC-721 (NFT) was originally created to handle deeds and other contracts. Eventually ERC-721 evolved into gaming tokens, where metadata hosted by servers may be sufficient. This proposal takes the position that we can create a more tangible link between the NFT, digital art, owner, and artist. By making a concise standard for art, it will be easier for an artist to maintain a connection with the Ethereum blockchain as well as their fans that purchase their tokens.</p>
+
+<p>The use cases for NFTs have evolved into works of digital art, and there is a need to designate an original NFT and printed editions with signatures in a trustless manner. ERC-721 contracts may or may not be deployed by artists, and currently, the only way to understand that something is uniquely touched by an artist is to display it on 3rd party applications that assume a connection via metadata that exists on servers, external to the blockchain. This proposal helps remove that distance with readily available functionality for artists to sign their work and provides a standard for 3rd party applications to display the uniqueness of a NFT for those that purchase them. The designation of limited-editions combined with immutable signatures, creates a trustlessly enforced link. This signature is accompanied by view functions that allow applications to easily display these signatures and limited-edition prints as evidence of uniqueness by showing that artists specifically used their key to designate the total supply and sign each NFT.</p>
+
+<h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>ERC-721 compliant contracts MAY implement this ERC for editions to provide a standard method for designating the original and limited-edition prints with signatures from the artist.</p>
+
+<p>Implementations of ERC-3440 MUST designate which token Id is the original NFT (defaulted to Id 0), and which token Id is a unique replica. The original print SHOULD be token Id number 0 but MAY be assigned to a different Id. The original print MUST only be designated once. The implementation MUST designate a maximum number of minted editions, after which new Ids MUST NOT be printed / minted.</p>
+
+<p>Artists MAY use the signing feature to sign the original or limited edition prints but this is OPTIONAL. A standard message to sign is RECOMMENDED to be simply a hash of the integer of the token Id.</p>
+
+<p>Signature messages MUST use the <a href="https://eips.ethereum.org/EIPS/eip-712">EIP-712</a> standard.</p>
+
+<p>A contract that is compliant with ERC-3440 shall implement the following abstract contract (referred to as ERC3440.sol):</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/cryptography/ECDSA.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @dev ERC721 token with editions extension.
+ */</span>
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC3440</span> <span class="k">is</span> <span class="n">ERC721URIStorage</span> <span class="p">{</span>
+
+    <span class="c1">// eip-712
+</span>    <span class="k">struct</span> <span class="n">EIP712Domain</span> <span class="p">{</span>
+        <span class="kt">string</span>  <span class="n">name</span><span class="p">;</span>
+        <span class="kt">string</span>  <span class="n">version</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">verifyingContract</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// Contents of message to be signed
+</span>    <span class="k">struct</span> <span class="n">Signature</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">verificationAddress</span><span class="p">;</span> <span class="c1">// ensure the artists signs only address(this) for each piece
+</span>        <span class="kt">string</span> <span class="n">artist</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">wallet</span><span class="p">;</span>
+        <span class="kt">string</span> <span class="n">contents</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// type hashes
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="n">EIP712DOMAIN_TYPEHASH</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+        <span class="s">"EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"</span>
+    <span class="p">);</span>
+
+    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="n">SIGNATURE_TYPEHASH</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+        <span class="s">"Signature(address verifyAddress,string artist,address wallet, string contents)"</span>
+    <span class="p">);</span>
+
+    <span class="kt">bytes32</span> <span class="k">public</span> <span class="n">DOMAIN_SEPARATOR</span><span class="p">;</span>
+    
+    <span class="c1">// Optional mapping for signatures
+</span>    <span class="k">mapping</span> <span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">bytes</span><span class="p">)</span> <span class="k">private</span> <span class="n">_signatures</span><span class="p">;</span>
+    
+    <span class="c1">// A view to display the artist's address
+</span>    <span class="kt">address</span> <span class="k">public</span> <span class="n">artist</span><span class="p">;</span>
+
+    <span class="c1">// A view to display the total number of prints created
+</span>    <span class="kt">uint</span> <span class="k">public</span> <span class="n">editionSupply</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    
+    <span class="c1">// A view to display which ID is the original copy
+</span>    <span class="kt">uint</span> <span class="k">public</span> <span class="n">originalId</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    
+    <span class="c1">// A signed token event
+</span>    <span class="k">event</span> <span class="n">Signed</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Sets `artist` as the original artist.
+     * @param `address _artist` the wallet of the signing artist (TODO consider multiple
+     * signers and contract signers (non-EOA)
+     */</span>
+    <span class="k">function</span> <span class="n">_designateArtist</span><span class="p">(</span><span class="kt">address</span> <span class="n">_artist</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">artist</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERC721Extensions: the artist has already been set"</span><span class="p">);</span>
+
+        <span class="c1">// If there is no special designation for the artist, set it.
+</span>        <span class="n">artist</span> <span class="o">=</span> <span class="n">_artist</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="cm">/**
+     * @dev Sets `tokenId as the original print` as the tokenURI of `tokenId`.
+     * @param `uint256 tokenId` the nft id of the original print
+     */</span>
+    <span class="k">function</span> <span class="n">_designateOriginal</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">artist</span><span class="p">,</span> <span class="s">"ERC721Extensions: only the artist may designate originals"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">_tokenId</span><span class="p">),</span> <span class="s">"ERC721Extensions: Original query for nonexistent token"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">originalId</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"ERC721Extensions: Original print has already been designated as a different Id"</span><span class="p">);</span>
+
+        <span class="c1">// If there is no special designation for the original, set it.
+</span>        <span class="n">originalId</span> <span class="o">=</span> <span class="n">_tokenId</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+
+    <span class="cm">/**
+     * @dev Sets total number printed editions of the original as the tokenURI of `tokenId`.
+     * @param `uint256 _maxEditionSupply` max supply
+     */</span>
+    <span class="k">function</span> <span class="n">_setLimitedEditions</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_maxEditionSupply</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">artist</span><span class="p">,</span> <span class="s">"ERC721Extensions: only the artist may designate max supply"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">editionSupply</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"ERC721Extensions: Max number of prints has already been created"</span><span class="p">);</span>
+
+        <span class="c1">// If there is no max supply of prints, set it. Leaving supply at 0 indicates there are no prints of the original
+</span>        <span class="n">editionSupply</span> <span class="o">=</span> <span class="n">_maxEditionSupply</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Creates `tokenIds` representing the printed editions.
+     * @param `string memory _tokenURI` the metadata attached to each nft
+     */</span>
+    <span class="k">function</span> <span class="n">_createEditions</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">_tokenURI</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">artist</span><span class="p">,</span> <span class="s">"ERC721Extensions: only the artist may create prints"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">editionSupply</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"ERC721Extensions: the edition supply is not set to more than 0"</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">uint</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">editionSupply</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">_mint</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+            <span class="n">_setTokenURI</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">_tokenURI</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev internal hashing utility 
+     * @param `Signature memory _message` the signature message struct to be signed
+     * the address of this contract is enforced in the hashing
+     */</span>
+    <span class="k">function</span> <span class="n">_hash</span><span class="p">(</span><span class="n">Signature</span> <span class="k">memory</span> <span class="n">_message</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span>
+            <span class="s">"</span><span class="se">\x19\x01</span><span class="s">"</span><span class="p">,</span>
+            <span class="n">DOMAIN_SEPARATOR</span><span class="p">,</span>
+            <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span>
+                <span class="n">SIGNATURE_TYPEHASH</span><span class="p">,</span>
+                <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+                <span class="n">_message</span><span class="p">.</span><span class="n">artist</span><span class="p">,</span>
+                <span class="n">_message</span><span class="p">.</span><span class="n">wallet</span><span class="p">,</span>
+                <span class="n">_message</span><span class="p">.</span><span class="n">contents</span>
+            <span class="p">))</span>
+        <span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Signs a `tokenId` representing a print.
+     * @param `uint256 _tokenId` id of the NFT being signed
+     * @param `Signature memory _message` the signed message
+     * @param `bytes memory _signature` signature bytes created off-chain
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     *
+     * Emits a {Signed} event.
+     */</span>
+    <span class="k">function</span> <span class="n">_signEdition</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="n">Signature</span> <span class="k">memory</span> <span class="n">_message</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_signature</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">artist</span><span class="p">,</span> <span class="s">"ERC721Extensions: only the artist may sign their work"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_signatures</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">].</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"ERC721Extensions: this token is already signed"</span><span class="p">);</span>
+        <span class="kt">bytes32</span> <span class="n">digest</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">_message</span><span class="p">);</span>
+        <span class="kt">address</span> <span class="n">recovered</span> <span class="o">=</span> <span class="n">ECDSA</span><span class="p">.</span><span class="n">recover</span><span class="p">(</span><span class="n">digest</span><span class="p">,</span> <span class="n">_signature</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">recovered</span> <span class="o">==</span> <span class="n">artist</span><span class="p">,</span> <span class="s">"ERC721Extensions: artist signature mismatch"</span><span class="p">);</span>
+        <span class="n">_signatures</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">_signature</span><span class="p">;</span>
+        <span class="k">emit</span> <span class="n">Signed</span><span class="p">(</span><span class="n">artist</span><span class="p">,</span> <span class="n">_tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    
+    <span class="cm">/**
+     * @dev displays a signature from the artist.
+     * @param `uint256 _tokenId` NFT id to verify isSigned
+     * @returns `bytes` gets the signature stored on the token
+     */</span>
+    <span class="k">function</span> <span class="n">getSignature</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_signatures</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">].</span><span class="n">length</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"ERC721Extensions: no signature exists for this Id"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">_signatures</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">];</span>
+    <span class="p">}</span>
+    
+    <span class="cm">/**
+     * @dev returns `true` if the message is signed by the artist.
+     * @param `Signature memory _message` the message signed by an artist and published elsewhere
+     * @param `bytes memory _signature` the signature on the message
+     * @param `uint _tokenId` id of the token to be verified as being signed
+     * @returns `bool` true if signed by artist
+     * The artist may broadcast signature out of band that will verify on the nft
+     */</span>
+    <span class="k">function</span> <span class="n">isSigned</span><span class="p">(</span><span class="n">Signature</span> <span class="k">memory</span> <span class="n">_message</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_signature</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">messageHash</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">_message</span><span class="p">);</span>
+        <span class="kt">address</span> <span class="n">_artist</span> <span class="o">=</span> <span class="n">ECDSA</span><span class="p">.</span><span class="n">recover</span><span class="p">(</span><span class="n">messageHash</span><span class="p">,</span> <span class="n">_signature</span><span class="p">);</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">_artist</span> <span class="o">==</span> <span class="n">artist</span> <span class="o">&amp;&amp;</span> <span class="n">_equals</span><span class="p">(</span><span class="n">_signatures</span><span class="p">[</span><span class="n">_tokenId</span><span class="p">],</span> <span class="n">_signature</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+    * @dev Utility function that checks if two `bytes memory` variables are equal. This is done using hashing,
+    * which is much more gas efficient then comparing each byte individually.
+    * Equality means that:
+    *  - 'self.length == other.length'
+    *  - For 'n' in '[0, self.length)', 'self[n] == other[n]'
+    */</span>
+    <span class="k">function</span> <span class="n">_equals</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_self</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_other</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">equal</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_self</span><span class="p">.</span><span class="n">length</span> <span class="o">!=</span> <span class="n">_other</span><span class="p">.</span><span class="n">length</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">uint</span> <span class="n">addr</span><span class="p">;</span>
+        <span class="kt">uint</span> <span class="n">addr2</span><span class="p">;</span>
+        <span class="kt">uint</span> <span class="n">len</span> <span class="o">=</span> <span class="n">_self</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">addr</span> <span class="o">:=</span> <span class="n">add</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="cm">/*BYTES_HEADER_SIZE*/</span><span class="mi">32</span><span class="p">)</span>
+            <span class="n">addr2</span> <span class="o">:=</span> <span class="n">add</span><span class="p">(</span><span class="n">_other</span><span class="p">,</span> <span class="cm">/*BYTES_HEADER_SIZE*/</span><span class="mi">32</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">equal</span> <span class="o">:=</span> <span class="n">eq</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">len</span><span class="p">),</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">addr2</span><span class="p">,</span> <span class="n">len</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>A major role of NFTs is to display uniqueness in digital art. Provenance is a desired feature of works of art, and this standard will help improve a NFT by providing a better way to verify uniqueness. Taking this extra step by an artist to explicitly sign tokens provides a better connection between the artists and their work on the blockchain. Artists can now retain their private key and sign messages in the future showing that the same signature is present on a unique NFT.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal combines already available 721 extensions and is backwards compatible with the ERC-721 standard.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+<p>An example implementation including tests can be found <a href="https://github.com/nginnever/NFT-editions">here</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./ERC3440.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @dev ERC721 token with editions extension.
+ */</span>
+<span class="k">contract</span> <span class="n">ArtToken</span> <span class="k">is</span> <span class="n">ERC3440</span> <span class="p">{</span>
+
+    <span class="cm">/**
+     * @dev Sets `address artist` as the original artist to the account deploying the NFT.
+     */</span>
+     <span class="k">constructor</span> <span class="p">(</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">_name</span><span class="p">,</span> 
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">_symbol</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">_numberOfEditions</span><span class="p">,</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">tokenURI</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">_originalId</span>
+    <span class="p">)</span> <span class="n">ERC721</span><span class="p">(</span><span class="n">_name</span><span class="p">,</span> <span class="n">_symbol</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_designateArtist</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+        <span class="n">_setLimitedEditions</span><span class="p">(</span><span class="n">_numberOfEditions</span><span class="p">);</span>
+        <span class="n">_createEditions</span><span class="p">(</span><span class="n">tokenURI</span><span class="p">);</span>
+        <span class="n">_designateOriginal</span><span class="p">(</span><span class="n">_originalId</span><span class="p">);</span>
+
+        <span class="n">DOMAIN_SEPARATOR</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span>
+            <span class="n">EIP712DOMAIN_TYPEHASH</span><span class="p">,</span>
+            <span class="nb">keccak256</span><span class="p">(</span><span class="kt">bytes</span><span class="p">(</span><span class="s">"Artist's Editions"</span><span class="p">)),</span>
+            <span class="nb">keccak256</span><span class="p">(</span><span class="kt">bytes</span><span class="p">(</span><span class="s">"1"</span><span class="p">)),</span>
+            <span class="mi">1</span><span class="p">,</span>
+            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)</span>
+        <span class="p">));</span>
+    <span class="p">}</span>
+    
+    <span class="cm">/**
+     * @dev Signs a `tokenId` representing a print.
+     */</span>
+    <span class="k">function</span> <span class="n">sign</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="n">Signature</span> <span class="k">memory</span> <span class="n">_message</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_signature</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="n">_signEdition</span><span class="p">(</span><span class="n">_tokenId</span><span class="p">,</span> <span class="n">_message</span><span class="p">,</span> <span class="n">_signature</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+<p>This extension gives an artist the ability to designate an original edition, set the maximum supply of editions as well as print the editions and uses the <code class="language-plaintext highlighter-rouge">tokenURI</code> extension to supply a link to the art work. To minimize the risk of an artist changing this value after selling an original piece this function can only happen once. Ensuring that these functions can only happen once provides consistency with uniqueness and verifiability. Due to this, the reference implementation handles these features in the constructor function. An edition may only be signed once, and care should be taken that the edition is signed correctly before release of the token/s.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

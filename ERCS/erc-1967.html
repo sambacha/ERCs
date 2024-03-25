@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Proxy Storage Slots | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Proxy Storage Slots | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1967" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1967" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Proxy Storage Slots</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+<p>Delegating <strong>proxy contracts</strong> are widely used for both upgradeability and gas savings. These proxies rely on a <strong>logic contract</strong> (also known as implementation contract or master copy) that is called using <code class="language-plaintext highlighter-rouge">delegatecall</code>. This allows proxies to keep a persistent state (storage and balance) while the code is delegated to the logic contract.</p>
+
+<p>To avoid clashes in storage usage between the proxy and logic contract, the address of the logic contract is typically saved in a specific storage slot (for example <code class="language-plaintext highlighter-rouge">0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</code> in OpenZeppelin contracts) guaranteed to be never allocated by a compiler. This EIP proposes a set of standard slots to store proxy information. This allows clients like block explorers to properly extract and show this information to end users, and logic contracts to optionally act upon it.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>Delegating proxies are widely in use, as a means to both support upgrades and reduce gas costs of deployments. Examples of these proxies are found in OpenZeppelin Contracts, Gnosis, AragonOS, Melonport, Limechain, WindingTree, Decentraland, and many others.</p>
+
+<p>However, the lack of a common interface for obtaining the logic address for a proxy makes it impossible to build common tools that act upon this information.</p>
+
+<p>A classic example of this is a block explorer. Here, the end user wants to interact with the underlying logic contract and not the proxy itself. Having a common way to retrieve the logic contract address from a proxy allows a block explorer to show the ABI of the logic contract and not that of the proxy. The explorer checks the storage of the contract at the distinguished slots to determine if it is indeed a proxy, in which case it shows information on both the proxy and the logic contract. As an example, this is how <code class="language-plaintext highlighter-rouge">0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48</code> is shown on Etherscan:</p>
+
+<p><img src="../assets/eip-1967/Sample-proxy-on-etherscan.png" alt="Sample proxy on Etherscan" /></p>
+
+<p>Another example is logic contracts that explicitly act upon the fact that they are being proxied. This allows them to potentially trigger a code update as part of their logic. A common storage slot allows these use cases independently of the specific proxy implementation being used.</p>
+
+<h2 id="specification">Specification</h2>
+<p>Monitoring of proxies is essential to the security of many applications. It is thus essential to have the ability to track changes to the implementation and admin slots. Unfortunately, tracking changes to storage slots is not easy. Consequently, it is recommended that any function that changes any of these slots SHOULD also emit the corresponding event. This includes initialization, from <code class="language-plaintext highlighter-rouge">0x0</code> to the first non-zero value.</p>
+
+<p>The proposed storage slots for proxy-specific information are the following. More slots for additional information can be added in subsequent ERCs as needed.</p>
+
+<h3 id="logic-contract-address">Logic contract address</h3>
+
+<p>Storage slot <code class="language-plaintext highlighter-rouge">0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</code>
+(obtained as <code class="language-plaintext highlighter-rouge">bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1)</code>).</p>
+
+<p>Holds the address of the logic contract that this proxy delegates to. SHOULD be empty if a beacon is used instead. Changes to this slot SHOULD be notified by the event:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">Upgraded</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">implementation</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="beacon-contract-address">Beacon contract address</h3>
+
+<p>Storage slot <code class="language-plaintext highlighter-rouge">0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50</code> (obtained as <code class="language-plaintext highlighter-rouge">bytes32(uint256(keccak256('eip1967.proxy.beacon')) - 1)</code>).</p>
+
+<p>Holds the address of the beacon contract this proxy relies on (fallback). SHOULD be empty if a logic address is used directly instead, and should only be considered if the logic contract slot is empty. Changes to this slot SHOULD be notified by the event:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">BeaconUpgraded</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">beacon</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Beacons are used for keeping the logic address for multiple proxies in a single location, allowing the upgrade of multiple proxies by modifying a single storage slot. A beacon contract MUST implement the function:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function implementation() returns (address)
+</code></pre></div></div>
+
+<p>Beacon based proxy contracts do not use the logic contract slot. Instead, they use the beacon contract slot to store the address of the beacon they are attached to. In order to know the logic contract used by a beacon proxy, a client SHOULD:</p>
+
+<ul>
+  <li>Read the address of the beacon for the beacon logic storage slot;</li>
+  <li>Call the <code class="language-plaintext highlighter-rouge">implementation()</code> function on the beacon contract.</li>
+</ul>
+
+<p>The result of the <code class="language-plaintext highlighter-rouge">implementation()</code> function on the beacon contract SHOULD NOT depend on the caller (<code class="language-plaintext highlighter-rouge">msg.sender</code>).</p>
+
+<h3 id="admin-address">Admin address</h3>
+
+<p>Storage slot <code class="language-plaintext highlighter-rouge">0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103</code>
+(obtained as <code class="language-plaintext highlighter-rouge">bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1)</code>).</p>
+
+<p>Holds the address that is allowed to upgrade the logic contract address for this proxy (optional). Changes to this slot SHOULD be notified by the event:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">AdminChanged</span><span class="p">(</span><span class="kt">address</span> <span class="n">previousAdmin</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newAdmin</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This EIP standardises the <strong>storage slot</strong> for the logic contract address, instead of a public method on the proxy contract. The rationale for this is that proxies should never expose functions to end users that could potentially clash with those of the logic contract.</p>
+
+<p>Note that a clash may occur even among functions with different names, since the ABI relies on just four bytes for the function selector. This can lead to unexpected errors, or even exploits, where a call to a proxied contract returns a different value than expected, since the proxy intercepts the call and answers with a value of its own.</p>
+
+<p>From <em>Malicious backdoors in Ethereum proxies</em> by Nomic Labs:</p>
+
+<blockquote>
+  <p>Any function in the Proxy contract whose selector matches with one in the implementation contract will be called directly, completely skipping the implementation code.</p>
+
+  <p>Because the function selectors use a fixed amount of bytes, there will always be the possibility of a clash. This isn’t an issue for day to day development, given that the Solidity compiler will detect a selector clash within a contract, but this becomes exploitable when selectors are used for cross-contract interaction. Clashes can be abused to create a seemingly well-behaved contract that’s actually concealing a backdoor.</p>
+</blockquote>
+
+<p>The fact that proxy public functions are potentially exploitable makes it necessary to standardise the logic contract address in a different way.</p>
+
+<p>The main requirement for the storage slots chosen is that they must never be picked by the compiler to store any contract state variable. Otherwise, a logic contract could inadvertently overwrite this information on the proxy when writing to a variable of its own.</p>
+
+<p>Solidity maps variables to storage based on the order in which they were declared, after the contract inheritance chain is linearized: the first variable is assigned the first slot, and so on. The exception is values in dynamic arrays and mappings, which are stored in the hash of the concatenation of the key and the storage slot. The Solidity development team has confirmed that the storage layout is to be preserved among new versions:</p>
+
+<blockquote>
+  <p>The layout of state variables in storage is considered to be part of the external interface of Solidity due to the fact that storage pointers can be passed to libraries. This means that any change to the rules outlined in this section is considered a breaking change of the language and due to its critical nature should be considered very carefully before being executed. In the event of such a breaking change, we would want to release a compatibility mode in which the compiler would generate bytecode supporting the old layout.</p>
+</blockquote>
+
+<p>Vyper seems to follow the same strategy as Solidity. Note that contracts written in other languages, or directly in assembly, may incur in clashes.</p>
+
+<p>They are chosen in such a way so they are guaranteed to not clash with state variables allocated by the compiler, since they depend on the hash of a string that does not start with a storage index. Furthermore, a <code class="language-plaintext highlighter-rouge">-1</code> offset is added so the preimage of the hash cannot be known, further reducing the chances of a possible attack.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @dev This contract implements an upgradeable proxy. It is upgradeable because calls are delegated to an
+ * implementation address that can be changed. This address is stored in storage in the location specified by
+ * https://eips.ethereum.org/EIPS/eip-1967[EIP1967], so that it doesn't conflict with the storage layout of the
+ * implementation behind the proxy.
+ */</span>
+<span class="k">contract</span> <span class="n">ERC1967Proxy</span> <span class="k">is</span> <span class="n">Proxy</span><span class="p">,</span> <span class="n">ERC1967Upgrade</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Initializes the upgradeable proxy with an initial implementation specified by `_logic`.
+     *
+     * If `_data` is nonempty, it's used as data in a delegate call to `_logic`. This will typically be an encoded
+     * function call, and allows initializing the storage of the proxy like a Solidity constructor.
+     */</span>
+    <span class="k">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_logic</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_data</span><span class="p">)</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="nb">assert</span><span class="p">(</span><span class="n">_IMPLEMENTATION_SLOT</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">"eip1967.proxy.implementation"</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+        <span class="n">_upgradeToAndCall</span><span class="p">(</span><span class="n">_logic</span><span class="p">,</span> <span class="n">_data</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns the current implementation address.
+     */</span>
+    <span class="k">function</span> <span class="n">_implementation</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">impl</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ERC1967Upgrade</span><span class="p">.</span><span class="n">_getImplementation</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev This abstract contract provides getters and event emitting update functions for
+ * https://eips.ethereum.org/EIPS/eip-1967[EIP1967] slots.
+ */</span>
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC1967Upgrade</span> <span class="p">{</span>
+    <span class="c1">// This is the keccak-256 hash of "eip1967.proxy.rollback" subtracted by 1
+</span>    <span class="kt">bytes32</span> <span class="k">private</span> <span class="k">constant</span> <span class="n">_ROLLBACK_SLOT</span> <span class="o">=</span> <span class="mh">0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Storage slot with the address of the current implementation.
+     * This is the keccak-256 hash of "eip1967.proxy.implementation" subtracted by 1, and is
+     * validated in the constructor.
+     */</span>
+    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">_IMPLEMENTATION_SLOT</span> <span class="o">=</span> <span class="mh">0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Emitted when the implementation is upgraded.
+     */</span>
+    <span class="k">event</span> <span class="n">Upgraded</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">implementation</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the current implementation address.
+     */</span>
+    <span class="k">function</span> <span class="n">_getImplementation</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">StorageSlot</span><span class="p">.</span><span class="n">getAddressSlot</span><span class="p">(</span><span class="n">_IMPLEMENTATION_SLOT</span><span class="p">).</span><span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Stores a new address in the EIP1967 implementation slot.
+     */</span>
+    <span class="k">function</span> <span class="n">_setImplementation</span><span class="p">(</span><span class="kt">address</span> <span class="n">newImplementation</span><span class="p">)</span> <span class="k">private</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">Address</span><span class="p">.</span><span class="n">isContract</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">),</span> <span class="s">"ERC1967: new implementation is not a contract"</span><span class="p">);</span>
+        <span class="n">StorageSlot</span><span class="p">.</span><span class="n">getAddressSlot</span><span class="p">(</span><span class="n">_IMPLEMENTATION_SLOT</span><span class="p">).</span><span class="n">value</span> <span class="o">=</span> <span class="n">newImplementation</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Perform implementation upgrade
+     *
+     * Emits an {Upgraded} event.
+     */</span>
+    <span class="k">function</span> <span class="n">_upgradeTo</span><span class="p">(</span><span class="kt">address</span> <span class="n">newImplementation</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="n">_setImplementation</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">);</span>
+        <span class="k">emit</span> <span class="n">Upgraded</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Perform implementation upgrade with additional setup call.
+     *
+     * Emits an {Upgraded} event.
+     */</span>
+    <span class="k">function</span> <span class="n">_upgradeToAndCall</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">newImplementation</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">forceCall</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="n">_upgradeTo</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">forceCall</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Address</span><span class="p">.</span><span class="n">functionDelegateCall</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Perform implementation upgrade with security checks for UUPS proxies, and additional setup call.
+     *
+     * Emits an {Upgraded} event.
+     */</span>
+    <span class="k">function</span> <span class="n">_upgradeToAndCallSecure</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">newImplementation</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">forceCall</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">oldImplementation</span> <span class="o">=</span> <span class="n">_getImplementation</span><span class="p">();</span>
+
+        <span class="c1">// Initial upgrade and setup call
+</span>        <span class="n">_setImplementation</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">forceCall</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Address</span><span class="p">.</span><span class="n">functionDelegateCall</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Perform rollback test if not already in progress
+</span>        <span class="n">StorageSlot</span><span class="p">.</span><span class="n">BooleanSlot</span> <span class="k">storage</span> <span class="n">rollbackTesting</span> <span class="o">=</span> <span class="n">StorageSlot</span><span class="p">.</span><span class="n">getBooleanSlot</span><span class="p">(</span><span class="n">_ROLLBACK_SLOT</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">rollbackTesting</span><span class="p">.</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Trigger rollback using upgradeTo from the new implementation
+</span>            <span class="n">rollbackTesting</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+            <span class="n">Address</span><span class="p">.</span><span class="n">functionDelegateCall</span><span class="p">(</span>
+                <span class="n">newImplementation</span><span class="p">,</span>
+                <span class="n">abi</span><span class="p">.</span><span class="n">encodeWithSignature</span><span class="p">(</span><span class="s">"upgradeTo(address)"</span><span class="p">,</span> <span class="n">oldImplementation</span><span class="p">)</span>
+            <span class="p">);</span>
+            <span class="n">rollbackTesting</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="c1">// Check rollback was effective
+</span>            <span class="nb">require</span><span class="p">(</span><span class="n">oldImplementation</span> <span class="o">==</span> <span class="n">_getImplementation</span><span class="p">(),</span> <span class="s">"ERC1967Upgrade: upgrade breaks further upgrades"</span><span class="p">);</span>
+            <span class="c1">// Finally reset to the new implementation and log the upgrade
+</span>            <span class="n">_upgradeTo</span><span class="p">(</span><span class="n">newImplementation</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Storage slot with the admin of the contract.
+     * This is the keccak-256 hash of "eip1967.proxy.admin" subtracted by 1, and is
+     * validated in the constructor.
+     */</span>
+    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">_ADMIN_SLOT</span> <span class="o">=</span> <span class="mh">0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Emitted when the admin account has changed.
+     */</span>
+    <span class="k">event</span> <span class="n">AdminChanged</span><span class="p">(</span><span class="kt">address</span> <span class="n">previousAdmin</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newAdmin</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the current admin.
+     */</span>
+    <span class="k">function</span> <span class="n">_getAdmin</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">StorageSlot</span><span class="p">.</span><span class="n">getAddressSlot</span><span class="p">(</span><span class="n">_ADMIN_SLOT</span><span class="p">).</span><span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Stores a new address in the EIP1967 admin slot.
+     */</span>
+    <span class="k">function</span> <span class="n">_setAdmin</span><span class="p">(</span><span class="kt">address</span> <span class="n">newAdmin</span><span class="p">)</span> <span class="k">private</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">newAdmin</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERC1967: new admin is the zero address"</span><span class="p">);</span>
+        <span class="n">StorageSlot</span><span class="p">.</span><span class="n">getAddressSlot</span><span class="p">(</span><span class="n">_ADMIN_SLOT</span><span class="p">).</span><span class="n">value</span> <span class="o">=</span> <span class="n">newAdmin</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Changes the admin of the proxy.
+     *
+     * Emits an {AdminChanged} event.
+     */</span>
+    <span class="k">function</span> <span class="n">_changeAdmin</span><span class="p">(</span><span class="kt">address</span> <span class="n">newAdmin</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="k">emit</span> <span class="n">AdminChanged</span><span class="p">(</span><span class="n">_getAdmin</span><span class="p">(),</span> <span class="n">newAdmin</span><span class="p">);</span>
+        <span class="n">_setAdmin</span><span class="p">(</span><span class="n">newAdmin</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev The storage slot of the UpgradeableBeacon contract which defines the implementation for this proxy.
+     * This is bytes32(uint256(keccak256('eip1967.proxy.beacon')) - 1)) and is validated in the constructor.
+     */</span>
+    <span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">_BEACON_SLOT</span> <span class="o">=</span> <span class="mh">0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Emitted when the beacon is upgraded.
+     */</span>
+    <span class="k">event</span> <span class="n">BeaconUpgraded</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">beacon</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the current beacon.
+     */</span>
+    <span class="k">function</span> <span class="n">_getBeacon</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">StorageSlot</span><span class="p">.</span><span class="n">getAddressSlot</span><span class="p">(</span><span class="n">_BEACON_SLOT</span><span class="p">).</span><span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Stores a new beacon in the EIP1967 beacon slot.
+     */</span>
+    <span class="k">function</span> <span class="n">_setBeacon</span><span class="p">(</span><span class="kt">address</span> <span class="n">newBeacon</span><span class="p">)</span> <span class="k">private</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">Address</span><span class="p">.</span><span class="n">isContract</span><span class="p">(</span><span class="n">newBeacon</span><span class="p">),</span> <span class="s">"ERC1967: new beacon is not a contract"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">Address</span><span class="p">.</span><span class="n">isContract</span><span class="p">(</span><span class="n">IBeacon</span><span class="p">(</span><span class="n">newBeacon</span><span class="p">).</span><span class="n">implementation</span><span class="p">()),</span>
+            <span class="s">"ERC1967: beacon implementation is not a contract"</span>
+        <span class="p">);</span>
+        <span class="n">StorageSlot</span><span class="p">.</span><span class="n">getAddressSlot</span><span class="p">(</span><span class="n">_BEACON_SLOT</span><span class="p">).</span><span class="n">value</span> <span class="o">=</span> <span class="n">newBeacon</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Perform beacon upgrade with additional setup call. Note: This upgrades the address of the beacon, it does
+     * not upgrade the implementation contained in the beacon (see {UpgradeableBeacon-_setImplementation} for that).
+     *
+     * Emits a {BeaconUpgraded} event.
+     */</span>
+    <span class="k">function</span> <span class="n">_upgradeBeaconToAndCall</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">newBeacon</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">forceCall</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="n">_setBeacon</span><span class="p">(</span><span class="n">newBeacon</span><span class="p">);</span>
+        <span class="k">emit</span> <span class="n">BeaconUpgraded</span><span class="p">(</span><span class="n">newBeacon</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">forceCall</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Address</span><span class="p">.</span><span class="n">functionDelegateCall</span><span class="p">(</span><span class="n">IBeacon</span><span class="p">(</span><span class="n">newBeacon</span><span class="p">).</span><span class="n">implementation</span><span class="p">(),</span> <span class="n">data</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev This abstract contract provides a fallback function that delegates all calls to another contract using the EVM
+ * instruction `delegatecall`. We refer to the second contract as the _implementation_ behind the proxy, and it has to
+ * be specified by overriding the virtual {_implementation} function.
+ *
+ * Additionally, delegation to the implementation can be triggered manually through the {_fallback} function, or to a
+ * different contract through the {_delegate} function.
+ *
+ * The success and return data of the delegated call will be returned back to the caller of the proxy.
+ */</span>
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">Proxy</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Delegates the current call to `implementation`.
+     *
+     * This function does not return to its internal call site, it will return directly to the external caller.
+     */</span>
+    <span class="k">function</span> <span class="n">_delegate</span><span class="p">(</span><span class="kt">address</span> <span class="n">implementation</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="c1">// Copy msg.data. We take full control of memory in this inline assembly
+</span>            <span class="c1">// block because it will not return to Solidity code. We overwrite the
+</span>            <span class="c1">// Solidity scratch pad at memory position 0.
+</span>            <span class="n">calldatacopy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">calldatasize</span><span class="p">())</span>
+
+            <span class="c1">// Call the implementation.
+</span>            <span class="c1">// out and outsize are 0 because we don't know the size yet.
+</span>            <span class="kr">let</span> <span class="n">result</span> <span class="o">:=</span> <span class="nb">delegatecall</span><span class="p">(</span><span class="n">gas</span><span class="p">(),</span> <span class="n">implementation</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">calldatasize</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1">// Copy the returned data.
+</span>            <span class="n">returndatacopy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">returndatasize</span><span class="p">())</span>
+
+            <span class="kr">switch</span> <span class="n">result</span>
+            <span class="c1">// delegatecall returns 0 on error.
+</span>            <span class="kr">case</span> <span class="mi">0</span> <span class="p">{</span>
+                <span class="nb">revert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">returndatasize</span><span class="p">())</span>
+            <span class="p">}</span>
+            <span class="kr">default</span> <span class="p">{</span>
+                <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">returndatasize</span><span class="p">())</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev This is a virtual function that should be overridden so it returns the address to which the fallback function
+     * and {_fallback} should delegate.
+     */</span>
+    <span class="k">function</span> <span class="n">_implementation</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Delegates the current call to the address returned by `_implementation()`.
+     *
+     * This function does not return to its internal call site, it will return directly to the external caller.
+     */</span>
+    <span class="k">function</span> <span class="n">_fallback</span><span class="p">()</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="n">_beforeFallback</span><span class="p">();</span>
+        <span class="n">_delegate</span><span class="p">(</span><span class="n">_implementation</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Fallback function that delegates calls to the address returned by `_implementation()`. Will run if no other
+     * function in the contract matches the call data.
+     */</span>
+    <span class="k">fallback</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="n">_fallback</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Fallback function that delegates calls to the address returned by `_implementation()`. Will run if call data
+     * is empty.
+     */</span>
+    <span class="k">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="n">_fallback</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Hook that is called before falling back to the implementation. Can happen as part of a manual `_fallback`
+     * call, or as part of the Solidity `fallback` or `receive` functions.
+     *
+     * If overridden should call `super._beforeFallback()`.
+     */</span>
+    <span class="k">function</span> <span class="n">_beforeFallback</span><span class="p">()</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @dev Library for reading and writing primitive types to specific storage slots.
+ *
+ * Storage slots are often used to avoid storage conflict when dealing with upgradeable contracts.
+ * This library helps with reading and writing to such slots without the need for inline assembly.
+ *
+ * The functions in this library return Slot structs that contain a `value` member that can be used to read or write.
+ */</span>
+<span class="k">library</span> <span class="n">StorageSlot</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">AddressSlot</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">BooleanSlot</span> <span class="p">{</span>
+        <span class="kt">bool</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">Bytes32Slot</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">Uint256Slot</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns an `AddressSlot` with member `value` located at `slot`.
+     */</span>
+    <span class="k">function</span> <span class="n">getAddressSlot</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="n">AddressSlot</span> <span class="k">storage</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">r</span><span class="p">.</span><span class="n">slot</span> <span class="o">:=</span> <span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns an `BooleanSlot` with member `value` located at `slot`.
+     */</span>
+    <span class="k">function</span> <span class="n">getBooleanSlot</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="n">BooleanSlot</span> <span class="k">storage</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">r</span><span class="p">.</span><span class="n">slot</span> <span class="o">:=</span> <span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns an `Bytes32Slot` with member `value` located at `slot`.
+     */</span>
+    <span class="k">function</span> <span class="n">getBytes32Slot</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Bytes32Slot</span> <span class="k">storage</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">r</span><span class="p">.</span><span class="n">slot</span> <span class="o">:=</span> <span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns an `Uint256Slot` with member `value` located at `slot`.
+     */</span>
+    <span class="k">function</span> <span class="n">getUint256Slot</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">slot</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Uint256Slot</span> <span class="k">storage</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">r</span><span class="p">.</span><span class="n">slot</span> <span class="o">:=</span> <span class="n">slot</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>This ERC relies on the fact that the chosen storage slots are <strong>not</strong> to be allocated by the solidity compiler. This guarantees that an implementation contract will not accidentally overwrite any of the information required for the proxy to operate. As such, locations with a high slot number were chosen to avoid clashes with the slots allocated by the compiler. Also, locations with no known preimage were picked, to ensure that a write to mapping with a maliciously crafted key could not overwrite it.</p>
+
+<p>Logic contracts that intend to modify proxy-specific information must do so deliberately (as is the case with UUPS) by writing to the specific storage slot.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

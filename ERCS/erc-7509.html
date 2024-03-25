@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Entity Component System | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Entity Component System | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7509" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7509" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Entity Component System</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal defines a minimal Entity Component System (ECS). Entities are unique identities that are assigned to multiple components (data) and then processed using the system (logic).
+This proposal standardizes the interface specification for using ECS in smart contracts, providing a set of basic functions that allow users to freely combine and manage multi-contract applications.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>ECS is a design pattern that improves code reusability by separating data from behavior. It is often used in game development. A minimal ECS consists of <br />
+<strong>Entity</strong>: a unique identifier. <br />
+<strong>Component</strong>: a reusable data container attached to an entity. <br />
+<strong>System</strong>: the logic for operating entity components. <br />
+<strong>World</strong>: a container for an entity component system. <br />
+This proposal uses smart contracts to implement an easy-to-use minimal ECS, eliminates unnecessary complexity, and makes some functional improvements that are consistent with contract interaction behavior. You can combine components and systems easily and freely.
+As a smart contract developer, the benefits of adopting ECS include:</p>
+
+<ul>
+  <li>It adopts a simple design of decoupling, encapsulation, and modularization, which makes the architecture design of your game or application easier.</li>
+  <li>It has flexible composition ability, each entity can combine different components. You can also define different systems for manipulating the data of these new entities.</li>
+  <li>It is conducive to expansion, and two games or applications can interact by defining new components and systems.</li>
+  <li>It can help your application add new features or upgrades, because data and behavior are separated, new features will not affect your old data.</li>
+  <li>It is easy to manage. When your application consists of multiple contracts, it will help you effectively manage the status of each contract.</li>
+  <li>Its components are reusable, and you can share your components with the community to help others improve development efficiency.</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>World contracts are containers for entities, component contracts, and system contracts. Its core principle is to establish the relationship between entities and component contracts, where different entities will attach different components, and use system contracts to dynamically change the data of the entity in the component.</p>
+
+<p>Usual workflow when building ECS-based programs:</p>
+
+<ol>
+  <li>Implement the <code class="language-plaintext highlighter-rouge">IWorld</code> interface to create a world contract.</li>
+  <li>Call <code class="language-plaintext highlighter-rouge">createEntity()</code> of the world contract to create an entity.</li>
+  <li>Implement the <code class="language-plaintext highlighter-rouge">IComponent</code> interface to create a Component contract.</li>
+  <li>Call <code class="language-plaintext highlighter-rouge">registerComponent()</code> of the world contract to register the component contract.</li>
+  <li>Call <code class="language-plaintext highlighter-rouge">addComponent()</code> of the world contract to attach the component to the entity.</li>
+  <li>Create a system contract, which is a contract without interface restrictions, and you can define any function in the system contract.</li>
+  <li>Call <code class="language-plaintext highlighter-rouge">registerSystem()</code> of the world contract to register the system contract.</li>
+  <li>Run the system.</li>
+</ol>
+
+<h3 id="interfaces">Interfaces</h3>
+
+<h4 id="iworldsol"><code class="language-plaintext highlighter-rouge">IWorld.sol</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">&gt;=</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IWorld</span> <span class="p">{</span>
+    <span class="cm">/**
+     * Create a new entity.
+     * @dev The entity MUST be assigned a unique Id.
+     * If the state of the entity is true, it means it is available, and if it is false, it means it is not available.
+     * When the state of the entity is false, you cannot add or remove components for the entity.
+     * @return New entity id.
+     */</span>
+    <span class="k">function</span> <span class="n">createEntity</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Does the entity exist in the world.
+     * @param _entityId is the Id of the entity.
+     * @return true exists, false does not exist.
+     */</span>
+    <span class="k">function</span> <span class="n">entityExists</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Get the total number of entities in the world.
+     * @return The total number of entities.
+     */</span>
+    <span class="k">function</span> <span class="n">getEntityCount</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Set the state of an entity.
+     * @dev Entity MUST exist.
+     * @param _entityId is the Id of the entity.
+     * @param _entityState is the state of the entity, true means available, false means unavailable.
+     */</span>
+    <span class="k">function</span> <span class="n">setEntityState</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_entityState</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * Get the state of an entity.
+     * @param _entityId Id of the entity.
+     * @return The current state of the entity.
+     */</span>
+    <span class="k">function</span> <span class="n">getEntityState</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Register a component to the world.
+     * @dev A component MUST be registered with the world before it can be attached to an entity.
+     * MUST NOT register the same component to the world repeatedly.
+     * It SHOULD be checked that the contract address returned by world() of the component contract is the same as the current world contract.
+     * The state of the component is true means it is available, and false means it is not available. When the component state is set to false, it cannot be attached to the entity.
+     * @param _componentAddress is the contract address of the component.
+     */</span>
+    <span class="k">function</span> <span class="n">registerComponent</span><span class="p">(</span><span class="kt">address</span> <span class="n">_componentAddress</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * Does the component exist in the world.
+     * @param _componentAddress is the contract address of the component.
+     * @return true exists, false does not exist.
+     */</span>
+    <span class="k">function</span> <span class="n">componentExists</span><span class="p">(</span><span class="kt">address</span> <span class="n">_componentAddress</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Get the contract addresses of all components registered in the world.
+     * @return Array of contract addresses.
+     */</span>
+    <span class="k">function</span> <span class="n">getComponents</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Set component state.
+     * @dev Component MUST exist.
+     * @param _componentAddress is the contract address of the component.
+     * @param _componentState is the state of the component, true means available, false means unavailable.
+     */</span>
+    <span class="k">function</span> <span class="n">setComponentState</span><span class="p">(</span><span class="kt">address</span> <span class="n">_componentAddress</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_componentState</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * Get the state of a component.
+     * @param _componentAddress is the contract address of the component.
+     * @return true means available, false means unavailable.
+     */</span>
+    <span class="k">function</span> <span class="n">getComponentState</span><span class="p">(</span><span class="kt">address</span> <span class="n">_componentAddress</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Attach a component to the entity.
+     * @dev Entity MUST be available.Component MUST be available.A component MUST NOT be added to an entity repeatedly.
+     * @param _entityId is the Id of the entity.
+     * @param _componentAddress is the address of the component to be attached.
+     */</span>
+    <span class="k">function</span> <span class="n">addComponent</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_componentAddress</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * Whether the entity has a component attached,
+     * @dev Entity MUST exist.Component MUST be registered.
+     * @param _entityId is the Id of the entity.
+     * @param _componentAddress is the component address.
+     * @return true is attached, false is not attached
+     */</span>
+    <span class="k">function</span> <span class="n">hasComponent</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_componentAddress</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Remove a component from the entity.
+     * @dev Entity MUST be available.The component MUST have been added to the entity before.
+     * @param _entityId is the Id of the entity.
+     * @param _componentAddress is the address of the component to be removed.
+     */</span>
+    <span class="k">function</span> <span class="n">removeComponent</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_componentAddress</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * Get the contract addresses of all components attached to the entity.
+     * @dev Entity MUST exist.
+     * @param _entityId is the Id of the entity.
+     * @return An array of contract addresses of the components owned by this entity.
+     */</span>
+    <span class="k">function</span> <span class="n">getEntityComponents</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Register a system to the world.
+     * @dev MUST NOT register the same system to the world repeatedly.The system state is true means available, false means unavailable.
+     * @param _systemAddress is the contract address of the system.
+     */</span>
+    <span class="k">function</span> <span class="n">registerSystem</span><span class="p">(</span><span class="kt">address</span> <span class="n">_systemAddress</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * Does the system exist in the world.
+     * @param _systemAddress is the contract address of the system.
+     * @return true exists, false does not exist.
+     */</span>
+    <span class="k">function</span> <span class="n">systemExists</span><span class="p">(</span><span class="kt">address</span> <span class="n">_systemAddress</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Get the contract addresses of all systems registered in the world.
+     * @return Array of contract addresses.
+     */</span>
+    <span class="k">function</span> <span class="n">getSystems</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * Set the system State.
+     * @dev System MUST exist.
+     * @param _systemAddress is the contract address of the system.
+     * @param _systemState is the state of the system.
+     */</span>
+    <span class="k">function</span> <span class="n">setSystemState</span><span class="p">(</span><span class="kt">address</span> <span class="n">_systemAddress</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_systemState</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * Get the state of a system.
+     * @param _systemAddress is the contract address of the system.
+     * @return The state of the system.
+     */</span>
+    <span class="k">function</span> <span class="n">getSystemState</span><span class="p">(</span><span class="kt">address</span> <span class="n">_systemAddress</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="icomponentsol"><code class="language-plaintext highlighter-rouge">IComponent.sol</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">&gt;=</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./Types.sol"</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IComponent</span> <span class="p">{</span>
+    <span class="cm">/**
+     * The world contract address registered by the component.
+     * @return world contract address.
+     */</span>
+    <span class="k">function</span> <span class="n">world</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+     *Get the data type and get() parameter type of the component
+     * @dev SHOULD Import Types Library, which is an enumeration Library containing all data types.
+     * Entity data can be stored according to the data type.
+     * The get() parameter data type can be used to get entity data.
+     * @return the data type array of the entity
+     * @return get parameter data type array
+     */</span>
+    <span class="k">function</span> <span class="n">types</span><span class="p">()</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="n">Types</span><span class="p">.</span><span class="n">Type</span><span class="p">[]</span> <span class="k">memory</span><span class="p">,</span> <span class="n">Types</span><span class="p">.</span><span class="n">Type</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+     *Store entity data.
+     * @dev entity MUST be available. The system that operates on it MUST be available.
+     * The entity has the component attached.
+     * @param _entityId is the Id of the entity.
+     * @param _data is the data to be stored.
+     */</span>
+    <span class="k">function</span> <span class="n">set</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     *Get the data of the entity according to the entity Id.
+     * @param _entityId is the Id of the entity.
+     * @return Entity data.
+     */</span>
+    <span class="k">function</span> <span class="n">get</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/** Get the data of the entity according to the entity Id and parameters.
+     * @param _entityId is the Id of the entity.
+     * @param _params is an extra parameter, it SHOULD depend on whether you need it.
+     * @return Entity data.
+     */</span>
+    <span class="k">function</span> <span class="n">get</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_entityId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_params</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="library">Library</h3>
+
+<p>The library <a href="../assets/eip-7509/Types.sol"><code class="language-plaintext highlighter-rouge">Types.sol</code></a> contains an enumeration of Solidity types used in the above interfaces.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="why-include-type-information-instead-of-simplebytearrays">Why include type information instead of simple byte arrays?</h3>
+
+<p>This is to ensure the correctness of types when using components, in order to avoid potential errors and inconsistencies. External developers can clearly set and get based on the type.</p>
+
+<h3 id="why-differentiate-between-a-non-existent-entity-and-an-entity-with-false-state">Why differentiate between a non-existent entity and an entity with false state?</h3>
+
+<p>We cannot judge whether an entity actually exists based on its state alone. External contributors can create components based on entities. If the entities he uses don’t exist, the components he creates may not make sense. Component creators should first check if the entity exists, and if the entity does exist, it makes sense even if the entity’s state is false. Because he can wait for the entity state to be true before attaching the component to the entity.</p>
+
+<h3 id="why-getentitycomponents-function-returns-all-addresses-of-components-instead-of-all-component-ids">Why <code class="language-plaintext highlighter-rouge">getEntityComponents</code> function returns all addresses of components instead of all component ids?</h3>
+
+<p>There are two designs for <code class="language-plaintext highlighter-rouge">getEntityComponents</code>. The other design is to add an additional mapping for the storage of component id and component address. Every time we call <code class="language-plaintext highlighter-rouge">addComponent</code>, the parameters of the function are the entity id and component id. When the user calls <code class="language-plaintext highlighter-rouge">getEntityComponents</code>, it will returning an array of component ids, they query the component address with each component id, and then query the data based on each component address. Because a entity may contain many component ids, this will cause the user to request the component address multiple times. In the end, we chose to use <code class="language-plaintext highlighter-rouge">getEntityComponents</code> directly for all addresses owned by the entity.</p>
+
+<h3 id="can-registercomponent-and-registersystem-provide-external-permissions">Can <code class="language-plaintext highlighter-rouge">registerComponent</code> and <code class="language-plaintext highlighter-rouge">registerSystem</code> provide external permissions?</h3>
+
+<p>It depends on the openness of your application or game. If you encourage developers to participate, the state of the component and system they submit for registration should be <code class="language-plaintext highlighter-rouge">false</code>, and you need to check whether they have submitted malicious code before using <code class="language-plaintext highlighter-rouge">setComponentState</code> and <code class="language-plaintext highlighter-rouge">setSystemState</code> to enable them .</p>
+
+<h3 id="when-to-use-get-with-extra-parameters-in-component">When to use <code class="language-plaintext highlighter-rouge">get</code> with extra parameters in component?</h3>
+
+<p>The component provides two <code class="language-plaintext highlighter-rouge">get</code> functions. One <code class="language-plaintext highlighter-rouge">get</code> function only needs to pass in the entity id, and the other has more <code class="language-plaintext highlighter-rouge">_params</code> parameters, which will be used as additional parameters for obtaining data. For example, you define a component that stores the HP corresponding to the level of an entity. If you want to get the HP of an entity that matches its level, then you call the <code class="language-plaintext highlighter-rouge">get</code> function with the entity level as <code class="language-plaintext highlighter-rouge">_params</code>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>See <a href="../assets/eip-7509/README.md">Ethereum ECS Example</a></p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Unless you want to implement special functions, do not provide the following methods directly to ordinary users, they should be set by the contract owner. <br />
+<code class="language-plaintext highlighter-rouge">createEntity()</code>,
+<code class="language-plaintext highlighter-rouge">setEntityState()</code>,
+<code class="language-plaintext highlighter-rouge">addComponent()</code>,
+<code class="language-plaintext highlighter-rouge">removeComponent()</code>,
+<code class="language-plaintext highlighter-rouge">registerComponent()</code>,
+<code class="language-plaintext highlighter-rouge">setComponentState()</code>,
+<code class="language-plaintext highlighter-rouge">registerSystem()</code>,
+<code class="language-plaintext highlighter-rouge">setSystemState()</code></p>
+
+<p>Do not provide functions that modify entities other than set() in the component contract. And add a check in <code class="language-plaintext highlighter-rouge">set()</code> to check whether the entity is available and whether the operating system is available.</p>
+
+<p>After the system is registered in the world, it will be able to operate the component data of all entities in the world. It is necessary to check and audit the code security of all system contracts before registering it in the world.</p>
+
+<p>If the new version has deprecated some entities, component contracts and system contracts. They need to be disabled in time using <code class="language-plaintext highlighter-rouge">setEntityState()</code>, <code class="language-plaintext highlighter-rouge">setComponentState()</code>, and <code class="language-plaintext highlighter-rouge">setSystemState()</code>.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

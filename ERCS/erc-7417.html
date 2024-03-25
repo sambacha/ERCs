@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Token Converter | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Token Converter | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7417" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7417" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Token Converter</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>There are multiple token standards on Ethereum chain currently. This EIP introduces a concept of cross-standard interoperability by creating a service that allows <a href="./eip-20.md">ERC-20</a> tokens to be upgraded to <a href="./eip-223.md">ERC-223</a> tokens anytime. <a href="./eip-223.md">ERC-223</a> tokens can be converted back to <a href="./eip-20.md">ERC-20</a> version without any restrictions to avoid any problems with backwards compatibility and allow different standards to co-exist and become interoperable and interchangeable.</p>
+
+<p>To perform the conversion, the user must send tokens of one standard to the Converter contract and he will automatically receive tokens of another standard.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>When an ERC-20 contract is upgraded, finding the new address introduces risk. This proposal creates a service that performs token conversion and prevents potentially unsafe implementations from spreading.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>The Token Converter system comprises two main parts:</p>
+
+<ul>
+  <li>
+    <p>Converter contract</p>
+  </li>
+  <li>
+    <p><a href="./eip-223.md">ERC-223</a> wrapper contract for each <a href="./eip-20.md">ERC-20</a> token</p>
+  </li>
+</ul>
+
+<p>Converter contract can deploy new <a href="./eip-223.md">ERC-223</a> wrapper contracts for any <a href="./eip-20.md">ERC-20</a> token that does not have a <a href="./eip-223.md">ERC-223</a> wrapper currently. There MUST be exactly one <a href="./eip-223.md">ERC-223</a> wrapper for each <a href="./eip-20.md">ERC-20</a> token.</p>
+
+<p>Converter contract MUST accept deposits of <a href="./eip-20.md">ERC-20</a> tokens and send <a href="./eip-223.md">ERC-223</a> tokens to the depositor at 1:1 ratio. Upon depositing 1234 units of <code class="language-plaintext highlighter-rouge">ERC-20 token_A</code> the depositor MUST receive exactly 1234 units of <code class="language-plaintext highlighter-rouge">ERC-223 token_A</code>. This is done by issuing new <a href="./eip-223.md">ERC-223</a> tokens at the moment of <a href="./eip-20.md">ERC-20</a> deposit. The original <a href="./eip-20.md">ERC-20</a> tokens MUST be frozen in the Converter contract and available for claiming back.</p>
+
+<p>Converter contract MUST accept deposits of <a href="./eip-223.md">ERC-223</a> tokens and send <a href="./eip-20.md">ERC-20</a> tokens to the depositor at 1:1 ratio. This is done by releasing the original <a href="./eip-20.md">ERC-20</a> tokens at the moment of <a href="./eip-223.md">ERC-223</a> deposit. The deposited <a href="./eip-223.md">ERC-223</a> tokens must be burned.</p>
+
+<h3 id="token-converter">Token Converter</h3>
+
+<h4 id="conver-contract-methods">Conver contract methods</h4>
+
+<h5 id="getwrapperfor"><code class="language-plaintext highlighter-rouge">getWrapperFor</code></h5>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getWrapperFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_erc20Token</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Returns the address of the <a href="./eip-223.md">ERC-223</a> wrapper for a given <a href="./eip-20.md">ERC-20</a> original token. Returns <code class="language-plaintext highlighter-rouge">0x0</code> if there is no <a href="./eip-223.md">ERC-223</a> version for the provided <a href="./eip-20.md">ERC-20</a> token address. There MUST be exactly one wrapper for any given <a href="./eip-20.md">ERC-20</a> token address created by the Token Converter contract.</p>
+
+<h5 id="getoriginfor"><code class="language-plaintext highlighter-rouge">getOriginFor</code></h5>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getOriginFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_erc223Token</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Returns the address of the original <a href="./eip-20.md">ERC-20</a> token for a given <a href="./eip-223.md">ERC-223</a> wrapper. Returns <code class="language-plaintext highlighter-rouge">0x0</code> if the provided <code class="language-plaintext highlighter-rouge">_erc223Token</code> is not an address of any <a href="./eip-223.md">ERC-223</a> wrapper created by the Token Converter contract.</p>
+
+<h5 id="createerc223wrapper"><code class="language-plaintext highlighter-rouge">createERC223Wrapper</code></h5>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">createERC223Wrapper</span><span class="p">(</span><span class="kt">address</span> <span class="n">_erc20Token</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Creates a new <a href="./eip-223.md">ERC-223</a> wrapper for a given <code class="language-plaintext highlighter-rouge">_erc20Token</code> if it does not exist yet. Reverts the transaction if the wrapper already exist. Returns the address of the new wrapper token contract on success.</p>
+
+<h5 id="converterc20toerc223"><code class="language-plaintext highlighter-rouge">convertERC20toERC223</code></h5>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">convertERC20toERC223</span><span class="p">(</span><span class="kt">address</span> <span class="n">_erc20token</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Withdraws <code class="language-plaintext highlighter-rouge">_amount</code> of <a href="./eip-20.md">ERC-20</a> token from the transaction senders balance with <code class="language-plaintext highlighter-rouge">transferFrom</code> function. Sends the <code class="language-plaintext highlighter-rouge">_amount</code> of <a href="./eip-223.md">ERC-223</a> wrapper tokens to the sender of the transaction. Stores the original tokens at the balance of the Token Converter contract for future claims. Returns <code class="language-plaintext highlighter-rouge">true</code> on success. The Token Converter must keep record of the amount of <a href="./eip-20.md">ERC-20</a> tokens that were deposited with <code class="language-plaintext highlighter-rouge">convertERC20toERC223</code> function because it is possible to deposit <a href="./eip-20.md">ERC-20</a> tokens to any contract by directly sending them with <code class="language-plaintext highlighter-rouge">transfer</code> function.</p>
+
+<p>If there is no <a href="./eip-223.md">ERC-223</a> wrapper for the <code class="language-plaintext highlighter-rouge">_ERC20token</code> then creates it by calling a <code class="language-plaintext highlighter-rouge">createERC223Wrapper(_erc20toke)</code> function.</p>
+
+<p>If the provided <code class="language-plaintext highlighter-rouge">_erc20token</code> address is an address of a <a href="./eip-223.md">ERC-223</a> wrapper reverts the transaction.</p>
+
+<h5 id="tokenreceived"><code class="language-plaintext highlighter-rouge">tokenReceived</code></h5>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">tokenReceived</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">_value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_data</span><span class="p">)</span> <span class="k">public</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This is a standard <a href="./eip-223.md">ERC-223</a> transaction handler function and it is called by the <a href="./eip-223.md">ERC-223</a> token contract when <code class="language-plaintext highlighter-rouge">_from</code> is sending <code class="language-plaintext highlighter-rouge">_value</code> of <a href="./eip-223.md">ERC-223</a> tokens to <code class="language-plaintext highlighter-rouge">address(this)</code> address. In the scope of this function <code class="language-plaintext highlighter-rouge">msg.sender</code> is the address of the <a href="./eip-223.md">ERC-223</a> token contract and <code class="language-plaintext highlighter-rouge">_from</code> is the initiator of the transaction.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">msg.sender</code> is an address of <a href="./eip-223.md">ERC-223</a> wrapper created by the Token Converter then <code class="language-plaintext highlighter-rouge">_value</code> of <a href="./eip-20.md">ERC-20</a> original token must be sent to the <code class="language-plaintext highlighter-rouge">_from</code> address.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">msg.sender</code> is not an address of any <a href="./eip-223.md">ERC-223</a> wrapper known to the Token Converter then revert the transaction thus returning any <code class="language-plaintext highlighter-rouge">ERC-223</code> tokens back to the sender.</p>
+
+<p>This is the function that MUST be used to convert <a href="./eip-223.md">ERC-223</a> wrapper tokens back to original <a href="./eip-20.md">ERC-20</a> tokens. This function is automatically executed when <a href="./eip-223.md">ERC-223</a> tokens are sent to the address of the Token Converter. If any arbitrary <a href="./eip-223.md">ERC-223</a> token is sent to the Token Converter it will be rejected.</p>
+
+<p>Returns <code class="language-plaintext highlighter-rouge">0x8943ec02</code>.</p>
+
+<h5 id="rescueerc20"><code class="language-plaintext highlighter-rouge">rescueERC20</code></h5>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">rescueERC20</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">)</span> <span class="k">external</span>
+</code></pre></div></div>
+
+<p>This function allows to extract the <a href="./eip-20.md">ERC-20</a> tokens that were directly deposited to the contract with <code class="language-plaintext highlighter-rouge">transfer</code> function to prevent users who may send tokens by mistake from permanently freezing their assets. Since the Token Converter calculates the amount of tokens that were deposited legitimately with <code class="language-plaintext highlighter-rouge">convertERC20toERC223</code> function it is always possible to calculate the amount of “accidentally deposited tokens” by subtracting the recorded amount from the returned value of the <code class="language-plaintext highlighter-rouge">balanceOf( address(this) )</code> function called on the <a href="./eip-20.md">ERC-20</a> token contract.</p>
+
+<h3 id="converting-erc-20-tokens-to-erc-223">Converting <a href="./eip-20.md">ERC-20</a> tokens to <a href="./eip-223.md">ERC-223</a></h3>
+
+<p>In order to convert <a href="./eip-20.md">ERC-20</a> tokens to <a href="./eip-223.md">ERC-223</a> the token holder should:</p>
+
+<ol>
+  <li>Call the <code class="language-plaintext highlighter-rouge">approve</code> function of the <a href="./eip-20.md">ERC-20</a> token and allow Token Converter to withdraw tokens from the token holders address via <code class="language-plaintext highlighter-rouge">transferFrom</code> function.</li>
+  <li>Wait for the transaction with <code class="language-plaintext highlighter-rouge">approve</code> to be submitted to the blockchain.</li>
+  <li>Call the <code class="language-plaintext highlighter-rouge">convertERC20toERC223</code> function of the Token Converter contract.</li>
+</ol>
+
+<h3 id="converting-erc-223-tokens-back-to-erc-20">Converting <a href="./eip-223.md">ERC-223</a> tokens back to <a href="./eip-20.md">ERC-20</a></h3>
+
+<p>In order to convert <a href="./eip-20.md">ERC-20</a> tokens to <a href="./eip-223.md">ERC-223</a> the token holder should:</p>
+
+<ol>
+  <li>Send <a href="./eip-223.md">ERC-223</a> tokens to the address of the Token Converter contract via <code class="language-plaintext highlighter-rouge">transfer</code> function of the <a href="./eip-223.md">ERC-223</a> token contract.</li>
+</ol>
+
+<h2 id="rationale">Rationale</h2>
+
+<!--
+  The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages.
+
+  The current placeholder is acceptable for a draft.
+
+  TODO: Remove this comment before submitting
+-->
+
+<p>TBD</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal is supposed to eliminate the backwards compatibility concerns for different token standards making them interchangeable and interoperable.</p>
+
+<p>This service is the first of its kind and therefore does not have any backwards compatibility issues as it does not have any predecessors.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kt">address</span> <span class="k">public</span> <span class="n">ownerMultisig</span><span class="p">;</span>
+
+    <span class="k">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="n">ERC223WrapperToken</span><span class="p">)</span> <span class="k">public</span> <span class="n">erc223Wrappers</span><span class="p">;</span> <span class="c1">// A list of token wrappers. First one is ERC-20 origin, second one is ERC-223 version.
+</span>    <span class="k">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="n">ERC20WrapperToken</span><span class="p">)</span>  <span class="k">public</span> <span class="n">erc20Wrappers</span><span class="p">;</span>
+
+    <span class="k">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">address</span><span class="p">)</span>            <span class="k">public</span> <span class="n">erc223Origins</span><span class="p">;</span>
+    <span class="k">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">address</span><span class="p">)</span>            <span class="k">public</span> <span class="n">erc20Origins</span><span class="p">;</span>
+    <span class="k">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span>            <span class="k">public</span> <span class="n">erc20Supply</span><span class="p">;</span> <span class="c1">// Token =&gt; how much was deposited.
+</span>
+    <span class="k">function</span> <span class="n">getERC20WrapperFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="kt">address</span><span class="p">(</span><span class="n">erc20Wrappers</span><span class="p">[</span><span class="n">_token</span><span class="p">])</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">erc20Wrappers</span><span class="p">[</span><span class="n">_token</span><span class="p">]),</span> <span class="s">"ERC-20"</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"Error"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getERC223WrapperFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="kt">address</span><span class="p">(</span><span class="n">erc223Wrappers</span><span class="p">[</span><span class="n">_token</span><span class="p">])</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">erc223Wrappers</span><span class="p">[</span><span class="n">_token</span><span class="p">]),</span> <span class="s">"ERC-223"</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"Error"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getERC20OriginFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">erc20Origins</span><span class="p">[</span><span class="n">_token</span><span class="p">]));</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">getERC223OriginFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">erc223Origins</span><span class="p">[</span><span class="n">_token</span><span class="p">]));</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">tokenReceived</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">_value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_data</span><span class="p">)</span> <span class="k">public</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">erc223Origins</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"Error: creating wrapper for a wrapper token."</span><span class="p">);</span>
+        <span class="c1">// There are two possible cases:
+</span>        <span class="c1">// 1. A user deposited ERC-223 origin token to convert it to ERC-20 wrapper
+</span>        <span class="c1">// 2. A user deposited ERC-223 wrapper token to unwrap it to ERC-20 origin.
+</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">erc20Origins</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="c1">// Origin for deposited token exists.
+</span>            <span class="c1">// Unwrap ERC-223 wrapper.
+</span>
+            <span class="n">safeTransfer</span><span class="p">(</span><span class="n">erc20Origins</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">],</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_value</span><span class="p">);</span>
+
+            <span class="n">erc20Supply</span><span class="p">[</span><span class="n">erc20Origins</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]]</span> <span class="o">-=</span> <span class="n">_value</span><span class="p">;</span>
+            <span class="c1">//erc223Wrappers[msg.sender].burn(_value);
+</span>            <span class="n">ERC223WrapperToken</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">).</span><span class="n">burn</span><span class="p">(</span><span class="n">_value</span><span class="p">);</span>
+            
+            <span class="k">return</span> <span class="nb">this</span><span class="p">.</span><span class="n">tokenReceived</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// Otherwise origin for the sender token doesn't exist
+</span>        <span class="c1">// There are two possible cases:
+</span>        <span class="c1">// 1. ERC-20 wrapper for the deposited token exists
+</span>        <span class="c1">// 2. ERC-20 wrapper for the deposited token doesn't exist and must be created.
+</span>        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">erc20Wrappers</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">])</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="c1">// Create ERC-20 wrapper if it doesn't exist.
+</span>            <span class="n">createERC20Wrapper</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Mint ERC-20 wrapper tokens for the deposited ERC-223 token
+</span>        <span class="c1">// if the ERC-20 wrapper didn't exist then it was just created in the above statement.
+</span>        <span class="n">erc20Wrappers</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">].</span><span class="n">mint</span><span class="p">(</span><span class="n">_from</span><span class="p">,</span> <span class="n">_value</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">this</span><span class="p">.</span><span class="n">tokenReceived</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">createERC223Wrapper</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">erc223Wrappers</span><span class="p">[</span><span class="n">_token</span><span class="p">])</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERROR: Wrapper exists"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">getERC20OriginFor</span><span class="p">(</span><span class="n">_token</span><span class="p">)</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERROR: 20 wrapper creation"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">getERC223OriginFor</span><span class="p">(</span><span class="n">_token</span><span class="p">)</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERROR: 223 wrapper creation"</span><span class="p">);</span>
+
+        <span class="n">ERC223WrapperToken</span> <span class="n">_newERC223Wrapper</span>     <span class="o">=</span> <span class="k">new</span> <span class="n">ERC223WrapperToken</span><span class="p">(</span><span class="n">_token</span><span class="p">);</span>
+        <span class="n">erc223Wrappers</span><span class="p">[</span><span class="n">_token</span><span class="p">]</span>                   <span class="o">=</span> <span class="n">_newERC223Wrapper</span><span class="p">;</span>
+        <span class="n">erc20Origins</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">_newERC223Wrapper</span><span class="p">)]</span> <span class="o">=</span> <span class="n">_token</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="n">_newERC223Wrapper</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">createERC20Wrapper</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">erc20Wrappers</span><span class="p">[</span><span class="n">_token</span><span class="p">])</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERROR: Wrapper already exists."</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">getERC20OriginFor</span><span class="p">(</span><span class="n">_token</span><span class="p">)</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERROR: 20 wrapper creation"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">getERC223OriginFor</span><span class="p">(</span><span class="n">_token</span><span class="p">)</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERROR: 223 wrapper creation"</span><span class="p">);</span>
+
+        <span class="n">ERC20WrapperToken</span> <span class="n">_newERC20Wrapper</span>       <span class="o">=</span> <span class="k">new</span> <span class="n">ERC20WrapperToken</span><span class="p">(</span><span class="n">_token</span><span class="p">);</span>
+        <span class="n">erc20Wrappers</span><span class="p">[</span><span class="n">_token</span><span class="p">]</span>                    <span class="o">=</span> <span class="n">_newERC20Wrapper</span><span class="p">;</span>
+        <span class="n">erc223Origins</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">_newERC20Wrapper</span><span class="p">)]</span> <span class="o">=</span> <span class="n">_token</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="n">_newERC20Wrapper</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">depositERC20</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">erc223Origins</span><span class="p">[</span><span class="n">_token</span><span class="p">]</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">unwrapERC20toERC223</span><span class="p">(</span><span class="n">_token</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">return</span> <span class="n">wrapERC20toERC223</span><span class="p">(</span><span class="n">_token</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">wrapERC20toERC223</span><span class="p">(</span><span class="kt">address</span> <span class="n">_ERC20token</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// If there is no active wrapper for a token that user wants to wrap
+</span>        <span class="c1">// then create it.
+</span>        <span class="k">if</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">erc223Wrappers</span><span class="p">[</span><span class="n">_ERC20token</span><span class="p">])</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">createERC223Wrapper</span><span class="p">(</span><span class="n">_ERC20token</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="kt">uint256</span> <span class="n">_converterBalance</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">_ERC20token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span> <span class="c1">// Safety variable.
+</span>        <span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">_ERC20token</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">_amount</span><span class="p">);</span>
+        
+        <span class="n">erc20Supply</span><span class="p">[</span><span class="n">_ERC20token</span><span class="p">]</span> <span class="o">+=</span> <span class="n">_amount</span><span class="p">;</span>
+
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">IERC20</span><span class="p">(</span><span class="n">_ERC20token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span> <span class="o">-</span> <span class="n">_amount</span> <span class="o">==</span> <span class="n">_converterBalance</span><span class="p">,</span>
+            <span class="s">"ERROR: The transfer have not subtracted tokens from callers balance."</span><span class="p">);</span>
+
+        <span class="n">erc223Wrappers</span><span class="p">[</span><span class="n">_ERC20token</span><span class="p">].</span><span class="n">mint</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">unwrapERC20toERC223</span><span class="p">(</span><span class="kt">address</span> <span class="n">_ERC20token</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">_ERC20token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">_amount</span><span class="p">,</span> <span class="s">"Error: Insufficient balance."</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">erc223Origins</span><span class="p">[</span><span class="n">_ERC20token</span><span class="p">]</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"Error: provided token is not a ERC-20 wrapper."</span><span class="p">);</span>
+
+        <span class="n">ERC20WrapperToken</span><span class="p">(</span><span class="n">_ERC20token</span><span class="p">).</span><span class="n">burn</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+        <span class="n">IERC223</span><span class="p">(</span><span class="n">erc223Origins</span><span class="p">[</span><span class="n">_ERC20token</span><span class="p">]).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">isWrapper</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">erc20Origins</span><span class="p">[</span><span class="n">_token</span><span class="p">]</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="n">erc223Origins</span><span class="p">[</span><span class="n">_token</span><span class="p">]</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span> 
+
+<span class="cm">/*
+    function convertERC223toERC20(address _from, uint256 _amount) public returns (bool)
+    {
+        // If there is no active wrapper for a token that user wants to wrap
+        // then create it.
+        if(address(erc20Wrappers[msg.sender]) == address(0))
+        {
+            createERC223Wrapper(msg.sender);
+        }
+        
+        erc20Wrappers[msg.sender].mint(_from, _amount);
+        return true;
+    }
+*/</span>
+
+    <span class="k">function</span> <span class="n">rescueERC20</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">ownerMultisig</span><span class="p">,</span> <span class="s">"ERROR: Only owner can do this."</span><span class="p">);</span>
+        <span class="kt">uint256</span> <span class="n">_stuckTokens</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">_token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span> <span class="o">-</span> <span class="n">erc20Supply</span><span class="p">[</span><span class="n">_token</span><span class="p">];</span>
+        <span class="n">safeTransfer</span><span class="p">(</span><span class="n">_token</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">_token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)));</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">transferOwnership</span><span class="p">(</span><span class="kt">address</span> <span class="n">_newOwner</span><span class="p">)</span> <span class="k">public</span>
+    <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">ownerMultisig</span><span class="p">,</span> <span class="s">"ERROR: Only owner can call this function."</span><span class="p">);</span>
+        <span class="n">ownerMultisig</span> <span class="o">=</span> <span class="n">_newOwner</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// ************************************************************
+</span>    <span class="c1">// Functions that address problems with tokens that pretend to be ERC-20
+</span>    <span class="c1">// but in fact are not compatible with the ERC-20 standard transferring methods.
+</span>    <span class="c1">// EIP20 https://eips.ethereum.org/EIPS/eip-20
+</span>    <span class="c1">// ************************************************************
+</span>    <span class="k">function</span> <span class="n">safeTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">value</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="c1">// bytes4(keccak256(bytes('transfer(address,uint256)')));
+</span>        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="o">=</span> <span class="n">token</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodeWithSelector</span><span class="p">(</span><span class="mh">0xa9059cbb</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">value</span><span class="p">));</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">abi</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="kt">bool</span><span class="p">))),</span> <span class="s">'TransferHelper: TRANSFER_FAILED'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">value</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+        <span class="c1">// bytes4(keccak256(bytes('transferFrom(address,address,uint256)')));
+</span>        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="o">=</span> <span class="n">token</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodeWithSelector</span><span class="p">(</span><span class="mh">0x23b872dd</span><span class="p">,</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">value</span><span class="p">));</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">abi</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="kt">bool</span><span class="p">))),</span> <span class="s">'TransferHelper: TRANSFER_FROM_FAILED'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<ol>
+  <li>While it is possible to implement a service that converts any token standard to any other standard - it is better to keep different standard convertors separate from one another as different standards may contain specific logic. Therefore this proposal focuses on <a href="./eip-20.md">ERC-20</a> to <a href="./eip-223.md">ERC-223</a> conversion methods.</li>
+  <li><a href="./eip-20.md">ERC-20</a> tokens can be deposited to any contract directly with <code class="language-plaintext highlighter-rouge">transfer</code> function. This may result in a permanent loss of tokens because it is not possible to recognize this transaction on the recipients side. <code class="language-plaintext highlighter-rouge">rescueERC20</code> function is implemented to address this problem.</li>
+  <li>Token Converter relies on <a href="./eip-20.md">ERC-20</a> <code class="language-plaintext highlighter-rouge">approve</code> &amp; <code class="language-plaintext highlighter-rouge">transferFrom</code> method of depositing assets. Any related issues must be taken into account. <code class="language-plaintext highlighter-rouge">approve</code> and <code class="language-plaintext highlighter-rouge">transferFrom</code> are two separate transactions so it is required to make sure <code class="language-plaintext highlighter-rouge">approval</code> was successful before relying on <code class="language-plaintext highlighter-rouge">transferFrom</code>.</li>
+  <li>This is a common practice for UI services to prompt a user to issue unlimited <code class="language-plaintext highlighter-rouge">approval</code> on any contract that may withdraw tokens from the user. This puts users funds at high risk and therefore not recommended.</li>
+  <li>It is possible to artificially construct a token that will pretend it is a <a href="./eip-20.md">ERC-20</a> token that implements <code class="language-plaintext highlighter-rouge">approve &amp; transferFrom</code> but at the same time implements <a href="./eip-223.md">ERC-223</a> logic of transferring via <code class="language-plaintext highlighter-rouge">transfer</code> function in its internal logic. It can be possible to create a <a href="./eip-223.md">ERC-223</a> wrapper for this <a href="./eip-20.md">ERC-20</a>-<a href="./eip-223.md">ERC-223</a> hybrid implementation in the Token Converter. This doesn’t pose any threat for the workflow of the Token Converter but it must be taken into account that if a token has <a href="./eip-223.md">ERC-223</a> wrapper in the Token Converter it does not automatically mean the origin is fully compatible with the <a href="./eip-20.md">ERC-20</a> standard and methods of introspection must be used to determine the origins compatibility with any existing standard.</li>
+</ol>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

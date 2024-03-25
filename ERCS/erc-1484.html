@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Digital Identity Aggregator | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Digital Identity Aggregator | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1484" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1484" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Digital Identity Aggregator</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A protocol for aggregating digital identity information that’s broadly interoperable with existing, proposed, and hypothetical future digital identity standards.</p>
+
+<h2 id="abstract">Abstract</h2>
+<p>This EIP proposes an identity management and aggregation framework on the Ethereum blockchain. It allows entities to claim an <code class="language-plaintext highlighter-rouge">Identity</code> via a singular <code class="language-plaintext highlighter-rouge">Identity Registry</code> smart contract, associate it with Ethereum addresses in a variety of meaningful ways, and use it to interact with smart contracts. This enables arbitrarily complex identity-related functionality. Notably (among other features) ERC-1484 <code class="language-plaintext highlighter-rouge">Identities</code>: are self-sovereign, can natively support <a href="./eip-725.md">ERC-725</a> and <a href="./eip-1056.md">ERC-1056</a> identities, are <a href="https://github.com/NoahZinsmeister/ERC-1484/blob/master/best-practices/DID-Method.md">DID compliant</a>, and can be fully powered by <a href="https://github.com/NoahZinsmeister/ERC-1484/tree/master/contracts/examples/Providers/MetaTransactions">meta-transactions</a>.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>Emerging identity standards and related frameworks proposed by the Ethereum community (including ERCs/EIPs <a href="./eip-725.md">725</a>, <a href="https://github.com/ethereum/EIPs/issues/735">735</a>, <a href="https://github.com/ethereum/EIPs/issues/780">780</a>, <a href="./eip-1056.md">1056</a>, etc.) define and instrumentalize digital identity in a variety of ways. As existing approaches mature, new standards emerge, and isolated, non-standard approaches to identity develop, coordinating on identity will become increasingly burdensome for blockchain users and developers, and involve the unnecessary duplication of work.</p>
+
+<p>The proliferation of on-chain identity solutions can be traced back to the fact that each codifies a notion of identity and links it to specific aspects of Ethereum (claims protocols, per-identity smart contracts, signature verification schemes, etc.). This proposal eschews that approach, instead introducing a protocol layer in between the Ethereum network and individual identity applications. This solves identity management and interoperability challenges by enabling any identity-driven application to leverage an un-opinionated identity management protocol.</p>
+
+<h2 id="definitions">Definitions</h2>
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Identity Registry</code>: A single smart contract which is the hub for all <code class="language-plaintext highlighter-rouge">Identities</code>. The primary responsibility of the <code class="language-plaintext highlighter-rouge">Registry</code> is to define and enforce the rules of a global namespace for <code class="language-plaintext highlighter-rouge">Identities</code>, which are individually denominated by Ethereum Identification Numbers (EINs).</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Identity</code>: A data structure containing all the core information relevant to an identity, namely: a <code class="language-plaintext highlighter-rouge">Recovery Address</code>, an <code class="language-plaintext highlighter-rouge">Associated Addresses</code> set, a <code class="language-plaintext highlighter-rouge">Providers</code> set, and a <code class="language-plaintext highlighter-rouge">Resolvers</code> set. <code class="language-plaintext highlighter-rouge">Identities</code> are denominated by EINs (incrementing <code class="language-plaintext highlighter-rouge">uint</code> identifiers starting at 1), which are unique but otherwise uninformative. Each <code class="language-plaintext highlighter-rouge">Identity</code> is a Solidity struct:</p>
+  </li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Identity</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">;</span>
+    <span class="n">AddressSet</span><span class="p">.</span><span class="n">Set</span> <span class="n">associatedAddresses</span><span class="p">;</span>
+    <span class="n">AddressSet</span><span class="p">.</span><span class="n">Set</span> <span class="n">providers</span><span class="p">;</span>
+    <span class="n">AddressSet</span><span class="p">.</span><span class="n">Set</span> <span class="n">resolvers</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Associated Address</code>: An Ethereum address publicly associated with an <code class="language-plaintext highlighter-rouge">Identity</code>. In order for an address to become an <code class="language-plaintext highlighter-rouge">Associated Address</code>, an <code class="language-plaintext highlighter-rouge">Identity</code> must either transact from or produce an appropriately signed message from the candidate address and an existing <code class="language-plaintext highlighter-rouge">Associated Address</code>, indicating intent to associate. An <code class="language-plaintext highlighter-rouge">Associated Address</code> can be removed from an <code class="language-plaintext highlighter-rouge">Identity</code> by transacting/producing a signature indicating intent to disassociate. A given address may only be an <code class="language-plaintext highlighter-rouge">Associated Address</code> for one <code class="language-plaintext highlighter-rouge">Identity</code> at any given time.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Provider</code>: An Ethereum address (typically but not by definition a smart contract) authorized to act on behalf of <code class="language-plaintext highlighter-rouge">Identities</code> who have authorized them to do so. This includes but is not limited to managing the <code class="language-plaintext highlighter-rouge">Associated Address</code>, <code class="language-plaintext highlighter-rouge">Provider</code>, and <code class="language-plaintext highlighter-rouge">Resolver</code> sets for an <code class="language-plaintext highlighter-rouge">Identity</code>. <code class="language-plaintext highlighter-rouge">Providers</code> exist to facilitate user adoption by making it easier to manage <code class="language-plaintext highlighter-rouge">Identities</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Resolver</code>: A smart contract containing arbitrary information pertaining to <code class="language-plaintext highlighter-rouge">Identities</code>. A resolver may implement an identity standard, such as ERC-725, or may consist of a smart contract leveraging or declaring identifying information about <code class="language-plaintext highlighter-rouge">Identities</code>. These could be simple attestation structures or more sophisticated financial dApps, social media dApps, etc. Each <code class="language-plaintext highlighter-rouge">Resolver</code> added to an <code class="language-plaintext highlighter-rouge">Identity</code> makes the <code class="language-plaintext highlighter-rouge">Identity</code> more informative.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Recovery Address</code>: An Ethereum address (either an account or smart contract) that can be used to recover lost <code class="language-plaintext highlighter-rouge">Identities</code> as outlined in the <a href="#recovery">Recovery</a> section.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Destruction</code>: In the event of irrecoverable loss of control of an <code class="language-plaintext highlighter-rouge">Identity</code>, <code class="language-plaintext highlighter-rouge">Destruction</code> is a contingency measure to permanently disable the <code class="language-plaintext highlighter-rouge">Identity</code>. It removes all <code class="language-plaintext highlighter-rouge">Associated Addresses</code>, <code class="language-plaintext highlighter-rouge">Providers</code>, and optionally <code class="language-plaintext highlighter-rouge">Resolvers</code> while preserving the <code class="language-plaintext highlighter-rouge">Identity</code>. Evidence of the existence of the <code class="language-plaintext highlighter-rouge">Identity</code> persists, while control over the <code class="language-plaintext highlighter-rouge">Identity</code> is nullified.</p>
+  </li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+<p>A digital identity in this proposal can be viewed as an omnibus account, containing more information about an identity than any individual identity application could. This omnibus identity is resolvable to an unlimited number of sub-identities called <code class="language-plaintext highlighter-rouge">Resolvers</code>. This allows an atomic entity, the <code class="language-plaintext highlighter-rouge">Identity</code>, to be resolvable to abstract data structures, the <code class="language-plaintext highlighter-rouge">Resolvers</code>. <code class="language-plaintext highlighter-rouge">Resolvers</code> recognize <code class="language-plaintext highlighter-rouge">Identities</code> by any of their <code class="language-plaintext highlighter-rouge">Associated Addresses</code>, or by their <code class="language-plaintext highlighter-rouge">EIN</code>.</p>
+
+<p>The protocol revolves around claiming an <code class="language-plaintext highlighter-rouge">Identity</code> and managing <code class="language-plaintext highlighter-rouge">Associated Addresses</code>, <code class="language-plaintext highlighter-rouge">Providers</code> and <code class="language-plaintext highlighter-rouge">Resolvers</code>. Identities can delegate much or all of this responsibility to one or more <code class="language-plaintext highlighter-rouge">Providers</code>, or perform it directly from an <code class="language-plaintext highlighter-rouge">Associated Address</code>. <code class="language-plaintext highlighter-rouge">Associated Addresses</code>/<code class="language-plaintext highlighter-rouge">Providers</code> may add and remove <code class="language-plaintext highlighter-rouge">Resolvers</code> and <code class="language-plaintext highlighter-rouge">Providers</code> indiscriminately. <code class="language-plaintext highlighter-rouge">Associated Addresses</code> may only be added or removed with the appropriate permission.</p>
+
+<h3 id="identity-registry">Identity Registry</h3>
+<p>The <code class="language-plaintext highlighter-rouge">Identity Registry</code> contains functionality to create new <code class="language-plaintext highlighter-rouge">Identities</code> and for existing <code class="language-plaintext highlighter-rouge">Identities</code> to manage their <code class="language-plaintext highlighter-rouge">Associated Addresses</code>, <code class="language-plaintext highlighter-rouge">Providers</code>, and <code class="language-plaintext highlighter-rouge">Resolvers</code>. It is important to note that this registry fundamentally requires transactions for every aspect of building out an <code class="language-plaintext highlighter-rouge">Identity</code>. However, recognizing the importance of accessibility to dApps and identity applications, we empower <code class="language-plaintext highlighter-rouge">Providers</code> to build out <code class="language-plaintext highlighter-rouge">Identities</code> on the behalf of users, without requiring users to pay gas costs. An example of this pattern, often referred to as a meta transactions, can be <a href="https://github.com/NoahZinsmeister/ERC-1484/tree/master/contracts/examples/Providers/MetaTransactions">seen in the reference implementation</a>.</p>
+
+<p>Due to the fact that multiple addresses can be associated with a given identity (though not the reverse), <code class="language-plaintext highlighter-rouge">Identities</code> are denominated by <code class="language-plaintext highlighter-rouge">EIN</code>. This <code class="language-plaintext highlighter-rouge">uint</code> identifier can be encoded in QR format or mapped to more user-friendly formats, such as a <code class="language-plaintext highlighter-rouge">string</code>, in registries at the <code class="language-plaintext highlighter-rouge">Provider</code> or <code class="language-plaintext highlighter-rouge">Resolver</code> level.</p>
+
+<h3 id="address-management">Address Management</h3>
+<p>The address management function consists of trustlessly connecting multiple user-owned <code class="language-plaintext highlighter-rouge">Associated Addresses</code> to an <code class="language-plaintext highlighter-rouge">Identity</code>. It does not give special status to any particular <code class="language-plaintext highlighter-rouge">Associated Address</code>, rather leaving this (optional) specification to identity applications built on top of the protocol - for instance, <code class="language-plaintext highlighter-rouge">management</code>, <code class="language-plaintext highlighter-rouge">action</code>, <code class="language-plaintext highlighter-rouge">claim</code> and <code class="language-plaintext highlighter-rouge">encryption</code> keys denominated in the ERC-725 standard, or <code class="language-plaintext highlighter-rouge">identifiers</code> and <code class="language-plaintext highlighter-rouge">delegates</code> as denominated in ERC-1056. This allows a user to access common identity data from multiple wallets while still:</p>
+
+<ul>
+  <li>retaining the ability to interact with contracts outside of their identity</li>
+  <li>taking advantage of address-specific permissions established at the application layer of a user’s identity.</li>
+</ul>
+
+<p>Trustlessness in the address management function is achieved through a robust permissioning scheme. To add an <code class="language-plaintext highlighter-rouge">Associated Address</code> to an <code class="language-plaintext highlighter-rouge">Identity</code>, implicit permission from a transaction sender or explicit permission from a signature is required from 1) an address already within the registry and 2) an address to be claimed. Importantly, the transaction need not come from any particular address, as long as permission is established, which allows not only users but third parties (companies, governments, etc.) to bear the overhead of managing identities. To prevent a compromised <code class="language-plaintext highlighter-rouge">Associated Address</code> from unilaterally removing other <code class="language-plaintext highlighter-rouge">Associated Addresses</code>, it’s only possible to remove an <code class="language-plaintext highlighter-rouge">Associated Address</code> by transacting or producing a signature from it.</p>
+
+<p>All signatures required in ERC-1484 are designed per the <a href="./eip-191.md">ERC-191</a> v0 specification. To avoid replay attacks, all signatures must include a timestamp within a rolling lagged window of the current <code class="language-plaintext highlighter-rouge">block.timestamp</code>. For more information, see this <a href="https://github.com/NoahZinsmeister/ERC-1484/blob/master/best-practices/VerifyingSignatures.md">best practices document</a> in the reference implementation.</p>
+
+<h3 id="provider-management">Provider Management</h3>
+<p>While the protocol allows users to directly call identity management functions, it also aims to be more robust and future-proof by allowing <code class="language-plaintext highlighter-rouge">Providers</code>, typically smart contracts, to perform identity management functions on a user’s behalf. A <code class="language-plaintext highlighter-rouge">Provider</code> set by an <code class="language-plaintext highlighter-rouge">Identity</code> can perform address management and resolver management functions by passing a user’s <code class="language-plaintext highlighter-rouge">EIN</code> in function calls.</p>
+
+<h3 id="resolver-management">Resolver Management</h3>
+<p>A <code class="language-plaintext highlighter-rouge">Resolver</code> is any smart contract that encodes information which resolves to an <code class="language-plaintext highlighter-rouge">Identity</code>. We remain agnostic about the specific information that can be encoded in a resolver and the functionality that this enables. The existence of <code class="language-plaintext highlighter-rouge">Resolvers</code> is primarily what makes this ERC an identity <em>protocol</em> rather than an identity <em>application</em>. <code class="language-plaintext highlighter-rouge">Resolvers</code> resolve abstract data in smart contracts to an atomic entity, the <code class="language-plaintext highlighter-rouge">Identity</code>.</p>
+
+<h3 id="recovery">Recovery</h3>
+<p>If users lose control over an <code class="language-plaintext highlighter-rouge">Associated Address</code>, the <code class="language-plaintext highlighter-rouge">Recovery Address</code> provides a fallback mechanism. Upon <code class="language-plaintext highlighter-rouge">Identity</code> creation, a <code class="language-plaintext highlighter-rouge">Recovery Address</code> is passed as a parameter by the creator. Recovery functionality is triggered in three scenarios:</p>
+
+<p><strong>1. Changing Recovery Address</strong>: If a recovery key is lost, an <code class="language-plaintext highlighter-rouge">Associated Address</code>/<code class="language-plaintext highlighter-rouge">Provider</code> can <a href="#triggerrecoveryaddresschange">triggerRecoveryAddressChange</a>/<a href="#triggerrecoveryaddresschangefor">triggerRecoveryAddressChangeFor</a>. To prevent malicious behavior from someone who has gained control of an <code class="language-plaintext highlighter-rouge">Associated Address</code> or <code class="language-plaintext highlighter-rouge">Provider</code> and is changing the <code class="language-plaintext highlighter-rouge">Recovery Address</code> to one under their control, this action triggers a 14 day challenge period during which the old <code class="language-plaintext highlighter-rouge">Recovery Address</code> may reject the change by <a href="#triggerrecovery">triggering recovery</a>. If the <code class="language-plaintext highlighter-rouge">Recovery Address</code> does not reject the change within 14 days, the <code class="language-plaintext highlighter-rouge">Recovery Address</code> is changed.</p>
+
+<p><strong>2. Recovery</strong>: Recovery occurs when a user recognizes that an <code class="language-plaintext highlighter-rouge">Associated Address</code> or the <code class="language-plaintext highlighter-rouge">Recovery Address</code> belonging to the user is lost or stolen. In this instance the <code class="language-plaintext highlighter-rouge">Recovery Address</code> must call <a href="#triggerrecovery">triggerRecovery</a>. This removes all <code class="language-plaintext highlighter-rouge">Associated Addresses</code> and <code class="language-plaintext highlighter-rouge">Providers</code> from the corresponding <code class="language-plaintext highlighter-rouge">Identity</code> and replaces them with an address passed in the function call. The <code class="language-plaintext highlighter-rouge">Identity</code> and associated <code class="language-plaintext highlighter-rouge">Resolvers</code> maintain integrity. The user is now responsible for adding the appropriate un-compromised addresses back to their <code class="language-plaintext highlighter-rouge">Identity</code>.</p>
+
+<p><em>Importantly, the <code class="language-plaintext highlighter-rouge">Recovery Address</code> can be a user-controlled wallet or another address, such as a multisig wallet or smart contract. This allows for arbitrarily sophisticated recovery logic! This includes the potential for recovery to be fully compliant with standards such as <a href="https://decentralized.id/">DID</a>.</em></p>
+
+<p><strong>3. Destruction</strong>
+The Recovery scheme offers considerable power to a <code class="language-plaintext highlighter-rouge">Recovery Address</code>; accordingly, <code class="language-plaintext highlighter-rouge">Destruction</code> is a nuclear option to combat malicious control over an <code class="language-plaintext highlighter-rouge">Identity</code> when a <code class="language-plaintext highlighter-rouge">Recovery Address</code> is compromised. If a malicious actor compromises a user’s <code class="language-plaintext highlighter-rouge">Recovery Address</code> and triggers recovery, any address removed in the <code class="language-plaintext highlighter-rouge">Recovery</code> process can call <a href="#triggerdestruction">triggerDestruction</a> within 14 days to permanently disable the <code class="language-plaintext highlighter-rouge">Identity</code>. The user would then need to create a new <code class="language-plaintext highlighter-rouge">Identity</code>, and would be responsible for engaging in recovery schemes for any identity applications built in the <code class="language-plaintext highlighter-rouge">Resolver</code> or <code class="language-plaintext highlighter-rouge">Provider</code> layers.</p>
+
+<h4 id="alternative-recovery-considerations">Alternative Recovery Considerations</h4>
+<p>We considered many possible alternatives when devising the Recovery process outlined above. We ultimately selected the scheme that was most un-opinionated, modular, and consistent with the philosophy behind the <code class="language-plaintext highlighter-rouge">Associated Address</code>, <code class="language-plaintext highlighter-rouge">Provider</code>, and <code class="language-plaintext highlighter-rouge">Resolver</code> components. Still, we feel that it is important to highlight some of the other recovery options we considered, to provide a rationale as to how we settled on what we did.</p>
+
+<p><strong>High Level Concerns</strong>
+Fundamentally, a Recovery scheme needs to be resilient to a compromised address taking control of a user’s <code class="language-plaintext highlighter-rouge">Identity</code>. A secondary concern is preventing a compromised address from maliciously destroying a user’s identity due to off-chain utility, which is not an optimal scenario, but is strictly better than if they’ve gained control.</p>
+
+<p><strong>Alternative 1: Nuclear Option</strong>
+This approach would allow any <code class="language-plaintext highlighter-rouge">Associated Address</code> to destroy an <code class="language-plaintext highlighter-rouge">Identity</code> whenever another <code class="language-plaintext highlighter-rouge">Associated Address</code> is compromised. While this may seem severe, we strongly considered it because this ERC is an identity <em>protocol</em>, not an identity <em>application</em>. This means that though a user’s compromised <code class="language-plaintext highlighter-rouge">Identity</code> is destroyed, they should still have recourse to whatever restoration mechanisms are available in each of their actual identities at the <code class="language-plaintext highlighter-rouge">Resolver</code> and/or <code class="language-plaintext highlighter-rouge">Provider</code> level. We ultimately dismissed this approach for two main reasons:</p>
+
+<ul>
+  <li>It is not robust in cases where a user has only one <code class="language-plaintext highlighter-rouge">Associated Address</code></li>
+  <li>It would increase the frequency of recovery requests to identity applications due to its unforgiving nature.</li>
+</ul>
+
+<p><strong>Alternative 2: Unilateral Address Removal via Providers</strong>
+This would allow <code class="language-plaintext highlighter-rouge">Associated Addresses</code>/<code class="language-plaintext highlighter-rouge">Providers</code> to remove <code class="language-plaintext highlighter-rouge">Associated Addresses</code> without a signature from said address. This implementation would allow <code class="language-plaintext highlighter-rouge">Providers</code> to include arbitrarily sophisticated schemes for removing a rogue address - for instance, multi-sig requirements, centralized off-chain verification, user controlled master addresses, deferral to a jurisdictional contract, and more. To prevent a compromised <code class="language-plaintext highlighter-rouge">Associated Address</code> from simply setting a malicious <code class="language-plaintext highlighter-rouge">Provider</code> to remove un-compromised addresses, it would have required a waiting period between when a <code class="language-plaintext highlighter-rouge">Provider</code> is set and when they would be able to remove an <code class="language-plaintext highlighter-rouge">Associated Address</code>. We dismissed this approach because we felt it placed too high of a burden on <code class="language-plaintext highlighter-rouge">Providers</code>. If a <code class="language-plaintext highlighter-rouge">Provider</code> offered a sophisticated range of functionality to a user, but post-deployment a threat was found in the Recovery logic of the provider, <code class="language-plaintext highlighter-rouge">Provider</code>-specific infrastructure would need to be rebuilt. We also considered including a flag that would allow a user to decide whether or not a <code class="language-plaintext highlighter-rouge">Provider</code> may remove <code class="language-plaintext highlighter-rouge">Associated Addresses</code> unilaterally. Ultimately, we concluded that only allowing removal of <code class="language-plaintext highlighter-rouge">Associated Addresses</code> via the <code class="language-plaintext highlighter-rouge">Recovery Address</code> enables equally sophisticated recovery logic while separating the functionality from <code class="language-plaintext highlighter-rouge">Providers</code>, leaving less room for users to relinquish control to potentially flawed implementations.</p>
+
+<h2 id="rationale">Rationale</h2>
+<p>We find that at a protocol layer, identities should not rely on specific claim or attestation structures, but should instead be a part of a trustless framework upon which arbitrarily sophisticated claim and attestation structures may be built.</p>
+
+<p>The main criticism of existing identity solutions is that they’re overly restrictive. We aim to limit requirements, keep identities modular and future-proof, and remain un-opinionated regarding any functionality a particular identity component may have. This proposal gives users the option to interact on the blockchain using an robust <code class="language-plaintext highlighter-rouge">Identity</code> rather than just an address.</p>
+
+<h2 id="implementation">Implementation</h2>
+<p><strong>The reference implementation for ERC-1484 may be found in <a href="https://github.com/NoahZinsmeister/ERC-1484">NoahZinsmeister/ERC-1484</a>.</strong></p>
+
+<h4 id="identityexists">identityExists</h4>
+
+<p>Returns a <code class="language-plaintext highlighter-rouge">bool</code> indicating whether or not an <code class="language-plaintext highlighter-rouge">Identity</code> denominated by the passed <code class="language-plaintext highlighter-rouge">EIN</code> exists.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">identityExists</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="hasidentity">hasIdentity</h4>
+
+<p>Returns a <code class="language-plaintext highlighter-rouge">bool</code> indicating whether or not the passed <code class="language-plaintext highlighter-rouge">_address</code> is associated with an <code class="language-plaintext highlighter-rouge">Identity</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">hasIdentity</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="getein">getEIN</h4>
+
+<p>Returns the <code class="language-plaintext highlighter-rouge">EIN</code> associated with the passed <code class="language-plaintext highlighter-rouge">_address</code>. Throws if the address is not associated with an <code class="language-plaintext highlighter-rouge">EIN</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getEIN</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="isassociatedaddressfor">isAssociatedAddressFor</h4>
+
+<p>Returns a <code class="language-plaintext highlighter-rouge">bool</code> indicating whether or not the passed <code class="language-plaintext highlighter-rouge">_address</code> is associated with the passed <code class="language-plaintext highlighter-rouge">EIN</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">isAssociatedAddressFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="isproviderfor">isProviderFor</h4>
+
+<p>Returns a <code class="language-plaintext highlighter-rouge">bool</code> indicating whether or not the passed <code class="language-plaintext highlighter-rouge">provider</code> has been set by the passed <code class="language-plaintext highlighter-rouge">EIN</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">isProviderFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">provider</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="isresolverfor">isResolverFor</h4>
+
+<p>Returns a <code class="language-plaintext highlighter-rouge">bool</code> indicating whether or not the passed <code class="language-plaintext highlighter-rouge">resolver</code> has been set by the passed <code class="language-plaintext highlighter-rouge">EIN</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">isResolverFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">resolver</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="getidentity">getIdentity</h4>
+
+<p>Returns the <code class="language-plaintext highlighter-rouge">recoveryAddress</code>, <code class="language-plaintext highlighter-rouge">associatedAddresses</code>, <code class="language-plaintext highlighter-rouge">providers</code> and <code class="language-plaintext highlighter-rouge">resolvers</code> of the passed <code class="language-plaintext highlighter-rouge">EIN</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getIdentity</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span>
+    <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">associatedAddresses</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">providers</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">resolvers</span>
+    <span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="createidentity">createIdentity</h4>
+
+<p>Creates an <code class="language-plaintext highlighter-rouge">Identity</code>, setting the <code class="language-plaintext highlighter-rouge">msg.sender</code> as the sole <code class="language-plaintext highlighter-rouge">Associated Address</code>. Returns the <code class="language-plaintext highlighter-rouge">EIN</code> of the new <code class="language-plaintext highlighter-rouge">Identity</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">createIdentity</span><span class="p">(</span><span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">providers</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">resolvers</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#identitycreated">IdentityCreated</a></p>
+
+<h4 id="createidentitydelegated">createIdentityDelegated</h4>
+
+<p>Performs the same logic as <code class="language-plaintext highlighter-rouge">createIdentity</code>, but can be called by any address. This function requires a signature from the <code class="language-plaintext highlighter-rouge">associatedAddress</code> to ensure their consent.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">createIdentityDelegated</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">associatedAddress</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">providers</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">resolvers</span><span class="p">,</span>
+    <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">timestamp</span>
+<span class="p">)</span>
+    <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#identitycreated">IdentityCreated</a></p>
+
+<h4 id="addassociatedaddress">addAssociatedAddress</h4>
+
+<p>Adds the <code class="language-plaintext highlighter-rouge">addressToAdd</code> to the <code class="language-plaintext highlighter-rouge">EIN</code> of the <code class="language-plaintext highlighter-rouge">approvingAddress</code>. The <code class="language-plaintext highlighter-rouge">msg.sender</code> must be either of the <code class="language-plaintext highlighter-rouge">approvingAddress</code> or the <code class="language-plaintext highlighter-rouge">addressToAdd</code>, and the signature must be from the other one.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">addAssociatedAddress</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">approvingAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">addressToAdd</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">timestamp</span>
+<span class="p">)</span>
+    <span class="k">public</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#associatedaddressadded">AssociatedAddressAdded</a></p>
+
+<h4 id="addassociatedaddressdelegated">addAssociatedAddressDelegated</h4>
+
+<p>Adds the <code class="language-plaintext highlighter-rouge">addressToAdd</code> to the <code class="language-plaintext highlighter-rouge">EIN</code> of the <code class="language-plaintext highlighter-rouge">approvingAddress</code>. Requires signatures from both the <code class="language-plaintext highlighter-rouge">approvingAddress</code> and the <code class="language-plaintext highlighter-rouge">addressToAdd</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">addAssociatedAddressDelegated</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">approvingAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">addressToAdd</span><span class="p">,</span>
+    <span class="kt">uint8</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">memory</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">memory</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">memory</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">memory</span> <span class="n">timestamp</span>
+<span class="p">)</span>
+    <span class="k">public</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#associatedaddressadded">AssociatedAddressAdded</a></p>
+
+<h4 id="removeassociatedaddress">removeAssociatedAddress</h4>
+
+<p>Removes the <code class="language-plaintext highlighter-rouge">msg.sender</code> as an <code class="language-plaintext highlighter-rouge">Associated Address</code> from its <code class="language-plaintext highlighter-rouge">EIN</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">removeAssociatedAddress</span><span class="p">()</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#associatedaddressremoved">AssociatedAddressRemoved</a></p>
+
+<h4 id="removeassociatedaddressdelegated">removeAssociatedAddressDelegated</h4>
+
+<p>Removes the <code class="language-plaintext highlighter-rouge">addressToRemove</code> from its associated <code class="language-plaintext highlighter-rouge">EIN</code>. Requires a signature from the <code class="language-plaintext highlighter-rouge">addressToRemove</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">removeAssociatedAddressDelegated</span><span class="p">(</span><span class="kt">address</span> <span class="n">addressToRemove</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">timestamp</span><span class="p">)</span>
+    <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#associatedaddressremoved">AssociatedAddressRemoved</a></p>
+
+<h4 id="addproviders">addProviders</h4>
+
+<p>Adds an array of <code class="language-plaintext highlighter-rouge">Providers</code> to the <code class="language-plaintext highlighter-rouge">Identity</code> of the <code class="language-plaintext highlighter-rouge">msg.sender</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">addProviders</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">providers</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#provideradded">ProviderAdded</a></p>
+
+<h4 id="addprovidersfor">addProvidersFor</h4>
+
+<p>Performs the same logic as <code class="language-plaintext highlighter-rouge">addProviders</code>, but must be called by a <code class="language-plaintext highlighter-rouge">Provider</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">addProvidersFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">providers</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#provideradded">ProviderAdded</a></p>
+
+<h4 id="removeproviders">removeProviders</h4>
+
+<p>Removes an array of <code class="language-plaintext highlighter-rouge">Providers</code> from the <code class="language-plaintext highlighter-rouge">Identity</code> of the <code class="language-plaintext highlighter-rouge">msg.sender</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">removeProviders</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">providers</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#providerremoved">ProviderRemoved</a></p>
+
+<h4 id="removeprovidersfor">removeProvidersFor</h4>
+
+<p>Performs the same logic as <code class="language-plaintext highlighter-rouge">removeProviders</code>, but is called by a <code class="language-plaintext highlighter-rouge">Provider</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">removeProvidersFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">providers</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#providerremoved">ProviderRemoved</a></p>
+
+<h4 id="addresolvers">addResolvers</h4>
+
+<p>Adds an array of <code class="language-plaintext highlighter-rouge">Resolvers</code> to the <code class="language-plaintext highlighter-rouge">EIN</code> of the <code class="language-plaintext highlighter-rouge">msg.sender</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">addResolvers</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">resolvers</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#resolveradded">ResolverAdded</a></p>
+
+<h4 id="addresolversfor">addResolversFor</h4>
+
+<p>Performs the same logic as <code class="language-plaintext highlighter-rouge">addResolvers</code>, but must be called by a <code class="language-plaintext highlighter-rouge">Provider</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">addResolversFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">resolvers</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#resolveradded">ResolverAdded</a></p>
+
+<h4 id="removeresolvers">removeResolvers</h4>
+
+<p>Removes an array of <code class="language-plaintext highlighter-rouge">Resolvers</code> from the <code class="language-plaintext highlighter-rouge">EIN</code> of the <code class="language-plaintext highlighter-rouge">msg.sender</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">removeResolvers</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">resolvers</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#resolverremoved">ResolverRemoved</a></p>
+
+<h4 id="removeresolversfor">removeResolversFor</h4>
+
+<p>Performs the same logic as <code class="language-plaintext highlighter-rouge">removeResolvers</code>, but must be called by a <code class="language-plaintext highlighter-rouge">Provider</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">removeResolversFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">resolvers</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#resolverremoved">ResolverRemoved</a></p>
+
+<h4 id="triggerrecoveryaddresschange">triggerRecoveryAddressChange</h4>
+
+<p>Initiates a change in the current <code class="language-plaintext highlighter-rouge">recoveryAddress</code> for the <code class="language-plaintext highlighter-rouge">EIN</code> of the <code class="language-plaintext highlighter-rouge">msg.sender</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">triggerRecoveryAddressChange</span><span class="p">(</span><span class="kt">address</span> <span class="n">newRecoveryAddress</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#recoveryaddresschangetriggered">RecoveryAddressChangeTriggered</a></p>
+
+<h4 id="triggerrecoveryaddresschangefor">triggerRecoveryAddressChangeFor</h4>
+
+<p>Initiates a change in the current <code class="language-plaintext highlighter-rouge">recoveryAddress</code> for a given <code class="language-plaintext highlighter-rouge">EIN</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">triggerRecoveryAddressChangeFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newRecoveryAddress</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#recoveryaddresschangetriggered">RecoveryAddressChangeTriggered</a></p>
+
+<h4 id="triggerrecovery">triggerRecovery</h4>
+
+<p>Triggers <code class="language-plaintext highlighter-rouge">EIN</code> recovery from the current <code class="language-plaintext highlighter-rouge">recoveryAddress</code>, or the old <code class="language-plaintext highlighter-rouge">recoveryAddress</code> if changed within the last 2 weeks.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">triggerRecovery</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newAssociatedAddress</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">timestamp</span><span class="p">)</span> <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#recoverytriggered">RecoveryTriggered</a></p>
+
+<h4 id="triggerdestruction">triggerDestruction</h4>
+
+<p>Triggers destruction of an <code class="language-plaintext highlighter-rouge">EIN</code>. This renders the <code class="language-plaintext highlighter-rouge">Identity</code> permanently unusable.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">triggerDestruction</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">firstChunk</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">lastChunk</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">clearResolvers</span><span class="p">)</span>
+  <span class="k">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Triggers event: <a href="#identitydestroyed">IdentityDestroyed</a></p>
+
+<h3 id="events">Events</h3>
+
+<h4 id="identitycreated">IdentityCreated</h4>
+
+<p>MUST be triggered when an <code class="language-plaintext highlighter-rouge">Identity</code> is created.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">IdentityCreated</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">associatedAddress</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="n">providers</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="n">resolvers</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="associatedaddressadded">AssociatedAddressAdded</h4>
+
+<p>MUST be triggered when an address is added to an <code class="language-plaintext highlighter-rouge">Identity</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">AssociatedAddressAdded</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">approvingAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">addedAddress</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="associatedaddressremoved">AssociatedAddressRemoved</h4>
+
+<p>MUST be triggered when an address is removed from an <code class="language-plaintext highlighter-rouge">Identity</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">AssociatedAddressRemoved</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">removedAddress</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="provideradded">ProviderAdded</h4>
+
+<p>MUST be triggered when a provider is added to an <code class="language-plaintext highlighter-rouge">Identity</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">ProviderAdded</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">provider</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="providerremoved">ProviderRemoved</h4>
+
+<p>MUST be triggered when a provider is removed.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">ProviderRemoved</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">provider</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="resolveradded">ResolverAdded</h4>
+
+<p>MUST be triggered when a resolver is added.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">ResolverAdded</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">resolvers</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="resolverremoved">ResolverRemoved</h4>
+
+<p>MUST be triggered when a resolver is removed.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">ResolverRemoved</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">resolvers</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="recoveryaddresschangetriggered">RecoveryAddressChangeTriggered</h4>
+
+<p>MUST be triggered when a recovery address change is triggered.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">RecoveryAddressChangeTriggered</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">oldRecoveryAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newRecoveryAddress</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="recoverytriggered">RecoveryTriggered</h4>
+
+<p>MUST be triggered when recovery is triggered.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">RecoveryTriggered</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="n">oldAssociatedAddresses</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newAssociatedAddress</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="identitydestroyed">IdentityDestroyed</h4>
+
+<p>MUST be triggered when an <code class="language-plaintext highlighter-rouge">Identity</code> is destroyed.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">IdentityDestroyed</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">resolversReset</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="solidity-interface">Solidity Interface</h3>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IdentityRegistryInterface</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">isSigned</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">messageHash</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">)</span>
+        <span class="k">external</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">// Identity View Functions /////////////////////////////////////////////////////////////////////////////////////////
+</span>    <span class="k">function</span> <span class="n">identityExists</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">hasIdentity</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">getEIN</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">isAssociatedAddressFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">isProviderFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">provider</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">isResolverFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">resolver</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">getIdentity</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">associatedAddresses</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">providers</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">resolvers</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Identity Management Functions ///////////////////////////////////////////////////////////////////////////////////
+</span>    <span class="k">function</span> <span class="n">createIdentity</span><span class="p">(</span><span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">providers</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">resolvers</span><span class="p">)</span>
+        <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">createIdentityDelegated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">associatedAddress</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">providers</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">resolvers</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">timestamp</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">addAssociatedAddress</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">approvingAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">addressToAdd</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">timestamp</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">addAssociatedAddressDelegated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">approvingAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">addressToAdd</span><span class="p">,</span>
+        <span class="kt">uint8</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">calldata</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">calldata</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">calldata</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">calldata</span> <span class="n">timestamp</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">removeAssociatedAddress</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">removeAssociatedAddressDelegated</span><span class="p">(</span><span class="kt">address</span> <span class="n">addressToRemove</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">timestamp</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">addProviders</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">providers</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">addProvidersFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">providers</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">removeProviders</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">providers</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">removeProvidersFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">providers</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">addResolvers</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">resolvers</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">addResolversFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">resolvers</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">removeResolvers</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">resolvers</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">removeResolversFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">resolvers</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">// Recovery Management Functions ///////////////////////////////////////////////////////////////////////////////////
+</span>    <span class="k">function</span> <span class="n">triggerRecoveryAddressChange</span><span class="p">(</span><span class="kt">address</span> <span class="n">newRecoveryAddress</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">triggerRecoveryAddressChangeFor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newRecoveryAddress</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">triggerRecovery</span><span class="p">(</span><span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newAssociatedAddress</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">timestamp</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">triggerDestruction</span><span class="p">(</span>
+        <span class="kt">uint</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">firstChunk</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">lastChunk</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">resetResolvers</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">// Events //////////////////////////////////////////////////////////////////////////////////////////////////////////
+</span>    <span class="k">event</span> <span class="n">IdentityCreated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">associatedAddress</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="n">providers</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="n">resolvers</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span>
+    <span class="p">);</span>
+    <span class="k">event</span> <span class="n">AssociatedAddressAdded</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">approvingAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">addedAddress</span>
+    <span class="p">);</span>
+    <span class="k">event</span> <span class="n">AssociatedAddressRemoved</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">removedAddress</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">ProviderAdded</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">provider</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">ProviderRemoved</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">provider</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">delegated</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">ResolverAdded</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">resolvers</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">ResolverRemoved</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">resolvers</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">RecoveryAddressChangeTriggered</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">oldRecoveryAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newRecoveryAddress</span>
+    <span class="p">);</span>
+    <span class="k">event</span> <span class="n">RecoveryTriggered</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="n">oldAssociatedAddresses</span><span class="p">,</span> <span class="kt">address</span> <span class="n">newAssociatedAddress</span>
+    <span class="p">);</span>
+    <span class="k">event</span> <span class="n">IdentityDestroyed</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">initiator</span><span class="p">,</span> <span class="kt">uint</span> <span class="k">indexed</span> <span class="n">ein</span><span class="p">,</span> <span class="kt">address</span> <span class="n">recoveryAddress</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">resolversReset</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p><code class="language-plaintext highlighter-rouge">Identities</code> established under this standard consist of existing Ethereum addresses; accordingly, there are no backwards compatibility issues. Deployed, non-upgradeable smart contracts that wish to become <code class="language-plaintext highlighter-rouge">Resolvers</code> for <code class="language-plaintext highlighter-rouge">Identities</code> will need to write wrapper contracts that resolve addresses to <code class="language-plaintext highlighter-rouge">EIN</code>-denominated <code class="language-plaintext highlighter-rouge">Identities</code>.</p>
+
+<h2 id="additional-references">Additional References</h2>
+<ul>
+  <li><a href="https://github.com/NoahZinsmeister/ERC-1484">ERC-1484 Reference Implementation</a></li>
+  <li><a href="./eip-191.md">ERC-191 Signatures</a></li>
+  <li><a href="./eip-725.md">ERC-725 Identities</a></li>
+  <li><a href="./eip-1056.md">ERC-1056 Identities</a></li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

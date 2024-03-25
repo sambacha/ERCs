@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Asset-bound Non-Fungible Tokens | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Asset-bound Non-Fungible Tokens | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6956" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6956" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Asset-bound Non-Fungible Tokens</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard allows integrating physical and digital ASSETS without signing capabilities into dApps/web3 by extending <a href="eip-721.md">ERC-721</a>.</p>
+
+<p>An ASSET, for example a physical object, is marked with a uniquely identifiable ANCHOR. The ANCHOR is bound in a secure and inseparable manner 1:1 to an NFT on-chain - over the complete life cycle of the ASSET.</p>
+
+<p>Through an ATTESTATION, an ORACLE testifies that a particular ASSET associated with an ANCHOR has been CONTROLLED when defining the <code class="language-plaintext highlighter-rouge">to</code>-address for certain operations (mint, transfer, burn, approve, …). The ORACLE signs the ATTESTATION off-chain. The operations are authorized through verifying on-chain that ATTESTATION has been signed by a trusted ORACLE. Note that authorization is solely provided through the ATTESTATION, or in other words, through PROOF-OF-CONTROL over the ASSET. The controller of the ASSET is guaranteed to be the controller of the Asset-Bound NFT.</p>
+
+<p>The proposed ATTESTATION-authorized operations such as <code class="language-plaintext highlighter-rouge">transferAnchor(attestation)</code> are permissionless, meaning neither the current owner (<code class="language-plaintext highlighter-rouge">from</code>-address) nor the receiver (<code class="language-plaintext highlighter-rouge">to</code>-address) need to sign.</p>
+
+<p>Figure 1 shows the data flow of an ASSET-BOUND NFT transfer. The simplified system is utilizing a smartphone as user-device to interact with a physical ASSET and specify the <code class="language-plaintext highlighter-rouge">to</code>-address.</p>
+
+<p><img src="../assets/eip-6956/img/erc6956_concept.svg" alt="Figure 1: Sample system" /></p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The well-known <a href="eip-721.md">ERC-721</a> establishes that NFTs may represent “ownership over physical properties […] as well as digital collectables and even more abstract things such as responsibilities” - in a broader sense, we will refer to all those things as ASSETS, which typically have value to people.</p>
+
+<h3 id="the-problem">The Problem</h3>
+
+<p>ERC-721 outlines that “NFTs can represent ownership over digital or physical assets”. ERC-721 excels in this task when used to represent ownership over digital, on-chain assets, that is when the asset is “holding a token of a specific contract” or the asset is an NFT’s metadata. Today, people commonly treat an NFT’s metadata (images, traits, …) as asset-class, with their rarity often directly defining the value of an individual NFT.</p>
+
+<p>However, we see integrity issues not solvable with ERC-721, primarily when NFTS are used to represent off-chain ASSETS (“ownership over physical products”, “digital collectables”, “in-game assets”, “responsibilities”, …). Over an ASSET’s lifecycle, the ASSET’s ownership and possession state changes multiple, sometimes thousands, of times. Each of those state changes may result in shifting obligations and privileges for the involved parties. Therefore tokenization of an ASSET <em>without</em> enforcably anchoring the ASSET’s associated obligation and properties to the token is not complete. Nowadays, off-chain ASSETs are often “anchored” through adding an ASSET-identifier to a NFT’s metadata.</p>
+
+<p><strong>NFT-ASSET integrity:</strong> Contrary to a popular belief among NFT-investors, metadata is data that is, more often than not, mutable and off-chain. Therefore the link between an ASSET through an asset-identifier stored in mutable metadata, which is only linked to the NFT through tokenURI, can be considered weak at best.</p>
+
+<p>Approaches to ensure integrity between metadata (=reference to ASSET) and a token exist. This is most commonly achieved by storing metadata-hashes onchain. Additional problems arise through hashing; For many applications, metadata (besides the asset-identifier) should be update-able. Therefore making metadata immutable through storing a hash is problematic. Further the offchain metadata-resource specified via tokenURI must be made available until eternity, which has historically been subject to failure (IPFS bucket disappears, central tokenURI-provider has downtimes, …)</p>
+
+<p><strong>Off-chain-on-chain-integrity:</strong> There are approaches where off-chain ASSET ownership is enforced or conditioned through having ownership over the on-chain representation. A common approach is to burn tokens in order to get the (physical) ASSET, as the integrity cannot be maintained. However, there are no approaches known, where on-chain ownership is enforced through having off-chain ownership of the ASSET. Especially when the current owner of an NFT is incooperative or incapacitated, integrity typically fail due to lack of signing-power from the current NFT owner.</p>
+
+<p>Metadata is off-chain. The majority of implementations completely neglect that metadata is mutable. More serious implementations strive to preserve integrity by for example hashing metadata and storing the hash mapped to the tokenId on-chain. However, this approach does not allow for use-case, where metadata besides the asset-identifier, for example traits, “hours played”, … shall be mutable or evolvable.</p>
+
+<h3 id="asset-bound-non-fungible-tokens">ASSET-BOUND NON-FUNGIBLE TOKENS</h3>
+
+<p>In this standard we propose to</p>
+
+<ol>
+  <li>Elevate the concept of representing physical or digital off-chain ASSETS by on-chain ANCHORING the ASSET inseperably into an NFT.</li>
+  <li>Being off-chain in control over the ASSET must mean being on-chain in control over the anchored NFT.</li>
+  <li>(Related) A change in off-chain ownership over the ASSET inevitably should be reflected by a change in on-chain ownership over the anchored NFT, even if the current owner is uncooperative or incapacitated.</li>
+</ol>
+
+<p>As 2. and 3. indicate, the control/ownership/possession of the ASSET should be the single source of truth, <em>not</em> the possession of an NFT. Hence, we propose an ASSET-BOUND NFT, where off-chain CONTROL over the ASSET enforces on-chain CONTROL over the anchored NFT.
+Also the proposed ASSET-BOUND NFTs allow to anchor digital metadata inseperably to the ASSET. When the ASSET is a physical asset, this allows to design “phygitals” in their purest form, namely creating a “phygital” asset with a physical and digital component that are inseparable. Note that metadata itself can still change, for instance for “Evolvable NFT”.</p>
+
+<p>We propose to complement the existing transfer control mechanisms of a token according to <a href="eip-721.md">ERC-721</a> by another mechanism; ATTESTATION. An ATTESTATION is signed off-chain by the ORACLE and must only be issued when the ORACLE verified that whoever specifies the <code class="language-plaintext highlighter-rouge">to</code> address or beneficiary address has simultaneously been in control over the ASSET. The <code class="language-plaintext highlighter-rouge">to</code> address of an attestation may be used for Transfers as well as for approvals and other authorizations.</p>
+
+<p>Transactions authorized via ATTESTATION shall not require signature or approval from neither the <code class="language-plaintext highlighter-rouge">from</code> (donor, owner, sender) nor <code class="language-plaintext highlighter-rouge">to</code> (beneficiary, receiver) account, namely making transfers permissionless. Ideally, transaction are signed independent from the ORACLE as well, allowing different scenarios in terms of gas-fees.</p>
+
+<p>Lastly we want to mention two major side-benefits of using the proposed standard, which drastically lowers hurdles in onboarding web2 users and increase their security;</p>
+
+<ul>
+  <li>New users, e.g <code class="language-plaintext highlighter-rouge">0xaa...aa</code> (Fig.1), can use gasless wallets, hence participate in Web3/dApps/DeFi and mint+transfer tokens without ever owning crypto currency. Gas-fees may be paid through a third-party account <code class="language-plaintext highlighter-rouge">0x..gasPayer</code> (Fig.1). The gas is typically covered by the ASSET issuer, who signs <code class="language-plaintext highlighter-rouge">transferAnchor()</code> transactions</li>
+  <li>Users cannot get scammed. Common attacks (for example wallet-drainer scams) are no longer possible or easily reverted, since only the anchored NFT can be stolen, not the ASSET itself. Also mishaps like transferring the NFT to the wrong account, losing access to an account etc can be mitigated by executing another <code class="language-plaintext highlighter-rouge">transferAnchor()</code> transaction based on proofing control over the ASSET, namely the physical object.</li>
+</ul>
+
+<h3 id="related-work">Related work</h3>
+
+<p>We primarily aim to onboard physical or digital ASSETS into dApps, which do not signing-capabilities of their own (contrary to other proposals relying on crypto-chips). Note that we do not see any restrictions preventing to use such solutions in combination with this standard, as the address of the crypto-chip qualifies as an ANCHOR.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="definitions-alphabetical">Definitions (alphabetical)</h3>
+
+<ul>
+  <li><strong>ANCHOR</strong> uniquely identifies the off-chain ASSET, whether it is physical or digital.</li>
+  <li><strong>ANCHOR-TECHNOLOGY</strong> MUST ensure that
+    <ul>
+      <li>the ANCHOR is inseparable from the ASSET (physically or otherwise)</li>
+      <li>an ORACLE can establish PROOF-OF-CONTROL over the ASSET beyond reasonable doubt</li>
+      <li>For physical ASSETS, additional <a href="#security-considerations-for-physical-assets">Security considerations for Physical Assets</a> MUST be taken into account</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>ASSET</strong> refers to the “thing”, being it physical or digital, which is represented through NFTs according to the proposed standard. Typically, an ASSET does not have signing capabilities.</p>
+  </li>
+  <li>
+    <p><strong>ATTESTATION</strong> is the confirmation that PROOF OF CONTROL was established when specifying the <code class="language-plaintext highlighter-rouge">to</code> (receiver, beneficiary) address.</p>
+  </li>
+  <li>
+    <p><strong>PROOF-OF-CONTROL</strong> over the ASSET means owning or otherwise controlling an ASSET. How Proof of Control is established depends on the ASSET and may be implemented using technical, legal or other means. For physical ASSETS, CONTROL is typically verified by proofing physical proximity between a physical ASSET and an input device (for example a smartphone) used to specify the <code class="language-plaintext highlighter-rouge">to</code> address.</p>
+  </li>
+  <li>An <strong>ORACLE</strong> has signing capabilities. MUST be able to sign ATTESTATIONS off-chain in a way such that signatures can be verified on-chain.</li>
+</ul>
+
+<h3 id="base-interface">Base Interface</h3>
+
+<p>Every contract compliant to this standard MUST implement the <a href="../assets/eip-6956/contracts/IERC6956.sol">the proposed standard interface</a>, <a href="eip-721.md">ERC-721</a> and <a href="eip-165.md">ERC-165</a> interfaces and is subject to <a href="#caveats-for-base-interface">Caveats</a> below:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT OR CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">18</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title IERC6956 Asset-Bound Non-Fungible Tokens 
+ * @notice Asset-bound Non-Fungible Tokens anchor a token 1:1 to a (physical or digital) asset and token transfers are authorized through attestation of control over the asset
+ * @dev See https://eips.ethereum.org/EIPS/eip-6956
+ *      Note: The ERC-165 identifier for this interface is 0xa9cf7635
+ */</span>
+<span class="k">interface</span> <span class="n">IERC6956</span> <span class="p">{</span>
+   
+    <span class="cm">/** @dev Authorization, typically mapped to authorizationMaps, where each bit indicates whether a particular ERC6956Role is authorized 
+     *      Typically used in constructor (hardcoded or params) to set burnAuthorization and approveAuthorization
+     *      Also used in optional updateBurnAuthorization, updateApproveAuthorization, I
+     */</span> 
+    <span class="k">enum</span> <span class="n">Authorization</span> <span class="p">{</span>
+        <span class="n">NONE</span><span class="p">,</span>               <span class="c1">// = 0,      // None of the above
+</span>        <span class="n">OWNER</span><span class="p">,</span>              <span class="c1">// = (1&lt;&lt;OWNER), // The owner of the token, i.e. the digital representation
+</span>        <span class="n">ISSUER</span><span class="p">,</span>             <span class="c1">// = (1&lt;&lt;ISSUER), // The issuer of the tokens, i.e. this smart contract
+</span>        <span class="n">ASSET</span><span class="p">,</span>              <span class="c1">// = (1&lt;&lt;ASSET), // The asset, i.e. via attestation
+</span>        <span class="n">OWNER_AND_ISSUER</span><span class="p">,</span>   <span class="c1">// = (1&lt;&lt;OWNER) | (1&lt;&lt;ISSUER),
+</span>        <span class="n">OWNER_AND_ASSET</span><span class="p">,</span>    <span class="c1">// = (1&lt;&lt;OWNER) | (1&lt;&lt;ASSET),
+</span>        <span class="n">ASSET_AND_ISSUER</span><span class="p">,</span>   <span class="c1">// = (1&lt;&lt;ASSET) | (1&lt;&lt;ISSUER),
+</span>        <span class="n">ALL</span>                 <span class="c1">// = (1&lt;&lt;OWNER) | (1&lt;&lt;ISSUER) | (1&lt;&lt;ASSET) // Owner + Issuer + Asset
+</span>    <span class="p">}</span>
+    
+    <span class="cm">/**
+     * @notice This emits when approved address for an anchored tokenId is changed or reaffirmed via attestation
+     * @dev This emits when approveAnchor() is called and corresponds to ERC-721 behavior
+     * @param owner The owner of the anchored tokenId
+     * @param approved The approved address, address(0) indicates there is no approved address
+     * @param anchor The anchor, for which approval has been changed
+     * @param tokenId ID (&gt;0) of the anchored token
+     */</span>
+    <span class="k">event</span> <span class="n">AnchorApproval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">approved</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">anchor</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice This emits when the ownership of any anchored NFT changes by any mechanism
+     * @dev This emits together with tokenId-based ERC-721.Transfer and provides an anchor-perspective on transfers
+     * @param from The previous owner, address(0) indicate there was none.
+     * @param to The new owner, address(0) indicates the token is burned
+     * @param anchor The anchor which is bound to tokenId
+     * @param tokenId ID (&gt;0) of the anchored token
+     */</span>
+    <span class="k">event</span> <span class="n">AnchorTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">anchor</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+    <span class="cm">/**
+     * @notice This emits when an attestation has been used indicating no second attestation with the same attestationHash will be accepted
+     * @param to The to address specified in the attestation
+     * @param anchor The anchor specified in the attestation
+     * @param attestationHash The hash of the attestation, see ERC-6956 for details
+     * @param totalUsedAttestationsForAnchor The total number of attestations already used for the particular anchor
+     */</span>
+    <span class="k">event</span> <span class="n">AttestationUse</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">anchor</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">attestationHash</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">totalUsedAttestationsForAnchor</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice This emits when the trust-status of an oracle changes. 
+     * @dev Trusted oracles must explicitly be specified. 
+     *      If the last event for a particular oracle-address indicates it's trusted, attestations from this oracle are valid.
+     * @param oracle Address of the oracle signing attestations
+     * @param trusted indicating whether this address is trusted (true). Use (false) to no longer trust from an oracle.
+     */</span>
+    <span class="k">event</span> <span class="n">OracleUpdate</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">oracle</span><span class="p">,</span> <span class="kt">bool</span> <span class="k">indexed</span> <span class="n">trusted</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Returns the 1:1 mapped anchor for a tokenId
+     * @param tokenId ID (&gt;0) of the anchored token
+     * @return anchor The anchor bound to tokenId, 0x0 if tokenId does not represent an anchor
+     */</span>
+    <span class="k">function</span> <span class="n">anchorByToken</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">anchor</span><span class="p">);</span>
+    <span class="cm">/**
+     * @notice Returns the ID of the 1:1 mapped token of an anchor.
+     * @param anchor The anchor (&gt;0x0)
+     * @return tokenId ID of the anchored token, 0 if no anchored token exists
+     */</span>
+    <span class="k">function</span> <span class="n">tokenByAnchor</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">anchor</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice The number of attestations already used to modify the state of an anchor or its bound tokens
+     * @param anchor The anchor(&gt;0)
+     * @return attestationUses The number of attestation uses for a particular anchor, 0 if anchor is invalid.
+     */</span>
+    <span class="k">function</span> <span class="n">attestationsUsedByAnchor</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">anchor</span><span class="p">)</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">attestationUses</span><span class="p">);</span>
+    <span class="cm">/**
+     * @notice Decodes and returns to-address, anchor and the attestation hash, if the attestation is valid
+     * @dev MUST throw when
+     *  - Attestation has already been used (an AttestationUse-Event with matching attestationHash was emitted)
+     *  - Attestation is not signed by trusted oracle (the last OracleUpdate-Event for the signer-address does not indicate trust)
+     *  - Attestation is not valid yet or expired
+     *  - [if IERC6956AttestationLimited is implemented] attestationUsagesLeft(attestation.anchor) &lt;= 0
+     *  - [if IERC6956ValidAnchors is implemented] validAnchors(data) does not return true. 
+     * @param attestation The attestation subject to the format specified in ERC-6956
+     * @param data Optional additional data, may contain proof as the first abi-encoded argument when IERC6956ValidAnchors is implemented
+     * @return to Address where the ownership of an anchored token or approval shall be changed to
+     * @return anchor The anchor (&gt;0)
+     * @return attestationHash The attestation hash computed on-chain as `keccak256(attestation)`
+     */</span>
+    <span class="k">function</span> <span class="n">decodeAttestationIfValid</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">attestation</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">anchor</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">attestationHash</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Indicates whether any of ASSET, OWNER, ISSUER is authorized to burn
+     */</span>
+    <span class="k">function</span> <span class="n">burnAuthorization</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="n">Authorization</span> <span class="n">burnAuth</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Indicates whether any of ASSET, OWNER, ISSUER is authorized to approve
+     */</span>
+    <span class="k">function</span> <span class="n">approveAuthorization</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="n">Authorization</span> <span class="n">approveAuth</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Corresponds to transferAnchor(bytes,bytes) without additional data
+     * @param attestation Attestation, refer ERC-6956 for details
+     */</span>
+    <span class="k">function</span> <span class="n">transferAnchor</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">attestation</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Changes the ownership of an NFT mapped to attestation.anchor to attestation.to address.
+     * @dev Permissionless, i.e. anybody invoke and sign a transaction. The transfer is authorized through the oracle-signed attestation.
+     *  - Uses decodeAttestationIfValid()
+     *  - When using a centralized "gas-payer" recommended to implement IERC6956AttestationLimited.
+     *  - Matches the behavior of ERC-721.safeTransferFrom(ownerOf[tokenByAnchor(attestation.anchor)], attestation.to, tokenByAnchor(attestation.anchor), ..) and mint an NFT if `tokenByAnchor(anchor)==0`.
+     *  - Throws when attestation.to == ownerOf(tokenByAnchor(attestation.anchor))
+     *  - Emits AnchorTransfer  
+     *  
+     * @param attestation Attestation, refer ERC-6956 for details
+     * @param data Additional data, may be used for additional transfer-conditions, may be sent partly or in full in a call to safeTransferFrom
+     * 
+     */</span>
+    <span class="k">function</span> <span class="n">transferAnchor</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">attestation</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+     <span class="cm">/**
+     * @notice Corresponds to approveAnchor(bytes,bytes) without additional data
+     * @param attestation Attestation, refer ERC-6956 for details
+     */</span>
+    <span class="k">function</span> <span class="n">approveAnchor</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">attestation</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+     <span class="cm">/**
+     * @notice Approves attestation.to the token bound to attestation.anchor. .
+     * @dev Permissionless, i.e. anybody invoke and sign a transaction. The transfer is authorized through the oracle-signed attestation.
+     *  - Uses decodeAttestationIfValid()
+     *  - When using a centralized "gas-payer" recommended to implement IERC6956AttestationLimited.
+     *  - Matches the behavior of ERC-721.approve(attestation.to, tokenByAnchor(attestation.anchor)).
+     *  - Throws when ASSET is not authorized to approve.
+     * 
+     * @param attestation Attestation, refer ERC-6956 for details 
+     */</span>
+    <span class="k">function</span> <span class="n">approveAnchor</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">attestation</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Corresponds to burnAnchor(bytes,bytes) without additional data
+     * @param attestation Attestation, refer ERC-6956 for details
+     */</span>
+    <span class="k">function</span> <span class="n">burnAnchor</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">attestation</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+   
+    <span class="cm">/**
+     * @notice Burns the token mapped to attestation.anchor. Uses ERC-721._burn.
+     * @dev Permissionless, i.e. anybody invoke and sign a transaction. The transfer is authorized through the oracle-signed attestation.
+     *  - Uses decodeAttestationIfValid()
+     *  - When using a centralized "gas-payer" recommended to implement IERC6956AttestationLimited.
+     *  - Throws when ASSET is not authorized to burn
+     * 
+     * @param attestation Attestation, refer ERC-6956 for details
+     */</span>
+    <span class="k">function</span> <span class="n">burnAnchor</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">attestation</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="caveats-for-base-interface">Caveats for Base Interface</h4>
+
+<ul>
+  <li>MUST implement ERC-721 and ERC-165</li>
+  <li>MUST have bidirectional mapping <code class="language-plaintext highlighter-rouge">tokenByAnchor(anchor)</code> and <code class="language-plaintext highlighter-rouge">anchorByToken(tokenId)</code>. This implies that a maximum of one token per ANCHOR exists.</li>
+  <li>MUST have a mechanism to determine whether an ANCHOR is valid for the contract. RECOMMENDED to implement the proposed <a href="#validanchors-interface">ValidAnchors-Interface</a></li>
+  <li>MUST implement <code class="language-plaintext highlighter-rouge">decodeAttestationIfValid(attestation, data)</code> to validate and decode ATTESTATIONS as specified in the <a href="#oracle">ORACLE-Section</a>
+    <ul>
+      <li>MUST return <code class="language-plaintext highlighter-rouge">attestation.to</code>, <code class="language-plaintext highlighter-rouge">attestation.anchor</code>, <code class="language-plaintext highlighter-rouge">attestation.attestationHash</code>.</li>
+      <li>MUST not modify state, as this function can be used to check an ATTESTATION’s validity without redeeming it.</li>
+      <li>MUST throw when
+        <ul>
+          <li>ATTESTATION is not signed from a trusted ORACLE.</li>
+          <li>ATTESTATION has expired or is not valid yet</li>
+          <li>ATTESTATION has not been redeemed. “Redeemed” being defined in at least one state-changing operation has been authorized through a particular ATTESTATION.</li>
+          <li>If <a href="#attestationlimited-interface">AttestationLimited-Interface</a> implemented: When <code class="language-plaintext highlighter-rouge">attestationUsagesLeft(attestation.to) &lt;= 0</code></li>
+          <li>If <a href="#validanchors-interface">ValidAnchors-Interface</a> implemented: When <code class="language-plaintext highlighter-rouge">validAnchor() != true</code>.</li>
+        </ul>
+      </li>
+      <li>If <a href="#validanchors-interface">ValidAnchors-Interface</a> implemented: MUST call <code class="language-plaintext highlighter-rouge">validAnchor(attestation.to, abi.decode('bytes32[]',data))</code>, meaning the first abi-encoded value in the <code class="language-plaintext highlighter-rouge">data</code> parameter corresponds to <code class="language-plaintext highlighter-rouge">proof</code>.</li>
+    </ul>
+  </li>
+  <li>MUST have a ANCHOR-RELEASED mechanism, indicating whether the anchored NFT is released/transferable.
+    <ul>
+      <li>Any ANCHOR MUST NOT be released by default.</li>
+    </ul>
+  </li>
+  <li>MUST extend any ERC-721 token transfer mechanism by:
+    <ul>
+      <li>MUST throw when <code class="language-plaintext highlighter-rouge">ANCHOR</code> is not released.</li>
+      <li>MUST throw when batchSize &gt; 1, namely no batch transfers are supported with this contract.</li>
+      <li>MUST emit <code class="language-plaintext highlighter-rouge">AnchorTransfer(from, to, anchorByToken[tokenId], tokenId)</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>MUST implement <code class="language-plaintext highlighter-rouge">attestationsUsedByAnchor(anchor)</code>, returning how many attestations have already been used for a specific anchor.</p>
+  </li>
+  <li>MUST implement the state-changing <code class="language-plaintext highlighter-rouge">transferAnchor(..)</code>, <code class="language-plaintext highlighter-rouge">burnAnchor(..)</code>, <code class="language-plaintext highlighter-rouge">approveAnchor(..)</code> and OPTIONAL MAY implement additional state-changing operations which
+    <ul>
+      <li>MUST use the <code class="language-plaintext highlighter-rouge">decodeAttestationIfValid()</code> to determine <code class="language-plaintext highlighter-rouge">to</code>, <code class="language-plaintext highlighter-rouge">anchor</code> and <code class="language-plaintext highlighter-rouge">attestationHash</code></li>
+      <li>MUST redeem each ATTESTATION in the same transaction as any authorized state-changing operation. RECOMMENDED by storing each used <code class="language-plaintext highlighter-rouge">attestationHash</code></li>
+      <li>MUST increment <code class="language-plaintext highlighter-rouge">attestationsUsedByAnchor[anchor]</code></li>
+      <li>MUST emit <code class="language-plaintext highlighter-rouge">AttestationUsed</code></li>
+      <li><code class="language-plaintext highlighter-rouge">transferAnchor(attestation)</code> MUST behave and emit events like <code class="language-plaintext highlighter-rouge">ERC-721.safeTransferFrom(ownerOf[tokenByAnchor(attestation.anchor)], attestation.to, tokenByAnchor(attestation.anchor), ..)</code> and mint an NFT if <code class="language-plaintext highlighter-rouge">tokenByAnchor(anchor)==0</code>.</li>
+    </ul>
+  </li>
+  <li>RECOMMENDED to implement <code class="language-plaintext highlighter-rouge">tokenURI(tokenId)</code> to return an anchorBased-URI, namely <code class="language-plaintext highlighter-rouge">baseURI/anchor</code>. This anchoring metadata to ASSET. Before an anchor is not used for the first time, the ANCHOR’s mapping to tokenId is unknown. Hence, using the anchor in instead of the tokenId is preferred.</li>
+</ul>
+
+<h3 id="oracle">ORACLE</h3>
+
+<ul>
+  <li>MUST provide an ATTESTATION. Below we define the format how an ORACLE testifies that the <code class="language-plaintext highlighter-rouge">to</code> address of a transfer has been specified under the pre-condition of PROOF-OF-CONTROL associated with the particular ANCHOR being transferred to <code class="language-plaintext highlighter-rouge">to</code>.</li>
+  <li>The ATTESTATION MUST abi-encode the following:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">to</code>, MUST be address, specifying the beneficiary, for example the to-address, approved account etc.</li>
+      <li>ANCHOR, aka the ASSET identifier, MUST have a 1:1 relation to the ASSET</li>
+      <li><code class="language-plaintext highlighter-rouge">attestationTime</code>, UTC seconds, time when attestation was signed by ORACLE,</li>
+      <li><code class="language-plaintext highlighter-rouge">validStartTime</code> UTC seconds, start time of the ATTESTATION’s validity timespan</li>
+      <li><code class="language-plaintext highlighter-rouge">validEndTime</code>, UTC seconds, end time of the ATTESTATION’s validity timespan</li>
+      <li><code class="language-plaintext highlighter-rouge">signature</code>, ETH-signature (65 bytes). Output of an ORACLE signing the <code class="language-plaintext highlighter-rouge">attestationHash = keccak256([to, anchor, attestationTime, validStartTime, validEndTime])</code>.</li>
+    </ul>
+  </li>
+  <li>How PROOF-OF-CONTROL is establish in detail through an ANCHOR-TECHNOLOGY is not subject to this standard. Some ORACLE requirements and ANCHOR-TECHNOLOGY requirements when using PHYSICAL ASSETS are outlined in <a href="#security-considerations-for-physical-assets">Security considerations for Physical Assets</a>.</li>
+</ul>
+
+<p>A Minimal Typescript sample to generate an ATTESTATION is available in the <a href="#reference-implementation">Reference Implementation section</a> of this proposal.</p>
+
+<h3 id="attestationlimited-interface">AttestationLimited-Interface</h3>
+
+<p>Every contract compliant to this standard MAY implement the <a href="../assets/eip-6956/contracts/IERC6956AttestationLimited.sol">proposed AttestationLimited interface</a> and is subject to <a href="#caveats-for-attestationlimited-interface">Caveats</a> below:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT OR CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">18</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC6956.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title Attestation-limited Asset-Bound NFT
+ * @dev See https://eips.ethereum.org/EIPS/eip-6956
+ *      Note: The ERC-165 identifier for this interface is 0x75a2e933
+ */</span>
+<span class="k">interface</span> <span class="n">IERC6956AttestationLimited</span> <span class="k">is</span> <span class="n">IERC6956</span> <span class="p">{</span>
+  <span class="k">enum</span> <span class="n">AttestationLimitPolicy</span> <span class="p">{</span>
+    <span class="n">IMMUTABLE</span><span class="p">,</span>
+    <span class="n">INCREASE_ONLY</span><span class="p">,</span>
+    <span class="n">DECREASE_ONLY</span><span class="p">,</span>
+    <span class="n">FLEXIBLE</span>
+  <span class="p">}</span>
+      
+  <span class="c1">/// @notice Returns the attestation limit for a particular anchor
+</span>  <span class="c1">/// @dev MUST return the global attestation limit per default
+</span>  <span class="c1">///      and override the global attestation limit in case an anchor-based limit is set
+</span>  <span class="k">function</span> <span class="n">attestationLimit</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">anchor</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">limit</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Returns number of attestations left for a particular anchor
+</span>  <span class="c1">/// @dev Is computed by comparing the attestationsUsedByAnchor(anchor) and the current attestation limit 
+</span>  <span class="c1">///      (current limited emitted via GlobalAttestationLimitUpdate or AttestationLimit events)
+</span>  <span class="k">function</span> <span class="n">attestationUsagesLeft</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">anchor</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">nrTransfersLeft</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Indicates the policy, in which direction attestation limits can be updated (globally or per anchor)
+</span>  <span class="k">function</span> <span class="n">attestationLimitPolicy</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">AttestationLimitPolicy</span> <span class="n">policy</span><span class="p">);</span>
+
+  <span class="c1">/// @notice This emits when the global attestation limit is updated
+</span>  <span class="k">event</span> <span class="n">GlobalAttestationLimitUpdate</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">transferLimit</span><span class="p">,</span> <span class="kt">address</span> <span class="n">updatedBy</span><span class="p">);</span>
+
+  <span class="c1">/// @notice This emits when an anchor-specific attestation limit is updated
+</span>  <span class="k">event</span> <span class="n">AttestationLimitUpdate</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">anchor</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">transferLimit</span><span class="p">,</span> <span class="kt">address</span> <span class="n">updatedBy</span><span class="p">);</span>
+
+  <span class="c1">/// @dev This emits in the transaction, where attestationUsagesLeft becomes 0
+</span>  <span class="k">event</span> <span class="n">AttestationLimitReached</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">anchor</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">transferLimit</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="caveats-for-attestationlimited-interface">Caveats for AttestationLimited-Interface</h4>
+
+<ul>
+  <li>MUST extend the proposed standard interface</li>
+  <li>MUST define one of the above listed AttestationLimit update policies and expose it via <code class="language-plaintext highlighter-rouge">attestationLimitPolicy()</code>
+    <ul>
+      <li>MUST support different update modes, namely FIXED, INCREASE_ONLY, DECREASE_ONLY, FLEXIBLE (= INCREASABLE and DECREASABLE)</li>
+      <li>RECOMMENDED to have a global transfer limit, which can be overwritten on a token-basis (when <code class="language-plaintext highlighter-rouge">attestationLimitPolicy() != FIXED</code>)</li>
+    </ul>
+  </li>
+  <li>MUST implement <code class="language-plaintext highlighter-rouge">attestationLimit(anchor)</code>, specifying how often an ANCHOR can be transferred in total. Changes in the return value MUST reflect the AttestationLimit-Policy.</li>
+  <li>MUST implement <code class="language-plaintext highlighter-rouge">attestationUsagesLeft(anchor)</code>, returning the number of usages left (namely <code class="language-plaintext highlighter-rouge">attestationLimit(anchor)-attestationsUsedByAnchor[anchor]</code>) for a particular anchor</li>
+</ul>
+
+<h3 id="floatable-interface">Floatable-Interface</h3>
+
+<p>Every contract compliant to this extension MAY implement the proposed <a href="../assets/eip-6956/contracts/IERC6956Floatable.sol">Floatable interface</a> and is subject to <a href="#caveats-for-floatable-interface">Caveats</a> below:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT OR CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">18</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC6956.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title Floatable Asset-Bound NFT
+ * @notice A floatable Asset-Bound NFT can (temporarily) be transferred without attestation
+ * @dev See https://eips.ethereum.org/EIPS/eip-6956
+ *      Note: The ERC-165 identifier for this interface is 0xf82773f7
+ */</span>
+<span class="k">interface</span> <span class="n">IERC6956Floatable</span> <span class="k">is</span> <span class="n">IERC6956</span> <span class="p">{</span>
+  <span class="k">enum</span> <span class="n">FloatState</span> <span class="p">{</span>
+    <span class="n">Default</span><span class="p">,</span> <span class="c1">// 0, inherits from floatAll
+</span>    <span class="n">Floating</span><span class="p">,</span> <span class="c1">// 1
+</span>    <span class="n">Anchored</span> <span class="c1">// 2
+</span>  <span class="p">}</span>
+
+  <span class="c1">/// @notice Indicates that an anchor-specific floating state changed
+</span>  <span class="k">event</span> <span class="n">FloatingStateChange</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">anchor</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">FloatState</span> <span class="n">isFloating</span><span class="p">,</span> <span class="kt">address</span> <span class="n">operator</span><span class="p">);</span>
+  <span class="c1">/// @notice Emits when FloatingAuthorization is changed.
+</span>  <span class="k">event</span> <span class="n">FloatingAuthorizationChange</span><span class="p">(</span><span class="n">Authorization</span> <span class="n">startAuthorization</span><span class="p">,</span> <span class="n">Authorization</span> <span class="n">stopAuthorization</span><span class="p">,</span> <span class="kt">address</span> <span class="n">maintainer</span><span class="p">);</span>
+  <span class="c1">/// @notice Emits, when the default floating state is changed
+</span>  <span class="k">event</span> <span class="n">FloatingAllStateChange</span><span class="p">(</span><span class="kt">bool</span> <span class="n">areFloating</span><span class="p">,</span> <span class="kt">address</span> <span class="n">operator</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Indicates whether an anchored token is floating, namely can be transferred without attestation
+</span>  <span class="k">function</span> <span class="n">floating</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">anchor</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Indicates whether any of OWNER, ISSUER, (ASSET) is allowed to start floating
+</span>  <span class="k">function</span> <span class="n">floatStartAuthorization</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Authorization</span> <span class="n">canStartFloating</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Indicates whether any of OWNER, ISSUER, (ASSET) is allowed to stop floating
+</span>  <span class="k">function</span> <span class="n">floatStopAuthorization</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Authorization</span> <span class="n">canStartFloating</span><span class="p">);</span>
+
+  <span class="cm">/**
+    * @notice Allows to override or reset to floatAll-behavior per anchor
+    * @dev Must throw when newState == Floating and floatStartAuthorization does not authorize msg.sender
+    * @dev Must throw when newState == Anchored and floatStopAuthorization does not authorize msg.sender
+    * @param anchor The anchor, whose anchored token shall override default behavior
+    * @param newState Override-State. If set to Default, the anchor will behave like floatAll
+    */</span>
+  <span class="k">function</span> <span class="n">float</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">anchor</span><span class="p">,</span> <span class="n">FloatState</span> <span class="n">newState</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>    
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="caveats-for-floatable-interface">Caveats for Floatable-Interface</h4>
+
+<p>If <code class="language-plaintext highlighter-rouge">floating(anchor)</code> returns true, the token identified by <code class="language-plaintext highlighter-rouge">tokenByAnchor(anchor)</code> MUST be transferable without attestation, typically authorized via <code class="language-plaintext highlighter-rouge">ERC721.isApprovedOrOwner(msg.sender, tokenId)</code></p>
+
+<h3 id="validanchors-interface">ValidAnchors-Interface</h3>
+
+<p>Every contract compliant to this extension MAY implement the proposed <a href="../assets/eip-6956/contracts/IERC6956ValidAnchors.sol">ValidAnchors interface</a> and is subject to <a href="#caveats-for-validanchors-interface">Caveats</a> below:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT OR CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">18</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./IERC6956.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @title Anchor-validating Asset-Bound NFT
+ * @dev See https://eips.ethereum.org/EIPS/eip-6956
+ *      Note: The ERC-165 identifier for this interface is 0x051c9bd8
+ */</span>
+<span class="k">interface</span> <span class="n">IERC6956ValidAnchors</span> <span class="k">is</span> <span class="n">IERC6956</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Emits when the valid anchors for the contract are updated.
+     * @param validAnchorHash Hash representing all valid anchors. Typically Root of Merkle-Tree
+     * @param maintainer msg.sender when updating the hash
+     */</span>
+    <span class="k">event</span> <span class="n">ValidAnchorsUpdate</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">validAnchorHash</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">maintainer</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Indicates whether an anchor is valid in the present contract
+     * @dev Typically implemented via MerkleTrees, where proof is used to verify anchor is part of the MerkleTree 
+     *      MUST return false when no ValidAnchorsUpdate-event has been emitted yet
+     * @param anchor The anchor in question
+     * @param proof Proof that the anchor is valid, typically MerkleProof
+     * @return isValid True, when anchor and proof can be verified against validAnchorHash (emitted via ValidAnchorsUpdate-event)
+     */</span>
+    <span class="k">function</span> <span class="n">anchorValid</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">anchor</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">proof</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">isValid</span><span class="p">);</span>        
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="caveats-for-validanchors-interface">Caveats for ValidAnchors-Interface</h4>
+
+<ul>
+  <li>MUST implement <code class="language-plaintext highlighter-rouge">validAnchor(anchor, proof)</code> which returns true when anchor is valid, namely MerkleProof is correct, false otherwise.</li>
+</ul>
+
+<h2 id="rationale">Rationale</h2>
+
+<p><strong>Why do you use an anchor&lt;&gt;tokenId mapping and not simply use tokenIds directly?</strong>
+Especially for collectable use-cases, special or sequential tokenIds (for example low numbers), have value. Holders may be proud to have claimed tokenId=1 respectively the off-chain ASSET with tokenId=1 may increase in value, because it was the first ever claimed. Or an Issuer may want to address the first 100 owners who claimed their ASSET-BOUND NFT. While these use-cases technically can certainly be covered by observing the blockchain state-changes, we consider reflecting the order in the tokenIds to be the user-friendly way. Please refer <a href="#security-considerations">Security considerations</a> on why sequential anchors shall be avoided.</p>
+
+<p><strong>Why is tokenId=0 and anchor=0x0 invalid?</strong>
+For gas efficiency. This allows to omit checks and state-variables for the existence of a token or anchor, since mappings of a non-existent key return 0 and cannot be easily distinguished from anchor=0 or tokenId=0.</p>
+
+<p><strong>ASSETS are often batch-produced with the goal of identical properties, for example a batch of automotive spare parts. Why should do you extend ERC-721 and not Multi-Token standards?</strong>
+Even if a (physical) ASSET is mass produced with fungible characteristics, each ASSET has an individual property/ownership graph and thus shall be represented in a non-fungible way. Hence this EIP follows the design decision that ASSET (represented via a unique asset identifier called ANCHOR) and token are always mapped 1-1 and not 1-N, so that a token represents the individual property graph of the ASSET.</p>
+
+<p><strong>Why is there a burnAnchor() and approveAnchor()?</strong>
+Due to the permissionless nature ASSET-BOUND NFTs can even be transferred to or from any address. This includes arbitrary and randomly generated accounts (where the private key is unknown) and smart-contracts which would traditionally not support ERC-721 NFTs. Following that owning the ASSET must be equivalent to owning the NFT, this means that we also need to support ERC-721 operations like approval and burning in such instances through authorizing the operations with an attestation.</p>
+
+<p><strong>Implementation alternatives considered</strong> Soulbound burn+mint combination, for example through Consensual Soulbound Tokens (<a href="eip-5484.md">ERC-5484</a>). Disregarded because appearance is highly dubious, when the same asset is represented through multiple tokens over time. An predecessor of this EIP has used this approach and can be found deployed to Mumbai Testnet under address <code class="language-plaintext highlighter-rouge">0xd04c443913f9ddcfea72c38fed2d128a3ecd719e</code>.</p>
+
+<p><strong>When should I implement AttestationLimited-Interface</strong>
+Naturally, when your use-case requires each ASSET being transferable only a limited number of times. But also for security reasons, see <a href="#security-considerations">Security Considerations</a></p>
+
+<p><strong>Why is there the <code class="language-plaintext highlighter-rouge">IERC6956Floatable.FloatState</code> enum?</strong> In order to allow gas-efficient implementation of floatAll(), which can be overruled by anchor-based floatability in all combinations. (See rationale for tokenId=0 above).</p>
+
+<p><strong>Why is there no <code class="language-plaintext highlighter-rouge">floating(tokenId)</code> function?</strong>
+This would behave identically to an <code class="language-plaintext highlighter-rouge">isTransferable(tokenId,...)</code> mechanism proposed in many other EIPs (refer e.g. <a href="eip-6454.md">ERC-6454</a>). Further, the proposed <code class="language-plaintext highlighter-rouge">floating(anchorByToken(tokenId))</code> can be used.</p>
+
+<p><strong>Why are there different FloatingAuthorizations for start and stop?</strong>
+Depending on the use-case, different roles should be able to start or stop floating. Note that for many applications the ISSUER may want to have control over the floatability of the collection.</p>
+
+<h3 id="example-use-cases-and-recommended-combination-of-interfaces">Example Use Cases and recommended combination of interfaces</h3>
+
+<p>Possession based use cases are covered by the standard interface <code class="language-plaintext highlighter-rouge">IERC6956</code>: The holder of ASSET is in possession of ASSET. Possession is an important social and economical tool: In many sports games possession of ASSET, commonly referred to as “the ball”, is of essence. Possession can come with certain obligations and privileges. Ownership over an ASSET can come with rights and benefits as well as being burdened with liens and obligations. For example, an owned ASSET can be used for collateral, can be rented or can even yield a return. Example use-cases are</p>
+
+<ul>
+  <li>
+    <p><strong>Possession based token gating:</strong> Club guest in possession of limited T-Shirt (ASSET) gets a token which allows him to open the door to the VIP lounge.</p>
+  </li>
+  <li>
+    <p><strong>Possession based digital twin:</strong> A gamer is in possession of a pair of physical sneakers (ASSET), and gets a digital twin (NFT) to wear them in metaverse.</p>
+  </li>
+  <li>
+    <p><strong>Scarce possession based digital twin:</strong> The producer of the sneakers (ASSET) decided that the product includes a limit of 5 digital twins (NFTs), to create scarcity.</p>
+  </li>
+  <li>
+    <p><strong>Lendable digital twin:</strong> The gamer can lend his sneaker-tokens (NFT) to a friend in the metaverse, so that the friend can run faster.</p>
+  </li>
+  <li>
+    <p><strong>Securing ownership from theft:</strong> If ASSET is owned off-chain, the owner wants to secure the anchored NFT, namely not allow transfers to prevent theft or recover the NFT easily through the ASSET.</p>
+  </li>
+  <li>
+    <p><strong>Selling a house with a mortgage:</strong> The owner holds NFT as proof of ownership. The DeFi-Bank finances the house and puts a lock on the transfer of NFT. Allow Transfers of the NFT require the mortgage to be paid off. Selling the ASSET (house) off-chain will be impossible, as it’s no longer possible to finance the house.</p>
+  </li>
+  <li>
+    <p><strong>Selling a house with a lease:</strong> A lease contract puts a lien on an ASSET’s anchored NFT. The old owner removes the lock, the new owner buys and refinances the house. Transfer of NFT will also transfer the obligations and benefits of the lien to the new owner.</p>
+  </li>
+  <li>
+    <p><strong>Buying a brand new car with downpayment:</strong> A buyer configures a car and provides a downpayment, for a car that will have an ANCHOR. As long as the car is not produced, the NFT can float and be traded on NFT market places. The owner of the NFT at time of delivery of the ASSET has the the permission to pick up the car and the obligation to pay full price.</p>
+  </li>
+  <li>
+    <p><strong>Buying a barrel of oil by forward transaction:</strong> A buyer buys an oil option on a forward contract for one barrel of oil (ASSET). On maturity date the buyer has the obligation to pick up the oil.</p>
+  </li>
+</ul>
+
+<p>The use case matrix below shows which extensions and settings must (additionally to <code class="language-plaintext highlighter-rouge">IERC6956</code>!) be implemented for the example use-cases together with relevant configurations.</p>
+
+<p>Note that for <code class="language-plaintext highlighter-rouge">Lockable</code> listed in the table below, the proposed EIP can be extended with any Lock- or Lien-Mechanism known to extend for ERC-721, for example <a href="eip-5192.md">ERC-5192</a> or <a href="eip-6982.md">ERC-6982</a>. We recommend to verify whether a token is locked in the <code class="language-plaintext highlighter-rouge">_beforeTokenTransfer()</code>-hook, as this is called from <code class="language-plaintext highlighter-rouge">safeTransferFrom()</code> as well as <code class="language-plaintext highlighter-rouge">transferAnchor()</code>, hence suitable to block “standard” ERC-721 transfers as well as the proposed attestation-based transfers.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Use Case</th>
+      <th>approveAuthorization</th>
+      <th>burnAuthorization</th>
+      <th><code class="language-plaintext highlighter-rouge">IERC6956Floatable</code></th>
+      <th><code class="language-plaintext highlighter-rouge">IERC6956AttestationLimited</code></th>
+      <th>Lockable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Managing Possession</strong></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Token gating</td>
+      <td>ASSET</td>
+      <td>ANY</td>
+      <td>incompatible</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Digital twin</td>
+      <td>ASSET</td>
+      <td>ANY</td>
+      <td>incompatible</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Scarce digital twin</td>
+      <td>ASSET</td>
+      <td>ANY</td>
+      <td>incompatible</td>
+      <td>required</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Lendable digital twin</td>
+      <td>OWNER_AND_ASSET</td>
+      <td>ASSET</td>
+      <td>required</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><strong>Managing Ownership</strong></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Securing ownership from theft</td>
+      <td>OWNER or OWNER_AND_ASSET</td>
+      <td>ANY</td>
+      <td>optional</td>
+      <td>-</td>
+      <td>required</td>
+    </tr>
+    <tr>
+      <td>Selling an house with a mortgage</td>
+      <td>ASSET  or OWNER_AND_ASSET</td>
+      <td>ANY</td>
+      <td>optional</td>
+      <td>optional</td>
+      <td>required</td>
+    </tr>
+    <tr>
+      <td>Selling a house with a lease</td>
+      <td>ASSET or OWNER_AND_ASSET</td>
+      <td>ANY</td>
+      <td>optional</td>
+      <td>optional</td>
+      <td>required</td>
+    </tr>
+    <tr>
+      <td>Buying a brand new car with downpayment</td>
+      <td>ASSET or OWNER_AND_ASSET</td>
+      <td>ANY</td>
+      <td>optional</td>
+      <td>optional</td>
+      <td>required</td>
+    </tr>
+    <tr>
+      <td>Buying a barrel of oil by forward transaction</td>
+      <td>ASSET or OWNER_AND_ASSET</td>
+      <td>ANY</td>
+      <td>optional</td>
+      <td>optional</td>
+      <td>required</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Legend:</p>
+
+<ul>
+  <li>required … we don’t see a way how to implement the use-case without it</li>
+  <li>incompatible … this MUSTN’T be implemented, as it is a security risk for the use-case</li>
+  <li>optional … this MAY optionally be implemented</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues found.</p>
+
+<p>This EIP is fully compatible with ERC-721 and (when extended with the <code class="language-plaintext highlighter-rouge">IERC6956Floatable</code>-interface) corresponds to the well-known ERC-721 behavior with an additional authorization-mechanism via attestations. Therefore we recommend - especially for physical assets - to use the present EIP instead of ERC-721 and amend it with extensions designed for ERC-721.</p>
+
+<p>However, it is RECOMMENDED to extend implementations of the proposed standard with an interface indicating transferability of NFTs for market places. Examples include <a href="eip-6454.md">ERC-6454</a> and <a href="eip-5484.md">ERC-5484</a>.</p>
+
+<p>Many ERC-721 extensions suggest to add additional throw-conditions to transfer methods. This standard is fully compatible, as</p>
+
+<ul>
+  <li>The often-used ERC-721 <code class="language-plaintext highlighter-rouge">_beforeTokenTransfer()</code> hook must be called for all transfers including attestation-authorized transfers.</li>
+  <li>A <code class="language-plaintext highlighter-rouge">_beforeAnchorUse()</code> hook is suggested in the reference implementation, which only is called when using attestation as authorization.</li>
+</ul>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Test cases are available:</p>
+
+<ul>
+  <li>For only implementing <a href="../assets/eip-6956/contracts/IERC6956.sol">the proposed standard interface</a> can be found <a href="../assets/eip-6956/test/ERC6956.ts">here</a></li>
+  <li>For implementing <a href="../assets/eip-6956/contracts/IERC6956.sol">the proposed standard interface</a>, <a href="../assets/eip-6956/contracts/IERC6956Floatable.sol">the Floatable extension</a>, <a href="../assets/eip-6956/contracts/IERC6956ValidAnchors.sol">the ValidAnchors extension</a> and <a href="../assets/eip-6956/contracts/IERC6956AttestationLimited.sol">the AttestationLimited extension</a> can be found <a href="../assets/eip-6956/test/ERC6956Full.ts">here</a></li>
+</ul>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<ul>
+  <li>Minimal implementation, only supporting <a href="../assets/eip-6956/contracts/IERC6956.sol">the proposed standard interface</a> can be found <a href="../assets/eip-6956/contracts/ERC6956.sol">here</a></li>
+  <li>Full implementation, with support for <a href="../assets/eip-6956/contracts/IERC6956.sol">the proposed standard interface</a>, <a href="../assets/eip-6956/contracts/IERC6956Floatable.sol">the Floatable extension</a>, <a href="../assets/eip-6956/contracts/IERC6956ValidAnchors.sol">the ValidAnchors extension</a> and <a href="../assets/eip-6956/contracts/IERC6956AttestationLimited.sol">the AttestationLimited extension</a> can be found <a href="../assets/eip-6956/contracts/ERC6956Full.sol">here</a></li>
+  <li>A Minimal Typescript sample to generate an ATTESTATION using ethers library is available <a href="../assets/eip-6956/minimalAttestationSample.ts">here</a></li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p><strong>If the asset is stolen, does this mean the thief has control over the NFT?</strong>
+Yes.The standard aims to anchor an NFT to the asset inseperably and unconditionally. This includes reflecting theft, as the ORACLE will testify that PROOF-OF-CONTROL over the ASSET is established. The ORACLE does not testify whether the controller is the legitimate owner,
+Note that this may even be a benefit. If the thief (or somebody receiving the asset from the thief) should interact with the anchor, an on-chain address of somebody connected to the crime (directly or another victim) becomes known. This can be a valuable starting point for investigation.
+Also note that the proposed standard can be combined with any lock-mechanism, which could lock attestation-based action temporarily or permanently (after mint).</p>
+
+<p><strong>How to use AttestationLimits to avoid fund-draining</strong>
+A central security mechanism in blockchain applications are gas fees. Gas fees ensure that executing a high number of transactions get penalized, hence all DoS or other large-scale attacks are discouraged. Due to the permissionless nature of attestation-authorized operations, many use-cases will arise, where the issuer of the ASSET (which normally is also the issuer of the ASSET-BOUND NFT) will pay for all transactions - contrary to the well-known ERC-721 behavior, where either from- or to-address are paying. So a user with malicious intent may just let the ORACLE approve PROOF-OF-CONTROL multiple times with specifying alternating account addresses. These ATTESTATIONS will be handed to the central gas-payer, who will execute them in a permissionless way, paying gas-fees for each transactions. This effectively drains the funds from the gas-payer, making the system unusable as soon as the gas-payer can no longer pay for transactions.</p>
+
+<p><strong>Why do you recommend hashing serial numbers over using them plain?</strong>
+Using any sequential identifier allows to at least conclude of the number between the lowest and highest ever used serial number. This therefore provides good indication over the total number of assets on the market. While a limited number of assets is often desirable for collectables, publishing exact production numbers of assets is undesirable for most industries, as it equals to publishing sales/revenue numbers per product group, which is often considered confidential. Within supply chains, serial numbers are often mandatory due to their range-based processing capability. The simplest approach to allow using physical serial numbers and still obfuscating the actual number of assets is through hashing/encryption of the serial number.</p>
+
+<p><strong>Why is anchor-validation needed, why not simply trust the oracle to attest only valid anchors?</strong>
+The oracle testifies PROOF-OF-CONTROL. As the ORACLE has to know the merkle-tree of valid anchors, it could also modify the merkle-tree with malicious intent. Therefore, having an on-chain verification, whether the original merkle-tree has been used, is needed. Even if the oracle gets compromised, it should not have the power to introduce new anchors. This is achieved by requiring that the oracle knows the merkle-tree, but updateValidAnchors() can only be called by a maintainer. Note that the oracle must not be the maintainer. As a consequence, care shall be taken off-chain, in order to ensure that compromising one system-part not automatically compromises oracle and maintainer accounts.</p>
+
+<p><strong>Why do you use merkle-trees for anchor-validation?</strong>
+For security- and gas-reasons. Except for limited collections, anchors will typically be added over time, e.g. when a new batch of the asset is produced or issued. While it is already ineffective to store all available anchors on-chain gas-wise, publishing all anchors would also expose the total number of assets. When using the data from anchor-updates one could even deduce the production capabilities of that asset, which is usually considered confidential information.</p>
+
+<p><strong>Assume you have N anchors. If all anchored NFTs are minted, what use is a merkle-tree?</strong>
+If all anchored NFTs are minted this implies that all anchors have been published and could be gathered on-chain. Consequently, the merkle-tree can be reconstructed. While this may not be an issue for many use cases (all supported anchors are minted anyway), we still recommend to add one “salt-leave” to the merkle-tree, characterized in that the ORACLE will never issue an attestation for an ANCHOR matching that salt-leave. Therefore, even if all N anchors are</p>
+
+<h3 id="security-considerations-for-physical-assets">Security Considerations for PHYSICAL ASSETS</h3>
+
+<p>In case the ASSET is a physical object, good or property, the following ADDITIONAL specifications MUST be satisfied:</p>
+
+<h4 id="oracle-for-physical-anchors">ORACLE for Physical Anchors</h4>
+
+<ul>
+  <li>Issuing an ATTESTATION requires that the ORACLE
+    <ul>
+      <li>MUST proof physical proximity between an input device (for example smartphone) specifying the <code class="language-plaintext highlighter-rouge">to</code> address and a particular physical ANCHOR and it’s associated physical object. Typical acceptable proximity is ranges between some millimeters to several meters.</li>
+      <li>The physical presence MUST be verified beyond reasonable doubt, in particular the employed method
+        <ul>
+          <li>MUST be robust against duplication or reproduction attempts of the physical ANCHOR,</li>
+          <li>MUST be robust against spoofing (for example presentation attacks) etc.</li>
+        </ul>
+      </li>
+      <li>MUST be implemented under the assumption that the party defining the <code class="language-plaintext highlighter-rouge">to</code> address has malicious intent and to acquire false ATTESTATION, without currently or ever having access to the physical object comprising the physical ANCHOR.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="physical-asset">Physical ASSET</h4>
+
+<ul>
+  <li>MUST comprise an ANCHOR, acting as the unique physical object identifier, typically a serial number (plain (NOT RECOMMENDED) or hashed (RECOMMENDED))</li>
+  <li>MUST comprise a physical security device, marking or any other feature that enables proofing physical presence for ATTESTATION through the ORACLE</li>
+  <li>Is RECOMMENDED to employ ANCHOR-TECHNOLOGIES featuring irreproducible security features.</li>
+  <li>In general it is NOT RECOMMENDED to employ ANCHOR-TECHNOLOGIES that can easily be replicated (for example barcodes, “ordinary” NFC chips, .. ). Replication includes physical and digital replication.</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

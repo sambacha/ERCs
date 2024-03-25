@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Interactive NFTs with Modular Environments | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Interactive NFTs with Modular Environments | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5050" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5050" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Interactive NFTs with Modular Environments</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard defines a broadly applicable action messaging protocol for the transmission of user-initiated actions between tokens. Modular statefulness is achieved with optional state controller contracts (i.e. environments) that manage shared state, and provide arbitration and settlement of the action process.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Tokenized item standards such as <a href="./eip-721.md">EIP-721</a> and <a href="./eip-1155.md">EIP-1155</a> serve as the objects of the Ethereum computing environment. A growing number of projects are seeking to build interactivity and <em>“digital physics”</em> into NFTs, especially in the contexts of gaming and decentralized identity. A standard action messaging protocol will allow this physics layer to be developed in the same open, Ethereum-native way as the objects they operate on.</p>
+
+<p>The messaging protocol outlined defines how an action is initiated and transmitted between tokens and (optional) shared state environments. It is paired with a common interface for defining functionality that allows off-chain services to aggregate and query supported contracts for functionality and interoperability; creating a discoverable, human-readable network of interactive token contracts. Not only can contracts that implement this standard be automatically discovered by such services, their <em>policies for interaction</em> can be as well. This allows clients to easily discover compatible senders and receivers, and allowed actions.</p>
+
+<p>Aggregators can also parse action event logs to derive analytics on new action types, trending/popular/new interactive contracts, which token and state contract pairs users are likely to interact with, and other discovery tools to facilitate interaction.</p>
+
+<h3 id="benefits">Benefits</h3>
+
+<ol>
+  <li>Make interactive token contracts <strong>discoverable and usable</strong> by applications</li>
+  <li>Create a decentralized “digital physics” layer for gaming and other applications</li>
+  <li>Provide developers a simple solution with viable validity guarantees to make dynamic NFTs and other tokens</li>
+  <li>Allow for generalized action bridges to transmit actions between chains (enabling actions on L1 assets to be saved to L2s, L1 assets to interact with L2 assets, and L2 actions to be “rolled-up”/finalized on L1).</li>
+</ol>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Smart contracts implementing this EIP standard MUST implement the <a href="./eip-165.md">EIP-165</a> supportsInterface function and MUST return the constant value <code class="language-plaintext highlighter-rouge">true</code> if the <code class="language-plaintext highlighter-rouge">IERC5050Sender</code> interface ID <code class="language-plaintext highlighter-rouge">0xc8c6c9f3</code> and/or the <code class="language-plaintext highlighter-rouge">IERC5050Receiver</code> interface ID <code class="language-plaintext highlighter-rouge">0x1a3f02f4</code> is passed through the <code class="language-plaintext highlighter-rouge">interfaceID</code> argument (depending on which interface(s) the contract implements).</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">/// @param _address The address of the interactive object
+/// @param tokenId The token that is interacting (optional)
+</span><span class="k">struct</span> <span class="n">Object</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">_address</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">/// @param selector The bytes4(keccack256()) encoding of the action string
+/// @param user The address of the sender
+/// @param from The initiating object
+/// @param to The receiving object
+/// @param state The state controller contract
+/// @param data Additional data with no specified format
+</span><span class="k">struct</span> <span class="n">Action</span> <span class="p">{</span>
+    <span class="kt">bytes4</span> <span class="nb">selector</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">user</span><span class="p">;</span>
+    <span class="n">Object</span> <span class="n">from</span><span class="p">;</span>
+    <span class="n">Object</span> <span class="n">to</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">state</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">/// @title EIP-5050 Interactive NFTs with Modular Environments
+</span><span class="k">interface</span> <span class="n">IERC5050Sender</span> <span class="p">{</span>
+    <span class="c1">/// @notice Send an action to the target address
+</span>    <span class="c1">/// @dev The action's `fromContract` is automatically set to `address(this)`,
+</span>    <span class="c1">/// and the `from` parameter is set to `msg.sender`.
+</span>    <span class="c1">/// @param action The action to send
+</span>    <span class="k">function</span> <span class="n">sendAction</span><span class="p">(</span><span class="n">Action</span> <span class="k">memory</span> <span class="n">action</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Check if an action is valid based on its hash and nonce
+</span>    <span class="c1">/// @dev When an action passes through all three possible contracts
+</span>    <span class="c1">/// (`fromContract`, `to`, and `state`) the `state` contract validates the
+</span>    <span class="c1">/// action with the initiating `fromContract` using a nonced action hash.
+</span>    <span class="c1">/// This hash is calculated and saved to storage on the `fromContract` before
+</span>    <span class="c1">/// action handling is initiated. The `state` contract calculates the hash
+</span>    <span class="c1">/// and verifies it and nonce with the `fromContract`.
+</span>    <span class="c1">/// @param _hash The hash to validate
+</span>    <span class="c1">/// @param _nonce The nonce to validate
+</span>    <span class="k">function</span> <span class="n">isValid</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_hash</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_nonce</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Retrieve list of actions that can be sent.
+</span>    <span class="c1">/// @dev Intended for use by off-chain applications to query compatible contracts,
+</span>    <span class="c1">/// and to advertise functionality in human-readable form.
+</span>    <span class="k">function</span> <span class="n">sendableActions</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Change or reaffirm the approved address for an action
+</span>    <span class="c1">/// @dev The zero address indicates there is no approved address.
+</span>    <span class="c1">///  Throws unless `msg.sender` is the `_account`, or an authorized
+</span>    <span class="c1">///  operator of the `_account`.
+</span>    <span class="c1">/// @param _account The account of the account-action pair to approve
+</span>    <span class="c1">/// @param _action The action of the account-action pair to approve
+</span>    <span class="c1">/// @param _approved The new approved account-action controller
+</span>    <span class="k">function</span> <span class="n">approveForAction</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_account</span><span class="p">,</span>
+        <span class="kt">bytes4</span> <span class="n">_action</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_approved</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Enable or disable approval for a third party ("operator") to conduct
+</span>    <span class="c1">///  all actions on behalf of `msg.sender`
+</span>    <span class="c1">/// @dev Emits the ApprovalForAll event. The contract MUST allow
+</span>    <span class="c1">///  an unbounded number of operators per owner.
+</span>    <span class="c1">/// @param _operator Address to add to the set of authorized operators
+</span>    <span class="c1">/// @param _approved True if the operator is approved, false to revoke approval
+</span>    <span class="k">function</span> <span class="n">setApprovalForAllActions</span><span class="p">(</span><span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_approved</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Get the approved address for an account-action pair
+</span>    <span class="c1">/// @dev Throws if `_tokenId` is not a valid NFT.
+</span>    <span class="c1">/// @param _account The account of the account-action to find the approved address for
+</span>    <span class="c1">/// @param _action The action of the account-action to find the approved address for
+</span>    <span class="c1">/// @return The approved address for this account-action, or the zero address if
+</span>    <span class="c1">///  there is none
+</span>    <span class="k">function</span> <span class="n">getApprovedForAction</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">bytes4</span> <span class="n">_action</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Query if an address is an authorized operator for another address
+</span>    <span class="c1">/// @param _account The address on whose behalf actions are performed
+</span>    <span class="c1">/// @param _operator The address that acts on behalf of the account
+</span>    <span class="c1">/// @return True if `_operator` is an approved operator for `_account`, false otherwise
+</span>    <span class="k">function</span> <span class="n">isApprovedForAllActions</span><span class="p">(</span><span class="kt">address</span> <span class="n">_account</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_operator</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @dev This emits when an action is sent (`sendAction()`)
+</span>    <span class="k">event</span> <span class="n">SendAction</span><span class="p">(</span>
+        <span class="kt">bytes4</span> <span class="k">indexed</span> <span class="n">name</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_fromContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_state</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="n">_data</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @dev This emits when the approved address for an account-action pair
+</span>    <span class="c1">///  is changed or reaffirmed. The zero address indicates there is no
+</span>    <span class="c1">///  approved address.
+</span>    <span class="k">event</span> <span class="n">ApprovalForAction</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_account</span><span class="p">,</span>
+        <span class="kt">bytes4</span> <span class="k">indexed</span> <span class="n">_action</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_approved</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @dev This emits when an operator is enabled or disabled for an account.
+</span>    <span class="c1">///  The operator can conduct all actions on behalf of the account.
+</span>    <span class="k">event</span> <span class="n">ApprovalForAllActions</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_account</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_operator</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">_approved</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">IERC5050Receiver</span> <span class="p">{</span>
+    <span class="c1">/// @notice Handle an action
+</span>    <span class="c1">/// @dev Both the `to` contract and `state` contract are called via
+</span>    <span class="c1">/// `onActionReceived()`.
+</span>    <span class="c1">/// @param action The action to handle
+</span>    <span class="k">function</span> <span class="n">onActionReceived</span><span class="p">(</span><span class="n">Action</span> <span class="k">calldata</span> <span class="n">action</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_nonce</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">payable</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Retrieve list of actions that can be received.
+</span>    <span class="c1">/// @dev Intended for use by off-chain applications to query compatible contracts,
+</span>    <span class="c1">/// and to advertise functionality in human-readable form.
+</span>    <span class="k">function</span> <span class="n">receivableActions</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @dev This emits when a valid action is received.
+</span>    <span class="k">event</span> <span class="n">ActionReceived</span><span class="p">(</span>
+        <span class="kt">bytes4</span> <span class="k">indexed</span> <span class="n">name</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_fromContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">_state</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="n">_data</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="action-naming">Action Naming</h3>
+
+<p>Actions SHOULD use dot-separation for namespacing (e.g. <code class="language-plaintext highlighter-rouge">"spells.cast"</code> specifies the <code class="language-plaintext highlighter-rouge">"cast"</code> action with namespace <code class="language-plaintext highlighter-rouge">"spells"</code>), and arrow-separation for sequence specification (e.g. <code class="language-plaintext highlighter-rouge">"settle&gt;build"</code> indicating <code class="language-plaintext highlighter-rouge">"settle"</code> must be received before <code class="language-plaintext highlighter-rouge">"build"</code>).</p>
+
+<h3 id="how-state-contracts-work">How State Contracts Work</h3>
+
+<p>Actions do not require that a state contract be used. Actions can be transmitted from one token contract (<code class="language-plaintext highlighter-rouge">Object</code>) to another, or from a user to a single token contract. In these cases, the sending and receiving contracts each control their own state.</p>
+
+<p>State contracts allow arbitrary senders and receivers to share a user-specified state environment. Each <code class="language-plaintext highlighter-rouge">Object</code> MAY define its own action handling, which MAY include reading from the state contract during, but the action MUST be finalized by the state contract. This means the state contract serves as ground truth.</p>
+
+<p>The intended workflow is for state contracts to define stateful game environments, typically with a custom <code class="language-plaintext highlighter-rouge">IState</code> interface for use by other contracts. <code class="language-plaintext highlighter-rouge">Objects</code> register with state contracts to initialize their state. Then, users commit actions using a specific state contract to make things happen in the game.</p>
+
+<p>The modularity of state contracts allows multiple copies of the same or similar “game environment” to be created and swapped in or out by the client. There are many ways this modularity can be used:</p>
+
+<ul>
+  <li>Aggregator services can analyze action events to determine likely state contracts for a given sender/receiver</li>
+  <li>Sender/receiver contracts can require a specific state contract</li>
+  <li>Sender/receiver contracts can allow any state contract, but set a default. This is important for NFTs that change their render based on state. This default can also be configurable by the token holder.</li>
+  <li>State contracts can be bridges to state contracts on another chain, allowing for L1-verification, L2-storage usage pattern (validate action with layer-1 assets, save on l2 where storage is cheaper).</li>
+</ul>
+
+<h4 id="example">Example</h4>
+
+<p>State Contract <code class="language-plaintext highlighter-rouge">FightGame</code> defines a fighting game environment. Token holders call <code class="language-plaintext highlighter-rouge">FightGame.register(contract, tokenId)</code> to randomly initialize their stats (strength/hp/etc.). An account which holds a registered token A of contract <code class="language-plaintext highlighter-rouge">Fighters</code>, calls <code class="language-plaintext highlighter-rouge">Fighters.sendAction(AttackAction)</code>, specifying token A from <code class="language-plaintext highlighter-rouge">Fighters</code> as the sender, token B from <code class="language-plaintext highlighter-rouge">Pacifists</code> contract as the receiver, and <code class="language-plaintext highlighter-rouge">FightGame</code> as the state contract.</p>
+
+<p>The action is passed to token B, which may handle the action in whatever way it wants before passing the action to the <code class="language-plaintext highlighter-rouge">FightGame</code> state contract. The state contract can verify the stored action hash with the <code class="language-plaintext highlighter-rouge">Fighters</code> contract to validate the action is authentic before updating the stats if the tokens, dealing damage to token B.</p>
+
+<p>Tokens A and B may update their metadata based on stats in the <code class="language-plaintext highlighter-rouge">FightGame</code> state contract, or based on their own stored data updated in response to sending/receiving actions.</p>
+
+<h3 id="extensions">Extensions</h3>
+
+<h4 id="interactive">Interactive</h4>
+
+<p>Some contracts may have custom user interfaces that facilitate interaction.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">/// @title EIP-5050 Interactive NFTs with Modular Environments
+</span><span class="k">interface</span> <span class="n">IERC5050Interactive</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">interfaceURI</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">_action</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="action-proxies">Action Proxies</h4>
+
+<p>Action proxies can be used to support backwards compatibility with non-upgradeable contracts, and potentially for cross-chain action bridging.</p>
+
+<p>They can be implemented using a modified version of <a href="./eip-1820.md#erc-1820-registry-smart-contract">EIP-1820</a> that allows <a href="./eip-173.md">EIP-173</a> contract owners to call <code class="language-plaintext highlighter-rouge">setManager()</code>.</p>
+
+<h4 id="controllable">Controllable</h4>
+
+<p>Users of this standard may want to allow trusted contracts to control the action process to provide security guarantees, and support action bridging. Controllers step through the action chain, calling each contract individually in sequence.</p>
+
+<p>Contracts that support Controllers SHOULD ignore require/revert statements related to action verification, and MUST NOT pass the action to the next contract in the chain.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">/// @title EIP-5050 Action Controller
+</span><span class="k">interface</span> <span class="n">IControllable</span> <span class="p">{</span>
+    
+    <span class="c1">/// @notice Enable or disable approval for a third party ("controller") to force
+</span>    <span class="c1">///  handling of a given action without performing EIP-5050 validity checks.
+</span>    <span class="c1">/// @dev Emits the ControllerApproval event. The contract MUST allow
+</span>    <span class="c1">///  an unbounded number of controllers per action.
+</span>    <span class="c1">/// @param _controller Address to add to the set of authorized controllers
+</span>    <span class="c1">/// @param _action Selector of the action for which the controller is approved / disapproved
+</span>    <span class="c1">/// @param _approved True if the controller is approved, false to revoke approval
+</span>    <span class="k">function</span> <span class="n">setControllerApproval</span><span class="p">(</span><span class="kt">address</span> <span class="n">_controller</span><span class="p">,</span> <span class="kt">bytes4</span> <span class="n">_action</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_approved</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Enable or disable approval for a third party ("controller") to force
+</span>    <span class="c1">///  action handling without performing EIP-5050 validity checks. 
+</span>    <span class="c1">/// @dev Emits the ControllerApproval event. The contract MUST allow
+</span>    <span class="c1">///  an unbounded number of controllers per action.
+</span>    <span class="c1">/// @param _controller Address to add to the set of authorized controllers
+</span>    <span class="c1">/// @param _approved True if the controller is approved, false to revoke approval
+</span>    <span class="k">function</span> <span class="n">setControllerApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">_controller</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_approved</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Query if an address is an authorized controller for a given action.
+</span>    <span class="c1">/// @param _controller The trusted third party address that can force action handling
+</span>    <span class="c1">/// @param _action The action selector to query against
+</span>    <span class="c1">/// @return True if `_controller` is an approved operator for `_account`, false otherwise
+</span>    <span class="k">function</span> <span class="n">isApprovedController</span><span class="p">(</span><span class="kt">address</span> <span class="n">_controller</span><span class="p">,</span> <span class="kt">bytes4</span> <span class="n">_action</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    
+    <span class="c1">/// @dev This emits when a controller is enabled or disabled for the given
+</span>    <span class="c1">///  action. The controller can force `action` handling on the emitting contract, 
+</span>    <span class="c1">///  bypassing the standard EIP-5050 validity checks.
+</span>    <span class="k">event</span> <span class="n">ControllerApproval</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_controller</span><span class="p">,</span>
+        <span class="kt">bytes4</span> <span class="k">indexed</span> <span class="n">_action</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">_approved</span>
+    <span class="p">);</span>
+    
+    <span class="c1">/// @dev This emits when a controller is enabled or disabled for all actions.
+</span>    <span class="c1">///  Disabling all action approval for a controller does not override explicit action
+</span>    <span class="c1">///  action approvals. Controller's approved for all actions can force action handling 
+</span>    <span class="c1">///  on the emitting contract for any action.
+</span>    <span class="k">event</span> <span class="n">ControllerApprovalForAll</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_controller</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">_approved</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="metadata-update">Metadata Update</h4>
+
+<p>Interactive NFTs are likely to update their metadata in response to certain actions and developers MAY want to implement <a href="./eip-4906.md">EIP-4906</a> event emitters.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The critical features of this interactive token standard are that it 1) creates a common way to define, advertise, and conduct object interaction, 2) enables optional, brokered statefulness with <em>useful</em> validity assurances at minimum gas overhead, 3) is easy for developers to implement, and 4) is easy for end-users to use.</p>
+
+<h3 id="action-names--selectors">Action Names &amp; Selectors</h3>
+
+<p>Actions are advertised using human-readable strings, and processed using function selectors (<code class="language-plaintext highlighter-rouge">bytes4(keccack256(action_key))</code>). Human-readable strings allow end-users to easily interpret functionality, while function selectors allow efficient comparison operations on arbitrarily long action keys. This scheme also allows for simple namespacing and sequence specification.</p>
+
+<p>Off-chain services can easily convert the strings to <code class="language-plaintext highlighter-rouge">bytes4</code> selector encoding when interacting with contracts implementing this EIP or parsing <code class="language-plaintext highlighter-rouge">SendAction</code> and <code class="language-plaintext highlighter-rouge">ActionReceived</code> event logs.</p>
+
+<h3 id="validation">Validation</h3>
+
+<p>Validation of the initiating contract via a hash of the action data was satisfactory to nearly everyone surveyed and was the most gas efficient verification solution explored. We recognize that this solution does not allow the receiving and state contracts to validate the initiating <code class="language-plaintext highlighter-rouge">user</code> account beyond using <code class="language-plaintext highlighter-rouge">tx.origin</code>, which is vulnerable to phishing attacks.</p>
+
+<p>We considered using a signed message to validate user-intiation, but this approach had two major drawbacks:</p>
+
+<ol>
+  <li><strong>UX</strong> users would be required to perform two steps to commit each action (sign the message, and send the transaction)</li>
+  <li><strong>Gas</strong> performing signature verification is computationally expensive</li>
+</ol>
+
+<p>Most importantly, the consensus among the developers surveyed is that strict user validation is not necessary because the concern is only that malicious initiating contracts will phish users to commit actions <em>with</em> the malicious contract’s assets. <strong>This protocol treats the initiating contract’s token as the prime mover, not the user.</strong> Anyone can tweet at Bill Gates. Any token can send an action to another token. Which actions are accepted, and how they are handled is left up to the contracts. High-value actions can be reputation-gated via state contracts, or access-gated with allow/disallow-lists. <a href="#controllable"><code class="language-plaintext highlighter-rouge">Controllable</code></a> contracts can also be used via trusted controllers as an alternative to action chaining.</p>
+
+<p><em>Alternatives considered: action transmitted as a signed message, action saved to reusable storage slot on initiating contract</em></p>
+
+<h3 id="state-contracts">State Contracts</h3>
+
+<p>Moving state logic into dedicated, parameterized contracts makes state an action primitive and prevents state management from being obscured within the contracts. Specifically, it allows users to decide which “environment” to commit the action in, and allows the initiating and receiving contracts to share state data without requiring them to communicate.</p>
+
+<p>The specifics of state contract interfaces are outside the scope of this standard, and are intended to be purpose-built for unique interactive environments.</p>
+
+<h3 id="gas-and-complexity-regarding-action-chaining">Gas and Complexity (regarding action chaining)</h3>
+
+<p>Action handling within each contract can be arbitrarily complex, and there is no way to eliminate the possibility that certain contract interactions will run out of gas. However, developers SHOULD make every effort to minimize gas usage in their action handler methods, and avoid the use of for-loops.</p>
+
+<p><em>Alternatives considered: multi-request action chains that push-pull from one contract to the next.</em></p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Non-upgradeable, already deployed token contracts will not be compatible with this standard unless a proxy registry extension is used.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>A reference implementation is included in <code class="language-plaintext highlighter-rouge">../assets/eip-5050</code> with a simple stateless example <a href="../assets/eip-5050/ExampleToken2Token.sol"><code class="language-plaintext highlighter-rouge">ExampleToken2Token.sol</code></a>, and a stateful example <a href="../assets/eip-5050/ExampleStateContract.sol"><code class="language-plaintext highlighter-rouge">ExampleStateContract.sol</code></a></p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The core security consideration of this protocol is action validation. Actions are passed from one contract to another, meaning it is not possible for the receiving contract to natively verify that the caller of the initiating contract matches the <code class="language-plaintext highlighter-rouge">action.from</code> address. One of the most important contributions of this protocol is that it provides an alternative to using signed messages, which require users to perform two operations for every action committed.</p>
+
+<p>As discussed in <a href="#validation">Validation</a>, this is viable because the initiating contract / token is treated as the prime mover, not the user.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

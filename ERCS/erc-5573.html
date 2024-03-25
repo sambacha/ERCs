@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Sign-In with Ethereum Capabilities, ReCaps | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Sign-In with Ethereum Capabilities, ReCaps | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5573" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5573" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Sign-In with Ethereum Capabilities, ReCaps</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p><a href="./eip-4361.md">ERC-4361</a>, or Sign-In with Ethereum (SIWE), describes how Ethereum accounts authenticate with off-chain services. This proposal, known as ReCaps, describes a mechanism on top of SIWE to give informed consent to authorize a Relying Party to exercise certain scoped capabilities. How a Relying Party authenticates against the target resource is out of scope for this specification and depends on the implementation of the target resource.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>SIWE ReCaps unlock integration of protocols and/or APIs for developers by reducing user friction, onchain state and increasing security by introducing informed consent and deterministic capability objects on top of Sign-In With Ethereum (ERC-4361).</p>
+
+<p>While SIWE focuses on authenticating the Ethereum account against the service (relying party or SIWE client) initiating the SIWE flow, there is no canonical way for the authenticated Ethereum account to authorize a relying party to interact with a third-party service (resource service) on behalf of the Ethereum account. A relying party may want to interact with another service on behalf of the Ethereum account, for example a service that provides data storage for the Ethereum account. This specification introduces a mechanism that allows the service (or more generally a Relying Party) to combine authentication and authorization of such while preserving security and optimizing UX.</p>
+
+<p>Note, this approach is a similar mechanism to combining OpenID Connect (SIWE auth) and OAuth2 (SIWE ReCap) where SIWE ReCap implements capabilities-based authorization on top of the authentication provided by SIWE.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>This specification has three different audiences:</p>
+
+<ul>
+  <li>Web3 application developers that want to integrate ReCaps to authenticate with any protocols and APIs that support object capabilities.</li>
+  <li>Protocol or API developers that want to learn how to define their own ReCaps.</li>
+  <li>Wallet implementers that want to improve the UI for ReCaps.</li>
+</ul>
+
+<h3 id="terms-and-definitions">Terms and Definitions</h3>
+
+<ul>
+  <li>ReCap - A SIWE Message complying with this specification, i.e. containing at least one ReCap URI in the <code class="language-plaintext highlighter-rouge">Resources</code> section and the corresponding human-readable ReCap Statement appended to the SIWE <code class="language-plaintext highlighter-rouge">statement</code>.</li>
+  <li>ReCap URI - A type of URI that resolves to a ReCap Details Object.</li>
+  <li>ReCap Details Object - A JSON object describing the actions and optionally the resources associated with a ReCap Capability.</li>
+  <li>Resource Service (RS) - The entity that is providing third-party services for the Ethereum account.</li>
+  <li>SIWE Client (SC) - The entity initiating the authorization (SIWE authentication and ReCap flow).</li>
+  <li>Relying Party (RP) - same as SC in the context of authorization.</li>
+</ul>
+
+<h3 id="overview">Overview</h3>
+
+<p>This specification defines the following:</p>
+
+<ul>
+  <li>ReCap SIWE Extension</li>
+  <li>ReCap Capability
+    <ul>
+      <li>ReCap URI Scheme</li>
+      <li>ReCap Details Object Schema</li>
+    </ul>
+  </li>
+  <li>ReCap Translation Algorithm</li>
+  <li>ReCap Verification</li>
+</ul>
+
+<h3 id="recap-siwe-extension">ReCap SIWE Extension</h3>
+
+<p>A ReCap is an ERC-4361 message following a specific format that allows an Ethereum account to delegate a set of ReCap Capabilities to a Relying Party through informed consent. ReCap Capabilities MUST be represented by the final entry in the <code class="language-plaintext highlighter-rouge">Resources</code> array of the SIWE message that MUST deterministically translate the ReCap Capability in human-readable form to the <code class="language-plaintext highlighter-rouge">statement</code> field in the SIWE message using the ReCap Translation Algorithm.</p>
+
+<p>The following SIWE message fields are used to further define (or limit) the scope of all ReCap Capabilities:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">URI</code> field MUST specify the intended Relying Party, e.g., <code class="language-plaintext highlighter-rouge">https://example.com</code>, <code class="language-plaintext highlighter-rouge">did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK</code>. It is expected that the RS authenticates the Relying Party before invoking an action for the ReCap Capability.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">Issued At</code> field MUST be used to specify the issuance date of the ReCap Capabilities.</li>
+  <li>If present, the <code class="language-plaintext highlighter-rouge">Expiration Time</code> field MUST be used as the expiration time of the ReCap Capabilities, i.e. the time at which the RS will no longer accept an invocation of the capabilities expressed in this form.</li>
+  <li>If present, the <code class="language-plaintext highlighter-rouge">Not Before</code> field MUST be used as the time that has to expire before the RS starts accepting invocations of the capabilities expressed in the message.</li>
+</ul>
+
+<p>The following is a non-normative example of a SIWE message with the SIWE ReCap Extension:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>example.com wants you to sign in with your Ethereum account:
+0x0000000000000000000000000000000000000000
+
+I further authorize the stated URI to perform the following actions on my behalf: (1) 'example': 'append', 'read' for 'https://example.com'. (2) 'other': 'action' for 'https://example.com'. (3) 'example': 'append', 'delete' for 'my:resource:uri.1'. (4) 'example': 'append' for 'my:resource:uri.2'. (5) 'example': 'append' for 'my:resource:uri.3'.
+
+URI: did:key:example
+Version: 1
+Chain ID: 1
+Nonce: mynonce1
+Issued At: 2022-06-21T12:00:00.000Z
+Resources:
+- urn:recap:eyJhdHQiOnsiaHR0cHM6Ly9leGFtcGxlLmNvbSI6eyJleGFtcGxlL2FwcGVuZCI6W10sImV4YW1wbGUvcmVhZCI6W10sIm90aGVyL2FjdGlvbiI6W119LCJteTpyZXNvdXJjZTp1cmkuMSI6eyJleGFtcGxlL2FwcGVuZCI6W10sImV4YW1wbGUvZGVsZXRlIjpbXX0sIm15OnJlc291cmNlOnVyaS4yIjp7ImV4YW1wbGUvYXBwZW5kIjpbXX0sIm15OnJlc291cmNlOnVyaS4zIjp7ImV4YW1wbGUvYXBwZW5kIjpbXX19LCJwcmYiOltdfQ
+</code></pre></div></div>
+
+<h4 id="recap-capability">ReCap Capability</h4>
+
+<p>A ReCap Capability is identified by their ReCap URI that resolves to a ReCap Details Object which defines the associated actions and optional target resources. The scope of each ReCap Capability is attenuated by common fields in the SIWE message as described in the previous chapter, e.g., <code class="language-plaintext highlighter-rouge">URI</code>, <code class="language-plaintext highlighter-rouge">Issued At</code>, <code class="language-plaintext highlighter-rouge">Expiration Time</code>, <code class="language-plaintext highlighter-rouge">Not Before</code>.</p>
+
+<h5 id="recap-uri-scheme">ReCap URI Scheme</h5>
+
+<p>A ReCap URI starts with <code class="language-plaintext highlighter-rouge">urn:recap:</code> followed by the unpadded base64url-encoded payload of the ReCap Details Object. Note, the term base64url is defined in RFC4648 - Base 64 Encoding with URL and Filename Safe Alphabet. If present, a Recap URI MUST occupy the final entry of the SIWE resource list.</p>
+
+<p>The following is a non-normative example of a ReCap Capability:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>urn:recap:eyJhdHQiOnsiaHR0cHM6Ly9leGFtcGxlLmNvbS9waWN0dXJlcy8iOnsiY3J1ZC9kZWxldGUiOlt7fV0sImNydWQvdXBkYXRlIjpbe31dLCJvdGhlci9hY3Rpb24iOlt7fV19LCJtYWlsdG86dXNlcm5hbWVAZXhhbXBsZS5jb20iOnsibXNnL3JlY2VpdmUiOlt7Im1heF9jb3VudCI6NSwidGVtcGxhdGVzIjpbIm5ld3NsZXR0ZXIiLCJtYXJrZXRpbmciXX1dLCJtc2cvc2VuZCI6W3sidG8iOiJzb21lb25lQGVtYWlsLmNvbSJ9LHsidG8iOiJqb2VAZW1haWwuY29tIn1dfX0sInByZiI6WyJ6ZGo3V2o2Rk5TNHJVVWJzaUp2amp4Y3NOcVpkRENTaVlSOHNLUVhmb1BmcFNadUF3Il19
+</code></pre></div></div>
+
+<h5 id="ability-strings">Ability Strings</h5>
+
+<p>Ability Strings identify an action or Ability within a Namespace. They are serialized as <code class="language-plaintext highlighter-rouge">&lt;namespace&gt;/&lt;ability&gt;</code>. Namespaces and Abilities MUST contain only alphanumeric characters as well as the characters <code class="language-plaintext highlighter-rouge">.</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">_</code>, <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, conforming to the regex <code class="language-plaintext highlighter-rouge">^[a-zA-Z0-9.*_+-]$</code>. The ability string as a whole MUST conform to <code class="language-plaintext highlighter-rouge">^[a-zA-Z0-9.*_+-]+\/[a-zA-z0-9.*_+-]+$</code>. For example, <code class="language-plaintext highlighter-rouge">crud/update</code> has an ability-namespace of <code class="language-plaintext highlighter-rouge">crud</code> and an ability-name of <code class="language-plaintext highlighter-rouge">update</code>.</p>
+
+<h5 id="recap-details-object-schema">ReCap Details Object Schema</h5>
+
+<p>The ReCap Details Object denotes which actions on which resources the Relying Party is authorized to invoke on behalf of the Ethereum account for the validity period defined in the SIWE message. It can also contain additional information that the RS may require to verify a capability invocation. A ReCap Details Object MUST follow the following JSON Schema:</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://json-schema.org/draft-04/schema#"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"att"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"propertyNames"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uri"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"patternProperties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"^.+:.*$"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"patternProperties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"^[a-zA-Z0-9.*_+-]+\/[a-zA-z0-9.*_+-]+$"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"minProperties"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"additionalProperties"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"minProperties"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"prf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CID"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"minItems"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>A ReCap Details Object defines the following properties:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">att</code>: (CONDITIONAL) If present, <code class="language-plaintext highlighter-rouge">att</code> MUST be a JSON object where each key is a URI and each value is an object containing Ability Strings as keys and a corresponding value which is an array of qualifications to the action (i.e. a restriction or requirement). The keys of the object MUST be ordered lexicographically.</li>
+  <li><code class="language-plaintext highlighter-rouge">prf</code>: (CONDITIONAL) If present, <code class="language-plaintext highlighter-rouge">prf</code> MUST be a JSON array of string values with at least one entry where each value is a valid Base58-encoded CID which identifies a parent capability, authorizing the Ethereum account for one or more of the entries in <code class="language-plaintext highlighter-rouge">att</code> if the SIWE <code class="language-plaintext highlighter-rouge">address</code> does not identify the controller of the <code class="language-plaintext highlighter-rouge">att</code> entries.</li>
+</ul>
+
+<p>Objects in the <code class="language-plaintext highlighter-rouge">att</code> field (including nested objects) MUST NOT contain duplicate keys and MUST have their keys ordered lexicographically with two steps:</p>
+
+<ol>
+  <li>Sort by byte value.</li>
+  <li>If a string starts with another, the shorter string comes first (e.g. <code class="language-plaintext highlighter-rouge">msg/send</code> comes before <code class="language-plaintext highlighter-rouge">msg/send-to</code>)</li>
+</ol>
+
+<p>This is the same as the <code class="language-plaintext highlighter-rouge">Array.sort()</code> method in JavaScript. In the example below, <code class="language-plaintext highlighter-rouge">crud/delete</code> must appear before <code class="language-plaintext highlighter-rouge">crud/update</code> and <code class="language-plaintext highlighter-rouge">other/action</code>, similarly <code class="language-plaintext highlighter-rouge">msg/receive</code> must appear before <code class="language-plaintext highlighter-rouge">msg/send</code>.</p>
+
+<p>The following is a non-normative example of a ReCap Capability Object with <code class="language-plaintext highlighter-rouge">att</code> and <code class="language-plaintext highlighter-rouge">prf</code>:</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"att"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"https://example.com/pictures/"</span><span class="p">:{</span><span class="w">
+         </span><span class="nl">"crud/delete"</span><span class="p">:</span><span class="w"> </span><span class="p">[{}],</span><span class="w">
+         </span><span class="nl">"crud/update"</span><span class="p">:</span><span class="w"> </span><span class="p">[{}],</span><span class="w">
+         </span><span class="nl">"other/action"</span><span class="p">:</span><span class="w"> </span><span class="p">[{}]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"mailto:username@example.com"</span><span class="p">:{</span><span class="w">
+          </span><span class="nl">"msg/receive"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+              </span><span class="nl">"max_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"templates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"newsletter"</span><span class="p">,</span><span class="w"> </span><span class="s2">"marketing"</span><span class="p">]</span><span class="w">
+          </span><span class="p">}],</span><span class="w">
+          </span><span class="nl">"msg/send"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"someone@email.com"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"joe@email.com"</span><span class="w"> </span><span class="p">}]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"prf"</span><span class="p">:[</span><span class="s2">"bafybeigk7ly3pog6uupxku3b6bubirr434ib6tfaymvox6gotaaaaaaaaa"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In the example above, the Relying Party is authorized to perform the actions <code class="language-plaintext highlighter-rouge">crud/update</code>, <code class="language-plaintext highlighter-rouge">crud/delete</code> and <code class="language-plaintext highlighter-rouge">other/action</code> on resource <code class="language-plaintext highlighter-rouge">https://example.com/pictures/</code> without limitations for any. Additionally the Relying Party is authorized to perform actions <code class="language-plaintext highlighter-rouge">msg/send</code> and <code class="language-plaintext highlighter-rouge">msg/recieve</code> on resource <code class="language-plaintext highlighter-rouge">mailto:username@example.com</code>, where <code class="language-plaintext highlighter-rouge">msg/send</code> is limited to sending to <code class="language-plaintext highlighter-rouge">someone@email.com</code> or <code class="language-plaintext highlighter-rouge">joe@email.com</code> and <code class="language-plaintext highlighter-rouge">msg/recieve</code> is limited to a maximum of 5 and templates <code class="language-plaintext highlighter-rouge">newsletter</code> or <code class="language-plaintext highlighter-rouge">marketing</code>. Note, the Relying Party can invoke each action individually and independently from each other in the RS. Additionally the ReCap Capability Object contains some additional information that the RS will need during verification. The responsibility for defining the structure and semantics of this data lies with the RS. These action and restriction semantics are examples not intended to be universally understood. The Nota Bene objects appearing in the array associated with ability strings represent restrictions on use of an ability. An empty object implies that the action can be performed with no restrictions, but an empty array with no objects implies that there is no way to use this ability in a valid way.</p>
+
+<p>It is expected that RS implementers define which resources they want to expose through ReCap Details Objects and which actions they want to allow users to invoke on them.</p>
+
+<p>This example is expected to transform into the following <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code> (for <code class="language-plaintext highlighter-rouge">URI</code> of <code class="language-plaintext highlighter-rouge">https://example.com</code>):</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I further authorize the stated URI to perform the following actions on my behalf: (1) 'crud': 'delete', 'update' for 'https://example.com/pictures/'. (2) 'other': 'action' for 'https://example.com/pictures/'. (3) 'msg': 'receive', 'send' for 'mailto:username@example.com'.
+</code></pre></div></div>
+
+<p>This example is also expected to transform into the following <code class="language-plaintext highlighter-rouge">recap-uri</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>urn:recap:eyJhdHQiOnsiaHR0cHM6Ly9leGFtcGxlLmNvbS9waWN0dXJlcy8iOnsiY3J1ZC9kZWxldGUiOlt7fV0sImNydWQvdXBkYXRlIjpbe31dLCJvdGhlci9hY3Rpb24iOlt7fV19LCJtYWlsdG86dXNlcm5hbWVAZXhhbXBsZS5jb20iOnsibXNnL3JlY2VpdmUiOlt7Im1heF9jb3VudCI6NSwidGVtcGxhdGVzIjpbIm5ld3NsZXR0ZXIiLCJtYXJrZXRpbmciXX1dLCJtc2cvc2VuZCI6W3sidG8iOiJzb21lb25lQGVtYWlsLmNvbSJ9LHsidG8iOiJqb2VAZW1haWwuY29tIn1dfX0sInByZiI6WyJ6ZGo3V2o2Rk5TNHJVVWJzaUp2amp4Y3NOcVpkRENTaVlSOHNLUVhmb1BmcFNadUF3Il19
+</code></pre></div></div>
+
+<h5 id="merging-capability-objects">Merging Capability Objects</h5>
+
+<p>Any two Recap objects can be merged together by recursive concatenation of their field elements as long as the ordering rules of the field contents is followed. For example, two recap objects:</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"att"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"https://example1.com"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"crud/read"</span><span class="p">:</span><span class="w"> </span><span class="p">[{}]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"prf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"bafyexample1"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"att"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"https://example1.com"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"crud/update"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nl">"max_times"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">}]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"https://example2.com"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"crud/delete"</span><span class="p">:</span><span class="w"> </span><span class="p">[{}]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"prf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"bafyexample2"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>combine into:</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"att"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"https://example1.com"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"crud/read"</span><span class="p">:</span><span class="w"> </span><span class="p">[{}],</span><span class="w">
+      </span><span class="nl">"crud/update"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nl">"max_times"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">}]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"https://example2.com"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"crud/delete"</span><span class="p">:</span><span class="w"> </span><span class="p">[{}]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"prf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"bafyexample1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bafyexample2"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="recap-translation-algorithm">ReCap Translation Algorithm</h4>
+
+<p>After applying the ReCap Translation Algorithm on a given SIWE message that MAY include a pre-defined <code class="language-plaintext highlighter-rouge">statement</code>, the <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code> in a ReCap SIWE message MUST conform to the following ABNF:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>recap-transformed-statement = statement recap-preamble 1*(" " recap-statement-entry ".")
+   ; see ERC-4361 for definition of input-statement
+recap-preamble = "I further authorize the stated URI to perform the following actions on my behalf:"
+recap-statement-entry = "(" number ") " action-namespace ": " 
+                          action-name *("," action-name) "for"
+                          recap-resource
+   ; see RFC8259 for definition of number
+ability-namespace = string
+   ; see RFC8259 for definition of string
+ability-name = string
+   ; see RFC8259 for definition of string
+recap-resource = string
+   ; see RFC8259 for definition of string
+</code></pre></div></div>
+
+<p>The following algorithm or an algorithm that produces the same output MUST be performed to generate the SIWE ReCap Transformed Statement.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li>Let <code class="language-plaintext highlighter-rouge">recap-uri</code> be a ReCap URI, which represents the ReCap Capabilities that are to be encoded in the SIWE message, and which contains a ReCap Details Object which conforms to the ReCap Details Object Schema.</li>
+  <li>[Optional] Let <code class="language-plaintext highlighter-rouge">statement</code> be the statement field of the input SIWE message conforming to ERC-4361.
+Algorithm:</li>
+  <li>Let <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code> be an empty string value.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">statement</code> is present, do the following:
+    <ul>
+      <li>Append the value of the <code class="language-plaintext highlighter-rouge">statement</code> field of <code class="language-plaintext highlighter-rouge">siwe</code> to <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code>.</li>
+      <li>Append a single space character <code class="language-plaintext highlighter-rouge">" "</code> to <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code>.</li>
+    </ul>
+  </li>
+  <li>Append the following string to <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code>: <code class="language-plaintext highlighter-rouge">"I further authorize the stated URI to perform the following actions on my behalf:"</code>.</li>
+  <li>Let <code class="language-plaintext highlighter-rouge">numbering</code> be an integer starting with 1.</li>
+  <li>Let <code class="language-plaintext highlighter-rouge">attenuations</code> be the <code class="language-plaintext highlighter-rouge">att</code> field of the ReCap Details Object</li>
+  <li>For each key and value pair in <code class="language-plaintext highlighter-rouge">attenuations</code> (starting with the first entry), perform the following:
+    <ul>
+      <li>Let <code class="language-plaintext highlighter-rouge">resource</code> be the key and <code class="language-plaintext highlighter-rouge">abilities</code> be the value</li>
+      <li>Group the keys of the <code class="language-plaintext highlighter-rouge">abilities</code> object by their <code class="language-plaintext highlighter-rouge">ability-namespace</code></li>
+      <li>For each <code class="language-plaintext highlighter-rouge">ability-namespace</code>, perform the following:
+        <ul>
+          <li>Append the string concatenation of <code class="language-plaintext highlighter-rouge">" ("</code>, <code class="language-plaintext highlighter-rouge">numbering</code>, <code class="language-plaintext highlighter-rouge">")"</code> to <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code>.</li>
+          <li>Append the string concatenation of <code class="language-plaintext highlighter-rouge">'</code>, <code class="language-plaintext highlighter-rouge">ability-namespace</code>, <code class="language-plaintext highlighter-rouge">':</code> to <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code>.</li>
+          <li>For each <code class="language-plaintext highlighter-rouge">ability-name</code> in the <code class="language-plaintext highlighter-rouge">ability-namespace</code> group, perform the following:
+            <ul>
+              <li>Append the string concatenation of <code class="language-plaintext highlighter-rouge">'</code>, <code class="language-plaintext highlighter-rouge">ability-name</code>, <code class="language-plaintext highlighter-rouge">'</code> to <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code></li>
+              <li>If not the final <code class="language-plaintext highlighter-rouge">ability-name</code>, append <code class="language-plaintext highlighter-rouge">,</code> to <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code></li>
+            </ul>
+          </li>
+          <li>Append <code class="language-plaintext highlighter-rouge">for '</code>, <code class="language-plaintext highlighter-rouge">resource</code>, <code class="language-plaintext highlighter-rouge">'.</code> to <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code></li>
+          <li>Increase <code class="language-plaintext highlighter-rouge">numbering</code> by 1</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Return <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code>.</li>
+</ul>
+
+<h4 id="recap-verification-algorithm">ReCap Verification Algorithm</h4>
+
+<p>The following algorithm or an algorithm that produces the same output MUST be performed to verify a SIWE ReCap.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li>Let <code class="language-plaintext highlighter-rouge">recap-siwe</code> be the input SIWE message conforming to ERC-4361 and this EIP.</li>
+  <li>Let <code class="language-plaintext highlighter-rouge">siwe-signature</code> be the output of signing <code class="language-plaintext highlighter-rouge">recap-siwe</code>, as defined in ERC-4361.
+Algorithm:</li>
+  <li>Perform ERC-4361 signature verification with <code class="language-plaintext highlighter-rouge">recap-siwe</code> and <code class="language-plaintext highlighter-rouge">siwe-signature</code> as inputs.</li>
+  <li>Let <code class="language-plaintext highlighter-rouge">uri</code> be the uri field of <code class="language-plaintext highlighter-rouge">recap-siwe</code>.</li>
+  <li>Let <code class="language-plaintext highlighter-rouge">recap-uri</code> be a recap URI taken from the last entry of the resources field of <code class="language-plaintext highlighter-rouge">recap-siwe</code>.</li>
+  <li>Let <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code> be the result of performing the above <code class="language-plaintext highlighter-rouge">ReCap Translation Algorithm</code> with <code class="language-plaintext highlighter-rouge">uri</code> and <code class="language-plaintext highlighter-rouge">recap-uri</code> as input.</li>
+  <li>Assert that the statement field of <code class="language-plaintext highlighter-rouge">recap-siwe</code> ends with <code class="language-plaintext highlighter-rouge">recap-transformed-statement</code>.</li>
+</ul>
+
+<h3 id="implementers-guide">Implementer’s Guide</h3>
+
+<p>TBD</p>
+
+<h4 id="web3-application-implementers">Web3 Application Implementers</h4>
+
+<p>TBD</p>
+
+<h4 id="wallet-implementers">Wallet Implementers</h4>
+
+<p>TBD</p>
+
+<h4 id="protocol-or-api-implementers">Protocol or API Implementers</h4>
+
+<p>TBD</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>TBD</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Resource service implementer’s should not consider ReCaps as bearer tokens but instead require to authenticate the Relying Party in addition. The process of authenticating the Relying Party against the resource service is out of scope of this specification and can be done in various different ways.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

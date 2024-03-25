@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>QR Code transmission protocol for wallets | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="QR Code transmission protocol for wallets | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4527" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4527" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">QR Code transmission protocol for wallets</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The purpose of this EIP is to provide a process and data transmission protocol via QR Code between offline signers and watch-only wallets.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There is an increasing number of users whom like to use complete offline signers to manage their private keys, signers like hardware wallets and mobile phones in offline mode. In order to sign transactions or data, these offline signers have to rely on a watch-only wallet since it would prepare the data to be signed. Currently, there are 4 possible data transmission methods between offline signers and watch-only wallets: QR Code, USB, Bluetooth, and file transfer. The QR Code data transmission method have the following advantages when compared to the other three methods mentioned above:</p>
+
+<ul>
+  <li>Transparency and Security: Compared to USB or Bluetooth, users can easily decode the data via QR Code (with the help of some tools). It can also help users clearly identify what they are going to sign, which improves transparency and thus better security.</li>
+  <li>Improved Compatibility: Compared to USB and Bluetooth, QR Code data transmissions has a wider range of compatibility. Normally, it wouldn’t be broken by software changes like browser upgrades, system upgrade, and etc.</li>
+  <li>Improved User experience: QR Code data transmissions can provide a better user experience compared to USB, Bluetooth, and file transfer especially when the user is using a mobile device.</li>
+  <li>A smaller attack surface: USB and Bluetooth have a bigger attack surface than QR-Codes.</li>
+</ul>
+
+<p>Due to these advantages, QR Code data transmissions is a better choice. Unfortunately, there is no modern standard for how offline signers should work with watch-only wallets nor how data should be encoded.
+This EIP presents a standard process and data transmission protocol for offline signers to work with watch-only wallets.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p><strong>Offline signer</strong>: An offline signer is a device or application which holds the user’s private keys and does not have network access.</p>
+
+<p><strong>Watch-only wallet</strong>: A watch-only wallet is a wallet that has network access and can interact with the Ethereum blockchain.</p>
+
+<h3 id="process">Process</h3>
+
+<p>In order to work with offline signers, the watch-only wallet should follow the following process.</p>
+
+<ol>
+  <li>The offline signer provides the public key information to the watch-only wallet to generate addresses, sync balances and etc via QR Codes.</li>
+  <li>The watch-only wallet generates the unsigned data and sends it to an offline signer for signing via QR Code, data that can include transactions, typed data, and etc.</li>
+  <li>The offline signer signs the data and provides a signature back to the watch-only wallet via QR Code.</li>
+  <li>The watch-only wallet receives the signature, constructs the signed data (transaction) and performs the following activities like broadcasting the transaction etc.</li>
+</ol>
+
+<h3 id="data-transmission-protocol">Data Transmission Protocol</h3>
+
+<p>Since a single QR Code can only contain a limited amount of data, animated QR Codes should be utilized for data transmission. The <code class="language-plaintext highlighter-rouge">BlockchainCommons</code> have published a series of data transmission protocol called Uniform Resources (UR). It provides a basic method to encode data into animated QR Codes. This EIP will use UR and extend its current definition.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Concise Binary Object Representation(CBOR)</code> will be used for binary data encoding. <code class="language-plaintext highlighter-rouge">Concise Data Definition Language(CDDL)</code> will be used for expressing the CBOR.</p>
+
+<h3 id="setting-up-the-watch-only-wallet-with-the-offline-signer">Setting up the watch-only wallet with the offline signer</h3>
+
+<p>In order to allow a watch-only wallet to collect information from the Ethereum blockchain, the offline signer would need to provide the public keys to the watch-only wallet in which the wallet will use them to query the necessary information from the Ethereum blockchain.</p>
+
+<p>In such a case, offline signers should provide the extended public keys and derivation path. The UR Type called <code class="language-plaintext highlighter-rouge">crypto-hdkey</code> will be used to encode this data and the derivation path will be encoded as <code class="language-plaintext highlighter-rouge">crypto-keypath</code>.</p>
+
+<h4 id="cddl-for-key-path">CDDL for Key Path</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">crypto-keypath</code> will be used to specify the key path.The following specification is written in Concise Data Definition Language(CDDL) for <code class="language-plaintext highlighter-rouge">crypto-key-path</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>; Metadata for the derivation path of a key.
+;
+; `source-fingerprint`, if present, is the fingerprint of the
+; ancestor key from which the associated key was derived.
+;
+; If `components` is empty, then `source-fingerprint` MUST be a fingerprint of
+; a master key.
+;
+; `depth`, if present, represents the number of derivation steps in
+; the path of the associated key, even if not present in the `components` element
+; of this structure.
+    crypto-keypath = {
+        components: [path-component], ; If empty, source-fingerprint MUST be present
+        ? source-fingerprint: uint32 .ne 0 ; fingerprint of ancestor key, or master key if components is empty
+        ? depth: uint8 ; 0 if this is a public key derived directly from a master key
+    }
+    path-component = (
+        child-index / child-index-range / child-index-wildcard-range,
+        is-hardened
+    )
+    uint32 = uint .size 4
+    uint31 = uint32 .lt 2147483648 ;0x80000000
+    child-index = uint31
+    child-index-range = [child-index, child-index] ; [low, high] where low &lt; high
+    child-index-wildcard = []
+    is-hardened = bool
+    components = 1
+    source-fingerprint = 2
+    depth = 3
+</code></pre></div></div>
+
+<h4 id="cddl-for-extended-public-keys">CDDL for Extended Public Keys</h4>
+
+<p>Since the purpose is to transfer public key data, the definition of <code class="language-plaintext highlighter-rouge">crypto-hdkey</code> will be kept only for public key usage purposes.</p>
+
+<p>The following specification is written in Concise Data Definition Language <code class="language-plaintext highlighter-rouge">CDDL</code> and includes the crypto-keypath spec above.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>; An hd-key must be a derived key.
+hd-key = {
+    derived-key
+}
+; A derived key must be public, has an optional chain code, and
+; may carry additional metadata about its use and derivation.
+; To maintain isomorphism with [BIP32] and allow keys to be derived from
+; this key `chain-code`, `origin`, and `parent-fingerprint` must be present.
+; If `origin` contains only a single derivation step and also contains `source-fingerprint`,
+; then `parent-fingerprint` MUST be identical to `source-fingerprint` or may be omitted.
+derived-key = (
+    key-data: key-data-bytes,
+    ? chain-code: chain-code-bytes       ; omit if no further keys may be derived from this key
+    ? origin: #6.304(crypto-keypath),    ; How the key was derived
+    ? name: text,                        ; A short name for this key.
+    ? source: text,                      ; The device info or any other description for this key
+)
+key-data = 3
+chain-code = 4
+origin = 6
+name = 9
+source = 10
+
+uint8 = uint .size 1
+key-data-bytes = bytes .size 33
+chain-code-bytes = bytes .size 32
+</code></pre></div></div>
+
+<p>If the chain-code is provided, then it can be used to derive child keys but if it isn’t provided, it is simply a solo key and the origin can be provided to indicate the derivation key path.</p>
+
+<p>If the signer would like to provide muliple public keys instead of the extended public key for any reason, the signer can use <code class="language-plaintext highlighter-rouge">crypto-account</code> for that.</p>
+
+<h3 id="sending-the-unsigned-data-from-the-watch-only-wallet-to-the-offline-signer">Sending the unsigned data from the watch-only wallet to the offline signer</h3>
+
+<p>To send the unsigned data from a watch-only wallet to an offline signer, the new UR type <code class="language-plaintext highlighter-rouge">eth-sign-request</code> will be introduced to encode the signing request.</p>
+
+<h4 id="cddl-for-eth-sign-request">CDDL for Eth Sign Request.</h4>
+
+<p>The following specification is written in Concise Data Definition Language <code class="language-plaintext highlighter-rouge">CDDL</code>.
+UUIDs in this specification notated UUID are CBOR binary strings tagged with #6.37, per the IANA <code class="language-plaintext highlighter-rouge">CBOR Tags Registry</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>; Metadata for the signing request for Ethereum.
+; 
+sign-data-type = {
+    type: int .default 1 transaction data; the unsigned data type
+}
+
+eth-transaction-data = 1; legacy transaction rlp encoding of unsigned transaction data
+eth-typed-data = 2; EIP-712 typed signing data
+eth-raw-bytes=3;   for signing message usage, like EIP-191 personal_sign data
+eth-typed-transaction=4; EIP-2718 typed transaction of unsigned transaction data
+
+; Metadata for the signing request for Ethereum.
+; request-id: the identifier for this signing request.
+; sign-data: the unsigned data
+; data-type: see sign-data-type definition
+; chain-id: chain id definition see https://github.com/ethereum-lists/chains for detail
+; derivation-path: the key path of the private key to sign the data
+; address: Ethereum address of the signing type for verification purposes which is optional
+
+eth-sign-request = (
+    sign-data: sign-data-bytes, ; sign-data is the data to be signed by offline signer, currently it can be unsigned transaction or typed data
+    data-type: #3.401(sign-data-type),
+    chain-id: int .default 1,
+    derivation-path: #5.304(crypto-keypath), ;the key path for signing this request
+    ?request-id: uuid, ; the uuid for this signing request
+    ?address: eth-address-bytes,            ;verification purpose for the address of the signing key
+    ?origin: text  ;the origin of this sign request, like wallet name
+)
+request-id = 1
+sign-data = 2
+data-type = 3
+chain-id = 4 ;it will be the chain id of ethereum related blockchain
+derivation-path = 5
+address = 6
+origin = 7
+eth-address-bytes = bytes .size 20
+sign-data-bytes = bytes ; for unsigned transactions it will be the rlp encoding for unsigned transaction data and ERC 712 typed data it will be the bytes of json string.
+</code></pre></div></div>
+
+<h3 id="the-signature-provided-by-offline-signers-to-watch-only-wallets">The signature provided by offline signers to watch-only wallets</h3>
+
+<p>After the data is signed, the offline signer should send the signature back to the watch-only wallet. The new UR type called <code class="language-plaintext highlighter-rouge">eth-signature</code> is introduced here to encode this data.</p>
+
+<h4 id="cddl-for-eth-signature">CDDL for Eth Signature.</h4>
+
+<p>The following specification is written in Concise Data Definition Language <code class="language-plaintext highlighter-rouge">CDDL</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eth-signature  = (
+    request-id: uuid,
+    signature: eth-signature-bytes,
+    ? origin: text, ; The device info for providing this signature
+)
+
+request-id = 1
+signature = 2
+origin = 3
+
+eth-signature-bytes = bytes .size 65; the signature of the signing request (r,s,v)
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This EIP uses some existing UR types like <code class="language-plaintext highlighter-rouge">crypto-keypath</code> and <code class="language-plaintext highlighter-rouge">crypto-hdkey</code> and also introduces some new UR types like <code class="language-plaintext highlighter-rouge">eth-sign-request</code> and <code class="language-plaintext highlighter-rouge">eth-signature</code>. Here are the reasons we choose UR for the QR Code data transmission protocol:</p>
+
+<h3 id="ur-provides-a-solid-foundation-for-qr-code-data-transmission">UR provides a solid foundation for QR Code data transmission</h3>
+
+<ul>
+  <li>Uses the alphanumeric QR code mode for efficiency.</li>
+  <li>Includes a CRC32 checksum of the entire message in each part to tie the different parts of the QR code together and ensure the transmitted message has been reconstructed.</li>
+  <li>uses <code class="language-plaintext highlighter-rouge">Fountain Code</code> for the arbitrary amount of data which can be both a minimal, finite sequence of parts and an indefinite sequence of parts. The Fountain Code can ultimately help the receiver to make the data extraction easier.</li>
+</ul>
+
+<h3 id="ur-provides-existing-helpful-types-and-scalability-for-new-usages">UR provides existing helpful types and scalability for new usages</h3>
+
+<p>Currently, UR has provided some existing types like <code class="language-plaintext highlighter-rouge">crypto-keypath</code> and <code class="language-plaintext highlighter-rouge">crypto-hdkey</code> so it is quite easy to add a new type and definitions for new usages.</p>
+
+<h3 id="ur-has-an-active-air-gapped-wallet-community">UR has an active air-gapped wallet community.</h3>
+
+<p>Currently, the UR has an active <code class="language-plaintext highlighter-rouge">airgapped wallet community</code> which continues to improve the UR forward.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Currently, there is no existing protocol to define data transmissions via QR Codes so there are no backward compatibility issues that needs to be addressed now.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>The test cases can be found on the <code class="language-plaintext highlighter-rouge">ur-registry-eth</code> package released by the Keystone team.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The reference implementation can be found on the <code class="language-plaintext highlighter-rouge">ur-registry-eth</code> package released by the Keystone team.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The offline signer should decode all the data from <code class="language-plaintext highlighter-rouge">eth-sign-request</code> and show them to the user for confirmation prior to signing. It is recommended to provide an address field in the <code class="language-plaintext highlighter-rouge">eth-sign-request</code>. If provided, the offline signer should verify the address being the same one as the address associated with the signing key.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

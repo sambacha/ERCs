@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Non-fungible Data Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Non-fungible Data Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1948" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1948" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Non-fungible Data Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>Some NFT use-cases require to have dynamic data associated with a non-fungible token that can change during its lifetime. Examples for dynamic data:</p>
+<ul>
+  <li>cryptokitties that can change color</li>
+  <li>intellectual property tokens that encode rights holders</li>
+  <li>tokens that store data to transport them across chains</li>
+</ul>
+
+<p>The existing metadata standard does not suffice as data can only be set at minting time and not modified later.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Non-fungible tokens (NFTs) are extended with the ability to store dynamic data. A 32 bytes data field is added and a read function allows to access it. The write function allows to update it, if the caller is the owner of the token. An event is emitted every time the data updates and the previous and new value is emitted in it.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The proposal is made to standardize on tokens with dynamic data. Interactions with bridges for side-chains like xDAI or Plasma chains will profit from the ability to use such tokens. Protocols that build on data tokens like <a href="https://ethresear.ch/t/a-distributed-breeding-function/5264">distributed breeding</a> will be enabled.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>An extension of <a href="./eip-721.md">ERC-721</a> interface with the following functions and events is suggested:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">2</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @dev Interface of the ERC1948 contract.
+ */</span>
+<span class="k">interface</span> <span class="n">IERC1948</span> <span class="p">{</span>
+
+  <span class="cm">/**
+   * @dev Emitted when `oldData` is replaced with `newData` in storage of `tokenId`.
+   *
+   * Note that `oldData` or `newData` may be empty bytes.
+   */</span>
+  <span class="k">event</span> <span class="n">DataUpdated</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">oldData</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">newData</span><span class="p">);</span>
+
+  <span class="cm">/**
+   * @dev Reads the data of a specified token. Returns the current data in
+   * storage of `tokenId`.
+   *
+   * @param tokenId The token to read the data off.
+   *
+   * @return A bytes32 representing the current data stored in the token.
+   */</span>
+  <span class="k">function</span> <span class="n">readData</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+
+  <span class="cm">/**
+   * @dev Updates the data of a specified token. Writes `newData` into storage
+   * of `tokenId`.
+   *
+   * @param tokenId The token to write data to.
+   * @param newData The data to be written to the token.
+   *
+   * Emits a `DataUpdated` event.
+   */</span>
+  <span class="k">function</span> <span class="n">writeData</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">newData</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The suggested data field in the NFT is used either for storing data directly, like a counter or address. If more data is required the implementer should fall back to authenticated data structures, like merkle- or patricia-trees.</p>
+
+<p>The proposal for this ERC stems from the <a href="https://ethresear.ch/t/a-distributed-breeding-function/5264">distributed breeding proposal</a> to allow better integration of NFTs across side-chains. <a href="https://ost.com/">ost.com</a>, <a href="https://skalelabs.com/">Skale</a>, <a href="https://poa.network/">POA</a>, and <a href="https://leapdao.org/">LeapDAO</a> have been part of the discussion.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>🤷‍♂️ No related proposals are known to the author, hence no backwards compatibility to consider.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Simple happy test:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">ERC1948</span> <span class="o">=</span> <span class="nx">artifacts</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./ERC1948.sol</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">contract</span><span class="p">(</span><span class="dl">'</span><span class="s1">ERC1948</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">accounts</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">firstTokenId</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">empty</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">0x0000000000000000000000000000000000000000000000000000000000000000</span><span class="dl">'</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">0x0101010101010101010101010101010101010101010101010101010101010101</span><span class="dl">'</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">dataToken</span><span class="p">;</span>
+
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">dataToken</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ERC1948</span><span class="p">.</span><span class="k">new</span><span class="p">();</span>
+    <span class="k">await</span> <span class="nx">dataToken</span><span class="p">.</span><span class="nx">mint</span><span class="p">(</span><span class="nx">accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">firstTokenId</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should allow to write and read</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">rsp</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">dataToken</span><span class="p">.</span><span class="nx">readData</span><span class="p">(</span><span class="nx">firstTokenId</span><span class="p">);</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">rsp</span><span class="p">,</span> <span class="nx">empty</span><span class="p">);</span>
+    <span class="k">await</span> <span class="nx">dataToken</span><span class="p">.</span><span class="nx">writeData</span><span class="p">(</span><span class="nx">firstTokenId</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+    <span class="nx">rsp</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">dataToken</span><span class="p">.</span><span class="nx">readData</span><span class="p">(</span><span class="nx">firstTokenId</span><span class="p">);</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">rsp</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+  <span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>An example implementation of the interface in solidity would look like this:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @dev Implementation of ERC721 token and the `IERC1948` interface.
+ *
+ * ERC1948 is a non-fungible token (NFT) extended with the ability to store
+ * dynamic data. The data is a bytes32 field for each tokenId. If 32 bytes
+ * do not suffice to store the data, an authenticated data structure (hash or
+ * merkle tree) shall be used.
+ */</span>
+<span class="k">contract</span> <span class="n">ERC1948</span> <span class="k">is</span> <span class="n">IERC1948</span><span class="p">,</span> <span class="n">ERC721</span> <span class="p">{</span>
+
+  <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">bytes32</span><span class="p">)</span> <span class="n">data</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * @dev See `IERC1948.readData`.
+   *
+   * Requirements:
+   *
+   * - `tokenId` needs to exist.
+   */</span>
+  <span class="k">function</span> <span class="n">readData</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenId</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * @dev See `IERC1948.writeData`.
+   *
+   * Requirements:
+   *
+   * - `msg.sender` needs to be owner of `tokenId`.
+   */</span>
+  <span class="k">function</span> <span class="n">writeData</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">newData</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">));</span>
+    <span class="k">emit</span> <span class="n">DataUpdated</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">tokenId</span><span class="p">],</span> <span class="n">newData</span><span class="p">);</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">newData</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

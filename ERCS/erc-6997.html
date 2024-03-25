@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>ERC-721 with transaction validation step. | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="ERC-721 with transaction validation step. | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6997" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6997" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">ERC-721 with transaction validation step.</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard is an extension of <a href="./eip-721.md">ERC-721</a>. It defines new validation functionality to avoid wallet draining: every <code class="language-plaintext highlighter-rouge">transfer</code> or <code class="language-plaintext highlighter-rouge">approve</code> will be locked waiting for validation.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The power of the blockchain is at the same time its weakness: giving the user full responsibility for their data.</p>
+
+<p>Many cases of NFT theft currently exist, and current NFT anti-theft schemes, such as transferring NFTs to cold wallets, make NFTs inconvenient to use.</p>
+
+<p>Having a validation step before every <code class="language-plaintext highlighter-rouge">transfer</code> and <code class="language-plaintext highlighter-rouge">approve</code> would give Smart Contract developers the opportunity to create secure NFT anti-theft schemes.</p>
+
+<p>An implementation example would be a system where a validator address is responsible for validating all Smart Contract transactions.</p>
+
+<p>This address would be connected to a dApp where the user could see the validation requests of his NFTs and accept the correct ones.</p>
+
+<p>Giving this address only the power to validate transactions would make a much more secure system where to steal an NFT the thief would have to have both the user’s address and the validator address simultaneously.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p><a href="./eip-721.md">ERC-721</a> compliant contracts MAY implement this EIP.</p>
+
+<p>All the operations that change the ownership of an NFT, like a <code class="language-plaintext highlighter-rouge">transferFrom</code>/<code class="language-plaintext highlighter-rouge">safeTransferFrom</code>, SHALL create a <code class="language-plaintext highlighter-rouge">TransferValidation</code> pending to be validated and emit a <code class="language-plaintext highlighter-rouge">ValidateTransfer</code>, and SHALL NOT transfer the ownership of an NFT.</p>
+
+<p>All the operations that enable an approval to manage an NFT, like an <code class="language-plaintext highlighter-rouge">approve</code>/<code class="language-plaintext highlighter-rouge">setApprovalForAll</code>, SHALL create an <code class="language-plaintext highlighter-rouge">ApprovalValidation</code> pending to be validated and emit a <code class="language-plaintext highlighter-rouge">ValidateApproval</code>, and SHALL NOT enable an approval.</p>
+
+<p>When the transfer is called by an approved account and not the owner, it MUST be executed directly without the need for validation. This is in order to adapt to all current marketplaces that require approve to directly move your NFTs.</p>
+
+<p>When validating a <code class="language-plaintext highlighter-rouge">TransferValidation</code> or <code class="language-plaintext highlighter-rouge">ApprovalValidation</code> the valid field MUST be set to true and MUST NOT be validated again.</p>
+
+<p>The operations that validate a <code class="language-plaintext highlighter-rouge">TransferValidation</code> SHALL change the ownership of the NFT or enable the approval.</p>
+
+<p>The operations that validate an <code class="language-plaintext highlighter-rouge">ApprovalValidation</code> SHALL enable the approval.</p>
+
+<h3 id="contract-interface">Contract Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">interface</span> <span class="n">IERC6997</span> <span class="p">{</span>
+
+    <span class="k">struct</span> <span class="n">TransferValidation</span> <span class="p">{</span>
+        <span class="c1">// The address of the owner.
+</span>        <span class="kt">address</span> <span class="n">from</span><span class="p">;</span>
+        <span class="c1">// The address of the receiver.
+</span>        <span class="kt">address</span> <span class="n">to</span><span class="p">;</span>
+        <span class="c1">// The token Id.
+</span>        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+        <span class="c1">// Whether is a valid transfer.
+</span>        <span class="kt">bool</span> <span class="n">valid</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">ApprovalValidation</span> <span class="p">{</span>
+        <span class="c1">// The address of the owner.
+</span>        <span class="kt">address</span> <span class="n">owner</span><span class="p">;</span>
+        <span class="c1">// The approved address.
+</span>        <span class="kt">address</span> <span class="n">approve</span><span class="p">;</span>
+        <span class="c1">// The token Id.
+</span>        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">;</span>
+        <span class="c1">// Wether is a total approvement.
+</span>        <span class="kt">bool</span> <span class="n">approveAll</span><span class="p">;</span>
+        <span class="c1">// Whether is a valid approve.
+</span>        <span class="kt">bool</span> <span class="n">valid</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Emitted when a new transfer validation has been requested.
+     */</span>
+    <span class="k">event</span> <span class="n">ValidateTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">transferValidationId</span><span class="p">);</span>
+
+    <span class="cm">/**
+    * @dev Emitted when a new approval validation has been requested.
+    */</span>
+    <span class="k">event</span> <span class="n">ValidateApproval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">approve</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bool</span> <span class="k">indexed</span> <span class="n">approveAll</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">approvalValidationId</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns true if this contract is a validator ERC721.
+     */</span>
+    <span class="k">function</span> <span class="n">isValidatorContract</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the transfer validation struct using the transfer ID.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">transferValidation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">transferId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">TransferValidation</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+    * @dev Returns the approval validation struct using the approval ID.
+    *
+    */</span>
+    <span class="k">function</span> <span class="n">approvalValidation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">approvalId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">ApprovalValidation</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Return the total amount of transfer validations created.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">totalTransferValidations</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Return the total amount of transfer validations created.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">totalApprovalValidations</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">isValidatorContract()</code> function MUST be implemented as <code class="language-plaintext highlighter-rouge">public</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">transferValidation(uint256 transferId)</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">approvalValidation(uint256 approveId)</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">external</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">totalTransferValidations()</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">totalApprovalValidations()</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">pure</code> or <code class="language-plaintext highlighter-rouge">view</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="universality">Universality</h3>
+
+<p>The standard only defines the validation functions, but not how they should be used. It defines the validations as internal and lets the user decide how to manage them.</p>
+
+<p>An example could be to have an address validator connected to a dApp so that users could manage their validations.</p>
+
+<p>This validator could be used for all NFTs or only for some users.</p>
+
+<p>It could also be used as a wrapped Smart Contract for existing ERC-721, allowing 1/1 conversion with existing NFTs.</p>
+
+<h3 id="extensibility">Extensibility</h3>
+
+<p>This standard only defines the validation function, but does not define the system with which it has to be validated. A third-party protocol can define how it wants to call these functions as it wishes.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is an extension of <a href="./eip-721.md">ERC-721</a>, compatible with all the operations except <code class="language-plaintext highlighter-rouge">transferFrom</code>/<code class="language-plaintext highlighter-rouge">safeTransferFrom</code>/<code class="language-plaintext highlighter-rouge">approve</code>/<code class="language-plaintext highlighter-rouge">setApprovalForAll</code>.</p>
+
+<p>This operations will be overridden to create a validation petition instead of transfer ownership of an NFT or enable an approval.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./IERC6997.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/ERC721.sol"</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @dev Implementation of ERC6997
+ */</span>
+<span class="k">contract</span> <span class="n">ERC6997</span> <span class="k">is</span> <span class="n">IERC6997</span><span class="p">,</span> <span class="n">ERC721</span> <span class="p">{</span>
+
+    <span class="c1">// Mapping from transfer ID to transfer validation
+</span>    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">TransferValidation</span><span class="p">)</span> <span class="k">private</span> <span class="n">_transferValidations</span><span class="p">;</span>
+
+    <span class="c1">// Mapping from approval ID to approval validation
+</span>    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">ApprovalValidation</span><span class="p">)</span> <span class="k">private</span> <span class="n">_approvalValidations</span><span class="p">;</span>
+
+    <span class="c1">// Total number of transfer validations
+</span>    <span class="kt">uint256</span> <span class="k">private</span> <span class="n">_totalTransferValidations</span><span class="p">;</span>
+
+    <span class="c1">// Total number of approval validations
+</span>    <span class="kt">uint256</span> <span class="k">private</span> <span class="n">_totalApprovalValidations</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
+     */</span>
+    <span class="k">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name_</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol_</span><span class="p">)</span> <span class="n">ERC721</span><span class="p">(</span><span class="n">name_</span><span class="p">,</span> <span class="n">symbol_</span><span class="p">){</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+    * @dev Returns true if this contract is a validator ERC721.
+    */</span>
+    <span class="k">function</span> <span class="n">isValidatorContract</span><span class="p">()</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns the transfer validation struct using the transfer ID.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">transferValidation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">transferId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="n">TransferValidation</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">transferId</span> <span class="o">&lt;</span> <span class="n">_totalTransferValidations</span><span class="p">,</span> <span class="s">"ERC6997: invalid transfer ID"</span><span class="p">);</span>
+        <span class="n">TransferValidation</span> <span class="k">memory</span> <span class="n">v</span> <span class="o">=</span> <span class="n">_transferValidation</span><span class="p">(</span><span class="n">transferId</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns the approval validation struct using the approval ID.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">approvalValidation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">approvalId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="n">ApprovalValidation</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">approvalId</span> <span class="o">&lt;</span> <span class="n">_totalApprovalValidations</span><span class="p">,</span> <span class="s">"ERC6997: invalid approval ID"</span><span class="p">);</span>
+        <span class="n">ApprovalValidation</span> <span class="k">memory</span> <span class="n">v</span> <span class="o">=</span> <span class="n">_approvalValidation</span><span class="p">(</span><span class="n">approvalId</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Return the total amount of transfer validations created.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">totalTransferValidations</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_totalTransferValidations</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Return the total amount of approval validations created.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">totalApprovalValidations</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_totalApprovalValidations</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns the transfer validation of the `transferId`. Does NOT revert if transfer doesn't exist
+     */</span>
+    <span class="k">function</span> <span class="n">_transferValidation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">transferId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="n">TransferValidation</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_transferValidations</span><span class="p">[</span><span class="n">transferId</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns the approval validation of the `approvalId`. Does NOT revert if transfer doesn't exist
+     */</span>
+    <span class="k">function</span> <span class="n">_approvalValidation</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">approvalId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="n">ApprovalValidation</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_approvalValidations</span><span class="p">[</span><span class="n">approvalId</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Validate the transfer using the transfer ID.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">_validateTransfer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">transferId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="n">TransferValidation</span> <span class="k">memory</span> <span class="n">v</span> <span class="o">=</span> <span class="n">transferValidation</span><span class="p">(</span><span class="n">transferId</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">v</span><span class="p">.</span><span class="n">valid</span><span class="p">,</span> <span class="s">"ERC6997: the transfer is already validated"</span><span class="p">);</span>
+
+        <span class="kt">address</span> <span class="n">from</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">from</span><span class="p">;</span>
+        <span class="kt">address</span> <span class="n">to</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">to</span><span class="p">;</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">tokenId</span><span class="p">;</span>
+
+        <span class="nb">super</span><span class="p">.</span><span class="n">_transfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+
+        <span class="n">_transferValidations</span><span class="p">[</span><span class="n">transferId</span><span class="p">].</span><span class="n">valid</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Validate the approval using the approval ID.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">_validateApproval</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">approvalId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="n">ApprovalValidation</span> <span class="k">memory</span> <span class="n">v</span> <span class="o">=</span> <span class="n">approvalValidation</span><span class="p">(</span><span class="n">approvalId</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">v</span><span class="p">.</span><span class="n">valid</span><span class="p">,</span> <span class="s">"ERC6997: the approval is already validated"</span><span class="p">);</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">v</span><span class="p">.</span><span class="n">approveAll</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nb">require</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">owner</span> <span class="o">==</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"ERC6997: The token have a new owner"</span><span class="p">);</span>
+            <span class="nb">super</span><span class="p">.</span><span class="n">_approve</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">approve</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">tokenId</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="nb">super</span><span class="p">.</span><span class="n">_setApprovalForAll</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">approve</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">_approvalValidations</span><span class="p">[</span><span class="n">approvalId</span><span class="p">].</span><span class="n">valid</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Create a transfer petition of `tokenId` from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     *
+     * Emits a {TransferValidate} event.
+     */</span>
+    <span class="k">function</span> <span class="n">_transfer</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">ERC721</span><span class="p">.</span><span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)</span> <span class="o">==</span> <span class="n">from</span><span class="p">,</span> <span class="s">"ERC6997: transfer from incorrect owner"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">to</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERC6997: transfer to the zero address"</span><span class="p">);</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">()</span> <span class="o">==</span> <span class="n">from</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">TransferValidation</span> <span class="k">memory</span> <span class="n">v</span><span class="p">;</span>
+
+            <span class="n">v</span><span class="p">.</span><span class="n">from</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span>
+            <span class="n">v</span><span class="p">.</span><span class="n">to</span> <span class="o">=</span> <span class="n">to</span><span class="p">;</span>
+            <span class="n">v</span><span class="p">.</span><span class="n">tokenId</span> <span class="o">=</span> <span class="n">tokenId</span><span class="p">;</span>
+
+            <span class="n">_transferValidations</span><span class="p">[</span><span class="n">_totalTransferValidations</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+
+            <span class="k">emit</span> <span class="n">ValidateTransfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">_totalTransferValidations</span><span class="p">);</span>
+
+            <span class="n">_totalTransferValidations</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nb">super</span><span class="p">.</span><span class="n">_transfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Create an approval petition from `to` to operate on `tokenId`
+     *
+     * Emits an {ValidateApproval} event.
+     */</span>
+    <span class="k">function</span> <span class="n">_approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">override</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="n">ApprovalValidation</span> <span class="k">memory</span> <span class="n">v</span><span class="p">;</span>
+
+        <span class="n">v</span><span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+        <span class="n">v</span><span class="p">.</span><span class="n">approve</span> <span class="o">=</span> <span class="n">to</span><span class="p">;</span>
+        <span class="n">v</span><span class="p">.</span><span class="n">tokenId</span> <span class="o">=</span> <span class="n">tokenId</span><span class="p">;</span>
+
+        <span class="n">_approvalValidations</span><span class="p">[</span><span class="n">_totalApprovalValidations</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+
+        <span class="k">emit</span> <span class="n">ValidateApproval</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="n">_totalApprovalValidations</span><span class="p">);</span>
+
+        <span class="n">_totalApprovalValidations</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev If approved is true create an approval petition from `operator` to operate on
+     * all of `owner` tokens, if not remove `operator` from operate on all of `owner` tokens
+     *
+     * Emits an {ValidateApproval} event.
+     */</span>
+    <span class="k">function</span> <span class="n">_setApprovalForAll</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">approved</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">override</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">owner</span> <span class="o">!=</span> <span class="n">operator</span><span class="p">,</span> <span class="s">"ERC6997: approve to caller"</span><span class="p">);</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">approved</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ApprovalValidation</span> <span class="k">memory</span> <span class="n">v</span><span class="p">;</span>
+
+            <span class="n">v</span><span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span><span class="p">;</span>
+            <span class="n">v</span><span class="p">.</span><span class="n">approve</span> <span class="o">=</span> <span class="n">operator</span><span class="p">;</span>
+            <span class="n">v</span><span class="p">.</span><span class="n">approveAll</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+            <span class="n">_approvalValidations</span><span class="p">[</span><span class="n">_totalApprovalValidations</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+
+            <span class="k">emit</span> <span class="n">ValidateApproval</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">_totalApprovalValidations</span><span class="p">);</span>
+
+            <span class="n">_totalApprovalValidations</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="nb">super</span><span class="p">.</span><span class="n">_setApprovalForAll</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">approved</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>As is defined in the Specification the operations that change the ownership of an NFT or enable an approval to manage the NFT SHALL create a <code class="language-plaintext highlighter-rouge">TransferValidation</code> or an <code class="language-plaintext highlighter-rouge">ApprovalValidation</code> pending to be validated and SHALL NOT transfer the ownership of an NFT or enable an approval.</p>
+
+<p>With this premise in mind, the operations in charge of validating a <code class="language-plaintext highlighter-rouge">TransferValidation</code> or an <code class="language-plaintext highlighter-rouge">ApprovalValidation</code> must be protected with the maximum security required by the applied system.</p>
+
+<p>For example, a valid system would be one where there is a validator address in charge of validating the transactions.</p>
+
+<p>To give another example, a system where each user could choose his validator address would also be correct.</p>
+
+<p>In any case, the importance of security resides in the fact that no address can validate a <code class="language-plaintext highlighter-rouge">TransferValidation</code> or an <code class="language-plaintext highlighter-rouge">ApprovalValidation</code> without the permission of the chosen system.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

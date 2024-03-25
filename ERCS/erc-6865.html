@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>On-Chain EIP-712 Visualization | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="On-Chain EIP-712 Visualization | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6865" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6865" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">On-Chain EIP-712 Visualization</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>Numerous protocols employ distinct <a href="./eip-712.md">EIP-712</a> schemas, leading to unavoidable inconsistencies across the ecosystem. To address this issue, we propose a standardized approach for dApps to implement an on-chain view function called <code class="language-plaintext highlighter-rouge">visualizeEIP712Message</code>. This function takes an abi encoded EIP-712 payload message as input and returns a universally agreed-upon structured data format that emphasizes the potential impact on users’ assets. Wallets can then display this structured data in a user-friendly manner, ensuring a consistent experience for end-users when interacting with various dApps and protocols.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The rapid expansion of the web3.0 ecosystem has unlocked numerous opportunities and innovations. However, this growth has also heightened users’ vulnerability to security threats, such as phishing scams. Ensuring that users have a comprehensive understanding of the transactions they sign is crucial for mitigating these risks.</p>
+
+<p>In an attempt to address this issue, we developed an in-house, open-source off-chain SDK for wallets to visualize various protocols. However, we encountered several challenges along the way:</p>
+
+<ul>
+  <li>Scalability: Identifying and understanding all protocols that utilize EIP-712 and their respective business logic is a daunting task, particularly with limited resources. Crafting an off-chain solution for all these protocols is nearly impossible.</li>
+  <li>Reliability: Grasping each protocol’s business logic is difficult and may lead to misunderstandings of the actual implementation. This can result in inaccurate visualizations, which could be more detrimental than providing no visualization at all.</li>
+  <li>Maintainability: Offering support for protocols with an off-chain solution is insufficient in a rapidly evolving ecosystem. Protocols frequently upgrade their implementations by extending features or fixing bugs, further complicating the maintenance process.</li>
+</ul>
+
+<p>To overcome these challenges, we propose a standardized, on-chain solution that can accommodate the diverse and ever-changing web3.0 ecosystem. This approach would enhance scalability, reliability, and maintainability by shifting the responsibility of visualizing EIP-712 payloads from the wallets to the protocols themselves. Consequently, wallets can use a consistent and effective approach to EIP-712 message visualization.</p>
+
+<p>The adoption of a universal solution will not only streamline the efforts and reduce the maintenance burden for wallet providers, but it will also allow for faster and more extensive coverage across the ecosystem. This will ultimately result in users gaining a clearer understanding of the transactions they’re signing, leading to increased security and an improved overall user experience within the crypto space.</p>
+
+<p>Currently, most of the wallets display something similar to image below</p>
+
+<p><img src="../assets/eip-6865/current-EIP-712-signature-wallet-interface.png" alt="" /></p>
+
+<p>With visualization we can achieve something similar to image below where more insightful details are revealed to user thanks to the structured data returned from the EIP</p>
+
+<p><img src="../assets/eip-6865/vision-EIP-712-signature-wallet-interface.png" alt="" /></p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>Contracts implementing this proposal MUST include the <code class="language-plaintext highlighter-rouge">visualizeEIP712Message</code> function in the  <code class="language-plaintext highlighter-rouge">verifyingContract</code> implementation so that wallets upon receiving a request to sign an EIP-712 message(<code class="language-plaintext highlighter-rouge">eth_signTypedData</code>) MAY call the function <code class="language-plaintext highlighter-rouge">visualizeEIP712Message</code> at the smart contract and chain specified in the EIP-712 message domain separator <code class="language-plaintext highlighter-rouge">verifyingContract</code> and <code class="language-plaintext highlighter-rouge">chainId</code> fields, respectively.</p>
+
+<p>Wallets SHOULD ignore this proposal if the domain separator does not include the <code class="language-plaintext highlighter-rouge">verifyingContract</code> and <code class="language-plaintext highlighter-rouge">chainId</code> fields.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+* @notice This function processes an EIP-712 payload message and returns a structured data format emphasizing the potential impact on users' assets.
+* @dev The function returns assetsOut (assets the user is offering), assetsIn (assets the user would receive), and liveness (validity duration of the EIP-712 message).
+* @param encodedMessage The ABI-encoded EIP-712 message (abi.encode(types, params)).
+* @param domainHash The hash of the EIP-712 domain separator as defined in the EIP-712 proposal; see https://eips.ethereum.org/EIPS/eip-712#definition-of-domainseparator.
+* @return Result struct containing the user's assets impact and message liveness.
+*/</span>
+<span class="k">function</span> <span class="n">visualizeEIP712Message</span><span class="p">(</span>
+    <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">encodedMessage</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">domainHash</span>
+<span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Result</span> <span class="k">memory</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="params">Params</h3>
+
+<p><code class="language-plaintext highlighter-rouge">encodedMessage</code> is bytes that represents the encoded EIP-712  message with <code class="language-plaintext highlighter-rouge">abi.encode</code> and it can be decoded using <code class="language-plaintext highlighter-rouge">abi.decode</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">domainHash</code> is the bytes32 hash of the EIP-712 domain separator as defined in the EIP-712 proposal</p>
+
+<h3 id="outputs">Outputs</h3>
+
+<p>The function MUST return <code class="language-plaintext highlighter-rouge">Result</code>, a struct that contains information’s about user’s assets impact and the liveness of such a message if it gets signed.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Liveness</span> <span class="p">{</span>
+  <span class="kt">uint256</span> <span class="n">from</span><span class="p">;</span>
+  <span class="kt">uint256</span> <span class="n">to</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">UserAssetMovement</span> <span class="p">{</span>
+  <span class="kt">address</span> <span class="n">assetTokenAddress</span><span class="p">;</span>
+  <span class="kt">uint256</span> <span class="n">id</span><span class="p">;</span>
+  <span class="kt">uint256</span><span class="p">[]</span> <span class="n">amounts</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">Result</span> <span class="p">{</span>
+  <span class="n">UserAssetMovement</span><span class="p">[]</span> <span class="n">assetsIn</span><span class="p">;</span>
+  <span class="n">UserAssetMovement</span><span class="p">[]</span> <span class="n">assetsOut</span><span class="p">;</span>
+  <span class="n">Liveness</span> <span class="n">liveness</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="liveness"><code class="language-plaintext highlighter-rouge">Liveness</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">Liveness</code> is a struct that defines the timestamps which the message is valid where:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">from</code> is the starting timestamp.</li>
+  <li><code class="language-plaintext highlighter-rouge">to</code> is the expiry timestamp</li>
+  <li><code class="language-plaintext highlighter-rouge">from</code> MUST be less than <code class="language-plaintext highlighter-rouge">to</code></li>
+</ul>
+
+<h4 id="userassetmovement"><code class="language-plaintext highlighter-rouge">UserAssetMovement</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">UserAssetMovement</code> defines the user’s asset where:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">assetTokenAddress</code> is the token (<a href="./eip-20.md">ERC-20</a>, <a href="./eip-721.md">ERC-721</a>, <a href="./eip-1155.md">ERC-1155</a>) smart contract address where the zero address MUST represents the Native coin (Native ETH in the case of Ethereum network).</li>
+  <li><code class="language-plaintext highlighter-rouge">id</code> is the NFT ID, this item MUST ignored if the asset is not an NFT
+    <ul>
+      <li>if token with <code class="language-plaintext highlighter-rouge">id</code> doesn’t exist in an NFT collection, this SHOULD be considered as any token within that collection</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">amounts</code> is an Array of <code class="language-plaintext highlighter-rouge">uint256</code> where items MUST define the amount per time curve, with time defined within liveness boundaries
+    <ul>
+      <li>the first amount in <code class="language-plaintext highlighter-rouge">amounts</code> Array (amounts[0]) MUST be the amount of the asset at <code class="language-plaintext highlighter-rouge">liveness.from</code> timestamp</li>
+      <li>the last amount in <code class="language-plaintext highlighter-rouge">amounts</code> Array (amounts[amounts.length-1]) MUST be the amount of the asset at <code class="language-plaintext highlighter-rouge">liveness.to</code> timestamp</li>
+      <li>in most of the cases, <code class="language-plaintext highlighter-rouge">amounts</code> will be an Array with a single item which is MUST be the minimum amount of the asset.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="assetsin"><code class="language-plaintext highlighter-rouge">assetsIn</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">assetsIn</code> are the minimum assets which the user MUST get if the message is signed and fulfilled</p>
+
+<h4 id="assetsout"><code class="language-plaintext highlighter-rouge">assetsOut</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">assetsOut</code> are the maximum assets which the user MUST offer if the message is signed and fulfilled</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="on-chain">on-chain</h3>
+
+<p>One might argue that certain processes can be done off-chain, which is true, but our experience building an off-chain TypeScript SDK to solve this matter revealed some issues:</p>
+
+<ul>
+  <li>Reliability: Protocols developers are the ones responsible for developing the protocol itself, thus crafting the visualization is much more accurate when done by them.</li>
+  <li>Scalability: Keeping up with the rapidly expanding ecosystem is hard. Wallets or 3rd party entities must keep an eye on each new protocol, understand it carefully (which poses the reliability issues mentioned above), and then only come up with an off-chain implementation.</li>
+  <li>Maintainability: Many protocols implement smart contracts in an upgradable manner. This causes the off-chain visualization to differ from the real protocol behaviors (if updated), making the solution itself unreliable and lacking the scalability to handle various protocols.</li>
+</ul>
+
+<h3 id="domainhash"><code class="language-plaintext highlighter-rouge">DomainHash</code></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">domainHash</code> is much needed by protocols to revert against unsupported versions of its EIP-712 implementation. It identifies the needed implementation in case the protocol implements various EIP-712 implementations (<code class="language-plaintext highlighter-rouge">name</code>) or to revert if the <code class="language-plaintext highlighter-rouge">domainHash</code> belongs to a different protocol.</p>
+
+<p>In the future, if there is a registry that reroutes this EIP implementation for already deployed protocols that can’t upgrade the existing deployed smart contract, <code class="language-plaintext highlighter-rouge">domainHash</code> can be used to identify protocols.</p>
+
+<h3 id="amounts-array">Amounts Array</h3>
+
+<p>We suggest using an array of amounts (uint256[]) instead of a single uint256 to cover auctions, which are common in NFT protocols.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues found.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>openSea Seaport NFT marketplace implementation example is available <a href="../assets/eip-6865/contracts/SeaPortEIP712Visualizer.sol">here</a></p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p><code class="language-plaintext highlighter-rouge">visualizeEIP712Message</code> function should be reliable and accurately represent the potential impact of the EIP-712 message on users’ assets. Wallet providers and users must trust the protocol’s implementation of this function to provide accurate and up-to-date information.</p>
+
+<p><code class="language-plaintext highlighter-rouge">visualizeEIP712Message</code> function results should be treated based on the reputation of its <code class="language-plaintext highlighter-rouge">verifyingContract</code>, if the <code class="language-plaintext highlighter-rouge">verifyingContract</code> is trusted it means the <code class="language-plaintext highlighter-rouge">visualizeEIP712Message</code> function results are trusted as the this proposal implementation lives at the same address of <code class="language-plaintext highlighter-rouge">verifyingContract</code>.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

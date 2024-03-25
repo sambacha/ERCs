@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>L2 Aliasing of EVM-based Addresses | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="L2 Aliasing of EVM-based Addresses | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6735" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6735" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">L2 Aliasing of EVM-based Addresses</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The document describes the minimal set of business and technical prerequisites, functional and non-functional requirements for Aliasing of EVM based Addresses that when implemented ensures that two or more Layer 1, Layer 2, or Sidechains can identify and translate EVM based addresses from different Layer 1, Layer 2, or Sidechains.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The members of the L2 WG of the EEA Communities Project managed by OASIS have recognized that the ability to deterministically derive addresses of a digital asset or an externally owned account (EOA) in EVM based execution frameworks for L1s, L2s, Sidechains based on an origin chain of an asset or EOA, known as address aliasing, simplifies interoperability between EVM based L1s, L2s, and Sidechains because:</p>
+
+<ul>
+  <li>It allows messages from chain A (source chain) to unambiguously address asset A (smart contract) or EOA on chain Y (target chain), if asset A or EOA exists on Chain X and on Chain Y.</li>
+  <li>It allows a user to deterministically verify the source chain of a message, and, if required, directly verify the origin chain of asset A or EOA and its state on its origin chain utilizing a canonical token list of the (message) source chain.</li>
+</ul>
+
+<p>The ability to unambiguously, and deterministically, relate an address for a digital asset (smart contract) or an externally owned account (EOA) between EVM based L1s, L2s, and Sidechains where this digital asset or EOA exists, also known as address aliasing, is critical prerequisite for interoperability between EVM based L1s, L2s, and Sidechains. However, there is currently no way to do so in a standardized way – imagine every internet service provider were to define its own IP addresses.</p>
+
+<p>Hence, the L2 WG of the EEA Communities Project managed by OASIS, an open-source initiative, intends for this document to establish an unambiguous and deterministic standard for EVM based address aliasing based on the concept of root → leaf where an address alias is derived based on the address on the origin chain and an offset which is an immutable characteristic of the origin chain.</p>
+
+<p>See Figure 1 for the conceptual root → leaf design with offset.</p>
+
+<p><img src="../assets/eip-6735/address-aliasing-root-leaf-design.png" alt="Fig1" /></p>
+
+<p>Figure 1: Root → Leaf address aliasing concept using an chain immanent characteristics from L1 to L2 and L3 and back.</p>
+
+<p>Alternative Figure 1 Description: The figure describes conceptually how (interoperability) messages from source to target chain utilize address aliasing. At the bottom an EVM based L1 is uni-directionally connected to three EVM based L2s – A, B, and C – each with an alias of L1 address + L1 Offset. In addition, A is uni-directionally connected to B with an alias of L1 address + L1 offset + A offset. B is uni-directionally connected to an EVM-based Layer 3 or L3 with an alias of L1 address + L1 offset + B offset signaling that the address is anchored on L1 via the L2 B. And finally D is uni-directionally connected to C via the alias L1 address + L1 offset + B offset plus D offset indicating the asset chain of custody from L1 to B to D to C.</p>
+
+<p>To further clarify the connections between the different possible paths an asset can take from an L1 to different L2/L3s and the <code class="language-plaintext highlighter-rouge">relativeAddress</code> of that asset, we visually highlight in red the path from the EVM based L1 to the B L2, to the D L3, and finally to the C L2.</p>
+
+<p><img src="../assets/eip-6735/visual-Highlight-Path-Red-evm-based-aliasing..png" alt="Fig2" /></p>
+
+<p>Figure 2: Visually highlighted path in red from the EVM based L1 to the B L2, to the D L3, and finally to the C L2.</p>
+
+<p>Alternative Figure 1 Description: The figure is the same as Figure 1. However, the uni-directional connections between the EVM based L1 to the L2 B, to the L3 D, and finally to the L2 C are highlighted in red.</p>
+
+<p>Note, that address aliasing between non-EVM and EVM-based L1s, L2s, and Sidechains, and between non-EVM-based L1s, L2s, and Sidechains is out of scope of this document.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="typographical-convention-requirement-ids">Typographical Convention: Requirement Ids</h3>
+
+<p>A requirement is uniquely identified by a unique ID composed of its requirement level followed by a requirement number, as per convention <strong>[RequirementLevelRequirementNumber]</strong>. 
+There are four requirement levels that are coded in requirement ids as per below convention:</p>
+
+<p><strong>[R]</strong> - The requirement level for requirements which IDs start with the letter <em>R</em> is to be interpreted as <strong>MUST</strong> as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC2119</a>. <br />
+<strong>[D]</strong> - The requirement level for requirements which IDs start with the letter <em>D</em> is to be interpreted as <strong>SHOULD</strong> as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC2119</a>. <br />
+<strong>[O]</strong> - The requirement level for requirements which IDs start with the letter <em>O</em> is to be interpreted as <strong>MAY</strong> as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC2119</a>.</p>
+
+<p>Note that requirements are uniquely numbered in ascending order within each requirement level.</p>
+
+<p>Example : It should be read that [R1] is an absolute requirement of the specification whereas [D1] is a recommendation and [O1] is truly optional.</p>
+
+<p>The requirements below are only valid for EVM based L1s, L2, or Sidechains. Address aliasing for non-EVM systems is out of scope of this document.</p>
+
+<p><a name="r1"> <strong>[R1]</strong> </a>
+An address alias – <code class="language-plaintext highlighter-rouge">addressAlias</code> – to be used between Chain A and Chain B MUST be constructed as follows:
+<code class="language-plaintext highlighter-rouge">addressAlias (Chain A) = offsetAlias (for Chain A) relativeAddress (on Chain A) offsetAlias (for Chain A)</code></p>
+
+<p><a href="#r1">[R1]</a> testability: <code class="language-plaintext highlighter-rouge">addressAlias</code> can be parsed and split using existing open source packages and the result compared to known <code class="language-plaintext highlighter-rouge">addressAlias</code> and <code class="language-plaintext highlighter-rouge">relativeAddress</code> used in the construction.</p>
+
+<p><a name="r2"> <strong>[R2]</strong> </a>
+The <code class="language-plaintext highlighter-rouge">offsetAlias</code> of a chain MUST be <code class="language-plaintext highlighter-rouge">0xchainId00000000000000000000000000000000chainId</code></p>
+
+<p><a href="#r2">[R2]</a> testability: <code class="language-plaintext highlighter-rouge">offsetAlias</code> can be parsed and split using existing open source packages and the result compared to known <code class="language-plaintext highlighter-rouge">chainId</code> used in the construction.</p>
+
+<p><a name="r3"> <strong>[R3]</strong> </a>
+The <code class="language-plaintext highlighter-rouge">chainId</code> used in the <code class="language-plaintext highlighter-rouge">offsetAlias</code> MUST NOT be zero (0)</p>
+
+<p><a href="#r3">[R3]</a> testability: A <code class="language-plaintext highlighter-rouge">chainId</code> is a numerical value and can be compared to <code class="language-plaintext highlighter-rouge">0</code>.</p>
+
+<p><a name="r4"> <strong>[R4]</strong> </a>
+The <code class="language-plaintext highlighter-rouge">chainId</code> used in the <code class="language-plaintext highlighter-rouge">offsetAlias</code> MUST be 8 bytes.</p>
+
+<p><a href="#r4">[R4]</a> testability: The length of the <code class="language-plaintext highlighter-rouge">chainId</code> string can be converted to bytes and then compared to <code class="language-plaintext highlighter-rouge">8</code>.</p>
+
+<p><a name="r5"> <strong>[R5]</strong> </a>
+In case the <code class="language-plaintext highlighter-rouge">chainId</code> has less than 16 digits the <code class="language-plaintext highlighter-rouge">chainId</code> MUST be padded with zeros to 16 digits.</p>
+
+<p>For example the <code class="language-plaintext highlighter-rouge">chainId</code> of Polygon PoS is <code class="language-plaintext highlighter-rouge">137</code>, with the current list of EVM based <code class="language-plaintext highlighter-rouge">chainId</code>s to be found at chainlist.org, and its <code class="language-plaintext highlighter-rouge">offsetAlias</code> is <code class="language-plaintext highlighter-rouge">0x0000000000000137000000000000000000000000000000000000000000000137</code>.</p>
+
+<p><a href="#r5">[R5]</a> testability: <code class="language-plaintext highlighter-rouge">chainId</code> can be parsed and split using existing open source packages and the result compared to known <code class="language-plaintext highlighter-rouge">chainId</code> used in the construction. Subsequently the number of zeros used in the padding can be computed and compared to the expected number of zeros for the padding.</p>
+
+<p><a name="r6"> <strong>[R6]</strong> </a>
+The <code class="language-plaintext highlighter-rouge">offsetAlias</code>for Ethereum Mainnet as the primary anchor of EVM based chains MUST be <code class="language-plaintext highlighter-rouge">0x1111000000000000000000000000000000001111</code> due to current adoption of this offset by existing L2 solutions.</p>
+
+<p>An example of address alias for the USDC asset would be <code class="language-plaintext highlighter-rouge">addressAlias = 0x1111A0b86991c6218b36c1d19D4a2e9Eb0cE3606eB481111</code></p>
+
+<p><a href="#r6">[R6]</a> testability: This requirement is a special case of <a href="#r1">[R1]</a>. Hence, it is testable.</p>
+
+<p><a name="r7"> <strong>[R7]</strong> </a>
+The <code class="language-plaintext highlighter-rouge">relativeAddress</code> of an Externally Owned Account (EOA) or Smart Contract on a chain MUST either be the smart contract or EOA address of the origin chain or a <code class="language-plaintext highlighter-rouge">relativeAddress</code> of an EOA or Smart Contract from another chain.</p>
+
+<p>An example of the former instance would be the relative address of wrapped USDC, <code class="language-plaintext highlighter-rouge">relativeAddress = 0x1111A0b86991c6218b36c1d19D4a2e9Eb0cE3606eB481111</code>, and an example of the latter would be the relative address of wrapped USDC on Polygon, <code class="language-plaintext highlighter-rouge">relativeAddress = 0x00000000000001371111A0b86991c6218b36c1d19D4a2e9Eb0cE3606eB4811110000000000000137</code>.</p>
+
+<p>Finally, an example of an address alias for a message to another L1, L2, or Sidechain for wrapped USDC from Ethereum on Arbitrum would be:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addressAlias = 0x00000000000421611111A0b86991c6218b36c1d19D4a2e9Eb0cE3606eB4811110000000000042161
+</code></pre></div></div>
+
+<p><a href="#r7">[R7]</a> testability: Since this document is dealing with EVM-based systems with multiple live implementations, there are multiple known methods of how to verify if an address belongs to an EOA or a smart contract.</p>
+
+<p><a name="r8"> <strong>[R8]</strong> </a>
+The order of the <code class="language-plaintext highlighter-rouge">offsetAlias</code>es in an <code class="language-plaintext highlighter-rouge">addressAlias</code> MUST be ordered from the <code class="language-plaintext highlighter-rouge">offSetAlias</code> of the root chain bracketing the <code class="language-plaintext highlighter-rouge">relativeAddress</code> on the root chain through the ordered sequence of <code class="language-plaintext highlighter-rouge">offsetAlias</code>es of the chains on which the digital asset exists.</p>
+
+<p>For example, a valid <code class="language-plaintext highlighter-rouge">addressAlias</code> of an asset on chain A bridged to chain B and subsequently to chain C and that is to be bridged to yet another chain from chain C would be:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addressAlias = chainId(C) chainId(B) chainId(A) relativeAddress chainId(A) chainId(B) chainId(C)
+</code></pre></div></div>
+
+<p>However, the reverse order is invalid:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addressAlias = chainId(A) chainId(B) chainId(C) relativeAddress chainId(C) chainId(B) chainId(A)
+</code></pre></div></div>
+
+<p><a href="#r8">[R8]</a> testability: Since <a href="#r1">[R1]</a> is testable and since <a href="#r8">[R8]</a> is an order rule for the construction in <a href="#r1">[R1]</a>, which can be tested by applying logic operations on the output of <a href="#r1">[R1]</a> tests, <a href="#r8">[R8]</a> is testable.</p>
+
+<p>Note, that a proof that a given order is provably correct is beyond the scope of this document.</p>
+
+<h3 id="conformance">Conformance</h3>
+
+<p>This section describes the conformance clauses and tests required to achieve an implementation that is provably conformant with the requirements in this document.</p>
+
+<h4 id="conformance-targets">Conformance Targets</h4>
+
+<p>This document does not yet define a standardized set of test-fixtures with test inputs for all MUST, SHOULD, and MAY requirements with conditional MUST or SHOULD requirements.</p>
+
+<p>A standardized set of test-fixtures with test inputs for all MUST, SHOULD, and MAY requirements with conditional MUST or SHOULD requirements is intended to be published with the next version of the standard.</p>
+
+<h4 id="conformance-levels">Conformance Levels</h4>
+
+<p>This section specifies the conformance levels of this standard. The conformance levels offer implementers several levels of conformance. These can be used to establish competitive differentiation.</p>
+
+<p>This document defines the conformance levels of EVM based Address Aliasing as follows:</p>
+
+<ul>
+  <li><strong>Level 1:</strong> All MUST requirements are fulfilled by a specific implementation as proven by a test report that proves in an easily understandable manner the implementation’s conformance with each requirement based on implementation-specific test-fixtures with implementation-specific test-fixture inputs.</li>
+  <li><strong>Level 2:</strong> All MUST and SHOULD requirements are fulfilled by a specific implementation as proven by a test report that proves in an easily understandable manner the implementation’s conformance with each requirement based on implementation-specific test-fixtures with implementation-specific test-fixture inputs.</li>
+  <li><strong>Level 3:</strong> All MUST, SHOULD, and MAY requirements with conditional MUST or SHOULD requirements are fulfilled by a specific implementation as proven by a test report that proves in an easily understandable manner the implementation’s conformance with each requirement based on implementation-specific test-fixtures with implementation-specific test-fixture inputs.</li>
+</ul>
+
+<p><a name="d1"> <strong>[D1]</strong> </a>
+A claim that a canonical token list implementation conforms to this specification SHOULD describe a testing procedure carried out for each requirement to which conformance is claimed, that justifies the claim with respect to that requirement.</p>
+
+<p><a href="#d1">[D1]</a> testability: Since each of the non-conformance-target requirements in this documents is testable, so must be the totality of the requirements in this document. Therefore, conformance tests for all requirements can exist, and can be described as required in <a href="#d1">[D1]</a>.</p>
+
+<p><a name="r9"> <strong>[R9]</strong> </a>
+A claim that a canonical token list implementation conforms to this specification at <strong>Level 2</strong> or higher MUST describe the testing procedure carried out for each requirement at <strong>Level 2</strong> or higher, that justifies the claim to that requirement.</p>
+
+<p><a href="#r9">[R9]</a> testability: Since each of the non-conformance-target requirements in this documents is testable, so must be the totality of the requirements in this document. Therefore, conformance tests for all requirements can exist, be described, be built and implemented and results can be recorded as required in <a href="#r9">[R9]</a>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The standard follows an already existing approach for address aliasing from Ethereum (L1) to EVM-based L2s such as Arbitrum and Optimism and between L2s, and extends and generalizes it to allow aliasing across any type of EVM-based network irrespective of the network type – L1, L2 or higher layer networks.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="data-privacy">Data Privacy</h3>
+
+<p>The standard does not set any requirements for compliance to jurisdiction legislation/regulations. It is the responsibility of the implementer to comply with applicable data privacy laws.</p>
+
+<h3 id="production-readiness">Production Readiness</h3>
+
+<p>The standard does not set any requirements for the use of specific applications/tools/libraries etc. The implementer should perform due diligence when selecting specific applications/tools/libraries.</p>
+
+<p>There are security considerations as to the Ethereum-type addresses used in the construction of the <code class="language-plaintext highlighter-rouge">relativeAddress</code>.</p>
+
+<p>If the Ethereum-type address used in the <code class="language-plaintext highlighter-rouge">relativeAddress</code> is supposed to be an EOA, the target system/recipient should validate that the <code class="language-plaintext highlighter-rouge">codehash</code> of the source account is <code class="language-plaintext highlighter-rouge">NULL</code> such that no malicious code can be executed surreptitiously in an asset transfer.</p>
+
+<p>If the Ethereum-type address used in the <code class="language-plaintext highlighter-rouge">relativeAddress</code> is supposed to be a smart contract account representing an asset, the target system/recipient should validate that the <code class="language-plaintext highlighter-rouge">codehash</code> of the source account matches the <code class="language-plaintext highlighter-rouge">codehash</code> of the published smart contract solidity code to ensure that the source smart contract behaves as expected.</p>
+
+<p>Lastly, it is recommended that as part of the <code class="language-plaintext highlighter-rouge">relativeAddress</code> validation the target system performs an address checksum validation as defined in <a href="./eip-55.md">ERC-55</a>.</p>
+
+<h3 id="internationalization-and-localization">Internationalization and Localization</h3>
+
+<p>Given the non-language specific features of EVM-based address aliasing, there are no internationalization/localization considerations.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

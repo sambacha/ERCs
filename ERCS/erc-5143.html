@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Slippage Protection for Tokenized Vault | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Slippage Protection for Tokenized Vault | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5143" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5143" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Slippage Protection for Tokenized Vault</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The following standard extends the <a href="./eip-4626.md">EIP-4626</a> Tokenized Vault standard with functions dedicated to the safe interaction between EOAs and the vault when price is subject to slippage.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p><a href="./eip-4626.md">EIP-4626</a> security considerations section states that:</p>
+<blockquote>
+  <p>“If implementors intend to support EOA account access directly, they should consider adding an additional function call for deposit/mint/withdraw/redeem with the means to accommodate slippage loss or unexpected deposit/withdrawal limits, since they have no other means to revert the transaction if the exact output amount is not achieved.”</p>
+</blockquote>
+
+<p>Yet, EIP-4626 does not standardize the corresponding function signatures and behaviors. For improved interroperability, and better support by wallets, it is essential that this optional functions are also standardized.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>This ERC is an extension of EIP-4626. Any contract implementing it MUST also implement EIP-4626.</p>
+
+<h3 id="methods">Methods</h3>
+
+<h4 id="deposit">deposit</h4>
+
+<p>Overloaded version of ERC-4626’s <code class="language-plaintext highlighter-rouge">deposit</code>.</p>
+
+<p>Mints <code class="language-plaintext highlighter-rouge">shares</code> Vault shares to <code class="language-plaintext highlighter-rouge">receiver</code> by depositing exactly <code class="language-plaintext highlighter-rouge">assets</code> of underlying tokens.</p>
+
+<p>MUST emit the <code class="language-plaintext highlighter-rouge">Deposit</code> event.</p>
+
+<p>MUST support <a href="./eip-20.md">EIP-20</a> <code class="language-plaintext highlighter-rouge">approve</code> / <code class="language-plaintext highlighter-rouge">transferFrom</code> on <code class="language-plaintext highlighter-rouge">asset</code> as a deposit flow.
+MAY support an additional flow in which the underlying tokens are owned by the Vault contract before the <code class="language-plaintext highlighter-rouge">deposit</code> execution, and are accounted for during <code class="language-plaintext highlighter-rouge">deposit</code>.</p>
+
+<p>MUST revert if all of <code class="language-plaintext highlighter-rouge">assets</code> cannot be deposited (due to deposit limit being reached, slippage, the user not approving enough underlying tokens to the Vault contract, etc).
+MUST revert if depositing <code class="language-plaintext highlighter-rouge">assets</code> underlying asset mints less then <code class="language-plaintext highlighter-rouge">minShares</code> shares.</p>
+
+<p>Note that most implementations will require pre-approval of the Vault with the Vault’s underlying <code class="language-plaintext highlighter-rouge">asset</code> token.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">deposit</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">nonpayable</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">assets</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">receiver</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">minShares</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+
+  <span class="na">outputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">shares</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+</code></pre></div></div>
+
+<h4 id="mint">mint</h4>
+
+<p>Overloaded version of ERC-4626’s <code class="language-plaintext highlighter-rouge">mint</code>.</p>
+
+<p>Mints exactly <code class="language-plaintext highlighter-rouge">shares</code> Vault shares to <code class="language-plaintext highlighter-rouge">receiver</code> by depositing <code class="language-plaintext highlighter-rouge">assets</code> of underlying tokens.</p>
+
+<p>MUST emit the <code class="language-plaintext highlighter-rouge">Deposit</code> event.</p>
+
+<p>MUST support ERC-20 <code class="language-plaintext highlighter-rouge">approve</code> / <code class="language-plaintext highlighter-rouge">transferFrom</code> on <code class="language-plaintext highlighter-rouge">asset</code> as a mint flow.
+MAY support an additional flow in which the underlying tokens are owned by the Vault contract before the <code class="language-plaintext highlighter-rouge">mint</code> execution, and are accounted for during <code class="language-plaintext highlighter-rouge">mint</code>.</p>
+
+<p>MUST revert if all of <code class="language-plaintext highlighter-rouge">shares</code> cannot be minted (due to deposit limit being reached, slippage, the user not approving enough underlying tokens to the Vault contract, etc).
+MUST revert if minting <code class="language-plaintext highlighter-rouge">shares</code> shares cost more then <code class="language-plaintext highlighter-rouge">maxAssets</code> underlying tokens.</p>
+
+<p>Note that most implementations will require pre-approval of the Vault with the Vault’s underlying <code class="language-plaintext highlighter-rouge">asset</code> token.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mint</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">nonpayable</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">shares</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">receiver</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">maxAssets</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+
+  <span class="na">outputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">assets</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+</code></pre></div></div>
+
+<h4 id="withdraw">withdraw</h4>
+
+<p>Overloaded version of ERC-4626’s <code class="language-plaintext highlighter-rouge">withdraw</code>.</p>
+
+<p>Burns <code class="language-plaintext highlighter-rouge">shares</code> from <code class="language-plaintext highlighter-rouge">owner</code> and sends exactly <code class="language-plaintext highlighter-rouge">assets</code> of underlying tokens to <code class="language-plaintext highlighter-rouge">receiver</code>.</p>
+
+<p>MUST emit the <code class="language-plaintext highlighter-rouge">Withdraw</code> event.</p>
+
+<p>MUST support a withdraw flow where the shares are burned from <code class="language-plaintext highlighter-rouge">owner</code> directly where <code class="language-plaintext highlighter-rouge">owner</code> is <code class="language-plaintext highlighter-rouge">msg.sender</code> or <code class="language-plaintext highlighter-rouge">msg.sender</code> has ERC-20 approval over the shares of <code class="language-plaintext highlighter-rouge">owner</code>.
+MAY support an additional flow in which the shares are transferred to the Vault contract before the <code class="language-plaintext highlighter-rouge">withdraw</code> execution, and are accounted for during <code class="language-plaintext highlighter-rouge">withdraw</code>.</p>
+
+<p>MUST revert if all of <code class="language-plaintext highlighter-rouge">assets</code> cannot be withdrawn (due to withdrawal limit being reached, slippage, the owner not having enough shares, etc).
+MUST revert if withdrawing <code class="language-plaintext highlighter-rouge">assets</code> underlying tokens requires burning more then <code class="language-plaintext highlighter-rouge">maxShares</code> shares.</p>
+
+<p>Note that some implementations will require pre-requesting to the Vault before a withdrawal may be performed. Those methods should be performed separately.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">withdraw</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">nonpayable</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">assets</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">receiver</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">owner</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">maxShares</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+
+  <span class="na">outputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">shares</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+</code></pre></div></div>
+
+<h4 id="redeem">redeem</h4>
+
+<p>Overloaded version of ERC-4626’s <code class="language-plaintext highlighter-rouge">redeem</code>.</p>
+
+<p>Burns exactly <code class="language-plaintext highlighter-rouge">shares</code> from <code class="language-plaintext highlighter-rouge">owner</code> and sends <code class="language-plaintext highlighter-rouge">assets</code> of underlying tokens to <code class="language-plaintext highlighter-rouge">receiver</code>.</p>
+
+<p>MUST emit the <code class="language-plaintext highlighter-rouge">Withdraw</code> event.</p>
+
+<p>MUST support a redeem flow where the shares are burned from <code class="language-plaintext highlighter-rouge">owner</code> directly where <code class="language-plaintext highlighter-rouge">owner</code> is <code class="language-plaintext highlighter-rouge">msg.sender</code> or <code class="language-plaintext highlighter-rouge">msg.sender</code> has ERC-20 approval over the shares of <code class="language-plaintext highlighter-rouge">owner</code>.
+MAY support an additional flow in which the shares are transferred to the Vault contract before the <code class="language-plaintext highlighter-rouge">redeem</code> execution, and are accounted for during <code class="language-plaintext highlighter-rouge">redeem</code>.</p>
+
+<p>MUST revert if all of <code class="language-plaintext highlighter-rouge">shares</code> cannot be redeemed (due to withdrawal limit being reached, slippage, the owner not having enough shares, etc).
+MUST revert if redeeming <code class="language-plaintext highlighter-rouge">shares</code> shares sends less than <code class="language-plaintext highlighter-rouge">minAssets</code> underlying tokens to <code class="language-plaintext highlighter-rouge">receiver</code>.</p>
+
+<p>Note that some implementations will require pre-requesting to the Vault before a withdrawal may be performed. Those methods should be performed separately.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">redeem</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">nonpayable</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">shares</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">receiver</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">owner</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">minAssets</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+
+  <span class="na">outputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">assets</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This ERC’s functions do not replace ERC-4626 equivalent mechanisms. They are additional (overloaded) methods designed to protect EOAs interacting with the vault.</p>
+
+<p>When smart contracts interact with an ERC-4626 vault, they can preview any operation using the dedicated functions before executing the operation. This can be done
+atomically, with no risk of price change. This is not true of EOA, which will preview their operations on a UI, sign a transaction, and have it mined later.
+Between the preview and the transaction being executed, the blockchain state might change, resulting in unexpected outcomes. In particular, frontrunning
+make EOA’s interractons with an ERC-4626 vault possibly risky.</p>
+
+<p>Other projects in the DeFi spaces, such as decentralized exchanges, already include similar mechanisms so a user can request its transaction reverts if the
+resulting exchange rate is not considered good enough.</p>
+
+<p>Implementing This ERC on top of an ERC-4626 contract can be done very easily. It just requires calling the corresponding ERC-4626 function and adding a revert
+check on the returned value.</p>
+
+<h3 id="alternative-approaches">Alternative approaches</h3>
+
+<p>This ERC aims at solving the security concerns (describes in the motivation section) at the vault level. For completeness, we have to mention that these issues can also be addressed using a generic ERC-4626 router, similar to how Uniswap V2 &amp; V3 use a router to provide good user workflows on top of the Uniswap pairs. The router approach is possibly more versatile and leaves more room for evolutions (the router can be replaced at any point) but it also leads to more expensive operations because the router needs to take temporary custody of the tokens going into the vault.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Given an existing ERC-4626 implementation</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">ERC5143</span> <span class="k">is</span> <span class="n">ERC4626</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">minShares</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">shares</span> <span class="o">=</span> <span class="n">deposit</span><span class="p">(</span><span class="n">assets</span><span class="p">,</span> <span class="n">receiver</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">shares</span> <span class="o">&gt;=</span> <span class="n">minShares</span><span class="p">,</span> <span class="s">"ERC5143: deposit slippage protection"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">shares</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="n">mint</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">maxAssets</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">assets</span> <span class="o">=</span> <span class="n">mint</span><span class="p">(</span><span class="n">shares</span><span class="p">,</span> <span class="n">receiver</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">assets</span> <span class="o">&lt;=</span> <span class="n">maxAssets</span><span class="p">,</span> <span class="s">"ERC5143: mint slippage protection"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">assets</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span> <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">maxShares</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">shares</span> <span class="o">=</span> <span class="n">withdraw</span><span class="p">(</span><span class="n">assets</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">owner</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">shares</span> <span class="o">&lt;=</span> <span class="n">maxShares</span><span class="p">,</span> <span class="s">"ERC5143: withdraw slippage protection"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">shares</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="n">redeem</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span> <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">minAssets</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">assets</span> <span class="o">=</span> <span class="n">redeem</span><span class="p">(</span><span class="n">shares</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">owner</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">assets</span> <span class="o">&gt;=</span> <span class="n">minAssets</span><span class="p">,</span> <span class="s">"ERC5143: redeem slippage protection"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">assets</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>This ERC addresses one of the security consideration raised by ERC-4626. Other considerations still apply.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

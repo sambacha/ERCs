@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>zk-SNARK Verifier Standard | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="zk-SNARK Verifier Standard | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1922" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1922" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">zk-SNARK Verifier Standard</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A standard interface for “Verifier” contracts which verify zk-SNARKs.</p>
+
+<h2 id="abstract">Abstract</h2>
+<p>The following standard allows for the implementation of a standard contract API for the verification of zk-SNARKs (“Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge”), also known as “proofs”, “arguments”, or “commitments”.</p>
+
+<p>This standard provides basic functionality to load all necessary parameters for the verification of any zk-SNARK into a verifier contract, so that the proof may ultimately return a <code class="language-plaintext highlighter-rouge">true</code> or <code class="language-plaintext highlighter-rouge">false</code> response; corresponding to whether it has been verified or not verified.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>zk-SNARKs are a promising area of interest for the Ethereum community. Key applications of zk-SNARKs include:</p>
+<ul>
+  <li>Private transactions</li>
+  <li>Private computations</li>
+  <li>Improved transaction scaling through proofs of “bundled” transactions</li>
+</ul>
+
+<p>A standard interface for verifying all zk-SNARKs will allow applications to more easily implement private transactions, private contracts, and scaling solutions; and to extract and interpret the limited information which gets emitted during zk-SNARK verifications.</p>
+
+<p>This standard was initially proposed by EY, and was inspired in particular by the requirements of businesses wishing to keep their agreements, transactions, and supply chain activities confidential—all whilst still benefiting from the commonly cited strengths of blockchains and smart contracts.</p>
+
+<p>:warning: TODO: Explain the benefits to and perspective of a consumer of information. I.e. the thing that interfaces with the standard verifier.</p>
+
+<h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Terminology in this specification is used consistently with libsnark, as provided in that project’s README.</p>
+
+<ul>
+  <li>Adhering Contract — A Verifier contract which adheres to this specification.</li>
+  <li>Arithmetic circuit: An abstraction of logical statements into addition and multiplication gates.</li>
+  <li>Public Inputs: often denoted as a vector ‘x’ in zk-SNARKs literature, and denoted <code class="language-plaintext highlighter-rouge">inputs</code> in this interface. An arithmetic circuit can be thought of as taking two parameters; the Public Inputs, ‘x’, and a secret ‘witness’, ‘w’. This interface standardises functions which can load the <code class="language-plaintext highlighter-rouge">inputs</code> into an Adhering Contract.</li>
+  <li>Proof: A ‘prover’ who wants to ‘prove’ knowledge of some secret witness ‘w’ (which satisfies an arithmetic circuit), generates a <code class="language-plaintext highlighter-rouge">proof</code> from: the circuit’s Proving Key; their secret witness ‘w’; and its corresponding Public Inputs ‘x’. Together, a pair <code class="language-plaintext highlighter-rouge">(proof, inputs)</code> of satisfying <code class="language-plaintext highlighter-rouge">inputs</code> and their corresponding <code class="language-plaintext highlighter-rouge">proof</code> forms a zk-SNARK.</li>
+  <li>Verification Key: A ‘trusted setup’ calculation creates both a public ‘Proving Key’ and a public ‘Verification Key’ from an arithmetic circuit. This interface does not provide a method for loading a Verification Key onto the blockchain. An Adhering Contract SHALL be able to accept arguments of knowledge (<code class="language-plaintext highlighter-rouge">(proof, inputs)</code> pairs) for at least one Verification Key. We shall call such Verification Keys ‘in-scope’ Verification Keys. An Adhering Contract MUST be able to interpret unambiguously a unique <code class="language-plaintext highlighter-rouge">verificationKeyId</code> for each of its ‘in-scope’ Verification Keys.</li>
+</ul>
+
+<p><strong>Every ERC-XXXX compliant verifier contract must implement the <code class="language-plaintext highlighter-rouge">ERCXXXX</code> and <code class="language-plaintext highlighter-rouge">ERC165</code> interfaces</strong> (subject to “caveats” below):</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">6</span><span class="p">;</span>
+
+<span class="c1">/// @title EIP-XXXX zk-SNARK Verifier Standard
+/// @dev See https://github.com/EYBlockchain/zksnark-verifier-standard
+///  Note: the ERC-165 identifier for this interface is 0xXXXXXXXX.
+/// ⚠️ TODO: Calculate interface identifier
+</span><span class="k">interface</span> <span class="n">EIPXXXX</span> <span class="cm">/* is ERC165 */</span> <span class="p">{</span>
+    <span class="c1">/// @notice Checks the arguments of Proof, through elliptic curve
+</span>    <span class="c1">///  pairing functions.
+</span>    <span class="c1">/// @dev
+</span>    <span class="c1">///  MUST return `true` if Proof passes all checks (i.e. the Proof is
+</span>    <span class="c1">///  valid).
+</span>    <span class="c1">///  MUST return `false` if the Proof does not pass all checks (i.e. if the
+</span>    <span class="c1">///  Proof is invalid).
+</span>    <span class="c1">/// @param proof A zk-SNARK.
+</span>    <span class="c1">/// @param inputs Public inputs which accompany Proof.
+</span>    <span class="c1">/// @param verificationKeyId A unique identifier (known to this verifier
+</span>    <span class="c1">///  contract) for the Verification Key to which Proof corresponds.
+</span>    <span class="c1">/// @return result The result of the verification calculation. True
+</span>    <span class="c1">///  if Proof is valid; false otherwise.
+</span>    <span class="k">function</span> <span class="n">verify</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">proof</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">inputs</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">verificationKeyId</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h3 id="interface">Interface</h3>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">ERC165</span> <span class="p">{</span>
+    <span class="c1">/// @notice Query if a contract implements an interface
+</span>    <span class="c1">/// @param interfaceID The interface identifier, as specified in ERC-165
+</span>    <span class="c1">/// @dev Interface identification is specified in ERC-165. This function
+</span>    <span class="c1">///  uses less than 30,000 gas.
+</span>    <span class="c1">/// @return `true` if the contract implements `interfaceID` and
+</span>    <span class="c1">///  `interfaceID` is not 0xffffffff, `false` otherwise
+</span>    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="taxonomy">Taxonomy</h3>
+
+<p>⚠️ TODO: Add a specific reference to libsnark here, explaining the choice of variable names.</p>
+
+<p>:warning: TODO: Explain how <em>C</em> may not necessarily be a satisfiable arithmetic circuit of logical statements. As current, this is a limitation to certain kinds of SNARKS. Whereas the source references also mention polynomials, and other applications.</p>
+
+<p><em>C</em> — A satisfiable arithmetic circuit abstraction of logical statements.</p>
+
+<p><em>lambda​</em> - A random number, generated at the ‘setup’ phase - commonly referred to as ‘toxic waste’, because knowledge of <em>lambda​</em> would allow an untrustworthy party to create ‘false’ proofs which would verify as ‘true’. <em>lambda​</em> must be destroyed.</p>
+
+<p><em>pk​</em> - The proving key for a particular circuit <em>C​</em>.</p>
+
+<p><em>vk</em> - The verification key for a particular circuit <em>C</em>.</p>
+
+<p>Both <em>pk​</em> and <em>vk​</em> are generated as a pair by some function <em>G​</em>:
+<em>(pk, vk) = G(lambda, C)​</em></p>
+
+<p>Note: <em>C</em> can be represented unambiguously by either of <em>pk</em> or <em>vk</em>. In zk-SNARK constructions, <em>vk</em> is much smaller in size than <em>pk</em>, so as to enable succinct verification on-chain. Hence, <em>vk</em> is the representative of <em>C</em> that is ‘known’ to the contract. Therefore, we can identify each circuit uniquely through some <code class="language-plaintext highlighter-rouge">verificationKeyId</code>, where <code class="language-plaintext highlighter-rouge">verificationKeyId</code> serves as a more succinct mapping to <em>vk</em>.</p>
+
+<p><em>w</em> - A ‘private witness’ string. A private argument to the circuit <em>C</em> known only to the prover, which, when combined with the <code class="language-plaintext highlighter-rouge">inputs</code> argument <em>x</em>, comprises an argument of knowledge which satisfies the circuit <em>C</em>.</p>
+
+<p><em>x</em> or <code class="language-plaintext highlighter-rouge">inputs</code> - A vector of ‘Public Inputs’. A public argument to the circuit <em>C</em> which, when combined with the private witness string <em>w</em>, comprises an argument of knowledge which satisfies the circuit <em>C</em>.</p>
+
+<p><em>pi</em> or <code class="language-plaintext highlighter-rouge">proof</code> - an encoded vector of values which represents the ‘prover’s’ ‘argument of knowledge’ of values <em>w</em> and <em>x</em> which satisfy the circuit <em>C</em>.
+<em>pi = P(pk, x, w)</em>.</p>
+
+<p>The ultimate purpose of a Verifier contract, as specified in this EIP, is to verify a proof (of the form <em>pi​</em>) through some verification function <em>V​</em>.</p>
+
+<p><em>V(vk, x, pi) = 1</em>, if there exists a <em>w</em> s.t. <em>C(x,w)=1</em>.
+<em>V(vk, x, pi) = 0</em>, otherwise.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">verify()</code> function of this specification serves the purpose of <em>V​</em>; returning either <code class="language-plaintext highlighter-rouge">true</code> (the proof has been verified to satisfy the arithmetic circuit) or <code class="language-plaintext highlighter-rouge">false</code> (the proof has not been verified).</p>
+
+<h3 id="functions">Functions</h3>
+
+<h4 id="verify"><code class="language-plaintext highlighter-rouge">verify</code></h4>
+<p>The <code class="language-plaintext highlighter-rouge">verify</code> function forms the crux this standard. The parameters are intended to be as generic as possible, to allow for verification of any zk-SNARK:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">proof</code>
+Specified as <code class="language-plaintext highlighter-rouge">uint256[]</code>.
+<code class="language-plaintext highlighter-rouge">uint256</code> is the most appropriate type for elliptic curve operations over a finite field. Indeed, this type is used in the predominant ‘Pairing library’ implementation of zk-SNARKs by Christian Reitweissner.
+A one-dimensional dynamic array has been chosen for several reasons:
+    <ul>
+      <li>Dynamic: There are several possible methods for producing a zk-SNARK proof, including PGHR13, G16, GM17, and future methods might be developed in future. Although each method may produce differently sized proof objects, a dynamic array allows for these differing sizes.</li>
+      <li>Array: An array has been chosen over a ‘struct’ object, because it is currently easier to pass dynamic arrays between functions in Solidity. Any proof ‘struct’ can be ‘flattened’ to an array and passed to the <code class="language-plaintext highlighter-rouge">verify</code> function. Interpretation of that flattened array is the responsibility of the implemented body of the function. Example implementations demonstrate that this can be achieved.</li>
+      <li>One-dimensional: A one-dimensional array has been chosen over multi-dimensional array, because it is currently easier to work with one-dimensional arrays in Solidity. Any proof can be ‘flattened’ to a one-dimensional array and passed to the <code class="language-plaintext highlighter-rouge">verify</code> function. Interpretation of that flattened array is the responsibility of the implemented body of the Adhering Contract. Example implementations demonstrate that this can be achieved.</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">inputs</code>
+Specified as <code class="language-plaintext highlighter-rouge">uint256[]</code>.
+<code class="language-plaintext highlighter-rouge">uint256</code> is the most appropriate type for elliptic curve operations over a finite field. Indeed, this type is used in the predominant ‘Pairing library’ implementation of zk-SNARKs by Christian Reitweissner.
+The number of inputs will vary in size, depending on the number of ‘public inputs’ of the arithmetic circuit being verified against. In a similar vein to the <code class="language-plaintext highlighter-rouge">proof</code> parameter, a one-dimensional dynamic array is general enough to cope with any set of inputs to a zk-SNARK.</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">verificationKeyId</code>
+A verification key (referencing a particular arithmetic circuit) only needs to be stored on-chain once. Any proof (relating to the underlying arithmetic circuit) can then be verified against that verification key. Given this, it would be unnecessary (from a ‘gas cost’ point of view) to pass a duplicate of the full verification key to the <code class="language-plaintext highlighter-rouge">verify</code> function every time a new <code class="language-plaintext highlighter-rouge">(proof, inputs)</code> pair is passed in. We do however need to tell the Adhering Verifier Contract which verification key corresponds to the <code class="language-plaintext highlighter-rouge">(proof, inputs)</code> pair being passed in. A <code class="language-plaintext highlighter-rouge">verificationKeyId</code> serves this purpose - it uniquely represents a verification key as a <code class="language-plaintext highlighter-rouge">bytes32</code> id. A method for uniquely assigning a <code class="language-plaintext highlighter-rouge">verificationKeyId</code> to a verification key is the responsibility of the implemented body of the Adhering Contract.</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<ul>
+  <li>At the time this EIP was first proposed, there was one implementation on the Ethereum main net - deployed by <a href="https://www.ey.com">EY</a>. This was compiled with Solidity 0.4.24 for compatibility with <a href="https://github.com/trufflesuite/truffle">Truffle</a> but otherwise compatible with this standard, which is presented at the latest current version of Solidity.</li>
+  <li>Dr Christian Reitwiessner’s excellent <a href="https://gist.github.com/chriseth/f9be9d9391efc5beb9704255a8e2989d">example</a> of a Verifier contract and elliptic curve pairing library has been instrumental in the Ethereum community’s experimentation and development of zk-SNARK protocols. Many of the naming conventions of this EIP have been kept consistent with his example.</li>
+  <li>Existing zk-SNARK compilers such as <a href="https://github.com/Zokrates/ZoKrates">ZoKrates</a>, which produce ‘Verifier.sol’ contracts, do not currently produce Verifier contracts which adhere to this EIP specification.
+    <ul>
+      <li>:warning: TODO: Provide a converter contract or technique which allows ZoKrates verifier.sol contracts to adhere with this EIP.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Truffle tests of example implementations are included in the test case repository.</p>
+
+<p>⚠️ TODO: Reference specific test cases because there are many currently in the repository.</p>
+
+<h2 id="implementations">Implementations</h2>
+<p>Detailed example implementations and Truffle tests of these example implementations are included in this repository.</p>
+
+<p>:warning: TODO: Update referenced verifier implementations so that they are ready-to-deploy or reference deployed versions of those implementations. At current, the referenced code specifically states “DO NOT USE THIS IN PRODUCTION”.</p>
+
+<p>:warning: TODO: Provide reference to an implementation which interrogates a standard verifier contract that implements this standard.</p>
+
+<h2 id="references">References</h2>
+
+<p>:warning: TODO: Update references and confirm that each reference is cited (parenthetical documentation not necessary) in the text.</p>
+
+<p><strong>Standards</strong></p>
+
+<ol>
+  <li>
+    <p>ERC-20 Token Standard. ./eip-20.md</p>
+  </li>
+  <li>ERC-165 Standard Interface Detection. ./eip-165.md</li>
+  <li>ERC-173 Contract Ownership Standard (DRAFT). ./eip-173.md</li>
+  <li>ERC-196 Precompiled contracts for addition and scalar multiplication on the elliptic curve alt_bn128. ./eip-196.md</li>
+  <li>ERC-197 Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128. ./eip-197.md</li>
+  <li>Ethereum Name Service (ENS). https://ens.domains</li>
+  <li>RFC 2119 Key words for use in RFCs to Indicate Requirement Levels. https://www.ietf.org/rfc/rfc2119.txt</li>
+</ol>
+
+<h5 id="educational-material--zk-snarks">Educational material:  zk-SNARKs</h5>
+<ol>
+  <li>Zcash. What are zk-SNARKs? https://z.cash/technology/zksnarks.html</li>
+  <li>Vitalik Buterin. zk-SNARKs: Under the Hood. https://medium.com/@VitalikButerin/zk-snarks-under-the-hood-b33151a013f6</li>
+  <li>Christian Reitweissner. zk-SNARKs in a Nutshell. https://blog.ethereum.org/2016/12/05/zksnarks-in-a-nutshell/</li>
+  <li>Ben-Sasson, Chiesa, Tromer, et. al. Succinct Non-Interactive Zero Knowledge for a von Neumann Architecture. https://eprint.iacr.org/2013/879.pdf</li>
+</ol>
+
+<h5 id="notable-applications-of-zk-snarks">Notable applications of zk-SNARKs</h5>
+<ol>
+  <li>EY. Implementation of a business agreement through Token Commitment transactions on the Ethereum mainnet. https://github.com/EYBlockchain/ZKPChallenge</li>
+  <li>Zcash. https://z.cash</li>
+  <li>Zcash. How Transactions Between Shielded Addresses Work. https://blog.z.cash/zcash-private-transactions/</li>
+</ol>
+
+<h5 id="notable-projects-relating-to-zk-snarks">Notable projects relating to zk-SNARKs</h5>
+<ol>
+  <li>libsnark: A C++ Library for zk-SNARKs (“project README)”. https://github.com/scipr-lab/libsnark</li>
+  <li>ZoKrates: Scalable Privacy-Preserving Off-Chain Computations. https://www.ise.tu-berlin.de/fileadmin/fg308/publications/2018/2018_eberhardt_ZoKrates.pdf</li>
+  <li>ZoKrates Project Repository. https://github.com/JacobEberhardt/ZoKrates</li>
+  <li>Joseph Stockermans. zkSNARKs: Driver’s Ed. https://github.com/jstoxrocky/zksnarks_example</li>
+  <li>Christian Reitweissner - snarktest.solidity. https://gist.github.com/chriseth/f9be9d9391efc5beb9704255a8e2989d</li>
+</ol>
+
+<h5 id="notable-alternatives-to-zk-snarks---areas-of-ongoing-zero-knowledge-proof-research">Notable ‘alternatives’ to zk-SNARKs - areas of ongoing zero-knowledge proof research</h5>
+<ol>
+  <li>Vitalik Buterin. STARKs. https://vitalik.ca/general/2017/11/09/starks_part_1.html</li>
+  <li>Bu ̈nz, Bootle, Boneh, et. al. Bulletproofs. https://eprint.iacr.org/2017/1066.pdf</li>
+  <li>Range Proofs. https://www.cosic.esat.kuleuven.be/ecrypt/provpriv2012/abstracts/canard.pdf</li>
+  <li>Apple. Secure Enclaves. https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave</li>
+  <li>Intel Software Guard Extensions. https://software.intel.com/en-us/sgx</li>
+</ol>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

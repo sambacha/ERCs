@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>P2P Escrowed Governance Incentives | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="P2P Escrowed Governance Incentives | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6506" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6506" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">P2P Escrowed Governance Incentives</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The following EIP defines the interface for a contract that facilitates the exchange of a governance-incentive for users to vote in a designated direction on a DAO-proposal while escrowing funds until the vote can be verified.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>While a ton of effort has gone into building bribe systems for DAOs like Curve, Frax, Convex, etc., not a lot of focus has been put on how bribes on other, more general DAO votes, may affect outcomes. Bribes are a lucrative market on many popular DAO’s, and it stands to reason that people are willing to accept them for voting on other proposals, especially if they have no personal stake in the outcome. There are however, problems with current systems:</p>
+
+<ol>
+  <li>
+    <p>Current bribe schemes for votes based on pro-rata distribution are economically innefficient and result in worse outcomes for voters. For systems like Votium or Hidden-Hand, If Alice votes on a proposal with the expectation of receiving $10 in bribes, they can just be backrun by a larger voter, diluting their share of the pool. It may no longer be economical to make the decision they did. Using an OTC mechanisms is more efficient because the amount is “locked in” when the bribe is made and the recipient has much more concrete assurances on which to base their decision. These protocols are also centralized, relying on a central authority to accept and redistribute rewards fairly. Whenever possible, centralization should be avoided.</p>
+  </li>
+  <li>
+    <p>The lack of an existing standard means that parties are relying entirely on trust in one-another to obey. Bob has to trust Alice to pay out and Alice has to trust Bob to vote. Even if the two of them were to use an escrow contract, it may have flaws like relying on a trusted third-party, or simply that it is outside the technical reach of both parties.</p>
+  </li>
+  <li>
+    <p>There are no mechanisms for creating transparency into the collusion of actors. Users colluding off-chain to sway the vote of a large token-holder creates opaque outcomes with no accountability since everything happens off-chain.</p>
+  </li>
+  <li>
+    <p>For actors that wish to solicit incentives for their vote, this may require either active management, or the doxxing of their identify/psuedononymous identifier. A user who wishes to negotiate would need to provide a way for incentivizers to contact them, engage in a negotiation process, write and deploy escrow contracts, vote, and then claim their reward. This is a lengthy and involved process that requires active management and communication. This creates a limit on who is able to solicit these incentives, and leads to the centralization of profit towards the few who can sustain this process at length.</p>
+  </li>
+  <li>
+    <p>Bribe Revenue as subsidies. As Vitalik wrote in a 2019 article, <em>On Collusion</em>, a potential solution would be a token that requires voters for a proposal to purchase the governance-token if the proposal-passes, subsidizing the cost of a bad decision for everyone else. If the revenue generated from these incentives is used (at least partly) to directly buy back those tokens by the treasury, then you get a similar outcome. The impact of a bad proposal being passed via-bribing is subsidized for everyone who didn’t vote for it by having some value returned to token-holders. This not only makes malicious bribes more costly, as it has to offset the value accrued via buyback, but also means higher profits for recipients.</p>
+  </li>
+</ol>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>The key words “BRIBE” and “INCENTIVE” are to be interpreted as the transfer of a digital-asset(s) from user A to user B in exchange for an assurance that user B will vote in a specific-direction, on a specific proposal, for a specified-DAO. If user B does not honor the arrangement, the digital-asset(s) will be returned to user A.</p>
+
+<p>The key words “BRIBER”, “INCENTIVIZER”, and “SENDER” shall refer to the user A offering monetrary compensation to user B. “RECIPIENT”, “VOTER”, and “INCENTIVIZEE” herein refer to user B whom shall formally receive their compensation upon the termination of the agreement.</p>
+
+<p>The key word “VOTE” shall be interpreted as the casting of a ballot in any kind of governance system which uses accounts as a form of permissions.</p>
+
+<p>Contracts wishing to implement such a standard must implement the following interface</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IEscrowedGovIncentive</span> <span class="p">{</span>
+
+  <span class="k">struct</span> <span class="n">incentive</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">incentiveToken</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">incentivizer</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">recipient</span><span class="p">;</span>
+    <span class="kt">uint</span> <span class="n">amount</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">proposalId</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="n">direction</span><span class="p">;</span> <span class="c1">//the keccack256 of the vote direction
+</span>    <span class="kt">uint96</span> <span class="n">deadline</span><span class="p">;</span>
+    <span class="kt">uint96</span> <span class="n">timestamp</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">claimed</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">event</span> <span class="n">incentiveSent</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">incentivizer</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">token</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">data</span><span class="p">);</span>
+
+  <span class="k">event</span> <span class="n">incentiveReclaimed</span><span class="p">(</span><span class="kt">address</span> <span class="n">incentivizer</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">token</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">data</span><span class="p">);</span>
+
+  <span class="k">event</span> <span class="n">modifiedClaimer</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">address</span> <span class="n">claimer</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">direction</span><span class="p">);</span>
+
+  <span class="k">event</span> <span class="n">incentiveClaimed</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">incentivizer</span><span class="p">,</span> <span class="kt">address</span> <span class="n">voter</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">incentiveId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">proofData</span><span class="p">);</span>
+
+  <span class="k">event</span> <span class="n">disputeInitiated</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">incentiveId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">plaintiff</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">defendant</span><span class="p">);</span>
+
+  <span class="k">event</span> <span class="n">disputeResolved</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">incentive</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">plaintiff</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">defendant</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">dismissed</span><span class="p">);</span>
+
+
+  <span class="c1">//Core mechanism
+</span>  <span class="k">function</span> <span class="n">incentivize</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">incentiveId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">incentiveInfo</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+  <span class="k">function</span> <span class="n">claimIncentive</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">incentiveId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">reveal</span><span class="p">,</span> <span class="kt">address</span> <span class="k">payable</span> <span class="n">recipient</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+  
+  <span class="k">function</span> <span class="n">reclaimIncentive</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">incentiveId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">reveal</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+  
+  <span class="k">function</span> <span class="n">verifyVote</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">incentive</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">voteInfo</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">isVerifiable</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">proofData</span><span class="p">);</span>
+
+  <span class="k">function</span> <span class="n">modifyClaimer</span><span class="p">(</span><span class="kt">address</span> <span class="n">claimer</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">designation</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">//Dispute Mechanism
+</span>  <span class="k">function</span> <span class="n">beginDispute</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">incentiveId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">disputeInfo</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+  <span class="k">function</span> <span class="n">resolveDispute</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">incentiveId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">disputeResolutionInfo</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">isDismissed</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="optional-implementation-details">Optional Implementation Details</h3>
+
+<p>Below are three potential implementation examples of the above system for different aspects.</p>
+
+<h4 id="complete-transparency"><em>Complete Transparency</em></h4>
+
+<p>In this version all information about the vote direction, the amount, and the recipient are public at all times. Information is passed as calldata in plaintext and stored/emitted as such.</p>
+
+<h4 id="opacity-until-completion-ouc"><em>Opacity until Completion (OUC)</em></h4>
+
+<p>In this model, the recipient, the direction, and the amount are kept secret until the incentive is claimed. In this model, the data is committed to, and an encrypted version is passed as calldata. This data can be encrypted with the recipient’s public-key. It should be emitted as such which can then be decrypted off-chain by the recipient and used to make a determination on whether to oblige. In this model to ensure the privacy of transferring funds into escrow, the incentivizer could use methods such as deterministic-address-generation with the create2 opcode.</p>
+
+<p>Upon the claiming of the bribe the recipient would simply open the committment, which would then be checked on-chain and funds released.</p>
+
+<h4 id="compatibility-with-off-chain-voting"><em>Compatibility with Off-Chain Voting</em></h4>
+
+<p>Many DAO’s operate off-chain, typically through voting platforms like snapshot. This sytem does allow for such compatability using known signature data. Consider the following example</p>
+
+<ol>
+  <li>User A commits an incentive to user B to vote on snapshot. User B votes.</li>
+  <li>Once the deadline has passed, a challenge window is initiated. The incentivizer has a predetermined window to demonstrate that the bribe was not honored. This can be done by simply passing to the contract a signature signed by User B voting in the opposite direction of the bribe. If the signature can be verified, then the arrangement was not honored and funds can be safely released back to user A.</li>
+  <li>If the challenge window concludes without A being able produce proof of noncompliance, then B is able to claim the reward. If B voted inline with the incentive, A will not be able to produce a valid signature of noncompliance. The challenge window with A demonstrating noncompliance is necesarry, because otherwise B could simply sign a message and not broadcast it, allowing them to claim the reward without voting.</li>
+  <li>In the event that B does NOT vote at all, then a special challenge period may be entered. Since B did not vote at all, A would not be able to produce the requisite proof, but B would still be able to claim the reward without complying. In this event, user A would have the option to enter a special dispute period. The details of this are determined by the contract implementation. This can include resolution by a trusted third-party, or other methods. An example includes using a merkle-root to show that B was not in the list of voters at the conclusion of the proposal. It should be considered making A present a</li>
+</ol>
+
+<h3 id="methods">Methods</h3>
+
+<p>While this EIP defines a struct <em>incentive</em>, <code class="language-plaintext highlighter-rouge">bytes memory</code> should be used whenever possible. Given as each DAO will have its own implementation details, interfaces, and signature data, this should then be decoded using <code class="language-plaintext highlighter-rouge">abi.decode()</code> and interpreted according to those known specifications.</p>
+
+<h4 id="incentivize"><code class="language-plaintext highlighter-rouge">incentivize</code></h4>
+
+<p>The function where an incentivizer should commit to the details of their incentive. The commitment value can be calculated off-chain or calculated on-chain in a full transparency system. The function should take the input data from <code class="language-plaintext highlighter-rouge">incentiveInfo</code> and create store a new <code class="language-plaintext highlighter-rouge">incentive</code> object in the mapping incentives. If OUC is enabled, then only incentivizer and timestamp information need be public, everything else should be left as zero.</p>
+
+<p>Function should account for fees taken from user at deposit. If fees are present, then <code class="language-plaintext highlighter-rouge">incentivize</code> should take them up front. This is to ensure that the amount quoted to a recipient is <em>at least</em> as much as they would receive.</p>
+
+<p>MUST emit the <code class="language-plaintext highlighter-rouge">incentiveSent</code> event</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentivize</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">payable</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveId</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes32</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveInfo</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes memory</span>
+</code></pre></div></div>
+
+<h4 id="claimincentive"><code class="language-plaintext highlighter-rouge">claimIncentive</code></h4>
+
+<p>Should be used by the intended recipient of a previously-committed incentive.</p>
+
+<p>MUST revert if <code class="language-plaintext highlighter-rouge">msg.sender != original_recipient</code> and <code class="language-plaintext highlighter-rouge">!allowedClaimer[original_recipient][msg.sender]</code></p>
+
+<p>MUST revert if the data provided in <code class="language-plaintext highlighter-rouge">reveal</code> does not match the data committed to by <code class="language-plaintext highlighter-rouge">incentiveId</code>.</p>
+
+<p>MUST revert if all funds committed to cannot be properly sent to <code class="language-plaintext highlighter-rouge">recipient</code> at conclusion of the function. If fees are present, then additional funds should be present at deposit to ensure that <em>at least</em> the amount committed to is sent to the user. This however, <strong>DOES NOT</strong> apply to any fees which may be taken by an approved claimer.</p>
+
+<p>Ex: Alice commits to Bob an incentive 100 USDC. Bob has approved Eve to claim on his behalf in exchange for 5% of net value. Function should check that amount paid to Bob and Eve is <code class="language-plaintext highlighter-rouge">&gt;=100 USDC</code> but <strong>NOT</strong> that Bob himself receives <code class="language-plaintext highlighter-rouge">&gt;=100 USDC</code></p>
+
+<p>MUST revert if the voting direction of the original recipient cannot be verified as being in line with the intended direction of <code class="language-plaintext highlighter-rouge">incentiveId</code>, and no dispute resolution process is defined.</p>
+
+<p>MUST revert if the specified incentive has a pending dispute.</p>
+
+<p>If verification is successful then funds should be sent to <code class="language-plaintext highlighter-rouge">recipient</code>.</p>
+
+<p>MUST emit the <code class="language-plaintext highlighter-rouge">incentiveClaimed</code> event if function does not revert.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">claimIncentive</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">nonpayable</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveId</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes32</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">reveal</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes memory</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">recipient</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address payable</span>
+</code></pre></div></div>
+
+<h4 id="reclaimincentive"><code class="language-plaintext highlighter-rouge">reclaimIncentive</code></h4>
+
+<p>Function that should be invoked by the initial sender of <code class="language-plaintext highlighter-rouge">incentiveId</code> in the event that <code class="language-plaintext highlighter-rouge">recipient</code> did not vote in accordance with the incentive’s <code class="language-plaintext highlighter-rouge">direction</code>. Function should return the funds initially committed to by <code class="language-plaintext highlighter-rouge">incentiveId</code> to <code class="language-plaintext highlighter-rouge">incentivizer</code></p>
+
+<p>MUST revert if all of the funds committed to cannot be returned to the incentivizer.</p>
+
+<p>MUST revert if the function cannot successfully verify the validity of <code class="language-plaintext highlighter-rouge">msg.sender</code> claim of non-compliance.</p>
+
+<p>MUST emit the event <code class="language-plaintext highlighter-rouge">incentiveReclaimed</code> if verification is successful. If proof can be retrieved on-chain, then the <code class="language-plaintext highlighter-rouge">proof</code> parameter may be left empty.</p>
+
+<p>MUST revert if the specified incentive has a pending dispute.</p>
+
+<p>If fees are taken, then all funds including any prepaid fees committed to should be returned to the <code class="language-plaintext highlighter-rouge">incentivizer</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">reclaimIncentive</span>
+    <span class="s">type</span><span class="pi">:</span> <span class="s">function</span>
+    <span class="s">stateMutability</span><span class="pi">:</span> <span class="s">nonpayable</span>
+  
+    <span class="s">inputs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveId</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">bytes32</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">reveal</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">bytes memory</span>
+</code></pre></div></div>
+
+<h4 id="verifyvote"><code class="language-plaintext highlighter-rouge">verifyVote</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">function verifyVote(bytes32 incentive, bytes memory voteInfo) public view returns (bool isVerifiable);</code></p>
+
+<p>Function used to determine if the voter for <code class="language-plaintext highlighter-rouge">incentive</code> should receive the incentive originally committed to.</p>
+
+<p>Functions may use whatever scheme they like to determine this information. Necesarry data should be encoded and passed through <code class="language-plaintext highlighter-rouge">voteInfo</code>.</p>
+
+<p>MUST return <code class="language-plaintext highlighter-rouge">false</code> if <code class="language-plaintext highlighter-rouge">voteInfo</code> indicates that <code class="language-plaintext highlighter-rouge">recipient</code> did not vote in the direction committed to by <code class="language-plaintext highlighter-rouge">incentive</code>, and true otherwise.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verifyVote</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">view</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveId</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes32</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">voteInfo</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes memory</span>
+
+  <span class="na">outputs</span><span class="pi">:</span> 
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">isVerified</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bool</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">proofData</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes memory</span>
+</code></pre></div></div>
+
+<h4 id="modifyclaimer"><code class="language-plaintext highlighter-rouge">modifyClaimer</code></h4>
+
+<p>Function changing the designation of an address as being approved to claim a bribe on behalf of another user. Only an approved claimer should be able to claim the incentive on behalf of the user which approved them.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">modifyClaimer</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">nonpayable</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">claimer</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">designation</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bool</span>
+
+</code></pre></div></div>
+
+<h4 id="begindispute"><code class="language-plaintext highlighter-rouge">beginDispute</code></h4>
+
+<p>A function used to initiate the resolution of an incentive through an optional dispute-mechanism. At the discretion of the developers, and based on the specifics of the vote-verification mechanism in which a voting direction cannot be conclusively decided, the developers may opt for an additional mechanism to resolve dispute between parties. This may include third-party intervention, additional cryptographic evidence, etc. needed to determine whether to pay out rewards to <code class="language-plaintext highlighter-rouge">recipient</code> or return them to the <code class="language-plaintext highlighter-rouge">incentivizer</code></p>
+
+<p>Potential Examples requiring additional dispute mechanisms:</p>
+
+<ol>
+  <li>Requiring a trusted third-party to resolve disputes.</li>
+  <li>The recipient did not vote in an off-chain proposal, and additional off-chain information is needed to confirm.</li>
+  <li>An additional unlocking mechanism is required to access previously deposited funds.</li>
+</ol>
+
+<p>Dispute mechanisms may optionally choose to require a bond from the filer to prevent frivolous filings, to be returned to them on successful resolution of the dispute in their favor.</p>
+
+<p>Must emit the event <code class="language-plaintext highlighter-rouge">disputeInitiated</code></p>
+
+<p>Once a dispute for a given incentive has been filed, neither the <code class="language-plaintext highlighter-rouge">incentivizer</code> nor <code class="language-plaintext highlighter-rouge">recipient</code> should be able to withdraw funds until completed.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">beginDispute</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">payable</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveId</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes32</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">disputeInfo</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes memory</span>
+</code></pre></div></div>
+
+<h4 id="resolvedispute"><code class="language-plaintext highlighter-rouge">resolveDispute</code></h4>
+
+<p>A function which is used to resolve pending disputes over <code class="language-plaintext highlighter-rouge">incentiveId</code>. The exact mechanism shall be specified by the developers.</p>
+
+<p>MUST return false, and be <em>“dismissed”</em>, if the mechanisms resolves the dispute in favor of the defendant <code class="language-plaintext highlighter-rouge">(recipient)</code>, by showing they did honor the incentive of <code class="language-plaintext highlighter-rouge">incentiveId</code>. If the dispute is <em>“confirmed”</em>, then the function should return true.</p>
+
+<p>MUST transfer funds committed to by <code class="language-plaintext highlighter-rouge">incentivizer</code> to <code class="language-plaintext highlighter-rouge">recipient</code> if dispute is <code class="language-plaintext highlighter-rouge">dismissed</code> and return <code class="language-plaintext highlighter-rouge">funds + fee + bond</code> to the <code class="language-plaintext highlighter-rouge">plaintiff</code>. If dismissed, the distribution of the bond shall be at the discretion of the developers. This may including burning, awarding to the defendant, or donating to a community treasury.</p>
+
+<p>MUST emit the event <code class="language-plaintext highlighter-rouge">disputeResolved</code> on successful resolution.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">resolveDispute</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">function</span>
+  <span class="na">stateMutability</span><span class="pi">:</span> <span class="s">nonPayable</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveId</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes32</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">disputeResolutionInfo</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes memory</span>
+  
+  <span class="na">outputs</span><span class="pi">:</span> 
+    <span class="pi">-</span> <span class="s">name isDismissed</span>
+      <span class="s">type</span><span class="pi">:</span> <span class="s">bool</span>
+</code></pre></div></div>
+
+<h3 id="events">Events</h3>
+
+<h4 id="incentivesent"><code class="language-plaintext highlighter-rouge">incentiveSent</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">incentivizer</code> has bribed <code class="language-plaintext highlighter-rouge">recipient</code> <code class="language-plaintext highlighter-rouge">amount</code> of <code class="language-plaintext highlighter-rouge">token</code> for some information.</p>
+
+<p>If system is private then recipient, amount, and <code class="language-plaintext highlighter-rouge">token</code> may be left as zero.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveSent</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">event</span>
+
+  <span class="na">inputs</span><span class="pi">:</span> 
+    <span class="pi">-</span> <span class="s">name incentivizer</span>
+      <span class="s">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">token</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">amount</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">recipient</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+</code></pre></div></div>
+
+<h4 id="incentiveclaimed"><code class="language-plaintext highlighter-rouge">incentiveClaimed</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">recipient</code> claimed an incentive <code class="language-plaintext highlighter-rouge">amount</code> of <code class="language-plaintext highlighter-rouge">token</code> and any other data relevant.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveClaimed</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">event</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">recipient</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">token</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">amount</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">uint256</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">data</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes</span>
+</code></pre></div></div>
+
+<h4 id="modifiedclaimer"><code class="language-plaintext highlighter-rouge">modifiedClaimer</code></h4>
+
+<p>A new <code class="language-plaintext highlighter-rouge">claimer</code> was either whitelisted by <code class="language-plaintext highlighter-rouge">recipient</code> or blacklisted.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">modifiedClaimer</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">event</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">recipient</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">claimer</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">direction</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bool</span>
+</code></pre></div></div>
+
+<h4 id="incentivereclaimed"><code class="language-plaintext highlighter-rouge">incentiveReclaimed</code></h4>
+
+<p>An <code class="language-plaintext highlighter-rouge">incentivizer</code> is reclaiming <code class="language-plaintext highlighter-rouge">incentiveId</code>, and outing the noncompliance of <code class="language-plaintext highlighter-rouge">voter</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveReclaimed</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">event</span>
+
+  <span class="na">inputs</span><span class="pi">:</span> 
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentivizer</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">voter</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveId</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes32</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">proofData</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes</span>
+</code></pre></div></div>
+
+<h4 id="disputeinitiated"><code class="language-plaintext highlighter-rouge">disputeInitiated</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">incentivizer</code> has initiated a dispute with <code class="language-plaintext highlighter-rouge">plaintiff</code> over <code class="language-plaintext highlighter-rouge">incentiveId</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">disputeInitiated</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">event</span>
+
+  <span class="na">inputs</span><span class="pi">:</span> 
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveId</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes32</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">plaintiff</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">defendant</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+</code></pre></div></div>
+
+<h4 id="disputeresolved"><code class="language-plaintext highlighter-rouge">disputeResolved</code></h4>
+
+<p>The dispute over <code class="language-plaintext highlighter-rouge">incentiveId</code> has been resolved, either <code class="language-plaintext highlighter-rouge">dismissed</code> in favor of <code class="language-plaintext highlighter-rouge">defendant</code> or resolved in favor of the <code class="language-plaintext highlighter-rouge">plaintiff</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">disputeResolved</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">event</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">incentiveId</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bytes32</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">plaintiff</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">defendant</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">address</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">dismissed</span>
+      <span class="na">indexed</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">bool</span>
+      
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This design was motivated by a few factors:</p>
+
+<ol>
+  <li>
+    <p>The issue of offering incentives for votes is an inevitability. There is no mechanism that can prevent users from colluding off-chain to vote a certain direction, and with enough obfuscation, can be completely hidden from the community’s view. The solution is therefore to realign the incentives of these actors in a way that both creates transparency, while allowing for the decentralization of bribe-revenue. Flashbots is a relevant example. Since MEV could not be prevented, the solution was to make it more fairly distributed by incentivizing miners to use Flashbots-Geth with profits. Using an OTC market structure would have the same effect, allowing anyone to reap the benefits of a potential incentive while also creating a more efficient marketplace.</p>
+  </li>
+  <li>
+    <p>Injecting transparency about whom is bribing whom for what increases both fairness and profitability. This makes it possible for the community to organize around potential solutions. Ex: Alice pays Bob $10 for his 1k votes in the DAO. This is now known on-chain and next time someone who cares about the outcome can offer Bob $11 for the votes. This maximizes profit to the recipient.</p>
+  </li>
+</ol>
+
+<p><strong>Implementations should operate similar to the following example:</strong></p>
+
+<ol>
+  <li>
+    <p>Alice wants to give bob $10 to vote YES on DAO proposal #420. She wants an assurance he will do it and gets the money back if he doesn’t</p>
+  </li>
+  <li>
+    <p>It should work as an escrow service for both on-chain and snapshot based voting, releasing funds only after the vote has concluded, and it can be verified the recipient voted in line with the vote. It should be done without requiring a trusted third-party to escrow and release the funds themselves.</p>
+  </li>
+  <li>
+    <p>This EIP makes no discernment about the nature in which this information is relayed to the recipient. Implementation details are at the discretion of the protocol. This includes the optional decisions to enable privacy for both the recipient and the amount. Information on how this can be implemented is below. Once the vote has occured, then the contents of the bribe can be claimed, pending verification. This verification should satisfy both soundness and completeness, that only after the user can show they did vote in line with the incentive do they receive the funds, and that such proof cannot be forged or misleading in any way.</p>
+  </li>
+</ol>
+
+<p><strong>Factors to consider</strong></p>
+
+<ol>
+  <li>
+    <p>To remedy the problem of diluted rewards, the system uses a simple hash-based commitment scheme. When an incentive is sent, its data is committed to, and revealed when withdrawn.</p>
+  </li>
+  <li>
+    <p>Once a bribe is committed to, it cannot be withdrawn until after the voting period for the proposal has concluded. This is to ensure the legitimacy of the escrow, so that user A cannot withdraw the bribe after B has voted, but before they can claim the reward.</p>
+  </li>
+</ol>
+
+<h3 id="potential-ethical-issues">Potential Ethical Issues</h3>
+
+<p>Potential ethical issues have been raised about the prospect of potentially encouraging users to accept monetary payment for their vote. This is the wrong frame of reference. The question is not whether it is ethical to encourage users to send/solicit, but rather the consequences of doing nothing. Returning to the flashbots example, the question is not whether MEV is ethical, but reprecussions of allowing it to flourish without pushback.</p>
+
+<p>If nothing is done, the following outcomes are possible:</p>
+
+<ol>
+  <li>
+    <p>Flywheel Effect - Only dedicated and financially endowed holders will solicit incentives with impunity. This centralization of profit allows them to purchase more voting-rights, increasing power and so on until they have accumulated a critical mass, exerting potentially harmful influence over operations. This can range anywhere from minor operational decisions, to votes over treasury resolution.</p>
+  </li>
+  <li>
+    <p>Lack of transparency - Decisionmaking will occur behind closed doors as the true intentions of voters is unclear, and votes that should pass may fail, or vice-versa. The will of the community will not be honored.</p>
+  </li>
+</ol>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues found.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>This standard is intended to work with existing governance systems. Any potential issue with existing governance may represent a potential attack on this as well. This includes voting-weight manipulation, vote forgery, verification discrepancies etc. All systems in which this EIP is integrated with should be properly audited for maximum security, as any issues may result in improper distribution of these governance incentives.</p>
+
+<p>Potential implementations of this system may rely on complex cryptographic operations as well. This may include proper implementation of digitial-signatures to prevent replay attacks, or correctness requirements of SNARK proofs. These features may be <strong>non-trivial</strong> and thus require special care to ensure they are implemented and configured securely, otherwise features like confidentiality may be violated.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

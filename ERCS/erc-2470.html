@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Singleton Factory | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Singleton Factory | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-2470" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-2470" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Singleton Factory</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>Some DApps needs one, and only one, instance of an contract, which have the same address on any chain.</p>
+
+<p>A permissionless factory for deploy of keyless deterministic contracts addresses based on its bytecode.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Some contracts are designed to be Singletons which have the same address no matter what chain they are, which means that should exist one instance for all, such as <a href="./eip-1820.md">EIP-1820</a> and <a href="https://gitlab.com/status-im/docs/EIPs/blob/secret-multisig-recovery/EIPS/eip-2429.md">EIP-2429</a>. These contracts are usually deployed using a method known as <a href="https://github.com/Arachnid/">Nick</a>’s method, so anyone can deploy those contracts on any chain and they have a deterministic address.
+This standard proposes the creation of a CREATE2 factory using this method, so other projects requiring this feature can use this factory in any chain with the same setup, even in development chains.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Code reuse, using the factory becomes easier to deploy singletons.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="erc-2470-singleton-factory">[ERC-2470] Singleton Factory</h3>
+
+<blockquote>
+  <p>This is an exact copy of the code of the [ERC2470 factory smart contract].</p>
+</blockquote>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.6</span><span class="p">.</span><span class="mi">2</span><span class="p">;</span>
+
+
+<span class="cm">/**
+ * @title Singleton Factory (EIP-2470)
+ * @notice Exposes CREATE2 (EIP-1014) to deploy bytecode on deterministic addresses based on initialization code and salt.
+ * @author Ricardo Guilherme Schmidt (Status Research &amp; Development GmbH)
+ */</span>
+<span class="k">contract</span> <span class="n">SingletonFactory</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Deploys `_initCode` using `_salt` for defining the deterministic address.
+     * @param _initCode Initialization code.
+     * @param _salt Arbitrary value to modify resulting address.
+     * @return createdContract Created contract address.
+     */</span>
+    <span class="k">function</span> <span class="n">deploy</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_initCode</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">_salt</span><span class="p">)</span>
+        <span class="k">public</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">createdContract</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">createdContract</span> <span class="o">:=</span> <span class="n">create2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="n">_initCode</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">),</span> <span class="n">mload</span><span class="p">(</span><span class="n">_initCode</span><span class="p">),</span> <span class="n">_salt</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// IV is a value changed to generate the vanity address.
+// IV: 6583047
+</span></code></pre></div></div>
+
+<h3 id="deployment-transaction">Deployment Transaction</h3>
+
+<p>Below is the raw transaction which MUST be used to deploy the smart contract on any chain.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0xf9016c8085174876e8008303c4d88080b90154608060405234801561001057600080fd5b50610134806100206000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80634af63f0214602d575b600080fd5b60cf60048036036040811015604157600080fd5b810190602081018135640100000000811115605b57600080fd5b820183602082011115606c57600080fd5b80359060200191846001830284011164010000000083111715608d57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250929550509135925060eb915050565b604080516001600160a01b039092168252519081900360200190f35b6000818351602085016000f5939250505056fea26469706673582212206b44f8a82cb6b156bfcc3dc6aadd6df4eefd204bc928a4397fd15dacf6d5320564736f6c634300060200331b83247000822470
+</code></pre></div></div>
+
+<p>The strings of <code class="language-plaintext highlighter-rouge">2470</code>’s at the end of the transaction are the <code class="language-plaintext highlighter-rouge">r</code> and <code class="language-plaintext highlighter-rouge">s</code> of the signature.
+From this deterministic pattern (generated by a human), anyone can deduce that no one knows the private key for the deployment account.</p>
+
+<h3 id="deployment-method">Deployment Method</h3>
+
+<p>This contract is going to be deployed using the keyless deployment method—also known as <a href="https://github.com/Arachnid/">Nick</a>’s method—which relies on a single-use address.
+(See <a href="https://medium.com/@weka/how-to-send-ether-to-11-440-people-187e332566b7">Nick’s article</a> for more details). This method works as follows:</p>
+
+<ol>
+  <li>Generate a transaction which deploys the contract from a new random account.
+    <ul>
+      <li>This transaction MUST NOT use <a href="./eip-155.md">EIP-155</a> in order to work on any chain.</li>
+      <li>This transaction MUST have a relatively high gas price to be deployed on any chain. In this case, it is going to be 100 Gwei.</li>
+    </ul>
+  </li>
+  <li>Forge a transaction with the following parameters:
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="p">{</span>
+     <span class="nl">nonce</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+     <span class="nx">gasPrice</span><span class="p">:</span> <span class="mi">100000000000</span><span class="p">,</span>
+     <span class="nx">value</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+     <span class="nx">data</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0x608060405234801561001057600080fd5b50610134806100206000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80634af63f0214602d575b600080fd5b60cf60048036036040811015604157600080fd5b810190602081018135640100000000811115605b57600080fd5b820183602082011115606c57600080fd5b80359060200191846001830284011164010000000083111715608d57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600092019190915250929550509135925060eb915050565b604080516001600160a01b039092168252519081900360200190f35b6000818351602085016000f5939250505056fea26469706673582212206b44f8a82cb6b156bfcc3dc6aadd6df4eefd204bc928a4397fd15dacf6d5320564736f6c63430006020033</span><span class="dl">'</span><span class="p">,</span>
+     <span class="nx">gasLimit</span><span class="p">:</span> <span class="mi">247000</span><span class="p">,</span>
+     <span class="nx">v</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+     <span class="nx">r</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0x247000</span><span class="dl">'</span><span class="p">,</span>
+     <span class="nx">s</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0x2470</span><span class="dl">'</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+    <blockquote>
+      <p>The <code class="language-plaintext highlighter-rouge">r</code> and <code class="language-plaintext highlighter-rouge">s</code> values, made of starting <code class="language-plaintext highlighter-rouge">2470</code>, are obviously a human determined value, instead of a real signature.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>We recover the sender of this transaction, i.e., the single-use deployment account.</p>
+
+    <blockquote>
+      <p>Thus we obtain an account that can broadcast that transaction, but we also have the warranty that nobody knows the private key of that account.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Send exactly 0.0247 ether to this single-use deployment account.</p>
+  </li>
+  <li>
+    <p>Broadcast the deployment transaction.</p>
+
+    <blockquote>
+      <p>Note: 247000 is the double of gas needed to deploy the smart contract, this ensures that future changes in OPCODE pricing are unlikely to cause this deploy transaction to fail out of gas. A left over will sit in the address of about 0.01 ETH will be forever locked in the single use address.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<p>The resulting transaction hash is <code class="language-plaintext highlighter-rouge">0x803351deb6d745e91545a6a3e1c0ea3e9a6a02a1a4193b70edfcd2f40f71a01c</code>.</p>
+
+<p>This operation can be done on any chain, guaranteeing that the contract address is always the same and nobody can use that address with a different contract.</p>
+
+<h3 id="single-use-factory-deployment-account">Single-use Factory Deployment Account</h3>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAB0UlEQVR4nO3asW1CQRBAQdpyCa6CIpxTjgujDGTJNEC2QqvjTbDx33c3P7vL79f1fzLf98dobn8/o5nuP53p/tPzm+5/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4CMBnH6B0/23L2AbEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ8JYPsCtw+w3g9AvB+AeD8A8X4A4v0AxPsBiPcDEO8HIN4PQLwfgHg/APF+AOL9AMT7AYj3AxDvP/5ByOkApt/PvwgCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgJYDtA9w+gO0fYHsAAGB/CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAdALYfNExnun+9H4B4PwDxfgDi/QDE+wGI9wMQ7wcg3g9AvB+AeD8A8X4A4v0AxPsBiPcDEO8HIN4/fhCy/aDidADb5wcAAGcHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8CsH2ApwPY/j4Ah+8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPB6nlegoDNgrfyiAAAAAElFTkSuQmCC" alt="" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">0xBb6e024b9cFFACB947A71991E386681B1Cd1477D</code></p>
+
+<p>This account is generated by reverse engineering it from its signature for the transaction. 
+This way no one knows the private key, but it is known that it is the valid signer of the deployment transaction.</p>
+
+<blockquote>
+  <p>To deploy the registry, 0.0247 ether MUST be sent to this account <em>first</em>.</p>
+</blockquote>
+
+<h3 id="factory-contract-address">Factory Contract Address</h3>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAABn0lEQVR4nO3coRECMRRF0S2GutCUQzd4WqAMLB4qQGWYP+EecXXeZo/OcTrf35Ndbq+l7F/rmB6w+wXuvh+A+H4A4vsBiO8HIL4fgPh+AOL7AYjvByC+H4D4fgDi+wGI7wcgvh+A+H4A4vuXAUxfwPX5GG33+wMAgL0/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPgGYHrA9A+cbhoQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wlgesD0+bvvXz0fgM33AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB8ATB9gZoNgHgAxAMgHgDxAIgHQDwA4gEQD4B4AMQDIB4A8QCIB0A8AOId0w8caK3V/wfA5gEQD4B4AMQDIB4A8QCIB0A8AOIBEA+AeADEAyAeAPEAiAdAPADiARAPgHgAxAMgHgDxAIgHQDwA4gEQD4B4AMQDIB4A8QCItwxg+oECDT8QMT1AAAgAASAABIAAEAACQAAIAAEgAASAANAv+gDxVDRR1CVqRAAAAABJRU5ErkJggg==" alt="" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">0xce0042B868300000d44A59004Da54A005ffdcf9f</code></p>
+
+<p>The contract has the address above for every chain on which it is deployed.</p>
+<h3 id="abi-for-singletonfactory">ABI for SingletonFactory:</h3>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"constant"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"internalType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bytes"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"_initCode"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bytes"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"internalType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bytes32"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"_salt"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bytes32"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deploy"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"internalType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"address payable"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"createdContract"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"address"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"payable"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"stateMutability"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nonpayable"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"function"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>SingletonFactory does not allow sending value on create2, this was done to prevent different results on the created object. 
+SingletonFactory allows user defined salt to facilitate the creation of vanity addresses for other projects. If vanity address is not necessary, salt <code class="language-plaintext highlighter-rouge">bytes(0)</code> should be used.
+Contracts that are constructed by the SingletonFactory MUST not use <code class="language-plaintext highlighter-rouge">msg.sender</code> in their constructor, all variables must came through initialization data. This is intentional, as if allowing a callback after creation to aid initialization state would lead to contracts with same address (but different chains) to have the same address but different initial state.
+The resulting address can be calculated in chain by any contract using this formula: <code class="language-plaintext highlighter-rouge">address(keccak256(bytes1(0xff), 0xce0042B868300000d44A59004Da54A005ffdcf9f, _salt, keccak256(_code)) &lt;&lt; 96)</code> or in javascript using https://github.com/ethereumjs/ethereumjs-util/blob/master/docs/README.md#const-generateaddress2.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Does not apply as there are no past versions of Singleton Factory being used.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>TBD</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>https://github.com/3esmit/ERC2470</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Some contracts can possibly not support being deployed on any chain, or require a different address per chain, that can be safely done by using comparison in <a href="./eip-1344.md">EIP-1344</a> in constructor.
+Account contracts are singletons in the point of view of each user, when wallets want to signal what chain id is intended, <a href="./eip-1191.md">EIP-1191</a> should be used. 
+Contracts deployed on factory must not use <code class="language-plaintext highlighter-rouge">msg.sender</code> in constructor, instead use constructor parameters, otherwise the factory would end up being the controller/only owner of those.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

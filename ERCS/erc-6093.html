@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Custom errors for commonly-used tokens | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Custom errors for commonly-used tokens | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6093" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6093" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Custom errors for commonly-used tokens</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP defines a standard set of custom errors for commonly-used tokens, which are defined as <a href="./eip-20.md">ERC-20</a>, <a href="./eip-721.md">ERC-721</a>, and <a href="./eip-1155.md">ERC-1155</a> tokens.</p>
+
+<p>Ethereum applications and wallets have historically relied on revert reason strings to display the cause of transaction errors to users. Recent Solidity versions offer rich revert reasons with error-specific decoding (sometimes called “custom errors”). This EIP defines a standard set of errors designed to give at least the same relevant information as revert reason strings, but in a structured and expected way that clients can implement decoding for.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Since the introduction of Solidity custom errors in v0.8.4, these have provided a way to show failures in a more expressive and gas efficient manner with dynamic arguments, while reducing deployment costs.</p>
+
+<p>However, <a href="./eip-20.md">ERC-20</a>, <a href="./eip-721.md">ERC-721</a>, <a href="./eip-1155.md">ERC-1155</a> were already finalized when custom errors were released, so no errors are included in their specification.</p>
+
+<p>Standardized errors allow users to expect more consistent error messages across applications or testing environments, while exposing pertinent arguments and overall reducing the need of writing expensive revert strings in the deployment bytecode.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>The following errors were designed according to the criteria described in <a href="#rationale">Rationale</a>.</p>
+
+<p>This EIP defines standard errors that may be used by implementations in certain scenarios but it does not specify whether implementations should revert in those scenarios, which remains up to the implementers unless a revert is mandated by the corresponding EIPs.</p>
+
+<p>The names of the error arguments are defined in the <a href="#parameter-glossary">Parameter Glossary</a> and MUST be used according to those definitions.</p>
+
+<h3 id="erc-20"><a href="./eip-20.md">ERC-20</a></h3>
+
+<h4 id="erc20insufficientbalanceaddress-sender-uint256-balance-uint256-needed"><code class="language-plaintext highlighter-rouge">ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed)</code></h4>
+
+<p>Indicates an error related to the current <code class="language-plaintext highlighter-rouge">balance</code> of a <code class="language-plaintext highlighter-rouge">sender</code>.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">balance</code> MUST be less than <code class="language-plaintext highlighter-rouge">needed</code>.</li>
+</ul>
+
+<h4 id="erc20invalidsenderaddress-sender"><code class="language-plaintext highlighter-rouge">ERC20InvalidSender(address sender)</code></h4>
+
+<p>Indicates a failure with the token <code class="language-plaintext highlighter-rouge">sender</code>.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed transfers from the zero address.</li>
+  <li>MUST NOT be used for approval operations.</li>
+  <li>MUST NOT be used for balance or allowance requirements.
+    <ul>
+      <li>Use <code class="language-plaintext highlighter-rouge">ERC20InsufficientBalance</code> or <code class="language-plaintext highlighter-rouge">ERC20InsufficientAllowance</code> instead.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="erc20invalidreceiveraddress-receiver"><code class="language-plaintext highlighter-rouge">ERC20InvalidReceiver(address receiver)</code></h4>
+
+<p>Indicates a failure with the token <code class="language-plaintext highlighter-rouge">receiver</code>.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed transfers to the zero address.</li>
+  <li>RECOMMENDED for disallowed transfers to non-compatible addresses (eg. contract addresses).</li>
+  <li>MUST NOT be used for approval operations.</li>
+</ul>
+
+<h4 id="erc20insufficientallowanceaddress-spender-uint256-allowance-uint256-needed"><code class="language-plaintext highlighter-rouge">ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed)</code></h4>
+
+<p>Indicates a failure with the <code class="language-plaintext highlighter-rouge">spender</code>’s <code class="language-plaintext highlighter-rouge">allowance</code>.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">allowance</code> MUST be less than <code class="language-plaintext highlighter-rouge">needed</code>.</li>
+</ul>
+
+<h4 id="erc20invalidapproveraddress-approver"><code class="language-plaintext highlighter-rouge">ERC20InvalidApprover(address approver)</code></h4>
+
+<p>Indicates a failure with the <code class="language-plaintext highlighter-rouge">approver</code> of a token to be approved.
+Used in approvals.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed approvals from the zero address.</li>
+  <li>MUST NOT be used for transfer operations.</li>
+</ul>
+
+<h4 id="erc20invalidspenderaddress-spender"><code class="language-plaintext highlighter-rouge">ERC20InvalidSpender(address spender)</code></h4>
+
+<p>Indicates a failure with the <code class="language-plaintext highlighter-rouge">spender</code> to be approved.
+Used in approvals.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed approvals to the zero address.</li>
+  <li>RECOMMENDED for disallowed approvals to the owner itself.</li>
+  <li>MUST NOT be used for transfer operations.
+    <ul>
+      <li>Use <code class="language-plaintext highlighter-rouge">ERC20InsufficientAllowance</code> instead.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="erc-721"><a href="./eip-721.md">ERC-721</a></h3>
+
+<h4 id="erc721invalidowneraddress-owner"><code class="language-plaintext highlighter-rouge">ERC721InvalidOwner(address owner)</code></h4>
+
+<p>Indicates that an address can’t be an owner.
+Used in balance queries.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for addresses whose ownership is disallowed (eg. ERC-721 explicitly disallows <code class="language-plaintext highlighter-rouge">address(0)</code> to be an owner).</li>
+  <li>MUST NOT be used for transfers.
+    <ul>
+      <li>Use <code class="language-plaintext highlighter-rouge">ERC721IncorrectOwner</code> instead.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="erc721nonexistenttokenuint256-tokenid"><code class="language-plaintext highlighter-rouge">ERC721NonexistentToken(uint256 tokenId)</code></h4>
+
+<p>Indicates a <code class="language-plaintext highlighter-rouge">tokenId</code> whose <code class="language-plaintext highlighter-rouge">owner</code> is the zero address.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">tokenId</code> MUST BE a non-minted or burned token.</li>
+</ul>
+
+<h4 id="erc721incorrectowneraddress-sender-uint256-tokenid-address-owner"><code class="language-plaintext highlighter-rouge">ERC721IncorrectOwner(address sender, uint256 tokenId, address owner)</code></h4>
+
+<p>Indicates an error related to the ownership over a particular token.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sender</code> MUST NOT be <code class="language-plaintext highlighter-rouge">owner</code>.</li>
+  <li>MUST NOT be used for approval operations.</li>
+</ul>
+
+<h4 id="erc721invalidsenderaddress-sender"><code class="language-plaintext highlighter-rouge">ERC721InvalidSender(address sender)</code></h4>
+
+<p>Indicates a failure with the token <code class="language-plaintext highlighter-rouge">sender</code>.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed transfers from the zero address.</li>
+  <li>MUST NOT be used for approval operations.</li>
+  <li>MUST NOT be used for ownership or approval requirements.
+    <ul>
+      <li>Use <code class="language-plaintext highlighter-rouge">ERC721IncorrectOwner</code> or <code class="language-plaintext highlighter-rouge">ERC721InsufficientApproval</code> instead.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="erc721invalidreceiveraddress-receiver"><code class="language-plaintext highlighter-rouge">ERC721InvalidReceiver(address receiver)</code></h4>
+
+<p>Indicates a failure with the token <code class="language-plaintext highlighter-rouge">receiver</code>.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed transfers to the zero address.</li>
+  <li>RECOMMENDED for disallowed transfers to non-<code class="language-plaintext highlighter-rouge">ERC721TokenReceiver</code> contracts or those that reject a transfer. (eg. returning an invalid response in <code class="language-plaintext highlighter-rouge">onERC721Received</code>).</li>
+  <li>MUST NOT be used for approval operations.</li>
+</ul>
+
+<h4 id="erc721insufficientapprovaladdress-operator-uint256-tokenid"><code class="language-plaintext highlighter-rouge">ERC721InsufficientApproval(address operator, uint256 tokenId)</code></h4>
+
+<p>Indicates a failure with the <code class="language-plaintext highlighter-rouge">operator</code>’s approval.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">isApprovedForAll(owner, operator)</code> MUST be false for the <code class="language-plaintext highlighter-rouge">tokenId</code>’s owner and <code class="language-plaintext highlighter-rouge">operator</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">getApproved(tokenId)</code> MUST not be <code class="language-plaintext highlighter-rouge">operator</code>.</li>
+</ul>
+
+<h4 id="erc721invalidapproveraddress-approver"><code class="language-plaintext highlighter-rouge">ERC721InvalidApprover(address approver)</code></h4>
+
+<p>Indicates a failure with the <code class="language-plaintext highlighter-rouge">owner</code> of a token to be approved.
+Used in approvals.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed approvals from the zero address.</li>
+  <li>MUST NOT be used for transfer operations.</li>
+</ul>
+
+<h4 id="erc721invalidoperatoraddress-operator"><code class="language-plaintext highlighter-rouge">ERC721InvalidOperator(address operator)</code></h4>
+
+<p>Indicates a failure with the <code class="language-plaintext highlighter-rouge">operator</code> to be approved.
+Used in approvals.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed approvals to the zero address.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">operator</code> MUST NOT be the owner of the approved token.</li>
+  <li>MUST NOT be used for transfer operations.
+    <ul>
+      <li>Use <code class="language-plaintext highlighter-rouge">ERC721InsufficientApproval</code> instead.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="erc-1155"><a href="./eip-1155.md">ERC-1155</a></h3>
+
+<h4 id="erc1155insufficientbalanceaddress-sender-uint256-balance-uint256-needed-uint256-tokenid"><code class="language-plaintext highlighter-rouge">ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 tokenId)</code></h4>
+
+<p>Indicates an error related to the current <code class="language-plaintext highlighter-rouge">balance</code> of a <code class="language-plaintext highlighter-rouge">sender</code>.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">balance</code> MUST be less than <code class="language-plaintext highlighter-rouge">needed</code> for a <code class="language-plaintext highlighter-rouge">tokenId</code>.</li>
+</ul>
+
+<h4 id="erc1155invalidsenderaddress-sender"><code class="language-plaintext highlighter-rouge">ERC1155InvalidSender(address sender)</code></h4>
+
+<p>Indicates a failure with the token <code class="language-plaintext highlighter-rouge">sender</code>.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed transfers from the zero address.</li>
+  <li>MUST NOT be used for approval operations.</li>
+  <li>MUST NOT be used for balance or allowance requirements.
+    <ul>
+      <li>Use <code class="language-plaintext highlighter-rouge">ERC1155InsufficientBalance</code> or <code class="language-plaintext highlighter-rouge">ERC1155MissingApprovalForAll</code> instead.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="erc1155invalidreceiveraddress-receiver"><code class="language-plaintext highlighter-rouge">ERC1155InvalidReceiver(address receiver)</code></h4>
+
+<p>Indicates a failure with the token <code class="language-plaintext highlighter-rouge">receiver</code>.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed transfers to the zero address.</li>
+  <li>RECOMMENDED for disallowed transfers to non-<code class="language-plaintext highlighter-rouge">ERC1155TokenReceiver</code> contracts or those that reject a transfer. (eg. returning an invalid response in <code class="language-plaintext highlighter-rouge">onERC1155Received</code>).</li>
+  <li>MUST NOT be used for approval operations.</li>
+</ul>
+
+<h4 id="erc1155missingapprovalforalladdress-operator-address-owner"><code class="language-plaintext highlighter-rouge">ERC1155MissingApprovalForAll(address operator, address owner)</code></h4>
+
+<p>Indicates a failure with the <code class="language-plaintext highlighter-rouge">operator</code>’s approval in a transfer.
+Used in transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">isApprovedForAll(owner, operator)</code> MUST be false for the <code class="language-plaintext highlighter-rouge">tokenId</code>’s owner and <code class="language-plaintext highlighter-rouge">operator</code>.</li>
+</ul>
+
+<h4 id="erc1155invalidapproveraddress-approver"><code class="language-plaintext highlighter-rouge">ERC1155InvalidApprover(address approver)</code></h4>
+
+<p>Indicates a failure with the <code class="language-plaintext highlighter-rouge">approver</code> of a token to be approved.
+Used in approvals.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed approvals from the zero address.</li>
+  <li>MUST NOT be used for transfer operations.</li>
+</ul>
+
+<h4 id="erc1155invalidoperatoraddress-operator"><code class="language-plaintext highlighter-rouge">ERC1155InvalidOperator(address operator)</code></h4>
+
+<p>Indicates a failure with the <code class="language-plaintext highlighter-rouge">operator</code> to be approved.
+Used in approvals.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li>RECOMMENDED for disallowed approvals to the zero address.</li>
+  <li>MUST be used for disallowed approvals to the owner itself.</li>
+  <li>MUST NOT be used for transfer operations.
+    <ul>
+      <li>Use <code class="language-plaintext highlighter-rouge">ERC1155InsufficientApproval</code> instead.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="erc1155invalidarraylengthuint256-idslength-uint256-valueslength"><code class="language-plaintext highlighter-rouge">ERC1155InvalidArrayLength(uint256 idsLength, uint256 valuesLength)</code></h4>
+
+<p>Indicates an array length mismatch between <code class="language-plaintext highlighter-rouge">ids</code> and <code class="language-plaintext highlighter-rouge">values</code> in a <code class="language-plaintext highlighter-rouge">safeBatchTransferFrom</code> operation.
+Used in batch transfers.</p>
+
+<p>Usage guidelines:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">idsLength</code> MUST NOT be <code class="language-plaintext highlighter-rouge">valuesLength</code>.</li>
+</ul>
+
+<h3 id="parameter-glossary">Parameter Glossary</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sender</code></td>
+      <td>Address whose tokens are being transferred.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">balance</code></td>
+      <td>Current balance for the interacting account.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">needed</code></td>
+      <td>Minimum amount required to perform an action.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">receiver</code></td>
+      <td>Address to which tokens are being transferred.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spender</code></td>
+      <td>Address that may be allowed to operate on tokens without being their owner.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">allowance</code></td>
+      <td>Amount of tokens a <code class="language-plaintext highlighter-rouge">spender</code> is allowed to operate with.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">approver</code></td>
+      <td>Address initiating an approval operation.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tokenId</code></td>
+      <td>Identifier number of a token.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">owner</code></td>
+      <td>Address of the current owner of a token.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">operator</code></td>
+      <td>Same as <code class="language-plaintext highlighter-rouge">spender</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*Length</code></td>
+      <td>Array length for the prefixed parameter.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="error-additions">Error additions</h3>
+
+<p>Any addition to this EIP or implementation-specific errors (such as extensions) SHOULD follow the guidelines presented in the <a href="#rationale">rationale</a> section to keep consistency.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The chosen objectives for a standard for token errors are to provide context about the error, and to make moderate use of meaningful arguments (to maintain the code size benefits with respect to strings).</p>
+
+<p>Considering this, the error names are designed following a basic grammatical structure based on the standard actions that can be performed on each token and the <a href="#actions-and-subjects">subjects</a> involved.</p>
+
+<h3 id="actions-and-subjects">Actions and subjects</h3>
+
+<p>An error is defined based on the following <strong>actions</strong> that can be performed on a token and its involved <em>subjects</em>:</p>
+
+<ul>
+  <li><strong>Transfer</strong>: An operation in which a <em>sender</em> moves to a <em>receiver</em> any number of tokens (fungible <em>balance</em> and/or non-fungible <em>token ids</em>).</li>
+  <li><strong>Approval</strong>: An operation in which an <em>approver</em> grants any form of <em>approval</em> to an <em>operator</em>.</li>
+</ul>
+
+<p>These attempt to exhaustively represent what can go wrong in a token operation. Therefore, the errors can be constructed by specifying which <em>subject</em> failed during an <strong>action</strong> execution, and prefixing with an <a href="#error-prefixes">error prefix</a>.</p>
+
+<p>Note that the action is never seen as the subject of an error.</p>
+
+<p>If a subject is called different on a particular token standard, the error should be consistent with the standard’s naming convention.</p>
+
+<h3 id="error-prefixes">Error prefixes</h3>
+
+<p>An error prefix is added to a subject to derive a concrete error condition.
+Developers can think about an error prefix as the <em>why</em> an error happened.</p>
+
+<p>A prefix can be <code class="language-plaintext highlighter-rouge">Invalid</code> for general incorrectness, or more specific like <code class="language-plaintext highlighter-rouge">Insufficient</code> for amounts.</p>
+
+<h3 id="domain">Domain</h3>
+
+<p>Each error’s arguments may vary depending on the token domain. If there are errors with the same name and different arguments, the Solidity compiler currently fails with a <code class="language-plaintext highlighter-rouge">DeclarationError</code>.</p>
+
+<p>An example of this is:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">InsufficientApproval</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">allowance</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">needed</span><span class="p">);</span>
+<span class="n">InsufficientApproval</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>For that reason, a domain prefix is proposed to avoid declaration clashing, which is the name of the ERC and its corresponding number appended at the beginning.</p>
+
+<p>Example:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ERC20InsufficientApproval</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">allowance</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">needed</span><span class="p">);</span>
+<span class="n">ERC721InsufficientApproval</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="arguments">Arguments</h3>
+
+<p>The selection of arguments depends on the subject involved, and it should follow the order presented below:</p>
+
+<ol>
+  <li><em>Who</em> is involved with the error (eg. <code class="language-plaintext highlighter-rouge">address sender</code>)</li>
+  <li><em>What</em> failed (eg. <code class="language-plaintext highlighter-rouge">uint256 allowance</code>)</li>
+  <li><em>Why</em> it failed, expressed in additional arguments (eg. <code class="language-plaintext highlighter-rouge">uint256 needed</code>)</li>
+</ol>
+
+<p>A particular argument may fall into overlapping categories (eg. <em>Who</em> may also be <em>What</em>), so not all of these will be present but the order shouldn’t be broken.</p>
+
+<p>Some tokens may need a <code class="language-plaintext highlighter-rouge">tokenId</code>. This is suggested to include at the end as additional information instead of as a subject.</p>
+
+<h3 id="error-grammar-rules">Error grammar rules</h3>
+
+<p>Given the above, we can summarize the construction of error names with a grammar that errors will follow:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Domain&gt;&lt;ErrorPrefix&gt;&lt;Subject&gt;(&lt;Arguments&gt;);
+</code></pre></div></div>
+
+<p>Where:</p>
+
+<ul>
+  <li><em>Domain</em>: <code class="language-plaintext highlighter-rouge">ERC20</code>, <code class="language-plaintext highlighter-rouge">ERC721</code> or <code class="language-plaintext highlighter-rouge">ERC1155</code>. Although other token standards may be suggested if not considered in this EIP.</li>
+  <li><em>ErrorPrefix</em>: <code class="language-plaintext highlighter-rouge">Invalid</code>, <code class="language-plaintext highlighter-rouge">Insufficient</code>, or another if it’s more appropriate.</li>
+  <li><em>Subject</em>: <code class="language-plaintext highlighter-rouge">Sender</code>, <code class="language-plaintext highlighter-rouge">Receiver</code>, <code class="language-plaintext highlighter-rouge">Balance</code>, <code class="language-plaintext highlighter-rouge">Approver</code>, <code class="language-plaintext highlighter-rouge">Operator</code>, <code class="language-plaintext highlighter-rouge">Approval</code> or another if it’s more appropriate, and must make adjustments based on the domain’s naming convention.</li>
+  <li><em>Arguments</em>: Follow the <a href="#arguments"><em>who</em>, <em>what</em> and <em>why</em> order</a>.</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Tokens already deployed rely mostly on revert strings and make use of <code class="language-plaintext highlighter-rouge">require</code> instead of custom errors. Even most of the newly deployed tokens since Solidity’s v0.8.4 release inherit from implementations using revert strings.</p>
+
+<p>This EIP can not be enforced on non-upgradeable already deployed tokens, however, these tokens generally use similar conventions with small variations such as:</p>
+
+<ul>
+  <li>including/removing the <a href="#domain">domain</a>.</li>
+  <li>using different <a href="#error-prefixes">error prefixes</a>.</li>
+  <li>including similar <a href="#actions-and-subjects">subjects</a>.</li>
+  <li>changing the grammar order.</li>
+</ul>
+
+<p>Upgradeable contracts MAY be upgraded to implement this EIP.</p>
+
+<p>Implementers and DApp developers that implement special support for tokens that are compliant with this EIP, SHOULD tolerate different errors emitted by non-compliant contracts, as well as classic revert strings.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<h3 id="solidity">Solidity</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+
+<span class="c1">/// @title Standard ERC20 Errors
+/// @dev See https://eips.ethereum.org/EIPS/eip-20
+///  https://eips.ethereum.org/EIPS/eip-6093
+</span><span class="k">interface</span> <span class="n">ERC20Errors</span> <span class="p">{</span>
+    <span class="n">error</span> <span class="n">ERC20InsufficientBalance</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">balance</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">needed</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC20InvalidSender</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC20InvalidReceiver</span><span class="p">(</span><span class="kt">address</span> <span class="n">receiver</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC20InsufficientAllowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">allowance</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">needed</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC20InvalidApprover</span><span class="p">(</span><span class="kt">address</span> <span class="n">approver</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC20InvalidSpender</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">/// @title Standard ERC721 Errors
+/// @dev See https://eips.ethereum.org/EIPS/eip-721
+///  https://eips.ethereum.org/EIPS/eip-6093
+</span><span class="k">interface</span> <span class="n">ERC721Errors</span> <span class="p">{</span>
+    <span class="n">error</span> <span class="n">ERC721InvalidOwner</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC721NonexistentToken</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC721IncorrectOwner</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">owner</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC721InvalidSender</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC721InvalidReceiver</span><span class="p">(</span><span class="kt">address</span> <span class="n">receiver</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC721InsufficientApproval</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC721InvalidApprover</span><span class="p">(</span><span class="kt">address</span> <span class="n">approver</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC721InvalidOperator</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">/// @title Standard ERC1155 Errors
+/// @dev See https://eips.ethereum.org/EIPS/eip-1155
+///  https://eips.ethereum.org/EIPS/eip-6093
+</span><span class="k">interface</span> <span class="n">ERC1155Errors</span> <span class="p">{</span>
+    <span class="n">error</span> <span class="n">ERC1155InsufficientBalance</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">balance</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">needed</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC1155InvalidSender</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC1155InvalidReceiver</span><span class="p">(</span><span class="kt">address</span> <span class="n">receiver</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC1155MissingApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">owner</span><span class="p">)</span>
+    <span class="n">error</span> <span class="n">ERC1155InvalidApprover</span><span class="p">(</span><span class="kt">address</span> <span class="n">approver</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC1155InvalidOperator</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">);</span>
+    <span class="n">error</span> <span class="n">ERC1155InvalidArrayLength</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">idsLength</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">valuesLength</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>There are no known signature hash collisions for the specified errors.</p>
+
+<p>Tokens upgraded to implement this EIP may break assumptions in other systems relying on revert strings.</p>
+
+<p>Offchain applications should be cautious when dealing with untrusted contracts that may revert using these custom errors. For instance, if a user interface prompts actions based on error decoding, malicious contracts could exploit this to encourage untrusted and potentially harmful operations.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

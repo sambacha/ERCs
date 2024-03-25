@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Standardized Shamir Secret Sharing Scheme for BIP-39 Mnemonics | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Standardized Shamir Secret Sharing Scheme for BIP-39 Mnemonics | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-3450" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-3450" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Standardized Shamir Secret Sharing Scheme for BIP-39 Mnemonics</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A standardized algorithm for applying Shamir’s Secret Sharing Scheme to BIP-39 mnemonics.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>A standardized approach to splitting a BIP-39 mnemonic into <em>N</em> BIP-39 mnemonics, called shares, so that <em>T</em> shares are required to recover the original mnemonic and no information about the original mnemonic, other than its size, is leaked with less than <em>T</em> shares.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>We’d like to make it easier for less-technical users to store keys securely.</p>
+
+<p>Currently, many users use BIP-39 mnemonics to store entropy values underlying their keys. These mnemonics are a single point of failure. If lost, the user may never regain access to the assets locked by the keys. If stolen, a malicious actor can steal the assets.</p>
+
+<p>Shamir’s Secret Sharing Scheme addresses this concern directly. It creates “shares” of the secret, such that a subset can be used to recover the secret, but only if a minimum threshold of shares is reached. Without the minimum, no information about the original secret is leaked.</p>
+
+<p>One concern with Shamir’s Secret Sharing Scheme is there is no canonical, standard implementation. This puts recovery at risk, as tooling may change over time.</p>
+
+<p>Here, we propose a standardized implementation of Shamir’s Secret Sharing Scheme applied specifically to BIP-39 mnemonics, so users can easily create shares of their mnemonic, destroy the original, store the shares appropriately, and confidently recover the original mnemonic at a later date.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="shamirs-secret-sharing-scheme">Shamir’s Secret Sharing Scheme</h3>
+
+<p>Shamir’s Secret Sharing Scheme is a cryptographic method to split a secret into <em>N</em> unique parts, where any <em>T</em> of them are required to reconstruct the secret.</p>
+
+<p>First, a polynomial <em>f</em> of degree <em>T</em> − 1 is constructed. Then, each share is a point on the polynomial’s curve: an integer <em>x</em>, and its corresponding <em>y</em> point <em>f</em>(<em>x</em>).</p>
+
+<p>With any set of <em>T</em> shares (or points), the initial polynomial can be recovered using polynomial interpolation.</p>
+
+<p>When constructing the initial polynomial, the secret is stored as the coefficient of x<sup>0</sup> and the rest of the coefficients are randomly generated.</p>
+
+<h3 id="bip-39-mnemonics">BIP-39 Mnemonics</h3>
+
+<p>BIP-39 is a common standard for storing entropy as a list of words. It is easier to work with for human interactions than raw binary or hexadecimal representations of entropy.</p>
+
+<p>BIP-39 mnemonics encode two pieces of data: the original entropy and a checksum of that entropy. The checksum allows the mnemonic to be validated, ensuring that the user entered it correctly.</p>
+
+<h4 id="generating-the-mnemonic">Generating the Mnemonic</h4>
+
+<p>The mnemonic must encode entropy in a multiple of 32 bits. With more entropy security is improved but the sentence length increases. We refer to the initial entropy length as ENT. The allowed size of ENT is 128-256 bits.</p>
+
+<p>First, an initial entropy of ENT bits is generated. A checksum is generated by taking the first <code class="language-plaintext highlighter-rouge">ENT / 32</code> bits of its SHA256 hash. This checksum is appended to the end of the initial entropy. Next, these concatenated bits are split into groups of 11 bits, each encoding a number from 0-2047, serving as an index into a word list. Finally, we convert these numbers into words and use the joined words as a mnemonic sentence.</p>
+
+<p>The following table describes the relation between the initial entropy length (ENT), the checksum length (CS), and the length of the generated mnemonic sentence (MS) in words.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CS = ENT / 32
+MS = (ENT + CS) / 11
+
+|  ENT  | CS | ENT+CS |  MS  |
++-------+----+--------+------+
+|  128  |  4 |   132  |  12  |
+|  160  |  5 |   165  |  15  |
+|  192  |  6 |   198  |  18  |
+|  224  |  7 |   231  |  21  |
+|  256  |  8 |   264  |  24  |
+</code></pre></div></div>
+
+<h4 id="recovering-the-entropy">Recovering the Entropy</h4>
+
+<p>The initial entropy can be recovered by reversing the process above. The mnemonic is converted to bits, where each word is converted to 11 bits representing its index in the word list. The entropy portion is defined in the table above, based on the size of the mnemonic.</p>
+
+<h4 id="word-list">Word List</h4>
+
+<p>This specification only supports the BIP-39 English word list, but this may be expanded in the future.</p>
+
+<p>See <a href="../assets/eip-3450/wordlist.txt">word list</a>.</p>
+
+<h3 id="applying-shamirs-scheme-to-bip-39-mnemonics">Applying Shamir’s Scheme to BIP-39 Mnemonics</h3>
+
+<p>To ensure that the shares are valid BIP-39 mnemonics, we:</p>
+
+<ol>
+  <li>Convert the target BIP-39 mnemonic to its underlying entropy</li>
+  <li>Apply Shamir’s Scheme to the entropy</li>
+  <li>Convert each resulting share’s <em>y</em> value to a BIP-39 mnemonic</li>
+</ol>
+
+<p>By converting to entropy before applying Shamir’s Scheme, we omit the checksum from the initial secret, allowing us to calculate a new checksum for each share when converting the share <em>y</em> values to mnemonics, ensuring that they are valid according to BIP-39.</p>
+
+<p>When applying Shamir’s Scheme to the entropy, we apply it separately to each byte of the entropy and GF(256) is used as the underlying finite field. Bytes are interpreted as elements of GF(256) using polynomial representation with operations modulo the Rijndael irreducible polynomial <em>x</em><sup>8</sup> + <em>x</em><sup>4</sup> + <em>x</em><sup>3</sup> + <em>x</em> + 1, following AES.</p>
+
+<h3 id="share-format">Share Format</h3>
+
+<p>A share represents a point on the curve described by the underlying polynomial used to split the secret. It includes two pieces of data:</p>
+
+<ul>
+  <li>An ID: the <em>x</em> value of the share</li>
+  <li>A BIP-39 mnemonic: the <em>y</em> value of the share represented by a mnemonic</li>
+</ul>
+
+<h3 id="creating-shares">Creating Shares</h3>
+
+<p>Inputs: BIP-39 mnemonic, number of shares (<em>N</em>), threshold (<em>T</em>)</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Output: N Shares, each share including an ID, { <em>x</em></td>
+      <td>0 &lt; <em>x</em> &lt; 256 }, and a BIP-39 mnemonic of the same length as the input one</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>Check the following conditions:
+    <ul>
+      <li>1 &lt; T &lt;= N &lt; 256</li>
+      <li>The mnemonic is valid according to <a href="#generating-the-mnemonic">BIP-39</a></li>
+    </ul>
+  </li>
+  <li><a href="#recovering-the-entropy">Recover the underlying entropy of the mnemonic</a> as a vector of bytes</li>
+  <li>Define values:
+    <ul>
+      <li>Let <em>E</em> be the byte-vector representation of the mnemonic’s entropy</li>
+      <li>Let <em>n</em> be the length of <em>E</em></li>
+      <li>Let <em>coeff<sub>1</sub></em>, … , <em>coeff<sub>T - 1</sub></em> be byte-vectors belonging to GF(256)<em><sup>n</sup></em> generated randomly, independently with uniform distribution from a source suitable for generating cryptographic keys</li>
+    </ul>
+  </li>
+  <li>Evaluate the polynomial for each share
+    <ul>
+      <li>For each <em>x</em> from 1 to <em>N</em>, evaluate the polynomial <em>f(x)</em> = <em>E</em> + <em>coeff<sub>1</sub>x<sup>1</sup></em> + … + <em>coeff<sub>T - 1</sub>x<sup>T - 1</sup></em>, where <em>x</em> is the share ID and <em>f(x)</em> is the share value (as a vector of bytes)</li>
+    </ul>
+  </li>
+  <li>Using <em>f(x)</em> as the underlying entropy, <a href="#generating-the-mnemonic">generate a mnemonic</a> for each share</li>
+  <li>Return the ID and mnemonic for each share</li>
+</ol>
+
+<h3 id="recovering-the-mnemonic">Recovering the Mnemonic</h3>
+
+<p>To recover the original mnemonic, we interpolate a polynomial <em>f</em> from the given set of shares (or points on the polynomial) and evaluate <em>f(0)</em>.</p>
+
+<h4 id="polynomial-interpolation">Polynomial Interpolation</h4>
+
+<p>Given a set of <em>m</em> points (<em>x<sub>i</sub></em>, <em>y<sub>i</sub></em>), 1 ≤ <em>i</em> ≤ <em>m</em>, such that no two <em>x<sub>i</sub></em> values equal, there exists a polynomial that assumes the value <em>y<sub>i</sub></em> at each point <em>x<sub>i</sub></em>. The polynomial of lowest degree that satisfies these conditions is uniquely determined and can be obtained using the Lagrange interpolation formula given below.</p>
+
+<p>Since Shamir’s Secret Sharing Scheme is applied separately to each of the <em>n</em> bytes of the shared mnemonic’s entropy, we work with <em>y<sub>i</sub></em> as a vector of <em>n</em> values, where <em>y<sub>i</sub></em>[<em>k</em>] = <em>f<sub>k</sub></em>(<em>x<sub>i</sub></em>), 1 ≤ <em>k</em> ≤ <em>n</em>, and <em>f<sub>k</sub></em> is the polynomial in the <em>k</em>-th instance of the scheme.</p>
+
+<h4 id="interpolatex-xi-yi-1--i--m">Interpolate(<em>x</em>, {(<em>x<sub>i</sub></em>, <em>y<sub>i</sub></em>), 1 ≤ <em>i</em> ≤ <em>m</em>})</h4>
+
+<p>Input: the desired index <em>x</em>, a set of index/value-vector pairs {(<em>x<sub>i</sub></em>, <em>y</em><sub><em>i</em></sub>), 1 ≤ <em>i</em> ≤ <em>m</em>} &amp;subseteq; GF(256) × GF(256)<sup><em>n</em></sup></p>
+
+<p>Output: the value-vector (<em>f</em><sub>1</sub>(<em>x</em>), … , <em>f<sub>n</sub></em>(<em>x</em>))</p>
+
+<p><img src="../assets/eip-3450/lagrange.gif" alt="f_k(x) = \sum_{i=1}^m y_i[k] \prod_{\underset{j \neq i}{j=1}}^m \frac{x - x_j}{x_i - x_j}" /></p>
+
+<h4 id="recover-the-mnemonic">Recover the Mnemonic</h4>
+
+<p>Input: A set of <em>m</em> Shares</p>
+
+<p>Output: The original mnemonic</p>
+
+<ol>
+  <li><a href="#recovering-the-entropy">Recover the underlying entropy of each share’s mnemonic</a> as a vector of bytes</li>
+  <li>Calculate <em>E</em> = Interpolate(0, [(<em>x<sub>1</sub></em>, <em>y<sub>1</sub></em>),…,(<em>x<sub>m</sub></em>, <em>y<sub>m</sub></em>)]), where <em>x</em> is the share ID and <em>y</em> is the byte-vector of the share’s mnemonic’s entropy</li>
+  <li>Using <em>E</em> as the underlying entropy, <a href="#generating-the-mnemonic">generate a mnemonic</a> and return it</li>
+</ol>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="choice-of-field">Choice of Field</h3>
+
+<p>The field GF(256) was chosen, because the field arithmetic is easy to implement in any programming language and many implementations are already available since it is used in the AES cipher. Although using GF(256) requires that we convert the mnemonic to its underlying entropy as a byte-vector, this is also easy to implement and many implementations of it exist in a variety of programming languages.</p>
+
+<p>GF(2048) was also considered. Using GF(2048), we could have applied Shamir’s Scheme directly to the mnemonic, using the word indexes as the values. This would have allowed us to avoid converting the mnemonic to its underlying entropy. But, the resulting shares would not have been valid BIP-39 mnemonics - the checksum portion would not be a valid checksum of the entropy. And, working around this would add considerable complexity.</p>
+
+<p>Another option was GF(2<sup><em>n</em></sup>) where <em>n</em> is the size of the entropy in bits. We’d still convert the mnemonic to entropy, but then apply Shamir’s Scheme over the entire entropy rather than on a vector of values. The downside of this approach is we’d need a different field for each mnemonic strength along with an associated irreducible polynomial. Additionally, this would require working with very large numbers that can be cumbersome to work with in some languages.</p>
+
+<h3 id="valid-share-mnemonics-and-share-ids">Valid Share Mnemonics and Share IDs</h3>
+
+<p>The shares produced by the specification include an ID, in addition to the BIP-39 mnemonic.</p>
+
+<p>Other options could have encoded the share ID into the mnemonic, simplifying storage - only the mnemonic would need to be stored.</p>
+
+<p>One possibility would be to store the ID instead of the checksum in the mnemonic. The downside of this approach is that the shares would not be <em>valid</em> BIP-39 mnemonics because the “checksum” section of the mnemonic would not match the “entropy” section. Shares with valid BIP-39 mnemonics are useful because they are indistinguishable from any other. And users could store the ID in a variety of ways that obscure it.</p>
+
+<h3 id="validation-on-recovery">Validation on Recovery</h3>
+
+<p>We decided <em>not</em> to include a validation mechanism on recovering the original mnemonic. This leaks less information to a potential attacker. There is no indication they’ve gotten the requisite number of shares until they’ve obtained <em>T</em> + 1 shares.</p>
+
+<p>We could provide recovery validation by replacing one of the random coefficients with a checksum of the original mnemonic. Then, when recovering the original mnemonic and the polynomial, we could validate that the checksum coefficient is the valid checksum of recovered mnemonic.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Coming soon.</p>
+
+<p>All implementations must be able to:</p>
+
+<ul>
+  <li>Split and recover each <code class="language-plaintext highlighter-rouge">mnemonic</code> with the given <code class="language-plaintext highlighter-rouge">numShares</code> and <code class="language-plaintext highlighter-rouge">threshold</code>.</li>
+  <li>Recover the <code class="language-plaintext highlighter-rouge">mnemonic</code> from the given <code class="language-plaintext highlighter-rouge">knownShares</code>.</li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The shares produced by the specification include an ID in addition to the BIP-39 mnemonic. This raises two security concerns:</p>
+
+<p>Users <strong>must</strong> keep this ID in order to recover the original mnemonic. If the ID is lost, or separated from the share mnemonic, it may not be possible to recover the original. (Brute force recovery may or may not be possible depending on how much is known about the number of shares and threshold)</p>
+
+<p>The additional data may hint to an attacker of the existence of other keys and the scheme under which they are stored. Therefore, the ID should be stored in a way that obscures its use.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

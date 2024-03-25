@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>NFT Creator Attribution | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="NFT Creator Attribution | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7015" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7015" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">NFT Creator Attribution</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This Ethereum Improvement Proposal aims to solve the issue of creator attribution for Non-Fungible Token (NFT) standards (<a href="./eip-721.md">ERC-721</a>, <a href="./eip-1155.md">ERC-1155</a>). To achieve this, this EIP proposes a mechanism where the NFT creator signs the required parameters for the NFT creation, including the NFT metadata in a hash along with any other relevant information. The signed parameters and the signature are then validated and emitted during the deployment transaction, which allows the NFT to validate the creator and NFT platforms to attribute creatorship correctly. This method ensures that even if a different wallet sends the deployment transaction, the correct account is attributed as the creator.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Current NFT platforms assume that the wallet deploying the smart contract is the creator of the NFT, leading to a misattribution in cases where a different wallet sends the deployment transaction. This happens often when working with smart wallet accounts, and new contract deployment strategies such as the first collector deploying the NFT contract. This proposal aims to solve the problem by allowing creators to sign the parameters required for NFT creation so that any wallet can send the deployment transaction with an signal in a verifiable way who is the creator.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST,” “MUST NOT,” “REQUIRED,” “SHALL,” “SHALL NOT,” “SHOULD,” “SHOULD NOT,” “RECOMMENDED,” “MAY,” and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>ERC-721 and ERC-1155 compliant contracts MAY implement this NFT Creator Attribution extension to provide a standard event to be emitted that defines the NFT creator at the time of contract creation.</p>
+
+<p>This EIP takes advantage of the fact that contract addresses can be precomputed before a contract is deployed. Whether the NFT contract is deployed through another contract (a factory) or through an EOA, the creator can be correctly attributed using this specification.</p>
+
+<p><strong>Signing Mechanism</strong></p>
+
+<p>Creator consent is given by signing an <a href="./eip-712.md">EIP-712</a> compatible message; all signatures compliant with this EIP MUST include all fields defined. The struct signed can be any arbitrary data that defines how to create the token; it must hashed in an EIP-712 compatible format with a proper EIP-712 domain.</p>
+
+<p>The following shows some examples of structs that could be encoded into <code class="language-plaintext highlighter-rouge">structHash</code> (defined below):</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// example struct that can be encoded in `structHash`; defines that a token can be created with a metadataUri and price:
+</span>
+<span class="k">struct</span> <span class="n">TokenCreation</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="n">metadataUri</span><span class="p">;</span>
+  <span class="kt">uint256</span> <span class="n">price</span><span class="p">;</span>
+  <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Signature Validation</strong></p>
+
+<p>Creator attribution is given through a signature verification that MUST be verified by the NFT contract being deployed and an event that MUST be emitted by the NFT contract during the deployment transaction. The event includes all the necessary fields for reconstructing the signed digest and validating the signature to ensure it matches the specified creator. The event name is <code class="language-plaintext highlighter-rouge">CreatorAttribution</code> and includes the following fields:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">structHash</code>: hashed information for deploying the NFT contract (e.g. name, symbol, admins etc). This corresponds to the value <code class="language-plaintext highlighter-rouge">hashStruct</code> as defined in the <a href="./eip-712.md#definition-of-hashstruct">EIP-712 definition of hashStruct</a> standard.</li>
+  <li><code class="language-plaintext highlighter-rouge">domainName</code>: the domain name of the contract verifying the singature (for EIP-712 signature validation).</li>
+  <li><code class="language-plaintext highlighter-rouge">version</code>: the version of the contract verifying the signature (for EIP-712 signature validation)</li>
+  <li><code class="language-plaintext highlighter-rouge">creator</code>: the creator’s account</li>
+  <li><code class="language-plaintext highlighter-rouge">signature</code>: the creator’s signature</li>
+</ul>
+
+<p>The event is defined as follows:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">CreatorAttribution</span><span class="p">(</span>
+	<span class="kt">bytes32</span> <span class="n">structHash</span><span class="p">,</span>
+	<span class="kt">string</span> <span class="n">domainName</span><span class="p">,</span>
+	<span class="kt">string</span> <span class="n">version</span><span class="p">,</span>
+  <span class="kt">address</span> <span class="n">creator</span><span class="p">,</span>
+	<span class="kt">bytes</span> <span class="n">signature</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Note that although the <code class="language-plaintext highlighter-rouge">chainId</code> parameters is necessary for <a href="./eip-712.md">EIP-712</a> signatures, we omit the parameter from the event as it can be inferred through the transaction data. Similarly, the <code class="language-plaintext highlighter-rouge">verifyingContract</code> parameter for signature verification is omitted since it MUST be the same as the <code class="language-plaintext highlighter-rouge">emitter</code> field in the transaction. <code class="language-plaintext highlighter-rouge">emitter</code> MUST be the token.</p>
+
+<p>A platform can verify the validity of the creator attribution by reconstructing the signature digest with the parameters emitted and recovering the signer from the <code class="language-plaintext highlighter-rouge">signature</code> parameter. The recovered signer MUST match the <code class="language-plaintext highlighter-rouge">creator</code> emitted in the event. If <code class="language-plaintext highlighter-rouge">CreatorAttribution</code> event is present creator and the signature is validated correctly, attribution MUST be given to the <code class="language-plaintext highlighter-rouge">creator</code> instead of the account that submitted the transaction.</p>
+
+<h3 id="reference-implementation">Reference Implementation</h3>
+
+<h4 id="example-signature-validator">Example signature validator</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/cryptography/EIP712.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/cryptography/ECDSA.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/interfaces/IERC1271.sol"</span><span class="p">;</span>
+
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC7015</span> <span class="k">is</span> <span class="n">EIP712</span> <span class="p">{</span>
+  <span class="n">error</span> <span class="n">Invalid_Signature</span><span class="p">();</span>
+  <span class="k">event</span> <span class="n">CreatorAttribution</span><span class="p">(</span>
+    <span class="kt">bytes32</span> <span class="n">structHash</span><span class="p">,</span>
+    <span class="kt">string</span> <span class="n">domainName</span><span class="p">,</span>
+    <span class="kt">string</span> <span class="n">version</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">creator</span><span class="p">,</span>
+    <span class="kt">bytes</span> <span class="n">signature</span>
+  <span class="p">);</span>
+
+  <span class="c1">/// @notice Define magic value to verify smart contract signatures (ERC1271).
+</span>  <span class="kt">bytes4</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">MAGIC_VALUE</span> <span class="o">=</span>
+    <span class="kt">bytes4</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">"isValidSignature(bytes32,bytes)"</span><span class="p">));</span>
+
+  <span class="k">function</span> <span class="n">_validateSignature</span><span class="p">(</span>
+    <span class="kt">bytes32</span> <span class="n">structHash</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">creator</span><span class="p">,</span>
+    <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span>
+  <span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_isValid</span><span class="p">(</span><span class="n">structHash</span><span class="p">,</span> <span class="n">creator</span><span class="p">,</span> <span class="n">signature</span><span class="p">))</span> <span class="nb">revert</span> <span class="n">Invalid_Signature</span><span class="p">();</span>
+    <span class="k">emit</span> <span class="n">CreatorAttribution</span><span class="p">(</span><span class="n">structHash</span><span class="p">,</span> <span class="s">"ERC7015"</span><span class="p">,</span> <span class="s">"1"</span><span class="p">,</span> <span class="n">creator</span><span class="p">,</span> <span class="n">signature</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">_isValid</span><span class="p">(</span>
+    <span class="kt">bytes32</span> <span class="n">structHash</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">signer</span><span class="p">,</span>
+    <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span>
+  <span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">signer</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"cannot validate"</span><span class="p">);</span>
+
+    <span class="kt">bytes32</span> <span class="n">digest</span> <span class="o">=</span> <span class="n">_hashTypedDataV4</span><span class="p">(</span><span class="n">structHash</span><span class="p">);</span>
+
+    <span class="c1">// if smart contract is the signer, verify using ERC-1271 smart-contract
+</span>    <span class="c1">/// signature verification method
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">signer</span><span class="p">.</span><span class="n">code</span><span class="p">.</span><span class="n">length</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="n">IERC1271</span><span class="p">(</span><span class="n">signer</span><span class="p">).</span><span class="n">isValidSignature</span><span class="p">(</span><span class="n">digest</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">bytes4</span> <span class="n">magicValue</span>
+      <span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">MAGIC_VALUE</span> <span class="o">==</span> <span class="n">magicValue</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// otherwise, recover signer and validate that it matches the expected
+</span>    <span class="c1">// signer
+</span>    <span class="kt">address</span> <span class="n">recoveredSigner</span> <span class="o">=</span> <span class="n">ECDSA</span><span class="p">.</span><span class="n">recover</span><span class="p">(</span><span class="n">digest</span><span class="p">,</span> <span class="n">signature</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">recoveredSigner</span> <span class="o">==</span> <span class="n">signer</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>By standardizing the <code class="language-plaintext highlighter-rouge">CreatorAttribution</code> event, this EIP enables platforms to ascertain creator attribution without relying on implicit assumptions. Establishing a standard for creator attribution empowers platforms to manage the complex aspects of deploying contracts while preserving accurate onchain creator information. This approach ensures a more reliable and transparent method for identifying NFT creators, fostering trust among participants in the NFT ecosystem.</p>
+
+<p><a href="./eip-5375.md">ERC-5375</a> attempts to solve the same issue and although offchain data offers improved backward compatibility, ensuring accurate and immutable creator attribution is vital for NFTs. A standardized onchain method for creator attribution is inherently more reliable and secure.</p>
+
+<p>In contrast to this proposal, ERC-5375 does not facilitate specifying creators for all tokens within an NFT collection, which is a prevalent practice, particularly in emerging use cases.</p>
+
+<p>Both this proposal and ERC-5375 share similar limitations regarding address-based creator attribution:</p>
+
+<blockquote>
+  <p>The standard defines a protocol to verify that a certain <em>address</em> provided consent. However, it does not guarantee that the address corresponds to the expected creator […]. Proving a link between an address and the entity behind it is beyond the scope of this document.</p>
+</blockquote>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Since the standard requires an event to be emitted during the NFTs deployment transaction, existing NFTs cannot implement this standard.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>A potential attack exploiting this proposal could involve deceiving creators into signing creator attribution consent messages unintentionally. Consequently, creators MUST ensure that all signature fields correspond to the necessary ones before signing.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

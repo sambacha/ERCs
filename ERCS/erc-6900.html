@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Modular Smart Contract Accounts and Plugins | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Modular Smart Contract Accounts and Plugins | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6900" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6900" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Modular Smart Contract Accounts and Plugins</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal standardizes smart contract accounts and account plugins, which are smart contract interfaces that allow for composable logic within smart contract accounts. This proposal is compliant with <a href="./eip-4337.md">ERC-4337</a>, and takes inspiration from <a href="./eip-2535.md">ERC-2535</a> when defining interfaces for updating and querying modular function implementations.</p>
+
+<p>This modular approach splits account functionality into three categories, implements them in external contracts, and defines an expected execution flow from accounts.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>One of the goals that ERC-4337 accomplishes is abstracting the logic for execution and validation to each smart contract account.</p>
+
+<p>Many new features of accounts can be built by customizing the logic that goes into the validation and execution steps. Examples of such features include session keys, subscriptions, spending limits, and role-based access control. Currently, some of these features are implemented natively by specific smart contract accounts, and others are able to be implemented by plugin systems. Examples of proprietary plugin systems include Safe modules and ZeroDev plugins.</p>
+
+<p>However, managing multiple account instances provides a worse user experience, fragmenting accounts across supported features and security configurations. Additionally, it requires plugin developers to choose which platforms to support, causing either platform lock-in or duplicated development effort.</p>
+
+<p>We propose a standard that coordinates the implementation work between plugin developers and wallet developers. This standard defines a modular smart contract account capable of supporting all standard-conformant plugins. This allows users to have greater portability of their data, and for plugin developers to not have to choose specific account implementations to support.</p>
+
+<p><img src="../assets/eip-6900/MSCA_Shared_Components_Diagram.svg" alt="diagram showing relationship between accounts and plugins with modular functions" /></p>
+
+<p>We take inspiration from ERC-2535’s diamond pattern for routing execution based on function selectors, and create a similarly composable account. However, the standard does not require the multi-facet proxy pattern.</p>
+
+<p>These plugins can contain execution logic, validation schemes, and hooks. Validation schemes define the circumstances under which the smart contract account will approve actions taken on its behalf, while hooks allow for pre- and post-execution controls.</p>
+
+<p>Accounts adopting this standard will support modular, upgradable execution and validation logic. Defining this as a standard for smart contract accounts will make plugins easier to develop securely and will allow for greater interoperability.</p>
+
+<p>Goals:</p>
+
+<ul>
+  <li>Provide standards for how validation, execution, and hook functions for smart contract accounts should be written.</li>
+  <li>Provide standards for how compliant accounts should add, update, remove, and inspect plugins.</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="terms">Terms</h3>
+
+<ul>
+  <li>An <strong>account</strong> (or <strong>smart contract account, SCA</strong>) is a smart contract that can be used to send transactions and hold digital assets. It implements the <code class="language-plaintext highlighter-rouge">IAccount</code> interface from ERC-4337.</li>
+  <li>A <strong>modular account</strong> (or <strong>modular smart contract account, MSCA</strong>) is an account that supports modular functions. There are three types of modular functions:
+    <ul>
+      <li><strong>Validation functions</strong> validate the caller’s authenticity and authority to the account.</li>
+      <li><strong>Execution functions</strong> execute any custom logic allowed by the account.</li>
+      <li><strong>Hooks</strong> execute custom logic and checks before and/or after an execution function or validation function.</li>
+    </ul>
+  </li>
+  <li>A <strong>validation function</strong> is a function that validates authentication and authorization of a caller to the account. There are two types of validation functions:
+    <ul>
+      <li><strong>User Operation Validation</strong> functions handle calls to <code class="language-plaintext highlighter-rouge">validateUserOp</code> and check the validity of an ERC-4337 user operation.</li>
+      <li><strong>Runtime Validation</strong> functions run before an execution function when not called via a user operation, and enforce checks. Common checks include allowing execution only by an owner.</li>
+    </ul>
+  </li>
+  <li>An <strong>execution function</strong> is a smart contract function that defines the main execution step of a function for a modular account.</li>
+  <li>The <strong>standard execute</strong> functions are two specific execute functions that are implemented natively by the modular account, and not on a plugin. These allow for open-ended execution.</li>
+  <li>A <strong>hook</strong> is a smart contract function executed before or after another function, with the ability to modify state or cause the entire call to revert. There are four types of hooks:
+    <ul>
+      <li><strong>Pre User Operation Validation Hook</strong> functions run before user operation validation functions. These can enforce permissions on what actions a validation function may perform via user operations.</li>
+      <li><strong>Pre Runtime Validation Hook</strong> functions run before runtime validation functions. These can enforce permissions on what actions a validation function may perform via direct calls.</li>
+      <li><strong>Pre Execution Hook</strong> functions run before an execution function. They may optionally return data to be consumed by their related post execution hook functions.</li>
+      <li><strong>Post Execution Hook</strong> functions run after an execution function. They may optionally take returned data from their related pre execution hook functions.</li>
+    </ul>
+  </li>
+  <li>An <strong>associated function</strong> refers to either a validation function or a hook.</li>
+  <li>A <strong>native function</strong> refers to a function implemented natively by the modular account, as opposed to a function added by a plugin.</li>
+  <li>A <strong>plugin</strong> is a deployed smart contract that hosts any amount of the above three kinds of modular functions: execution functions, validation functions, or hooks.</li>
+  <li>A plugin <strong>manifest</strong> is responsible for describing the execution functions, validation functions, and hooks that will be configured on the MSCA during installation, as well as the plugin’s metadata, dependency requirements, and permissions.</li>
+</ul>
+
+<h3 id="overview">Overview</h3>
+
+<p>A modular account handles two kinds of calls: either from the <code class="language-plaintext highlighter-rouge">Entrypoint</code> through ERC-4337, or through direct calls from externally owned accounts (EOAs) and other smart contracts. This standard supports both use cases.</p>
+
+<p>A call to the smart contract account can be broken down into the steps as shown in the diagram below. The validation steps validate if the caller is allowed to perform the call. The pre execution hook step can be used to do any pre execution checks or updates. It can also be used along with the post execution hook step to perform additional actions or verification. The execution step performs a defined task or collection of tasks.</p>
+
+<p><img src="../assets/eip-6900/Modular_Account_Call_Flow.svg" alt="diagram showing call flow within an modular account" /></p>
+
+<p>The following diagram shows permitted plugin execution flows. During a plugin’s execution step from the above diagram, the plugin may perform a “Plugin Execution Function”, using either <code class="language-plaintext highlighter-rouge">executeFromPlugin</code> or <code class="language-plaintext highlighter-rouge">executeFromPluginExternal</code>. These can be used by plugins to execute using the account’s context.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">executeFromPlugin</code> handles calls to other installed plugin’s execution function on the modular account.</li>
+  <li><code class="language-plaintext highlighter-rouge">executeFromPluginExternal</code> handles calls to external addresses.</li>
+</ul>
+
+<p><img src="../assets/eip-6900/Plugin_Execution_Flow.svg" alt="diagram showing a plugin execution flow" /></p>
+
+<p>Each step is modular, supporting different implementations for each execution function, and composable, supporting multiple steps through hooks. Combined, these allow for open-ended programmable accounts.</p>
+
+<h3 id="interfaces">Interfaces</h3>
+
+<p><strong>Modular Smart Contract Accounts</strong> <strong>MUST</strong> implement</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">IAccount.sol</code> from <a href="./eip-4337.md">ERC-4337</a>.</li>
+  <li><code class="language-plaintext highlighter-rouge">IPluginManager.sol</code> to support installing and uninstalling plugins.</li>
+  <li><code class="language-plaintext highlighter-rouge">IStandardExecutor.sol</code> to support open-ended execution. <strong>Calls to plugins through this SHOULD revert.</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">IPluginExecutor.sol</code> to support execution from plugins. <strong>Calls to plugins through <code class="language-plaintext highlighter-rouge">executeFromPluginExternal</code> SHOULD revert.</strong></li>
+</ul>
+
+<p><strong>Modular Smart Contract Accounts</strong> <strong>MAY</strong> implement</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">IAccountLoupe.sol</code> to support visibility in plugin configuration on-chain.</li>
+</ul>
+
+<p><strong>Plugins</strong> <strong>MUST</strong> implement</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">IPlugin.sol</code> described below and implement <a href="./eip-165.md">ERC-165</a> for <code class="language-plaintext highlighter-rouge">IPlugin</code>.</li>
+</ul>
+
+<h4 id="ipluginmanagersol"><code class="language-plaintext highlighter-rouge">IPluginManager.sol</code></h4>
+
+<p>Plugin manager interface. Modular Smart Contract Accounts <strong>MUST</strong> implement this interface to support installing and uninstalling plugins.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Treats the first 20 bytes as an address, and the last byte as a function identifier.
+</span><span class="k">type</span> <span class="n">FunctionReference</span> <span class="k">is</span> <span class="kt">bytes21</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IPluginManager</span> <span class="p">{</span>
+    <span class="k">event</span> <span class="n">PluginInstalled</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">plugin</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">manifestHash</span><span class="p">,</span> <span class="n">FunctionReference</span><span class="p">[]</span> <span class="n">dependencies</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">PluginUninstalled</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">plugin</span><span class="p">,</span> <span class="kt">bool</span> <span class="k">indexed</span> <span class="n">onUninstallSucceeded</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Install a plugin to the modular account.
+</span>    <span class="c1">/// @param plugin The plugin to install.
+</span>    <span class="c1">/// @param manifestHash The hash of the plugin manifest.
+</span>    <span class="c1">/// @param pluginInstallData Optional data to be decoded and used by the plugin to setup initial plugin data
+</span>    <span class="c1">/// for the modular account.
+</span>    <span class="c1">/// @param dependencies The dependencies of the plugin, as described in the manifest. Each FunctionReference
+</span>    <span class="c1">/// MUST be composed of an installed plugin's address and a function ID of its validation function.
+</span>    <span class="k">function</span> <span class="n">installPlugin</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">plugin</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">manifestHash</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">pluginInstallData</span><span class="p">,</span>
+        <span class="n">FunctionReference</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">dependencies</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Uninstall a plugin from the modular account.
+</span>    <span class="c1">/// @param plugin The plugin to uninstall.
+</span>    <span class="c1">/// @param config An optional, implementation-specific field that accounts may use to ensure consistency
+</span>    <span class="c1">/// guarantees.
+</span>    <span class="c1">/// @param pluginUninstallData Optional data to be decoded and used by the plugin to clear plugin data for the
+</span>    <span class="c1">/// modular account.
+</span>    <span class="k">function</span> <span class="n">uninstallPlugin</span><span class="p">(</span><span class="kt">address</span> <span class="n">plugin</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">config</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">pluginUninstallData</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h4 id="istandardexecutorsol"><code class="language-plaintext highlighter-rouge">IStandardExecutor.sol</code></h4>
+
+<p>Standard execute interface. Modular Smart Contract Accounts <strong>MUST</strong> implement this interface to support open-ended execution.</p>
+
+<p>Standard execute functions SHOULD check whether the call’s target implements the <code class="language-plaintext highlighter-rouge">IPlugin</code> interface via ERC-165.</p>
+
+<p><strong>If the target is a plugin, the call SHOULD revert.</strong> This prevents accidental misconfiguration or misuse of plugins (both installed and uninstalled).</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Call</span> <span class="p">{</span>
+    <span class="c1">// The target address for the account to call.
+</span>    <span class="kt">address</span> <span class="n">target</span><span class="p">;</span>
+    <span class="c1">// The value to send with the call.
+</span>    <span class="kt">uint256</span> <span class="n">value</span><span class="p">;</span>
+    <span class="c1">// The calldata for the call.
+</span>    <span class="kt">bytes</span> <span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">IStandardExecutor</span> <span class="p">{</span>
+    <span class="c1">/// @notice Standard execute method.
+</span>    <span class="c1">/// @dev If the target is a plugin, the call SHOULD revert.
+</span>    <span class="c1">/// @param target The target address for account to call.
+</span>    <span class="c1">/// @param value The value to send with the call.
+</span>    <span class="c1">/// @param data The calldata for the call.
+</span>    <span class="c1">/// @return The return data from the call.
+</span>    <span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="kt">address</span> <span class="n">target</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Standard executeBatch method.
+</span>    <span class="c1">/// @dev If the target is a plugin, the call SHOULD revert. If any of the calls revert, the entire batch MUST
+</span>    <span class="c1">/// revert.
+</span>    <span class="c1">/// @param calls The array of calls.
+</span>    <span class="c1">/// @return An array containing the return data from the calls.
+</span>    <span class="k">function</span> <span class="n">executeBatch</span><span class="p">(</span><span class="n">Call</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">calls</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="ipluginexecutorsol"><code class="language-plaintext highlighter-rouge">IPluginExecutor.sol</code></h4>
+
+<p>Execution interface for calls made from plugins. Modular Smart Contract Accounts <strong>MUST</strong> implement this interface to support execution from plugins.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">executeFromPluginExternal</code> function SHOULD check whether the call’s target implements the <code class="language-plaintext highlighter-rouge">IPlugin</code> interface via ERC-165.</p>
+
+<p><strong>If the target of <code class="language-plaintext highlighter-rouge">executeFromPluginExternal</code> function is a plugin, the call SHOULD revert.</strong></p>
+
+<p>This prevents accidental misconfiguration or misuse of plugins (both installed and uninstalled). Installed plugins MAY interact with other installed plugins via the <code class="language-plaintext highlighter-rouge">executeFromPlugin</code> function.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IPluginExecutor</span> <span class="p">{</span>
+    <span class="c1">/// @notice Execute a call from a plugin through the account.
+</span>    <span class="c1">/// @dev Permissions must be granted to the calling plugin for the call to go through.
+</span>    <span class="c1">/// @param data The calldata to send to the account.
+</span>    <span class="c1">/// @return The return data from the call.
+</span>    <span class="k">function</span> <span class="n">executeFromPlugin</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Execute a call from a plugin to a non-plugin address.
+</span>    <span class="c1">/// @dev If the target is a plugin, the call SHOULD revert. Permissions must be granted to the calling plugin
+</span>    <span class="c1">/// for the call to go through.
+</span>    <span class="c1">/// @param target The address to be called.
+</span>    <span class="c1">/// @param value The value to send with the call.
+</span>    <span class="c1">/// @param data The calldata to send to the target.
+</span>    <span class="c1">/// @return The return data from the call.
+</span>    <span class="k">function</span> <span class="n">executeFromPluginExternal</span><span class="p">(</span><span class="kt">address</span> <span class="n">target</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">payable</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="iaccountloupesol"><code class="language-plaintext highlighter-rouge">IAccountLoupe.sol</code></h4>
+
+<p>Plugin inspection interface. Modular Smart Contract Accounts <strong>MAY</strong> implement this interface to support visibility in plugin configuration on-chain.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IAccountLoupe</span> <span class="p">{</span>
+    <span class="c1">/// @notice Config for an execution function, given a selector.
+</span>    <span class="k">struct</span> <span class="n">ExecutionFunctionConfig</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">plugin</span><span class="p">;</span>
+        <span class="n">FunctionReference</span> <span class="n">userOpValidationFunction</span><span class="p">;</span>
+        <span class="n">FunctionReference</span> <span class="n">runtimeValidationFunction</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice Pre and post hooks for a given selector.
+</span>    <span class="c1">/// @dev It's possible for one of either `preExecHook` or `postExecHook` to be empty.
+</span>    <span class="k">struct</span> <span class="n">ExecutionHooks</span> <span class="p">{</span>
+        <span class="n">FunctionReference</span> <span class="n">preExecHook</span><span class="p">;</span>
+        <span class="n">FunctionReference</span> <span class="n">postExecHook</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">/// @notice Get the validation functions and plugin address for a selector.
+</span>    <span class="c1">/// @dev If the selector is a native function, the plugin address will be the address of the account.
+</span>    <span class="c1">/// @param selector The selector to get the configuration for.
+</span>    <span class="c1">/// @return The configuration for this selector.
+</span>    <span class="k">function</span> <span class="n">getExecutionFunctionConfig</span><span class="p">(</span><span class="kt">bytes4</span> <span class="nb">selector</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">ExecutionFunctionConfig</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the pre and post execution hooks for a selector.
+</span>    <span class="c1">/// @param selector The selector to get the hooks for.
+</span>    <span class="c1">/// @return The pre and post execution hooks for this selector.
+</span>    <span class="k">function</span> <span class="n">getExecutionHooks</span><span class="p">(</span><span class="kt">bytes4</span> <span class="nb">selector</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">ExecutionHooks</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the pre user op and runtime validation hooks associated with a selector.
+</span>    <span class="c1">/// @param selector The selector to get the hooks for.
+</span>    <span class="c1">/// @return preUserOpValidationHooks The pre user op validation hooks for this selector.
+</span>    <span class="c1">/// @return preRuntimeValidationHooks The pre runtime validation hooks for this selector.
+</span>    <span class="k">function</span> <span class="n">getPreValidationHooks</span><span class="p">(</span><span class="kt">bytes4</span> <span class="nb">selector</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span>
+            <span class="n">FunctionReference</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">preUserOpValidationHooks</span><span class="p">,</span>
+            <span class="n">FunctionReference</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">preRuntimeValidationHooks</span>
+        <span class="p">);</span>
+
+    <span class="c1">/// @notice Get an array of all installed plugins.
+</span>    <span class="c1">/// @return The addresses of all installed plugins.
+</span>    <span class="k">function</span> <span class="n">getInstalledPlugins</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="ipluginsol"><code class="language-plaintext highlighter-rouge">IPlugin.sol</code></h4>
+
+<p>Plugin interface. Plugins <strong>MUST</strong> implement this interface to support plugin management and interactions with MSCAs.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IPlugin</span> <span class="p">{</span>
+    <span class="c1">/// @notice Initialize plugin data for the modular account.
+</span>    <span class="c1">/// @dev Called by the modular account during `installPlugin`.
+</span>    <span class="c1">/// @param data Optional bytes array to be decoded and used by the plugin to setup initial plugin data for the modular account.
+</span>    <span class="k">function</span> <span class="n">onInstall</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Clear plugin data for the modular account.
+</span>    <span class="c1">/// @dev Called by the modular account during `uninstallPlugin`.
+</span>    <span class="c1">/// @param data Optional bytes array to be decoded and used by the plugin to clear plugin data for the modular account.
+</span>    <span class="k">function</span> <span class="n">onUninstall</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Run the pre user operation validation hook specified by the `functionId`.
+</span>    <span class="c1">/// @dev Pre user operation validation hooks MUST NOT return an authorizer value other than 0 or 1.
+</span>    <span class="c1">/// @param functionId An identifier that routes the call to different internal implementations, should there be more than one.
+</span>    <span class="c1">/// @param userOp The user operation.
+</span>    <span class="c1">/// @param userOpHash The user operation hash.
+</span>    <span class="c1">/// @return Packed validation data for validAfter (6 bytes), validUntil (6 bytes), and authorizer (20 bytes).
+</span>    <span class="k">function</span> <span class="n">preUserOpValidationHook</span><span class="p">(</span><span class="kt">uint8</span> <span class="n">functionId</span><span class="p">,</span> <span class="n">UserOperation</span> <span class="k">memory</span> <span class="n">userOp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">userOpHash</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Run the user operation validationFunction specified by the `functionId`.
+</span>    <span class="c1">/// @param functionId An identifier that routes the call to different internal implementations, should there be
+</span>    <span class="c1">/// more than one.
+</span>    <span class="c1">/// @param userOp The user operation.
+</span>    <span class="c1">/// @param userOpHash The user operation hash.
+</span>    <span class="c1">/// @return Packed validation data for validAfter (6 bytes), validUntil (6 bytes), and authorizer (20 bytes).
+</span>    <span class="k">function</span> <span class="n">userOpValidationFunction</span><span class="p">(</span><span class="kt">uint8</span> <span class="n">functionId</span><span class="p">,</span> <span class="n">UserOperation</span> <span class="k">calldata</span> <span class="n">userOp</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">userOpHash</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Run the pre runtime validation hook specified by the `functionId`.
+</span>    <span class="c1">/// @dev To indicate the entire call should revert, the function MUST revert.
+</span>    <span class="c1">/// @param functionId An identifier that routes the call to different internal implementations, should there be more than one.
+</span>    <span class="c1">/// @param sender The caller address.
+</span>    <span class="c1">/// @param value The call value.
+</span>    <span class="c1">/// @param data The calldata sent.
+</span>    <span class="k">function</span> <span class="n">preRuntimeValidationHook</span><span class="p">(</span><span class="kt">uint8</span> <span class="n">functionId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Run the runtime validationFunction specified by the `functionId`.
+</span>    <span class="c1">/// @dev To indicate the entire call should revert, the function MUST revert.
+</span>    <span class="c1">/// @param functionId An identifier that routes the call to different internal implementations, should there be
+</span>    <span class="c1">/// more than one.
+</span>    <span class="c1">/// @param sender The caller address.
+</span>    <span class="c1">/// @param value The call value.
+</span>    <span class="c1">/// @param data The calldata sent.
+</span>    <span class="k">function</span> <span class="n">runtimeValidationFunction</span><span class="p">(</span><span class="kt">uint8</span> <span class="n">functionId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Run the pre execution hook specified by the `functionId`.
+</span>    <span class="c1">/// @dev To indicate the entire call should revert, the function MUST revert.
+</span>    <span class="c1">/// @param functionId An identifier that routes the call to different internal implementations, should there be more than one.
+</span>    <span class="c1">/// @param sender The caller address.
+</span>    <span class="c1">/// @param value The call value.
+</span>    <span class="c1">/// @param data The calldata sent.
+</span>    <span class="c1">/// @return Context to pass to a post execution hook, if present. An empty bytes array MAY be returned.
+</span>    <span class="k">function</span> <span class="n">preExecutionHook</span><span class="p">(</span><span class="kt">uint8</span> <span class="n">functionId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">sender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Run the post execution hook specified by the `functionId`.
+</span>    <span class="c1">/// @dev To indicate the entire call should revert, the function MUST revert.
+</span>    <span class="c1">/// @param functionId An identifier that routes the call to different internal implementations, should there be more than one.
+</span>    <span class="c1">/// @param preExecHookData The context returned by its associated pre execution hook.
+</span>    <span class="k">function</span> <span class="n">postExecutionHook</span><span class="p">(</span><span class="kt">uint8</span> <span class="n">functionId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">preExecHookData</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Describe the contents and intended configuration of the plugin.
+</span>    <span class="c1">/// @dev This manifest MUST stay constant over time.
+</span>    <span class="c1">/// @return A manifest describing the contents and intended configuration of the plugin.
+</span>    <span class="k">function</span> <span class="n">pluginManifest</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="n">PluginManifest</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Describe the metadata of the plugin.
+</span>    <span class="c1">/// @dev This metadata MUST stay constant over time.
+</span>    <span class="c1">/// @return A metadata struct describing the plugin.
+</span>    <span class="k">function</span> <span class="n">pluginMetadata</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="n">PluginMetadata</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="plugin-manifest">Plugin manifest</h3>
+
+<p>The plugin manifest is responsible for describing the execution functions, validation functions, and hooks that will be configured on the MSCA during installation, as well as the plugin’s metadata, dependencies, and permissions.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">ManifestAssociatedFunctionType</span> <span class="p">{</span>
+    <span class="c1">// Function is not defined.
+</span>    <span class="n">NONE</span><span class="p">,</span>
+    <span class="c1">// Function belongs to this plugin.
+</span>    <span class="n">SELF</span><span class="p">,</span>
+    <span class="c1">// Function belongs to an external plugin provided as a dependency during plugin installation. Plugins MAY depend
+</span>    <span class="c1">// on external validation functions. It MUST NOT depend on external hooks, or installation will fail.
+</span>    <span class="n">DEPENDENCY</span><span class="p">,</span>
+    <span class="c1">// Resolves to a magic value to always bypass runtime validation for a given function.
+</span>    <span class="c1">// This is only assignable on runtime validation functions. If it were to be used on a user op validationFunction,
+</span>    <span class="c1">// it would risk burning gas from the account. When used as a hook in any hook location, it is equivalent to not
+</span>    <span class="c1">// setting a hook and is therefore disallowed.
+</span>    <span class="n">RUNTIME_VALIDATION_ALWAYS_ALLOW</span><span class="p">,</span>
+    <span class="c1">// Resolves to a magic value to always fail in a hook for a given function.
+</span>    <span class="c1">// This is only assignable to pre hooks (pre validation and pre execution). It should not be used on
+</span>    <span class="c1">// validation functions themselves, because this is equivalent to leaving the validation functions unset.
+</span>    <span class="c1">// It should not be used in post-exec hooks, because if it is known to always revert, that should happen
+</span>    <span class="c1">// as early as possible to save gas.
+</span>    <span class="n">PRE_HOOK_ALWAYS_DENY</span>
+<span class="p">}</span>
+
+<span class="c1">/// @dev For functions of type `ManifestAssociatedFunctionType.DEPENDENCY`, the MSCA MUST find the plugin address
+/// of the function at `dependencies[dependencyIndex]` during the call to `installPlugin(config)`.
+</span><span class="k">struct</span> <span class="n">ManifestFunction</span> <span class="p">{</span>
+    <span class="n">ManifestAssociatedFunctionType</span> <span class="n">functionType</span><span class="p">;</span>
+    <span class="kt">uint8</span> <span class="n">functionId</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">dependencyIndex</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">ManifestAssociatedFunction</span> <span class="p">{</span>
+    <span class="kt">bytes4</span> <span class="n">executionSelector</span><span class="p">;</span>
+    <span class="n">ManifestFunction</span> <span class="n">associatedFunction</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">ManifestExecutionHook</span> <span class="p">{</span>
+    <span class="kt">bytes4</span> <span class="nb">selector</span><span class="p">;</span>
+    <span class="n">ManifestFunction</span> <span class="n">preExecHook</span><span class="p">;</span>
+    <span class="n">ManifestFunction</span> <span class="n">postExecHook</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">ManifestExternalCallPermission</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">externalAddress</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">permitAnySelector</span><span class="p">;</span>
+    <span class="kt">bytes4</span><span class="p">[]</span> <span class="n">selectors</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">SelectorPermission</span> <span class="p">{</span>
+    <span class="kt">bytes4</span> <span class="n">functionSelector</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">permissionDescription</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">/// @dev A struct holding fields to describe the plugin in a purely view context. Intended for front end clients.
+</span><span class="k">struct</span> <span class="n">PluginMetadata</span> <span class="p">{</span>
+    <span class="c1">// A human-readable name of the plugin.
+</span>    <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="c1">// The version of the plugin, following the semantic versioning scheme.
+</span>    <span class="kt">string</span> <span class="n">version</span><span class="p">;</span>
+    <span class="c1">// The author field SHOULD be a username representing the identity of the user or organization
+</span>    <span class="c1">// that created this plugin.
+</span>    <span class="kt">string</span> <span class="n">author</span><span class="p">;</span>
+    <span class="c1">// String descriptions of the relative sensitivity of specific functions. The selectors MUST be selectors for
+</span>    <span class="c1">// functions implemented by this plugin.
+</span>    <span class="n">SelectorPermission</span><span class="p">[]</span> <span class="n">permissionDescriptors</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">/// @dev A struct describing how the plugin should be installed on a modular account.
+</span><span class="k">struct</span> <span class="n">PluginManifest</span> <span class="p">{</span>
+    <span class="c1">// List of ERC-165 interface IDs to add to account to support introspection checks. This MUST NOT include
+</span>    <span class="c1">// IPlugin's interface ID.
+</span>    <span class="kt">bytes4</span><span class="p">[]</span> <span class="n">interfaceIds</span><span class="p">;</span>
+    <span class="c1">// If this plugin depends on other plugins' validation functions, the interface IDs of those plugins MUST be
+</span>    <span class="c1">// provided here, with its position in the array matching the `dependencyIndex` members of `ManifestFunction`
+</span>    <span class="c1">// structs used in the manifest.
+</span>    <span class="kt">bytes4</span><span class="p">[]</span> <span class="n">dependencyInterfaceIds</span><span class="p">;</span>
+    <span class="c1">// Execution functions defined in this plugin to be installed on the MSCA.
+</span>    <span class="kt">bytes4</span><span class="p">[]</span> <span class="n">executionFunctions</span><span class="p">;</span>
+    <span class="c1">// Plugin execution functions already installed on the MSCA that this plugin will be able to call.
+</span>    <span class="kt">bytes4</span><span class="p">[]</span> <span class="n">permittedExecutionSelectors</span><span class="p">;</span>
+    <span class="c1">// Boolean to indicate whether the plugin can call any external address.
+</span>    <span class="kt">bool</span> <span class="n">permitAnyExternalAddress</span><span class="p">;</span>
+    <span class="c1">// Boolean to indicate whether the plugin needs access to spend native tokens of the account. If false, the
+</span>    <span class="c1">// plugin MUST still be able to spend up to the balance that it sends to the account in the same call.
+</span>    <span class="kt">bool</span> <span class="n">canSpendNativeToken</span><span class="p">;</span>
+    <span class="n">ManifestExternalCallPermission</span><span class="p">[]</span> <span class="n">permittedExternalCalls</span><span class="p">;</span>
+    <span class="n">ManifestAssociatedFunction</span><span class="p">[]</span> <span class="n">userOpValidationFunctions</span><span class="p">;</span>
+    <span class="n">ManifestAssociatedFunction</span><span class="p">[]</span> <span class="n">runtimeValidationFunctions</span><span class="p">;</span>
+    <span class="n">ManifestAssociatedFunction</span><span class="p">[]</span> <span class="n">preUserOpValidationHooks</span><span class="p">;</span>
+    <span class="n">ManifestAssociatedFunction</span><span class="p">[]</span> <span class="n">preRuntimeValidationHooks</span><span class="p">;</span>
+    <span class="n">ManifestExecutionHook</span><span class="p">[]</span> <span class="n">executionHooks</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h3 id="expected-behavior">Expected behavior</h3>
+
+<h4 id="responsibilties-of-standardexecutor-and-pluginexecutor">Responsibilties of <code class="language-plaintext highlighter-rouge">StandardExecutor</code> and <code class="language-plaintext highlighter-rouge">PluginExecutor</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">StandardExecutor</code> functions are used for open-ended calls to external addresses.</p>
+
+<p><code class="language-plaintext highlighter-rouge">PluginExecutor</code> functions are specifically used by plugins to request the account to execute with account’s context. Explicit permissions are required for plugins to use <code class="language-plaintext highlighter-rouge">PluginExecutor</code>.</p>
+
+<p>The following behavior MUST be followed:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">StandardExecutor</code> can NOT call plugin execution functions and/or <code class="language-plaintext highlighter-rouge">PluginExecutor</code>. This is guaranteed by checking whether the call’s target implements the <code class="language-plaintext highlighter-rouge">IPlugin</code> interface via ERC-165 as required.</li>
+  <li><code class="language-plaintext highlighter-rouge">StandardExecutor</code> can NOT be called by plugin execution functions and/or <code class="language-plaintext highlighter-rouge">PluginExecutor</code>.</li>
+  <li>Plugin execution functions MUST NOT request access to <code class="language-plaintext highlighter-rouge">StandardExecutor</code>, they MAY request access to <code class="language-plaintext highlighter-rouge">PluginExecutor</code>.</li>
+</ul>
+
+<h4 id="calls-to-installplugin">Calls to <code class="language-plaintext highlighter-rouge">installPlugin</code></h4>
+
+<p>The function <code class="language-plaintext highlighter-rouge">installPlugin</code> accepts 4 parameters: the address of the plugin to install, the Keccak-256 hash of the plugin’s manifest, ABI-encoded data to pass to the plugin’s <code class="language-plaintext highlighter-rouge">onInstall</code> callback, and an array of function references that represent the plugin’s install dependencies.</p>
+
+<p>The function MUST retrieve the plugin’s manifest by calling <code class="language-plaintext highlighter-rouge">pluginManifest()</code> using <code class="language-plaintext highlighter-rouge">staticcall</code>.</p>
+
+<p>The function MUST perform the following preliminary checks:</p>
+
+<ul>
+  <li>Revert if the plugin has already been installed on the modular account.</li>
+  <li>Revert if the plugin does not implement ERC-165 or does not support the <code class="language-plaintext highlighter-rouge">IPlugin</code> interface.</li>
+  <li>Revert if <code class="language-plaintext highlighter-rouge">manifestHash</code> does not match the computed Keccak-256 hash of the plugin’s returned manifest. This prevents installation of plugins that attempt to install a different plugin configuration than the one that was approved by the client.</li>
+  <li>Revert if any address in <code class="language-plaintext highlighter-rouge">dependencies</code> does not support the interface at its matching index in the manifest’s <code class="language-plaintext highlighter-rouge">dependencyInterfaceIds</code>, or if the two array lengths do not match, or if any of the dependencies are not already installed on the modular account.</li>
+</ul>
+
+<p>The function MUST record the manifest hash and dependencies that were used for the plugin’s installation. Each dependency’s record MUST also be updated to reflect that it has a new dependent. These records MUST be used to ensure calls to <code class="language-plaintext highlighter-rouge">uninstallPlugin</code> are comprehensive and undo all edited configuration state from installation. The mechanism by which these records are stored and validated is up to the implementation.</p>
+
+<p>The function MUST store the plugin’s permitted function selectors, permitted external calls, and whether it can spend the account’s native tokens, to be able to validate calls to <code class="language-plaintext highlighter-rouge">executeFromPlugin</code> and <code class="language-plaintext highlighter-rouge">executeFromPluginExternal</code>.</p>
+
+<p>The function MUST parse through the execution functions, validation functions, and hooks in the manifest and add them to the modular account after resolving each <code class="language-plaintext highlighter-rouge">ManifestFunction</code> type.</p>
+
+<ul>
+  <li>Each execution function selector MUST be added as a valid execution function on the modular account. If the function selector has already been added or matches the selector of a native function, the function SHOULD revert.</li>
+  <li>If a validation function is to be added to a selector that already has that type of validation function, the function SHOULD revert.</li>
+</ul>
+
+<p>The function MAY store the interface IDs provided in the manifest’s <code class="language-plaintext highlighter-rouge">interfaceIds</code> and update its <code class="language-plaintext highlighter-rouge">supportsInterface</code> behavior accordingly.</p>
+
+<p>Next, the function MUST call the plugin’s <code class="language-plaintext highlighter-rouge">onInstall</code> callback with the data provided in the <code class="language-plaintext highlighter-rouge">pluginInstallData</code> parameter. This serves to initialize the plugin state for the modular account. If <code class="language-plaintext highlighter-rouge">onInstall</code> reverts, the <code class="language-plaintext highlighter-rouge">installPlugin</code> function MUST revert.</p>
+
+<p>Finally, the function MUST emit the event <code class="language-plaintext highlighter-rouge">PluginInstalled</code> with the plugin’s address, the hash of its manifest, and the dependencies that were used.</p>
+
+<blockquote>
+  <p><strong>⚠️ The ability to install and uninstall plugins is very powerful. The security of these functions determines the security of the account. It is critical for modular account implementers to make sure the implementation of the functions in <code class="language-plaintext highlighter-rouge">IPluginManager</code> have the proper security consideration and access control in place.</strong></p>
+</blockquote>
+
+<h4 id="calls-to-uninstallplugin">Calls to <code class="language-plaintext highlighter-rouge">uninstallPlugin</code></h4>
+
+<p>The function <code class="language-plaintext highlighter-rouge">uninstallPlugin</code> accepts 3 parameters: the address of the plugin to uninstall, a bytes field that may have custom requirements or uses by the implementing account, and ABI-encoded data to pass to the plugin’s <code class="language-plaintext highlighter-rouge">onUninstall</code> callback.</p>
+
+<p>The function MUST revert if the plugin is not installed on the modular account.</p>
+
+<p>The function SHOULD perform the following checks:</p>
+
+<ul>
+  <li>Revert if the hash of the manifest used at install time does not match the computed Keccak-256 hash of the plugin’s current manifest. This prevents unclean removal of plugins that attempt to force a removal of a different plugin configuration than the one that was originally approved by the client for installation. To allow for removal of such plugins, the modular account MAY implement the capability for the manifest to be encoded in the config field as a parameter.</li>
+  <li>Revert if there is at least 1 other installed plugin that depends on validation functions added by this plugin. Plugins used as dependencies SHOULD NOT be uninstalled while dependent plugins exist.</li>
+</ul>
+
+<p>The function SHOULD update account storage to reflect the uninstall via inspection functions, such as those defined by <code class="language-plaintext highlighter-rouge">IAccountLoupe</code>. Each dependency’s record SHOULD also be updated to reflect that it has no longer has this plugin as a dependent.</p>
+
+<p>The function MUST remove records for the plugin’s manifest hash, dependencies, permitted function selectors, permitted external calls, and whether it can spend the account’s native tokens.</p>
+
+<p>The function MUST parse through the execution functions, validation functions, and hooks in the manifest and remove them from the modular account after resolving each <code class="language-plaintext highlighter-rouge">ManifestFunction</code> type. If multiple plugins added the same hook, it MUST persist until the last plugin is uninstalled.</p>
+
+<p>If the account stored the interface IDs provided in the manifest’s <code class="language-plaintext highlighter-rouge">interfaceIds</code> during installation, it MUST remove them and update its <code class="language-plaintext highlighter-rouge">supportsInterface</code> behavior accordingly. If multiple plugins added the same interface ID, it MUST persist until the last plugin is uninstalled.</p>
+
+<p>Next, the function MUST call the plugin’s <code class="language-plaintext highlighter-rouge">onUninstall</code> callback with the data provided in the <code class="language-plaintext highlighter-rouge">pluginUninstallData</code> parameter. This serves to clear the plugin state for the modular account. If <code class="language-plaintext highlighter-rouge">onUninstall</code> reverts, execution SHOULD continue to allow the uninstall to complete.</p>
+
+<p>Finally, the function MUST emit the event <code class="language-plaintext highlighter-rouge">PluginUninstalled</code> with the plugin’s address and whether the <code class="language-plaintext highlighter-rouge">onUninstall</code> callback succeeded.</p>
+
+<blockquote>
+  <p><strong>⚠️ Incorrectly uninstalled plugins can prevent uninstalls of their dependencies. Therefore, some form of validation that the uninstall step completely and correctly removes the plugin and its usage of dependencies is required.</strong></p>
+</blockquote>
+
+<h4 id="calls-to-validateuserop">Calls to <code class="language-plaintext highlighter-rouge">validateUserOp</code></h4>
+
+<p>When the function <code class="language-plaintext highlighter-rouge">validateUserOp</code> is called on modular account by the <code class="language-plaintext highlighter-rouge">EntryPoint</code>, it MUST find the user operation validation function associated to the function selector in the first four bytes of <code class="language-plaintext highlighter-rouge">userOp.callData</code>. If there is no function defined for the selector, or if <code class="language-plaintext highlighter-rouge">userOp.callData.length &lt; 4</code>, then execution MUST revert.</p>
+
+<p>If the function selector has associated pre user operation validation hooks, then those hooks MUST be run sequentially. If any revert, the outer call MUST revert. If any are set to <code class="language-plaintext highlighter-rouge">PRE_HOOK_ALWAYS_DENY</code>, the call MUST revert. If any return an <code class="language-plaintext highlighter-rouge">authorizer</code> value other than 0 or 1, execution MUST revert. If any return an <code class="language-plaintext highlighter-rouge">authorizer</code> value of 1, indicating an invalid signature, the returned validation data of the outer call MUST also be 1. If any return time-bounded validation by specifying either a <code class="language-plaintext highlighter-rouge">validUntil</code> or <code class="language-plaintext highlighter-rouge">validBefore</code> value, the resulting validation data MUST be the intersection of all time bounds provided.</p>
+
+<p>Then, the modular account MUST execute the validation function with the user operation and its hash as parameters using the <code class="language-plaintext highlighter-rouge">call</code> opcode. The returned validation data from the user operation validation function MUST be updated, if necessary, by the return values of any pre user operation validation hooks, then returned by <code class="language-plaintext highlighter-rouge">validateUserOp</code>.</p>
+
+<h4 id="calls-to-execution-functions">Calls to execution functions</h4>
+
+<p>When a function other than a native function is called on an modular account, it MUST find the plugin configuration for the corresponding selector added via plugin installation. If no corresponding plugin is found, the modular account MUST revert. Otherwise, the following steps MUST be performed.</p>
+
+<p>Additionally, when the modular account natively implements functions in <code class="language-plaintext highlighter-rouge">IPluginManager</code> and <code class="language-plaintext highlighter-rouge">IStandardExecutor</code>, the same following steps MUST be performed for those functions. Other native functions MAY perform these steps.</p>
+
+<p>The steps to perform are:</p>
+
+<ul>
+  <li>If the call is not from the <code class="language-plaintext highlighter-rouge">EntryPoint</code>, then find an associated runtime validation function. If one does not exist, execution MUST revert. The modular account MUST execute all pre runtime validation hooks, then the runtime validation function, with the <code class="language-plaintext highlighter-rouge">call</code> opcode. All of these functions MUST receive the caller, value, and execution function’s calldata as parameters. If any of these functions revert, execution MUST revert. If any pre runtime validation hooks are set to <code class="language-plaintext highlighter-rouge">PRE_HOOK_ALWAYS_DENY</code>, execution MUST revert. If the runtime validation function is set to <code class="language-plaintext highlighter-rouge">RUNTIME_VALIDATION_ALWAYS_ALLOW</code>, the validation function MUST be bypassed.</li>
+  <li>If there are pre execution hooks defined for the execution function, execute those hooks with the caller, value, and execution function’s calldata as parameters. If any of these hooks returns data, it MUST be preserved until the call to the post execution hook. The operation MUST be done with the <code class="language-plaintext highlighter-rouge">call</code> opcode. If there are duplicate pre execution hooks (i.e., hooks with identical <code class="language-plaintext highlighter-rouge">FunctionReference</code>s), run the hook only once. If any of these functions revert, execution MUST revert.</li>
+  <li>Run the execution function.</li>
+  <li>If any post execution hooks are defined, run the functions. If a pre execution hook returned data to the account, that data MUST be passed as a parameter to the associated post execution hook. The operation MUST be done with the <code class="language-plaintext highlighter-rouge">call</code> opcode. If there are duplicate post execution hooks, run them once for each unique associated pre execution hook. For post execution hooks without an associated pre execution hook, run the hook only once. If any of these functions revert, execution MUST revert.</li>
+</ul>
+
+<p>The set of hooks run for a given execution function MUST be the hooks specified by account state at the start of the execution phase. This is relevant for functions like <code class="language-plaintext highlighter-rouge">installPlugin</code> and <code class="language-plaintext highlighter-rouge">uninstallPlugin</code>, which modify the account state, and possibly other execution or native functions as well.</p>
+
+<h4 id="calls-made-from-plugins">Calls made from plugins</h4>
+
+<p>Plugins MAY interact with other plugins and external addresses through the modular account using the functions defined in the <code class="language-plaintext highlighter-rouge">IPluginExecutor</code> interface. These functions MAY be called without a defined validation function, but the modular account MUST enforce these checks and behaviors:</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">executeFromPlugin</code> function MUST allow plugins to call execution functions installed by plugins on the modular account. Hooks matching the function selector provided in <code class="language-plaintext highlighter-rouge">data</code> MUST be called. If the calling plugin’s manifest did not include the provided function selector within <code class="language-plaintext highlighter-rouge">permittedExecutionSelectors</code> at the time of installation, execution MUST revert.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">executeFromPluginExternal</code> function MUST allow plugins to call external addresses as specified by its parameters on behalf of the modular account. If the calling plugin’s manifest did not explicitly allow the external call within <code class="language-plaintext highlighter-rouge">permittedExternalCalls</code> at the time of installation, execution MUST revert.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>ERC-4337 compatible accounts must implement the <code class="language-plaintext highlighter-rouge">IAccount</code> interface, which consists of only one method that bundles validation with execution: <code class="language-plaintext highlighter-rouge">validateUserOp</code>. A primary design rationale for this proposal is to extend the possible functions for a smart contract account beyond this single method by unbundling these and other functions, while retaining the benefits of account abstraction.</p>
+
+<p>The function routing pattern of ERC-2535 is the logical starting point for achieving this extension into multi-functional accounts. It also meets our other primary design rationale of generalizing execution calls across multiple implementing contracts. However, a strict diamond pattern is constrained by its inability to customize validation schemes for specific execution functions in the context of <code class="language-plaintext highlighter-rouge">validateUserOp</code>, and its requirement of <code class="language-plaintext highlighter-rouge">delegatecall</code>.</p>
+
+<p>This proposal includes several interfaces that build on ERC-4337 and are inspired by ERC-2535. First, we standardize a set of modular functions that allow smart contract developers greater flexibility in bundling validation, execution, and hook logic. We also propose interfaces that take inspiration from the diamond standard and provide methods for querying execution functions, validation functions, and hooks on a modular account. The rest of the interfaces describe a plugin’s methods for exposing its modular functions and desired configuration, and the modular account’s methods for installing and removing plugins and allowing execution across plugins and external addresses.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues found.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>See <code class="language-plaintext highlighter-rouge">https://github.com/erc6900/reference-implementation</code></p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Needs discussion.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

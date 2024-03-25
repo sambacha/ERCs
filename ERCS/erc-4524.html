@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Safer ERC-20 | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Safer ERC-20 | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4524" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4524" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Safer ERC-20</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard extends <a href="./eip-20.md">ERC-20</a> tokens with <a href="./eip-165.md">EIP-165</a>, and adds familiar functions from <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> ensuring receiving contracts have implemented proper functionality.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p><a href="./eip-165.md">EIP-165</a> adds (among other things) the ability to tell if a target recipient explicitly signals compatibility with an ERC. This is already used in the EIPs for NFTs, <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a>. In addition, EIP-165 is a valuable building block for extensions on popular standards to signal implementation, a trend we’ve seen in a number of NFT extensions. This EIP aims to bring these innovations back to ERC-20.</p>
+
+<p>The importance of <a href="./eip-165.md">EIP-165</a> is perhaps felt most for app developers looking to integrate with a generic standard such as ERC-20 or ERC-721, while integrating newer innovations built atop these standards. An easy example would be token permits, which allow for a one-transaction approval and transfer. This has already been implemented in many popular ERC-20 tokens using the <a href="./eip-2612.md">ERC-2612</a> standard or similar. A platform integrating ERC-20 tokens has no easy way of telling if a particular token has implemented token permits or not. (As of this writing, ERC-2612 does not require EIP-165.) With EIP-165, the app (or contracts) could query <code class="language-plaintext highlighter-rouge">supportsInterface</code> to see if the <code class="language-plaintext highlighter-rouge">interfaceId</code> of a particular EIP is registered (in this case, EIP-2612), allowing for easier and more modular functions interacting with ERC-20 contracts. It is already common in NFT extensions to include an EIP-165 interface with a standard, we would argue this is at least in part due to the underlying <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> standards integrating EIP-165. Our hope is that this extension to ERC-20 would also help future extensions by making them easier to integrate.</p>
+
+<h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>In order to be compliant with this EIP, and ERC-20-compliant contract MUST also implement the following functions:</p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">'./IERC20.sol'</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">'./IERC165.sol'</span><span class="p">;</span>
+
+<span class="c1">// the EIP-165 interfaceId for this interface is 0x534f5876
+</span>
+<span class="k">interface</span> <span class="n">SaferERC</span><span class="o">-</span><span class="mi">20</span> <span class="k">is</span> <span class="n">IERC20</span><span class="p">,</span> <span class="n">IERC165</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">safeTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">safeTransfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+  <span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">safeTransfer</code> and <code class="language-plaintext highlighter-rouge">safeTransferFrom</code> MUST transfer as expected to EOA addresses, and to contracts implementing <code class="language-plaintext highlighter-rouge">ERC20Receiver</code> and returning the function selector (<code class="language-plaintext highlighter-rouge">0x4fc35859</code>) when called, and MUST revert when transferring to a contract which either does not have <code class="language-plaintext highlighter-rouge">ERC20Receiver</code> implemented, or does not return the function selector when called.</p>
+
+<p>In addition, a contract accepting safe transfers MUST implement the following if it wishes to accept safe transfers, and MUST return the function selector (<code class="language-plaintext highlighter-rouge">0x4fc35859</code>):</p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">'./IERC165.sol'</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">ERC20Receiver</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">onERC20Received</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">,</span>
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes4</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This EIP is meant to be minimal and straightforward. Adding EIP-165 to ERC-20 is useful for a number of applications, and outside of a minimal amount of code increasing contract size, carries no downside. The <code class="language-plaintext highlighter-rouge">safeTransfer</code> and <code class="language-plaintext highlighter-rouge">safeTransferFrom</code> functions are well recognized from ERC-721 and ERC-1155, and therefore keeping identical naming conventions is reasonable, and the benefits of being able to check for implementation before transferring are as useful for ERC-20 tokens as they are for ERC-721 and ERC-1155.</p>
+
+<p>Another easy backport from EIP721 and EIP1155 might be the inclusion of a metadata URI for tokens, allowing them to easily reference logo and other details. This has not been included, both in order to keep this EIP as minimal as possible, and because it is already sufficiently covered by <a href="./eip-1046.md">EIP-1046</a>.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>There are no issues with backwards compatibility in this EIP, as the full suite of ERC-20 functions is unchanged.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+<p>Test cases have been provided in the implementation repo <a href="https://github.com/wschwab/SaferERC-20/blob/main/src/SaferERC-20.t.sol">here</a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+<p>A sample repo demonstrating an implementation of this EIP has been created <a href="https://github.com/wschwab/SaferERC-20">here</a>. It is (as of this writing) in a Dapptools environment, for details on installing and running Dapptools see the Dapptools repo.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p><code class="language-plaintext highlighter-rouge">onERC20Received</code>  is a callback function. Callback functions have been exploited in the past as a reentrancy vector, and care should be taken to make sure implementations are not vulnerable.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

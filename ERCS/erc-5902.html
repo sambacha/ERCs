@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Smart Contract Event Hooks | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Smart Contract Event Hooks | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5902" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5902" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Smart Contract Event Hooks</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP proposes a standard for creating “hooks” that allow a smart contract function to be called automatically in response to a trigger fired by another contract, by using a public relayer network as a messaging bus.</p>
+
+<p>While there are many similar solutions in existence already, this proposal describes a simple yet powerful primitive that can be employed by many applications in an open, permissionless and decentralized manner.</p>
+
+<p>It relies on two interfaces, one for a publisher contract and one for a subscriber contract.  The publisher contract emits events that are picked up by “relayers”, who are independent entities that subscribe to “hook” events on publisher contracts, and call a function on the respective subscriber contracts, whenever a hook event is fired by the publisher contracts.  Whenever a relayer calls the respective subscriber’s contract with the details of the hook event emitted by the publisher contract, they are paid a fee by the subscriber.  Both the publisher and subscriber contracts are registered in a central registry smart contract that relayers can use to discover hooks.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There exists a number of use cases that require some off-chain party to monitor the chain and respond to on-chain events by broadcasting a transaction.  Such cases usually require some off-chain process to run alongside an Ethereum node in order to subscribe to events emitted by smart contract, and then execute some logic in response and subsequently broadcast a transaction to the network.  This requires an Ethereum node and an open websocket connection to some long-running process that may only be used infrequently, resulting in a sub-optimal use of resources.</p>
+
+<p>This proposal would allow for a smart contract to contain the logic it needs to respond to events without having to store that logic in some off-chain process.  The smart contract can subscribe to events fired by other smart contracts and would only execute the required logic when it is needed. This method would suit any contract logic that does not require off-chain computation, but usually requires an off-chain process to monitor the chain state. With this approach, subscribers do not need their own dedicated off-chain processes for monitoring and responding to contract events.  Instead, a single incentivized relayer can subscribe to many different events on behalf of multiple different subscriber contracts.</p>
+
+<p>Examples of use cases that would benefit from this scheme include:</p>
+
+<h3 id="collateralised-lending-protocols">Collateralised Lending Protocols</h3>
+
+<p>Collateralised lending protocols or stablecoins can emit events whenever they receive price oracle updates, which would allow borrowers to automatically “top-up” their open positions to avoid liquidation.</p>
+
+<p>For example, Maker uses the “medianizer” smart contract which maintains a whitelist of price feed contracts which are allowed to post price updates. Every time a new price update is received, the median of all feed prices is re-computed and the medianized value is updated.  In this case, the medianizer smart contract could fire a hook event that would allow subscriber contracts to decide to re-collateralize their CDPs.</p>
+
+<h3 id="automated-market-makers">Automated Market Makers</h3>
+
+<p>AMM liquidity pools could fire a hook event whenever liquidity is added or removed.  This could allow a subscriber smart contracts to add or remove liquidity once the total pool liquidity reaches a certain point.</p>
+
+<p>AMMs can fire a hook whenever there is a trade within a trading pair, emitting the time-weighted-price-oracle update via an hook event.  Subscribers can use this to create an automated Limit-Order-Book type contract to buy/sell tokens once an asset’s spot price breaches a pre-specified threshold.</p>
+
+<h3 id="dao-voting">DAO Voting</h3>
+
+<p>Hook events can be emitted by a DAO governance contract to signal that a proposal has been published, voted on, carried or vetoed, and would allow any subscriber contract to automatically respond accordingly. For example, to execute some smart contract function whenever a specific proposal has passed, such as an approval for payment of funds.</p>
+
+<h3 id="scheduled-function-calls">Scheduled Function Calls</h3>
+
+<p>A scheduler service can be created whereby a subscriber can register for a scheduled funtion call, this could be done using unix cron format and the service can fire events from a smart contract on separate threads.  Subscriber contracts can subscriber to the respective threads in order to subscribe to certain schedules (e.g. daily, weekly, hourly etc.), and could even register customer cron schedules.</p>
+
+<h3 id="recurring-payments">Recurring Payments</h3>
+
+<p>A service provider can fire Hook events that will allow subscriber contracts to automatically pay their service fees on a regular schedule.  Once the subscriber contracts receive a hook event, they can call a function on the service provider’s contract to transfer funds due.</p>
+
+<h3 id="coordination-via-delegation">Coordination via Delegation</h3>
+
+<p>Hook event payloads can contain any arbitrary data, this means you can use things like the Delegatable framework to sign off-chain delegations which can faciliate a chain of authorized entities to publish valid Hook events.  You can also use things like BLS threshold signatures, to facilitate multiple off-chain publishers to authorize the firing of a Hook.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<h3 id="registering-a-publisher">Registering a Publisher</h3>
+
+<p>Both the publisher and subscriber contracts <strong>MUST</strong> register in a specific register contract, similarly to how smart contracts register an interface in the <a href="./eip-1820.md">ERC-1820</a> contract.  The registry contract <strong>MUST</strong> must use a deterministic deployment mechanism, i.e. using a factory contract and a specific salt.</p>
+
+<p>To register a publisher contract’s hook, the <code class="language-plaintext highlighter-rouge">registerHook</code> function <strong>MUST</strong> be called on the registry contract.  The parameters that need to be supplied are:</p>
+
+<ul>
+  <li>(address) The publisher contract address</li>
+  <li>(uint256) The thread id that the hooks events will reference (a single contract can fire hook events with any number of threads, subscribers can choose which threads to subscribe to)</li>
+  <li>(bytes) The public key associated with the hook events (optional)</li>
+</ul>
+
+<p>When the <code class="language-plaintext highlighter-rouge">registerHook</code> function is called on the registry contract, the registry contract <strong>MUST</strong> make a downstream call to the publisher contract address, by calling the publisher contract’s <code class="language-plaintext highlighter-rouge">verifyEventHookRegistration</code> function, with the same arguments as passed to the <code class="language-plaintext highlighter-rouge">registerHook</code> function on the registry contract.  The <code class="language-plaintext highlighter-rouge">verifyEventHookRegistration</code> function in the publisher contract <strong>MUST</strong> return true in order to indicate that the contract will allow itself to be added to the registry as a publisher.  The registry contract <strong>MUST</strong> emit a <code class="language-plaintext highlighter-rouge">HookRegistered</code> event to indicate that a new publisher contract has been added.</p>
+
+<h3 id="updating-a-hook">Updating a Hook</h3>
+
+<p>Publishers may want to update the details associated with a Hook event, or indeed remove support for a Hook event completely.  The registry contract <strong>MUST</strong> implement the <code class="language-plaintext highlighter-rouge">updatePublisher</code> function to allow for an existing publisher contract to be updated in the registry.  The registry contract <strong>MUST</strong> emit a <code class="language-plaintext highlighter-rouge">PublisherUpdated</code> event to indicate that the publisher contract was updated.</p>
+
+<h3 id="removing-a-hook">Removing a Hook</h3>
+
+<p>To remove a previously registered Hook, the function <code class="language-plaintext highlighter-rouge">removeHook</code> function must be called on the Registry contract, with the same parameters as the <code class="language-plaintext highlighter-rouge">updateHook</code> function. The registry contract <strong>MUST</strong> emit a <code class="language-plaintext highlighter-rouge">HookRemoved</code> event with the same parameters as passed to the ‘removeHook’ function and the <code class="language-plaintext highlighter-rouge">msg.sender</code> value.</p>
+
+<h3 id="registering-a-subscriber">Registering a Subscriber</h3>
+
+<p>To register a subscriber to a hook, the <code class="language-plaintext highlighter-rouge">registerSubscriber</code> function <strong>MUST</strong> be called on the registry contract with the following parameters:</p>
+
+<ul>
+  <li>(address) The publisher contract address</li>
+  <li>(bytes32) The subscriber contract address</li>
+  <li>(uint256) The thread id to subscribe to</li>
+  <li>(uint256) The fee that the subscriber is willing to pay to get updates</li>
+  <li>(uint256) The maximum gas that the subscriber will allow for updates, to prevent griefing attacks, or 0 to indicate no maximum</li>
+  <li>(uint256) The maximum gas price that the subscriber is willing to repay the relayer on top of the fee, or 0 to indicate no rebates</li>
+  <li>(uint256) The chain id that the subscriber wants updates from</li>
+  <li>(address) The address of the token that the fee will be paid in or 0x0 for the chain’s native asset (e.g. ETH, MATIC etc.)</li>
+</ul>
+
+<p>The subscriber contract <strong>MAY</strong> implement gas refunds on top of the fixed fee per update. Where a subscriber chooses to do this, then they <strong>SHOULD</strong> specify the <code class="language-plaintext highlighter-rouge">maximum gas</code> and <code class="language-plaintext highlighter-rouge">maximum gas price</code> parameters in order to protect themselves from griefing attacks. This is so that a malicious or careless relay doesn’t set an exorbitantly high gas price and ends up draining the subscriber contracts. Subscriber contracts can otherwise choose to set a fee that is estimated to be sufficiently high to cover gas fees.</p>
+
+<p>Note that while the chain id and the token address were not included in the original version of the spec, the simple addition of these two parameters allows for leveraging the relayers for cross chain messages, should the subscriber wish to do this, and also allows for paying relayer fees in various tokens.</p>
+
+<h3 id="updating-a-subscription">Updating a Subscription</h3>
+
+<p>To update a subscription, the <code class="language-plaintext highlighter-rouge">updateSubscriber</code> function <strong>MUST</strong> be called with the same set of parameters as the <code class="language-plaintext highlighter-rouge">registerSubscriber</code> function.  This might be done in order to cancel a subscription, or to change the subscription fee. Note that the <code class="language-plaintext highlighter-rouge">updateSubscriber</code> function <strong>MUST</strong> maintain the same <code class="language-plaintext highlighter-rouge">msg.sender</code> that the <code class="language-plaintext highlighter-rouge">registerSubscriber</code> function was called with.</p>
+
+<h3 id="removing-a-subscription">Removing a Subscription</h3>
+
+<p>To remove a previously registered subscription, the function <code class="language-plaintext highlighter-rouge">removeSubscriber</code> <strong>MUST</strong> be called on the Registry contract, with the same parameters as the <code class="language-plaintext highlighter-rouge">updateSubscriber</code> function, but without the <code class="language-plaintext highlighter-rouge">fee</code> parameter (i.e. publisher and subscriber contract addresses and thread id). The fee will be subsequently set to 0 to indicate that the subscriber no longer wants updates for this subscription.  The registry contract <strong>MUST</strong> emit a <code class="language-plaintext highlighter-rouge">SubscriptionRemoved</code> event with publisher contract address, subscriber contract address and the thread id as topics.</p>
+
+<h3 id="publishing-an-event">Publishing an Event</h3>
+
+<p>A publisher contract <strong>SHOULD</strong> emit a hook event from at least one function. The emitted event <strong>MUST</strong> be called <code class="language-plaintext highlighter-rouge">Hook</code> and <strong>MUST</strong> contain the following parameters:</p>
+
+<ul>
+  <li>uint256 (indexed) - threadId</li>
+  <li>uint256 (indexed) - nonce</li>
+  <li>bytes32 digest</li>
+  <li>bytes payload</li>
+  <li>bytes32 checksum</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">nonce</code> value <strong>MUST</strong> be incremented every time a Hook event is fired by a publisher contract.  Every Hook event <strong>MUST</strong> have a unique <code class="language-plaintext highlighter-rouge">nonce</code> value.  The <code class="language-plaintext highlighter-rouge">nonce</code> property is initiated to 1, but the first Hook event ever fired <strong>MUST</strong> be set to 2.  This is to prevent ambiguity between an uninitiated nonce variable and a nonce variable that is explicitly initiated to zero.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">digest</code> parameter of the event <strong>MUST</strong> be the keccak256 hash of the payload, and the <code class="language-plaintext highlighter-rouge">checksum</code> <strong>MUST</strong> be the keccak256 hash of the concatenation of the digest with the current blockheight, e.g.:</p>
+
+<p><code class="language-plaintext highlighter-rouge">bytes32 checksum = keccak256(abi.encodePacked(digest, block.number));</code></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">Hook</code> event can be triggered by a function call from any EOA or external contract. This allows the payload to be created dynamically within the publisher contract.  The subscriber contract <strong>SHOULD</strong> call the <code class="language-plaintext highlighter-rouge">verifyEventHook</code> function on the publisher contract to verify that the received Hook payload is valid.</p>
+
+<p>The payload <strong>MAY</strong> be passed to the function firing the Hook event instead of being generated within the publisher contract itself, but if a signature is provided it <strong>MUST</strong> sign a hash of the payload, and it is strongly recommended to use the <a href="./eip-712.md">EIP-712</a> standard, and to follow the data structure outlined at the end of this proposal.  This signature <strong>SHOULD</strong> be verified by the subscribers to ensure they are getting authentic events. The signature <strong>MUST</strong> correspond to the public key that was registered with the event.  With this approach, the signature <strong>SHOULD</strong> be placed at the start of the payload (e.g. bytes 0 to 65 for an ECDSA signature with r, s, v properties).  This method of verification can be used for cross-chain Hook events, where subscribers will not be able to call the <code class="language-plaintext highlighter-rouge">verifyHookEvent</code> of the publisher contract on another chain.</p>
+
+<p>The payload <strong>MUST</strong> be passed to subscribers as a byte array in calldata.  The subscriber smart contract <strong>SHOULD</strong> convert the byte array into the required data type.  For example, if the payload is a snark proof, the publisher would need to serialize the variables into a byte array, and the subscriber smart contract would need to deserialize it on the other end, e.g.:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct SnarkProof {
+    uint256[2] a;
+    uint256[2][2] b;
+    uint256[2] c;
+    uint256[1] input;
+}
+
+SnarkProof memory zkproof = abi.decode(payload, SnarkProof);
+</code></pre></div></div>
+
+<h3 id="relayers">Relayers</h3>
+
+<p>Relayers are independent parties that listen to <code class="language-plaintext highlighter-rouge">Hook</code> events on publisher smart contracts.  Relayers retrieve a list of subscribers for different hooks from the registry, and listen for hook events being fired on the publisher contracts.  Once a hook event has been fired by a publisher smart contract, relayers can decide to relay the hook event’s payload to the subscriber contracts by broadcasting a transaction that executes the subscriber contract’s <code class="language-plaintext highlighter-rouge">verifyHook</code> function.  Relayers are incentivised to do this because it is expected that the subscriber contract will remunerate them with ETH, or some other asset.</p>
+
+<p>Relayers <strong>SHOULD</strong> simulate the transaction locally before broadcasting it to make sure that the subscriber contract has sufficient balance for payment of the fee.  This requires subscriber contracts to maintain a balance of ETH (or some asset) in order to provision payment of relayer fees.  A subscriber contract <strong>MAY</strong> decide to revert a transaction based on some logic, which subsequently allows the subscriber contract to conditionally respond to events, depending on the data in the payload. In this case the relayer will simulate the transaction locally and determine not to relay the Hook event to the subscriber contract.</p>
+
+<h3 id="verifying-a-hook-event">Verifying a Hook Event</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">verifyHook</code> function of the subscriber contracts <strong>SHOULD</strong> include logic to ensure that they are retrieving authentic events. In the case where the Hook event contains a signature, then subscriber contracts <strong>SHOULD</strong> create a hash of the required parameters, and <strong>SHOULD</strong> verify that the signature in the hook event is valid against the derived hash and the publisher’s public key (see the reference implemenetation for an example).  The hook function <strong>SHOULD</strong> also verify the nonce of the hook event and record it internally, in order to prevent replay attacks.</p>
+
+<p>For Hook events without signatures, the subscriber contract <strong>SHOULD</strong> call the <code class="language-plaintext highlighter-rouge">verifyHookEvent</code> on the publisher contract in order to verify that the hook event is valid.  The publisher smart contract <strong>MUST</strong> implement the <code class="language-plaintext highlighter-rouge">verifyHookEvent</code>, which accepts the hash of the payload, the thread id, the nonce, and the block height associated with the Hook event, and returns a boolean value to indicate the Hook event’s authenticity.</p>
+
+<h3 id="interfaces">Interfaces</h3>
+
+<p>IRegistry.sol</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title IRegistry</span>
+<span class="c1">/// @dev Implements the registry contract</span>
+<span class="kr">interface</span> <span class="nx">IRegistry</span> <span class="p">{</span>
+    <span class="c1">/// @dev Registers a new hook event by a publisher</span>
+    <span class="c1">/// @param publisherContract The address of the publisher contract</span>
+    <span class="c1">/// @param threadId The id of the thread these hook events will be fired on</span>
+    <span class="c1">/// @param signingKey The public key that corresponds to the signature of externally generated payloads (optional)</span>
+    <span class="c1">/// @return Returns true if the hook is successfully registered</span>
+    <span class="kd">function</span> <span class="nx">registerHook</span><span class="p">(</span>
+        <span class="nx">address</span> <span class="nx">publisherContract</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span>
+        <span class="nx">bytes</span> <span class="nx">calldata</span> <span class="nx">signingKey</span>
+    <span class="p">)</span> <span class="nx">external</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Verifies a hook with the publisher smart contract before adding it to the registry</span>
+    <span class="c1">/// @param publisherAddress The address of the publisher contract</span>
+    <span class="c1">/// @param threadId The id of the thread these hook events will be fired on</span>
+    <span class="c1">/// @param signingKey The public key used to verify the hook signatures</span>
+    <span class="c1">/// @return Returns true if the hook is successfully verified</span>
+    <span class="kd">function</span> <span class="nx">verifyHook</span><span class="p">(</span>
+        <span class="nx">address</span> <span class="nx">publisherAddress</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span>
+        <span class="nx">bytes</span> <span class="nx">calldata</span> <span class="nx">signingKey</span>
+    <span class="p">)</span> <span class="nx">external</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Update a previously registered hook event</span>
+    <span class="c1">/// @dev Can be used to transfer hook authorization to a new address</span>
+    <span class="c1">/// @dev To remove a hook, transfer it to the burn address</span>
+    <span class="c1">/// @param publisherContract The address of the publisher contract</span>
+    <span class="c1">/// @param threadId The id of the thread these hook events will be fired on</span>
+    <span class="c1">/// @param signingKey The public key used to verify the hook signatures</span>
+    <span class="c1">/// @return Returns true if the hook is successfully updated</span>
+    <span class="kd">function</span> <span class="nx">updateHook</span><span class="p">(</span>
+        <span class="nx">address</span> <span class="nx">publisherContract</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span>
+        <span class="nx">bytes</span> <span class="nx">calldata</span> <span class="nx">signingKey</span>
+    <span class="p">)</span> <span class="nx">external</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Remove a previously registered hook event</span>
+    <span class="c1">/// @param publisherContract The address of the publisher contract</span>
+    <span class="c1">/// @param threadId The id of the thread these hook events will be fired on</span>
+    <span class="c1">/// @param signingKey The public key used to verify the hook signatures</span>
+    <span class="c1">/// @return Returns true if the hook is successfully updated</span>
+    <span class="kd">function</span> <span class="nx">removeHook</span><span class="p">(</span>
+        <span class="nx">address</span> <span class="nx">publisherContract</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span>
+        <span class="nx">bytes</span> <span class="nx">calldata</span> <span class="nx">signingKey</span>
+    <span class="p">)</span> <span class="nx">external</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Registers a subscriber to a hook event</span>
+    <span class="c1">/// @param publisherContract The address of the publisher contract</span>
+    <span class="c1">/// @param subscriberContract The address of the contract subscribing to the event hooks</span>
+    <span class="c1">/// @param threadId The id of the thread these hook events will be fired on</span>
+    <span class="c1">/// @param fee The fee that the subscriber contract will pay the relayer</span>
+    <span class="c1">/// @param maxGas The maximum gas that the subscriber allow to spend, to prevent griefing attacks</span>
+    <span class="c1">/// @param maxGasPrice The maximum gas price that the subscriber is willing to rebate</span>
+    <span class="c1">/// @param chainId The chain id that the subscriber wants updates on</span>
+    <span class="c1">/// @param feeToken The address of the token that the fee will be paid in or 0x0 for the chain's native asset (e.g. ETH)</span>
+    <span class="c1">/// @return Returns true if the subscriber is successfully registered</span>
+    <span class="kd">function</span> <span class="nx">registerSubscriber</span><span class="p">(</span>
+        <span class="nx">address</span> <span class="nx">publisherContract</span><span class="p">,</span>
+        <span class="nx">address</span> <span class="nx">subscriberContract</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">fee</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">maxGas</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">maxGasPrice</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">chainId</span><span class="p">,</span>
+        <span class="nx">address</span> <span class="nx">feeToken</span>
+    <span class="p">)</span> <span class="nx">external</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Registers a subscriber to a hook event</span>
+    <span class="c1">/// @param publisherContract The address of the publisher contract</span>
+    <span class="c1">/// @param subscriberContract The address of the contract subscribing to the event hooks</span>
+    <span class="c1">/// @param threadId The id of the thread these hook events will be fired on</span>
+    <span class="c1">/// @param fee The fee that the subscriber contract will pay the relayer</span>
+    <span class="c1">/// @return Returns true if the subscriber is successfully updated</span>
+    <span class="kd">function</span> <span class="nx">updateSubscriber</span><span class="p">(</span>
+        <span class="nx">address</span> <span class="nx">publisherContract</span><span class="p">,</span>
+        <span class="nx">address</span> <span class="nx">subscriberContract</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">fee</span>
+    <span class="p">)</span> <span class="nx">external</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Removes a subscription to a hook event</span>
+    <span class="c1">/// @param publisherContract The address of the publisher contract</span>
+    <span class="c1">/// @param subscriberContract The address of the contract subscribing to the event hooks</span>
+    <span class="c1">/// @param threadId The id of the thread these hook events will be fired on</span>
+    <span class="c1">/// @return Returns true if the subscriber is subscription removed</span>
+    <span class="kd">function</span> <span class="nx">removeSubscription</span><span class="p">(</span>
+        <span class="nx">address</span> <span class="nx">publisherContract</span><span class="p">,</span>
+        <span class="nx">address</span> <span class="nx">subscriberContract</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span>
+    <span class="p">)</span> <span class="nx">external</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>IPublisher.sol</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title IPublisher</span>
+<span class="c1">/// @dev Implements a publisher contract</span>
+<span class="kr">interface</span> <span class="nx">IPublisher</span> <span class="p">{</span>
+    <span class="c1">/// @dev Example of a function that fires a hook event when it is called</span>
+    <span class="c1">/// @param payload The actual payload of the hook event</span>
+    <span class="c1">/// @param digest Hash of the hook event payload that was signed</span>
+    <span class="c1">/// @param threadId The thread number to fire the hook event on</span>
+    <span class="kd">function</span> <span class="nx">fireHook</span><span class="p">(</span>
+        <span class="nx">bytes</span> <span class="nx">calldata</span> <span class="nx">payload</span><span class="p">,</span>
+        <span class="nx">bytes32</span> <span class="nx">digest</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span>
+    <span class="p">)</span> <span class="nx">external</span><span class="p">;</span>
+
+    <span class="c1">/// @dev Adds / updates a new hook event internally</span>
+    <span class="c1">/// @param threadId The thread id of the hook</span>
+    <span class="c1">/// @param signingKey The public key associated with the private key that signs the hook events</span>
+    <span class="kd">function</span> <span class="nx">addHook</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span> <span class="nx">bytes</span> <span class="nx">calldata</span> <span class="nx">signingKey</span><span class="p">)</span> <span class="nx">external</span><span class="p">;</span>
+
+    <span class="c1">/// @dev Called by the registry contract when registering a hook, used to verify the hook is valid before adding</span>
+    <span class="c1">/// @param threadId The thread id of the hook</span>
+    <span class="c1">/// @param signingKey The public key associated with the private key that signs the hook events</span>
+    <span class="c1">/// @return Returns true if the hook is valid and is ok to add to the registry</span>
+    <span class="kd">function</span> <span class="nx">verifyEventHookRegistration</span><span class="p">(</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span>
+        <span class="nx">bytes</span> <span class="nx">calldata</span> <span class="nx">signingKey</span>
+    <span class="p">)</span> <span class="nx">external</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @dev Returns true if the specified hook is valid</span>
+    <span class="c1">/// @param payloadhash The hash of the hook's data payload</span>
+    <span class="c1">/// @param threadId The thread id of the hook</span>
+    <span class="c1">/// @param nonce The nonce of the current thread</span>
+    <span class="c1">/// @param blockheight The blockheight that the hook was fired at</span>
+    <span class="c1">/// @return Returns true if the specified hook is valid</span>
+    <span class="kd">function</span> <span class="nx">verifyEventHook</span><span class="p">(</span>
+        <span class="nx">bytes32</span> <span class="nx">payloadhash</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">nonce</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">blockheight</span>
+    <span class="p">)</span> <span class="nx">external</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>ISubscriber.sol</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title ISubscriber</span>
+<span class="c1">/// @dev Implements a subscriber contract</span>
+<span class="kr">interface</span> <span class="nx">ISubscriber</span> <span class="p">{</span>
+    <span class="c1">/// @dev Example of a function that is called when a hook is fired by a publisher</span>
+    <span class="c1">/// @param publisher The address of the publisher contract in order to verify hook event with</span>
+    <span class="c1">/// @param payload Hash of the hook event payload that was signed</span>
+    <span class="c1">/// @param threadId The id of the thread this hook was fired on</span>
+    <span class="c1">/// @param nonce Unique nonce of this hook</span>
+    <span class="c1">/// @param blockheight The block height at which the hook event was fired</span>
+    <span class="kd">function</span> <span class="nx">verifyHook</span><span class="p">(</span>
+        <span class="nx">address</span> <span class="nx">publisher</span><span class="p">,</span>
+        <span class="nx">bytes</span> <span class="nx">calldata</span> <span class="nx">payload</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">threadId</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">nonce</span><span class="p">,</span>
+        <span class="nx">uint256</span> <span class="nx">blockheight</span>
+    <span class="p">)</span> <span class="nx">external</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The rationale for this design is that it allows smart contract developers to write contract logic that listens and responds to events fired in other smart contracts, without requiring them to run some dedicated off-chain process to achieve this.  This best suits any simple smart contract logic that runs relatively infrequently in response to events in other contracts.</p>
+
+<p>This improves on the existing solutions to achieve a pub/sub design pattern. To elaborate: a number of service providers currently offer “webhooks” as a way to subscribe to events emitted by smart contracts, by having some API endpoint called when the events are emitted, or alternatively offer some serverless feature that can be triggered by some smart contract event.  This approach works very well, but it does require that some API endpoint or serverless function be always available, which may require some dedicated server / process, which in turn will need to have some private key, and some amount of ETH in order to re-broadcast transactions, no to mention the requirement to maintain an account with some third party provider.</p>
+
+<p>This approach offers a more suitable alternative for when an “always-on” server instance is not desirable, e.g. in the case that it will be called infrequently.</p>
+
+<p>This proposal incorporates a decentralized market-driven relay network, and this decision is based on the fact that this is a highly scalable approach.  Conversely, it is possible to implement this functionality without resorting to a market-driven approach, by simply defining a standard for contracts to allow other contracts to subscribe directly.  That approach is conceptually simpler, but has its drawbacks, in so far as it requires a publisher contract to record subscribers in its own state, creating an overhead for data management, upgradeability etc.  That approach would also require the publisher to call the <code class="language-plaintext highlighter-rouge">verifyHook</code> function on each subscriber contract, which will incur potentially significant gas costs for the publisher contract.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="griefing-attacks">Griefing Attacks</h3>
+
+<p>It is imperative that subscriber contracts trust the publisher contracts not to fire events that hold no intrinsic interest or value for them, as it is possible that malicious publisher contracts can publish a large number of events that will in turn drain the ETH from the subscriber contracts.</p>
+
+<h3 id="front-running-attacks">Front-running Attacks</h3>
+
+<p>It is advised not to rely on signatures alone to validate Hook events. It is important for publishers and subscribers of hooks to be aware that it is possible for a relayer to relay hook events before they are published, by examining the publisher’s transaction in the mempool before it actually executes in the publisher’s smart contract.  The normal flow is for a “trigger” transaction to call a function in the publisher smart contract, which in turn fires an event which is then picked up by relayers.  Competitive relayers will observe that it is possible to pluck the signature and payload from the trigger transaction in the public mempool and simply relay it to subscriber contracts before the trigger transaction has been actually included in a block.  In fact, it is possible that the subscriber contracts process the event before the trigger transaction is processed, based purely on gas fee dynamics.  This can mitigated against by subscriber contracts calling the <code class="language-plaintext highlighter-rouge">verifyEventHook</code> function on the publisher contract when they receive a Hook event.</p>
+
+<p>Another risk from front-running affects relayers, whereby the relayer’s transactions to the subscriber contracts can be front-run by generalized MEV searchers in the mempool.  It is likely that this sort of MEV capture will occur in the public mempool, and therefore it is advised that relayers use private channels to block builders to mitigate against this issue.</p>
+
+<h3 id="relayer-competition">Relayer Competition</h3>
+
+<p>By broadcasting transactions to a segregated mempool, relayers protect themselves from front-running by generalized MEV bots, but their transactions can still fail due to competition from other relayers.  If two or more relayers decide to start relaying hook events from the same publisher to the same subscribers, then the relay transactions with the highest gas price will be executed before the others.  This will result in the other relayer’s transactions potentially failing on-chain, by being included later in the same block.  For now, there are certain transaction optimization services that will prevent transactions from failing on-chain, which will offer a solution to this problem, though this is out-of-scope for this document.</p>
+
+<h3 id="optimal-fees">Optimal Fees</h3>
+
+<p>The fees that are paid to relayers are at the discretion of the subscribers, but it can be non-trivial to set fees to their optimal level, especially when considering volatile gas fees and competition between relayers.  This will result in subscribers setting fees to a perceived “safe” level, which they are confident will incentivize relayers to relay Hook events.  This will inevitably lead to poor price discovery and subscribers over-paying for updates.</p>
+
+<p>The best way to solve this problem is through an auction mechanism that would allow relayers to bid against each other for the right to relay a transaction, which would guarantee that subscribers are paying the optimal price for their updates.  Describing an auction mechanism that would satisfy this requirements is out of scope for this proposal, but there exists proposals for general purpose auction mechanisms that can faciliate this without introducing undue latency.  One exampe of such as proposal is SUAVE from Flashbots, and there will likely be several others in time.</p>
+
+<h3 id="without-an-auction">Without an Auction</h3>
+
+<p>In order to cultivate and maintain a reliable relayer market without the use of an auction mechanism, subscriber contracts would need to implement logic to either rebate any gas fees up to a specified limit, (while still allowing for execution of hook updates under normal conditions).</p>
+
+<p>Another approach would be to implement a logical condition that checks the gas price of the transaction that is calling the <code class="language-plaintext highlighter-rouge">verifyHook</code> function, to ensure that the gas price does not effectively reduce the fee to zero.  This would require that the subscriber smart contract has some knowledge of the approximate gas used by it’s <code class="language-plaintext highlighter-rouge">verifyHook</code> function, and to check that the condition <code class="language-plaintext highlighter-rouge">minFee &gt;= fee - (gasPrice * gasUsed)</code> is true.  This will mitigate against competitive bidding that would drive the <em>effective</em> relayer fee to zero, by ensuring that there is some minimum fee below which the effective fee is not allowed to drop.  This would mean that the highest gas price that can be paid before the transaction reverts is <code class="language-plaintext highlighter-rouge">fee - minFee + ε</code> where <code class="language-plaintext highlighter-rouge">ε ~= 1 gwei</code>.  This will require careful estimation of the gas cost of the <code class="language-plaintext highlighter-rouge">verifyHook</code> function and an awareness that the gas used may change over time as the contract’s state changes. The key insight with this approach is that competition between relayers will result in the fee that the subscribers pay always being the maximum, which is why the use of an auction mechanism is preferable.</p>
+
+<h3 id="relayer-transaction-batching">Relayer Transaction Batching</h3>
+
+<p>Another important consideration is with batching of Hook events. Relayers are logically incentivized to batch Hook updates to save on gas, seeing as gas savings amount to 21,000 * n where n is the number of hooks being processed in a block by a single relayer.  If a relayer decides to batch multiple Hook event updates to various subscriber contracts into a single transaction, via a multi-call proxy contract, then they increase the risk of the entire batch failing on-chain if even one of the transactions in the batch fails on-chain.  For example, if relayer A batches x number of Hook updates, and relayer B batches y number of Hook updates, it is possible that relayer A’s batch is included in the same block in front of relayer B’s batch, and if both batches contain at least one duplicate, (i.e. the same Hook event to the same subscriber), then this will cause relayer B’s batch transaction to revert on-chain.  This is an important consideration for relayers, and suggests that relayers should have access to some sort of bundle simulation service to identify conflicting transactions before they occur.</p>
+
+<h3 id="replay-attacks">Replay Attacks</h3>
+
+<p>When using signature verification, it is advised to use the <a href="./eip-712.md">EIP-712</a> standard in order to prevent cross network replay attacks, where the same contract deployed on more than one network can have its hook events pushed to subscribers on other networks, e.g. a publisher contract on Polygon can fire a hook event that could be relayed to a subscriber contract on Gnosis Chain.  Whereas the keys used to sign the hook events should ideally be unique, in reality this may not always be the case.</p>
+
+<p>For this reason, it is recommended to use <a href="./eip-712.md">ERC-721</a> Typed Data Signatures.  In this case the process that initiates the hook should create the signature according to the following data structure:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">domain</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span>  <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">chainId</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">verifyingContract</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">salt</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">bytes32</span><span class="dl">"</span> <span class="p">}</span>
+<span class="p">]</span>
+ 
+<span class="kd">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">payload</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">nonce</span><span class="dl">"</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">blockheight</span><span class="dl">"</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">threadId</span><span class="dl">"</span> <span class="p">},</span>
+<span class="p">]</span>
+ 
+<span class="kd">const</span> <span class="nx">domainData</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Name of Publisher Dapp</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">version</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">chainId</span><span class="p">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">web3</span><span class="p">.</span><span class="nx">version</span><span class="p">.</span><span class="nx">network</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+  <span class="na">verifyingContract</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0x123456789abcedf....publisher contract address</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">salt</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0x123456789abcedf....random hash unique to publisher contract</span><span class="dl">"</span>
+<span class="p">}</span>
+ 
+<span class="kd">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">payload</span><span class="p">:</span> <span class="dl">"</span><span class="s2">bytes array serialized payload</span><span class="dl">"</span>
+  <span class="na">nonce</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">blockheight</span><span class="p">:</span> <span class="mi">999999</span><span class="p">,</span>
+  <span class="na">threadId</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+ 
+<span class="kd">const</span> <span class="nx">eip712TypedData</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">types</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">EIP712Domain</span><span class="p">:</span> <span class="nx">domain</span><span class="p">,</span>
+    <span class="na">Hook</span><span class="p">:</span> <span class="nx">hook</span>
+  <span class="p">},</span>
+  <span class="na">domain</span><span class="p">:</span> <span class="nx">domainData</span><span class="p">,</span>
+  <span class="na">primaryType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hook</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">message</span><span class="p">:</span> <span class="nx">message</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Note: please refer to the unit tests in the reference implmenetation for an example of how a hook event should be constructed properly by the publisher.</p>
+
+<p>Replay attacks can also occur on the same network that the event hook was fired, by simply re-broadcasting an event hook that was already broadcast previously.  For this reason, subscriber contracts should check that a nonce is included in the event hook being received, and record the nonce in the contract’s state.  If the hook nonce is not valid, or has already been recorded, the transaction should revert.</p>
+
+<h3 id="cross-chain-messaging">Cross-chain Messaging</h3>
+
+<p>There is also the possibility to leverage the <code class="language-plaintext highlighter-rouge">chainId</code> for more than preventing replay attacks, but also for accepting messages from other chains.  In this use-case the subscriber contracts should register on the same chain that the subscriber contract is deployed on, and should set the <code class="language-plaintext highlighter-rouge">chainId</code> to the chain it wants to receive hook events from.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via CC0.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

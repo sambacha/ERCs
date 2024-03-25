@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Filesystem-like Interface for Contracts | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Filesystem-like Interface for Contracts | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5018" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5018" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Filesystem-like Interface for Contracts</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The following standardizes an API for directories and files within smart contracts, similar to traditional filesystems.
+This standard provides basic functionality to read/write binary objects of any size, as well as allow reading/writing chunks of the object if the object is too large to fit in a single transaction.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>A standard interface allows any binary objects on EVM-based blockchain to be re-used by other dApps.</p>
+
+<p>With <a href="./eip-4804.md">EIP-4804</a>, we are able to locate a Web3 resource on blockchain using HTTP-style URIs. One application of Web3 resources are web contents that are referenced within a directory using relative paths such as HTML/SVG. This standard proposes a contract-based directory to simplify the mapping between local web contents and on-chain web contents. Further, with relative paths referenced in the web contents and EIP-4804, the users will have a consistent view of the web contents locally and on-chain.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="directory">Directory</h3>
+
+<h4 id="methods">Methods</h4>
+
+<h5 id="write">write</h5>
+
+<p>Writes binary <code class="language-plaintext highlighter-rouge">data</code> to the file <code class="language-plaintext highlighter-rouge">name</code> in the directory by an account with write permission.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function write(bytes memory name, bytes memory data) external payable
+</code></pre></div></div>
+
+<h5 id="read">read</h5>
+
+<p>Returns the binary <code class="language-plaintext highlighter-rouge">data</code> from the file <code class="language-plaintext highlighter-rouge">name</code> in the directory and existence of the file.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function read(bytes memory name) external view returns (bytes memory data, bool exist)
+</code></pre></div></div>
+
+<h5 id="fallback-read">fallback read</h5>
+
+<p>Returns the binary <code class="language-plaintext highlighter-rouge">data</code> from the file <code class="language-plaintext highlighter-rouge">prefixedName</code> (prefixed with <code class="language-plaintext highlighter-rouge">/</code>) in the directory.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fallback(bytes calldata prefixedName) external returns (bytes memory data) 
+</code></pre></div></div>
+
+<h5 id="size">size</h5>
+
+<p>Returns the size of the <code class="language-plaintext highlighter-rouge">data</code> from the file <code class="language-plaintext highlighter-rouge">name</code> in the directory and the number of chunks of the data.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function size(bytes memory name) external view returns (uint256 size, uint256 chunks)
+</code></pre></div></div>
+
+<h5 id="remove">remove</h5>
+
+<p>Removes the file <code class="language-plaintext highlighter-rouge">name</code> in the directory and returns the number of chunks removed (0 means the file does not exist) by an account with write permission.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function remove(bytes memory name) external returns (uint256 numOfChunksRemoved)
+</code></pre></div></div>
+
+<h5 id="countchunks">countChunks</h5>
+
+<p>Returns the number of chunks of the file <code class="language-plaintext highlighter-rouge">name</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function countChunks(bytes memory name) external view returns (uint256 numOfChunks);
+</code></pre></div></div>
+
+<h5 id="writechunk">writeChunk</h5>
+
+<p>Writes a chunk of data to the file by an account with write permission. The write will fail if <code class="language-plaintext highlighter-rouge">chunkId &gt; numOfChunks</code>, i.e., the write must append the file or replace the existing chunk.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> function writeChunk(bytes memory name, uint256 chunkId, bytes memory chunkData) external payable;
+</code></pre></div></div>
+
+<h5 id="readchunk">readChunk</h5>
+
+<p>Returns the chunk data of the file <code class="language-plaintext highlighter-rouge">name</code> and the existence of the chunk.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function readChunk(bytes memory name, uint256 chunkId) external view returns (bytes memory chunkData, bool exist);
+</code></pre></div></div>
+
+<h5 id="chunksize">chunkSize</h5>
+
+<p>Returns the size of a chunk of the file <code class="language-plaintext highlighter-rouge">name</code> and the existence of the chunk.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function chunkSize(bytes memory name, uint256 chunkId) external view returns (uint256 chunkSize, bool exist);
+</code></pre></div></div>
+
+<h5 id="removechunk">removeChunk</h5>
+
+<p>Removes a chunk of the file <code class="language-plaintext highlighter-rouge">name</code> and returns <code class="language-plaintext highlighter-rouge">false</code> if such chunk does not exist. The method should be called by an account with write permission.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function removeChunk(bytes memory name, uint256 chunkId) external returns (bool exist);
+</code></pre></div></div>
+
+<h5 id="truncate">truncate</h5>
+
+<p>Removes the chunks of the file <code class="language-plaintext highlighter-rouge">name</code> in the directory from the given <code class="language-plaintext highlighter-rouge">chunkId</code> and returns the number of chunks removed by an account with write permission. When <code class="language-plaintext highlighter-rouge">chunkId = 0</code>, the method is essentially the same as <code class="language-plaintext highlighter-rouge">remove()</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function truncate(bytes memory name, uint256 chunkId) external returns (uint256 numOfChunksRemoved);
+</code></pre></div></div>
+
+<h5 id="getchunkhash">getChunkHash</h5>
+
+<p>Returns the hash value of the chunk data.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function getChunkHash(bytes memory name, uint256 chunkId) external view returns (bytes32);
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>One issue of uploading the web contents to the blockchain is that the web contents may be too large to fit into a single transaction. As a result, the standard provides chunk-based operations so that uploading a content can be split into several transactions. Meanwhile, the read operation can be done in a single transaction, i.e., with a single Web3 URL defined in EIP-4804.</p>
+
+<h3 id="interactions-between-unchunkedchunked-functions">Interactions Between Unchunked/Chunked Functions</h3>
+
+<p><code class="language-plaintext highlighter-rouge">read</code> method should return the concatenated chunked data written by <code class="language-plaintext highlighter-rouge">writeChunk</code> method. The following gives some examples of the interactions:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">read("hello.txt")</code> =&gt; “” (file is empty)</li>
+  <li><code class="language-plaintext highlighter-rouge">writeChunk("hello.txt", 0, "abc")</code> will succeed</li>
+  <li><code class="language-plaintext highlighter-rouge">read("hello.txt")</code> =&gt; “abc”</li>
+  <li><code class="language-plaintext highlighter-rouge">writeChunk("hello.txt", 1, "efg")</code> will succeed</li>
+  <li><code class="language-plaintext highlighter-rouge">read("hello.txt")</code> =&gt; “abcefg”</li>
+  <li><code class="language-plaintext highlighter-rouge">writeChunk("hello.txt", 0, "aaa")</code> will succeed (replace chunk 0’s data)</li>
+  <li><code class="language-plaintext highlighter-rouge">read("hello.txt")</code> =&gt; “aaaefg”</li>
+  <li><code class="language-plaintext highlighter-rouge">writeChunk("hello.txt", 3, "hij")</code> will fail because the operation is not replacement or append.</li>
+</ul>
+
+<p>With <code class="language-plaintext highlighter-rouge">writeChunk</code> method, we allow writing a file with external data that exceeds the current calldata limit (e.g., 1.8MB now), and it is able to read the whole file in a single <code class="language-plaintext highlighter-rouge">read</code> method (which is friendly for large web objects such as HTML/SVG/PNG/JPG, etc).</p>
+
+<p>For <code class="language-plaintext highlighter-rouge">write</code> method, calling a <code class="language-plaintext highlighter-rouge">write</code> method will replace all data chunks of the file with <code class="language-plaintext highlighter-rouge">write</code> method data, and one implementation can be:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">writeChunk(filename, chunkId=0, data_from_write)</code> to chunk 0 with the same <code class="language-plaintext highlighter-rouge">write</code> method data; and</li>
+  <li><code class="language-plaintext highlighter-rouge">truncate(filename, chunkId=1)</code>, which will remove the rest chunks.</li>
+</ol>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backwards compatibility issues were identified.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>No security considerations were found.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

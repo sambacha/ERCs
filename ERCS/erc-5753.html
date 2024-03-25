@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Lockable Extension for EIP-721 | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Lockable Extension for EIP-721 | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5753" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5753" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Lockable Extension for EIP-721</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard is an extension of <a href="./eip-721.md">EIP-721</a>. It introduces lockable NFTs. The locked asset can be used in any way except by selling and/or transferring it. The owner or operator can lock the token. When a token is locked, the unlocker address (an EOA or a contract) is set. Only the unlocker is able to <code class="language-plaintext highlighter-rouge">unlock</code> the token.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>With NFTs, digital objects become digital goods, which are verifiably ownable, easily tradable, and immutably stored on the blockchain. That’s why it’s very important to continuously improve UX for non-fungible tokens, not just inherit it from one of the fungible tokens.</p>
+
+<p>In DeFi there is an UX pattern when you lock your tokens on a service smart contract. For example, if you want to borrow some $DAI, you have to provide some $ETH as collateral for a loan. During the loan period this $ETH is being locked into the lending service contract. Such a pattern works for $ETH and other fungible tokens.</p>
+
+<p>However, it should be different for NFTs because NFTs have plenty of use cases that require the NFT to stay in the holder’s wallet even when it is used as collateral for a loan. You may want to keep using your NFT as a verified PFP on Twitter, or use it to authorize a Discord server through collab.land. You may want to use your NFT in a P2E game. And you should be able to do all of this even during the lending period, just like you are able to live in your house even if it is mortgaged.</p>
+
+<p>The following use cases are enabled for lockable NFTs:</p>
+
+<ul>
+  <li><strong>NFT-collateralised loans</strong> Use your NFT as collateral for a loan without locking it on the lending protocol contract. Lock it on your wallet instead and continue enjoying all the utility of your NFT.</li>
+  <li><strong>No collateral rentals of NFTs</strong> Borrow NFT for a fee, without a need for huge collateral. You can use NFT, but not transfer it, so the lender is safe. The borrowing service contract automatically transfers NFT back to the lender as soon as the borrowing period expires.</li>
+  <li><strong>Primary sales</strong> Mint NFT for only the part of the price and pay the rest when you are satisfied with how the collection evolves.</li>
+  <li><strong>Secondary sales</strong> Buy and sell your NFT by installments. Buyer gets locked NFT and immediately starts using it. At the same time he/she is not able to sell the NFT until all the installments are paid. If full payment is not received, NFT goes back to the seller together with a fee.</li>
+  <li><strong>S is for Safety</strong> Use your exclusive blue chip NFTs safely and conveniently. The most convenient way to use NFT is together with MetaMask. However, MetaMask is vulnerable to various bugs and attacks. With <code class="language-plaintext highlighter-rouge">Lockable</code> extension you can lock your NFT and declare your safe cold wallet as an unlocker. Thus, you can still keep your NFT on MetaMask and use it conveniently. Even if a hacker gets access to your MetaMask, they won’t be able to transfer your NFT without access to the cold wallet. That’s what makes <code class="language-plaintext highlighter-rouge">Lockable</code> NFTs safe.</li>
+  <li><strong>Metaverse ready</strong> Locking NFT tickets can be useful during huge Metaverse events. That will prevent users, who already logged in with an NFT, from selling it or transferring it to another user. Thus we avoid double usage of one ticket.</li>
+  <li><strong>Non-custodial staking</strong> There are different approaches to non-custodial staking proposed by communities like CyberKongz, Moonbirds and other. Approach suggested in this impementation supposes that the token can only be staked in one place, not several palces at a time (it is like you can not deposit money in two bank accounts simultaneously). Also it doesn’t require any additional code and is available with just locking feature.
+Another approach to the same concept is using locking to provide proof of HODL. You can lock your NFTs from selling as a manifestation of loyalty to the community and start earning rewards for that. It is better version of the rewards mechanism, that was originally introduced by The Hashmasks and their $NCT token.</li>
+  <li><strong>Safe and convenient co-ownership and co-usage</strong> Extension of safe co-ownership and co-usage. For example, you want to purchase an expensive NFT asset together with friends, but it is not handy to use it with multisig, so you can safely rotate and use it between wallets. The NFT will be stored on one of the co-owners’ wallet and he will be able to use it in any way (except transfers) without requiring multi-approval. Transfers will require multi-approval.</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>EIP-721 compliant contracts MAY implement this EIP to provide standard methods of locking and unlocking the token at its current owner address.
+If the token is locked, the <code class="language-plaintext highlighter-rouge">getLocked</code> function MUST return an address that is able to unlock the token.
+For tokens that are not locked, the <code class="language-plaintext highlighter-rouge">getLocked</code> function MUST return <code class="language-plaintext highlighter-rouge">address(0)</code>.
+The user MAY permanently lock the token by calling <code class="language-plaintext highlighter-rouge">lock(address(1), tokenId)</code>.</p>
+
+<p>When the token is locked, all the <a href="./eip-721.md">EIP-721</a> transfer functions MUST revert, except if the transaction has been initiated by an unlocker.
+When the token is locked, the <a href="./eip-721.md">EIP-721</a> <code class="language-plaintext highlighter-rouge">approve</code> method MUST revert for this token.
+When the token is locked, the <a href="./eip-721.md">EIP-721</a> <code class="language-plaintext highlighter-rouge">getApproved</code> method SHOULD return <code class="language-plaintext highlighter-rouge">unlocker</code> address for this token so the unlocker is able to transfer this token.
+When the token is locked, the <code class="language-plaintext highlighter-rouge">lock</code> method MUST revert for this token, even when it is called with the same <code class="language-plaintext highlighter-rouge">unlocker</code> as argument.
+When the locked token is transferred by an unlocker, the token MUST be unlocked after the transfer.</p>
+
+<p>Marketplaces should call <code class="language-plaintext highlighter-rouge">getLocked</code> method of an EIP-721 Lockable token contract to learn whether a token with a specified tokenId is locked or not. Locked tokens SHOULD NOT be available for listings. Locked tokens can not be sold. Thus, marketplaces SHOULD hide the listing for the tokens that has been locked, because such orders can not be fulfilled.</p>
+
+<h3 id="contract-interface">Contract Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">&gt;=</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">/// @dev Interface for the Lockable extension
+</span>
+<span class="k">interface</span> <span class="n">ILockable</span> <span class="p">{</span>
+
+    <span class="cm">/**
+     * @dev Emitted when `id` token is locked, and `unlocker` is stated as unlocking wallet.
+     */</span>
+    <span class="k">event</span> <span class="n">Lock</span> <span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">unlocker</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">id</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Emitted when `id` token is unlocked.
+     */</span>
+    <span class="k">event</span> <span class="n">Unlock</span> <span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">id</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Locks the `id` token and gives the `unlocker` address permission to unlock.
+     */</span>
+    <span class="k">function</span> <span class="n">lock</span><span class="p">(</span><span class="kt">address</span> <span class="n">unlocker</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Unlocks the `id` token.
+     */</span>
+    <span class="k">function</span> <span class="n">unlock</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Returns the wallet, that is stated as unlocking wallet for the `tokenId` token.
+     * If address(0) returned, that means token is not locked. Any other result means token is locked.
+     */</span>
+    <span class="k">function</span> <span class="n">getLocked</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">supportsInterface</code> method MUST return <code class="language-plaintext highlighter-rouge">true</code> when called with <code class="language-plaintext highlighter-rouge">0x72b68110</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This approach proposes a solution that is designed to be as minimal as possible. It only allows to lock the item (stating who will be able to unlock it) and unlock it when needed if a user has permission to do it.</p>
+
+<p>At the same time, it is a generalized implementation. It allows for a lot of extensibility and any of the potential use cases (or all of them), mentioned in the Motivation section.</p>
+
+<p>When there is a need to grant temporary and/or redeemable rights for the token (rentals, purchase with instalments) this EIP involves the real transfer of the token to the temporary user’s wallet, not just assigning a role.
+This choice was made to increase compatibility with all the existing NFT eco-system tools and dApps, such as Collab.land. Otherwise, it would require from all of such dApps implementing additional interfaces and logic.</p>
+
+<p>Naming and reference implementation for the functions and storage entities mimics that of Approval flow for [EIP-721] in order to be intuitive.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This standard is compatible with current <a href="./eip-721.md">EIP-721</a> standards.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">&gt;=</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">'../ILockable.sol'</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">'@openzeppelin/contracts/token/ERC721/ERC721.sol'</span><span class="p">;</span>
+
+<span class="c1">/// @title Lockable Extension for ERC721
+</span>
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">ERC721Lockable</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">ILockable</span> <span class="p">{</span>
+
+    <span class="cm">/*///////////////////////////////////////////////////////////////
+                            LOCKABLE EXTENSION STORAGE                        
+    //////////////////////////////////////////////////////////////*/</span>
+
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">address</span><span class="p">)</span> <span class="k">internal</span> <span class="n">unlockers</span><span class="p">;</span>
+
+    <span class="cm">/*///////////////////////////////////////////////////////////////
+                              LOCKABLE LOGIC
+    //////////////////////////////////////////////////////////////*/</span>
+
+    <span class="cm">/**
+     * @dev Public function to lock the token. Verifies if the msg.sender is the owner
+     *      or approved party.
+     */</span>
+
+    <span class="k">function</span> <span class="n">lock</span><span class="p">(</span><span class="kt">address</span> <span class="n">unlocker</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">tokenOwner</span> <span class="o">=</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">tokenOwner</span> <span class="o">||</span> <span class="n">isApprovedForAll</span><span class="p">(</span><span class="n">tokenOwner</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">)</span>
+        <span class="p">,</span> <span class="s">"NOT_AUTHORIZED"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">unlockers</span><span class="p">[</span><span class="n">id</span><span class="p">]</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ALREADY_LOCKED"</span><span class="p">);</span> 
+        <span class="n">unlockers</span><span class="p">[</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">unlocker</span><span class="p">;</span>
+        <span class="n">_approve</span><span class="p">(</span><span class="n">unlocker</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Public function to unlock the token. Only the unlocker (stated at the time of locking) can unlock
+     */</span>
+    <span class="k">function</span> <span class="n">unlock</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">unlockers</span><span class="p">[</span><span class="n">id</span><span class="p">],</span> <span class="s">"NOT_UNLOCKER"</span><span class="p">);</span>
+        <span class="n">unlockers</span><span class="p">[</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Returns the unlocker for the tokenId
+     *      address(0) means token is not locked
+     *      reverts if token does not exist
+     */</span>
+    <span class="k">function</span> <span class="n">getLocked</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"Lockable: locking query for nonexistent token"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">unlockers</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Locks the token
+     */</span>
+    <span class="k">function</span> <span class="n">_lock</span><span class="p">(</span><span class="kt">address</span> <span class="n">unlocker</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="n">unlockers</span><span class="p">[</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">unlocker</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Unlocks the token
+     */</span>
+    <span class="k">function</span> <span class="n">_unlock</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="n">unlockers</span><span class="p">[</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/*///////////////////////////////////////////////////////////////
+                              OVERRIDES
+    //////////////////////////////////////////////////////////////*/</span>
+
+    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="nb">require</span> <span class="p">(</span><span class="n">getLocked</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"Can not approve locked token"</span><span class="p">);</span>
+        <span class="nb">super</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_beforeTokenTransfer</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="c1">// if it is a Transfer or Burn
+</span>        <span class="k">if</span> <span class="p">(</span><span class="n">from</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span> 
+            <span class="c1">// token should not be locked or msg.sender should be unlocker to do that
+</span>            <span class="nb">require</span><span class="p">(</span><span class="n">getLocked</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">getLocked</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="s">"LOCKED"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_afterTokenTransfer</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="c1">// if it is a Transfer or Burn, we always deal with one token, that is startTokenId
+</span>        <span class="k">if</span> <span class="p">(</span><span class="n">from</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span> 
+            <span class="c1">// clear locks
+</span>            <span class="k">delete</span> <span class="n">unlockers</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * @dev Optional override, if to clear approvals while the tken is locked
+     */</span>
+    <span class="k">function</span> <span class="n">getApproved</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">getLocked</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">.</span><span class="n">getApproved</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/*///////////////////////////////////////////////////////////////
+                              ERC165 LOGIC
+    //////////////////////////////////////////////////////////////*/</span>
+
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span>
+        <span class="k">public</span>
+        <span class="k">view</span>
+        <span class="k">virtual</span>
+        <span class="k">override</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span>
+            <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC721Lockable</span><span class="p">).</span><span class="n">interfaceId</span> <span class="o">||</span>
+            <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">interfaceId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>There are no security considerations related directly to the implementation of this standard for the contract that manages <a href="./eip-721.md">EIP-721</a> tokens.</p>
+
+<h3 id="considerations-for-the-contracts-that-work-with-lockable-tokens">Considerations for the contracts that work with lockable tokens</h3>
+
+<ul>
+  <li>Make sure that every contract that is stated as <code class="language-plaintext highlighter-rouge">unlocker</code> can actually unlock the token in all cases.</li>
+  <li>There are use cases, that involve transferring the token to a temporary owner and then lock it. For example, NFT rentals. Smart contracts that manage such services should always use <code class="language-plaintext highlighter-rouge">transferFrom</code> instead of <code class="language-plaintext highlighter-rouge">safeTransferFrom</code> to avoid re-entrancies.</li>
+  <li>There are no MEV considerations regarding lockable tokens as only authorized parties are allowed to lock and unlock.</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>MIME type for Web3 URL in Auto Mode | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="MIME type for Web3 URL in Auto Mode | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7087" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7087" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">MIME type for Web3 URL in Auto Mode</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard extends the <a href="./eip-6860.md">ERC-6860</a> <code class="language-plaintext highlighter-rouge">web3://</code> standard: in smart contracts not designed for <code class="language-plaintext highlighter-rouge">web3://</code> (thus using auto mode), the MIME type of the returned data is either implicit (not advertised by the smart contract) or included within the returned data (<a href="https://www.rfc-editor.org/rfc/rfc2397">RFC 2397</a> data URLs). This standard defines additional query parameters so that a MIME type can be returned when fetching a <code class="language-plaintext highlighter-rouge">web3://</code> URL in these scenarios.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>When returning data to the web browser, a <code class="language-plaintext highlighter-rouge">Content-Type</code> header indicating the MIME type of the data is strongly recommended, or the data may be incorrectly interpreted and displayed by the web browser.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">web3://</code> protocol has 2 modes: manual and auto.</p>
+
+<ul>
+  <li>The manual mode is used on smart contracts explicitly requesting this mode (via an interface), so they are expected to signal the MIME type of the returned data, with the mechanism described in <a href="./eip-6860.md">ERC-6860</a>.</li>
+  <li>On the other hand, the auto mode is used on both smart contracts specifically requesting the mode, and for all the others not signalling anything. While we can expect smart contracts explicitly requesting auto mode to signal the MIME type of the returned data, we cannot expect it for the others contracts.</li>
+</ul>
+
+<p>This standard aims at filling this gap: with the introduction of additional query parameters, it will allow the URL to specify the MIME type of the returned data. Additionally, when the returned data is a <a href="https://www.rfc-editor.org/rfc/rfc2397">RFC 2397</a> data URL, it will allow the URL to flag the returned data as data URL, so that the protocol can return the decoded data, and accompany it with the MIME type advertised in the data URL.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The standard introduces three query parameters to determine the MIME type.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">mime.content=&lt;contentType&gt;</code>, where <code class="language-plaintext highlighter-rouge">&lt;contentType&gt;</code> is a MIME type defined in <a href="https://www.rfc-editor.org/rfc/rfc6838">RFC 6838</a>. If the <code class="language-plaintext highlighter-rouge">&lt;contentType&gt;</code> does not follow the structure of a MIME type, the URL is not fetched and an error message is displayed to the user. After URL decoding, <code class="language-plaintext highlighter-rouge">&lt;contentType&gt;</code> is set as the value of the <code class="language-plaintext highlighter-rouge">Content-Type</code> header of the response; or</li>
+  <li><code class="language-plaintext highlighter-rouge">mime.type=&lt;fileType&gt;</code>, where <code class="language-plaintext highlighter-rouge">&lt;fileType&gt;</code> is a filename extension from which a MIME type is determined. If the filename extension is not recognized, the URL is not fetched and an error message is displayed to the user. The MIME type is then set as the value of the <code class="language-plaintext highlighter-rouge">Content-Type</code> header of the response; or</li>
+  <li><code class="language-plaintext highlighter-rouge">mime.dataurl</code>, which indicates to decode the returned bytes as a <a href="https://www.rfc-editor.org/rfc/rfc2397">RFC 2397</a> data URL. After decoding, the decoded body will be returned as the main output, and the MIME type specified in the data URL will be used. If the data cannot be parsed as data URL, an error will be returned.</li>
+</ul>
+
+<p>If multiple query parameters are present, the last query parameter will be applied.  If none of the query parameter is specified, <code class="language-plaintext highlighter-rouge">Content-Type</code> is defined by <a href="./eip-6860.md">ERC-6860</a>.  If the <code class="language-plaintext highlighter-rouge">returns</code> query parameter is specified, the <code class="language-plaintext highlighter-rouge">mime.xxx</code> parameters will be ignored and the <code class="language-plaintext highlighter-rouge">Content-Type</code> will be defined by <a href="./eip-6860.md">ERC-6860</a>.</p>
+
+<p>In <a href="https://www.rfc-editor.org/rfc/rfc2234">RFC 2234</a> ABNF notation, the <a href="./eip-6860.md">ERC-6860</a> syntax is :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>attribute       = attrName "=" attrValue
+attrName        = "returns"
+                / "returnTypes"
+attrValue       = [ "(" [ retTypes ] ")" ]
+</code></pre></div></div>
+
+<p>This standard evolves it into:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>attribute       = retAttr / mimeCAttr / mimeTAttr / mimeDAttr
+retAttr         = retAttrName "=" retAttrValue
+retAttrName     = "returns"
+                / "returnTypes"
+retAttrValue    = [ "(" [ retTypes ] ")" ]
+
+mimeCAttr       = "mime.content=" mimeCAttrVal
+mimeCAttrVal    = # ABNF of MIME type as in RFC 6838 
+mimeTAttr       = "mime.type=" 1*( ALPHA / DIGIT )
+mimeDAttr       = "mime.dataurl"
+</code></pre></div></div>
+
+<h3 id="examples">Examples</h3>
+
+<h4 id="example-1">Example 1</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://0x91cf36c92feb5c11d3f5fe3e8b9e212f7472ec14/accessorizedImageOf/1289?mime.content=image/svg%2Bxml
+</code></pre></div></div>
+
+<p>where the contract is in auto mode.</p>
+
+<p>The protocol will call the contract <code class="language-plaintext highlighter-rouge">0x91cf36c92feb5c11d3f5fe3e8b9e212f7472ec14</code> with the message defined in <a href="./eip-6860.md">ERC-6860</a> and the returned <code class="language-plaintext highlighter-rouge">Content-Type</code> header will be set to <code class="language-plaintext highlighter-rouge">image/svg+xml</code>.</p>
+
+<h4 id="example-2">Example 2</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://0x91cf36c92feb5c11d3f5fe3e8b9e212f7472ec14/accessorizedImageOf/1289?mime.type=svg
+</code></pre></div></div>
+
+<p>where the contract is in auto mode.</p>
+
+<p>The protocol will call the contract <code class="language-plaintext highlighter-rouge">0x91cf36c92feb5c11d3f5fe3e8b9e212f7472ec14</code> with the message defined in <a href="./eip-6860.md">ERC-6860</a> and the returned <code class="language-plaintext highlighter-rouge">Content-Type</code> header will be set to <code class="language-plaintext highlighter-rouge">image/svg+xml</code>.</p>
+
+<h4 id="example-3">Example 3</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web3://0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7/tokenURI/100?mime.dataurl
+</code></pre></div></div>
+
+<p>where the contract is in auto mode, and the returned data is <code class="language-plaintext highlighter-rouge">data:application/json,["xx"]</code>.</p>
+
+<p>The protocol will call the contract <code class="language-plaintext highlighter-rouge">0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7</code> with the message defined in <a href="./eip-6860.md">ERC-6860</a> and decode the data according to the <a href="https://www.rfc-editor.org/rfc/rfc2397">RFC 2397</a> data URL standard. The returned output will be <code class="language-plaintext highlighter-rouge">["xx"]</code> and the returned <code class="language-plaintext highlighter-rouge">Content-Type</code> header will be set to <code class="language-plaintext highlighter-rouge">application/json</code>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The standard uses three different query parameters rather than a single query parameter to avoid confusion - an implementer or a user can easily tell the expected returned MIME of a link.  Further, in auto mode, the query parameters are not used to form the EVM message (e.g., calldata) and thus it is safe to introduce new query parameters.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>These new query parameters introduce Cross Site Scripting attack vectors : an attacker could exploit string or bytes returning methods he can influence by making them return unfiltered data injected by him, and then craft a URL to make the returned data interpreted as HTML, and then send the URL to victims. If the web3 hostname is well known, the victim may get a false sense of security.</p>
+
+<p>Malicious actions using javascript are broad and can include :</p>
+
+<ul>
+  <li>Extraction of data of web storage APIs (cookies, localStorage, sessionStorage, indexedDB), sent to the attacker</li>
+  <li>Triggering a signature request or transaction confirmation request (via a wallet javascript interface)</li>
+</ul>
+
+<p>Cross Site Scripting is a classical attack vector in HTTP websites, we expect developers to be wary of this. Nonetheless; the ability to specify the MIME type is unusual. <code class="language-plaintext highlighter-rouge">auto</code> mode websites should be discouraged and the attack vectors well documented.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Transfer With Authorization | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Transfer With Authorization | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-3009" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-3009" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Transfer With Authorization</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>A contract interface that enables transferring of fungible assets via a signed authorization.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>A set of functions to enable meta-transactions and atomic interactions with <a href="./eip-20.md">ERC-20</a> token contracts via signatures conforming to the <a href="./eip-712.md">EIP-712</a> typed message signing specification.</p>
+
+<p>This enables the user to:</p>
+
+<ul>
+  <li>delegate the gas payment to someone else,</li>
+  <li>pay for gas in the token itself rather than in ETH,</li>
+  <li>perform one or more token transfers and other operations in a single atomic transaction,</li>
+  <li>transfer ERC-20 tokens to another address, and have the recipient submit the transaction,</li>
+  <li>batch multiple transactions with minimal overhead, and</li>
+  <li>create and perform multiple transactions without having to worry about them failing due to accidental nonce-reuse or improper ordering by the miner.</li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There is an existing spec, <a href="./eip-2612">EIP-2612</a>, that also allows meta-transactions, and it is encouraged that a contract implements both for maximum compatibility. The two primary differences between this spec and EIP-2612 are that:</p>
+
+<ul>
+  <li>EIP-2612 uses sequential nonces, but this uses random 32-byte nonces, and that</li>
+  <li>EIP-2612 relies on the ERC-20 <code class="language-plaintext highlighter-rouge">approve</code>/<code class="language-plaintext highlighter-rouge">transferFrom</code> (“ERC-20 allowance”) pattern.</li>
+</ul>
+
+<p>The biggest issue with the use of sequential nonces is that it does not allow users to perform more than one transaction at time without risking their transactions failing, because:</p>
+
+<ul>
+  <li>DApps may unintentionally reuse nonces that have not yet been processed in the blockchain.</li>
+  <li>Miners may process the transactions in the incorrect order.</li>
+</ul>
+
+<p>This can be especially problematic if the gas prices are very high and transactions often get queued up and remain unconfirmed for a long time. Non-sequential nonces allow users to create as many transactions as they want at the same time.</p>
+
+<p>The ERC-20 allowance mechanism is susceptible to the <a href="https://blockchain-projects.readthedocs.io/multiple_withdrawal.html">multiple withdrawal attack</a>/<a href="https://swcregistry.io/docs/SWC-114">SWC-114</a>, and encourages antipatterns such as the use of the “infinite” allowance. The wide-prevalence of upgradeable contracts have made the conditions favorable for these attacks to happen in the wild.</p>
+
+<p>The deficiencies of the ERC-20 allowance pattern brought about the development of alternative token standards such as the <a href="./eip-777">ERC-777</a> and <a href="https://github.com/ethereum/EIPs/issues/677">ERC-677</a>. However, they haven’t been able to gain much adoption due to compatibility and potential security issues.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="event">Event</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">AuthorizationUsed</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">authorizer</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">nonce</span>
+<span class="p">);</span>
+
+<span class="c1">// keccak256("TransferWithAuthorization(address from,address to,uint256 value,uint256 validAfter,uint256 validBefore,bytes32 nonce)")
+</span><span class="kt">bytes32</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">TRANSFER_WITH_AUTHORIZATION_TYPEHASH</span> <span class="o">=</span> <span class="mh">0x7c7c6cdb67a18743f49ec6fa9b35f50d52ed05cbed4cc592e13b44501c1a2267</span><span class="p">;</span>
+
+<span class="c1">// keccak256("ReceiveWithAuthorization(address from,address to,uint256 value,uint256 validAfter,uint256 validBefore,bytes32 nonce)")
+</span><span class="kt">bytes32</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">RECEIVE_WITH_AUTHORIZATION_TYPEHASH</span> <span class="o">=</span> <span class="mh">0xd099cc98ef71107a616c4f0f941f04c322d8e254fe26b3c6668db87aae413de8</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @notice Returns the state of an authorization
+ * @dev Nonces are randomly generated 32-byte data unique to the authorizer's
+ * address
+ * @param authorizer    Authorizer's address
+ * @param nonce         Nonce of the authorization
+ * @return True if the nonce is used
+ */</span>
+<span class="k">function</span> <span class="n">authorizationState</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">authorizer</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">nonce</span>
+<span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+<span class="cm">/**
+ * @notice Execute a transfer with a signed authorization
+ * @param from          Payer's address (Authorizer)
+ * @param to            Payee's address
+ * @param value         Amount to be transferred
+ * @param validAfter    The time after which this is valid (unix time)
+ * @param validBefore   The time before which this is valid (unix time)
+ * @param nonce         Unique nonce
+ * @param v             v of the signature
+ * @param r             r of the signature
+ * @param s             s of the signature
+ */</span>
+<span class="k">function</span> <span class="n">transferWithAuthorization</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">validAfter</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">validBefore</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">nonce</span><span class="p">,</span>
+    <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">s</span>
+<span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+<span class="cm">/**
+ * @notice Receive a transfer with a signed authorization from the payer
+ * @dev This has an additional check to ensure that the payee's address matches
+ * the caller of this function to prevent front-running attacks. (See security
+ * considerations)
+ * @param from          Payer's address (Authorizer)
+ * @param to            Payee's address
+ * @param value         Amount to be transferred
+ * @param validAfter    The time after which this is valid (unix time)
+ * @param validBefore   The time before which this is valid (unix time)
+ * @param nonce         Unique nonce
+ * @param v             v of the signature
+ * @param r             r of the signature
+ * @param s             s of the signature
+ */</span>
+<span class="k">function</span> <span class="n">receiveWithAuthorization</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">validAfter</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">validBefore</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">nonce</span><span class="p">,</span>
+    <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">s</span>
+<span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Optional:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>event AuthorizationCanceled(
+    address indexed authorizer,
+    bytes32 indexed nonce
+);
+
+// keccak256("CancelAuthorization(address authorizer,bytes32 nonce)")
+bytes32 public constant CANCEL_AUTHORIZATION_TYPEHASH = 0x158b0a9edf7a828aad02f63cd515c68ef2f50ba807396f6d12842833a1597429;
+
+/**
+ * @notice Attempt to cancel an authorization
+ * @param authorizer    Authorizer's address
+ * @param nonce         Nonce of the authorization
+ * @param v             v of the signature
+ * @param r             r of the signature
+ * @param s             s of the signature
+ */
+function cancelAuthorization(
+    address authorizer,
+    bytes32 nonce,
+    uint8 v,
+    bytes32 r,
+    bytes32 s
+) external;
+</code></pre></div></div>
+
+<p>The arguments <code class="language-plaintext highlighter-rouge">v</code>, <code class="language-plaintext highlighter-rouge">r</code>, and <code class="language-plaintext highlighter-rouge">s</code> must be obtained using the <a href="./eip-712.md">EIP-712</a> typed message signing spec.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DomainSeparator := Keccak256(ABIEncode(
+  Keccak256(
+    "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+  ),
+  Keccak256("USD Coin"),                      // name
+  Keccak256("2"),                             // version
+  1,                                          // chainId
+  0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48  // verifyingContract
+))
+</code></pre></div></div>
+
+<p>With the domain separator, the typehash, which is used to identify the type of the EIP-712 message being used, and the values of the parameters, you are able to derive a Keccak-256 hash digest which can then be signed using the token holder’s private key.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Transfer With Authorization
+TypeHash := Keccak256(
+  "TransferWithAuthorization(address from,address to,uint256 value,uint256 validAfter,uint256 validBefore,bytes32 nonce)"
+)
+Params := { From, To, Value, ValidAfter, ValidBefore, Nonce }
+
+// ReceiveWithAuthorization
+TypeHash := Keccak256(
+  "ReceiveWithAuthorization(address from,address to,uint256 value,uint256 validAfter,uint256 validBefore,bytes32 nonce)"
+)
+Params := { From, To, Value, ValidAfter, ValidBefore, Nonce }
+
+// CancelAuthorization
+TypeHash := Keccak256(
+  "CancelAuthorization(address authorizer,bytes32 nonce)"
+)
+Params := { Authorizer, Nonce }
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// "‖" denotes concatenation.
+Digest := Keecak256(
+  0x1901 ‖ DomainSeparator ‖ Keccak256(ABIEncode(TypeHash, Params...))
+)
+
+{ v, r, s } := Sign(Digest, PrivateKey)
+</code></pre></div></div>
+
+<p>Smart contract functions that wrap <code class="language-plaintext highlighter-rouge">receiveWithAuthorization</code> call may choose to reduce the number of arguments by accepting the full ABI-encoded set of arguments for the <code class="language-plaintext highlighter-rouge">receiveWithAuthorization</code> call as a single argument of the type <code class="language-plaintext highlighter-rouge">bytes</code>.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// keccak256("receiveWithAuthorization(address,address,uint256,uint256,uint256,bytes32,uint8,bytes32,bytes32)")[0:4]
+</span><span class="kt">bytes4</span> <span class="k">private</span> <span class="k">constant</span> <span class="n">_RECEIVE_WITH_AUTHORIZATION_SELECTOR</span> <span class="o">=</span> <span class="mh">0xef55bec6</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">address</span> <span class="n">token</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">receiveAuthorization</span><span class="p">)</span>
+    <span class="k">external</span>
+    <span class="n">nonReentrant</span>
+<span class="p">{</span>
+    <span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span>
+        <span class="n">receiveAuthorization</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">96</span><span class="p">],</span>
+        <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">to</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">"Recipient is not this contract"</span><span class="p">);</span>
+
+    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">token</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span>
+        <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span>
+            <span class="n">_RECEIVE_WITH_AUTHORIZATION_SELECTOR</span><span class="p">,</span>
+            <span class="n">receiveAuthorization</span>
+        <span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">"Failed to transfer tokens"</span><span class="p">);</span>
+
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="use-with-web3-providers">Use with web3 providers</h3>
+
+<p>The signature for an authorization can be obtained using a web3 provider with the <code class="language-plaintext highlighter-rouge">eth_signTypedData{_v4}</code> method.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">types</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">EIP712Domain</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">chainId</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">verifyingContract</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span> <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="na">TransferWithAuthorization</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">from</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">to</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">validAfter</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">validBefore</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">nonce</span><span class="dl">"</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">bytes32</span><span class="dl">"</span> <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+  <span class="na">domain</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="nx">tokenName</span><span class="p">,</span>
+    <span class="na">version</span><span class="p">:</span> <span class="nx">tokenVersion</span><span class="p">,</span>
+    <span class="na">chainId</span><span class="p">:</span> <span class="nx">selectedChainId</span><span class="p">,</span>
+    <span class="na">verifyingContract</span><span class="p">:</span> <span class="nx">tokenAddress</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">primaryType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TransferWithAuthorization</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">message</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">from</span><span class="p">:</span> <span class="nx">userAddress</span><span class="p">,</span>
+    <span class="na">to</span><span class="p">:</span> <span class="nx">recipientAddress</span><span class="p">,</span>
+    <span class="na">value</span><span class="p">:</span> <span class="nx">amountBN</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+    <span class="na">validAfter</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">validBefore</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3600</span><span class="p">,</span> <span class="c1">// Valid for an hour</span>
+    <span class="na">nonce</span><span class="p">:</span> <span class="nx">Web3</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">randomHex</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ethereum</span><span class="p">.</span><span class="nx">request</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">eth_signTypedData_v4</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">params</span><span class="p">:</span> <span class="p">[</span><span class="nx">userAddress</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">)],</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">v</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">0x</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">signature</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">130</span><span class="p">,</span> <span class="mi">132</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">signature</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">66</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">0x</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">signature</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">66</span><span class="p">,</span> <span class="mi">130</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="unique-random-nonce-instead-of-sequential-nonce">Unique Random Nonce, Instead of Sequential Nonce</h3>
+
+<p>One might say transaction ordering is one reason why sequential nonces are preferred. However, sequential nonces do not actually help achieve transaction ordering for meta transactions in practice:</p>
+
+<ul>
+  <li>For native Ethereum transactions, when a transaction with a nonce value that is too-high is submitted to the network, it will stay pending until the transactions consuming the lower unused nonces are confirmed.</li>
+  <li>However, for meta-transactions, when a transaction containing a sequential nonce value that is too high is submitted, instead of staying pending, it will revert and fail immediately, resulting in wasted gas.</li>
+  <li>The fact that miners can also reorder transactions and include them in the block in the order they want (assuming each transaction was submitted to the network by different meta-transaction relayers) also makes it possible for the meta-transactions to fail even if the nonces used were correct. (e.g. User submits nonces 3, 4 and 5, but miner ends up including them in the block as 4,5,3, resulting in only 3 succeeding)</li>
+  <li>Lastly, when using different applications simultaneously, in absence of some sort of an off-chain nonce-tracker, it is not possible to determine what the correct next nonce value is if there exists nonces that are used but haven’t been submitted and confirmed by the network.</li>
+  <li>Under high gas price conditions, transactions can often “get stuck” in the pool for a long time. Under such a situation, it is much more likely for the same nonce to be unintentionally reused twice. For example, if you make a meta-transaction that uses a sequential nonce from one app, and switch to another app to make another meta-transaction before the previous one confirms, the same nonce will be used if the app relies purely on the data available on-chain, resulting in one of the transactions failing.</li>
+  <li>In conclusion, the only way to guarantee transaction ordering is for relayers to submit transactions one at a time, waiting for confirmation between each submission (and the order in which they should be submitted can be part of some off-chain metadata), rendering sequential nonce irrelevant.</li>
+</ul>
+
+<h3 id="valid-after-and-valid-before">Valid After and Valid Before</h3>
+
+<ul>
+  <li>Relying on relayers to submit transactions for you means you may not have exact control over the timing of transaction submission.</li>
+  <li>These parameters allow the user to schedule a transaction to be only valid in the future or before a specific deadline, protecting the user from potential undesirable effects that may be caused by the submission being made either too late or too early.</li>
+</ul>
+
+<h3 id="eip-712">EIP-712</h3>
+
+<ul>
+  <li>EIP-712 ensures that the signatures generated are valid only for this specific instance of the token contract and cannot be replayed on a different network with a different chain ID.</li>
+  <li>This is achieved by incorporating the contract address and the chain ID in a Keccak-256 hash digest called the domain separator. The actual set of parameters used to derive the domain separator is up to the implementing contract, but it is highly recommended that the fields <code class="language-plaintext highlighter-rouge">verifyingContract</code> and <code class="language-plaintext highlighter-rouge">chainId</code> are included.</li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>New contracts benefit from being able to directly utilize EIP-3009 in order to create atomic transactions, but existing contracts may still rely on the conventional ERC-20 allowance pattern (<code class="language-plaintext highlighter-rouge">approve</code>/<code class="language-plaintext highlighter-rouge">transferFrom</code>).</p>
+
+<p>In order to add support for EIP-3009 to existing contracts (“parent contract”) that use the ERC-20 allowance pattern, a forwarding contract (“forwarder”) can be constructed that takes an authorization and does the following:</p>
+
+<ol>
+  <li>Extract the user and deposit amount from the authorization</li>
+  <li>Call <code class="language-plaintext highlighter-rouge">receiveWithAuthorization</code> to transfer specified funds from the user to the forwarder</li>
+  <li>Approve the parent contract to spend funds from the forwarder</li>
+  <li>Call the method on the parent contract that spends the allowance set from the forwarder</li>
+  <li>Transfer the ownership of any resulting tokens back to the user</li>
+</ol>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IDeFiToken</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">DepositForwarder</span> <span class="p">{</span>
+    <span class="kt">bytes4</span> <span class="k">private</span> <span class="k">constant</span> <span class="n">_RECEIVE_WITH_AUTHORIZATION_SELECTOR</span> <span class="o">=</span> <span class="mh">0xef55bec6</span><span class="p">;</span>
+
+    <span class="n">IDeFiToken</span> <span class="k">private</span> <span class="n">_parent</span><span class="p">;</span>
+    <span class="n">IERC20</span> <span class="k">private</span> <span class="n">_token</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="n">IDeFiToken</span> <span class="n">parent</span><span class="p">,</span> <span class="n">IERC20</span> <span class="n">token</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="n">_parent</span> <span class="o">=</span> <span class="n">parent</span><span class="p">;</span>
+        <span class="n">_token</span> <span class="o">=</span> <span class="n">token</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">receiveAuthorization</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="n">nonReentrant</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span>
+            <span class="n">receiveAuthorization</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">96</span><span class="p">],</span>
+            <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span>
+        <span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">to</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">"Recipient is not this contract"</span><span class="p">);</span>
+
+        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">_token</span><span class="p">).</span><span class="nb">call</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span>
+                <span class="n">_RECEIVE_WITH_AUTHORIZATION_SELECTOR</span><span class="p">,</span>
+                <span class="n">receiveAuthorization</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">"Failed to transfer to the forwarder"</span><span class="p">);</span>
+
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">_token</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">_parent</span><span class="p">),</span> <span class="n">amount</span><span class="p">),</span>
+            <span class="s">"Failed to set the allowance"</span>
+        <span class="p">);</span>
+
+        <span class="kt">uint256</span> <span class="n">tokensMinted</span> <span class="o">=</span> <span class="n">_parent</span><span class="p">.</span><span class="n">deposit</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">_parent</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">tokensMinted</span><span class="p">),</span>
+            <span class="s">"Failed to transfer the minted tokens"</span>
+        <span class="p">);</span>
+
+        <span class="kt">uint256</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">_token</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">remainder</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nb">require</span><span class="p">(</span>
+                <span class="n">_token</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">remainder</span><span class="p">),</span>
+                <span class="s">"Failed to refund the remainder"</span>
+            <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">tokensMinted</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>See <a href="https://github.com/CoinbaseStablecoin/eip-3009/blob/master/test/EIP3009.test.ts">EIP3009.test.ts</a>.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p><strong>EIP3009.sol</strong></p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="k">contract</span> <span class="n">EIP3009</span> <span class="k">is</span> <span class="n">IERC20Transfer</span><span class="p">,</span> <span class="n">EIP712Domain</span> <span class="p">{</span>
+    <span class="c1">// keccak256("TransferWithAuthorization(address from,address to,uint256 value,uint256 validAfter,uint256 validBefore,bytes32 nonce)")
+</span>    <span class="kt">bytes32</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">TRANSFER_WITH_AUTHORIZATION_TYPEHASH</span> <span class="o">=</span> <span class="mh">0x7c7c6cdb67a18743f49ec6fa9b35f50d52ed05cbed4cc592e13b44501c1a2267</span><span class="p">;</span>
+
+    <span class="c1">// keccak256("ReceiveWithAuthorization(address from,address to,uint256 value,uint256 validAfter,uint256 validBefore,bytes32 nonce)")
+</span>    <span class="kt">bytes32</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">RECEIVE_WITH_AUTHORIZATION_TYPEHASH</span> <span class="o">=</span> <span class="mh">0xd099cc98ef71107a616c4f0f941f04c322d8e254fe26b3c6668db87aae413de8</span><span class="p">;</span>
+
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="k">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">))</span> <span class="k">internal</span> <span class="n">_authorizationStates</span><span class="p">;</span>
+
+    <span class="k">event</span> <span class="n">AuthorizationUsed</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">authorizer</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">nonce</span><span class="p">);</span>
+
+    <span class="kt">string</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">_INVALID_SIGNATURE_ERROR</span> <span class="o">=</span> <span class="s">"EIP3009: invalid signature"</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">authorizationState</span><span class="p">(</span><span class="kt">address</span> <span class="n">authorizer</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">nonce</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_authorizationStates</span><span class="p">[</span><span class="n">authorizer</span><span class="p">][</span><span class="n">nonce</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">transferWithAuthorization</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">validAfter</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">validBefore</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">nonce</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">s</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="nb">now</span> <span class="o">&gt;</span> <span class="n">validAfter</span><span class="p">,</span> <span class="s">"EIP3009: authorization is not yet valid"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="nb">now</span> <span class="o">&lt;</span> <span class="n">validBefore</span><span class="p">,</span> <span class="s">"EIP3009: authorization is expired"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="o">!</span><span class="n">_authorizationStates</span><span class="p">[</span><span class="n">from</span><span class="p">][</span><span class="n">nonce</span><span class="p">],</span>
+            <span class="s">"EIP3009: authorization is used"</span>
+        <span class="p">);</span>
+
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span>
+            <span class="n">TRANSFER_WITH_AUTHORIZATION_TYPEHASH</span><span class="p">,</span>
+            <span class="n">from</span><span class="p">,</span>
+            <span class="n">to</span><span class="p">,</span>
+            <span class="n">value</span><span class="p">,</span>
+            <span class="n">validAfter</span><span class="p">,</span>
+            <span class="n">validBefore</span><span class="p">,</span>
+            <span class="n">nonce</span>
+        <span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">EIP712</span><span class="p">.</span><span class="n">recover</span><span class="p">(</span><span class="n">DOMAIN_SEPARATOR</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="n">from</span><span class="p">,</span>
+            <span class="s">"EIP3009: invalid signature"</span>
+        <span class="p">);</span>
+
+        <span class="n">_authorizationStates</span><span class="p">[</span><span class="n">from</span><span class="p">][</span><span class="n">nonce</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">emit</span> <span class="n">AuthorizationUsed</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">nonce</span><span class="p">);</span>
+
+        <span class="n">_transfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>IERC20Transfer.sol</strong></p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="k">contract</span> <span class="n">IERC20Transfer</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">_transfer</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">sender</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>EIP712Domain.sol</strong></p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="k">contract</span> <span class="n">EIP712Domain</span> <span class="p">{</span>
+    <span class="kt">bytes32</span> <span class="k">public</span> <span class="n">DOMAIN_SEPARATOR</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>EIP712.sol</strong></p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">library</span> <span class="n">EIP712</span> <span class="p">{</span>
+    <span class="c1">// keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)")
+</span>    <span class="kt">bytes32</span> <span class="k">public</span> <span class="k">constant</span> <span class="n">EIP712_DOMAIN_TYPEHASH</span> <span class="o">=</span> <span class="mh">0x8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">makeDomainSeparator</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">version</span><span class="p">)</span>
+        <span class="k">internal</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">;</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">chainId</span> <span class="o">:=</span> <span class="n">chainid</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span>
+            <span class="nb">keccak256</span><span class="p">(</span>
+                <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span>
+                    <span class="n">EIP712_DOMAIN_TYPEHASH</span><span class="p">,</span>
+                    <span class="nb">keccak256</span><span class="p">(</span><span class="kt">bytes</span><span class="p">(</span><span class="n">name</span><span class="p">)),</span>
+                    <span class="nb">keccak256</span><span class="p">(</span><span class="kt">bytes</span><span class="p">(</span><span class="n">version</span><span class="p">)),</span>
+                    <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+                    <span class="kt">bytes32</span><span class="p">(</span><span class="n">chainId</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">recover</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">domainSeparator</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">s</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">typeHashAndData</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">digest</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span>
+                <span class="s">"</span><span class="se">\x19\x01</span><span class="s">"</span><span class="p">,</span>
+                <span class="n">domainSeparator</span><span class="p">,</span>
+                <span class="nb">keccak256</span><span class="p">(</span><span class="n">typeHashAndData</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+        <span class="kt">address</span> <span class="n">recovered</span> <span class="o">=</span> <span class="nb">ecrecover</span><span class="p">(</span><span class="n">digest</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">recovered</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"EIP712: invalid signature"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">recovered</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A fully working implementation of EIP-3009 can be found in <a href="https://github.com/CoinbaseStablecoin/eip-3009/blob/master/contracts/lib/EIP3009.sol">this repository</a>. The repository also includes <a href="https://github.com/CoinbaseStablecoin/eip-3009/blob/master/contracts/lib/EI32612.sol">an implementation of EIP-2612</a> that uses the EIP-712 library code presented above.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Use <code class="language-plaintext highlighter-rouge">receiveWithAuthorization</code> instead of <code class="language-plaintext highlighter-rouge">transferWithAuthorization</code> when calling from other smart contracts. It is possible for an attacker watching the transaction pool to extract the transfer authorization and front-run the <code class="language-plaintext highlighter-rouge">transferWithAuthorization</code> call to execute the transfer without invoking the wrapper function. This could potentially result in unprocessed, locked up deposits. <code class="language-plaintext highlighter-rouge">receiveWithAuthorization</code> prevents this by performing an additional check that ensures that the caller is the payee. Additionally, if there are multiple contract functions accepting receive authorizations, the app developer could dedicate some leading bytes of the nonce could as the identifier to prevent cross-use.</p>
+
+<p>When submitting multiple transfers simultaneously, be mindful of the fact that relayers and miners will decide the order in which they are processed. This is generally not a problem if the transactions are not dependent on each other, but for transactions that are highly dependent on each other, it is recommended that the signed authorizations are submitted one at a time.</p>
+
+<p>The zero address must be rejected when using <code class="language-plaintext highlighter-rouge">ecrecover</code> to prevent unauthorized transfers and approvals of funds from the zero address. The built-in <code class="language-plaintext highlighter-rouge">ecrecover</code> returns the zero address when a malformed signature is provided.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

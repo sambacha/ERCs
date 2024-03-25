@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Real Estate Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Real Estate Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6065" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6065" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Real Estate Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal introduces an open structure for physical real estate and property to exist on the blockchain. This standard builds off of <a href="./eip-721.md">ERC-721</a>, adding important functionality necessary for representing real world assets such as real estate. The three objectives this standard aims to meet are: universal transferability of the NFT, private property rights attached to the NFT, and atomic transfer of property rights with the transfer of the NFT. The token contains a hash of the operating agreement detailing the NFT holder’s legal right to the property, unique identifiers for the property, a debt value and foreclosure status, and a manager address.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Real estate is the largest asset class in the world. By tokenizing real estate, barriers to entry are lowered, transaction costs are minimized, information asymmetry is reduced, ownership structures become more malleable, and a new building block for innovation is formed. However, in order to tokenize this asset class, a common standard is needed that accounts for its real world particularities while remaining flexible enough to adapt to various jurisdictions and regulatory environments.</p>
+
+<p>Ethereum tokens involving real world assets (RWAs) are notoriously tricky. This is because Ethereum tokens exist on-chain, while real estate exists off-chain. As such, the two are subject to entirely different consensus environments. For Ethereum tokens, consensus is reached through a formalized process of distributed validators. When a purely-digital NFT is transferred, the new owner has a cryptographic guarantee of ownership. For real estate, consensus is supported by legal contracts, property law, and enforced by the court system. With existing asset-backed ERC-721 tokens, a transfer of the token to another individual does not necessarily have any impact on the legal ownership of the physical asset.</p>
+
+<p>This standard attempts to solve the real world reconciliation issue, enabling real estate NFTs to function seamlessly on-chain, just like their purely-digital counterparts.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<p>In order to meet the above objectives and create an open standard for on-chain property ownership we have created a token structure that builds on the widely-used ERC-721 standard.</p>
+
+<h3 id="token-components">Token Components:</h3>
+
+<ol>
+  <li>Inherits ERC-721 - Allows for backwards compatibility with the most widely accepted NFT token standard.</li>
+  <li>operatingAgreementHashOf - immutable hash of the legal agreement detailing the right to ownership and conditions of use with regard to the property</li>
+  <li>Property Unique Identifiers - legal description (from physical deed), street address, GIS coordinates, parcel/tax ID, legal owning entity (on deed)</li>
+  <li>debtOf - readable debt value, currency, and foreclosure status of the NFT</li>
+  <li>managerOf - readable Ethereum address with managing control of property</li>
+</ol>
+
+<h3 id="interfaces">Interfaces</h3>
+
+<p>This EIP inherits the ERC-721 NFT token standard for all transfer and approval logic. All transfer and approval functions are inherited from this token standard without changes. Additionally, this EIP also inherits the ERC-721 Metadata standards for name, symbol, and metadata URI lookup. This allows an NFT under this EIP to become interoperable with preexisting NFT exchanges and services, however, some care must be taken. Please refer to <a href="#backwards-compatibility">Backwards Compatibility</a> and <a href="#security-considerations">Security Considerations</a>.</p>
+
+<h4 id="solidity-interface">Solidity Interface</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pragma solidity ^0.8.13;
+
+import "forge-std/interfaces/IERC721.sol";
+
+interface IERC6065 is IERC721 {
+
+	// This event MUST emit if the asset is ever foreclosed.
+	event Foreclosed(uint256 id);
+
+	/* 
+	Next getter functions return immutable data for NFT.
+	*/
+	function legalDescriptionOf(uint256 _id) external view returns (string memory);
+	function addressOf(uint256 _id) external view returns (string memory);
+	function geoJsonOf(uint256 _id) external view returns (string memory);
+	function parcelIdOf(uint256 _id) external view returns (string memory);
+	function legalOwnerOf(uint256 _id) external view returns (string memory);
+	function operatingAgreementHashOf(uint256 _id) external view returns (bytes32);
+
+	/*
+	Next getter function returns the debt denomination token of the NFT, the amount of debt (negative debt == credit), and if the underlying 
+	asset backing the NFT has been foreclosed on. This should be utilized specifically for off-chain debt and required payments on the RWA asset.
+	It's recommended that administrators only use a single token type to denominate the debt. It's unrealistic to require integrating smart
+	contracts to implement possibly unbounded tokens denominating the off-chain debt of an asset.
+
+	If the foreclosed status == true, then the RWA can be seen as severed from the NFT. The NFT is now "unbacked" by the RWA.
+	*/
+	function debtOf(uint256 _id) external view returns (address debtToken, int256 debtAmt, bool foreclosed);
+
+	// Get the managerOf an NFT. The manager can have additional rights to the NFT or RWA on or off-chain.
+	function managerOf(uint256 _id) external view returns (address);
+}
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="introduction">Introduction</h3>
+
+<p>Real world assets operate in messy, non-deterministic environments. Because of this, validating the true state of an asset can be murky, expensive, or time-consuming. For example, in the U.S., change of property ownership is usually recorded at the County Recorder’s office, sometimes using pen and paper. It would be infeasible to continuously update this manual record every time an NFT transaction occurs on the blockchain. Additionally, since real world property rights are enforced by the court of law, it is essential that property ownership be documented in such a way that courts are able to interpret and enforce ownership if necessary.</p>
+
+<p>For these reasons, it is necessary to have a trusted party tasked with the responsibility of ensuring the state of the on-chain property NFT accurately mirrors its physical counterpart. By having an Administrator for the property who issues a legally-binding digital representation of the physical property, we are able to solve for both the atomic transfer of the property rights with the transfer of the NFT, as well as institute a seamless process for making the necessary payments and filings associated with property ownership. This is made possible by eliminating the change in legal ownership each time the NFT changes hands. An example Administrator legal structure implemented for property tokenization in the U.S. is provided in the <a href="#reference-implementation">Reference Implementation</a>. While a token that implements this standard must have a legal entity to conduct the off-chain dealings for the property, this implementation is not mandatory.</p>
+
+<h3 id="guiding-objectives">Guiding Objectives</h3>
+
+<p>We have designed this EIP to achieve three primary objectives necessary for creating an NFT representation of physical real estate:</p>
+
+<h4 id="1-real-estate-nfts-are-universally-transferable">1. Real Estate NFTs are universally transferable</h4>
+
+<p>A key aspect to private property is the right to transfer ownership to any legal person or entity that has the capacity to own that property. Therefore, an NFT representation of physical property should maintain that universal freedom of transfer.</p>
+
+<h4 id="2-all-rights-associated-with-property-ownership-are-able-to-be-maintained-and-guaranteed-by-the-nft">2. All rights associated with property ownership are able to be maintained and guaranteed by the NFT</h4>
+
+<p>The rights associated with private property ownership are the right to hold, occupy, rent, alter, resell, or transfer the property. It is essential that these same rights are able to be maintained and enforced with an NFT representation of real estate.</p>
+
+<h4 id="3-property-rights-are-transferred-atomically-with-the-transfer-of-the-nft">3. Property rights are transferred atomically with the transfer of the NFT</h4>
+
+<p>Token ownership on any blockchain is atomic with the transfer of the digital token. To ensure the digital representation of a physical property is able to fully integrate the benefits of blockchain technology, it is essential the rights associated with the property are passed atomically with the transfer of the digital token.</p>
+
+<p>The following section specifies the technological components required to meet these three objectives.</p>
+
+<h3 id="operatingagreementhashof">operatingAgreementHashOf</h3>
+
+<p>An immutable hash of the legal document issued by the legal entity that owns the property. The agreement is unique and contains the rights, terms, and conditions for the specific property represented by the NFT. The hash of the agreement attached to the NFT must be immutable to ensure the legitimacy and enforceability of these rights in the future for integrators or transferees. Upon transfer of the NFT, these legal rights are immediately enforceable by the new owner. For changes to the legal structure or rights and conditions with regard to the property the original token must be burned and a new token with the new hash must be minted.</p>
+
+<h3 id="property-unique-identifiers">Property Unique Identifiers</h3>
+
+<p>The following unique identifiers of the property are contained within the NFT and are immutable:</p>
+
+<p><code class="language-plaintext highlighter-rouge">legalDescriptionOf</code>: written description of the property taken from the physical property deed
+<code class="language-plaintext highlighter-rouge">addressOf</code>: street address of the property
+<code class="language-plaintext highlighter-rouge">geoJsonOf</code>: the GeoJSON format of the property’s geospatial coordinates
+<code class="language-plaintext highlighter-rouge">parcelIdOf</code>: ID number used to identify the property by the local authority
+<code class="language-plaintext highlighter-rouge">legalOwnerOf</code>: the legal entity that is named on the verifiable physical deed</p>
+
+<p>These unique identifiers ensure the physical property in question is clear and identifiable. These strings must be immutable to make certain that the identity of the property can not be changed in the future. This is necessary to provide confidence in the NFT holder in the event a dispute about the property arises.</p>
+
+<p>These identifiers, especially <code class="language-plaintext highlighter-rouge">legalOwnerOf</code>, allow for individuals to verify off-chain ownership and legitimacy of the legal agreement. These verification checks could be integrated with something like Chainlink functions in the future to be simplified and automatic.</p>
+
+<h3 id="debtof">debtOf</h3>
+
+<p>A readable value of debt and denoted currency that is accrued to the property. A positive balance signifies a debt against the property, while a negative balance signifies a credit which can be claimed by the NFT owner. This is a way for the property administrator to charge the NFT holder for any necessary payments towards the property, like property tax, or other critical repairs or maintenance in the “real world”. A credit might be given to the NFT holder via this same function, perhaps the administrator and the NFT holder had worked out a property management or tenancy revenue-sharing agreement.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">debtOf</code> function also returns the boolean foreclosure status of the asset represented by the NFT. A true result indicates the associated property is no longer backing the NFT, a false result indicates the associated property is still backing the NFT. An administrator can foreclose an asset for any reason as specified in the <code class="language-plaintext highlighter-rouge">Operating Agreement</code>, an example would be excessive unpaid debts. Smart contracts can check the foreclosure state by calling this function. If the asset is foreclosed, it should be understood that the RWA backing the NFT has been removed, and smart contracts should take this into account when doing any valuations or other calculations.</p>
+
+<p>There are no standard requirements for how these values are updated as those details will be decided by the implementor. This EIP does however standardize how these values are indicated and read for simplicity of integration.</p>
+
+<h3 id="managerof">managerOf</h3>
+
+<p>A readable Ethereum address that can be granted a right to action on the property without being the underlying owner of the NFT.</p>
+
+<p>This function allows the token to be owned by one Ethereum address while granting particular rights to another. This enables protocols and smart contracts to own the underlying asset, such as a lending protocol, but still allow another Ethereum address, such as a depositor, to action on the NFT via other integrations, for example the Administrator management portal. The standard does not require a specific implementation of the manager role, only the value is required. In many instances the managerOf value will be the same as the owning address of the NFT.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This EIP is backwards compatible with ERC-721. However, it is important to note that there are potential implementation considerations to take into account before any smart contract integration. See <a href="#security-considerations">Security Considerations</a> for more details.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Klasma Labs offers a work in progress <a href="../assets/eip-6065/Implementation.sol">reference implementation</a>. The technical implementation includes the following additional components for reference, this implementation is not required.</p>
+
+<p>Summary of this implementation:</p>
+
+<ul>
+  <li>NFT burn and mint function</li>
+  <li>Immutable NFT data (unique identifiers and operating agreement hash)</li>
+  <li>Simple debt tracking by Administrator</li>
+  <li>Blocklist function to freeze asset held by fraudulent addresses (NOTE: to be implemented in the future)</li>
+  <li>Simple foreclosure logic initiated by Administrator</li>
+  <li><code class="language-plaintext highlighter-rouge">managerOf</code> function implementation to chain this call to other supported smart contracts</li>
+</ul>
+
+<h3 id="legal-structure-implementation">Legal Structure Implementation</h3>
+
+<p>This section explains the legal structure and implementation a company may employ as an Administrator of this token. The structure detailed below is specific to property tokenization in the U.S. in the 2023 regulatory environment.</p>
+
+<p>This section details an implementation of the legal standard that could be used by a company specifically for property tokenization in the U.S. in the 2022 regulatory environment.</p>
+
+<p><img src="../assets/eip-6065/corporate-structure.png" alt="Corporate Structure Image" /></p>
+
+<p>The legal structure for this token is as follows:</p>
+
+<ul>
+  <li>A parent company and property Administrator, owns a bankruptcy remote LLC for each individual property they act as Administrator for.</li>
+  <li>The bankruptcy remote LLC is the owner and manager of a DAO LLC. The DAO LLC is on the title and deed and issues the corresponding NFT and operating agreement for the property.</li>
+  <li>
+    <p>This structure enables the following three outcomes:</p>
+
+    <ol>
+      <li>Homeowners are shielded from any financial stress or bankruptcy their physical asset Administrator encounters. In the event of an Administrator bankruptcy or dissolution the owner of the NFT is entitled to transfer of the DAO LLC, or the sale and distribution of proceeds from the property.</li>
+      <li>Transfer of the rights to the property are atomic with the transfer of the NFT. The NFT represents a right to claim the asset and have the title transferred to the NFT owner, as well as the right to use the asset. This ensures the rights to the physical property are passed digitally with the transfer of the NFT, without having to update the legal owner of the property after each transfer.</li>
+    </ol>
+  </li>
+</ul>
+
+<p>Security note: In the event of a private key hack the company will likely not be able to reissue a Home NFT. Home NFT owners who are not confident in their ability to safely store their home NFT will have varying levels of security options (multi-sigs, custodians, etc.). For public, large protocol hacks, the company may freeze the assets using the Blocklist function and reissue the home NFTs to the original owners. Blocklist functionality is to-be-implemented in the reference implementation above.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The following are checks and recommendations for protocols integrating NFTs under this standard. These are of particular relevance to applications which lend against any asset utilizing this standard.</p>
+
+<ul>
+  <li>Protocol integrators are recommended to check that the unique identifiers for the property and the hash of the operating agreement are immutable for the specific NFTs they wish to integrate. For correct implementation of this standard these values must be immutable to ensure legitimacy for future transferees.</li>
+  <li>Protocol integrators are recommended to check the debtOf value for an accurate representation of the value of this token.</li>
+  <li>Protocol integrators are recommended to check the foreclose status to ensure this token is still backed by the asset it was originally tied to.</li>
+  <li>For extra risk mitigation protocol integrators can implement a time-delay before performing irreversible actions. This is to protect against potential asset freezes if a hacked NFT is deposited into the protocol. Asset freezes are non-mandatory and subject to the implementation of the asset Administrator.</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

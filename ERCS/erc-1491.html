@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Human Cost Accounting Standard (Like Gas but for humans) | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Human Cost Accounting Standard (Like Gas but for humans) | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1491" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1491" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Human Cost Accounting Standard (Like Gas but for humans)</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+<p>A standard interface for Human Capital Accounting tokens.</p>
+
+<h2 id="abstract">Abstract</h2>
+<p>The following standard allows for the implementation of a standard API for HUCAP tokens within smart contracts. This standard provides basic functionality to discover, track and transfer the motivational hierarchy of human resources. While blockchain architecture has succeeded in the financialisation of integrity by way of transparency; correspondingly real world outcomes will be proportional to the degree of individualisation of capital by way of knowledge.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>The Ethereum protocol architecture has a deterministic world-view bounded to the random reality of the human domain that supplies the intentions and logic. The yellow paper formally defines the EVM as a state machine with only deterministic parameters and state transition operators. Oracle requests to another on-chain contract, and/or off-chain HTTP lookups still make for multiple deterministic transactions.</p>
+
+<p>A standard interface that allows the appraisal of individual capabilities concurrently with output and the overall knowledge-base will reduce market search costs and increase the autonomous insertion of mindful innovation into the blockchain ecosystem. We provide for simple smart contracts to define and track an arbitrarily large number of HUCAP assets. Additional applications are discussed below.</p>
+
+<p>The Belief-Desire-Intention model is a plan-theoretic framework for establishing means-end coherence in agent based modelling system.
+The blockchain’s cryptographic security architecture reliably scales to a blockchain based PKI web-of-trust hierarchies.
+ERC-20 token standard allows any tokens on Ethereum to be re-used by other applications: from wallets to decentralized exchanges.
+ERC-721 token standard allows wallet/broker/auction applications to work with any NFT on Ethereum.
+ERC-1155 Crypto Item standard allows a smart contract interface where one can represent any number of ERC-20 and ERC-721 assets in a single contract.</p>
+
+<p>This standard is inspired by the belief–desire–intention (BDI) model of human practical reasoning developed by Michael Bratman as a way of explaining future-directed intention. A BDI agent is a particular type of bounded rational software agent, imbued with particular mental attitudes, viz: Beliefs, Desires and Intentions (BDI). The model identifies commitment as the distinguishing factor between desire and intention, and a noteworthy property that leads to (1) temporal persistence in plans and in the sense of explicit reference to time, (2) further plans being made on the basis of those to which it is already committed, (3) hierarchical nature of plans, since the overarching plan remains in effect while subsidiary plans are being executed.</p>
+
+<p>The BDI software model is an attempt to solve a problem of plans and planning choice and the execution thereof. The complement of which tenders a sufficient metric for indicating means-end coherence and ascribing cost baselines to such outcomes.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h4 id="main-interface">Main Interface</h4>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">25</span><span class="p">;</span>
+<span class="k">pragma</span> <span class="n">experimental</span> <span class="n">ABIEncoderV2</span><span class="p">;</span>
+
+<span class="cm">/**
+    @title ERC-**** Human Capital Accounting Standard
+    @dev See https://github.com/freeworkculture/kazini/issues/11
+    Note: the ERC-165 identifier for this interface is 0xf23a6e61.
+ */</span>
+
+<span class="k">interface</span> <span class="n">IERC_HUCAP</span> <span class="p">{</span>
+
+    <span class="cm">/**
+        @notice Compute the index value of an Agents BDI in the ecosystem.
+        @param _address Set the stance of an agent
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">updateIndex</span><span class="p">()</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the active/inactive and states of an Agent in the ecosystem.
+        @param _address Set the stance of an agent
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">iam</span><span class="p">()</span> <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">iam_</span><span class="p">,</span> <span class="n">IERC_HUCAP_TYPES</span><span class="p">.</span><span class="n">IS</span> <span class="n">state_</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Fetch the bdi index value of an Agent in the ecosystem.
+        @param _address Set the stance of an agent
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">index</span><span class="p">()</span> <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint8</span> <span class="n">index_</span><span class="p">);</span>
+    
+    <span class="cm">/**
+        @notice Count of Public Keys in key ring of an Agent in the ecosystem.
+        @param _address Set the stance of an agent
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">ringLength</span><span class="p">()</span> <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">ringlength_</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the PGP Public Key Id of an Agent in the ecosystem.
+        @param "" Set the stance of an agent
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>  
+    <span class="k">function</span> <span class="n">keyId</span><span class="p">()</span> <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">KEYID_</span><span class="p">);</span>
+
+     <span class="cm">/**
+        @notice Get the merit data of an Agent in the ecosystem.
+        @param "" Set the stance of an agent
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>   
+    <span class="k">function</span> <span class="n">merits</span><span class="p">()</span> <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span>
+        <span class="kt">uint</span> <span class="n">experience_</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">reputation_</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">talent_</span><span class="p">,</span>
+        <span class="kt">uint8</span> <span class="n">index_</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">hash_</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the accreditation of an Agent in the ecosystem.
+        @param "" Set the stance of an agent
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">kbase</span><span class="p">()</span> <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="n">IERC_HUCAP_TYPES</span><span class="p">.</span><span class="n">KBase</span> <span class="n">kbase_</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the desire of an Agent in the ecosystem.
+        @param _desire    Pro-attitude
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">desire</span><span class="p">(</span><span class="kt">bytes1</span> <span class="n">_desire</span><span class="p">)</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the intention of an Agent in the ecosystem.
+        @param _intention    Conduct-controlling pro-attitude
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">intention</span><span class="p">(</span><span class="kt">bool</span> <span class="n">_intention</span><span class="p">)</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span>  <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+    
+    <span class="cm">/**
+        @notice Cycle the intention of an Agent in the ecosystem.
+        @param _intention    Conduct-controlling pro-attitude
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">flipIntention</span><span class="p">()</span> <span class="k">external</span> <span class="k">returns</span>  <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    
+
+    <span class="cm">/**
+        @notice Get the user data of an Agent in the ecosystem.
+        @param ""    Conduct-controlling pro-attitude
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">getDoer</span><span class="p">()</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span>  <span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">fPrint</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">iam_</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">email</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">fName</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">lName</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">age</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">data_</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the belief data of an Agent in the ecosystem.
+        @param _kbase    Source address
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">getBelief</span><span class="p">(</span><span class="n">IERC_HUCAP_TYPES</span><span class="p">.</span><span class="n">KBase</span> <span class="n">_kbase</span><span class="p">)</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span>  <span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">country_</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">cAuthority_</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">score_</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the desire data of an Agent in the ecosystem.
+        @param _desire    Pro-attitides
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">getDesire</span><span class="p">(</span><span class="kt">bytes1</span> <span class="n">_desire</span><span class="p">)</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span>  <span class="p">(</span><span class="kt">bytes32</span><span class="p">,</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the intention of an Agent in the ecosystem.
+        @param _intention    Conduct-controlling pro-attitude
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">getIntention</span><span class="p">(</span><span class="kt">bool</span> <span class="n">_intention</span><span class="p">)</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span>  <span class="p">(</span><span class="n">IERC_HUCAP_TYPES</span><span class="p">.</span><span class="n">IS</span><span class="p">,</span><span class="kt">bytes32</span><span class="p">,</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Sign the Public Key of an Agent in the ecosystem.
+        @param _address    Address of key to sign, must belong to an Agent 
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">sign</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">signed</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Sign the Public Key of an Agent in the ecosystem.
+        @param ""    internal helper function to add key in keyring
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">sign</span><span class="p">()</span> <span class="k">external</span> <span class="n">onlyDoer</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">signed</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Revoke the Public Key of an Agent in the ecosystem.
+        @param _address    Address of key to revoke, must belong to an Agent
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">revoke</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyDoer</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">revoked</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Revoke the Public Key of an Agent in the ecosystem.
+        @param ""    internal helper function to remove key from keyring
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">revoke</span><span class="p">()</span> <span class="k">external</span> <span class="n">onlyDoer</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">revoked</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Set the trust level for a Public Key of an Agent in the ecosystem.
+        @param _level    Degree of trust
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">trust</span><span class="p">(</span><span class="n">Trust</span> <span class="n">_level</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Increment the number of keys in the keyring of an Agent in the ecosystem.
+        @param _keyd    Target key
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">incSigns</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_keyd</span><span class="p">)</span> <span class="k">external</span> <span class="n">ProxyKey</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Decrement the number of keys in the keyring of an Agent in the ecosystem.
+        @param _keyd    Target key
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+        
+    */</span>
+    <span class="k">function</span> <span class="n">decSigns</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_keyd</span><span class="p">)</span> <span class="k">external</span> <span class="n">ProxyKey</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Set the knowledge credentials of an Agent in the ecosystem.
+        @param _kbase    Level of accreditation
+        @param _country      Source country
+        @param _cAuthority     Accreditation authority
+        @param _score  Accreditation 
+        @param _year Year of Accreditation
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">setbdi</span><span class="p">(</span>
+        <span class="n">KBase</span> <span class="n">_kbase</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">_country</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">_cAuthority</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">_score</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">_year</span>
+        <span class="p">)</span> <span class="k">external</span> <span class="n">ProxyBDI</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">qualification_</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Set the SNA metrics of an Agent in the ecosystem
+        @param _refMSD    Minimum shortest distance
+        @param _refRank      Rank of target key
+        @param _refSigned     No of keys signed I have signed
+        @param _refSigs  No. of keys that have signed my key
+        @param _refTrust Degree of tructThrows on any error rather than return a false flag to minimize user errors
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">setbdi</span><span class="p">(</span>
+        <span class="kt">uint</span> <span class="n">_refMSD</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">_refRank</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">_refSigned</span><span class="p">,</span>
+        <span class="kt">uint</span> <span class="n">_refSigs</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">_refTrust</span>
+        <span class="p">)</span> <span class="k">external</span> <span class="n">ProxyBDI</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">reputation_</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Set the talents of an Agent in the ecosystem
+        @param _talent    Agent's talent
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">setbdi</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_talent</span><span class="p">)</span> <span class="k">external</span> <span class="n">ProxyBDI</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span> <span class="n">talent_</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Set the desires of an Agent in the ecosystem
+        @param _desire    Pro-attitude
+        @param _goal      A goal is an instatiated pro-attitude
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">setbdi</span><span class="p">(</span><span class="kt">bytes1</span> <span class="n">_desire</span><span class="p">,</span> <span class="n">Desire</span> <span class="n">_goal</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyDoer</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Set the intention of an Agent in the ecosystem
+        @param _service    Conducting-controlling pro-attitude
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+    */</span>
+    <span class="k">function</span> <span class="n">setbdi</span><span class="p">(</span><span class="n">Intention</span> <span class="n">_service</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyDoer</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+    
+    <span class="cm">/**
+        @notice Set the targeted intention of an Agent in the ecosystem.
+        @param _intention    Conduct-controlling pro-attitude
+        @param _state      Agent stance       
+        @dev For the purpose of 
+        Throws on any error rather than return a false flag to minimize user errors
+
+    */</span>
+    <span class="k">function</span> <span class="n">intention</span><span class="p">(</span><span class="kt">bool</span> <span class="n">_intention</span><span class="p">,</span> <span class="n">IERC_HUCAP_TYPES</span><span class="p">.</span><span class="n">IS</span> <span class="n">_state</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span>  <span class="p">(</span><span class="n">IERC_HUCAP_TYPES</span><span class="p">.</span><span class="n">IS</span><span class="p">);</span>
+
+<span class="cm">/* End of interface IERC_HUCAP */</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+<h4 id="user-defined-types-extension-interface">User Defined Types Extension Interface</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">interface</span> <span class="n">IERC_HUCAP_TYPES</span> <span class="p">{</span>
+
+<span class="cm">/* Enums*/</span>
+
+    <span class="c1">// Weights	   1,		2,		 4,		    8,		   16,	    32,		64,	    128    256
+</span>    <span class="k">enum</span> <span class="n">KBase</span> <span class="p">{</span><span class="n">PRIMARY</span><span class="p">,</span><span class="n">SECONDARY</span><span class="p">,</span><span class="n">TERTIARY</span><span class="p">,</span><span class="n">CERTIFICATION</span><span class="p">,</span><span class="n">DIPLOMA</span><span class="p">,</span><span class="n">LICENSE</span><span class="p">,</span><span class="n">BACHELOR</span><span class="p">,</span><span class="n">MASTER</span><span class="p">,</span><span class="n">DOCTORATE</span><span class="p">}</span>
+    
+    
+    <span class="k">enum</span> <span class="n">IS</span> <span class="p">{</span> <span class="n">CLOSED</span><span class="p">,</span> <span class="n">CREATOR</span><span class="p">,</span> <span class="n">CURATOR</span><span class="p">,</span> <span class="n">ACTIVE</span><span class="p">,</span> <span class="n">INACTIVE</span><span class="p">,</span> <span class="n">RESERVED</span><span class="p">,</span> <span class="n">PROVER</span> <span class="p">}</span>
+
+<span class="cm">/* Structus */</span>
+
+        <span class="k">struct</span> <span class="n">Clearance</span> <span class="p">{</span>
+        <span class="kt">bytes32</span> <span class="n">Zero</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">Unknown</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">Generic</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">Poor</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">Casual</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">Partial</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">Complete</span><span class="p">;</span>
+        <span class="kt">bytes32</span> <span class="n">Ultimate</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="cm">/* End of interface IERC_HUCAP_TYPES */</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<h4 id="web-of-trust-extension-interface">Web-of-trust Extension Interface</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">25</span><span class="p">;</span>
+<span class="k">pragma</span> <span class="n">experimental</span> <span class="n">ABIEncoderV2</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC_HUCAP_KEYSIGNING_EXTENSION</span> <span class="p">{</span>
+
+    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">_InterfaceId_ERC165_</span>        <span class="o">=</span> <span class="s">"CREATOR 0.0118 XOR OF ALL FUNCTIONS IN THE INTERFACE"</span><span class="p">;</span>   <span class="c1">// Complies to ERC165
+</span>
+<span class="c1">//  KEY MASKING TABLE
+//  bytes32 constant public MASK 			   		    = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
+//  bytes32 constant public KEYID                       = 0xffffffffffffffffffffffffffffffffff90EBAC34FC40EAC30FC9CB464A2E56; // EXAMPLE PGP PUBLIC KEY ID
+//  bytes32 constant public KEY_CERTIFICATION 		    = 0x01ffffffffffffff &lt;&lt; 192; // “C”	Key Certification
+//  bytes32 constant public SIGN_DATA   			    = 0x02ffffffffffffff &lt;&lt; 192; // “S”	Sign Data
+//  bytes32 constant public ENCRYPT_COMMUNICATIONS 	    = 0x04ffffffffffffff &lt;&lt; 192; // “E”	Encrypt Communications
+//  Clearance constant public Trust                     = 0x03ff &lt;&lt; 192; // Trust: Unknown
+</span>                                                        <span class="c1">// BYTES32 Value with 
+</span>                                                        <span class="c1">// Public Key Id, masking
+</span>                                                        <span class="c1">// Key Certification masking
+</span>                                                        <span class="c1">// Split Key masking
+</span>                                                        <span class="c1">// Generic masking
+</span>                                                        <span class="c1">// Ordinary masking
+</span>                                                        <span class="c1">//  Trust.Unknown masking
+</span>                                                        <span class="c1">//  bytes32 constant public DOER = 0x11ff10ff100f03ffff00ffffffffffffffff90EBAC34FC40EAC30FC9CB464A2E56;
+</span>
+    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">KEY_CERTIFICATION</span> 		    <span class="o">=</span> <span class="mh">0x01ffffffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// “C”	Key Certification
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">SIGN_DATA</span>   			    <span class="o">=</span> <span class="mh">0x02ffffffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// “S”	Sign Data
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">ENCRYPT_COMMUNICATIONS</span> 	    <span class="o">=</span> <span class="mh">0x04ffffffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// “E”	Encrypt Communications
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">ENCRYPT_STORAGE</span>  		    <span class="o">=</span> <span class="mh">0x08ffffffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// “E”	Encrypt Storage
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">SPLIT_KEY</span>   			    <span class="o">=</span> <span class="mh">0x10ffffffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// Split key
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">AUTHENTICATION</span>   		    <span class="o">=</span> <span class="mh">0x20ffffffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// “A”	Authentication
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">MULTI_SIGNATURE</span>			    <span class="o">=</span> <span class="mh">0x80ffffffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// Held by more than one person
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">TRUST_AMOUNT</span>                <span class="o">=</span> <span class="mh">0xffffffffffff00ff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">BINARY_DOCUMENT</span>             <span class="o">=</span> <span class="mh">0xffff00ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x00: Signature of a binary document.
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">CANONICAL_DOCUMENT</span>          <span class="o">=</span> <span class="mh">0xffff01ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x01: Signature of a canonical text document.
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">STANDALONE_SIGNATURE</span>        <span class="o">=</span> <span class="mh">0xffff02ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x02: Standalone signature.
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">GENERIC</span>                     <span class="o">=</span> <span class="mh">0xffff10ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x10: Generic certification of a User ID and Public-Key packet.
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">PERSONA</span>                     <span class="o">=</span> <span class="mh">0xffff11ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x11: Persona certification of a User ID and Public-Key packet.
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">CASUAL</span>                      <span class="o">=</span> <span class="mh">0xffff12ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x12: Casual certification of a User ID and Public-Key packet.
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">POSITIVE</span>                    <span class="o">=</span> <span class="mh">0xffff13ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x13: Positive certification of a User ID and Public-Key packet.
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">SUBKEY_BINDING</span>              <span class="o">=</span> <span class="mh">0xffff18ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x18: Subkey Binding Signature
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">PRIMARY_KEY_BINDING</span>         <span class="o">=</span> <span class="mh">0xffff19ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x19: Primary Key Binding Signature
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">DIRECTLY_ON_KEY</span>             <span class="o">=</span> <span class="mh">0xffff1Fffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x1F: Signature directly on a key
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">KEY_REVOCATION</span>              <span class="o">=</span> <span class="mh">0xffff20ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x20: Key revocation signature
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">SUBKEY_REVOCATION</span>           <span class="o">=</span> <span class="mh">0xffff28ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x28: Subkey revocation signature
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">CERTIFICATION_REVOCATION</span>    <span class="o">=</span> <span class="mh">0xffff30ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x30: Certification revocation signature
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">TIMESTAMP</span>                   <span class="o">=</span> <span class="mh">0xffff40ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x40: Timestamp signature.
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">THIRD_PARTY_CONFIRMATION</span>    <span class="o">=</span> <span class="mh">0xffff50ffffffffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span> <span class="c1">// 0x50: Third-Party Confirmation signature.
+</span>    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">ORDINARY</span>   				    <span class="o">=</span> <span class="mh">0xffffffff100fffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">INTRODUCER</span> 				    <span class="o">=</span> <span class="mh">0xffffffff010fffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span>
+    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">ISSUER</span>	   				    <span class="o">=</span> <span class="mh">0xffffffff001fffff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">;</span>
+
+<span class="c1">//  EDGES MASKING TABLE
+</span>    <span class="n">Clearance</span> <span class="k">internal</span> <span class="n">TRUST</span> <span class="o">=</span> <span class="n">Clearance</span><span class="p">({</span>
+        <span class="n">Zero</span><span class="o">:</span>       <span class="mh">0x01ff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">,</span>
+        <span class="n">Unknown</span><span class="o">:</span>    <span class="mh">0x03ff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">,</span>
+        <span class="n">Generic</span><span class="o">:</span>    <span class="mh">0x07ff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">,</span>
+        <span class="n">Poor</span><span class="o">:</span>       <span class="mh">0xF0ff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">,</span>
+        <span class="n">Casual</span><span class="o">:</span>     <span class="mh">0xF1ff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">,</span>
+        <span class="n">Partial</span><span class="o">:</span>    <span class="mh">0xF3ff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">,</span>
+        <span class="n">Complete</span><span class="o">:</span>   <span class="mh">0xF7ff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span><span class="p">,</span>
+        <span class="n">Ultimate</span><span class="o">:</span>   <span class="mh">0xFFff</span> <span class="o">&lt;&lt;</span> <span class="mi">192</span>
+        <span class="p">});</span>
+
+    <span class="cm">/**
+    /// @notice Cycle through state transition of an Agent in the ecosystem.
+    /// @param _address toggle on/off a doer agent
+    //  @dev `anybody` can retrieve the talent data in the contract
+    */</span>
+    <span class="k">function</span> <span class="n">flipTo</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyOwner</span> <span class="k">returns</span> <span class="p">(</span><span class="n">IS</span><span class="p">);</span>
+
+    <span class="cm">/**
+    /// @notice Turn Agent in the ecosystem to on/off.
+    /// @param _address toggle on/off a doer agent
+    //  @dev `anybody` can retrieve the talent data in the contract
+    */</span>
+    <span class="k">function</span> <span class="n">toggle</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyOwner</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+    /// @notice Set the trust level of an Agent in the ecosystem.
+    /// @param _level toggle on/off a doer agent
+    //  @dev `anybody` can retrieve the talent data in the contract
+    */</span>
+    <span class="k">function</span> <span class="n">trust</span><span class="p">(</span><span class="n">Trust</span> <span class="n">_level</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">Trust</span><span class="p">);</span>
+
+    <span class="k">event</span> <span class="n">LogCall</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">origin</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">_data</span><span class="p">);</span>
+
+<span class="cm">/* End of interface IERC_HUCAP_KEYSIGNING_EXTENSION */</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<h4 id="human-capital-accounting-extension-interface">Human Capital Accounting Extension Interface</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">25</span><span class="p">;</span>
+<span class="k">pragma</span> <span class="n">experimental</span> <span class="n">ABIEncoderV2</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC_HUCAP_TRACKUSERS_EXTENSION</span> <span class="p">{</span>
+
+    <span class="c1">/// @notice Instantiate an Agent in the ecosystem with default data.
+</span>    <span class="c1">/// @param _address initialise a doer agent
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">initAgent</span><span class="p">(</span><span class="n">Doers</span> <span class="n">_address</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyControlled</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the data by uuid of an Agent in the ecosystem.
+</span>    <span class="c1">/// @param _uuid Get the address of a unique uid
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">getAgent</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_uuid</span><span class="p">)</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the data of all Talents in the ecosystem.
+</span>    <span class="c1">/// @param _address Query if address belongs to an agent
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">iam</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the data of all Talents in the ecosystem.
+</span>    <span class="c1">/// @param _address Query if address belongs to a doer
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">isDoer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="n">IS</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the number of doers that can be spawned by a Creators.
+</span>    <span class="c1">/// The query condition of the contract
+</span>    <span class="c1">//  @dev `anybody` can retrieve the count data in the contract
+</span>    <span class="k">function</span> <span class="n">getAgent</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span>
+    <span class="k">view</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">keyid_</span><span class="p">,</span> <span class="n">IS</span> <span class="n">state_</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">active_</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">myDoers_</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Get the data of all Talents in the ecosystem.
+</span>    <span class="c1">/// @param _talent The talent whose frequency is being queried
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">getTalents</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_talent</span><span class="p">)</span>
+    <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span>  <span class="p">(</span><span class="kt">uint</span> <span class="n">talentK_</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">talentI_</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">talentR_</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">talentF_</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Increment a kind of talent in the ecosystem.
+</span>    <span class="c1">/// @param The talent whose frequency is being queried
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">incTalent</span><span class="p">()</span> <span class="k">payable</span> <span class="k">public</span> <span class="n">onlyDoer</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Decrement a kind of talent in the ecosystem..
+</span>    <span class="c1">/// @param The talent whose frequency is being queried
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">decTalent</span><span class="p">()</span> <span class="k">payable</span> <span class="k">public</span> <span class="n">onlyDoer</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Set the Public-Key Id of an Agent in the ecosystem.
+</span>    <span class="c1">/// @param _address Set the Public-key Id of an agent
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">setAgent</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">_keyId</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyControlled</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Transition the states of an Agent in the ecosystem.
+</span>    <span class="c1">/// @param _address Set the stance of an agent
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">setAgent</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="n">IS</span> <span class="n">_state</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyControlled</span> <span class="k">returns</span> <span class="p">(</span><span class="n">IS</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Set the active status of an Agent in the ecosystem.
+</span>    <span class="c1">/// @param _address Toggle the true/false status of an agent
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">setAgent</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_active</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyControlled</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Set the data of all Intentions of Agents in the ecosystem.
+</span>    <span class="c1">/// @param _serviceId Track number of offers available
+</span>    <span class="c1">//  @dev `anybody` can retrieve the talent data in the contract
+</span>    <span class="k">function</span> <span class="n">setAllPromises</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_serviceId</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyControlled</span><span class="p">;</span>
+
+<span class="cm">/* End of interface IERC_HUCAP_TRACKUSERS_EXTENSION */</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+<h2 id="rationale">Rationale</h2>
+<p>[WIP]</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>[WIP]</p>
+
+<h2 id="test-cases">Test Cases</h2>
+<p>[WIP]</p>
+
+<h2 id="implementation">Implementation</h2>
+<p>[WIP]</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

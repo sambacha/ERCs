@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Retrieval of EIP-712 domain | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Retrieval of EIP-712 domain | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5267" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5267" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Retrieval of EIP-712 domain</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP complements <a href="./eip-712.md">EIP-712</a> by standardizing how contracts should publish the fields and values that describe their domain. This enables applications to retrieve this description and generate appropriate domain separators in a general way, and thus integrate EIP-712 signatures securely and scalably.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>EIP-712 is a signature scheme for complex structured messages. In order to avoid replay attacks and mitigate phishing, the scheme includes a “domain separator” that makes the resulting signature unique to a specific domain (e.g., a specific contract) and allows user-agents to inform end users the details of what is being signed and how it may be used. A domain is defined by a data structure with fields from a predefined set, all of which are optional, or from extensions. Notably, EIP-712 does not specify any way for contracts to publish which of these fields they use or with what values. This has likely limited adoption of EIP-712, as it is not possible to develop general integrations, and instead applications find that they need to build custom support for each EIP-712 domain. A prime example of this is <a href="./eip-2612.md">EIP-2612</a> (permit), which has not been widely adopted by applications even though it is understood to be a valuable improvement to the user experience. The present EIP defines an interface that can be used by applications to retrieve a definition of the domain that a contract uses to verify EIP-712 signatures.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Compliant contracts MUST define <code class="language-plaintext highlighter-rouge">eip712Domain</code> exactly as declared below. All specified values MUST be returned even if they are not used, to ensure proper decoding on the client side.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">eip712Domain</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+    <span class="kt">bytes1</span> <span class="n">fields</span><span class="p">,</span>
+    <span class="kt">string</span> <span class="n">name</span><span class="p">,</span>
+    <span class="kt">string</span> <span class="n">version</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">verifyingContract</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+    <span class="kt">uint256</span><span class="p">[]</span> <span class="n">extensions</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>The return values of this function MUST describe the domain separator that is used for verification of EIP-712 signatures in the contract. They describe both the form of the <code class="language-plaintext highlighter-rouge">EIP712Domain</code> struct (i.e., which of the optional fields and extensions are present) and the value of each field, as follows.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">fields</code>: A bit map where bit <code class="language-plaintext highlighter-rouge">i</code> is set to 1 if and only if domain field <code class="language-plaintext highlighter-rouge">i</code> is present (<code class="language-plaintext highlighter-rouge">0 ≤ i ≤ 4</code>). Bits are read from least significant to most significant, and fields are indexed in the order that is specified by EIP-712, identical to the order in which they are listed in the function type.</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">version</code>, <code class="language-plaintext highlighter-rouge">chainId</code>, <code class="language-plaintext highlighter-rouge">verifyingContract</code>, <code class="language-plaintext highlighter-rouge">salt</code>: The value of the corresponding field in <code class="language-plaintext highlighter-rouge">EIP712Domain</code>, if present according to <code class="language-plaintext highlighter-rouge">fields</code>. If the field is not present, the value is unspecified. The semantics of each field is defined in EIP-712.</li>
+  <li><code class="language-plaintext highlighter-rouge">extensions</code>: A list of EIP numbers, each of which MUST refer to an EIP that extends EIP-712 with new domain fields, along with a method to obtain the value for those fields, and potentially conditions for inclusion. The value of <code class="language-plaintext highlighter-rouge">fields</code> does not affect their inclusion.</li>
+</ul>
+
+<p>The return values of this function (equivalently, its EIP-712 domain) MAY change throughout the lifetime of a contract, but changes SHOULD NOT be frequent. The <code class="language-plaintext highlighter-rouge">chainId</code> field, if used, SHOULD change to mirror the <a href="./eip-155.md">EIP-155</a> id of the underlying chain. Contracts MAY emit the event <code class="language-plaintext highlighter-rouge">EIP712DomainChanged</code> defined below to signal that the domain could have changed.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">EIP712DomainChanged</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>A notable application of EIP-712 signatures is found in EIP-2612 (permit), which specifies a <code class="language-plaintext highlighter-rouge">DOMAIN_SEPARATOR</code> function that returns a <code class="language-plaintext highlighter-rouge">bytes32</code> value (the actual domain separator, i.e., the result of <code class="language-plaintext highlighter-rouge">hashStruct(eip712Domain)</code>). This value does not suffice for the purposes of integrating with EIP-712, as the RPC methods defined there receive an object describing the domain and not just the separator in hash form. Note that this is not a flaw of the RPC methods, it is indeed part of the security proposition that the domain should be validated and informed to the user as part of the signing process. On its own, a hash does not allow this to be implemented, given it is opaque. The present EIP fills this gap in both EIP-712 and EIP-2612.</p>
+
+<p>Extensions are described by their EIP numbers because EIP-712 states: “Future extensions to this standard can add new fields […] new fields should be proposed through the EIP process.”</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This is an optional extension to EIP-712 that does not introduce backwards compatibility issues.</p>
+
+<p>Upgradeable contracts that make use of EIP-712 signatures MAY be upgraded to implement this EIP.</p>
+
+<p>User-agents or applications that use this EIP SHOULD additionally support those contracts that due to their immutability cannot be upgraded to implement it. The simplest way to achieve this is to hardcode common domains based on contract address and chain id. However, it is also possible to implement a more general solution by guessing possible domains based on a few common patterns using the available information, and selecting the one whose hash matches a <code class="language-plaintext highlighter-rouge">DOMAIN_SEPARATOR</code> or <code class="language-plaintext highlighter-rouge">domainSeparator</code> function in the contract.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<h3 id="solidity-example">Solidity Example</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">EIP712VerifyingContract</span> <span class="p">{</span>
+  <span class="k">function</span> <span class="n">eip712Domain</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span>
+      <span class="kt">bytes1</span> <span class="n">fields</span><span class="p">,</span>
+      <span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span>
+      <span class="kt">string</span> <span class="k">memory</span> <span class="n">version</span><span class="p">,</span>
+      <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+      <span class="kt">address</span> <span class="n">verifyingContract</span><span class="p">,</span>
+      <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+      <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">extensions</span>
+  <span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span>
+          <span class="s">hex"0d"</span><span class="p">,</span> <span class="c1">// 01101
+</span>          <span class="s">"Example"</span><span class="p">,</span>
+          <span class="s">""</span><span class="p">,</span>
+          <span class="n">block</span><span class="p">.</span><span class="n">chainid</span><span class="p">,</span>
+          <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+          <span class="kt">bytes32</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="k">new</span> <span class="kt">uint256</span><span class="p">[](</span><span class="mi">0</span><span class="p">)</span>
+      <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This contract’s domain only uses the fields <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">chainId</code>, and <code class="language-plaintext highlighter-rouge">verifyingContract</code>, therefore the <code class="language-plaintext highlighter-rouge">fields</code> value is <code class="language-plaintext highlighter-rouge">01101</code>, or <code class="language-plaintext highlighter-rouge">0d</code> in hexadecimal.</p>
+
+<p>Assuming this contract is on Ethereum mainnet and its address is 0x0000000000000000000000000000000000000001, the domain it describes is:</p>
+
+<pre><code class="language-json5">{
+  name: "Example",
+  chainId: 1,
+  verifyingContract: "0x0000000000000000000000000000000000000001"
+}
+</code></pre>
+
+<h3 id="javascript">JavaScript</h3>
+
+<p>A domain object can be constructed based on the return values of an <code class="language-plaintext highlighter-rouge">eip712Domain()</code> invocation.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** Retrieves the EIP-712 domain of a contract using EIP-5267 without extensions. */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">getDomain</span><span class="p">(</span><span class="nx">contract</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">fields</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">version</span><span class="p">,</span> <span class="nx">chainId</span><span class="p">,</span> <span class="nx">verifyingContract</span><span class="p">,</span> <span class="nx">salt</span><span class="p">,</span> <span class="nx">extensions</span> <span class="p">}</span> <span class="o">=</span>
+    <span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">eip712Domain</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">extensions</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Extensions not implemented</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">buildBasicDomain</span><span class="p">(</span><span class="nx">fields</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">version</span><span class="p">,</span> <span class="nx">chainId</span><span class="p">,</span> <span class="nx">verifyingContract</span><span class="p">,</span> <span class="nx">salt</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">fieldNames</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">version</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">chainId</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">verifyingContract</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">salt</span><span class="dl">'</span><span class="p">];</span>
+
+<span class="cm">/** Builds a domain object without extensions based on the return values of `eip712Domain()`. */</span>
+<span class="kd">function</span> <span class="nx">buildBasicDomain</span><span class="p">(</span><span class="nx">fields</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">version</span><span class="p">,</span> <span class="nx">chainId</span><span class="p">,</span> <span class="nx">verifyingContract</span><span class="p">,</span> <span class="nx">salt</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">domain</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">version</span><span class="p">,</span> <span class="nx">chainId</span><span class="p">,</span> <span class="nx">verifyingContract</span><span class="p">,</span> <span class="nx">salt</span> <span class="p">};</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="p">[</span><span class="nx">i</span><span class="p">,</span> <span class="nx">field</span><span class="p">]</span> <span class="k">of</span> <span class="nx">fieldNames</span><span class="p">.</span><span class="nx">entries</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">fields</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="nx">i</span><span class="p">)))</span> <span class="p">{</span>
+      <span class="k">delete</span> <span class="nx">domain</span><span class="p">[</span><span class="nx">field</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">domain</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="extensions">Extensions</h4>
+
+<p>Suppose EIP-XYZ defines a new field <code class="language-plaintext highlighter-rouge">subdomain</code> of type <code class="language-plaintext highlighter-rouge">bytes32</code> and a function <code class="language-plaintext highlighter-rouge">getSubdomain()</code> to retrieve its value.</p>
+
+<p>The function <code class="language-plaintext highlighter-rouge">getDomain</code> from above would be extended as follows.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** Retrieves the EIP-712 domain of a contract using EIP-5267 with support for EIP-XYZ. */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">getDomain</span><span class="p">(</span><span class="nx">contract</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">fields</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">version</span><span class="p">,</span> <span class="nx">chainId</span><span class="p">,</span> <span class="nx">verifyingContract</span><span class="p">,</span> <span class="nx">salt</span><span class="p">,</span> <span class="nx">extensions</span> <span class="p">}</span> <span class="o">=</span>
+    <span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">eip712Domain</span><span class="p">();</span>
+
+  <span class="kd">const</span> <span class="nx">domain</span> <span class="o">=</span> <span class="nx">buildBasicDomain</span><span class="p">(</span><span class="nx">fields</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">version</span><span class="p">,</span> <span class="nx">chainId</span><span class="p">,</span> <span class="nx">verifyingContract</span><span class="p">,</span> <span class="nx">salt</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">n</span> <span class="k">of</span> <span class="nx">extensions</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="nx">XYZ</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">domain</span><span class="p">.</span><span class="nx">subdomain</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">getSubdomain</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">`EIP-</span><span class="p">${</span><span class="nx">n</span><span class="p">}</span><span class="s2"> extension not implemented`</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">domain</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Additionally, the type of the <code class="language-plaintext highlighter-rouge">EIP712Domain</code> struct needs to be extended with the <code class="language-plaintext highlighter-rouge">subdomain</code> field. This is left out of scope of this reference implementation.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>While this EIP allows a contract to specify a <code class="language-plaintext highlighter-rouge">verifyingContract</code> other than itself, as well as a <code class="language-plaintext highlighter-rouge">chainId</code> other than that of the current chain, user-agents and applications should in general validate that these do match the contract and chain before requesting any user signatures for the domain. This may not always be a valid assumption.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

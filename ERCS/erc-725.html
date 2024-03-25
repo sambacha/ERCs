@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>General data key/value store and execution | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="General data key/value store and execution | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-725" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-725" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">General data key/value store and execution</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The following describes two standards that allow for a generic data storage in a smart contract and a generic execution through a smart contract. These can be used separately or in conjunction and can serve as building blocks for smart contract accounts, upgradable metadata, and other means.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The initial motivation came out of the need to create a smart contract account system that’s flexible enough to be viable long-term but also defined enough to be standardized. They are a generic set of two standardized building blocks to be used in all forms of smart contracts.</p>
+
+<p>This standard consists of two sub-standards, a generic data key/value store (<code class="language-plaintext highlighter-rouge">ERC725Y</code>) and a generic execute function (<code class="language-plaintext highlighter-rouge">ERC725X</code>). Both of these in combination allow for a very flexible and long-lasting account system. The account version of <code class="language-plaintext highlighter-rouge">ERC725</code> is standardized under <code class="language-plaintext highlighter-rouge">LSP0-ERC725Account</code>.</p>
+
+<p>These standards (<code class="language-plaintext highlighter-rouge">ERC725</code> X and Y) can also be used separately as <code class="language-plaintext highlighter-rouge">ERC725Y</code> can be used to enhance NFTs and Token metadata or other types of smart contracts. <code class="language-plaintext highlighter-rouge">ERC725X</code> allows for a generic execution through a smart contract, functioning as an account or actor.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="ownership">Ownership</h3>
+
+<p>This contract is controlled by a single owner. The owner can be a smart contract or an external account.
+This standard requires <a href="./eip-173.md">ERC-173</a> and SHOULD implement the functions:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">owner() view</code></li>
+  <li><code class="language-plaintext highlighter-rouge">transferOwnership(address newOwner)</code></li>
+</ul>
+
+<p>And the event:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">OwnershipTransferred(address indexed previousOwner, address indexed newOwner)</code></li>
+</ul>
+
+<hr />
+
+<h3 id="erc725x"><code class="language-plaintext highlighter-rouge">ERC725X</code></h3>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ERC725X</code></strong> interface id according to <a href="./eip-165.md">ERC-165</a>: <code class="language-plaintext highlighter-rouge">0x7545acac</code>.</p>
+
+<p>Smart contracts implementing the <code class="language-plaintext highlighter-rouge">ERC725X</code> standard MUST implement the <a href="./eip-165.md">ERC-165</a> <code class="language-plaintext highlighter-rouge">supportsInterface(..)</code> function and MUST support the <code class="language-plaintext highlighter-rouge">ERC165</code> and <code class="language-plaintext highlighter-rouge">ERC725X</code> interface ids.</p>
+
+<h3 id="erc725x-methods"><code class="language-plaintext highlighter-rouge">ERC725X</code> Methods</h3>
+
+<p>Smart contracts implementing the <code class="language-plaintext highlighter-rouge">ERC725X</code> standard SHOULD implement all of the functions listed below:</p>
+
+<h4 id="execute">execute</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">operationType</span><span class="p">,</span> <span class="kt">address</span> <span class="n">target</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Function Selector: <code class="language-plaintext highlighter-rouge">0x44c028fe</code></p>
+
+<p>Executes a call on any other smart contracts or address, transfers the blockchains native token, or deploys a new smart contract.</p>
+
+<p><em>Parameters:</em></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">operationType</code>: the operation type used to execute.</li>
+  <li><code class="language-plaintext highlighter-rouge">target</code>: the smart contract or address to call. <code class="language-plaintext highlighter-rouge">target</code> will be unused if a contract is created (operation types 1 and 2).</li>
+  <li><code class="language-plaintext highlighter-rouge">value</code>: the amount of native tokens to transfer (in Wei).</li>
+  <li><code class="language-plaintext highlighter-rouge">data</code>: the call data, or the creation bytecode of the contract to deploy.</li>
+</ul>
+
+<p><em>Requirements:</em></p>
+
+<ul>
+  <li>MUST only be called by the current owner of the contract.</li>
+  <li>MUST revert when the execution or the contract creation fails.</li>
+  <li><code class="language-plaintext highlighter-rouge">target</code> SHOULD be address(0) in case of contract creation with <code class="language-plaintext highlighter-rouge">CREATE</code> and <code class="language-plaintext highlighter-rouge">CREATE2</code> (operation types 1 and 2).</li>
+  <li><code class="language-plaintext highlighter-rouge">value</code> SHOULD be zero in case of <code class="language-plaintext highlighter-rouge">STATICCALL</code> or <code class="language-plaintext highlighter-rouge">DELEGATECALL</code> (operation types 3 and 4).</li>
+</ul>
+
+<p><em>Returns:</em> <code class="language-plaintext highlighter-rouge">bytes</code> , the returned data of the called function, or the address of the contract deployed (operation types 1 and 2).</p>
+
+<p><strong>Triggers Event:</strong> <a href="#contractcreated">ContractCreated</a>, <a href="#executed">Executed</a></p>
+
+<p>The following <code class="language-plaintext highlighter-rouge">operationType</code> COULD exist:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">0</code> for <code class="language-plaintext highlighter-rouge">CALL</code></li>
+  <li><code class="language-plaintext highlighter-rouge">1</code> for <code class="language-plaintext highlighter-rouge">CREATE</code></li>
+  <li><code class="language-plaintext highlighter-rouge">2</code> for <code class="language-plaintext highlighter-rouge">CREATE2</code></li>
+  <li><code class="language-plaintext highlighter-rouge">3</code> for <code class="language-plaintext highlighter-rouge">STATICCALL</code></li>
+  <li><code class="language-plaintext highlighter-rouge">4</code> for <code class="language-plaintext highlighter-rouge">DELEGATECALL</code> - <strong>NOTE</strong> This is a potentially dangerous operation type</li>
+</ul>
+
+<p>Others may be added in the future.</p>
+
+<h4 id="data-parameter">data parameter</h4>
+
+<ul>
+  <li>
+    <p>For operationType, <code class="language-plaintext highlighter-rouge">CALL</code>, <code class="language-plaintext highlighter-rouge">STATICCALL</code> and <code class="language-plaintext highlighter-rouge">DELEGATECALL</code> the data field can be random bytes or an abi-encoded function call.</p>
+  </li>
+  <li>
+    <p>For operationType, <code class="language-plaintext highlighter-rouge">CREATE</code> the <code class="language-plaintext highlighter-rouge">data</code> field is the creation bytecode of the contract to deploy appended with the constructor argument(s) abi-encoded.</p>
+  </li>
+  <li>
+    <p>For operationType, <code class="language-plaintext highlighter-rouge">CREATE2</code> the <code class="language-plaintext highlighter-rouge">data</code> field is the creation bytecode of the contract to deploy appended with:</p>
+    <ol>
+      <li>the constructor argument(s) abi-encoded</li>
+      <li>a <code class="language-plaintext highlighter-rouge">bytes32</code> salt.</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data = &lt;contract-creation-code&gt; + &lt;abi-encoded-constructor-arguments&gt; + &lt;bytes32-salt&gt;
+</code></pre></div></div>
+
+<blockquote>
+  <p>See <a href="./eip-1014.md">EIP-1014: Skinny CREATE2</a> for more information.</p>
+</blockquote>
+
+<h4 id="executebatch">executeBatch</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">executeBatch</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">operationsType</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">targets</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">values</span><span class="p">,</span> <span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">datas</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Function Selector: <code class="language-plaintext highlighter-rouge">0x31858452</code></p>
+
+<p>Executes a batch of calls on any other smart contracts, transfers the blockchain native token, or deploys a new smart contract.</p>
+
+<p><em>Parameters:</em></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">operationsType</code>: the list of operations type used to execute.</li>
+  <li><code class="language-plaintext highlighter-rouge">targets</code>: the list of addresses to call. <code class="language-plaintext highlighter-rouge">targets</code> will be unused if a contract is created (operation types 1 and 2).</li>
+  <li><code class="language-plaintext highlighter-rouge">values</code>: the list of native token amounts to transfer (in Wei).</li>
+  <li><code class="language-plaintext highlighter-rouge">datas</code>: the list of call data, or the creation bytecode of the contract to deploy.</li>
+</ul>
+
+<p><em>Requirements:</em></p>
+
+<ul>
+  <li>Parameters array MUST have the same length.</li>
+  <li>MUST only be called by the current owner of the contract.</li>
+  <li>MUST revert when the execution or the contract creation fails.</li>
+  <li><code class="language-plaintext highlighter-rouge">target</code> SHOULD be address(0) in case of contract creation with <code class="language-plaintext highlighter-rouge">CREATE</code> and <code class="language-plaintext highlighter-rouge">CREATE2</code> (operation types 1 and 2).</li>
+  <li><code class="language-plaintext highlighter-rouge">value</code> SHOULD be zero in case of <code class="language-plaintext highlighter-rouge">STATICCALL</code> or <code class="language-plaintext highlighter-rouge">DELEGATECALL</code> (operation types 3 and 4).</li>
+</ul>
+
+<p><em>Returns:</em> <code class="language-plaintext highlighter-rouge">bytes[]</code> , array list of returned data of the called function, or the address(es) of the contract deployed (operation types 1 and 2).</p>
+
+<p><strong>Triggers Event:</strong> <a href="#contractcreated">ContractCreated</a>, <a href="#executed">Executed</a> on each call iteration</p>
+
+<h3 id="erc725x-events"><code class="language-plaintext highlighter-rouge">ERC725X</code> Events</h3>
+
+<h4 id="executed">Executed</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">Executed</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">operationType</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">target</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes4</span> <span class="n">data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>MUST be triggered when <code class="language-plaintext highlighter-rouge">execute</code> creates a new call using the <code class="language-plaintext highlighter-rouge">operationType</code> <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">3</code>, <code class="language-plaintext highlighter-rouge">4</code>.</p>
+
+<h4 id="contractcreated">ContractCreated</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">ContractCreated</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">operationType</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">contractAddress</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>MUST be triggered when <code class="language-plaintext highlighter-rouge">execute</code> creates a new contract using the <code class="language-plaintext highlighter-rouge">operationType</code> <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code>.</p>
+
+<hr />
+
+<h3 id="erc725y"><code class="language-plaintext highlighter-rouge">ERC725Y</code></h3>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ERC725Y</code></strong> interface id according to <a href="./eip-165.md">ERC-165</a>: <code class="language-plaintext highlighter-rouge">0x629aa694</code>.</p>
+
+<p>Smart contracts implementing the <code class="language-plaintext highlighter-rouge">ERC725Y</code> standard MUST implement the <a href="./eip-165.md">ERC-165</a> <code class="language-plaintext highlighter-rouge">supportsInterface(..)</code> function and MUST support the <code class="language-plaintext highlighter-rouge">ERC165</code> and <code class="language-plaintext highlighter-rouge">ERC725Y</code> interface ids.</p>
+
+<h3 id="erc725y-methods"><code class="language-plaintext highlighter-rouge">ERC725Y</code> Methods</h3>
+
+<p>Smart contracts implementing the <code class="language-plaintext highlighter-rouge">ERC725Y</code> standard MUST implement all of the functions listed below:</p>
+
+<h4 id="getdata">getData</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getData</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">dataKey</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Function Selector: <code class="language-plaintext highlighter-rouge">0x54f6127f</code></p>
+
+<p>Gets the data set for the given data key.</p>
+
+<p><em>Parameters:</em></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dataKey</code>: the data key which value to retrieve.</li>
+</ul>
+
+<p><em>Returns:</em> <code class="language-plaintext highlighter-rouge">bytes</code> , The data for the requested data key.</p>
+
+<h4 id="getdatabatch">getDataBatch</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">getDataBatch</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">dataKeys</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Function Selector: <code class="language-plaintext highlighter-rouge">0xdedff9c6</code></p>
+
+<p>Gets array of data at multiple given data keys.</p>
+
+<p><em>Parameters:</em></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dataKeys</code>: the data keys which values to retrieve.</li>
+</ul>
+
+<p><em>Returns:</em> <code class="language-plaintext highlighter-rouge">bytes[]</code> , array of data values for the requested data keys.</p>
+
+<h4 id="setdata">setData</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setData</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">dataKey</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">dataValue</span><span class="p">)</span> <span class="k">external</span>
+</code></pre></div></div>
+
+<p>Function Selector: <code class="language-plaintext highlighter-rouge">0x7f23690c</code></p>
+
+<p>Sets data as bytes in the storage for a single data key.</p>
+
+<p><em>Parameters:</em></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dataKey</code>: the data key which value to set.</li>
+  <li><code class="language-plaintext highlighter-rouge">dataValue</code>: the data to store.</li>
+</ul>
+
+<p><em>Requirements:</em></p>
+
+<ul>
+  <li>MUST only be called by the current owner of the contract.</li>
+</ul>
+
+<p><strong>Triggers Event:</strong> <a href="#datachanged">DataChanged</a></p>
+
+<h4 id="setdatabatch">setDataBatch</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setDataBatch</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">dataKeys</span><span class="p">,</span> <span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">dataValues</span><span class="p">)</span> <span class="k">external</span>
+</code></pre></div></div>
+
+<p>Function Selector: <code class="language-plaintext highlighter-rouge">0x97902421</code></p>
+
+<p>Sets array of data at multiple data keys. MUST only be called by the current owner of the contract.</p>
+
+<p><em>Parameters:</em></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dataKeys</code>: the data keys which values to set.</li>
+  <li><code class="language-plaintext highlighter-rouge">dataValues</code>: the array of bytes to set.</li>
+</ul>
+
+<p><em>Requirements:</em></p>
+
+<ul>
+  <li>Array parameters MUST have the same length.</li>
+  <li>MUST only be called by the current owner of the contract.</li>
+</ul>
+
+<p><strong>Triggers Event:</strong> <a href="#datachanged">DataChanged</a></p>
+
+<h3 id="erc725y-events"><code class="language-plaintext highlighter-rouge">ERC725Y</code> Events</h3>
+
+<h4 id="datachanged">DataChanged</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">event</span> <span class="n">DataChanged</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">dataKey</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">dataValue</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>MUST be triggered when a data key was successfully set.</p>
+
+<h3 id="erc725y-data-keys"><code class="language-plaintext highlighter-rouge">ERC725Y</code> Data keys</h3>
+
+<p>Data keys, are the way to retrieve values via <code class="language-plaintext highlighter-rouge">getData()</code>. These <code class="language-plaintext highlighter-rouge">bytes32</code> values can be freely chosen, or defined by a standard.
+A common way to define data keys is the hash of a word, e.g. <code class="language-plaintext highlighter-rouge">keccak256('ERCXXXMyNewKeyType')</code> which results in: <code class="language-plaintext highlighter-rouge">0x6935a24ea384927f250ee0b954ed498cd9203fc5d2bf95c735e52e6ca675e047</code></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">LSP2-ERC725JSONSchema</code> standard is a more explicit <code class="language-plaintext highlighter-rouge">ERC725Y</code> data key standard, that defines key types and value types, and their encoding and decoding.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The generic way of storing data keys with values was chosen to allow upgradability over time. Stored data values can be changed over time. Other smart contract protocols can then interpret this data in new ways and react to interactions from a <code class="language-plaintext highlighter-rouge">ERC725</code> smart contract differently.</p>
+
+<p>The data stored in an <code class="language-plaintext highlighter-rouge">ERC725Y</code> smart contract is not only readable/writable by off-chain applications, but also by other smart contracts. Function overloading was used to allow for the retrievable of single and multiple keys, to keep gas costs minimal for both use cases.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>All contracts since <code class="language-plaintext highlighter-rouge">ERC725v2</code> from 2018/19 should be compatible with the current version of the standard. Mainly interface ID and Event parameters have changed, while <code class="language-plaintext highlighter-rouge">getData(bytes32[])</code> and <code class="language-plaintext highlighter-rouge">setData(bytes32[], bytes[])</code> was added as an efficient way to set/get multiple keys at once. The same applies to execution, as <code class="language-plaintext highlighter-rouge">execute(..[])</code> was added as an efficient way to batch calls.</p>
+
+<p>From 2023 onward, overloading was removed from <code class="language-plaintext highlighter-rouge">ERC-725</code> (including <code class="language-plaintext highlighter-rouge">ERC725-X</code> and <code class="language-plaintext highlighter-rouge">ERC725-Y</code>). This is because, while overloading is accommodated in Solidity, it isn’t broadly supported across most blockchain languages. In order to make the standard language-independent, it was decided to shift from overloading to simply attach the term “Batch” to the functions that accept an array as parameters.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Reference implementations can be found in <a href="../assets/eip-725/ERC725.sol"><code class="language-plaintext highlighter-rouge">ERC725.sol</code></a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>This contract allows generic executions, therefore special care needs to be taken to prevent re-entrancy attacks and other forms of call chain attacks.</p>
+
+<p>When using the operation type <code class="language-plaintext highlighter-rouge">4</code> for <code class="language-plaintext highlighter-rouge">delegatecall</code>, it is important to consider that the called contracts can alter the state of the calling contract and also change owner variables and <code class="language-plaintext highlighter-rouge">ERC725Y</code> data storage entries at will. Additionally calls to <code class="language-plaintext highlighter-rouge">selfdestruct</code> are possible and other harmful state-changing operations.</p>
+
+<h3 id="solidity-interfaces">Solidity Interfaces</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">&gt;=</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">0</span> <span class="o">&lt;</span><span class="mf">0.7</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// ERC165 identifier: `0x7545acac`
+</span><span class="k">interface</span> <span class="n">IERC725X</span>  <span class="cm">/* is ERC165, ERC173 */</span> <span class="p">{</span>
+
+    <span class="k">event</span> <span class="n">Executed</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">operationType</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">target</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span>  <span class="n">value</span><span class="p">,</span> <span class="kt">bytes4</span> <span class="n">data</span><span class="p">);</span>
+    <span class="k">event</span> <span class="n">ContractCreated</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">operationType</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">contractAddress</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">);</span>
+
+
+    <span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">operationType</span><span class="p">,</span> <span class="kt">address</span> <span class="n">target</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">executeBatch</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">operationsType</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">targets</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">values</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">datas</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ERC165 identifier: `0x629aa694`
+</span><span class="k">interface</span> <span class="n">IERC725Y</span> <span class="cm">/* is ERC165, ERC173 */</span> <span class="p">{</span>
+    
+    <span class="k">event</span> <span class="n">DataChanged</span><span class="p">(</span><span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">dataKey</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">dataValue</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">getData</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">dataKey</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">getDataBatch</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">dataKeys</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">setData</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">dataKey</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">dataValue</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    <span class="k">function</span> <span class="n">setDataBatch</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">dataKeys</span><span class="p">,</span> <span class="kt">bytes</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">dataValues</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">interface</span> <span class="n">IERC725</span> <span class="cm">/* is IERC725X, IERC725Y */</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Physical Backed Tokens | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Physical Backed Tokens | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5791" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5791" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Physical Backed Tokens</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard is an extension of <a href="./eip-721.md">ERC-721</a>. It proposes a minimal interface for a <a href="./eip-721.md">ERC-721</a> NFT to be “physically backed” and owned by whoever owns the NFT’s physical counterpart.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>NFT collectors enjoy collecting digital assets and sharing them with others online. However, there is currently no such standard for showcasing physical assets as NFTs with verified authenticity and ownership. Existing solutions are fragmented and tend to be susceptible to at least one of the following:</p>
+
+<ul>
+  <li>
+    <p>The ownership of the physical item and the ownership of the NFT are decoupled.</p>
+  </li>
+  <li>
+    <p>Verifying the authenticity of the physical item requires action from a trusted 3rd party (e.g. StockX).</p>
+  </li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<h3 id="requirements">Requirements</h3>
+
+<p>This approach requires that the physical item must have a chip attached to it that fulfills the following requirements:</p>
+
+<ul>
+  <li>The chip can securely generate and store an ECDSA secp256k1 asymmetric key pair;</li>
+  <li>The chip can sign messages using the private key of the previously-generated asymmetric key pair;</li>
+  <li>The chip exposes the public key; and</li>
+  <li>The private key cannot be extracted</li>
+</ul>
+
+<p>The approach also requires that the contract uses an account-bound implementation of <a href="./eip-721.md">ERC-721</a> (where all <a href="./eip-721.md">ERC-721</a> functions that transfer must throw, e.g. the “read only NFT registry” implementation referenced in <a href="./eip-721.md">ERC-721</a>). This ensures that ownership of the physical item is required to initiate transfers and manage ownership of the NFT, through a new function introduced in this interface described below.</p>
+
+<h3 id="approach">Approach</h3>
+
+<p>Each NFT is conceptually linked to a physical chip.</p>
+
+<p>When the NFT is minted, it must also emit an event that includes the corresponding chip address (20-byte address derived from the chip’s public key). This lets downstream indexers know which chip addresses are mapped to which tokens for the NFT collection. The NFT cannot be minted without its token id being linked to a specific chip.</p>
+
+<p>The interface includes a function called <code class="language-plaintext highlighter-rouge">transferTokenWithChip</code> that transfers the NFT to the function caller if a valid signature signed by the chip is passed in. A valid signature must follow the schemes set forth in <a href="./eip-191.md">ERC-191</a> and <a href="./eip-2.md">EIP-2</a> (s-value restrictions), where the data to sign consists of the target recipient address (the function caller) and a recent blockhash (the level of recency is up to the implementation).</p>
+
+<p>The interface also includes other functions that let anyone validate whether the chip in the physical item is backing an existing NFT in the collection.</p>
+
+<h3 id="interface">Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">interface</span> <span class="n">IERC5791</span> <span class="p">{</span>
+    <span class="c1">/// @notice Returns the token id for a given chip address.
+</span>    <span class="c1">/// @dev Throws if there is no existing token for the chip in the collection.
+</span>    <span class="c1">/// @param chipAddress The address for the chip embedded in the physical item (computed from the chip's public key).
+</span>    <span class="c1">/// @return The token id for the passed in chip address.
+</span>    <span class="k">function</span> <span class="n">tokenIdFor</span><span class="p">(</span><span class="kt">address</span> <span class="n">chipAddress</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Returns true if the chip for the specified token id is the signer of the signature of the payload.
+</span>    <span class="c1">/// @dev Throws if tokenId does not exist in the collection.
+</span>    <span class="c1">/// @param tokenId The token id.
+</span>    <span class="c1">/// @param payload Arbitrary data that is signed by the chip to produce the signature param.
+</span>    <span class="c1">/// @param signature Chip's signature of the passed-in payload.
+</span>    <span class="c1">/// @return Whether the signature of the payload was signed by the chip linked to the token id.
+</span>    <span class="k">function</span> <span class="n">isChipSignatureForToken</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">payload</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">signature</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Transfers the token into the message sender's wallet.
+</span>    <span class="c1">/// @param signatureFromChip An EIP-191 signature of (msgSender, blockhash), where blockhash is the block hash for blockNumberUsedInSig.
+</span>    <span class="c1">/// @param blockNumberUsedInSig The block number linked to the blockhash signed in signatureFromChip. Should be a recent block number.
+</span>    <span class="c1">/// @param useSafeTransferFrom Whether EIP-721's safeTransferFrom should be used in the implementation, instead of transferFrom.
+</span>    <span class="c1">///
+</span>    <span class="c1">/// @dev The implementation should check that block number be reasonably recent to avoid replay attacks of stale signatures.
+</span>    <span class="c1">/// The implementation should also verify that the address signed in the signature matches msgSender.
+</span>    <span class="c1">/// If the address recovered from the signature matches a chip address that's bound to an existing token, the token should be transferred to msgSender.
+</span>    <span class="c1">/// If there is no existing token linked to the chip, the function should error.
+</span>    <span class="k">function</span> <span class="n">transferTokenWithChip</span><span class="p">(</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">signatureFromChip</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">blockNumberUsedInSig</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">useSafeTransferFrom</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Calls transferTokenWithChip as defined above, with useSafeTransferFrom set to false.
+</span>    <span class="k">function</span> <span class="n">transferTokenWithChip</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">signatureFromChip</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">blockNumberUsedInSig</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Emitted when a token is minted
+</span>    <span class="k">event</span> <span class="n">PBTMint</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">chipAddress</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Emitted when a token is mapped to a different chip.
+</span>    <span class="c1">/// Chip replacements may be useful in certain scenarios (e.g. chip defect).
+</span>    <span class="k">event</span> <span class="n">PBTChipRemapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">oldChipAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">newChipAddress</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>To aid recognition that an <a href="./eip-721.md">ERC-721</a> token implements physical binding via this EIP: upon calling <a href="./eip-165.md">ERC-165</a>’s <code class="language-plaintext highlighter-rouge">function supportsInterface(bytes4 interfaceID) external view returns (bool)</code> with <code class="language-plaintext highlighter-rouge">interfaceID=0x4901df9f</code>, a contract implementing this EIP must return true.</p>
+
+<p>The mint interface is up to the implementation. The minted NFT’s owner should be the owner of the physical chip (this authentication could be implemented using the signature scheme defined for <code class="language-plaintext highlighter-rouge">transferTokenWithChip</code>).</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This solution’s intent is to be the simplest possible path towards linking physical items to digital NFTs without a centralized authority.</p>
+
+<p>The interface includes a <code class="language-plaintext highlighter-rouge">transferTokenWithChip</code> function that’s opinionated with respect to the signature scheme, in order to enable a downstream aggregator-like product that supports transfers of any NFTs that implement this EIP in the future.</p>
+
+<h3 id="out-of-scope">Out of Scope</h3>
+
+<p>The following are some peripheral problems that are intentionally not within the scope of this EIP:</p>
+
+<ul>
+  <li>trusting that a specific NFT collection’s chip addresses actually map to physical chips embedded in items, instead of arbitrary EOAs</li>
+  <li>ensuring that the chip does not deterioriate or get damaged</li>
+  <li>ensuring that the chip stays attached to the physical item</li>
+  <li>etc.</li>
+</ul>
+
+<p>Work is being done on these challenges in parallel.</p>
+
+<p>Mapping token ids to chip addresses is also out of scope. This can be done in multiple ways, e.g. by having the contract owner preset this mapping pre-mint, or by having a <code class="language-plaintext highlighter-rouge">(tokenId, chipAddress)</code> tuple passed into a mint function that’s pre-signed by an address trusted by the contract, or by doing a lookup in a trusted registry, or by assigning token ids at mint time first come first served, etc.</p>
+
+<p>Additionally, it’s possible for the owner of the physical item to transfer the NFT to a wallet owned by somebody else (by sending a chip signature to that other person for use). We still consider the NFT physical backed, as ownership management is tied to the physical item. This can be interpreted as the item’s owner temporarily lending the item to somebody else, since (1) the item’s owner must be involved for this to happen as the one signing with the chip, and (2) the item’s owner can reclaim ownership of the NFT at any time.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal is backward compatible with <a href="./eip-721.md">ERC-721</a> on an API level. As mentioned above, for the token to be physical-backed, the contract must use a account-bound implementation of <a href="./eip-721.md">ERC-721</a> (all <a href="./eip-721.md">ERC-721</a> functions that transfer must throw) so that transfers go through the new function introduced here, which requires a chip signature.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>The following is a snippet on how to recover a chip address from a signature.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="s">'@openzeppelin/contracts/utils/cryptography/ECDSA.sol'</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="n">getChipAddressFromChipSignature</span><span class="p">(</span>
+  <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">signatureFromChip</span><span class="p">,</span>
+  <span class="kt">uint256</span> <span class="n">blockNumberUsedInSig</span>
+<span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="n">TokenData</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">block</span><span class="p">.</span><span class="n">number</span> <span class="o">&lt;=</span> <span class="n">blockNumberUsedInSig</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">revert</span> <span class="n">InvalidBlockNumber</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="kr">unchecked</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">block</span><span class="p">.</span><span class="n">number</span> <span class="o">-</span> <span class="n">blockNumberUsedInSig</span> <span class="o">&gt;</span> <span class="n">getMaxBlockhashValidWindow</span><span class="p">())</span> <span class="p">{</span>
+      <span class="nb">revert</span> <span class="n">BlockNumberTooOld</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="kt">bytes32</span> <span class="n">blockHash</span> <span class="o">=</span> <span class="nb">blockhash</span><span class="p">(</span><span class="n">blockNumberUsedInSig</span><span class="p">);</span>
+  <span class="kt">bytes32</span> <span class="n">signedHash</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="n">blockHash</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">toEthSignedMessageHash</span><span class="p">();</span>
+  <span class="kt">address</span> <span class="n">chipAddr</span> <span class="o">=</span> <span class="n">signedHash</span><span class="p">.</span><span class="n">recover</span><span class="p">(</span><span class="n">signatureFromChip</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The <a href="./eip-191.md">ERC-191</a> signature passed to <code class="language-plaintext highlighter-rouge">transferTokenWithChip</code> requires the function caller’s address in its signed data so that the signature cannot be used in a replay attack. It also requires a recent blockhash so that a malicious chip owner cannot pre-generate signatures to use after a short time window (e.g. after the owner of the physical item changes).</p>
+
+<p>Additionally, the level of trust that one has for whether the token is physically-backed is dependent on the security of the physical chip, which is out of scope for this EIP as mentioned above.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

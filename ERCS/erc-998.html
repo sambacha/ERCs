@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Composable Non-Fungible Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Composable Non-Fungible Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-998" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-998" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Composable Non-Fungible Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>An extension of the <a href="./eip-721.md">ERC-721 standard</a> to enable ERC-721 tokens to own other ERC-721 tokens and <a href="./eip-20.md">ERC-20</a> tokens.</p>
+
+<p>An extension of the <a href="./eip-20.md">ERC-20</a> and <code class="language-plaintext highlighter-rouge">ERC-223 https://github.com/ethereum/EIPs/issues/223</code> standards to enable ERC-20 and <code class="language-plaintext highlighter-rouge">ERC-223</code> tokens to be owned by ERC-721 tokens.</p>
+
+<p>This specification covers four different kinds of composable tokens:</p>
+
+<ol>
+  <li><a href="#erc-721-top-down-composable"><code class="language-plaintext highlighter-rouge">ERC998ERC721</code> top-down composable tokens that receive, hold and transfer ERC-721 tokens</a></li>
+  <li><a href="#erc-20-top-down-composable"><code class="language-plaintext highlighter-rouge">ERC998ERC20</code> top-down composable tokens that receive, hold and transfer ERC-20 tokens</a></li>
+  <li><a href="#erc-721-bottom-up-composable"><code class="language-plaintext highlighter-rouge">ERC998ERC721</code> bottom-up composable tokens that attach themselves to other ERC-721 tokens.</a></li>
+  <li><a href="#erc-20-bottom-up-composable"><code class="language-plaintext highlighter-rouge">ERC998ERC20</code> bottom-up composable tokens that attach themselves to ERC-721 tokens.</a></li>
+</ol>
+
+<p>which map to</p>
+
+<ol>
+  <li>An <code class="language-plaintext highlighter-rouge">ERC998ERC721</code> top-down composable is an ERC-721 token with additional functionality for owning other ERC-721 tokens.</li>
+  <li>An <code class="language-plaintext highlighter-rouge">ERC998ERC20</code> top-down composable is an ERC-721 token with additional functionality for owning ERC-20 tokens.</li>
+  <li>An <code class="language-plaintext highlighter-rouge">ERC998ERC721</code> bottom-up composable is an ERC-721 token with additional functionality for being owned by an ERC-721 token.</li>
+  <li>An <code class="language-plaintext highlighter-rouge">ERC998ERC20</code> bottom-up composable is an ERC-20 token with additional functionality for being owned by an ERC-721 token.</li>
+</ol>
+
+<p>A top-down composable contract stores and keeps track of child tokens for each of its tokens.</p>
+
+<p>A bottom-up composable contract stores and keeps track of a parent token for each its tokens.</p>
+
+<p>With composable tokens it is possible to compose lists or trees of ERC-721 and ERC-20 tokens connected by ownership. Any such structure will have a single owner address at the root of the structure that is the owner of the entire composition. The entire composition can be transferred with one transaction by changing the root owner.</p>
+
+<p>Different composables, top-down and bottom-up, have their advantages and disadvantages which are explained in the <a href="#rationale">Rational section</a>. It is possible for a token to be one or more kinds of composable token.</p>
+
+<p>A non-fungible token is compliant and Composable of this EIP if it implements one or more of the following interfaces:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ERC998ERC721TopDown</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ERC998ERC20TopDown</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ERC998ERC721BottomUp</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ERC998ERC20BottomUp</code></li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="erc-721">ERC-721</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ERC998ERC721</code> top-down, <code class="language-plaintext highlighter-rouge">ERC998ERC20</code> top-down, and <code class="language-plaintext highlighter-rouge">ERC998ERC721</code> bottom-up composable contracts must implement the <a href="./eip-721.md">ERC-721 interface</a>.</p>
+
+<h3 id="erc-20">ERC-20</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ERC998ERC20</code> bottom-up composable contracts must implement the <a href="./eip-20.md">ERC-20 interface</a>.</p>
+
+<h3 id="erc-165"><a href="./eip-165.md">ERC-165</a></h3>
+
+<p>The <a href="./eip-165.md">ERC-165 standard</a> must be applied to each <a href="./eip-998.md">ERC-998</a> interface that is used.</p>
+
+<h3 id="authentication">Authentication</h3>
+
+<p>Authenticating whether a user or contract can execute some action works the same for both <code class="language-plaintext highlighter-rouge">ERC998ERC721</code> top-down and <code class="language-plaintext highlighter-rouge">ERC998ERC721</code> bottom-up composables.</p>
+
+<p>A <code class="language-plaintext highlighter-rouge">rootOwner</code> refers to the owner address at the top of a tree of composables and ERC-721 tokens.</p>
+
+<p>Authentication within any composable is done by finding the rootOwner and comparing it to <code class="language-plaintext highlighter-rouge">msg.sender</code>, the return result of <code class="language-plaintext highlighter-rouge">getApproved(tokenId)</code> and the return result of <code class="language-plaintext highlighter-rouge">isApprovedForAll(rootOwner, msg.sender)</code>. If a match is found then authentication passes, otherwise authentication fails and the contract throws.</p>
+
+<p>Here is an example of authentication code:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">address</span> <span class="n">rootOwner</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">rootOwnerOf</span><span class="p">(</span><span class="n">_tokenId</span><span class="p">));</span>
+<span class="nb">require</span><span class="p">(</span><span class="n">rootOwner</span> <span class="o">==</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">||</span> 
+  <span class="n">isApprovedForAll</span><span class="p">(</span><span class="n">rootOwner</span><span class="p">,</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">)</span> <span class="o">||</span>
+  <span class="n">getApproved</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)</span> <span class="o">==</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">approve(address _approved, uint256 _tokenId)</code> and <code class="language-plaintext highlighter-rouge">getApproved(uint256 _tokenId)</code> ERC-721 functions are implemented specifically for the rootOwner. This enables a tree of composables to be transferred to a new rootOwner without worrying about which addresses have been approved in child composables, because any prior approves can only be used by the prior rootOwner.</p>
+
+<p>Here are example implementations:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">_approved</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+  <span class="kt">address</span> <span class="n">rootOwner</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">rootOwnerOf</span><span class="p">(</span><span class="n">_tokenId</span><span class="p">));</span>	
+  <span class="nb">require</span><span class="p">(</span><span class="n">rootOwner</span> <span class="o">==</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">||</span> <span class="n">isApprovedForAll</span><span class="p">(</span><span class="n">rootOwner</span><span class="p">,</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">));</span>
+
+  <span class="n">rootOwnerAndTokenIdToApprovedAddress</span><span class="p">[</span><span class="n">rootOwner</span><span class="p">][</span><span class="n">_tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">_approved</span><span class="p">;</span>
+  <span class="k">emit</span> <span class="n">Approval</span><span class="p">(</span><span class="n">rootOwner</span><span class="p">,</span> <span class="n">_approved</span><span class="p">,</span> <span class="n">_tokenId</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">getApproved</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>  <span class="p">{</span>
+  <span class="kt">address</span> <span class="n">rootOwner</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">rootOwnerOf</span><span class="p">(</span><span class="n">_tokenId</span><span class="p">));</span>
+  <span class="k">return</span> <span class="n">rootOwnerAndTokenIdToApprovedAddress</span><span class="p">[</span><span class="n">rootOwner</span><span class="p">][</span><span class="n">_tokenId</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="traversal">Traversal</h3>
+
+<p>The rootOwner of a composable is gotten by calling <code class="language-plaintext highlighter-rouge">rootOwnerOf(uint256 _tokenId)</code> or <code class="language-plaintext highlighter-rouge">rootOwnerOfChild(address _childContract, uint256 _childTokenId)</code>. These functions are used by top-down and bottom-up composables to traverse up the tree of composables and ERC-721 tokens to find the rootOwner.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ERC998ERC721</code> top-down and bottom-up composables are interoperable with each other. It is possible for a top-down composable to own a bottom-up composable or for a top-down composable to own an ERC-721 token that owns a bottom-up token. In any configuration calling <code class="language-plaintext highlighter-rouge">rootOwnerOf(uint256 _tokenID)</code> on a composable will return the root owner address at the top of the ownership tree.</p>
+
+<p>It is important to get the traversal logic of <code class="language-plaintext highlighter-rouge">rootOwnerOf</code> right. The logic for <code class="language-plaintext highlighter-rouge">rootOwnerOf</code> is the same whether or not a composable is bottom-up or top-down or both.
+Here is the logic:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Logic for rootOwnerOf(uint256 _tokenId)
+
+If the token is a bottom-up composable and has a parent token then call rootOwnerOf for the parent token.
+    If the call was successful then the returned address is the rootOwner.
+    Otherwise call rootOwnerOfChild for the parent token.
+        If the call was successful then the returned address is the rootOwner.
+        Otherwise get the owner address of the token and that is the rootOwner.
+Otherwise call rootOwnerOfChild for the token
+    If the call was successful then the returned address is the rootOwner.
+    Otherwise get the owner address of the token and that is the rootOwner.
+</code></pre></div></div>
+
+<p>Calling <code class="language-plaintext highlighter-rouge">rootOwnerOfChild</code> for a token means the following logic:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Logic for calling rootOwnerOfChild for a tokenId
+</span><span class="kt">address</span> <span class="n">tokenOwner</span> <span class="o">=</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+<span class="kt">address</span> <span class="n">childContract</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">);</span>
+<span class="kt">bytes32</span> <span class="n">rootOwner</span> <span class="o">=</span> <span class="n">ERC998ERC721</span><span class="p">(</span><span class="n">tokenOwner</span><span class="p">).</span><span class="n">rootOwnerOfChild</span><span class="p">(</span><span class="n">childContract</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>But understand that the real call to <code class="language-plaintext highlighter-rouge">rootOwnerOfChild</code> should be made with assembly so that the code can check if the call failed and so that the <code class="language-plaintext highlighter-rouge">staticcall</code> opcode is used to ensure that no state is modified.</p>
+
+<p>Tokens/contracts that implement the above authentication and traversal functionality are “composable aware”.</p>
+
+<h3 id="composable-transfer-function-parameter-format">Composable Transfer Function Parameter Format</h3>
+
+<p>Composable functions that make transfers follow the same parameter format: <strong>from:to:what</strong>.</p>
+
+<p>For example the <code class="language-plaintext highlighter-rouge">getChild(address _from, uint256 _tokenId, address _childContract, uint256 _childTokenId)</code> composable function transfers an ERC-721 token from an address to a top-down composable. The <code class="language-plaintext highlighter-rouge">_from</code> parameter is the <strong>from</strong>, the <code class="language-plaintext highlighter-rouge">_tokenId</code> parameter is the <strong>to</strong> and the <code class="language-plaintext highlighter-rouge">address _childContract, uint256 _childTokenId</code> parameters are the <strong>what</strong>.</p>
+
+<p>Another example is the <code class="language-plaintext highlighter-rouge">safeTransferChild(uint256 _fromTokenId, address _to, address _childContract, uint256 _childTokenId)</code> function. The <code class="language-plaintext highlighter-rouge">_fromTokenId</code> is the <strong>from</strong>, the <code class="language-plaintext highlighter-rouge">_to</code> is the <strong>to</strong> and the <code class="language-plaintext highlighter-rouge">address _childContract, address _childTokenId</code> parameters are the <strong>what</strong>.</p>
+
+<h3 id="transferfromsafetransferfrom-functions-do-not-transfer-tokens-owned-by-tokens">transferFrom/safeTransferFrom Functions Do Not Transfer Tokens Owned By Tokens</h3>
+
+<p>In bottom-up and top-down composable contracts the <code class="language-plaintext highlighter-rouge">transferFrom</code> and <code class="language-plaintext highlighter-rouge">safeTransferFrom</code> functions must throw if they are called directly to transfer a token that is owned by another token.</p>
+
+<p>The reason for this is that these functions do not explicitly specify which token owns a token to be transferred. <a href="#explicit-transfer-parameters">See the rational section for more information about this.</a></p>
+
+<p><code class="language-plaintext highlighter-rouge">transferFrom/safeTransferFrom</code> functions must be used to transfer tokens that are owned by an address.</p>
+
+<h3 id="erc-721-top-down-composable">ERC-721 Top-Down Composable</h3>
+
+<p>ERC-721 top-down composables act as containers for ERC-721 tokens.</p>
+
+<p>ERC-721 top-down composables are ERC-721 tokens that can receive, hold and transfer ERC-721 tokens.</p>
+
+<p>There are two ways to transfer a ERC-721 token to a top-down composable:</p>
+
+<ol>
+  <li>Use the <code class="language-plaintext highlighter-rouge">function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data)</code> function. The <code class="language-plaintext highlighter-rouge">_to</code> argument is the top-down composable contract address. The <code class="language-plaintext highlighter-rouge">bytes data</code> argument holds the integer value of the top-down composable tokenId that the ERC-721 token is transferred to.</li>
+  <li>Call <code class="language-plaintext highlighter-rouge">approve</code> in the ERC-721 token contract for the top-down composable contract. Then call <code class="language-plaintext highlighter-rouge">getChild</code> in the composable contract.</li>
+</ol>
+
+<p>The first ways is for ERC-721 contracts that have a <code class="language-plaintext highlighter-rouge">safeTransferFrom</code> function. The second way is for contracts that do not have this function such as cryptokitties.</p>
+
+<p>Here is an example of transferring ERC-721 token 3 from an address to top-down composable token 6:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">uint256</span> <span class="n">tokenId</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="kt">bytes</span> <span class="k">memory</span> <span class="n">tokenIdBytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">bytes</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+<span class="k">assembly</span> <span class="p">{</span> <span class="n">mstore</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">tokenIdBytes</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">tokenId</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">ERC721</span><span class="p">(</span><span class="n">contractAddress</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">userAddress</span><span class="p">,</span> <span class="n">composableAddress</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">tokenIdBytes</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Every ERC-721 top-down composable compliant contract must implement the <code class="language-plaintext highlighter-rouge">ERC998ERC721TopDown</code> interface.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">ERC998ERC721TopDownEnumerable</code> and <code class="language-plaintext highlighter-rouge">ERC998ERC20TopDownEnumerable</code> interfaces are optional.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">24</span><span class="p">;</span>
+
+<span class="c1">/// @title `ERC998ERC721` Top-Down Composable Non-Fungible Token
+/// @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-998.md
+///  Note: the ERC-165 identifier for this interface is 0xcde244d9
+</span><span class="k">interface</span> <span class="n">ERC998ERC721TopDown</span> <span class="p">{</span>
+
+  <span class="c1">/// @dev This emits when a token receives a child token.
+</span>  <span class="c1">/// @param _from The prior owner of the token.
+</span>  <span class="c1">/// @param _toTokenId The token that receives the child token.
+</span>  <span class="k">event</span> <span class="n">ReceivedChild</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+  <span class="p">);</span>
+  
+  <span class="c1">/// @dev This emits when a child token is transferred from a token to an address.
+</span>  <span class="c1">/// @param _fromTokenId The parent token that the child token is being transferred from.
+</span>  <span class="c1">/// @param _to The new owner address of the child token.
+</span>  <span class="k">event</span> <span class="n">TransferChild</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+  <span class="p">);</span>
+
+  <span class="c1">/// @notice Get the root owner of tokenId.
+</span>  <span class="c1">/// @param _tokenId The token to query for a root owner address
+</span>  <span class="c1">/// @return rootOwner The root owner at the top of tree of tokens and ERC-998 magic value.
+</span>  <span class="k">function</span> <span class="n">rootOwnerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">rootOwner</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Get the root owner of a child token.
+</span>  <span class="c1">/// @param _childContract The contract address of the child token.
+</span>  <span class="c1">/// @param _childTokenId The tokenId of the child.
+</span>  <span class="c1">/// @return rootOwner The root owner at the top of tree of tokens and ERC-998 magic value.
+</span>  <span class="k">function</span> <span class="n">rootOwnerOfChild</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+  <span class="p">)</span> 
+    <span class="k">public</span> 
+    <span class="k">view</span>
+    <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">rootOwner</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Get the parent tokenId of a child token.
+</span>  <span class="c1">/// @param _childContract The contract address of the child token.
+</span>  <span class="c1">/// @param _childTokenId The tokenId of the child.
+</span>  <span class="c1">/// @return parentTokenOwner The parent address of the parent token and ERC-998 magic value
+</span>  <span class="c1">/// @return parentTokenId The parent tokenId of _tokenId
+</span>  <span class="k">function</span> <span class="n">ownerOfChild</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+  <span class="p">)</span> 
+    <span class="k">external</span> 
+    <span class="k">view</span> 
+    <span class="k">returns</span> <span class="p">(</span>
+      <span class="kt">bytes32</span> <span class="n">parentTokenOwner</span><span class="p">,</span> 
+      <span class="kt">uint256</span> <span class="n">parentTokenId</span>
+    <span class="p">);</span>
+  
+  <span class="c1">/// @notice A token receives a child token
+</span>  <span class="c1">/// @param _operator The address that caused the transfer.
+</span>  <span class="c1">/// @param _from The owner of the child token.
+</span>  <span class="c1">/// @param _childTokenId The token that is being transferred to the parent.
+</span>  <span class="c1">/// @param _data Up to the first 32 bytes contains an integer which is the receiving parent tokenId.  
+</span>  <span class="k">function</span> <span class="n">onERC721Received</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span> 
+    <span class="k">external</span> 
+    <span class="k">returns</span><span class="p">(</span><span class="kt">bytes4</span><span class="p">);</span>
+    
+  <span class="c1">/// @notice Transfer child token from top-down composable to address.
+</span>  <span class="c1">/// @param _fromTokenId The owning token to transfer from.
+</span>  <span class="c1">/// @param _to The address that receives the child token
+</span>  <span class="c1">/// @param _childContract The ERC-721 contract of the child token.
+</span>  <span class="c1">/// @param _childTokenId The tokenId of the token that is being transferred.
+</span>  <span class="k">function</span> <span class="n">transferChild</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+  <span class="p">)</span> 
+    <span class="k">external</span><span class="p">;</span>
+  
+  <span class="c1">/// @notice Transfer child token from top-down composable to address.
+</span>  <span class="c1">/// @param _fromTokenId The owning token to transfer from.
+</span>  <span class="c1">/// @param _to The address that receives the child token
+</span>  <span class="c1">/// @param _childContract The ERC-721 contract of the child token.
+</span>  <span class="c1">/// @param _childTokenId The tokenId of the token that is being transferred.
+</span>  <span class="k">function</span> <span class="n">safeTransferChild</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+  <span class="p">)</span> 
+    <span class="k">external</span><span class="p">;</span>
+  
+  <span class="c1">/// @notice Transfer child token from top-down composable to address.
+</span>  <span class="c1">/// @param _fromTokenId The owning token to transfer from.
+</span>  <span class="c1">/// @param _to The address that receives the child token
+</span>  <span class="c1">/// @param _childContract The ERC-721 contract of the child token.
+</span>  <span class="c1">/// @param _childTokenId The tokenId of the token that is being transferred.
+</span>  <span class="c1">/// @param _data Additional data with no specified format
+</span>  <span class="k">function</span> <span class="n">safeTransferChild</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span>
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span> 
+    <span class="k">external</span><span class="p">;</span>
+  
+  <span class="c1">/// @notice Transfer bottom-up composable child token from top-down composable to other ERC-721 token.
+</span>  <span class="c1">/// @param _fromTokenId The owning token to transfer from.
+</span>  <span class="c1">/// @param _toContract The ERC-721 contract of the receiving token
+</span>  <span class="c1">/// @param _toTokenId The receiving token  
+</span>  <span class="c1">/// @param _childContract The bottom-up composable contract of the child token.
+</span>  <span class="c1">/// @param _childTokenId The token that is being transferred.
+</span>  <span class="c1">/// @param _data Additional data with no specified format
+</span>  <span class="k">function</span> <span class="n">transferChildToParent</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span> 
+    <span class="k">external</span><span class="p">;</span>
+  
+  <span class="c1">/// @notice Get a child token from an ERC-721 contract.
+</span>  <span class="c1">/// @param _from The address that owns the child token.
+</span>  <span class="c1">/// @param _tokenId The token that becomes the parent owner
+</span>  <span class="c1">/// @param _childContract The ERC-721 contract of the child token
+</span>  <span class="c1">/// @param _childTokenId The tokenId of the child token
+</span>  <span class="k">function</span> <span class="n">getChild</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+  <span class="p">)</span> 
+    <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="rootownerof-1"><code class="language-plaintext highlighter-rouge">rootOwnerOf</code> 1</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Get the root owner of tokenId.
+/// @param _tokenId The token to query for a root owner address
+/// @return rootOwner The root owner at the top of tree of tokens and ERC-998 magic value.
+</span><span class="k">function</span> <span class="n">rootOwnerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">rootOwner</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This function traverses token owners until the the root owner address of <code class="language-plaintext highlighter-rouge">_tokenId</code> is found.</p>
+
+<p>The first 4 bytes of rootOwner contain the ERC-998 magic value <code class="language-plaintext highlighter-rouge">0xcd740db5</code>. The last 20 bytes contain the root owner address.</p>
+
+<p>The magic value is returned because this function may be called on contracts when it is unknown if the contracts have a <code class="language-plaintext highlighter-rouge">rootOwnerOf</code> function. The magic value is used in such calls to ensure a valid return value is received.</p>
+
+<p>If it is unknown whether a contract has the <code class="language-plaintext highlighter-rouge">rootOwnerOf</code> function then the first four bytes of the <code class="language-plaintext highlighter-rouge">rootOwner</code> return value must be compared to <code class="language-plaintext highlighter-rouge">0xcd740db5</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">0xcd740db5</code> is equal to:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">this</span><span class="p">.</span><span class="n">rootOwnerOf</span><span class="p">.</span><span class="nb">selector</span> <span class="o">^</span> <span class="nb">this</span><span class="p">.</span><span class="n">rootOwnerOfChild</span><span class="p">.</span><span class="nb">selector</span> <span class="o">^</span> 
+<span class="nb">this</span><span class="p">.</span><span class="n">tokenOwnerOf</span><span class="p">.</span><span class="nb">selector</span> <span class="o">^</span> <span class="nb">this</span><span class="p">.</span><span class="n">ownerOfChild</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Here is an example of a value returned by <code class="language-plaintext highlighter-rouge">rootOwnerOf</code>.
+<code class="language-plaintext highlighter-rouge">0xcd740db50000000000000000e5240103e1ff986a2c8ae6b6728ffe0d9a395c59</code></p>
+
+<h4 id="rootownerofchild">rootOwnerOfChild</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Get the root owner of a child token.
+/// @param _childContract The contract address of the child token.
+/// @param _childTokenId The tokenId of the child.
+/// @return rootOwner The root owner at the top of tree of tokens and ERC-998 magic value.
+</span><span class="k">function</span> <span class="n">rootOwnerOfChild</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+<span class="p">)</span> 
+  <span class="k">public</span> 
+  <span class="k">view</span> 
+  <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">rootOwner</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This function traverses token owners until the the root owner address of the supplied child token is found.</p>
+
+<p>The first 4 bytes of rootOwner contain the ERC-998 magic value <code class="language-plaintext highlighter-rouge">0xcd740db5</code>. The last 20 bytes contain the root owner address.</p>
+
+<p>The magic value is returned because this function may be called on contracts when it is unknown if the contracts have a <code class="language-plaintext highlighter-rouge">rootOwnerOf</code> function. The magic value is used in such calls to ensure a valid return value is received.</p>
+
+<p>If it is unknown whether a contract has the <code class="language-plaintext highlighter-rouge">rootOwnerOfChild</code> function then the first four bytes of the <code class="language-plaintext highlighter-rouge">rootOwner</code> return value must be compared to <code class="language-plaintext highlighter-rouge">0xcd740db5</code>.</p>
+
+<h4 id="ownerofchild">ownerOfChild</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Get the parent tokenId of a child token.
+/// @param _childContract The contract address of the child token.
+/// @param _childTokenId The tokenId of the child.
+/// @return parentTokenOwner The parent address of the parent token and ERC-998 magic value
+/// @return parentTokenId The parent tokenId of _tokenId
+</span><span class="k">function</span> <span class="n">ownerOfChild</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+<span class="p">)</span> 
+  <span class="k">external</span> 
+  <span class="k">view</span> 
+  <span class="k">returns</span> <span class="p">(</span>
+    <span class="kt">address</span> <span class="n">parentTokenOwner</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">parentTokenId</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+
+<p>This function is used to get the parent tokenId of a child token and get the owner address of the parent token.</p>
+
+<p>The first 4 bytes of parentTokenOwner contain the ERC-998 magic value <code class="language-plaintext highlighter-rouge">0xcd740db5</code>. The last 20 bytes contain the parent token owner address.</p>
+
+<p>The magic value is returned because this function may be called on contracts when it is unknown if the contracts have a <code class="language-plaintext highlighter-rouge">ownerOfChild</code> function. The magic value is used in such calls to ensure a valid return value is received.</p>
+
+<p>If it is unknown whether a contract has the <code class="language-plaintext highlighter-rouge">ownerOfChild</code> function then the first four bytes of the <code class="language-plaintext highlighter-rouge">parentTokenOwner</code> return value must be compared to <code class="language-plaintext highlighter-rouge">0xcd740db5</code>.</p>
+
+<h4 id="onerc721received"><code class="language-plaintext highlighter-rouge">onERC721Received</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice A token receives a child token
+/// @param _operator The address that caused the transfer.
+/// @param _from The prior owner of the child token.
+/// @param _childTokenId The token that is being transferred to the parent.
+/// @param _data Up to the first 32 bytes contains an integer which is the receiving parent tokenId.  
+</span><span class="k">function</span> <span class="n">onERC721Received</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_childTokenId</span><span class="p">,</span> 
+  <span class="kt">bytes</span> <span class="n">_data</span>
+<span class="p">)</span> 
+  <span class="k">external</span> 
+  <span class="k">returns</span><span class="p">(</span><span class="kt">bytes4</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This is a function defined in the ERC-721 standard. This function is called in an ERC-721 contract when <code class="language-plaintext highlighter-rouge">safeTransferFrom</code> is called. The <code class="language-plaintext highlighter-rouge">bytes _data</code> argument contains an integer value from 1 to 32 bytes long that is the parent tokenId that an ERC-721 token is transferred to.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">onERC721Received</code> function is how a top-down composable contract is notified that an ERC-721 token has been transferred to it and what tokenId in the top-down composable is the parent tokenId.</p>
+
+<p>The return value for <code class="language-plaintext highlighter-rouge">onERC721Received</code> is the magic value <code class="language-plaintext highlighter-rouge">0x150b7a02</code> which is equal to <code class="language-plaintext highlighter-rouge">bytes4(keccak256(abi.encodePacked("onERC721Received(address,address,uint256,bytes)")))</code>.</p>
+
+<h4 id="transferchild">transferChild</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer child token from top-down composable to address.
+/// @param _fromTokenId The owning token to transfer from.
+/// @param _to The address that receives the child token
+/// @param _childContract The ERC-721 contract of the child token.
+/// @param _childTokenId The tokenId of the token that is being transferred.
+</span><span class="k">function</span> <span class="n">transferChild</span><span class="p">(</span>
+  <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span>
+  <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+<span class="p">)</span> 
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function authenticates <code class="language-plaintext highlighter-rouge">msg.sender</code> and transfers a child token from a top-down composable to a different address.</p>
+
+<p>This function makes this call within it:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ERC721</span><span class="p">(</span><span class="n">_childContract</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="nb">this</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_childTokenId</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="safetransferchild-1">safeTransferChild 1</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer child token from top-down composable to address.
+/// @param _fromTokenId The owning token to transfer from.
+/// @param _to The address that receives the child token
+/// @param _childContract The ERC-721 contract of the child token.
+/// @param _childTokenId The tokenId of the token that is being transferred.
+</span><span class="k">function</span> <span class="n">safeTransferChild</span><span class="p">(</span>
+  <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span>
+  <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+<span class="p">)</span> 
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function authenticates <code class="language-plaintext highlighter-rouge">msg.sender</code> and transfers a child token from a top-down composable to a different address.</p>
+
+<p>This function makes this call within it:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ERC721</span><span class="p">(</span><span class="n">_childContract</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="nb">this</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_childTokenId</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="safetransferchild-2">safeTransferChild 2</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer child token from top-down composable to address or other top-down composable.
+/// @param _fromTokenId The owning token to transfer from.
+/// @param _to The address that receives the child token
+/// @param _childContract The ERC721 contract of the child token.
+/// @param _childTokenId The tokenId of the token that is being transferred.
+/// @param _data Additional data with no specified format, can be used to specify tokenId to transfer to
+</span><span class="k">function</span> <span class="n">safeTransferChild</span><span class="p">(</span>
+  <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span>
+  <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_childTokenId</span><span class="p">,</span> 
+  <span class="kt">bytes</span> <span class="n">_data</span>
+<span class="p">)</span> 
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function authenticates <code class="language-plaintext highlighter-rouge">msg.sender</code> and transfers a child token from a top-down composable to a different address or to a different top-down composable.</p>
+
+<p>A child token is transferred to a different top-down composable if the <code class="language-plaintext highlighter-rouge">_to</code> address is a top-down composable contract and <code class="language-plaintext highlighter-rouge">bytes _data</code> is supplied an integer representing the parent tokenId.</p>
+
+<p>This function makes this call within it:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ERC721</span><span class="p">(</span><span class="n">_childContract</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="nb">this</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_childTokenId</span><span class="p">,</span> <span class="n">_data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="transferchildtoparent">transferChildToParent</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer bottom-up composable child token from top-down composable to other ERC-721 token.
+/// @param _fromTokenId The owning token to transfer from.
+/// @param _toContract The ERC-721 contract of the receiving token
+/// @param _toToken The receiving token  
+/// @param _childContract The bottom-up composable contract of the child token.
+/// @param _childTokenId The token that is being transferred.
+/// @param _data Additional data with no specified format
+</span><span class="k">function</span> <span class="n">transferChildToParent</span><span class="p">(</span>
+  <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_childTokenId</span><span class="p">,</span> 
+  <span class="kt">bytes</span> <span class="n">_data</span>
+<span class="p">)</span> 
+  <span class="k">external</span>
+</code></pre></div></div>
+
+<p>This function authenticates <code class="language-plaintext highlighter-rouge">msg.sender</code> and transfers a child bottom-up composable token from a top-down composable to a different ERC-721 token. This function can only be used when the child token is a bottom-up composable token. It is designed to transfer a bottom-up composable token from a top-down composable to an ERC-721 token (bottom-up style) in one transaction.</p>
+
+<p>This function makes this call within it:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ERC998ERC721BottomUp</span><span class="p">(</span><span class="n">_childContract</span><span class="p">).</span><span class="n">transferToParent</span><span class="p">(</span>
+  <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> 
+  <span class="n">_toContract</span><span class="p">,</span> 
+  <span class="n">_toTokenId</span><span class="p">,</span> 
+  <span class="n">_childTokenId</span><span class="p">,</span> 
+  <span class="n">_data</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="getchild">getChild</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Get a child token from an ERC-721 contract.
+/// @param _from The address that owns the child token.
+/// @param _tokenId The token that becomes the parent owner
+/// @param _childContract The ERC-721 contract of the child token
+/// @param _childTokenId The tokenId of the child token
+</span><span class="k">function</span> <span class="n">getChild</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_childTokenId</span>
+<span class="p">)</span> 
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function is used to transfer an ERC-721 token when its contract does not have a <code class="language-plaintext highlighter-rouge">safeTransferChild(uint256 _fromTokenId, address _to, address _childContract, uint256 _childTokenId, bytes _data)</code> function.</p>
+
+<p>A transfer with this function is done in two steps:</p>
+
+<ol>
+  <li>The owner of the ERC-721 token calls <code class="language-plaintext highlighter-rouge">approve</code> or <code class="language-plaintext highlighter-rouge">setApprovalForAll</code> in the ERC-721 contract for the top-down composable contract.</li>
+  <li>The owner of the ERC-721 token calls <code class="language-plaintext highlighter-rouge">getChild</code> in the top-down composable contract for the ERC-721 token.</li>
+</ol>
+
+<p>The <code class="language-plaintext highlighter-rouge">getChild</code> function must authenticate that <code class="language-plaintext highlighter-rouge">msg.sender</code> is the owner of the ERC-721 token in the ERC-721 contract or is approved or an operator of the ERC-721 token in the ERC-721 contract.</p>
+
+<h4 id="erc-721-top-down-composable-enumeration">ERC-721 Top-Down Composable Enumeration</h4>
+
+<p>Optional interface for top-down composable enumeration:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">///  @dev The ERC-165 identifier for this interface is 0xa344afe4
+</span><span class="k">interface</span> <span class="n">ERC998ERC721TopDownEnumerable</span> <span class="p">{</span>
+
+  <span class="c1">/// @notice Get the total number of child contracts with tokens that are owned by tokenId.
+</span>  <span class="c1">/// @param _tokenId The parent token of child tokens in child contracts
+</span>  <span class="c1">/// @return uint256 The total number of child contracts with tokens owned by tokenId.
+</span>  <span class="k">function</span> <span class="n">totalChildContracts</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Get child contract by tokenId and index
+</span>  <span class="c1">/// @param _tokenId The parent token of child tokens in child contract
+</span>  <span class="c1">/// @param _index The index position of the child contract
+</span>  <span class="c1">/// @return childContract The contract found at the tokenId and index.
+</span>  <span class="k">function</span> <span class="n">childContractByIndex</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_index</span>
+  <span class="p">)</span> 
+    <span class="k">external</span> 
+    <span class="k">view</span> 
+    <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">childContract</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Get the total number of child tokens owned by tokenId that exist in a child contract.
+</span>  <span class="c1">/// @param _tokenId The parent token of child tokens
+</span>  <span class="c1">/// @param _childContract The child contract containing the child tokens
+</span>  <span class="c1">/// @return uint256 The total number of child tokens found in child contract that are owned by tokenId.
+</span>  <span class="k">function</span> <span class="n">totalChildTokens</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_childContract</span>
+  <span class="p">)</span> 
+    <span class="k">external</span> 
+    <span class="k">view</span> 
+    <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Get child token owned by tokenId, in child contract, at index position
+</span>  <span class="c1">/// @param _tokenId The parent token of the child token
+</span>  <span class="c1">/// @param _childContract The child contract of the child token
+</span>  <span class="c1">/// @param _index The index position of the child token.
+</span>  <span class="c1">/// @return childTokenId The child tokenId for the parent token, child token and index
+</span>  <span class="k">function</span> <span class="n">childTokenByIndex</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_childContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_index</span>
+  <span class="p">)</span>
+    <span class="k">external</span> 
+    <span class="k">view</span> 
+    <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">childTokenId</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="erc-20-top-down-composable">ERC-20 Top-Down Composable</h3>
+
+<p>ERC-20 top-down composables act as containers for ERC-20 tokens.</p>
+
+<p>ERC-20 top-down composables are ERC-721 tokens that can receive, hold and transfer ERC-20 tokens.</p>
+
+<p>There are two ways to transfer ERC-20 tokens to an ERC-20 Top-Down Composable:</p>
+
+<ol>
+  <li>Use the <code class="language-plaintext highlighter-rouge">transfer(address _to, uint256 _value, bytes _data);</code> function from the <code class="language-plaintext highlighter-rouge">ERC-223</code> contract. The <code class="language-plaintext highlighter-rouge">_to</code> argument is the ERC-20 top-down composable contract address. The <code class="language-plaintext highlighter-rouge">_value</code> argument is how many ERC-20 tokens to transfer. The <code class="language-plaintext highlighter-rouge">bytes</code> argument holds the integer value of the top-down composable tokenId that receives the ERC-20 tokens.</li>
+  <li>Call <code class="language-plaintext highlighter-rouge">approve</code> in the ERC-20 contract for the ERC-20 top-down composable contract. Then call <code class="language-plaintext highlighter-rouge">getERC20(address _from, uint256 _tokenId, address _erc20Contract, uint256 _value)</code> from the ERC-20 top-down composable contract.</li>
+</ol>
+
+<p>The first way is for ERC-20 contracts that support the <code class="language-plaintext highlighter-rouge">ERC-223</code> standard. The second way is for contracts that do not.</p>
+
+<p>ERC-20 top-down composables implement the following interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title `ERC998ERC20` Top-Down Composable Non-Fungible Token
+/// @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-998.md
+///  Note: the ERC-165 identifier for this interface is 0x7294ffed
+</span><span class="k">interface</span> <span class="n">ERC998ERC20TopDown</span> <span class="p">{</span>
+
+  <span class="c1">/// @dev This emits when a token receives ERC-20 tokens.
+</span>  <span class="c1">/// @param _from The prior owner of the token.
+</span>  <span class="c1">/// @param _toTokenId The token that receives the ERC-20 tokens.
+</span>  <span class="c1">/// @param _erc20Contract The ERC-20 contract.
+</span>  <span class="c1">/// @param _value The number of ERC-20 tokens received.
+</span>  <span class="k">event</span> <span class="n">ReceivedERC20</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_erc20Contract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_value</span>
+  <span class="p">);</span>
+  
+  <span class="c1">/// @dev This emits when a token transfers ERC-20 tokens.
+</span>  <span class="c1">/// @param _tokenId The token that owned the ERC-20 tokens.
+</span>  <span class="c1">/// @param _to The address that receives the ERC-20 tokens.
+</span>  <span class="c1">/// @param _erc20Contract The ERC-20 contract.
+</span>  <span class="c1">/// @param _value The number of ERC-20 tokens transferred.
+</span>  <span class="k">event</span> <span class="n">TransferERC20</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_erc20Contract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_value</span>
+  <span class="p">);</span>
+
+  <span class="c1">/// @notice A token receives ERC-20 tokens
+</span>  <span class="c1">/// @param _from The prior owner of the ERC-20 tokens
+</span>  <span class="c1">/// @param _value The number of ERC-20 tokens received
+</span>  <span class="c1">/// @param _data Up to the first 32 bytes contains an integer which is the receiving tokenId.  
+</span>  <span class="k">function</span> <span class="n">tokenFallback</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">_data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+  
+  <span class="c1">/// @notice Look up the balance of ERC-20 tokens for a specific token and ERC-20 contract
+</span>  <span class="c1">/// @param _tokenId The token that owns the ERC-20 tokens
+</span>  <span class="c1">/// @param _erc20Contract The ERC-20 contract
+</span>  <span class="c1">/// @return The number of ERC-20 tokens owned by a token from an ERC-20 contract
+</span>  <span class="k">function</span> <span class="n">balanceOfERC20</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_erc20Contract</span>
+  <span class="p">)</span> 
+    <span class="k">external</span> 
+    <span class="k">view</span> 
+    <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Transfer ERC-20 tokens to address
+</span>  <span class="c1">/// @param _tokenId The token to transfer from
+</span>  <span class="c1">/// @param _value The address to send the ERC-20 tokens to
+</span>  <span class="c1">/// @param _erc20Contract The ERC-20 contract
+</span>  <span class="c1">/// @param _value The number of ERC-20 tokens to transfer
+</span>  <span class="k">function</span> <span class="n">transferERC20</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_erc20Contract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_value</span>
+  <span class="p">)</span> 
+    <span class="k">external</span><span class="p">;</span>
+  
+  <span class="c1">/// @notice Transfer ERC-20 tokens to address or ERC-20 top-down composable
+</span>  <span class="c1">/// @param _tokenId The token to transfer from
+</span>  <span class="c1">/// @param _value The address to send the ERC-20 tokens to
+</span>  <span class="c1">/// @param _erc223Contract The `ERC-223` token contract
+</span>  <span class="c1">/// @param _value The number of ERC-20 tokens to transfer
+</span>  <span class="c1">/// @param _data Additional data with no specified format, can be used to specify tokenId to transfer to
+</span>  <span class="k">function</span> <span class="n">transferERC223</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_erc223Contract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_value</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span>
+    <span class="k">external</span><span class="p">;</span>
+  
+  <span class="c1">/// @notice Get ERC-20 tokens from ERC-20 contract.
+</span>  <span class="c1">/// @param _from The current owner address of the ERC-20 tokens that are being transferred.
+</span>  <span class="c1">/// @param _tokenId The token to transfer the ERC-20 tokens to.
+</span>  <span class="c1">/// @param _erc20Contract The ERC-20 token contract
+</span>  <span class="c1">/// @param _value The number of ERC-20 tokens to transfer  
+</span>  <span class="k">function</span> <span class="n">getERC20</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_erc20Contract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_value</span>
+  <span class="p">)</span> 
+    <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="tokenfallback">tokenFallback</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice A token receives ERC-20 tokens
+/// @param _from The prior owner of the ERC-20 tokens
+/// @param _value The number of ERC-20 tokens received
+/// @param _data Up to the first 32 bytes contains an integer which is the receiving tokenId.  
+</span><span class="k">function</span> <span class="n">tokenFallback</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">_data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>  
+</code></pre></div></div>
+
+<p>This function comes from the <code class="language-plaintext highlighter-rouge">ERC-223</code> which is an extension of the ERC-20 standard. This function is called on the receiving contract from the sending contract when ERC-20 tokens are transferred. This function is how the ERC-20 top-down composable contract gets notified that one of its tokens received ERC-20 tokens. Which token received ERC-20 tokens is specified in the <code class="language-plaintext highlighter-rouge">_data</code> parameter.</p>
+
+<h4 id="balanceoferc20"><code class="language-plaintext highlighter-rouge">balanceOfERC20</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Look up the balance of ERC-20 tokens for a specific token and ERC-20 contract
+/// @param _tokenId The token that owns the ERC-20 tokens
+/// @param _erc20Contract The ERC-20 contract
+/// @return The number of ERC-20 tokens owned by a token from an ERC-20 contract
+</span><span class="k">function</span> <span class="n">balanceOfERC20</span><span class="p">(</span>
+  <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_erc20Contract</span>
+<span class="p">)</span> 
+  <span class="k">external</span> 
+  <span class="k">view</span> 
+  <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Gets the balance of ERC-20 tokens owned by a token from a specific ERC-20 contract.</p>
+
+<h4 id="transfererc20"><code class="language-plaintext highlighter-rouge">transferERC20</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer ERC-20 tokens to address
+/// @param _tokenId The token to transfer from
+/// @param _value The address to send the ERC-20 tokens to
+/// @param _erc20Contract The ERC-20 contract
+/// @param _value The number of ERC-20 tokens to transfer
+</span><span class="k">function</span> <span class="n">transferERC20</span><span class="p">(</span>
+  <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_erc20Contract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_value</span>
+<span class="p">)</span>
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This is used to transfer ERC-20 tokens from a token to an address. This function calls <code class="language-plaintext highlighter-rouge">ERC20(_erc20Contract).transfer(_to, _value)</code>;</p>
+
+<p>This function must authenticate <code class="language-plaintext highlighter-rouge">msg.sender</code>.</p>
+
+<h4 id="transfererc223"><code class="language-plaintext highlighter-rouge">transferERC223</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">/// @notice Transfer ERC-20 tokens to address or ERC-20 top-down composable
+</span>  <span class="c1">/// @param _tokenId The token to transfer from
+</span>  <span class="c1">/// @param _value The address to send the ERC-20 tokens to
+</span>  <span class="c1">/// @param _erc223Contract The `ERC-223` token contract
+</span>  <span class="c1">/// @param _value The number of ERC-20 tokens to transfer
+</span>  <span class="c1">/// @param _data Additional data with no specified format, can be used to specify tokenId to transfer to
+</span>  <span class="k">function</span> <span class="n">transferERC223</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_erc223Contract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_value</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span>
+    <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function is from the <code class="language-plaintext highlighter-rouge">ERC-223</code>. It is used to transfer ERC-20 tokens from a token to an address or to another token by putting an integer token value in the <code class="language-plaintext highlighter-rouge">_data</code> argument.</p>
+
+<p>This function must authenticate <code class="language-plaintext highlighter-rouge">msg.sender</code>.</p>
+
+<h4 id="geterc20"><code class="language-plaintext highlighter-rouge">getERC20</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Get ERC-20 tokens from ERC-20 contract.
+/// @param _from The current owner address of the ERC-20 tokens that are being transferred.
+/// @param _tokenId The token to transfer the ERC-20 tokens to.
+/// @param _erc20Contract The ERC-20 token contract
+/// @param _value The number of ERC-20 tokens to transfer  
+</span><span class="k">function</span> <span class="n">getERC20</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_erc20Contract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_value</span>
+<span class="p">)</span> 
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function is used to transfer ERC-20 tokens to an ERC-20 top-down composable when an ERC-20 contract does not have a <code class="language-plaintext highlighter-rouge">transferERC223(uint256 _tokenId, address _to, address _erc223Contract, uint256 _value, bytes _data)</code> function.</p>
+
+<p>Before this function can be used the ERC-20 top-down composable contract address must be approved in the ERC-20 contract to transfer the ERC-20 tokens.</p>
+
+<p>This function must authenticate that <code class="language-plaintext highlighter-rouge">msg.sender</code> equals <code class="language-plaintext highlighter-rouge">_from</code> or has been approved in the ERC-20 contract.</p>
+
+<h4 id="erc-20-top-down-composable-enumeration">ERC-20 Top-Down Composable Enumeration</h4>
+
+<p>Optional interface for top-down composable enumeration:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev The ERC-165 identifier for this interface is 0xc5fd96cd
+</span><span class="k">interface</span> <span class="n">ERC998ERC20TopDownEnumerable</span> <span class="p">{</span>
+  
+  <span class="c1">/// @notice Get the number of ERC-20 contracts that token owns ERC-20 tokens from
+</span>  <span class="c1">/// @param _tokenId The token that owns ERC-20 tokens.
+</span>  <span class="c1">/// @return uint256 The number of ERC-20 contracts
+</span>  <span class="k">function</span> <span class="n">totalERC20Contracts</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Get an ERC-20 contract that token owns ERC-20 tokens from by index
+</span>  <span class="c1">/// @param _tokenId The token that owns ERC-20 tokens.
+</span>  <span class="c1">/// @param _index The index position of the ERC-20 contract.
+</span>  <span class="c1">/// @return address The ERC-20 contract
+</span>  <span class="k">function</span> <span class="n">erc20ContractByIndex</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_index</span>
+  <span class="p">)</span> 
+    <span class="k">external</span> 
+    <span class="k">view</span> 
+    <span class="k">returns</span><span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="erc-721-bottom-up-composable">ERC-721 Bottom-Up Composable</h3>
+
+<p>ERC-721 bottom-up composables are ERC-721 tokens that attach themselves to other ERC-721 tokens.</p>
+
+<p>ERC-721 bottom-up composable contracts store the owning address of a token and the parent tokenId if any.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title `ERC998ERC721` Bottom-Up Composable Non-Fungible Token
+/// @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-998.md
+///  Note: the ERC-165 identifier for this interface is 0xa1b23002
+</span><span class="k">interface</span> <span class="n">ERC998ERC721BottomUp</span> <span class="p">{</span>
+
+  <span class="c1">/// @dev This emits when a token is transferred to an ERC-721 token
+</span>  <span class="c1">/// @param _toContract The contract the token is transferred to
+</span>  <span class="c1">/// @param _toTokenId The token the token is transferred to
+</span>  <span class="c1">/// @param _tokenId The token that is transferred  
+</span>  <span class="k">event</span> <span class="n">TransferToParent</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_toContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_tokenId</span>
+  <span class="p">);</span>
+  
+  <span class="c1">/// @dev This emits when a token is transferred from an ERC-721 token
+</span>  <span class="c1">/// @param _fromContract The contract the token is transferred from
+</span>  <span class="c1">/// @param _fromTokenId The token the token is transferred from
+</span>  <span class="c1">/// @param _tokenId The token that is transferred  
+</span>  <span class="k">event</span> <span class="n">TransferFromParent</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_fromContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_tokenId</span>
+  <span class="p">);</span>
+  
+  <span class="c1">/// @notice Get the root owner of tokenId.
+</span>  <span class="c1">/// @param _tokenId The token to query for a root owner address
+</span>  <span class="c1">/// @return rootOwner The root owner at the top of tree of tokens and ERC-998 magic value.
+</span>  <span class="k">function</span> <span class="n">rootOwnerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">rootOwner</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Get the owner address and parent token (if there is one) of a token
+</span>  <span class="c1">/// @param _tokenId The tokenId to query.
+</span>  <span class="c1">/// @return tokenOwner The owner address of the token
+</span>  <span class="c1">/// @return parentTokenId The parent owner of the token and ERC-998 magic value
+</span>  <span class="c1">/// @return isParent True if parentTokenId is a valid parent tokenId and false if there is no parent tokenId
+</span>  <span class="k">function</span> <span class="n">tokenOwnerOf</span><span class="p">(</span>
+    <span class="kt">uint256</span> <span class="n">_tokenId</span>
+  <span class="p">)</span>
+    <span class="k">external</span> 
+    <span class="k">view</span>
+    <span class="k">returns</span> <span class="p">(</span>
+      <span class="kt">bytes32</span> <span class="n">tokenOwner</span><span class="p">,</span> 
+      <span class="kt">uint256</span> <span class="n">parentTokenId</span><span class="p">,</span> 
+      <span class="kt">bool</span> <span class="n">isParent</span>
+    <span class="p">);</span>
+ 
+  <span class="c1">/// @notice Transfer token from owner address to a token
+</span>  <span class="c1">/// @param _from The owner address
+</span>  <span class="c1">/// @param _toContract The ERC-721 contract of the receiving token
+</span>  <span class="c1">/// @param _toToken The receiving token
+</span>  <span class="c1">/// @param _data Additional data with no specified format
+</span>  <span class="k">function</span> <span class="n">transferToParent</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span>
+    <span class="k">external</span><span class="p">;</span>
+   
+  <span class="c1">/// @notice Transfer token from a token to an address
+</span>  <span class="c1">/// @param _fromContract The address of the owning contract
+</span>  <span class="c1">/// @param _fromTokenId The owning token
+</span>  <span class="c1">/// @param _to The address the token is transferred to.
+</span>  <span class="c1">/// @param _tokenId The token that is transferred
+</span>  <span class="c1">/// @param _data Additional data with no specified format
+</span>  <span class="k">function</span> <span class="n">transferFromParent</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span>
+    <span class="k">external</span><span class="p">;</span>
+  
+  <span class="c1">/// @notice Transfer a token from a token to another token
+</span>  <span class="c1">/// @param _fromContract The address of the owning contract
+</span>  <span class="c1">/// @param _fromTokenId The owning token
+</span>  <span class="c1">/// @param _toContract The ERC-721 contract of the receiving token
+</span>  <span class="c1">/// @param _toToken The receiving token
+</span>  <span class="c1">/// @param _tokenId The token that is transferred
+</span>  <span class="c1">/// @param _data Additional data with no specified format
+</span>  <span class="k">function</span> <span class="n">transferAsChild</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span>
+    <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="rootownerof"><code class="language-plaintext highlighter-rouge">rootOwnerOf</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Get the root owner of tokenId.
+/// @param _tokenId The token to query for a root owner address
+/// @return rootOwner The root owner at the top of tree of tokens and ERC-998 magic value.
+</span><span class="k">function</span> <span class="n">rootOwnerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">rootOwner</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This function traverses token owners until the the root owner address of <code class="language-plaintext highlighter-rouge">_tokenId</code> is found.</p>
+
+<p>The first 4 bytes of rootOwner contain the ERC-998 magic value <code class="language-plaintext highlighter-rouge">0xcd740db5</code>. The last 20 bytes contain the root owner address.</p>
+
+<p>The magic value is returned because this function may be called on contracts when it is unknown if the contracts have a <code class="language-plaintext highlighter-rouge">rootOwnerOf</code> function. The magic value is used in such calls to ensure a valid return value is received.</p>
+
+<p>If it is unknown whether a contract has the <code class="language-plaintext highlighter-rouge">rootOwnerOf</code> function then the first four bytes of the <code class="language-plaintext highlighter-rouge">rootOwner</code> return value must be compared to <code class="language-plaintext highlighter-rouge">0xcd740db5</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">0xcd740db5</code> is equal to:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">this</span><span class="p">.</span><span class="n">rootOwnerOf</span><span class="p">.</span><span class="nb">selector</span> <span class="o">^</span> <span class="nb">this</span><span class="p">.</span><span class="n">rootOwnerOfChild</span><span class="p">.</span><span class="nb">selector</span> <span class="o">^</span> 
+<span class="nb">this</span><span class="p">.</span><span class="n">tokenOwnerOf</span><span class="p">.</span><span class="nb">selector</span> <span class="o">^</span> <span class="nb">this</span><span class="p">.</span><span class="n">ownerOfChild</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Here is an example of a value returned by <code class="language-plaintext highlighter-rouge">rootOwnerOf</code>.
+<code class="language-plaintext highlighter-rouge">0xcd740db50000000000000000e5240103e1ff986a2c8ae6b6728ffe0d9a395c59</code></p>
+
+<h4 id="tokenownerof">tokenOwnerOf</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Get the owner address and parent token (if there is one) of a token
+/// @param _tokenId The tokenId to query.
+/// @return tokenOwner The owner address of the token and ERC-998 magic value.
+/// @return parentTokenId The parent owner of the token
+/// @return isParent True if parentTokenId is a valid parent tokenId and false if there is no parent tokenId
+</span><span class="k">function</span> <span class="n">tokenOwnerOf</span><span class="p">(</span>
+  <span class="kt">uint256</span> <span class="n">_tokenId</span>
+<span class="p">)</span>
+  <span class="k">external</span> 
+  <span class="k">view</span> 
+  <span class="k">returns</span> <span class="p">(</span>
+    <span class="kt">bytes32</span> <span class="n">tokenOwner</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">parentTokenId</span><span class="p">,</span> 
+    <span class="kt">bool</span> <span class="n">isParent</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+
+<p>This function is used to get the owning address and parent tokenId of a token if there is one stored in the contract.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">isParent</code> is true then <code class="language-plaintext highlighter-rouge">tokenOwner</code> is the owning ERC-721 contract address and <code class="language-plaintext highlighter-rouge">parentTokenId</code> is a valid parent tokenId. If <code class="language-plaintext highlighter-rouge">isParent</code> is false then <code class="language-plaintext highlighter-rouge">tokenOwner</code> is a user address and <code class="language-plaintext highlighter-rouge">parentTokenId</code> does not contain a valid parent tokenId and must be ignored.</p>
+
+<p>The first 4 bytes of <code class="language-plaintext highlighter-rouge">tokenOwner</code> contain the ERC-998 magic value <code class="language-plaintext highlighter-rouge">0xcd740db5</code>. The last 20 bytes contain the token owner address.</p>
+
+<p>The magic value is returned because this function may be called on contracts when it is unknown if the contracts have a <code class="language-plaintext highlighter-rouge">tokenOwnerOf</code> function. The magic value is used in such calls to ensure a valid return value is received.</p>
+
+<p>If it is unknown whether a contract has the <code class="language-plaintext highlighter-rouge">rootOwnerOf</code> function then the first four bytes of the <code class="language-plaintext highlighter-rouge">tokenOwner</code> return value must be compared to <code class="language-plaintext highlighter-rouge">0xcd740db5</code>.</p>
+
+<h4 id="transfertoparent">transferToParent</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer token from owner address to a token
+/// @param _from The owner address
+/// @param _toContract The ERC-721 contract of the receiving token
+/// @param _toToken The receiving token
+/// @param _data Additional data with no specified format
+</span><span class="k">function</span> <span class="n">transferToParent</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+  <span class="kt">bytes</span> <span class="n">_data</span>
+<span class="p">)</span>
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function is used to transfer a token from an address to a token. <code class="language-plaintext highlighter-rouge">msg.sender</code> must be authenticated.</p>
+
+<p>This function must check that <code class="language-plaintext highlighter-rouge">_toToken</code> exists in <code class="language-plaintext highlighter-rouge">_toContract</code> and throw if not.</p>
+
+<h4 id="transferfromparent">transferFromParent</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer token from a token to an address
+/// @param _fromContract The address of the owning contract
+/// @param _fromTokenId The owning token
+/// @param _to The address the token is transferred to.
+/// @param _tokenId The token that is transferred
+/// @param _data Additional data with no specified format
+</span><span class="k">function</span> <span class="n">transferFromParent</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+  <span class="kt">bytes</span> <span class="n">_data</span>
+<span class="p">)</span>
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function is used to transfer a token from a token to an address. <code class="language-plaintext highlighter-rouge">msg.sender</code> must be authenticated.</p>
+
+<p>This function must check that <code class="language-plaintext highlighter-rouge">_fromContract</code> and <code class="language-plaintext highlighter-rouge">_fromTokenId</code> own <code class="language-plaintext highlighter-rouge">_tokenId</code> and throw not.</p>
+
+<h4 id="transferaschild">transferAsChild</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer a token from a token to another token
+/// @param _fromContract The address of the owning contract
+/// @param _fromTokenId The owning token
+/// @param _toContract The ERC-721 contract of the receiving token
+/// @param _toToken The receiving token
+/// @param _tokenId The token that is transferred
+/// @param _data Additional data with no specified format
+</span><span class="k">function</span> <span class="n">transferAsChild</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> 
+  <span class="kt">bytes</span> <span class="n">_data</span>
+<span class="p">)</span>
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function is used to transfer a token from a token to another token. <code class="language-plaintext highlighter-rouge">msg.sender</code> must be authenticated.</p>
+
+<p>This function must check that <code class="language-plaintext highlighter-rouge">_toToken</code> exists in <code class="language-plaintext highlighter-rouge">_toContract</code> and throw if not.</p>
+
+<p>This function must check that <code class="language-plaintext highlighter-rouge">_fromContract</code> and <code class="language-plaintext highlighter-rouge">_fromTokenId</code> own <code class="language-plaintext highlighter-rouge">_tokenId</code> and throw if not.</p>
+
+<h4 id="erc-721-bottom-up-composable-enumeration">ERC-721 Bottom-Up Composable Enumeration</h4>
+
+<p>Optional interface for bottom-up composable enumeration:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev The ERC-165 identifier for this interface is 0x8318b539
+</span><span class="k">interface</span> <span class="n">ERC998ERC721BottomUpEnumerable</span> <span class="p">{</span>
+  
+  <span class="c1">/// @notice Get the number of ERC-721 tokens owned by parent token.
+</span>  <span class="c1">/// @param _parentContract The contract the parent ERC-721 token is from.
+</span>  <span class="c1">/// @param _parentTokenId The parent tokenId that owns tokens
+</span>  <span class="c1">//  @return uint256 The number of ERC-721 tokens owned by parent token.
+</span>  <span class="k">function</span> <span class="n">totalChildTokens</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_parentContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_parentTokenId</span>
+  <span class="p">)</span> 
+    <span class="k">external</span> 
+    <span class="k">view</span> 
+    <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+  
+  <span class="c1">/// @notice Get a child token by index
+</span>  <span class="c1">/// @param _parentContract The contract the parent ERC-721 token is from.
+</span>  <span class="c1">/// @param _parentTokenId The parent tokenId that owns the token
+</span>  <span class="c1">/// @param _index The index position of the child token
+</span>  <span class="c1">/// @return uint256 The child tokenId owned by the parent token
+</span>  <span class="k">function</span> <span class="n">childTokenByIndex</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_parentContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_parentTokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_index</span>
+  <span class="p">)</span> 
+    <span class="k">external</span> 
+    <span class="k">view</span> 
+    <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="erc-20-bottom-up-composable">ERC-20 Bottom-Up Composable</h3>
+
+<p>ERC-20 bottom-up composables are ERC-20 tokens that attach themselves to ERC-721 tokens, or are owned by a user address like standard ERC-20 tokens.</p>
+
+<p>When owned by an ERC-721 token, ERC-20 bottom-up composable contracts store the owning address of a token and the parent tokenId. ERC-20 bottom-up composables add several methods to the ERC-20 and <code class="language-plaintext highlighter-rouge">ERC-223</code> interfaces allowing for querying the balance of parent tokens, and transferring tokens to, from, and between parent tokens.</p>
+
+<p>This functionality can be implemented by adding one additional mapping to track balances of tokens, in addition to the standard mapping for tracking user address balances.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev This mapping tracks standard ERC20/`ERC-223` ownership, where an address owns
+///  a particular amount of tokens.
+</span><span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint</span><span class="p">)</span> <span class="n">userBalances</span><span class="p">;</span>
+
+<span class="c1">/// @dev This additional mapping tracks ERC-998 ownership, where an ERC-721 token owns
+///  a particular amount of tokens. This tracks contractAddres =&gt; tokenId =&gt; balance
+</span><span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="k">mapping</span><span class="p">(</span><span class="kt">uint</span> <span class="o">=&gt;</span> <span class="kt">uint</span><span class="p">))</span> <span class="n">nftBalances</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The complete interface is below.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title `ERC998ERC20` Bottom-Up Composable Fungible Token
+/// @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-998.md
+/// Note: The ERC-165 identifier for this interface is 0xffafa991
+</span><span class="k">interface</span> <span class="n">ERC998ERC20BottomUp</span> <span class="p">{</span>
+  
+  <span class="c1">/// @dev This emits when a token is transferred to an ERC-721 token
+</span>  <span class="c1">/// @param _toContract The contract the token is transferred to
+</span>  <span class="c1">/// @param _toTokenId The token the token is transferred to
+</span>  <span class="c1">/// @param _amount The amount of tokens transferred
+</span>  <span class="k">event</span> <span class="n">TransferToParent</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_toContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_amount</span>
+  <span class="p">);</span>
+
+  <span class="c1">/// @dev This emits when a token is transferred from an ERC-721 token
+</span>  <span class="c1">/// @param _fromContract The contract the token is transferred from
+</span>  <span class="c1">/// @param _fromTokenId The token the token is transferred from
+</span>  <span class="c1">/// @param _amount The amount of tokens transferred
+</span>  <span class="k">event</span> <span class="n">TransferFromParent</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_fromContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_amount</span>
+  <span class="p">);</span>
+
+  <span class="c1">/// @notice Get the balance of a non-fungible parent token
+</span>  <span class="c1">/// @param _tokenContract The contract tracking the parent token
+</span>  <span class="c1">/// @param _tokenId The ID of the parent token
+</span>  <span class="c1">/// @return amount The balance of the token
+</span>  <span class="k">function</span> <span class="n">balanceOfToken</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_tokenContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_tokenId</span>
+  <span class="p">)</span>
+    <span class="k">external</span>
+    <span class="k">view</span>
+    <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+
+  <span class="c1">/// @notice Transfer tokens from owner address to a token
+</span>  <span class="c1">/// @param _from The owner address
+</span>  <span class="c1">/// @param _toContract The ERC-721 contract of the receiving token
+</span>  <span class="c1">/// @param _toToken The receiving token
+</span>  <span class="c1">/// @param _amount The amount of tokens to transfer
+</span>  <span class="k">function</span> <span class="n">transferToParent</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_amount</span>
+  <span class="p">)</span>
+    <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Transfer token from a token to an address
+</span>  <span class="c1">/// @param _fromContract The address of the owning contract
+</span>  <span class="c1">/// @param _fromTokenId The owning token
+</span>  <span class="c1">/// @param _to The address the token is transferred to
+</span>  <span class="c1">/// @param _amount The amount of tokens to transfer
+</span>  <span class="k">function</span> <span class="n">transferFromParent</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_amount</span>
+  <span class="p">)</span>
+    <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Transfer token from a token to an address, using `ERC-223` semantics
+</span>  <span class="c1">/// @param _fromContract The address of the owning contract
+</span>  <span class="c1">/// @param _fromTokenId The owning token
+</span>  <span class="c1">/// @param _to The address the token is transferred to
+</span>  <span class="c1">/// @param _amount The amount of tokens to transfer
+</span>  <span class="c1">/// @param _data Additional data with no specified format, can be used to specify the sender tokenId
+</span>  <span class="k">function</span> <span class="n">transferFromParentERC223</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">,</span> 
+    <span class="kt">bytes</span> <span class="n">_data</span>
+  <span class="p">)</span>
+    <span class="k">external</span><span class="p">;</span>
+
+  <span class="c1">/// @notice Transfer a token from a token to another token
+</span>  <span class="c1">/// @param _fromContract The address of the owning contract
+</span>  <span class="c1">/// @param _fromTokenId The owning token
+</span>  <span class="c1">/// @param _toContract The ERC-721 contract of the receiving token
+</span>  <span class="c1">/// @param _toToken The receiving token
+</span>  <span class="c1">/// @param _amount The amount tokens to transfer
+</span>  <span class="k">function</span> <span class="n">transferAsChild</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+    <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+    <span class="kt">uint256</span> <span class="n">_amount</span>
+   <span class="p">)</span>
+    <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="balanceoftoken">balanceOfToken</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Get the balance of a non-fungible parent token
+/// @param _tokenContract The contract tracking the parent token
+/// @param _tokenId The ID of the parent token
+/// @return amount The balance of the token
+</span><span class="k">function</span> <span class="n">balanceOfToken</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_tokenContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_tokenId</span>
+<span class="p">)</span>
+  <span class="k">external</span>
+  <span class="k">view</span>
+  <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This function returns the balance of a non-fungible token. It mirrors the standard ERC-20 method <code class="language-plaintext highlighter-rouge">balanceOf</code>, but accepts the address of the parent token’s contract, and the parent token’s ID. This method behaves identically to <code class="language-plaintext highlighter-rouge">balanceOf</code>, but checks for ownership by ERC-721 tokens rather than user addresses.</p>
+
+<h4 id="transfertoparent-1"><code class="language-plaintext highlighter-rouge">transferToParent</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer tokens from owner address to a token
+/// @param _from The owner address
+/// @param _toContract The ERC-721 contract of the receiving token
+/// @param _toToken The receiving token
+/// @param _amount The amount of tokens to transfer
+</span><span class="k">function</span> <span class="n">transferToParent</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_amount</span>
+<span class="p">)</span>
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function transfers an amount of tokens from a user address to an ERC-721 token. This function MUST ensure that the recipient contract implements ERC-721 using the ERC-165 <code class="language-plaintext highlighter-rouge">supportsInterface</code> function. This function SHOULD ensure that the recipient token actually exists, by calling <code class="language-plaintext highlighter-rouge">ownerOf</code> on the recipient token’s contract, and ensuring it neither throws nor returns the zero address. This function MUST emit the <code class="language-plaintext highlighter-rouge">TransferToParent</code> event upon a successful transfer (in addition to the standard ERC-20 <code class="language-plaintext highlighter-rouge">Transfer</code> event!). This function MUST throw if the <code class="language-plaintext highlighter-rouge">_from</code> account balance does not have enough tokens to spend.</p>
+
+<h4 id="transferfromparent-1"><code class="language-plaintext highlighter-rouge">transferFromParent</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer token from a token to an address
+/// @param _fromContract The address of the owning contract
+/// @param _fromTokenId The owning token
+/// @param _to The address the token is transferred to
+/// @param _amount The amount of tokens to transfer
+</span><span class="k">function</span> <span class="n">transferFromParent</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_amount</span>
+<span class="p">)</span>
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function transfers an amount of tokens from an ERC-721 token to an address. This function MUST emit the <code class="language-plaintext highlighter-rouge">TransferFromParent</code> event upon a successful transfer (in addition to the standard ERC-20 <code class="language-plaintext highlighter-rouge">Transfer</code> event!). This function MUST throw if the balance of the sender ERC-721 token is less than the <code class="language-plaintext highlighter-rouge">_amount</code> specified. This function MUST verify that the <code class="language-plaintext highlighter-rouge">msg.sender</code> owns the sender ERC-721 token, and MUST throw otherwise.</p>
+
+<h4 id="transferfromparenterc223"><code class="language-plaintext highlighter-rouge">transferFromParentERC223</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer token from a token to an address, using `ERC-223` semantics
+/// @param _fromContract The address of the owning contract
+/// @param _fromTokenId The owning token
+/// @param _to The address the token is transferred to
+/// @param _amount The amount of tokens to transfer
+/// @param _data Additional data with no specified format, can be used to specify the sender tokenId
+</span><span class="k">function</span> <span class="n">transferFromParentERC223</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">,</span> 
+  <span class="kt">bytes</span> <span class="n">_data</span>
+<span class="p">)</span>
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function transfers an amount of tokens from an ERC-721 token to an address. This function has identical requirements to <code class="language-plaintext highlighter-rouge">transferFromParent</code>, except that it additionally MUST invoke <code class="language-plaintext highlighter-rouge">tokenFallback</code> on the recipient address, if the address is a contract, as specified by <code class="language-plaintext highlighter-rouge">ERC-223</code>.</p>
+
+<h4 id="transferaschild-1">transferAsChild 1</h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @notice Transfer a token from a token to another token
+/// @param _fromContract The address of the owning contract
+/// @param _fromTokenId The owning token
+/// @param _toContract The ERC-721 contract of the receiving token
+/// @param _toToken The receiving token
+/// @param _amount The amount tokens to transfer
+</span><span class="k">function</span> <span class="n">transferAsChild</span><span class="p">(</span>
+  <span class="kt">address</span> <span class="n">_fromContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_fromTokenId</span><span class="p">,</span> 
+  <span class="kt">address</span> <span class="n">_toContract</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_toTokenId</span><span class="p">,</span> 
+  <span class="kt">uint256</span> <span class="n">_amount</span>
+<span class="p">)</span>
+  <span class="k">external</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This function transfers an amount of tokens from an ERC-721 token to another ERC-721 token. This function MUST emit BOTH the <code class="language-plaintext highlighter-rouge">TransferFromParent</code> and <code class="language-plaintext highlighter-rouge">TransferToParent</code> events (in addition to the standard ERC-20 <code class="language-plaintext highlighter-rouge">Transfer</code> event!). This function MUST throw if the balance of the sender ERC-721 token is less than the <code class="language-plaintext highlighter-rouge">_amount</code> specified. This function MUST verify that the <code class="language-plaintext highlighter-rouge">msg.sender</code> owns the sender ERC-721 token, and MUST throw otherwise. This function MUST ensure that the recipient contract implements ERC-721 using the ERC-165 <code class="language-plaintext highlighter-rouge">supportsInterface</code> function. This function SHOULD ensure that the recipient token actually exists, by calling <code class="language-plaintext highlighter-rouge">ownerOf</code> on the recipient token’s contract, and ensuring it neither throws nor returns the zero address.</p>
+
+<h3 id="notes">Notes</h3>
+
+<p>For backwards-compatibility, implementations MUST emit the standard ERC-20 <code class="language-plaintext highlighter-rouge">Transfer</code> event when a transfer occurs, regardless of whether the sender and recipient are addresses or ERC-721 tokens. In the case that either sender or recipient are tokens, the corresponding parameter in the <code class="language-plaintext highlighter-rouge">Transfer</code> event SHOULD be the contract address of the token.</p>
+
+<p>Implementations MUST implement all ERC-20 and <code class="language-plaintext highlighter-rouge">ERC-223</code> functions in addition to the functions specified in this interface.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Two different kinds of composable (top-down and bottom-up) exist to handle different use cases. A regular ERC-721 token cannot own a top-down composable, but it can own a bottom-up composable. A bottom-up composable cannot own a regular ERC-721 but a top-down composable can own a regular ERC-721 token. Having multiple kinds of composables enable different token ownership possibilities.</p>
+
+<h3 id="which-kind-of-composable-to-use">Which Kind of Composable To Use?</h3>
+
+<p>If you want to transfer regular ERC-721 tokens to non-fungible tokens, then use top-down composables.</p>
+
+<p>If you want to transfer non-fungible tokens to regular ERC-721 tokens then use bottom-up composables.</p>
+
+<h3 id="explicit-transfer-parameters">Explicit Transfer Parameters</h3>
+
+<p>Every ERC-998 transfer function includes explicit parameters to specify the prior owner and the new owner of a token. Explicitly providing <strong>from</strong> and <strong>to</strong> is done intentionally to avoid situations where tokens are transferred in unintended ways.</p>
+
+<p>Here is an example of what could occur if <strong>from</strong> was not explicitly provided in transfer functions:</p>
+<blockquote>
+  <p>An exchange contract is an approved operator in a specific composable contract for user A, user B and user C.</p>
+
+  <p>User A transfers token 1 to user B. At the same time the exchange contract transfers token 1 to user C (with the implicit intention to transfer from user A). User B gets token 1 for a minute before it gets incorrectly transferred to user C. The second transfer should have failed but it didn’t because no explicit <strong>from</strong> was provided to ensure that token 1 came from user A.</p>
+</blockquote>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Composables are designed to work with ERC-721, <code class="language-plaintext highlighter-rouge">ERC-223</code> and ERC-20 tokens.</p>
+
+<p>Some older ERC-721 contracts do not have a <code class="language-plaintext highlighter-rouge">safeTransferFrom</code> function. The <code class="language-plaintext highlighter-rouge">getChild</code> function can still be used to transfer a token to an ERC-721 top-down composable.</p>
+
+<p>If an ERC-20 contract does not have the <code class="language-plaintext highlighter-rouge">ERC-223</code> function <code class="language-plaintext highlighter-rouge">transfer(address _to, uint _value, bytes _data)</code> then the <code class="language-plaintext highlighter-rouge">getERC20</code> function can still be used to transfer ERC-20 tokens to an ERC-20 top-down composable.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>An implementation can be found here: <code class="language-plaintext highlighter-rouge">https://github.com/mattlockyer/composables-998</code></p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Needs discussion.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

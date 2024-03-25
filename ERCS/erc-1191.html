@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Add chain id to mixed-case checksum address encoding | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Add chain id to mixed-case checksum address encoding | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1191" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1191" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Add chain id to mixed-case checksum address encoding</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>This EIP extends <a href="./eip-55.md">EIP-55</a> by optionally adding a chain id defined by <a href="./eip-155.md">EIP-155</a> to the checksum calculation.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>The <a href="./eip-55.md">EIP-55</a> was created to prevent users from losing funds by sending them to invalid addresses. This EIP extends <a href="./eip-55.md">EIP-55</a> to protect users from losing funds by sending them to addresses that are valid but that where obtained from a client of another network.For example, if this EIP is implemented, a wallet can alert the user that is trying to send funds to an Ethereum Testnet address from an Ethereum Mainnet wallet.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The motivation of this proposal is to provide a mechanism to allow software to distinguish addresses from different Ethereum based networks. This proposal is necessary because Ethereum addresses are hashes of public keys and do not include any metadata. By extending the <a href="./eip-55.md">EIP-55</a> checksum algorithm it is possible to achieve this objective.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>Convert the address using the same algorithm defined by <a href="./eip-55.md">EIP-55</a> but if a registered chain id is provided, add it to the input of the hash function. If the chain id passed to the function belongs to a network that opted for using this checksum variant, prefix the address with the chain id and the <code class="language-plaintext highlighter-rouge">0x</code> separator before calculating the hash. Then convert the address to hexadecimal, but if the ith digit is a letter (ie. it’s one of <code class="language-plaintext highlighter-rouge">abcdef</code>) print it in uppercase if the 4*ith bit of the calculated hash is 1 otherwise print it in lowercase.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Benefits:</p>
+
+<ul>
+  <li>By means of a minimal code change on existing libraries, users are protected from losing funds by mixing addresses of different Ethereum based networks.</li>
+</ul>
+
+<h2 id="implementation">Implementation</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python3
+</span><span class="kn">from</span> <span class="nn">sha3</span> <span class="kn">import</span> <span class="n">keccak_256</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="s">"""
+   addr (str): Hexadecimal address, 40 characters long with 2 characters prefix
+   chainid (int): chain id from EIP-155 """</span>
+<span class="k">def</span> <span class="nf">eth_checksum_encode</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">chainid</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">adopted_eip1191</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>
+    <span class="n">hash_input</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">chainid</span><span class="p">)</span> <span class="o">+</span> <span class="n">addr</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">chainid</span> <span class="ow">in</span> <span class="n">adopted_eip1191</span> <span class="k">else</span> <span class="n">addr</span><span class="p">[</span><span class="mi">2</span><span class="p">:].</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">hash_output</span> <span class="o">=</span> <span class="n">keccak_256</span><span class="p">(</span><span class="n">hash_input</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf8'</span><span class="p">)).</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="n">aggregate</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">addr</span><span class="p">[</span><span class="mi">2</span><span class="p">:].</span><span class="n">lower</span><span class="p">(),</span><span class="n">hash_output</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">addr</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">([</span><span class="n">c</span><span class="p">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="k">else</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="n">aggregate</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">out</span>
+</code></pre></div></div>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">eth_mainnet</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s">"0x27b1fdb04752bbc536007a920d24acb045561c26"</span><span class="p">,</span>
+<span class="s">"0x3599689E6292b81B2d85451025146515070129Bb"</span><span class="p">,</span>
+<span class="s">"0x42712D45473476b98452f434e72461577D686318"</span><span class="p">,</span>
+<span class="s">"0x52908400098527886E0F7030069857D2E4169EE7"</span><span class="p">,</span>
+<span class="s">"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed"</span><span class="p">,</span>
+<span class="s">"0x6549f4939460DE12611948b3f82b88C3C8975323"</span><span class="p">,</span>
+<span class="s">"0x66f9664f97F2b50F62D13eA064982f936dE76657"</span><span class="p">,</span>
+<span class="s">"0x8617E340B3D01FA5F11F306F4090FD50E238070D"</span><span class="p">,</span>
+<span class="s">"0x88021160C5C792225E4E5452585947470010289D"</span><span class="p">,</span>
+<span class="s">"0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb"</span><span class="p">,</span>
+<span class="s">"0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB"</span><span class="p">,</span>
+<span class="s">"0xde709f2102306220921060314715629080e2fb77"</span><span class="p">,</span>
+<span class="s">"0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">rsk_mainnet</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s">"0x27b1FdB04752BBc536007A920D24ACB045561c26"</span><span class="p">,</span>
+<span class="s">"0x3599689E6292B81B2D85451025146515070129Bb"</span><span class="p">,</span>
+<span class="s">"0x42712D45473476B98452f434E72461577d686318"</span><span class="p">,</span>
+<span class="s">"0x52908400098527886E0F7030069857D2E4169ee7"</span><span class="p">,</span>
+<span class="s">"0x5aaEB6053f3e94c9b9a09f33669435E7ef1bEAeD"</span><span class="p">,</span>
+<span class="s">"0x6549F4939460DE12611948B3F82B88C3C8975323"</span><span class="p">,</span>
+<span class="s">"0x66F9664f97f2B50F62d13EA064982F936de76657"</span><span class="p">,</span>
+<span class="s">"0x8617E340b3D01Fa5f11f306f4090fd50E238070D"</span><span class="p">,</span>
+<span class="s">"0x88021160c5C792225E4E5452585947470010289d"</span><span class="p">,</span>
+<span class="s">"0xD1220A0Cf47c7B9BE7a2e6ba89F429762E7B9adB"</span><span class="p">,</span>
+<span class="s">"0xDBF03B407c01E7CD3cBea99509D93F8Dddc8C6FB"</span><span class="p">,</span>
+<span class="s">"0xDe709F2102306220921060314715629080e2FB77"</span><span class="p">,</span>
+<span class="s">"0xFb6916095cA1Df60bb79ce92cE3EA74c37c5d359"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">rsk_testnet</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s">"0x27B1FdB04752BbC536007a920D24acB045561C26"</span><span class="p">,</span>
+<span class="s">"0x3599689e6292b81b2D85451025146515070129Bb"</span><span class="p">,</span>
+<span class="s">"0x42712D45473476B98452F434E72461577D686318"</span><span class="p">,</span>
+<span class="s">"0x52908400098527886E0F7030069857D2e4169EE7"</span><span class="p">,</span>
+<span class="s">"0x5aAeb6053F3e94c9b9A09F33669435E7EF1BEaEd"</span><span class="p">,</span>
+<span class="s">"0x6549f4939460dE12611948b3f82b88C3c8975323"</span><span class="p">,</span>
+<span class="s">"0x66f9664F97F2b50f62d13eA064982F936DE76657"</span><span class="p">,</span>
+<span class="s">"0x8617e340b3D01fa5F11f306F4090Fd50e238070d"</span><span class="p">,</span>
+<span class="s">"0x88021160c5C792225E4E5452585947470010289d"</span><span class="p">,</span>
+<span class="s">"0xd1220a0CF47c7B9Be7A2E6Ba89f429762E7b9adB"</span><span class="p">,</span>
+<span class="s">"0xdbF03B407C01E7cd3cbEa99509D93f8dDDc8C6fB"</span><span class="p">,</span>
+<span class="s">"0xDE709F2102306220921060314715629080e2Fb77"</span><span class="p">,</span>
+<span class="s">"0xFb6916095CA1dF60bb79CE92ce3Ea74C37c5D359"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">test_cases</span> <span class="o">=</span> <span class="p">{</span><span class="mi">30</span> <span class="p">:</span> <span class="n">rsk_mainnet</span><span class="p">,</span> <span class="mi">31</span> <span class="p">:</span> <span class="n">rsk_testnet</span><span class="p">,</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">eth_mainnet</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">chainid</span><span class="p">,</span> <span class="n">cases</span> <span class="ow">in</span> <span class="n">test_cases</span><span class="p">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">addr</span> <span class="ow">in</span> <span class="n">cases</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="p">(</span> <span class="n">addr</span> <span class="o">==</span> <span class="n">eth_checksum_encode</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="n">chainid</span><span class="p">)</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="usage--table">Usage  Table</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Network</th>
+      <th>Chain id</th>
+      <th>Supports this EIP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RSK Mainnet</td>
+      <td>30</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>RSK Testnet</td>
+      <td>31</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="implementation-table">Implementation Table</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>EIP Usage</th>
+      <th>Implementation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MyCrypto</td>
+      <td>Yes</td>
+      <td><a href="https://github.com/MyCryptoHQ/MyCrypto/blob/develop/common/utils/formatters.ts#L126">JavaScript</a></td>
+    </tr>
+    <tr>
+      <td>MyEtherWallet</td>
+      <td>Yes</td>
+      <td><a href="https://github.com/MyEtherWallet/MyEtherWallet/blob/73c4a24f8f67c655749ac990c5b62efd92a2b11a/src/helpers/addressUtils.js#L22">JavaScript</a></td>
+    </tr>
+    <tr>
+      <td>Ledger</td>
+      <td>Yes</td>
+      <td><a href="https://github.com/LedgerHQ/ledger-app-eth/blob/master/src_common/ethUtils.c#L203">C</a></td>
+    </tr>
+    <tr>
+      <td>Trezor</td>
+      <td>Yes</td>
+      <td><a href="https://github.com/trezor/trezor-core/blob/270bf732121d004a4cd1ab129adaccf7346ff1db/src/apps/ethereum/get_address.py#L32">Python</a> and <a href="https://github.com/trezor/trezor-crypto/blob/4153e662b60a0d83c1be15150f18483a37e9092c/address.c#L62">C</a></td>
+    </tr>
+    <tr>
+      <td>Web3.js</td>
+      <td>Yes</td>
+      <td><a href="https://github.com/ethereum/web3.js/blob/aaf26c8806bc9fb60cf6dcb6658104963c6c7fc7/packages/web3-utils/src/Utils.js#L140">JavaScript</a></td>
+    </tr>
+    <tr>
+      <td>EthereumJS-util</td>
+      <td>Yes</td>
+      <td><a href="https://github.com/ethereumjs/ethereumjs-util/pull/204/commits/cdf0b3c996b05ac5b1f758f17ea9f9ed1847c1eb">JavaScript</a></td>
+    </tr>
+    <tr>
+      <td>ENS address-encoder</td>
+      <td>Yes</td>
+      <td><a href="https://github.com/ensdomains/address-encoder/commit/5bf53b13fa014646ea28c9e5f937361dc9b40590">TypeScript</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

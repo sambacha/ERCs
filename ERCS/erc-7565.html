@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Perpetual Contract NFTs as Collateral | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Perpetual Contract NFTs as Collateral | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7565" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7565" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Perpetual Contract NFTs as Collateral</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This ERC proposes a mechanism where a person (referred to as the “Asset Owner”) can collateralize NFTs that represent locked deposits or assets, to borrow funds against them. These NFTs represent the right to claim the underlying assets, along with any accrued benefits, after a predefined maturity period. <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The rapidly evolving landscape of DeFi has introduced various mechanisms for asset locking, offering benefits like interest and voting rights. However, one of the significant challenges in this space is maintaining liquidity while these assets are locked. This ERC addresses this challenge by proposing a method to generate profit from locked assets using <a href="./eip-721.md">ERC-721</a> and <a href="./eip-4907.md">ERC-4907</a>.</p>
+
+<p>In DeFi services, running Automated Market Maker (AMM), liquidity providers contribute assets to pools and receive NFTs representing their stake. These NFTs denote the rights to the assets and the associated benefits, but they also lock the assets in the pool, often causing liquidity challenges for the providers. The current practice requires providers to withdraw their assets for urgent liquidity needs, adversely affecting the pool’s liquidity and potentially increasing slippage during asset swaps.</p>
+
+<p>Our proposal allows these NFTs, representing locked assets in liquidity pools, to be used as collateral. This approach enables liquidity providers to gain temporary liquidity without withdrawing their assets, maintaining the pool’s liquidity levels. Furthermore, it extends to a broader range of DeFi services, including lending and trading, where asset locking is prevalent. By allowing the collateralization of locked asset representations through NFTs, our approach aims to provide versatile liquidity solutions across DeFi services, benefitting a diverse user base within the ecosystem.</p>
+
+<p>The concept of perpetual contract NFTs, which we introduce, exploits the idea of perpetual futures contracts in the cryptocurrency derivatives market. These NFTs represent the rights to the perpetual contract and its collateral, enabling them to be used effectively as collateral for DeFi composability. The perpetual contract NFT offers a new form of NFT that enhances the utility of locked assets, providing a significant advantage in DeFi applications by offering liquidity while retaining the benefits of asset locking.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="contract-interface">Contract Interface</h3>
+
+<p>Solidity interface.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">interface</span> <span class="n">IPerpetualContractNFT</span> <span class="p">{</span>
+
+        <span class="c1">// Emitted when an NFT is collateralized for obtaining a loan
+</span>        <span class="k">event</span> <span class="n">Collateralized</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">loanAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">interestRate</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">loanDuration</span><span class="p">);</span>
+
+        <span class="c1">// Emitted when a loan secured by an NFT is fully repaid, releasing the NFT from collateral
+</span>        <span class="k">event</span> <span class="n">LoanRepaid</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">);</span>
+
+        <span class="c1">// Emitted when a loan defaults, resulting in the transfer of the NFT to the lender
+</span>        <span class="k">event</span> <span class="n">Defaulted</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">lender</span><span class="p">);</span>
+
+        <span class="c1">// Enables an NFT owner to collateralize their NFT in exchange for a loan
+</span>        <span class="c1">// @param tokenId The NFT to be used as collateral
+</span>        <span class="c1">// @param loanAmount The amount of funds to be borrowed
+</span>        <span class="c1">// @param interestRate The interest rate for the loan
+</span>        <span class="c1">// @param loanDuration The duration of the loan
+</span>        <span class="k">function</span> <span class="n">collateralize</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">loanAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">interestRate</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">loanDuration</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+        <span class="c1">// Enables a borrower to repay their loan and regain ownership of the collateralized NFT
+</span>        <span class="c1">// @param tokenId The NFT that was used as collateral
+</span>        <span class="c1">// @param repayAmount The amount of funds to be repaid
+</span>        <span class="k">function</span> <span class="n">repayLoan</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">repayAmount</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+        <span class="c1">// Allows querying the loan terms for a given NFT
+</span>        <span class="c1">// @param tokenId The NFT used as collateral
+</span>        <span class="c1">// @return loanAmount The amount of funds borrowed
+</span>        <span class="c1">// @return interestRate The interest rate for the loan
+</span>        <span class="c1">// @return loanDuration The duration of the loan
+</span>        <span class="c1">// @return loanDueDate The due date for the loan repayment
+</span>        <span class="k">function</span> <span class="n">getLoanTerms</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">loanAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">interestRate</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">loanDuration</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">loanDueDate</span><span class="p">);</span>
+
+        <span class="c1">// Allows querying the current owner of the NFT
+</span>        <span class="c1">// @param tokenId The NFT in question
+</span>        <span class="c1">// @return The address of the current owner
+</span>        <span class="k">function</span> <span class="n">currentOwner</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+        <span class="c1">// View the total amount required to repay the loan for a given NFT
+</span>        <span class="c1">// @param tokenId The NFT used as collateral
+</span>        <span class="c1">// @return The total amount required to repay the loan, including interest
+</span>        <span class="k">function</span> <span class="n">viewRepayAmount</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="event-collateralized">Event <code class="language-plaintext highlighter-rouge">Collateralized</code></h4>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">Collateralized</code> event MUST be emitted when the collateralize function is successfully executed.</li>
+  <li>Usage: Logs the event of an NFT being used as collateral for a loan, capturing essential details like the loan amount, interest rate, and loan duration.</li>
+</ul>
+
+<h4 id="event-loanrepaid">Event <code class="language-plaintext highlighter-rouge">LoanRepaid</code></h4>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">LoanRepaid</code> event MUST be emitted when the repayLoan function is successfully executed.</li>
+  <li>Usage: Logs the event of a loan being repaid and the corresponding NFT being released from collateral.</li>
+</ul>
+
+<h4 id="event-defaulted">Event <code class="language-plaintext highlighter-rouge">Defaulted</code></h4>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">Defaulted</code> event MUST be emitted in scenarios where the loan defaults and the NFT is transferred to the lender.</li>
+  <li>Usage: Used to log the event of a loan default and the transfer of the NFT to the lender.</li>
+</ul>
+
+<h4 id="function-collateralize">Function <code class="language-plaintext highlighter-rouge">collateralize</code></h4>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">collateralize</code> event SHOULD be implemented as <code class="language-plaintext highlighter-rouge">external</code>.</li>
+  <li>Usage: Allows an NFT owner to collateralize their NFT to receive a loan.</li>
+</ul>
+
+<h4 id="function-repayloan">Function <code class="language-plaintext highlighter-rouge">repayLoan</code></h4>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">repayLoan</code> function SHOULD be implemented as <code class="language-plaintext highlighter-rouge">external</code>.</li>
+  <li>Usage: Enables an NFT owner to repay their loan and reclaim their NFT.</li>
+</ul>
+
+<h4 id="function-getloanterms">Function <code class="language-plaintext highlighter-rouge">getLoanTerms</code></h4>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">getLoanTerms</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">external</code> <code class="language-plaintext highlighter-rouge">view</code>.</li>
+  <li>Usage: Allows querying the loan terms for a given NFT.</li>
+</ul>
+
+<h4 id="function-currentowner">Function <code class="language-plaintext highlighter-rouge">currentOwner</code></h4>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">currentOwner</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">external</code> <code class="language-plaintext highlighter-rouge">view</code>.</li>
+  <li>Usage: Enables querying the current owner of a specific NFT.</li>
+</ul>
+
+<h4 id="function-viewrepayamount">Function <code class="language-plaintext highlighter-rouge">viewRepayAmount</code></h4>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">viewRepayAmount</code> function MAY be implemented as <code class="language-plaintext highlighter-rouge">external</code> <code class="language-plaintext highlighter-rouge">view</code>.</li>
+  <li>Usage: Enables querying the current repay amount of a specific NFT.</li>
+</ul>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="design-motivation">Design Motivation</h3>
+
+<p>The design of this standard is driven by the need to address specific challenges in the DeFi sector, particularly concerning the liquidity and management of assets locked as collateral. Traditional mechanisms in DeFi often require asset holders to lock up their assets for participation in activities such as lending, staking, or yield farming, which results in a loss of liquidity. This standard aims to introduce a more flexible approach, allowing asset holders to retain some liquidity while their assets are locked, thereby enhancing the utility and appeal of DeFi products.</p>
+
+<h3 id="design-decision">Design Decision</h3>
+
+<ul>
+  <li>
+    <p>Dual-Role System (Asset Owner and DeFi Platform/Contract): A clear division is established between the NFT owner (asset holder) and the DeFi platform or contract utilizing the NFT as collateral. This distinction simplifies the management of rights and responsibilities, enhancing clarity and reducing potential conflicts.</p>
+  </li>
+  <li>
+    <p>Enhancing Liquidity without Compromising Asset Locking Benefits: A key feature of this standard is enabling asset owners to use their NFTs, which represent locked assets, as collateral to secure loans. This approach allows asset owners to access liquidity without needing to withdraw their assets from pools or staking programs, thus preserving the associated benefits like interest accrual or voting rights.</p>
+  </li>
+  <li>
+    <p>Automated Loan and Collateral Management: The integration of automated features for managing the terms and conditions of the collateralized NFT is a deliberate choice to minimize transaction costs and complexity.</p>
+  </li>
+  <li>
+    <p>DeFi Composability: The strategic emphasis on DeFi composability, particularly the integration between asset-locking and collateralizing services, is pivotal for this standard. This approach aims to streamline the adoption of the standard across diverse DeFi platforms and services, fostering seamless connections within the DeFi ecosystem.</p>
+  </li>
+</ul>
+
+<h3 id="alternate-designs-and-related-work">Alternate Designs and Related Work</h3>
+
+<ul>
+  <li>
+    <p>Comparison with <a href="./eip-4907.md">ERC-4907</a>: While <a href="./eip-4907.md">ERC-4907</a> also introduces a dual-role model for NFTs (owner and user), our standard focuses specifically on the use of NFTs for collateralization in financial transactions, diverging from <a href="./eip-4907.md">ERC-4907</a>’s rental-oriented approach.</p>
+  </li>
+  <li>
+    <p>Improvement Over Traditional Collateralization Methods: Compared to traditional DeFi collateralization, which often requires complete asset lock-up, this standard proposes a more dynamic and flexible model that allows for continued liquidity access.</p>
+  </li>
+</ul>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Fully compatible with <a href="./eip-721.md">ERC-721</a> and integrates with <a href="./eip-4907.md">ERC-4907</a> for renting NFTs.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0 
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./PerpetualContractNFT.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">PerpetualContractNFTDemo</span> <span class="k">is</span> <span class="n">PerpetualContractNFT</span> <span class="p">{</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol</span><span class="p">)</span>
+        <span class="n">PerpetualContractNFT</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span>
+    <span class="p">{</span>         
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">mint</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="n">expect</span> <span class="p">}</span> <span class="n">from</span> <span class="s">"chai"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="n">ethers</span> <span class="p">}</span> <span class="n">from</span> <span class="s">"hardhat"</span><span class="p">;</span>
+
+<span class="n">describe</span><span class="p">(</span><span class="s">"PerpetualContractNFTDemo"</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="n">it</span><span class="p">(</span><span class="s">"should allow an owner to collateralize an NFT, rent it to a contract, and then have the owner repay the loan"</span><span class="p">,</span> <span class="n">async</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="n">const</span> <span class="p">[</span><span class="n">owner</span><span class="p">]</span> <span class="o">=</span> <span class="n">await</span> <span class="n">ethers</span><span class="p">.</span><span class="n">getSigners</span><span class="p">();</span>
+
+        <span class="n">const</span> <span class="n">PerpetualContractNFTDemo</span> <span class="o">=</span> <span class="n">await</span> <span class="n">ethers</span><span class="p">.</span><span class="n">getContractFactory</span><span class="p">(</span><span class="s">"PerpetualContractNFTDemo"</span><span class="p">);</span>
+        <span class="n">const</span> <span class="n">demo</span> <span class="o">=</span> <span class="n">await</span> <span class="n">PerpetualContractNFTDemo</span><span class="p">.</span><span class="n">deploy</span><span class="p">(</span><span class="s">"DemoNFT"</span><span class="p">,</span> <span class="s">"DNFT"</span><span class="p">);</span>
+        <span class="n">await</span> <span class="n">demo</span><span class="p">.</span><span class="n">waitForDeployment</span><span class="p">();</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">demo</span><span class="p">.</span><span class="n">target</span><span class="p">).</span><span class="n">to</span><span class="p">.</span><span class="n">be</span><span class="p">.</span><span class="n">properAddress</span><span class="p">;</span>
+
+        <span class="c1">// Mint an NFT to the owner
+</span>        <span class="n">await</span> <span class="n">demo</span><span class="p">.</span><span class="n">mint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">owner</span><span class="p">.</span><span class="kt">address</span><span class="p">);</span>
+
+        <span class="c1">// Owner collateralizes the NFT for a loan
+</span>        <span class="n">const</span> <span class="n">loanAmount</span> <span class="o">=</span> <span class="n">ethers</span><span class="p">.</span><span class="n">parseUnits</span><span class="p">(</span><span class="s">"1"</span><span class="p">,</span> <span class="s">"ether"</span><span class="p">);</span> <span class="c1">// 1 Ether in Wei. Use Wei to avoid precision error.
+</span>        <span class="n">const</span> <span class="n">interest</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// 5% interest
+</span>        <span class="n">const</span> <span class="n">expiration</span> <span class="o">=</span> <span class="n">Math</span><span class="p">.</span><span class="n">floor</span><span class="p">(</span><span class="k">new</span> <span class="n">Date</span><span class="p">().</span><span class="n">getTime</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3600</span><span class="p">;</span> <span class="c1">// Expire after 60 minutes (3600 seconds), convert it to seconds because `hours` in solidity converted to seconds
+</span>        
+        <span class="n">await</span> <span class="n">demo</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">owner</span><span class="p">).</span><span class="n">collateralize</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">loanAmount</span><span class="p">,</span> <span class="n">interest</span><span class="p">,</span> <span class="n">expiration</span><span class="p">);</span> <span class="c1">// tokenId, loanAmount, interestRate, loanDuration
+</span>
+        <span class="c1">// Check current user of the NFT (should be the contract address)
+</span>        <span class="n">expect</span><span class="p">(</span><span class="n">await</span> <span class="n">demo</span><span class="p">.</span><span class="n">userOf</span><span class="p">(</span><span class="mi">1</span><span class="p">)).</span><span class="n">to</span><span class="p">.</span><span class="n">equal</span><span class="p">(</span><span class="n">demo</span><span class="p">.</span><span class="n">target</span><span class="p">);</span>
+
+        <span class="c1">// Borrower repays the loan to release the NFT
+</span>        <span class="n">const</span> <span class="n">repayAmountWei</span> <span class="o">=</span> <span class="n">await</span> <span class="n">demo</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">owner</span><span class="p">).</span><span class="n">viewRepayAmount</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">await</span> <span class="n">demo</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">owner</span><span class="p">).</span><span class="n">repayLoan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">repayAmountWei</span><span class="p">);</span>
+        
+        <span class="c1">// Check if the NFT is returned to the original owner after the loan is repaid
+</span>        <span class="n">expect</span><span class="p">(</span><span class="n">await</span> <span class="n">demo</span><span class="p">.</span><span class="n">userOf</span><span class="p">(</span><span class="mi">1</span><span class="p">)).</span><span class="n">to</span><span class="p">.</span><span class="n">equal</span><span class="p">(</span><span class="s">"0x0000000000000000000000000000000000000000"</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Run in Terminal：</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">npx hardhat test
+</span></code></pre></div></div>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0 
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">//import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+</span><span class="k">import</span> <span class="s">"./IPerpetualContractNFT.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"./ERC4907/ERC4907.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">PerpetualContractNFT</span> <span class="k">is</span> <span class="n">ERC4907</span><span class="p">,</span> <span class="n">IPerpetualContractNFT</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">LoanInfo</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">borrower</span><span class="p">;</span>   <span class="c1">// Address that borrowed against the NFT
+</span>        <span class="kt">uint256</span> <span class="n">loanAmount</span><span class="p">;</span> <span class="c1">// Amount of funds borrowed
+</span>        <span class="kt">uint256</span> <span class="n">interestRate</span><span class="p">;</span> <span class="c1">// Interest rate for the loan
+</span>        <span class="kt">uint64</span> <span class="n">loanDuration</span><span class="p">;</span> <span class="c1">// Duration of the loan
+</span>        <span class="kt">uint256</span> <span class="n">loanStartTime</span><span class="p">;</span> <span class="c1">// Timestamp when the loan starts
+</span>    <span class="p">}</span>
+
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">LoanInfo</span><span class="p">)</span> <span class="k">internal</span> <span class="n">_loans</span><span class="p">;</span>
+
+    <span class="c1">//Constructor to initialize the Perpetual Contract NFT contract with the given name and symbo
+</span>    <span class="k">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name_</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol_</span><span class="p">)</span>
+        <span class="n">ERC4907</span><span class="p">(</span><span class="n">name_</span><span class="p">,</span> <span class="n">symbol_</span><span class="p">)</span>
+    <span class="p">{}</span>
+
+    <span class="k">function</span> <span class="n">collateralize</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">loanAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">interestRate</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">loanDuration</span><span class="p">)</span> <span class="k">public</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)</span> <span class="o">==</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">||</span> <span class="n">isApprovedForAll</span><span class="p">(</span><span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">),</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">)</span> <span class="o">||</span> <span class="n">getApproved</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)</span> <span class="o">==</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="s">"Not owner nor approved"</span><span class="p">);</span>
+
+        <span class="n">LoanInfo</span> <span class="k">storage</span> <span class="n">info</span> <span class="o">=</span> <span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+        <span class="n">info</span><span class="p">.</span><span class="n">borrower</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+        <span class="c1">// The loan amount should reflect the asset's value as represented by the NFT, considering an appropriate loan-to-value (LTV) ratio.
+</span>        <span class="n">info</span><span class="p">.</span><span class="n">loanAmount</span> <span class="o">=</span> <span class="n">loanAmount</span><span class="p">;</span>
+        <span class="n">info</span><span class="p">.</span><span class="n">interestRate</span> <span class="o">=</span> <span class="n">interestRate</span><span class="p">;</span>
+        <span class="n">info</span><span class="p">.</span><span class="n">loanDuration</span> <span class="o">=</span> <span class="n">loanDuration</span><span class="p">;</span>
+        <span class="n">info</span><span class="p">.</span><span class="n">loanStartTime</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">;</span>
+
+        <span class="n">setUser</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">loanDuration</span><span class="p">);</span>
+        <span class="k">emit</span> <span class="n">Collateralized</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">loanAmount</span><span class="p">,</span> <span class="n">interestRate</span><span class="p">,</span> <span class="n">loanDuration</span><span class="p">);</span>
+
+        <span class="c1">// Further logic can be implemented here to manage the lending of assets
+</span>    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">repayLoan</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">repayAmount</span><span class="p">)</span> <span class="k">public</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">borrower</span> <span class="o">==</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="s">"Not the borrower."</span><span class="p">);</span>
+
+        <span class="c1">// Calculate the total amount due for repayment
+</span>        <span class="kt">uint256</span> <span class="n">totalDue</span> <span class="o">=</span> <span class="n">viewRepayAmount</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+
+        <span class="c1">// Check if the repayAmount is sufficient to cover at least a part of the total due amount
+</span>        <span class="nb">require</span><span class="p">(</span><span class="n">repayAmount</span> <span class="o">&lt;=</span> <span class="n">totalDue</span><span class="p">,</span> <span class="s">"Repay amount exceeds total due."</span><span class="p">);</span>
+
+        <span class="c1">// Calculate the remaining loan amount after repayment
+</span>        <span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanAmount</span> <span class="o">=</span> <span class="n">totalDue</span> <span class="o">-</span> <span class="n">repayAmount</span><span class="p">;</span>
+
+        <span class="c1">// Resets the user of the NFT to the default state if the entire loan amount is fully repaid
+</span>        <span class="k">if</span><span class="p">(</span><span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanAmount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">setUser</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">emit</span> <span class="n">LoanRepaid</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="k">function</span> <span class="n">getLoanTerms</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">LoanInfo</span> <span class="k">storage</span> <span class="n">info</span> <span class="o">=</span> <span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">loanAmount</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">interestRate</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">loanDuration</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">loanStartTime</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">currentOwner</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">viewRepayAmount</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanAmount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// If the loan amount is zero, there is nothing to repay
+</span>            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// The interest is calculated on an hourly basis, prorated based on the actual duration for which the loan was held.
+</span>        <span class="c1">// If the borrower repays before the loan duration ends, they are charged interest only for the time the loan was held.
+</span>        <span class="c1">// For example, if the annual interest rate is 5% and the borrower repays in half the loan term, they pay only 2.5% interest.
+</span>        <span class="kt">uint256</span> <span class="n">elapsed</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">timestamp</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanStartTime</span> <span class="o">+</span> <span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanDuration</span><span class="p">)</span> 
+                        <span class="o">?</span> <span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanDuration</span>  <span class="o">/</span> <span class="mi">1</span> <span class="kc">hours</span>
+                        <span class="o">:</span> <span class="p">(</span><span class="n">block</span><span class="p">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanStartTime</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1</span> <span class="kc">hours</span><span class="p">;</span>
+
+        <span class="c1">// Round up
+</span>        <span class="c1">// Example: 15/4 = 3.75
+</span>        <span class="c1">// round((15 + 4 - 1)/4) = 4, round((15/4) = 3)
+</span>        <span class="kt">uint256</span> <span class="n">interest</span> <span class="o">=</span> <span class="p">((</span><span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanAmount</span> <span class="o">*</span> <span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">interestRate</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="n">elapsed</span> <span class="o">+</span> <span class="p">(</span><span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanDuration</span> <span class="o">/</span> <span class="mi">1</span> <span class="kc">hours</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> 
+                    <span class="p">(</span><span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanDuration</span> <span class="o">/</span> <span class="mi">1</span> <span class="kc">hours</span><span class="p">);</span>
+
+        <span class="c1">// Calculate the total amount due
+</span>        <span class="kt">uint256</span> <span class="n">totalDue</span> <span class="o">=</span> <span class="n">_loans</span><span class="p">[</span><span class="n">tokenId</span><span class="p">].</span><span class="n">loanAmount</span> <span class="o">+</span> <span class="n">interest</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="n">totalDue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Additional functions and logic to handle loan defaults, transfers, and other aspects of the NFT lifecycle
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<!-- Needs discussion. -->
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+
+      <pre><code class="language-csl-json">{
+    "container-title": "IEEE Access",
+    "author": [
+        {
+            "given": "Hyoungsung",
+            "family": "Kim"
+        },
+        {
+            "given": "Hyun-Sik",
+            "family": "Kim"
+        },
+        {
+            "given": "Yong-Suk",
+            "family": "Park"
+        }
+    ],
+    "DOI": "10.1109/ACCESS.2022.3225884",
+    "URL": "https://ieeexplore.ieee.org/document/9967987",
+    "type": "article-journal",
+    "id": 9967987,
+    "citation-label": "9967987",        
+    "issued": {
+        "date-parts": [
+            [
+                2022
+            ]
+        ]
+    },
+    "keyword": "Contracts;Nonfungible tokens;Cryptocurrency;Finance;Smart contracts;Blockchains;Financial services;Automated market maker (AMM);blockchain;decentralized exchange (DEX);decentralized finance (DeFi);Ethereum;liquidity pool (LP);non-fungible token (NFT);uniswap",
+    "page": "126802-126814",
+    "title": "Perpetual Contract NFT as Collateral for DeFi Composability",
+    "volume": 10
+}
+</code></pre>
+      <p><a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Baby Jubjub Elliptic Curve | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Baby Jubjub Elliptic Curve | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-2494" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-2494" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Baby Jubjub Elliptic Curve</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>This proposal defines Baby Jubjub, an elliptic curve designed to work inside zk-SNARK circuits in Ethereum.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Two of the main issues behind why blockchain technology is not broadly used by individuals and industry are scalability and privacy guarantees. With a set of cryptographic tools called zero-knowledge proofs (ZKP) it is possible to address both of these problems. More specifically, the most suitable protocols for blockchain are called zk-SNARKs (zero-knowledge Succinct Non-interactive ARguments of Knowledge), as they are non-interactive, have succinct proof size and sublinear verification time. These types of protocols allow proving generic computational statements that can be modelled with arithmetic circuits defined over a finite field (also called zk-SNARK circuits).</p>
+
+<p>To verify a zk-SNARK proof, it is necessary to use an elliptic curve. In Ethereum, the curve is alt_bn128 (also referred as BN254), which has primer order <code class="language-plaintext highlighter-rouge">r</code>. With this curve, it is possible to generate and validate proofs of any <code class="language-plaintext highlighter-rouge">F_r</code>-arithmetic circuit. This EIP describes <em>Baby Jubjub</em>, an elliptic curve defined over the finite field <code class="language-plaintext highlighter-rouge">F_r</code> which can be used inside any zk-SNARK circuit, allowing for the implementation of cryptographic primitives that make use of elliptic curves, such as the Pedersen Hash or the Edwards Digital Signature Algorithm (EdDSA).</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>A <a href="https://en.wikipedia.org/wiki/Zero-knowledge_proof">zero knowledge proof</a> (ZKP) is a protocol that enables one party, the prover, to convince another, the verifier, that a statement is true without revealing any information beyond the veracity of the statement. <a href="https://people.csail.mit.edu/silvio/Selected%20Scientific%20Papers/Zero%20Knowledge/Noninteractive_Zero-Knowkedge.pdf">Non-Interactive ZKPs</a> (NIZK) are a particular type of zero-knowledge proofs in which the prover can generate the proof without interaction with the verifier. NIZK protocols are very suitable for Ethereum applications, because they allow a smart contract to act as a verifier. This way, anyone can generate a proof and send it as part of a transaction to the smart contract, which can perform some action depending on whether the proof is valid or not. In this context, the most preferable NIZK are <a href="https://eprint.iacr.org/2013/279.pdf">zk-SNARK</a> (Zero-knowledge Succinct Non Interactive ARgument of Knowledge), a set of non-interactive zero-knowledge protocols that have succinct proof size and sublinear verification time. The importance of these protocols is double: on the one hand, they help improve privacy guarantees, and on the other, they are a possible solution to scalability issues (e.g. see <a href="https://github.com/barryWhiteHat/roll_up">zk-Rollup</a> project).</p>
+
+<p>Like most ZKPs, zk-SNARKs permit proving computational statements. For example, one can prove things like: the knowledge of a private key associated with a certain public key, the correct computation of a transaction, or the knowledge of the preimage of a particular hash. Importantly, one can do these things without leaking any information about the statements in question. In other words, without leaking any information about the private key, the transaction details, or the value of the preimage. More specifically, zk-SNARKs permit proving any computational statement that can be modelled with an <code class="language-plaintext highlighter-rouge">F_r</code>-arithmetic circuit, a circuit consisting of set of wires that carry values from the field <code class="language-plaintext highlighter-rouge">F_r</code> and connect them to addition and multiplication gates <code class="language-plaintext highlighter-rouge">mod r</code>. This type of circuits are often called zk-SNARK circuits.</p>
+
+<p>The implementation of most zk-SNARK protocols (e.g. <a href="https://eprint.iacr.org/2013/279.pdf">[Pinnochio]</a> and <a href="https://eprint.iacr.org/2016/260.pdf">[Groth16]</a>) make use of an elliptic curve for validating a proof. In Ethereum, the curve used is alt_bn128 (also referred as BN254), which has prime order <code class="language-plaintext highlighter-rouge">r</code>. While it is possible to generate and validate proofs of <code class="language-plaintext highlighter-rouge">F_r</code>-arithmetic circuits with BN254, it is not possible to use BN254 to implement elliptic-curve cryptography within these circuits. To implement functions that require the use of elliptic curves inside a zk-SNARK circuit – such as the <a href="https://github.com/zcash/zips/blob/master/protocol/protocol.pdf">Pedersen Hash</a> or the <a href="https://tools.ietf.org/html/rfc8032">Edwards Digital Signature Algorithm</a> (EdDSA) – a new curve with coordinates in <code class="language-plaintext highlighter-rouge">F_r</code> is needed. To this end, we propose in this EIP <em>Baby Jubjub</em>, an elliptic curve defined over <code class="language-plaintext highlighter-rouge">F_r</code> that can be used inside any <code class="language-plaintext highlighter-rouge">F_r</code>-arithmetic circuit. In the next sections we describe in detail the characteristics of the curve, how it was generated, and which security considerations were taken.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    inputs                zk-SNARK (alt_bn128)             output
+            +--------------------------------------------+
+            |   +--------------------+                   |
+        ---&gt;|   | EdDSA (Baby Jubjub)|                   |
+            |   +--------------------+                   | 
+        ---&gt;|                                            |---&gt;
+            |          +-----------------------------+   |
+        ---&gt;|          | Pedersen Hash (Baby Jubjub) |   |
+            |          +-----------------------------+   |
+            +--------------------------------------------+
+</code></pre></div></div>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="definitions">Definitions</h3>
+<p>Let <code class="language-plaintext highlighter-rouge">F_r</code> be the prime finite field with <code class="language-plaintext highlighter-rouge">r</code> elements, where</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r = 21888242871839275222246405745257275088548364400416034343698204186575808495617
+</code></pre></div></div>
+
+<p>Let <code class="language-plaintext highlighter-rouge">E</code> be the twisted Edwards elliptic curve defined over <code class="language-plaintext highlighter-rouge">F_r</code> described by equation</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ax^2 + y^2 = 1 + dx^2y^2
+</code></pre></div></div>
+<p>with parameters</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = 168700
+d = 168696
+</code></pre></div></div>
+<p>We call <strong>Baby Jubjub</strong> the curve <code class="language-plaintext highlighter-rouge">E(F_r)</code>, that is, the subgroup of <code class="language-plaintext highlighter-rouge">F_r</code>-rational points of <code class="language-plaintext highlighter-rouge">E</code>.</p>
+
+<h3 id="order">Order</h3>
+
+<p>Baby Jubjub has order</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n = 21888242871839275222246405745257275088614511777268538073601725287587578984328
+</code></pre></div></div>
+
+<p>which factors in</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n = h x l
+</code></pre></div></div>
+<p>where</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>h = 8
+l = 2736030358979909402780800718157159386076813972158567259200215660948447373041
+</code></pre></div></div>
+<p>The parameter <code class="language-plaintext highlighter-rouge">h</code> is called <em>cofactor</em> and <code class="language-plaintext highlighter-rouge">l</code> is a prime number of 251 bits.</p>
+
+<h3 id="generator-point">Generator Point</h3>
+
+<p>The point <code class="language-plaintext highlighter-rouge">G = (x,y)</code> with coordinates</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x = 995203441582195749578291179787384436505546430278305826713579947235728471134
+y = 5472060717959818805561601436314318772137091100104008585924551046643952123905
+</code></pre></div></div>
+<p>generates all <code class="language-plaintext highlighter-rouge">n</code> points of the curve.</p>
+
+<h3 id="base-point">Base Point</h3>
+
+<p>The point <code class="language-plaintext highlighter-rouge">B = (x,y)</code> with coordinates</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x = 5299619240641551281634865583518297030282874472190772894086521144482721001553
+y = 16950150798460657717958625567821834550301663161624707787222815936182638968203
+</code></pre></div></div>
+<p>generates the subgroup of points <code class="language-plaintext highlighter-rouge">P</code> of Baby Jubjub satisfying <code class="language-plaintext highlighter-rouge">l * P = O</code>. That is, it generates the set of points of order <code class="language-plaintext highlighter-rouge">l</code> and origin <code class="language-plaintext highlighter-rouge">O</code>.</p>
+
+<h3 id="arithmetic">Arithmetic</h3>
+
+<p>Let <code class="language-plaintext highlighter-rouge">P1 = (x1, y1)</code> and <code class="language-plaintext highlighter-rouge">P2 = (x2, y2)</code> be two arbitrary points of Baby Jubjub. Then <code class="language-plaintext highlighter-rouge">P1 + P2 = (x3, y3)</code> is calculated in the following way:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x3 = (x1*y2 + y1*x2)/(1 + d*x1*x2*y1*y2)
+y3 = (y1*y2 - a*x1*x2)/(1 - d*x1*x2*y1*y2)
+</code></pre></div></div>
+<p>Note that both addition and doubling of points can be computed using a single formula.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The search for Baby Jubjub was motivated by the need for an elliptic curve that allows the implementation of elliptic-curve cryptography in <code class="language-plaintext highlighter-rouge">F_r</code>-arithmetic circuits. The curve choice was based on three main factors: type of curve, generation process and security criteria. This section describes how these factors were addressed.</p>
+
+<p><strong>Form of the Curve</strong></p>
+
+<p>Baby Jubjub is a <strong>twisted Edwards</strong> curve birationally equivalent to a <strong>Montgomery</strong> curve. The choice of this form of curve was based on the following facts:</p>
+<ol>
+  <li>The Edwards-curve Digital Signature Scheme is based on twisted Edwards curves.</li>
+  <li>Twisted Edwards curves have a single complete formula for addition of points, which makes the implementation of the group law inside circuits very efficient <a href="https://eprint.iacr.org/2008/013.pdf">[Crypto08/013, Section 6]</a>.</li>
+  <li>As a twisted Edwards curve is generally birationally equivalent to a Montgomery curve <a href="https://eprint.iacr.org/2008/013.pdf">[Crypto08/13,Theorem 3.2]</a>, the curve can be easily converted from one form to another. As addition and doubling of points in a Montgomery curve can be performed very efficiently, computations outside the circuit can be done faster using this form and sped up inside circuits by combining it with twisted Edwards form (see <a href="http://hyperelliptic.org/EFD/g1p/index.html">here</a>) for more details).</li>
+</ol>
+
+<p><strong>Generation of the Curve</strong></p>
+
+<p>Baby Jubjub was conceived as a solution to the circuit implementation of cryptographic schemes that require elliptic curves. As with any cryptographic protocol, it is important to reduce the possibility of a backdoor being present. As a result, we designed the generation process to be <strong>transparent</strong> and <strong>deterministic</strong> – in order to make it clear that no external considerations were taken into account, and to ensure that the process can be reproduced and followed by anyone who wishes to do so.</p>
+
+<p>The algorithm chosen for generating Baby Jubjub is based in the criteria defined in <a href="https://tools.ietf.org/html/rfc7748">[RFC7748, Appendix A.1]</a> and can be found in <a href="https://github.com/barryWhiteHat/baby_jubjub">this github repository</a>. Essentially, the algorithm takes a prime number <code class="language-plaintext highlighter-rouge">p = 1 mod 4</code> and returns the lowest <code class="language-plaintext highlighter-rouge">A&gt;0</code> such that <code class="language-plaintext highlighter-rouge">A-2</code> is a multiple of 4 and such that the set of solutions in <code class="language-plaintext highlighter-rouge">F_p</code> of <code class="language-plaintext highlighter-rouge">y^2 = x^3 + Ax^2 + x</code> defines a Montgomery curve with cofactor 8.</p>
+
+<p>Baby Jubjub was generated by running the algorithm with the prime</p>
+
+<p><code class="language-plaintext highlighter-rouge">r =  21888242871839275222246405745257275088548364400416034343698204186575808495617</code>,</p>
+
+<p>which is the order of alt_bn128, the curve used to verify zk-SNARK proofs in Ethereum. The output of the algorithm was <code class="language-plaintext highlighter-rouge">A=168698</code>. Afterwards, the corresponding Montgomery curve was transformed into twisted Edwards form. Using SAGE libraries for curves, the order <code class="language-plaintext highlighter-rouge">n</code> of the curve and its factorization <code class="language-plaintext highlighter-rouge">n = 8*l</code> was calculated.</p>
+
+<ul>
+  <li><strong>Choice of generator</strong> : the generator point <code class="language-plaintext highlighter-rouge">G</code> is the point of order <code class="language-plaintext highlighter-rouge">n</code> with smallest positive <code class="language-plaintext highlighter-rouge">x</code>-coordinate in <code class="language-plaintext highlighter-rouge">F_r</code>.</li>
+  <li><strong>Choice of base point</strong>: the base point <code class="language-plaintext highlighter-rouge">B</code> is chosen to be <code class="language-plaintext highlighter-rouge">B = 8*G</code>, which has order <code class="language-plaintext highlighter-rouge">l</code>.</li>
+</ul>
+
+<p><strong>Security Criteria</strong></p>
+
+<p>It is crucial that Baby Jubjub be safe against well-known attacks. To that end, we decided that the curve should pass <a href="https://safecurves.cr.yp.to/">SafeCurves</a> security tests, as they are known for gathering the best known attacks against elliptic curves. Supporting evidence that Baby Jubjub satisfies the SafeCurves criteria can be found <a href="https://github.com/barryWhiteHat/baby_jubjub">here</a>.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Baby Jubjub is a twisted Edwards elliptic curve birational to different curves. So far, the curve has mainly been used in its original form, in Montomgery form, and in another (different representation) twisted Edwards form – which we call the reduced twisted Edwards form.</p>
+
+<p>Below are the three representations and the birational maps that make it possible to map points from one form of the curve to another. In all cases, the generator and base points are written in the form <strong><code class="language-plaintext highlighter-rouge">(x,y)</code>.</strong></p>
+
+<h3 id="forms-of-the-curve">Forms of the Curve</h3>
+
+<p>All generators and base points are written in the form (x,y).</p>
+
+<p><strong>Twisted Edwards Form</strong> (standard)</p>
+
+<ul>
+  <li>Equation: <code class="language-plaintext highlighter-rouge">ax^2 + y^2 = 1 + dx^2y^2</code></li>
+  <li>Parameters: <code class="language-plaintext highlighter-rouge">a = 168700, d = 168696</code></li>
+  <li>Generator point:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (995203441582195749578291179787384436505546430278305826713579947235728471134, 5472060717959818805561601436314318772137091100104008585924551046643952123905)
+</code></pre></div>    </div>
+  </li>
+  <li>Base point:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (5299619240641551281634865583518297030282874472190772894086521144482721001553, 16950150798460657717958625567821834550301663161624707787222815936182638968203)
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><strong>Montgomery Form</strong></p>
+
+<ul>
+  <li>Equation: <code class="language-plaintext highlighter-rouge">By^2 = x^3 + A x^2 + x</code></li>
+  <li>Parameters: <code class="language-plaintext highlighter-rouge">A = 168698, B = 1</code></li>
+  <li>Generator point:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (7, 4258727773875940690362607550498304598101071202821725296872974770776423442226)
+</code></pre></div>    </div>
+  </li>
+  <li>Base point:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (7117928050407583618111176421555214756675765419608405867398403713213306743542, 14577268218881899420966779687690205425227431577728659819975198491127179315626)
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><strong>Reduced Twisted Edwards Form</strong></p>
+
+<ul>
+  <li>Equation: <code class="language-plaintext highlighter-rouge">a' x^2 + y^2 = 1 + d' x^2y^2</code></li>
+  <li>Parameters:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  a' = -1 
+  d' = 12181644023421730124874158521699555681764249180949974110617291017600649128846
+</code></pre></div>    </div>
+  </li>
+  <li>Generator point:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (4986949742063700372957640167352107234059678269330781000560194578601267663727, 5472060717959818805561601436314318772137091100104008585924551046643952123905)
+</code></pre></div>    </div>
+  </li>
+  <li>Base point:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (9671717474070082183213120605117400219616337014328744928644933853176787189663, 16950150798460657717958625567821834550301663161624707787222815936182638968203)
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="conversion-of-points">Conversion of Points</h3>
+
+<p>Following formulas allow to convert points from one form of the curve to another. We will denote the coordinates</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">(u, v)</code> for points in the Montomgery form,</li>
+  <li><code class="language-plaintext highlighter-rouge">(x, y)</code> for points in the Twisted Edwards form and</li>
+  <li><code class="language-plaintext highlighter-rouge">(x', y')</code> for points in reduced Twisted Edwards form.</li>
+</ul>
+
+<p>Note that in the last conversion – from Twisted Edwards to Reduced Twisted Edwards and back – we also use the scaling factor <code class="language-plaintext highlighter-rouge">f</code>, where:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f = 6360561867910373094066688120553762416144456282423235903351243436111059670888
+</code></pre></div></div>
+<p>In the expressions one can also use directly <code class="language-plaintext highlighter-rouge">-f</code>, where:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-f = 15527681003928902128179717624703512672403908117992798440346960750464748824729
+</code></pre></div></div>
+
+<p><strong>Montgomery –&gt; Twisted Edwards</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(u, v) --&gt; (x, y)
+
+x = u/v
+y = (u-1)/(u+1)
+</code></pre></div></div>
+
+<p><strong>Twisted Edwards –&gt; Montgomery</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(x, y) --&gt; (u, v)
+
+u = (1+y)/(1-y) 
+v = (1+y)/((1-y)x)
+</code></pre></div></div>
+
+<p><strong>Montgomery –&gt; Reduced Twisted Edwards</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(u, v) --&gt; (x', y')
+
+x' = u*(-f)/v 
+y' = (u-1)/(u+1) 
+</code></pre></div></div>
+
+<p><strong>Reduced Twisted Edwards –&gt; Montgomery</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(x', y') --&gt; (u, v)
+
+u = (1+y')/(1-y')
+v = (-f)*(1+y')/((1-y')*x')
+</code></pre></div></div>
+
+<p><strong>Twisted Edwards –&gt; Reduced Twisted Edwards</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(x, y) --&gt; (x', y')
+
+x' = x*(-f)
+y' = y
+</code></pre></div></div>
+
+<p><strong>Reduced Twisted Edwards –&gt; Twisted Edwards</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(x', y') --&gt; (x, y)
+
+x = x'/(-f)
+y = y'
+</code></pre></div></div>
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>This section specifies the safety checks done on Baby Jubjub. The choices of security parameters are based on <a href="https://safecurves.cr.yp.to">SafeCurves criteria</a>, and supporting evidence that Baby Jubjub satisfies the following requisites can be found <a href="https://github.com/barryWhiteHat/baby_jubjub">here</a>.</p>
+
+<p><strong>Curve Parameters</strong></p>
+
+<p>Check that all parameters in the specification of the curve describe a well-defined elliptic curve over a prime finite field.</p>
+
+<ul>
+  <li>The number <code class="language-plaintext highlighter-rouge">r</code> is prime.</li>
+  <li>Parameters <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">d</code> define an equation that corresponds to an elliptic curve.</li>
+  <li>The product of <code class="language-plaintext highlighter-rouge">h</code> and <code class="language-plaintext highlighter-rouge">l</code> results into the order of the curve and the <code class="language-plaintext highlighter-rouge">G</code> point is a generator.</li>
+  <li>The number <code class="language-plaintext highlighter-rouge">l</code> is prime and the <code class="language-plaintext highlighter-rouge">B</code> point has order <code class="language-plaintext highlighter-rouge">l</code>.</li>
+</ul>
+
+<p><strong>Elliptic Curve Discrete Logarithm Problem</strong></p>
+
+<p>Check that the discrete logarithm problem remains difficult in the given curve. We checked Baby Jubjub is resistant to the following known attacks.</p>
+
+<ul>
+  <li><em>Rho method</em> <a href="https://www.cambridge.org/core/books/elliptic-curves-in-cryptography/16A2B60636EFA7EBCC3D5A5D01F28546">[Blake-Seroussi-Smart, Section V.1]</a>: we require the cost for the rho method, which takes on average around <code class="language-plaintext highlighter-rouge">0.886*sqrt(l)</code> additions, to be above <code class="language-plaintext highlighter-rouge">2^100</code>.</li>
+  <li><em>Additive and multiplicative transfers</em> <a href="https://www.cambridge.org/core/books/elliptic-curves-in-cryptography/16A2B60636EFA7EBCC3D5A5D01F28546">[Blake-Seroussi-Smart, Section V.2]</a>: we require the embedding degree to be at least <code class="language-plaintext highlighter-rouge">(l − 1)/100</code>.</li>
+  <li><em>High discriminant</em> <a href="https://www.cambridge.org/core/books/elliptic-curves-in-cryptography/16A2B60636EFA7EBCC3D5A5D01F28546">[Blake-Seroussi-Smart, Section IX.3]</a>: we require the complex-multiplication field discriminant <code class="language-plaintext highlighter-rouge">D</code> to be larger than <code class="language-plaintext highlighter-rouge">2^100</code>.</li>
+</ul>
+
+<p><strong>Elliptic Curve Cryptography</strong></p>
+
+<ul>
+  <li><em>Ladders</em> <a href="https://wstein.org/edu/Fall2001/124/misc/montgomery.pdf">[Montgomery]</a>: check the curve supports the Montgomery ladder.</li>
+  <li><em>Twists</em> <a href="https://safecurves.cr.yp.to/twist.html">[SafeCurves, twist]</a>: check it is secure against the small-subgroup attack, invalid-curve attacks and twisted-attacks.</li>
+  <li><em>Completeness</em> <a href="https://safecurves.cr.yp.to/complete.html">[SafeCurves, complete]</a>: check if the curve has complete single-scalar and multiple-scalar formulas.</li>
+  <li><em>Indistinguishability</em> <a href="https://eprint.iacr.org/2013/325">[IACR2013/325]</a>: check availability of maps that turn elliptic-curve points indistinguishable from uniform random strings.</li>
+</ul>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p><strong>Test 1 (Addition)</strong></p>
+
+<p>Consider the points <code class="language-plaintext highlighter-rouge">P1 = (x1, y1)</code> and <code class="language-plaintext highlighter-rouge">P2 = (x2, y2)</code> with the following coordinates:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x1 = 17777552123799933955779906779655732241715742912184938656739573121738514868268
+y1 = 2626589144620713026669568689430873010625803728049924121243784502389097019475
+
+x2 = 16540640123574156134436876038791482806971768689494387082833631921987005038935
+y2 = 20819045374670962167435360035096875258406992893633759881276124905556507972311
+</code></pre></div></div>
+<p>Then their sum <code class="language-plaintext highlighter-rouge">P1+P2 = (x3, y3)</code> is equal to:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x3 = 7916061937171219682591368294088513039687205273691143098332585753343424131937
+y3 = 14035240266687799601661095864649209771790948434046947201833777492504781204499
+</code></pre></div></div>
+
+<p><strong>Test 2 (Doubling)</strong></p>
+
+<p>Consider the points <code class="language-plaintext highlighter-rouge">P1 = (x1, y1)</code> and <code class="language-plaintext highlighter-rouge">P2 = (x2, y2)</code> with the following coordinates:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x1 = 17777552123799933955779906779655732241715742912184938656739573121738514868268,
+y1 = 2626589144620713026669568689430873010625803728049924121243784502389097019475
+
+x2 = 17777552123799933955779906779655732241715742912184938656739573121738514868268
+y2 = 2626589144620713026669568689430873010625803728049924121243784502389097019475
+</code></pre></div></div>
+<p>Then their sum <code class="language-plaintext highlighter-rouge">P1+P2 = (x3, y3)</code> is equal to:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x3 = 6890855772600357754907169075114257697580319025794532037257385534741338397365
+y3 = 4338620300185947561074059802482547481416142213883829469920100239455078257889
+</code></pre></div></div>
+
+<p><strong>Test 3 (Doubling the identity)</strong></p>
+
+<p>Consider the points <code class="language-plaintext highlighter-rouge">P1 = (x1, y1)</code> and <code class="language-plaintext highlighter-rouge">P2 = (x2, y2)</code> with the following coordinates:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x1 = 0
+y1 = 1
+
+x2 = 0
+y2 = 1
+</code></pre></div></div>
+<p>Then their sum <code class="language-plaintext highlighter-rouge">P1+P2 = (x3, y3)</code> results in the same point:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x3 = 0
+y3 = 1
+</code></pre></div></div>
+
+<p><strong>Test 4 (Curve membership)</strong></p>
+
+<p>Point <code class="language-plaintext highlighter-rouge">(0,1)</code> is a point on Baby Jubjub.</p>
+
+<p>Point <code class="language-plaintext highlighter-rouge">(1,0)</code> is not a point on Baby Jubjub.</p>
+
+<p><strong>Test 5 (Base point choice)</strong></p>
+
+<p>Check that the base point <code class="language-plaintext highlighter-rouge">B = (Bx, By)</code> with coordinates</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Bx = 5299619240641551281634865583518297030282874472190772894086521144482721001553
+By = 16950150798460657717958625567821834550301663161624707787222815936182638968203
+</code></pre></div></div>
+<p>is 8 times the generator point <code class="language-plaintext highlighter-rouge">G = (Gx, Gy)</code>, where</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Gx = 995203441582195749578291179787384436505546430278305826713579947235728471134
+Gy = 5472060717959818805561601436314318772137091100104008585924551046643952123905
+</code></pre></div></div>
+<p>That is, check that <code class="language-plaintext highlighter-rouge">B = 8 x G</code>.</p>
+
+<p><strong>Test 6 (Base point order)</strong></p>
+
+<p>Check that the base point <code class="language-plaintext highlighter-rouge">B = (Bx, By)</code> with coordinates</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Bx = 5299619240641551281634865583518297030282874472190772894086521144482721001553
+By = 16950150798460657717958625567821834550301663161624707787222815936182638968203
+</code></pre></div></div>
+<p>multiplied by <code class="language-plaintext highlighter-rouge">l</code>, where</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>l = 2736030358979909402780800718157159386076813972158567259200215660948447373041
+</code></pre></div></div>
+<p>results in the origin point <code class="language-plaintext highlighter-rouge">O = (0, 1)</code>. This test checks that the base point <code class="language-plaintext highlighter-rouge">B</code> has order <code class="language-plaintext highlighter-rouge">l</code>.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>Arithmetic of Baby Jubjub and some cryptographic primitives using the curve have already been implemented in different languages. Here are a few such implementations:</p>
+
+<ul>
+  <li>Python: https://github.com/barryWhiteHat/baby_jubjub_ecc</li>
+  <li>JavaScript: https://github.com/iden3/circomlib/blob/master/src/babyjub.js</li>
+  <li>Circuit (circom): https://github.com/iden3/circomlib/blob/master/circuits/babyjub.circom</li>
+  <li>Rust: https://github.com/arnaucube/babyjubjub-rs</li>
+  <li>Solidity: https://github.com/yondonfu/sol-baby-jubjub</li>
+  <li>Go: https://github.com/iden3/go-iden3-crypto/tree/master/babyjub</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

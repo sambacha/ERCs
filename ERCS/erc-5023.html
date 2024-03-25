@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Shareable Non-Fungible Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Shareable Non-Fungible Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5023" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5023" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Shareable Non-Fungible Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP standardizes an interface for non-fungible value-holding shareable tokens. Shareability is accomplished by minting copies of existing tokens for new recipients. Sharing and associated events allow the construction of a graph describing who has shared what to which party.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>NFT standards such as <a href="./eip-721.md">EIP-721</a> and <a href="./eip-1155.md">EIP-1155</a> have been developed to standardize scarce digital resources. However, many non-fungible digital resources need not be scarce.</p>
+
+<p>We have attempted to capture positive externalities in ecosystems with new types of incentive mechanisms that exhibit anti-rival logic, serve as an unit of accounting and function as medium of sharing. We envision that shareable tokens can work both as incentives but also as representations of items that are typically digital in their nature and gain more value as they are shared.</p>
+
+<p>These requirements have set us to define shareable NFTs and more specifically a variation of shareable NFTs called non-transferable shareable NFTs. These shareable NFTs can be “shared” in the same way digital goods can be shared, at an almost zero technical transaction cost. We have utilized them to capture anti-rival value in terms of accounting positive externalities in an economic system.</p>
+
+<p>Typical NFT standards such as EIP-721 and EIP-1155 do not define a sharing modality. Instead ERC standards define interfaces for typical rival use cases such as token minting and token transactions that the NFT contract implementations should fulfil. The ‘standard contract implementations’ may extend the functionalities of these standards beyond the definition of interfaces. The shareable tokens that we have designed and developed in our experiments are designed to be token standard compatible at the interface level. However the implementation of token contracts may contain extended functionalities to match the requirements of the experiments such as the requirement of ‘shareability’. In reflection to standard token definitions, shareability of a token could be thought of as re-mintability of an existing token to another party while retaining the original version of it.</p>
+
+<p>Sharing is an interesting concept as it can be thought and perceived in different ways. For example, when we talk about sharing we can think about it is as digital copying, giving a copy of a digital resource while retaining a version by ourselves. Sharing can also be fractional or sharing could be about giving rights to use a certain resource. The concept of shareability and the context of shareability can take different forms and one might use different types of implementatins for instances of shareable tokens. Hence we haven’t restricted that the interface should require any specific token type.</p>
+
+<p>Shareable tokens can be made non-transferable at the contract implementaiton level. Doing so, makes them shareable non-transferable tokens. In the reference implementation we have distilled a general case from our use cases that defines a shareable non-transferable NFTs using the shareable NFT interface.</p>
+
+<p>We believe that the wider audience should benefit from an abstraction level higher definition for shareability, such as this interface implementation, that defines minimum amount of functions that would be implemented to satisfy the concept of shareability.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">///  Note: the ERC-165 identifier for this interface is 0xded6338b
+</span><span class="k">interface</span> <span class="n">IERC5023</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+
+  <span class="c1">/// @dev This emits when a token is shared, reminted and given to another wallet that isn't function caller
+</span>  <span class="k">event</span> <span class="n">Share</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">derivedFromtokenId</span><span class="p">);</span>
+
+  <span class="c1">/// @dev Shares, remints an existing token, gives a newly minted token a fresh token id, keeps original token at function callers possession and transfers newly minted token to receiver which should be another address than function caller. 
+</span>  <span class="k">function</span> <span class="n">share</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenIdToBeShared</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">newTokenId</span><span class="p">);</span>
+
+<span class="p">}</span> 
+</code></pre></div></div>
+
+<p>The Share event is expected to be emitted when function method share is succesfully called and a new token on basis of a given token id is minted and transferred to a recipient.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Current NFT standards define transferable non-fungible tokens, but not shareable non-fungible tokens. To be able to create shareable NFTs we see that existing NFT contracts could be extended with an interface which defines the basic principles of sharing, namely the Event of sharing and the function method of sharing. Definition of how transferability of tokens should be handled is left to the contract implementor. In case transfering is left enable shareable tokens behave similarily to the existing tokens, except when they are shared, a version of token is retained. In case transfering is disabled, shareable tokens become shareable non-transferable tokens, where they can be minted and given or shared to other people, but they cannot be transferred away.</p>
+
+<p>Imagine that Bob works together with Alice on a project. Bob earns an unique NFT indicating that he has made effort to the project, but Bob feels that his accomplishments are not only out of his own accord. Bob wants to share his token with Alice to indicate that also Alice deserves recognition of having put effort on their project. Bob initiates token sharing by calling <code class="language-plaintext highlighter-rouge">Share</code> method on the contract which has his token and indicates which one of his tokens he wishes to share and to whom by passing address and token id parameters. A new token is minted for Alice and a <code class="language-plaintext highlighter-rouge">Share</code> event is initiated to communicate that it was Bob whom shared his token to Alice by logging addresses who shared a token id to whose address and which token id was this new token derived from.</p>
+
+<p>Over time, a tree-like structures can be formed from the Share event information. If Bob shared to Alice, and Alice shared further to Charlie and Alice also shared to David a rudimentary tree structure forms out from sharing activity. This share event data can be later on utilized to gain more information of share activities that the tokens represent.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>B -&gt; A -&gt; C 
+      \
+       &gt;  D
+</code></pre></div></div>
+
+<p>These tree structures can be further aggregated and collapsed to network representations e.g. social graphs on basis of whom has shared to whom over a span of time. E.g. if Bob shared a token to Alice, and Alice has shared a different token to Charlie and Bob has shared a token to Charlie, connections form between all these parties through sharing activities.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code> B----A----C         
+  \_______/
+</code></pre></div></div>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal is backwards compatible with EIP-721 and EIP-1155.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Following reference implementation demonstrates a general use case of one of our pilots. In this case a shareable non-transferable token represents a contribution done to a community that the contract owner has decided to merit with a token. Contract owner can mint a merit token and give it to a person. This token can be further shared by the receiver to other parties for example to share the received merit to others that have participated or influenced his contribution.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./IERC5023.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/IERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/Address.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/Context.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/Strings.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/introspection/ERC165.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/access/Ownable.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ShareableERC721</span> <span class="k">is</span> <span class="n">ERC721URIStorage</span><span class="p">,</span> <span class="n">Ownable</span><span class="p">,</span> <span class="n">IERC5023</span> <span class="cm">/* EIP165 */</span> <span class="p">{</span>
+
+  <span class="kt">string</span> <span class="n">baseURI</span><span class="p">;</span>
+
+  <span class="kt">uint256</span> <span class="k">internal</span> <span class="n">_currentIndex</span><span class="p">;</span>
+    
+  <span class="k">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">_name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">_symbol</span><span class="p">)</span> <span class="n">ERC721</span><span class="p">(</span><span class="n">_name</span><span class="p">,</span> <span class="n">_symbol</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="k">function</span> <span class="n">mint</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">account</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+        <span class="n">_mint</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">setTokenURI</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> 
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">tokenURI</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="n">_setTokenURI</span><span class="p">(</span><span class="n">tokenId</span><span class="p">,</span> <span class="n">tokenURI</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">setBaseURI</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">baseURI_</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="n">baseURI</span> <span class="o">=</span> <span class="n">baseURI_</span><span class="p">;</span>
+  <span class="p">}</span>
+    
+  <span class="k">function</span> <span class="n">_baseURI</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">baseURI</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">share</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenIdToBeShared</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">newTokenId</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">require</span><span class="p">(</span><span class="n">to</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">"ERC721: mint to the zero address"</span><span class="p">);</span>
+      <span class="nb">require</span><span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">tokenIdToBeShared</span><span class="p">),</span> <span class="s">"ShareableERC721: token to be shared must exist"</span><span class="p">);</span>
+      
+      <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenIdToBeShared</span><span class="p">),</span> <span class="s">"Method caller must be the owner of token"</span><span class="p">);</span>
+
+      <span class="kt">string</span> <span class="k">memory</span> <span class="n">_tokenURI</span> <span class="o">=</span> <span class="n">tokenURI</span><span class="p">(</span><span class="n">tokenIdToBeShared</span><span class="p">);</span>
+      <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">_currentIndex</span><span class="p">);</span>
+      <span class="n">_setTokenURI</span><span class="p">(</span><span class="n">_currentIndex</span><span class="p">,</span> <span class="n">_tokenURI</span><span class="p">);</span>
+
+      <span class="k">emit</span> <span class="n">Share</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">_currentIndex</span><span class="p">,</span> <span class="n">tokenIdToBeShared</span><span class="p">);</span>
+
+      <span class="k">return</span> <span class="n">_currentIndex</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="nb">revert</span><span class="p">(</span><span class="s">'In this reference implementation tokens are not transferrable'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">safeTransferFrom</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="nb">revert</span><span class="p">(</span><span class="s">'In this reference implementation tokens are not transferrable'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Reference implementation should not be used as is in production.
+There are no other security considerations related directly to implementation of this standard.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

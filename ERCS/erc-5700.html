@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Bindable Token Interface | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Bindable Token Interface | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5700" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5700" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Bindable Token Interface</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard defines an interface for <a href="./eip-721.md">ERC-721</a> or <a href="./eip-155.md">ERC-1155</a> tokens, known as “bindables”, to “bind” to <a href="./eip-721.md">ERC-721</a> NFTs.</p>
+
+<p>When bindable tokens “bind” to an NFT, even though their ownership is transferred to the NFT, the NFT owner may “unbind” the tokens and claim their ownership. This enables bindable tokens to transfer with their bound NFTs without extra cost, offering a more effective way to create and transfer N:1 token-to-NFT bundles. Until an NFT owner decides to unbind them, bound tokens stay locked and resume their base token functionalities after unbinding.</p>
+
+<p>This standard supports various use-cases such as:</p>
+
+<ul>
+  <li>NFT-bundled physical assets like microchipped streetwear, digitized car collections, and digitally twinned real estate.</li>
+  <li>NFT-bundled digital assets such as accessorizable virtual wardrobes, composable music tracks, and customizable metaverse land.</li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>A standard interface for NFT binding offers a seamless and efficient way to bundle and transfer tokens with NFTs, ensuring compatibility with wallets, marketplaces, and other NFT applications. It eliminates the need for rigid, implementation-specific strategies for token ownership.</p>
+
+<p>In contrast with other standards that deal with token ownership at the account level, this standard aims to address token ownership at the NFT level. Its objective is to build a universal interface for token bundling, compatible with existing <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a> standards.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<h3 id="erc-721-bindable">ERC-721 Bindable</h3>
+
+<p><strong>Smart contracts implementing the ERC-721 bindable standard MUST implement the <code class="language-plaintext highlighter-rouge">IERC721Bindable</code> interface.</strong></p>
+
+<p><strong>Implementers of the <code class="language-plaintext highlighter-rouge">IER721Bindable</code> interface MUST return <code class="language-plaintext highlighter-rouge">true</code> if <code class="language-plaintext highlighter-rouge">0x82a34a7d</code> is passed as the identifier to the <code class="language-plaintext highlighter-rouge">supportsInterface</code> function.</strong></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title ERC-721 Bindable Token Standard
+/// @dev See https://eips.ethereum.org/ERCS/eip-5700
+///  Note: the ERC-165 identifier for this interface is 0x82a34a7d.
+</span><span class="k">interface</span> <span class="n">IERC721Bindable</span> <span class="cm">/* is IERC721 */</span> <span class="p">{</span>
+
+    <span class="c1">/// @notice This event emits when an unbound token is bound to an NFT.
+</span>    <span class="c1">/// @param operator The address approved to perform the binding.
+</span>    <span class="c1">/// @param from The address of the unbound token owner.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFT being bound to.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being bound to.
+</span>    <span class="c1">/// @param tokenId The identifier of binding token.
+</span>    <span class="k">event</span> <span class="n">Bind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice This event emits when an NFT-bound token is unbound.
+</span>    <span class="c1">/// @param operator The address approved to perform the unbinding.
+</span>    <span class="c1">/// @param from The owner of the NFT the token is bound to.
+</span>    <span class="c1">/// @param to The address of the new unbound token owner.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFT being unbound from.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being unbound from.
+</span>    <span class="c1">/// @param tokenId The identifier of the unbinding token.
+</span>    <span class="k">event</span> <span class="n">Unbind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice Binds token `tokenId` to NFT `bindId` at address `bindAddress`.
+</span>    <span class="c1">/// @dev The function MUST throw unless `msg.sender` is the current owner, 
+</span>    <span class="c1">///  an authorized operator, or the approved address for the token. It also
+</span>    <span class="c1">///  MUST throw if the token is already bound or if `from` is not the token
+</span>    <span class="c1">///  owner. Finally, it MUST throw if the NFT contract does not support the
+</span>    <span class="c1">///  ERC-721 interface or if the NFT being bound to does not exist. Before 
+</span>    <span class="c1">///  binding, token ownership MUST be transferred to the contract address of
+</span>    <span class="c1">///  the NFT. On bind completion, the function MUST emit `Transfer` &amp; `Bind` 
+</span>    <span class="c1">///  events to reflect the implicit token transfer and subsequent bind.
+</span>    <span class="c1">/// @param from The address of the unbound token owner.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFT being bound to.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being bound to.
+</span>    <span class="c1">/// @param tokenId The identifier of the binding token.
+</span>    <span class="k">function</span> <span class="n">bind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Unbinds token `tokenId` from NFT `bindId` at address `bindAddress`.
+</span>    <span class="c1">/// @dev The function MUST throw unless `msg.sender` is the current owner, 
+</span>    <span class="c1">///  an authorized operator, or the approved address for the NFT the token
+</span>    <span class="c1">///  is bound to. It also MUST throw if the token is unbound, if `from` is
+</span>    <span class="c1">///  not the owner of the bound NFT, or if `to` is the zero address. After
+</span>    <span class="c1">///  unbinding, token ownership MUST be transferred to `to`, during which
+</span>    <span class="c1">///  the function MUST check if `to` is a valid contract (code size &gt; 0),
+</span>    <span class="c1">///  and if so, call `onERC721Received`, throwing if the wrong identifier is
+</span>    <span class="c1">///  returned. On unbind completion, the function MUST emit `Unbind` &amp;
+</span>    <span class="c1">///  `Transfer` events to reflect the unbind and subsequent transfer.
+</span>    <span class="c1">/// @param from The address of the owner of the NFT the token is bound to.
+</span>    <span class="c1">/// @param to The address of the unbound token new owner.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFT being unbound from.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being unbound from.
+</span>    <span class="c1">/// @param tokenId The identifier of the unbinding token.
+</span>    <span class="k">function</span> <span class="n">unbind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Gets the NFT address and identifier token `tokenId` is bound to.
+</span>    <span class="c1">/// @dev When the token is unbound, this function MUST return the zero
+</span>    <span class="c1">///  address for the address portion to indicate no binding exists.
+</span>    <span class="c1">/// @param tokenId The identifier of the token being queried.
+</span>    <span class="c1">/// @return The token-bound NFT contract address and numerical identifier.
+</span>    <span class="k">function</span> <span class="n">binderOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Gets total tokens bound to NFT `bindId` at address `bindAddress`.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFT being queried.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being queried.
+</span>    <span class="c1">/// @return The total number of tokens bound to the queried NFT.
+</span>    <span class="k">function</span> <span class="n">boundBalanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">bindAddress</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<h3 id="erc-1155-bindable">ERC-1155 Bindable</h3>
+
+<p><strong>Smart contracts implementing the ERC-1155 Bindable standard MUST implement the <code class="language-plaintext highlighter-rouge">IERC1155Bindable</code> interface.</strong></p>
+
+<p><strong>Implementers of the <code class="language-plaintext highlighter-rouge">IER1155Bindable</code> interface MUST return <code class="language-plaintext highlighter-rouge">true</code> if <code class="language-plaintext highlighter-rouge">0xd0d55c6</code> is passed as the identifier to the <code class="language-plaintext highlighter-rouge">supportsInterface</code> function.</strong></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @title ERC-1155 Bindable Token Standard
+/// @dev See https://eips.ethereum.org/ERCS/eip-5700
+///  Note: the ERC-165 identifier for this interface is 0xd0d555c6.
+</span><span class="k">interface</span> <span class="n">IERC1155Bindable</span> <span class="cm">/* is IERC1155 */</span> <span class="p">{</span>
+
+    <span class="c1">/// @notice This event emits when token(s) are bound to an NFT.
+</span>    <span class="c1">/// @param operator The address approved to perform the binding.
+</span>    <span class="c1">/// @param from The owner address of the unbound tokens.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFT being bound to.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being bound to.
+</span>    <span class="c1">/// @param tokenId The identifier of the binding token type.
+</span>    <span class="c1">/// @param amount The number of tokens binding to the NFT.
+</span>    <span class="k">event</span> <span class="n">Bind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice This event emits when token(s) of different types are bound to an NFT.
+</span>    <span class="c1">/// @param operator The address approved to perform the batch binding.
+</span>    <span class="c1">/// @param from The owner address of the unbound tokens.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFTs being bound to.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being bound to.
+</span>    <span class="c1">/// @param tokenIds The identifiers of the binding token types.
+</span>    <span class="c1">/// @param amounts The number of tokens per type binding to the NFTs.
+</span>    <span class="k">event</span> <span class="n">BindBatch</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="n">amounts</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice This event emits when token(s) are unbound from an NFT.
+</span>    <span class="c1">/// @param operator The address approved to perform the unbinding.
+</span>    <span class="c1">/// @param from The owner address of the NFT the tokens are bound to.
+</span>    <span class="c1">/// @param to The address of the unbound tokens' new owner.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFT being unbound from.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being unbound from.
+</span>    <span class="c1">/// @param tokenId The identifier of the unbinding token type.
+</span>    <span class="c1">/// @param amount The number of tokens unbinding from the NFT.
+</span>    <span class="k">event</span> <span class="n">Unbind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice This event emits when token(s) of different types are unbound from an NFT.
+</span>    <span class="c1">/// @param operator The address approved to perform the batch binding.
+</span>    <span class="c1">/// @param from The owner address of the unbound tokens.
+</span>    <span class="c1">/// @param to The address of the unbound tokens' new owner.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFTs being unbound from.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being unbound from.
+</span>    <span class="c1">/// @param tokenIds The identifiers of the unbinding token types.
+</span>    <span class="c1">/// @param amounts The number of tokens per type unbinding from the NFTs.
+</span>    <span class="k">event</span> <span class="n">UnbindBatch</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="n">amounts</span>
+    <span class="p">);</span>
+
+    <span class="c1">/// @notice Binds `amount` tokens of `tokenId` to NFT `bindId` at address `bindAddress`.
+</span>    <span class="c1">/// @dev The function MUST throw unless `msg.sender` is an approved operator
+</span>    <span class="c1">///  for `from`. It also MUST throw if the `from` owns fewer than `amount`
+</span>    <span class="c1">///  tokens. Finally, it MUST throw if the NFT contract does not support the
+</span>    <span class="c1">///  ERC-721 interface or if the NFT being bound to does not exist. Before 
+</span>    <span class="c1">///  binding, tokens MUST be transferred to the contract address of the NFT. 
+</span>    <span class="c1">///  On bind completion, the function MUST emit `Transfer` &amp; `Bind` events 
+</span>    <span class="c1">///  to reflect the implicit token transfers and subsequent bind.
+</span>    <span class="c1">/// @param from The owner address of the unbound tokens.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFT being bound to.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being bound to.
+</span>    <span class="c1">/// @param tokenId The identifier of the binding token type.
+</span>    <span class="c1">/// @param amount The number of tokens binding to the NFT.
+</span>    <span class="k">function</span> <span class="n">bind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Binds `amounts` tokens of `tokenIds` to NFT `bindId` at address `bindAddress`.
+</span>    <span class="c1">/// @dev The function MUST throw unless `msg.sender` is an approved operator
+</span>    <span class="c1">///  for `from`. It also MUST throw if the length of `amounts` is not the 
+</span>    <span class="c1">///  same as `tokenIds`, or if any balances of `tokenIds` for `from` is less
+</span>    <span class="c1">///  than that of `amounts`. Finally, it MUST throw if the NFT contract does 
+</span>    <span class="c1">///  not support the ERC-721 interface or if the bound NFT does not exist. 
+</span>    <span class="c1">///  Before binding, tokens MUST be transferred to the contract address of 
+</span>    <span class="c1">///  the NFT. On bind completion, the function MUST emit `TransferBatch` and
+</span>    <span class="c1">///  `BindBatch` events to reflect the batch token transfers and bind.
+</span>    <span class="c1">/// @param from The owner address of the unbound tokens.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFTs being bound to.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being bound to.
+</span>    <span class="c1">/// @param tokenIds The identifiers of the binding token types.
+</span>    <span class="c1">/// @param amounts The number of tokens per type binding to the NFTs.
+</span>    <span class="k">function</span> <span class="n">batchBind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">amounts</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Unbinds `amount` tokens of `tokenId` from NFT `bindId` at address `bindAddress`.
+</span>    <span class="c1">/// @dev The function MUST throw unless `msg.sender` is an approved operator
+</span>    <span class="c1">///  for `from`. It also MUST throw if `from` is not the owner of the bound
+</span>    <span class="c1">///  NFT, if the NFT's token balance is fewer than `amount`, or if `to` is 
+</span>    <span class="c1">///  the zero address. After unbinding, tokens MUST be transferred to `to`,
+</span>    <span class="c1">///  during which the function MUST check if `to` is a valid contract (code 
+</span>    <span class="c1">///  size &gt; 0), and if so, call `onERC1155Received`, throwing if the wrong \
+</span>    <span class="c1">///  identifier is returned. On unbind completion, the function MUST emit 
+</span>    <span class="c1">///  `Unbind` &amp; `Transfer` events to reflect the unbind and transfers.
+</span>    <span class="c1">/// @param from The owner address of the NFT the tokens are bound to.
+</span>    <span class="c1">/// @param to The address of the unbound tokens' new owner.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFT being unbound from.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being unbound from.
+</span>    <span class="c1">/// @param tokenId The identifier of the unbinding token type.
+</span>    <span class="c1">/// @param amount The number of tokens unbinding from the NFT.
+</span>    <span class="k">function</span> <span class="n">unbind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Unbinds `amount` tokens of `tokenId` from NFT `bindId` at address `bindAddress`.
+</span>    <span class="c1">/// @dev The function MUST throw unless `msg.sender` is an approved operator
+</span>    <span class="c1">///  for `from`. It also MUST throw if the length of `amounts` is not the
+</span>    <span class="c1">///  same as `tokenIds`, if any balances of `tokenIds` for the NFT is less 
+</span>    <span class="c1">///  than that of `amounts`, or if `to` is the zero addresss. After 
+</span>    <span class="c1">///  unbinding, tokens MUST be transferred to `to`, during which the 
+</span>    <span class="c1">///  function MUST check if `to` is a valid contract (code size &gt; 0), and if 
+</span>    <span class="c1">///  so, call `onERC1155BatchReceived`, throwing if the wrong identifier is 
+</span>    <span class="c1">///  returned. On unbind completion, the function MUST emit `UnbindBatch` &amp; 
+</span>    <span class="c1">///  `TransferBatch` events to reflect the batch unbind and transfers.
+</span>    <span class="c1">/// @param from The owner address of the unbound tokens.
+</span>    <span class="c1">/// @param to The address of the unbound tokens' new owner.
+</span>    <span class="c1">/// @param bindAddress The contract address of the NFTs being unbound from.
+</span>    <span class="c1">/// @param bindId The identifier of the NFT being unbound from.
+</span>    <span class="c1">/// @param tokenIds The identifiers of the unbinding token types.
+</span>    <span class="c1">/// @param amounts The number of tokens per type unbinding from the NFTs.
+</span>    <span class="k">function</span> <span class="n">batchUnbind</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">tokenIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">amounts</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Gets the number of tokens of type `tokenId` bound to NFT `bindId` at address `bindAddress`.
+</span>    <span class="c1">/// @param bindAddress The contract address of the bound NFT.
+</span>    <span class="c1">/// @param bindId The identifier of the bound NFT.
+</span>    <span class="c1">/// @param tokenId The identifier of the token type bound to the NFT.
+</span>    <span class="c1">/// @return The number of tokens of type `tokenId` bound to the NFT.
+</span>    <span class="k">function</span> <span class="n">boundBalanceOf</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">bindId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="c1">/// @notice Gets the number of tokens of types `bindIds` bound to NFTs `bindIds` at address `bindAddress`.
+</span>    <span class="c1">/// @param bindAddress The contract address of the bound NFTs.
+</span>    <span class="c1">/// @param bindIds The identifiers of the bound NFTs.
+</span>    <span class="c1">/// @param tokenIds The identifiers of the token types bound to the NFTs.
+</span>    <span class="c1">/// @return balances The bound balances for each token type / NFT pair.
+</span>    <span class="k">function</span> <span class="n">boundBalanceOfBatch</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">bindAddress</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">bindIds</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">tokenIds</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">balances</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>A standard for token binding unlocks a new layer of composability for allowing wallets, applications, and protocols to interact with, trade, and display bundled NFTs. One example use-case of this is at Dopamine, where streetwear garments may be bundled with digital assets such as music, avatars, or digital-twins of the garments, by representing these assets as bindable tokens and binding them to microchips represented as NFTs.</p>
+
+<h3 id="binding-mechanism">Binding Mechanism</h3>
+
+<p>During binding, a bindable token’s technical ownership is conferred to its bound NFT, while allowing the NFT owner to unbind at any time. A caveat of this lightweight design is that applications that have yet to adopt this standard will not show the bundled tokens as owned by the NFT owner.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>The bindable token interface is designed to be compatible with existing ERC-721 and ERC-1155 standards.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<ul>
+  <li><a href="../assets/eip-5700/erc721/ERC721Bindable.sol">ERC-721 Bindable</a>.</li>
+  <li><a href="../assets/eip-5700/erc1155/ERC1155Bindable.sol">ERC-1155 Bindable</a>.</li>
+</ul>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>During binding, because ownership is conferred to the bound NFT contract, implementations should take caution in ensuring unbinding may only be performed by the designated NFT owner.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>OIDC ZK Verifier for AA Account | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="OIDC ZK Verifier for AA Account | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7522" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7522" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">OIDC ZK Verifier for AA Account</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>Account Abstraction facilitates new use cases for smart accounts, empowering users with the ability to tailor authentication and recovery mechanisms to their specific needs. To unlock the potential for more convenient verification methods such as social login, we inevitably need to connect smart accounts and OpenID Connect(OIDC), given its status as the most widely accepted authentication protocol. In this EIP, we proposed a <a href="./eip-4337.md">ERC-4337</a> compatible OIDC ZK verifier. Users can link their ERC-4337 accounts with OIDC identities and authorize an OIDC verifier to validate user operations by verifying the linked OIDC identity on-chain.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Connecting OIDC identity and smart accounts has been a very interesting but challenging problem. Verifying an OIDC issued IdToken is simple. IdToken are usually in the form of JWT and for common JWTs, they usually consist of three parts, a header section, a claim section and a signature section. The user claimed identity shall be included in the claim section and the signature section is usually an RSA signature of a well-known public key from the issuer against the hash of the combination of the header and claim section.</p>
+
+<p>The most common way of tackling the issue is by utilizing Multi-Party Computation(MPC). However, the limitation of the MPC solution is obvious. First, it relies on a third-party service to sign and aggregate the signature which introduces centralization risk such as single point of failure and vendor lock-in. Second, it leads to privacy concerns, since the separation between the users’ Web2 identity to their Web3 address can not be cryptographically guaranteed.</p>
+
+<p>All these problems could be solved by ZK verification. Privacy will be guaranteed as the connection between Web2 identity and the Web3 account will be hidden. The ZK proof generation process is completely decentralized since it can be done on the client side without involving any third-party service. ZK proofs aggregation has also proven to be viable and paves the way for cheaper verification cost at scale.</p>
+
+<p>In this EIP, we propose a new model to apply OIDC ZK verification to ERC-4337 account validation. We also define a minimal set of functions of the verifier as well as the input of the ZK proof to unify the interface for different ZK implementations. Now one can link its ERC-4337 account with an OIDC identity and use the OpenID ZK verifier to validate user operations. Due to the high cost of ZK verification, one common use case is to use the verifier as the guardian to recover the account owner if the owner key is lost or stolen. One may set multiple OIDC identities(e.g. Google Account, Facebook Account) as guardians to minimize the centralization risk introduced by the identity provider.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<h3 id="definitions">Definitions</h3>
+
+<p><strong>Identity Provider(IDP)</strong>: The service to authenticate users and provide signed ID token</p>
+
+<p><strong>User</strong>: The client to authenticate users and generate the ZK proof</p>
+
+<p><strong>ZK Aggregrator</strong>: The offchain service to aggregate ZK proof from multiple users</p>
+
+<p><strong>OpenIdZkVerifier</strong>: The on-chain contract to verify the ZK proof</p>
+
+<p>The <strong>EntryPoint</strong>, <strong>Aggregator</strong> and <strong>AA Account</strong> are defined at ERC-4337.</p>
+
+<h3 id="example-flow">Example Flow</h3>
+
+<p><img src="../assets/eip-7522/workflow.png" alt="The example workflow" /></p>
+
+<h3 id="interface">Interface</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct OpenIdZkProofPublicInput {
+    bytes32 jwtHeaderAndPayloadHash;
+    bytes32 userIdHash;
+    uint256 expirationTimestamp;
+    bytes jwtSignature;
+}
+
+interface IOpenIdZkVerifier {
+    // @notice get verification key of the open id authenticator
+    function getVerificationKeyOfIdp() external view returns(bytes memory);
+ 
+    // @notice get id hash of account
+    function getIdHash(address account) external view returns(bytes32);
+
+    // @notice the function verifies the proof and given a user op
+    // @params op: the user operation defined by ERC-4337
+    //         input: the zk proof input with JWT info to prove
+    //         proof: the generated ZK proof for input and op
+    function verify(
+        UserOp memory op,
+        OpenIdZkProofPublicInput input,
+        bytes memory proof
+    ) external;
+
+    // @notice the function verifies the aggregated proof give a list of user ops
+    // @params ops: a list of user operations defined by ERC-4337
+    //         inputs: a list of zk proof input with JWT info to prove
+    //         aggregatedProof: the aggregated ZK proof for inputs and ops
+    function verifyAggregated(
+        UserOp[] memory ops,
+        OpenIdZkProofPublicInput[] memory inputs,
+        bytes memory aggregatedProof
+    ) external;
+}
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>To verify identity ownership on-chain, <strong>IOpenIdVerifier</strong> needs at least three pieces of information:</p>
+
+<ol>
+  <li>
+    <p>the user ID to identify the user in the IDP. The <strong>getIdHash</strong> function returns the hash of the user id given smart account address. There may be multiple smart accounts linked to the same user ID.</p>
+  </li>
+  <li>
+    <p>the public key of the key pair used by identity provider to sign ID token. It is provided by the <strong>getVerificationKeyOfIdp</strong> function.</p>
+  </li>
+  <li>
+    <p>the ZK proof to verify the OIDC identity. The verification is done by the <strong>verify</strong> function. Besides the proof, the function takes two extra params: the user operation to execute and the public input to prove. The <strong>verifyAggregated</strong> is similar to the <strong>verify</strong> function but with a list of input and ops as parameters</p>
+  </li>
+</ol>
+
+<p>The <strong>OpenIdZkProofPublicInput</strong> struct must contain the following fields:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>jwtHeaderAndPayloadHash</td>
+      <td>the hash of the JWT header plus payload</td>
+    </tr>
+    <tr>
+      <td>userIdHash</td>
+      <td>the hash of the user id, the user id should present as value of one claim</td>
+    </tr>
+    <tr>
+      <td>expirationTimestamp</td>
+      <td>the expiration time of the JWT, which could be value of “exp” claim</td>
+    </tr>
+    <tr>
+      <td>jwtSignature</td>
+      <td>the signature of the JWT</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We didn’t include the verification key and the user operation hash in the struct because we assume the public key could be provided by <strong>getVerificationKeyOfIdp</strong> function and the user operation hash could be calculated from the raw user operation passed in.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The proof must verify the <em>expirationTimestamp</em> to prevent replay attacks. <strong>expirationTimestamp</strong> should be incremental and could be the <strong>exp</strong> field in JWT payload. The proof must verify the user operation to prevent front running attacks. The proof must verify the <strong>userIdHash</strong>. The verifier must verify that the sender from each user operation is linked to the user ID hash via the <strong>getIdHash</strong> function.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via CC0.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

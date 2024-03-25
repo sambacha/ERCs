@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Upgradable Fungible Token | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Upgradable Fungible Token | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6864" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6864" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Upgradable Fungible Token</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal outlines a smart contract interface for upgrading/downgrading existing <a href="./eip-20.md">ERC-20</a> smart contracts while maintaining user balances. The interface itself is an extension to the ERC-20 standard so that other smart contracts can continue to interact with the upgraded smart contract without changing anything other than the address.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>By design, smart contracts are immutable and token standards like ERC-20 are minimalistic. While these design principles are fundamental in decentalized applications, there are sensible and practical situations where the ability to upgrade an ERC-20 token is desirable, such as:</p>
+
+<ul>
+  <li>to address bugs and remove limitations</li>
+  <li>to adopt new features and standards</li>
+  <li>to comply w/ changing regulations</li>
+</ul>
+
+<p>Proxy pattern using <code class="language-plaintext highlighter-rouge">delegatecall</code> opcode offers a reasonable, generalized solution to reconcile the immutability and upgradability features but has its own shortcomings:</p>
+
+<ul>
+  <li>the smart contracts must support proxy pattern from the get go, i.e. it cannot be used on contracts that were not deployed with proxies</li>
+  <li>upgrades are silent and irreversible, i.e. users do not have the option to opt-out</li>
+</ul>
+
+<p>In contrast, by reducing the scope to specifically ERC-20 tokens, this proposal standardizes an ERC-20 extension that works with any existing or future ERC-20 smart contracts, is much simpler to implement and to maintain, can be reversed or nested, and offers a double confirmation opportunity for any and all users to explicitly opt-in on the upgrade.</p>
+
+<p><a href="./eip-4931.md">ERC-4931</a> attepts to address the same problem by introducing a third “bridge” contract to help facilitate the upgrade/downgrade operations. While this design decouples upgrade/downgrade logic from token logic, ERC-4931 would require tokens to be pre-minted at the destination smart contract and owned by the bridge contrtact rather then just-in-time when upgrade is invoked. It also would not be able to support upgrade-while-transfer and see-through functions as described below.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="cm">/**
+    @title Upgradable Fungible Token
+    @dev See https://eips.ethereum.org/EIPS/eip-6864
+ */</span>
+<span class="k">interface</span> <span class="n">IERC6864</span> <span class="k">is</span> <span class="n">IERC20</span> <span class="p">{</span>
+    <span class="cm">/**
+      @dev MUST be emitted when tokens are upgraded
+      @param from Previous owner of base ERC-20 tokens
+      @param to New owner of ERC-6864 tokens
+      @param amount The amount that is upgraded
+    */</span>
+    <span class="k">event</span> <span class="n">Upgrade</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+
+    <span class="cm">/**
+      @dev MUST be emitted when tokens are downgraded
+      @param from Previous owner of ERC-6864 tokens
+      @param to New owner of base ERC-20 tokens
+      @param amount The amount that is downgraded
+    */</span>
+    <span class="k">event</span> <span class="n">Downgrade</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+
+    <span class="cm">/**
+      @notice Upgrade `amount` of base ERC-20 tokens owned by `msg.sender` to ERC-6864 tokens under `to`
+      @dev `msg.sender` must directly own sufficient base ERC-20 tokens
+      MUST revert if `to` is the zero address
+      MUST revert if `msg.sender` does not directly own `amount` or more of base ERC-20 tokens
+      @param to The address to receive ERC-6864 tokens
+      @param amount The amount of base ERC-20 tokens to upgrade
+    */</span>
+    <span class="k">function</span> <span class="n">upgrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+      @notice Downgrade `amount` of ERC-6864 tokens owned by `from` to base ERC-20 tokens under `to`
+      @dev `msg.sender` must either directly own or be approved to spend sufficient ERC-6864 tokens for `from`
+      MUST revert if `to` is the zero address
+      MUST revert if `from` does not directly own `amount` or more of ERC-6864 tokens
+      MUST revret if `msg.sender` is not `from` and is not approved to spend `amount` or more of ERC-6864 tokens for `from`
+      @param from The address to release ERC-6864 tokens
+      @param to The address to receive base ERC-20 tokens
+      @param amount The amount of ERC-6864 tokens to downgrade
+    */</span>
+    <span class="k">function</span> <span class="n">downgrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+      @notice Get the base ERC-20 smart contract address
+      @return The address of the base ERC-20 smart contract
+    */</span>
+    <span class="k">function</span> <span class="n">baseToken</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="see-through-extension">See-through Extension</h3>
+
+<p>The <strong>see-through extension</strong> is OPTIONAL. It allows for easy viewing of combined states between this <a href="./eip-6864.md">ERC-6864</a> and base ERC-20 smart contracts.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC6864SeeThrough</span> <span class="k">is</span> <span class="n">IERC6864</span> <span class="p">{</span>
+  <span class="cm">/**
+    @notice Get the combined total token supply between this ERC-6864 and base ERC-20 smart contracts
+    @return The combined total token supply
+  */</span>
+  <span class="k">function</span> <span class="n">combinedTotalSupply</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+  <span class="cm">/**
+    @notice Get the combined token balance of `account` between this ERC-6864 and base ERC-20 smart contracts
+    @param account The address that owns the tokens
+    @return The combined token balance
+  */</span>
+  <span class="k">function</span> <span class="n">combinedBalanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+  <span class="cm">/**
+    @notice Get the combined allowance that `spender` is allowed to spend for `owner` between this ERC-6864 and base ERC-20 smart contracts
+    @param owner The address that owns the tokens
+    @param spender The address that is approve to spend the tokens
+    @return The combined spending allowance
+  */</span>
+  <span class="k">function</span> <span class="n">combinedAllowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="extending-erc-20-standard">Extending ERC-20 standard</h3>
+
+<p>The goal of this proposal is to upgrade without affecting user balances, therefore leveraging existing data structure and methods is the path of the least engineering efforts as well as the most interoperability.</p>
+
+<h3 id="supporting-downgrade">Supporting downgrade</h3>
+
+<p>The ability to downgrade makes moving between multiple IERC-6864 implementations on the same base ERC-20 smart contract possible. It also allows a way out should bugs or limitations discovered on ERC-6864 smart contract, or the user simply changes his or her mind.</p>
+
+<h3 id="optional-see-through-extension">Optional see-through extension</h3>
+
+<p>While these functions are useful in many situations, they are trivial to implement and results can be calculated via other public functions, hence the decision to include them in an optional extension rather than the core interface.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>ERC-6864 is generally compatible with the ERC-20 standard. The only caveat is that some smart contracts may opt to implement <code class="language-plaintext highlighter-rouge">transfer</code> to work with the entire combined balance (this reduces user friction, see reference implementation) rather than the standard <code class="language-plaintext highlighter-rouge">balanceOf</code> amount. In this case it is RECOMMENDED that such contract to implement <code class="language-plaintext highlighter-rouge">totalSupply</code> and <code class="language-plaintext highlighter-rouge">balanceOf</code> to return combined amount between this ERC-6864 and base ERC-20 smart contracts</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="n">IERC20</span><span class="p">,</span> <span class="n">ERC20</span><span class="p">}</span> <span class="n">from</span> <span class="s">"@openzeppelin-contracts/token/ERC20/ERC20.sol"</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ERC6864</span> <span class="k">is</span> <span class="n">IERC6864</span><span class="p">,</span> <span class="n">ERC20</span> <span class="p">{</span>
+  <span class="n">IERC20</span> <span class="k">private</span> <span class="kr">immutable</span> <span class="n">s_baseToken</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol</span><span class="p">,</span> <span class="kt">address</span> <span class="n">baseToken_</span><span class="p">)</span> <span class="n">ERC20</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">s_baseToken</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">baseToken_</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">baseToken</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="n">s_baseToken</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">upgrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">from</span> <span class="o">=</span> <span class="n">_msgSender</span><span class="p">();</span>
+
+        <span class="n">s_baseToken</span><span class="p">.</span><span class="n">transferFrom</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">amount</span><span class="p">);</span>
+        <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+
+        <span class="k">emit</span> <span class="n">Upgrade</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">downgrade</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">spender</span> <span class="o">=</span> <span class="n">_msgSender</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">from</span> <span class="o">!=</span> <span class="n">spender</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">_spendAllowance</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">spender</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">_burn</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+        <span class="n">s_baseToken</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+
+        <span class="k">emit</span> <span class="n">Downgrade</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">address</span> <span class="n">from</span> <span class="o">=</span> <span class="n">_msgSender</span><span class="p">();</span>
+        <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">balanceOf</span><span class="p">(</span><span class="n">from</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">balance</span> <span class="o">&lt;</span> <span class="n">amount</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">upgrade</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">amount</span> <span class="o">-</span> <span class="nb">balance</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">_transfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">totalSupply</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">return</span> <span class="nb">super</span><span class="p">.</span><span class="n">totalSupply</span><span class="p">()</span> <span class="o">+</span> <span class="n">s_baseToken</span><span class="p">.</span><span class="n">totalSupply</span><span class="p">()</span> <span class="o">-</span> <span class="n">s_baseToken</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">account</span><span class="p">)</span> <span class="o">+</span> <span class="n">s_baseToken</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">account</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<ul>
+  <li>User who opts to upgrade base ERC-20 tokens must first <code class="language-plaintext highlighter-rouge">approve</code> the ERC-6864 smart contract to spend them. Therefore it’s the user’s responsibility to verify that the ERC-6864 smart contract is sound and secure, and the amount that he or she is approving is approperiate. This represents the same security considerations as with any <code class="language-plaintext highlighter-rouge">approve</code> operation.</li>
+  <li>The ERC-6864 smart contract may implement any conversion function for upgrade/downgrade as approperiate: 1-to-1, linear, non-linear. In the case of a non-linear conversion function, <code class="language-plaintext highlighter-rouge">upgrade</code> and <code class="language-plaintext highlighter-rouge">downgrade</code> may be vulnerable for front running or sandwich attacks (whether or not to the attacker’s benefit). This represents the same security considerations as with any automated market maker (AMM) that uses a similar non-linear curve for conversion.</li>
+  <li>The ERC-6864 smart contract may ask user to approve unlimited allowance and/or attempt to automatically upgrade during <code class="language-plaintext highlighter-rouge">transfer</code> (see reference implementation). This removes the chance for user to triple confirm his or her intension to upgrade (<code class="language-plaintext highlighter-rouge">approve</code> being the double confirmation).</li>
+  <li>Multiple IERC-6864 implementations can be applied to the same base ERC-20 token, and ERC-6864 smart contracts can be nested. This would increase token complexity and may cause existing dashboards to report incorrect or inconsistent results.</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

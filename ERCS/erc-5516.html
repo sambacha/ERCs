@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Soulbound Multi-owner Tokens | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Soulbound Multi-owner Tokens | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5516" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5516" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Soulbound Multi-owner Tokens</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+<p>This EIP proposes a standard interface for non-fungible double signature Soulbound multi-tokens. Previous account-bound token standards face the issue of users losing their account keys or having them rotated, thereby losing their tokens in the process. This EIP provides a solution to this issue that allows for the recycling of SBTs.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>This EIP was inspired by the main characteristics of the <a href="./eip-1155.md">EIP-1155</a> token and by articles in which benefits and potential use cases of Soulbound/Accountbound Tokens (SBTs) were presented. 
+This design also allows for batch token transfers, saving on transaction costs. Trading of multiple tokens can be built on top of this standard and it removes the need to approve individual token contracts separately. It is also easy to describe and mix multiple fungible or non-fungible token types in a single contract.</p>
+
+<h3 id="characteristics">Characteristics</h3>
+<ul>
+  <li>The NFT will be non-transferable after the initial transfer</li>
+  <li>Partially compatible with <a href="./eip-1155.md">EIP-1155</a></li>
+  <li>Double Signature</li>
+  <li>Multi-Token</li>
+  <li>Multi-Owner</li>
+  <li>Semi-Fungible</li>
+</ul>
+
+<h3 id="applications">Applications</h3>
+<ul>
+  <li>Academic Degrees</li>
+  <li>Code audits</li>
+  <li>POAPs (Proof of Attendance Protocol NFTs)</li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p><strong>Smart contracts implementing this EIP MUST implement all of the functions in the <code class="language-plaintext highlighter-rouge">EIP-5516</code> interface.</strong></p>
+
+<p><strong>Smart contracts implementing this EIP MUST implement the <a href="./eip-165.md">EIP-165</a> <code class="language-plaintext highlighter-rouge">supportsInterface</code> function and and MUST return the constant value <code class="language-plaintext highlighter-rouge">true</code> if <code class="language-plaintext highlighter-rouge">0x8314f22b</code> is passed through the <code class="language-plaintext highlighter-rouge">interfaceID</code> argument. They also MUST implement the <a href="./eip-1155.md">EIP-1155</a> Interface and MUST return the constant value <code class="language-plaintext highlighter-rouge">true</code> if <code class="language-plaintext highlighter-rouge">0xd9b67a26</code> is passed through the <code class="language-plaintext highlighter-rouge">interfaceID</code> argument. Furthermore, they MUST implement the <a href="./eip-1155.md">EIP-1155</a> Metadata interface, and MUST return the constant value <code class="language-plaintext highlighter-rouge">true</code> if <code class="language-plaintext highlighter-rouge">0x0e89341c</code> is passed through the <code class="language-plaintext highlighter-rouge">interfaceID</code> argument.</strong></p>
+
+<p><em>See <a href="./eip-1155.md#specification">EIP-1155</a></em></p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span>
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+
+<span class="cm">/**
+    @title Soulbound, Multi-Token standard.
+    @notice Interface of the EIP-5516
+    Note: The ERC-165 identifier for this interface is 0x8314f22b.
+ */</span>
+
+<span class="k">interface</span> <span class="n">IERC5516</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Emitted when `account` claims or rejects pending tokens under `ids[]`.
+     */</span>
+    <span class="k">event</span> <span class="n">TokenClaimed</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">account</span><span class="p">,</span>
+        <span class="kt">bool</span><span class="p">[]</span> <span class="n">actions</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="n">ids</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Emitted when `from` transfers token under `id` to every address at `to[]`.
+     */</span>
+    <span class="k">event</span> <span class="n">TransferMulti</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">id</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Get tokens owned by a given address.
+     */</span>
+    <span class="k">function</span> <span class="n">tokensFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Get tokens awaiting to be claimed by a given address.
+     */</span>
+    <span class="k">function</span> <span class="n">pendingFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Claims or Reject pending `id`.
+     *
+     * Requirements:
+     * - `account` must have a pending token under `id` at the moment of call.
+     * - `account` must not own a token under `id` at the moment of call.
+     *
+     * Emits a {TokenClaimed} event.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">claimOrReject</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">account</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">id</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">action</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Claims or Reject pending tokens under `ids[]`.
+     *
+     * Requirements for each `id` `action` pair:
+     * - `account` must have a pending token under `id` at the moment of call.
+     * - `account` must not own a token under `id` at the moment of call.
+     *
+     * Emits a {TokenClaimed} event.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">claimOrRejectBatch</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">account</span><span class="p">,</span>
+        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">ids</span><span class="p">,</span>
+        <span class="kt">bool</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">actions</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Transfers `id` token from `from` to every address at `to[]`.
+     *
+     * Requirements:
+     *
+     * - `from` MUST be the creator(minter) of `id`.
+     * - All addresses in `to[]` MUST be non-zero.
+     * - All addresses in `to[]` MUST have the token `id` under `_pendings`.
+     * - All addresses in `to[]` MUST not own a token type under `id`.
+     *
+     * Emits a {TransfersMulti} event.
+     *
+     */</span>
+    <span class="k">function</span> <span class="n">batchTransfer</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">id</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+    
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="sbt-as-an-extension-of-eip-1155">SBT as an extension of EIP-1155</h3>
+<p>We believe that Soulbound Tokens serve as a specialized subset of existing <a href="./eip-1155.md">EIP-1155</a> tokens. The advantage of such a design is the seamless compatibility of SBTs with existing NFT services. Service providers can treat SBTs like NFTs and do not need to make drastic changes to their existing codebase.</p>
+
+<p>Making the standard mostly compatible with <a href="./eip-1155.md">EIP-1155</a> also allows for SBTs to bind to multiple addresses and to Smart Contracts.</p>
+
+<h3 id="double-signature">Double-Signature</h3>
+<p>The Double-Signature functionality was implemented to prevent the receipt of unwanted tokens. It symbolizes a handshake between the token receiver and sender, implying that <strong>both</strong> parties agree on the token transfer.</p>
+
+<h3 id="metadata">Metadata.</h3>
+<p>The <a href="./eip-1155.md#metadata">EIP-1155</a> Metadata Interface was implemented for further compatibility with <a href="./eip-1155.md">EIP-1155</a>.</p>
+
+<h3 id="guaranteed-log-trace">Guaranteed log trace</h3>
+<blockquote>
+  <p>As the Ethereum ecosystem continues to grow, many DApps are relying on traditional databases and explorer API services to retrieve and categorize data. The EIP-1155 standard guarantees that event logs emitted by the smart contract will provide enough data to create an accurate record of all current token balances. A database or explorer may listen to events and be able to provide indexed and categorized searches of every EIP-1155 token in the contract.</p>
+</blockquote>
+
+<p><em>Quoted from <a href="./eip-1155.md#guaranteed-log-trace">EIP-1155</a></em></p>
+
+<p>This EIP extends this concept to the Double Signature functionality: The <code class="language-plaintext highlighter-rouge">{TokenClaimed}</code> event logs all the necessary information of a <code class="language-plaintext highlighter-rouge">ClaimOrReject(...)</code> or <code class="language-plaintext highlighter-rouge">ClaimOrRejectBatch(...)</code> function call, storing relevant information about the actions performed by the user. This also applies to the <code class="language-plaintext highlighter-rouge">batchTransfer(...)</code> function: It emits the <code class="language-plaintext highlighter-rouge">{TransferMulti}</code> event and logs necessary data.</p>
+
+<h3 id="exception-handling">Exception handling</h3>
+<p>Given the non-transferability property of SBTs, if a user’s keys to an account get compromised or rotated, such user may lose the ability to associate themselves with the token.</p>
+
+<p><strong>Given the multi-owner characteristic of <a href="./eip-1155.md">EIP-1155</a> compliant interfaces and contracts, SBTs will be able to bind to multiple accounts, providing a potential solution to the issue.</strong></p>
+
+<p>Multi-owner SBTs can also be issued to a contract account that implements a multi-signature functionality (As recommended in <a href="./eip-4973.md#exception-handling">EIP-4973</a>); this can be achieved via the <a href="./eip-1155.md#erc-1155-token-receiver">EIP-1155</a> Token Receiver interface.</p>
+
+<h3 id="multi-token">Multi-token</h3>
+<p>The multi-token functionality permits the implementation of multiple token types in the same contract. Furthermore, all emitted tokens are stored in the same contract, preventing redundant bytecode from being deployed to the blockchain. It also facilitates transfer to token issuers, since all issued tokens are stored and can be accessed under the same contract address.</p>
+
+<h3 id="the-batchtransfer-function">The <code class="language-plaintext highlighter-rouge">batchTransfer</code> function</h3>
+<p>This EIP supports transfers to multiple recipients. This eases token transfer to a large number of addresses, making it more gas-efficient and user-friendly.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>This proposal is only partially compatible with EIP-1155, because it makes tokens non-transferable after the first transfer.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+<p>You can find an implementation of this standard in <a href="../assets/eip-5516/ERC5516.sol">../assets/EIP-5516</a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+<p>Needs discussion.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

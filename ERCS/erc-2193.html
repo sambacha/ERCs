@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>dType Alias Extension - Decentralized Type System | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="dType Alias Extension - Decentralized Type System | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-2193" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-2193" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">dType Alias Extension - Decentralized Type System</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="simple-summary">Simple Summary</h2>
+
+<p>We are proposing Alias - a semantic standard for identifying on-chain resources by human-readable qualifiers, supporting any type of data.</p>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>The dType Alias is a system for providing human-readable resource identifiers to on-chain content. A resource identifier is based on the type of data (identifier provided by dType, <a href="./eip-1900.md">EIP-1900</a>) and the data content (identifier provided by a dType Storage Contract, <a href="./eip-2157.md">EIP-2157</a>). It is a universal way of addressing content, supporting any type of data.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There are standards that currently address the need for attaching human-readable identifiers to Ethereum accounts, such as <a href="./eip-137.md">EIP-137</a>. These standards are an attempt to bring domain names to Ethereum, following the same format as DNS: <code class="language-plaintext highlighter-rouge">subdomain.domain.tld</code>. This leaf -&gt; root format is unintuitive and contradicts the semantic meaning that <code class="language-plaintext highlighter-rouge">.</code> has in programming languages, which is a root -&gt; leaf connection (e.g. in OOP, when accessing an object’s property). A more intuitive and widely used approach is a root-&gt;leaf format, used in file browsers, hierarchical menus, and even in other decentralized systems, which give unique identifiers to resources (e.g. <code class="language-plaintext highlighter-rouge">0x56.Currency.TCoin</code> in <a href="https://medium.com/r/?url=https%3A%2F%2Fdevelopers.libra.org">Libra</a>.</p>
+
+<p>Moreover, <a href="./eip-137.md">EIP-137</a> is not flexible enough to address smart contract content,  which can contain heterogeneous data that belongs to various accounts. For example, a <code class="language-plaintext highlighter-rouge">PaymentChannel</code> smart contract can have an domain name. However, the <code class="language-plaintext highlighter-rouge">Alice-Bob</code> channel data from inside the smart contract, cannot have a subdomain name. Having uniquely identified, granular resources opens the way to creating both human and machine-readable protocols on top of Ethereum. It also provides a basis for protocols based on functional programming.</p>
+
+<p>This ERC proposes a set of separators which maintain their semantic meaning and provides a way to address any type of resource - from Ethereum addresses, to individual <code class="language-plaintext highlighter-rouge">struct</code> instances inside smart contracts.</p>
+
+<p>Imagine the following dType types: <code class="language-plaintext highlighter-rouge">SocialNetwork</code> and <code class="language-plaintext highlighter-rouge">Profile</code>, with related storage data about user profiles. One could access such a profile using an alias for the data content: <code class="language-plaintext highlighter-rouge">alice@socialnetwork.profile</code>. For a <code class="language-plaintext highlighter-rouge">PaymentChannel</code> type, Alice can refer to her channel with Bob with <code class="language-plaintext highlighter-rouge">alice-bob.paymentchannel</code>.
+This alias system can be used off-chain, to replace the old DNS system with a deterministic and machine-readable way of displaying content, based on the dType type’s metadata.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The dType registry will provide domain and subdomain names for the resource type. Subdomains can be attributed recursively, to dType types which contain other complex types in their composition.</p>
+
+<p>We define an <code class="language-plaintext highlighter-rouge">Alias</code> registry contract, that keeps track of the human-readable identifiers for data resources, which exist in dType storage contracts.
+Anyone can set an alias in the <code class="language-plaintext highlighter-rouge">Alias</code> registry, as long as the Ethereum address that signs the alias data has ownership on the resource, in the dType storage contract. Storage contract data ownership will be detailed in <a href="./eip-2157.md">EIP-2157</a>. An owner can update or delete an alias at any time.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">Alias</span> <span class="p">{</span>
+
+    <span class="k">event</span> <span class="n">AliasSet</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">dtypeIdentifier</span><span class="p">,</span> <span class="kt">bytes1</span> <span class="n">separator</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">identifier</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">setAlias</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">dtypeIdentifier</span><span class="p">,</span> <span class="kt">bytes1</span> <span class="n">separator</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">identifier</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">getAliased</span><span class="p">(</span><span class="kt">bytes1</span> <span class="n">separator</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">name</span><span class="p">)</span> <span class="k">view</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">identifier</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dtypeIdentifier</code>: Type identifier from the dType registry, needed to ensure uniqueness of <code class="language-plaintext highlighter-rouge">name</code> for a dType type. <code class="language-plaintext highlighter-rouge">dtypeIdentifier</code> is checked to see if it exists in the dType registry. The dType registry also links the type’s data storage contract, where the existence and ownership of the <code class="language-plaintext highlighter-rouge">identifier</code> is checked.</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: user-defined human-readable name for the resource referenced by <code class="language-plaintext highlighter-rouge">identifier</code></li>
+  <li><code class="language-plaintext highlighter-rouge">separator</code>: Character acting as a separator between the name and the rest of the alias. Allowed values:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">.</code>: general domain separation, using root-&gt;leaf semantics. E.g. <code class="language-plaintext highlighter-rouge">domain.subdomain.leafsubdomain.resource</code></li>
+      <li><code class="language-plaintext highlighter-rouge">@</code>: identifying actor-related data, such as user profiles, using leaf-&gt;root semantics. E.g. <code class="language-plaintext highlighter-rouge">alice@socialnetwork.profile</code> or <code class="language-plaintext highlighter-rouge">alice@dao@eth</code></li>
+      <li><code class="language-plaintext highlighter-rouge">#</code>: identifying concepts, using root-&gt;leaf semantics. E.g. <code class="language-plaintext highlighter-rouge">topicX#postY</code></li>
+      <li><code class="language-plaintext highlighter-rouge">/</code>: general resource path definition, using root-&gt;leaf semantics. E.g. <code class="language-plaintext highlighter-rouge">resourceRoot/resource</code></li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">identifier</code>: Resource identifier from a smart contract linked with dType</li>
+  <li><code class="language-plaintext highlighter-rouge">signature</code>: Alias owner signature on <code class="language-plaintext highlighter-rouge">dtypeIdentifier</code>, <code class="language-plaintext highlighter-rouge">identifier</code>, <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">separator</code>, <code class="language-plaintext highlighter-rouge">nonce</code>, <code class="language-plaintext highlighter-rouge">aliasAddress</code>, <code class="language-plaintext highlighter-rouge">chainId</code>.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">nonce</code>: monotonically increasing counter, used to prevent replay attacks</li>
+      <li><code class="language-plaintext highlighter-rouge">aliasAddress</code>: Ethereum address of <code class="language-plaintext highlighter-rouge">Alias</code> contract</li>
+      <li><code class="language-plaintext highlighter-rouge">chainId</code>: chain on which the <code class="language-plaintext highlighter-rouge">Alias</code> contract is deployed, as detailed in <a href="./eip-155.md">EIP-155</a>, used to prevent replay attacks when updating the <code class="language-plaintext highlighter-rouge">identifier</code> for an alias.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Content addressability can be done:</p>
+<ul>
+  <li>using the <code class="language-plaintext highlighter-rouge">bytes32</code> identifiers directly, e.g. <code class="language-plaintext highlighter-rouge">0x0b5e76559822448f6243a6f76ac7864eba89c810084471bdee2a63429c92d2e7@0x9dbb9abe0c47484c5707699b3ceea23b1c2cca2ac72681256ab42ae01bd347da</code></li>
+  <li>using the human identifiers, e.g. <code class="language-plaintext highlighter-rouge">alice@socialnetwork</code></li>
+</ul>
+
+<p>Both of the above examples will resolve to the same content.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Current attempts to solve content addressability, such as <a href="./eip-137.md">EIP-137</a>, only target Ethereum accounts. These are based on inherited concepts from HTTP and DNS, which are not machine friendly.</p>
+
+<p>With <a href="./eip-1900.md">EIP-1900</a> and <a href="./eip-2157.md">EIP-2157</a>, general content addressability can be achieved. dType provides type information and a reference to the smart contract where the type instances are stored. Additionally, Alias uses the semantic meaning of subdomain separators to have a <a href="https://github.com/loredanacirstea/articles/blob/master/articles/Flexible_Alias_or_Why_ENS_is_Obsolete.md">intuitive order rule</a>.</p>
+
+<p>Multiple aliases can be assigned to a single resource. Either by using a different <code class="language-plaintext highlighter-rouge">name</code> or by using a different <code class="language-plaintext highlighter-rouge">separator</code>. Each <code class="language-plaintext highlighter-rouge">separator</code> can have a specific standard for displaying and processing data, based on its semantic meaning.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Will be added.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Will be added.</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>An in-work implementation can be found at https://github.com/pipeos-one/dType/blob/master/contracts/contracts/Alias.sol.
+This proposal will be updated with an appropriate implementation when consensus is reached on the specifications.</p>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

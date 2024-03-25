@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Multi-Fractional Non-Fungible Tokens | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Multi-Fractional Non-Fungible Tokens | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-4675" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-4675" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Multi-Fractional Non-Fungible Tokens</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+<p>This standard outlines a smart contract interface eligible to represent any number of fractionalized non-fungible tokens. Existing projects utilizing standards like <a href="./eip-1633.md">EIP-1633</a> conventionally deploy separate <a href="./eip-20.md">EIP-20</a> compatible token contracts to fractionalize the non-fungible token into EIP-20 tokens. In contrast, this ERC allows each token ID to represent a token type representing(fractionalizing) the non-fungible token.</p>
+
+<p>This standard is approximate in terms of using <code class="language-plaintext highlighter-rouge">_id</code> for distinguishing token types. However, this ERC has a clear difference with <a href="./eip-1155.md">EIP-1155</a> as each <code class="language-plaintext highlighter-rouge">_id</code> represents a distinct NFT.</p>
+
+<h2 id="motivation">Motivation</h2>
+<p>The conventional fractionalization process of fractionalizing a NFT to FT requires deployment of a FT token contract representing the ownership of NFT. This leads to inefficient bytecode usage on Ethereum Blockchain and limits functionalities since each token contract is separated into its own permissioned address.
+With the rise of multiple NFT projects needing to fractionalize NFT to FT, new type of token standard is needed to back up them.</p>
+
+<h2 id="specification">Specification</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+    @title Multi-Fractional Non-Fungible Token Standard
+    @dev Note : The ERC-165 identifier for this interface is 0x83f5d35f.
+*/</span>
+<span class="k">interface</span> <span class="n">IMFNFT</span> <span class="p">{</span>
+    <span class="cm">/**
+        @dev This emits when ownership of any token changes by any mechanism.
+        The `_from` argument MUST be the address of an account/contract sending the token.
+        The `_to` argument MUST be the address of an account/contract receiving the token.
+        The `_id` argument MUST be the token type being transferred. (represents NFT)
+        The `_value` argument MUST be the number of tokens the holder balance is decrease by and match the recipient balance is increased by.
+    */</span>
+    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @dev This emits when the approved address for token is changed or reaffirmed.
+        The `_owner` argument MUST be the address of account/contract approving to withdraw.
+        The `_spender` argument MUST be the address of account/contract approved to withdraw from the `_owner` balance.
+        The `_id` argument MUST be the token type being transferred. (represents NFT)
+        The `_value` argument MUST be the number of tokens the `_approved` is able to withdraw from `_owner` balance.
+    */</span>
+    <span class="k">event</span> <span class="n">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @dev This emits when new token type is added which represents the share of the Non-Fungible Token.
+        The `_parentToken` argument MUST be the address of the Non-Fungible Token contract.
+        The `_parentTokenId` argument MUST be the token ID of the Non-Fungible Token.
+        The `_id` argument MUST be the token type being added. (represents NFT)
+        The `_totalSupply` argument MUST be the number of total token supply of the token type.
+    */</span>
+    <span class="k">event</span> <span class="n">TokenAddition</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">_parentToken</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">_parentTokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_totalSupply</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Transfers `_value` amount of an `_id` from the msg.sender address to the `_to` address specified
+        @dev msg.sender must have sufficient balance to handle the tokens being transferred out of the account.
+        MUST revert if `_to` is the zero address.
+        MUST revert if balance of msg.sender for token `_id` is lower than the `_value` being transferred.
+        MUST revert on any other error.
+        MUST emit the `Transfer` event to reflect the balance change.
+        @param _to      Source address
+        @param _id      ID of the token type
+        @param _value   Transfer amount
+        @return         True if transfer was successful, false if not
+    */</span>
+    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Approves `_value` amount of an `_id` from the msg.sender to the `_spender` address specified.
+        @dev msg.sender must have sufficient balance to handle the tokens when the `_spender` wants to transfer the token on behalf.
+        MUST revert if `_spender` is the zero address.
+        MUST revert on any other error.
+        MUST emit the `Approval` event.
+        @param _spender Spender address(account/contract which can withdraw token on behalf of msg.sender)
+        @param _id      ID of the token type
+        @param _value   Approval amount
+        @return         True if approval was successful, false if not
+    */</span>
+    <span class="k">function</span> <span class="n">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Transfers `_value` amount of an `_id` from the `_from` address to the `_to` address specified.
+        @dev Caller must be approved to manage the tokens being transferred out of the `_from` account.
+        MUST revert if `_to` is the zero address.
+        MUST revert if balance of holder for token `_id` is lower than the `_value` sent.
+        MUST revert on any other error.
+        MUST emit `Transfer` event to reflect the balance change.
+        @param _from    Source address
+        @param _to      Target Address
+        @param _id      ID of the token type
+        @param _value   Transfer amount
+        @return         True if transfer was successful, false if not
+
+    */</span>
+    <span class="k">function</span> <span class="n">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Sets the NFT as a new type token
+        @dev The contract itself should verify if the ownership of NFT is belongs to this contract itself with the `_parentNFTContractAddress` &amp; `_parentNFTTokenId` before adding the token.
+        MUST revert if the same NFT is already registered.
+        MUST revert if `_parentNFTContractAddress` is address zero.
+        MUST revert if `_parentNFTContractAddress` is not ERC-721 compatible.
+        MUST revert if this contract itself is not the owner of the NFT.
+        MUST revert on any other error.
+        MUST emit `TokenAddition` event to reflect the token type addition.
+        @param _parentNFTContractAddress    NFT contract address
+        @param _parentNFTTokenId            NFT tokenID
+        @param _totalSupply                 Total token supply
+    */</span>
+    <span class="k">function</span> <span class="n">setParentNFT</span><span class="p">(</span><span class="kt">address</span> <span class="n">_parentNFTContractAddress</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_parentNFTTokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_totalSupply</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+        @notice Get the token ID's total token supply.
+        @param _id      ID of the token
+        @return         The total token supply of the specified token type
+    */</span>
+    <span class="k">function</span> <span class="n">totalSupply</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the balance of an account's tokens.
+        @param _owner  The address of the token holder
+        @param _id     ID of the token
+        @return        The _owner's balance of the token type requested
+    */</span>
+    <span class="k">function</span> <span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the amount which `_spender` is still allowed to withdraw from `_owner`
+        @param _owner   The address of the token holder
+        @param _spender The address approved to withdraw token on behalf of `_owner`
+        @param _id      ID of the token
+        @return         The amount which `_spender` is still allowed to withdraw from `_owner`
+    */</span>
+    <span class="k">function</span> <span class="n">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+        @notice Get the bool value which represents whether the NFT is already registered and fractionalized by this contract.
+        @param _parentNFTContractAddress    NFT contract address
+        @param _parentNFTTokenId            NFT tokenID
+        @return                             The bool value representing the whether the NFT is already registered.
+    */</span>
+    <span class="k">function</span> <span class="n">isRegistered</span><span class="p">(</span><span class="kt">address</span> <span class="n">_parentNFTContractAddress</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_parentNFTTokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">ERC165</span> <span class="p">{</span>
+    <span class="cm">/**
+        @notice Query if a contract implements an interface
+        @param interfaceID The interface identifier, as specified in ERC-165
+        @dev Interface identification is specified in ERC-165. This function
+        uses less than 30,000 gas.
+        @return `true` if the contract implements `interfaceID` and
+        `interfaceID` is not 0xffffffff, `false` otherwise
+    */</span>
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceID</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To receive Non-Fungible Token on <code class="language-plaintext highlighter-rouge">safe Transfer</code> the contract should include <code class="language-plaintext highlighter-rouge">onERC721Received()</code>.
+Including <code class="language-plaintext highlighter-rouge">onERC721Received()</code> is needed to be compatible with Safe Transfer Rules.</p>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+    @notice Handle the receipt of an NFT
+    @param _operator The address which called `safeTransferFrom` function
+    @param _from The address which previously owned the token
+    @param _tokenId The NFT identifier which is being transferred
+    @param _data Additional data with no specified format
+    @return `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
+*/</span>
+<span class="k">function</span> <span class="n">onERC721Received</span><span class="p">(</span><span class="kt">address</span> <span class="n">_operator</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_data</span><span class="p">)</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p><strong>Metadata</strong></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">symbol()</code> &amp; <code class="language-plaintext highlighter-rouge">name()</code> functions were not included since the majority of users can just fetch it from the originating NFT contract. Also, copying the name &amp; symbol every time when token gets added might place a lot of redundant bytecode on the Ethereum blockchain. 
+However, according to the need and design of the project it could also be added to each token type by fetching the metadata from the NFT contract.</p>
+
+<p><strong>Design</strong></p>
+
+<p>Most of the decisions made around the design of this ERC were done to keep it as flexible for diverse token design &amp; architecture.
+These minimum requirement for this standard allows for each project to determine their own system for minting, governing, burning their MFNFT tokens depending on their programmable architecture.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>To make this standard compatible with existing standards, this standard <code class="language-plaintext highlighter-rouge">event</code> &amp; <code class="language-plaintext highlighter-rouge">function</code> names are identical with ERC-20 token standard with some more <code class="language-plaintext highlighter-rouge">events</code> &amp; <code class="language-plaintext highlighter-rouge">functions</code> to add token type dynamically.</p>
+
+<p>Also, the sequence of parameter in use of <code class="language-plaintext highlighter-rouge">_id</code> for distinguishing token types in <code class="language-plaintext highlighter-rouge">functions</code> and <code class="language-plaintext highlighter-rouge">events</code> are very much similar to ERC-1155 Multi-Token Standard.</p>
+
+<p>Since this standard is intended to interact with the EIP-721 Non-Fungible Token Standard, it is kept purposefully agnostic to extensions beyond the standard in order to allow specific projects to design their own token usage and scenario.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Reference Implementation of MFNFT Token includes test cases written using hardhat. (Test coverage : 100%)</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+<p><a href="../assets/eip-4675/README.md">MFNFT - Implementation</a></p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>To fractionalize an already minted NFT, it is evident that ownership of NFT should be given to token contracts before fractionalization.
+In the case of fractionalizing NFT, the token contract should thoroughly verify the ownership of NFT before fractionalizing it to prevent tokens from being a separate tokens with the NFT.</p>
+
+<p>If an arbitrary account has the right to call <code class="language-plaintext highlighter-rouge">setParentNFT()</code> there might be a front-running issue. The caller of <code class="language-plaintext highlighter-rouge">setParentNFT()</code> might be different from the real NFT sender. 
+To prevent this issue, implementors should just allow <strong>admin</strong> to call, or fractionalize and receive NFT in an atomic transaction similar to flash loan(swap).</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

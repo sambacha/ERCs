@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Smart Contract Interface for Licences | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Smart Contract Interface for Licences | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-1753" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-1753" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Smart Contract Interface for Licences</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This Ethereum Improvement Proposal (EIP) proposes an Ethereum standard for the issuance of licences, permits and grants (Licences).</p>
+
+<p>A Licence is a limited and temporary authority, granted to a natural (e.g. you) or legal person (e.g. a corporation), to do something that would otherwise be unlawful pursuant to a legal framework. A public Licence is granted by the government, directly (e.g. by the New South Wales Department of Primary Industries, Australia) or indirectly (e.g. by an agent operating under the government’s authority), and derives its authority from legislation, though this is often practically achieved via delegated legislation such as regulations. This can be contrasted to a private licence – for example, the licence you grant to a visitor who comes onto your property.</p>
+
+<p>A Licence has the following properties:</p>
+
+<ul>
+  <li>granted personally to the licencee (Licencee), though it may be transferrable to another person or company;</li>
+  <li>conferring a temporary right to the Licencee to own, use or do something that would otherwise be prohibited, without conferring any property interest in the underlying thing. For example, you may be granted a licence to visit a national park without acquiring any ownership in or over the park itself;</li>
+  <li>allowing the government authority responsible for the Licence to amend, revoke, renew, suspend or deny the issuance of the Licence, or to impose conditions or penalties for non-compliance; and</li>
+  <li>usually issued only after the payment of a fee or the meeting of some criteria.</li>
+</ul>
+
+<p>Additionally, a Licence may be granted in respect of certain information. For example, a Licence may be issued in respect of a vehicle registration number and attaching to that specific registered vehicle.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Governments are responsible for the issuance and management of Licences. However, maintaining and sharing this data can be complicated and inefficient. The granting of Licences usually requires the filing of paper-based application forms, manual oversight of applicable legislation and data entry into registries, as well as the issuance of paper based Licences. If individuals wish to sight information on Licence registries, they often need to be present at the government office and complete further paper-based enquiry forms in order to access that data (if available publicly).</p>
+
+<p>This EIP seeks to define a standard that will allow for the granting and/or management of Licences via Ethereum smart contracts. The motivation is, in essence, to address the inefficiencies inherent in current licencing systems.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="methods">Methods</h3>
+
+<p><strong>NOTES</strong>:</p>
+<ul>
+  <li>The following specifications use syntax from Solidity <code class="language-plaintext highlighter-rouge">0.4.17</code> (or above)</li>
+  <li>Callers MUST handle <code class="language-plaintext highlighter-rouge">false</code> from <code class="language-plaintext highlighter-rouge">returns (bool success)</code>.  Callers MUST NOT assume that <code class="language-plaintext highlighter-rouge">false</code> is never returned!</li>
+</ul>
+
+<h4 id="name">name</h4>
+
+<p>Returns the name of the permit - e.g. <code class="language-plaintext highlighter-rouge">"MyPermit"</code>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">name</span><span class="p">()</span> <span class="kr">public</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">string</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="totalsupply">totalSupply</h4>
+
+<p>Returns the total permit supply.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">totalSupply</span><span class="p">()</span> <span class="kr">public</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">uint256</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="grantauthority">grantAuthority</h4>
+
+<p>Adds an ethereum address to a white list of addresses that have authority to modify a permit.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">grantAuthority</span><span class="p">(</span><span class="nx">address</span> <span class="nx">who</span><span class="p">)</span> <span class="kr">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="revokeauthority">revokeAuthority</h4>
+
+<p>Removes an ethereum address from a white list of addresses that have authority to modify a permit.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">revokeAuthority</span><span class="p">(</span><span class="nx">address</span> <span class="nx">who</span><span class="p">)</span> <span class="kr">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="hasauthority">hasAuthority</h4>
+
+<p>Checks to see if the address has authority to grant or revoke permits.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">hasAuthority</span><span class="p">(</span><span class="nx">address</span> <span class="nx">who</span><span class="p">)</span> <span class="kr">public</span> <span class="nx">view</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="issue">issue</h4>
+
+<p>Issues an ethereum address a permit between the specified date range.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">issue</span><span class="p">(</span><span class="nx">address</span> <span class="nx">who</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">validFrom</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">validTo</span><span class="p">)</span> <span class="kr">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="revoke">revoke</h4>
+
+<p>Revokes a permit from an ethereum address.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">revoke</span><span class="p">(</span><span class="nx">address</span> <span class="nx">who</span><span class="p">)</span> <span class="kr">public</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="hasvalid">hasValid</h4>
+
+<p>Checks to see if an ethereum address has a valid permit.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">hasValid</span><span class="p">(</span><span class="nx">address</span> <span class="nx">who</span><span class="p">)</span> <span class="nx">external</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="purchase">purchase</h4>
+
+<p>Allows a user to self procure a licence.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">purchase</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">validFrom</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">validTo</span><span class="p">)</span> <span class="nx">external</span> <span class="nx">payable</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The use of smart contracts to apply for, renew, suspend and revoke Licences will free up much needed government resources and allow for the more efficient management of Licences. The EIP also seeks to improve the end user experience of the Licence system. In an era of open government, there is also an increased expectation that individuals will be able to easily access Licence registries, and that the process will be transparent and fair.</p>
+
+<p>By creating an EIP, we hope to increase the use of Ethereum based and issued Licences, which will address these issues.</p>
+
+<p>The Ethereum blockchain is adaptable to various Licences and government authorities. It will also be easily translatable into other languages and can be used by other governmental authorities across the world. Moreover, a blockchain will more effectively protect the privacy of Licence-holders’ data, particularly at a time of an ever-increasing volume of government data breaches.</p>
+
+<p>The EIP has been developed following the review of a number of licensing regulations at the national and state level in Australia. The review allowed the identification of the common licence requirements and criteria for incorporation into the EIP. We have included these in the proposed standard but seek feedback on whether these criteria are sufficient and universal.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>A real world example of a Licence is a permit required to camp in a national park in Australia (e.g. Kakadu national park in the Northern Territory of Australia) under the Environment Protection and Biodiversity Conservation Regulations 2000 (Cth) (EPBC Act) and the Environment Protection and Biodiversity Conservation Regulations 2000 (the Regulations). Pursuant to the EPBC Act and the Regulations, the Director of National Parks oversees a camping permit system, which is intended to help regulate certain activities in National Parks. Permits allowing access to National Parks can be issued to legal or natural persons if the applicant has met certain conditions.</p>
+
+<p>The current digital portal and application form to camp at Kakadu National Park (the Application) can be accessed at: https://www.environment.gov.au/system/files/resources/b3481ed3-164b-4e72-a9f8-91fc987d90e7/files/kakadu-camping-permit-form-19jan2015-pdf.pdf</p>
+
+<p>The user must provide the following details when making an Application:</p>
+
+<ul>
+  <li>
+    <p>The full name and contact details of each person to whom the permit is to be issued;</p>
+  </li>
+  <li>
+    <p>If the applicant is a company or other incorporated body:</p>
+  </li>
+</ul>
+
+<p>o the name, business address and postal address of the company or incorporated body;</p>
+
+<p>o if the applicant is a company—</p>
+
+<ul>
+  <li>
+    <p>the full name of each of the directors of the company;</p>
+  </li>
+  <li>
+    <p>the full name and contact details of the person completing the application form;</p>
+  </li>
+  <li>
+    <p>the ACN or ABN of the company or other incorporated body (if applicable);</p>
+  </li>
+  <li>
+    <p>Details of the proposed camping purpose (e.g. private camping, school group, etc.);</p>
+  </li>
+  <li>
+    <p>A start date and duration for the camping (up to the maximum duration allowed by law);</p>
+  </li>
+  <li>
+    <p>Number of campers (up to the maximum allowed by law);</p>
+  </li>
+  <li>
+    <p>All other required information not essential to the issuance of the Licence (e.g. any particular medical needs of the campers); and</p>
+  </li>
+  <li>
+    <p>Fees payable depending on the site, duration and number of campers.</p>
+  </li>
+</ul>
+
+<p>The Regulations also set out a number of conditions that must be met by licensees when the permit has been issued. The Regulations allow the Director of National Parks to cancel, renew or transfer the licence. The above workflow could be better performed by way of a smart contract.</p>
+
+<p>The key criteria required as part of this process form part of the proposed Ethereum standard. We have checked this approach by also considering the issuance of a Commercial Fishing Licence under Part 8 “Licensing and other commercial fisheries management” of the Fisheries Management (General) Regulation 2010 (NSW) (Fisheries Regulations) made pursuant to the Fisheries Management Act 1994 (NSW) (Fisheries Act).</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>The issuance and ownership of a Licence can be digitally represented on the Ethereum blockchain.</p>
+
+<p>Smart contracts can be used to embed regulatory requirements with respect to the relevant Licence in the blockchain. The Licence would be available electronically in the form of a token. This might be practically represented by a QR code, for example, displaying the current Licence information. The digital representation of the Licence would be stored in a digital wallet, typically an application on a smartphone or tablet computer. The proposed standard allows issuing authorities or regulators to amend, revoke or deny Licences from time to time, with the result of their determinations reflected in the Licence token in near real-time. Licence holders will therefore be notified almost instantly of any amendments, revocations or issues involving their Licence.</p>
+
+<h2 id="interface">Interface</h2>
+
+<h3 id="solidity-example">Solidity Example</h3>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">EIP1753</span> <span class="p">{</span>
+	
+	<span class="k">function</span> <span class="n">grantAuthority</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+	<span class="k">function</span> <span class="n">revokeAuthority</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+	<span class="k">function</span> <span class="n">hasAuthority</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+	
+	<span class="k">function</span> <span class="n">issue</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">to</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+	<span class="k">function</span> <span class="n">revoke</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+	
+	<span class="k">function</span> <span class="n">hasValid</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+	<span class="k">function</span> <span class="n">purchase</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">validFrom</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">validTo</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.5</span><span class="p">.</span><span class="mi">3</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">EIP</span> <span class="k">is</span> <span class="n">EIP1753</span> <span class="p">{</span>
+
+	<span class="kt">string</span> <span class="k">public</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"Kakadu National Park Camping Permit"</span><span class="p">;</span>
+	<span class="kt">uint256</span> <span class="k">public</span> <span class="n">totalSupply</span><span class="p">;</span>
+
+	<span class="kt">address</span> <span class="k">private</span> <span class="n">_owner</span><span class="p">;</span>
+	<span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">private</span> <span class="n">_authorities</span><span class="p">;</span>
+	<span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="n">Permit</span><span class="p">)</span> <span class="k">private</span> <span class="n">_holders</span><span class="p">;</span>
+	
+	<span class="k">struct</span> <span class="n">Permit</span> <span class="p">{</span>
+		<span class="kt">address</span> <span class="n">issuer</span><span class="p">;</span>
+		<span class="kt">uint256</span> <span class="n">validFrom</span><span class="p">;</span>
+		<span class="kt">uint256</span> <span class="n">validTo</span><span class="p">;</span>
+	<span class="p">}</span>
+	
+	<span class="k">constructor</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+		<span class="n">_owner</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+	<span class="p">}</span>
+	
+	<span class="k">function</span> <span class="n">grantAuthority</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span><span class="p">()</span> <span class="p">{</span>
+		<span class="n">_authorities</span><span class="p">[</span><span class="n">who</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="p">}</span>
+	
+	<span class="k">function</span> <span class="n">revokeAuthority</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">delete</span> <span class="n">_authorities</span><span class="p">[</span><span class="n">who</span><span class="p">];</span>
+	<span class="p">}</span>
+	
+	<span class="k">function</span> <span class="n">hasAuthority</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">_authorities</span><span class="p">[</span><span class="n">who</span><span class="p">]</span> <span class="o">==</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="p">}</span>
+	
+	<span class="k">function</span> <span class="n">issue</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">start</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">end</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyAuthority</span><span class="p">()</span> <span class="p">{</span>
+		<span class="n">_holders</span><span class="p">[</span><span class="n">who</span><span class="p">]</span> <span class="o">=</span> <span class="n">Permit</span><span class="p">(</span><span class="n">_owner</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+		<span class="n">totalSupply</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+	
+	<span class="k">function</span> <span class="n">revoke</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyAuthority</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">delete</span> <span class="n">_holders</span><span class="p">[</span><span class="n">who</span><span class="p">];</span>
+	<span class="p">}</span>
+	
+	<span class="k">function</span> <span class="n">hasValid</span><span class="p">(</span><span class="kt">address</span> <span class="n">who</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	    <span class="k">return</span> <span class="n">_holders</span><span class="p">[</span><span class="n">who</span><span class="p">].</span><span class="n">validFrom</span> <span class="o">&gt;</span> <span class="nb">now</span> <span class="o">&amp;&amp;</span> <span class="n">_holders</span><span class="p">[</span><span class="n">who</span><span class="p">].</span><span class="n">validTo</span> <span class="o">&lt;</span> <span class="nb">now</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="k">function</span> <span class="n">purchase</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">validFrom</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">validTo</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+	    <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">,</span> <span class="s">"Incorrect fee"</span><span class="p">);</span>
+	    <span class="n">issue</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">validFrom</span><span class="p">,</span> <span class="n">validTo</span><span class="p">);</span>
+	<span class="p">}</span>
+	
+	<span class="k">modifier</span> <span class="n">onlyOwner</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">_owner</span><span class="p">,</span> <span class="s">"Only owner can perform this function"</span><span class="p">);</span>
+		<span class="n">_</span><span class="p">;</span>
+	<span class="p">}</span>
+	
+	<span class="k">modifier</span> <span class="n">onlyAuthority</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nb">require</span><span class="p">(</span><span class="n">hasAuthority</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">),</span> <span class="s">"Only an authority can perform this function"</span><span class="p">);</span>
+        <span class="n">_</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="copyright">Copyright</h2>
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Endorsement - Permit for Any Functions | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Endorsement - Permit for Any Functions | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5453" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5453" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Endorsement - Permit for Any Functions</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This EIP establish a general protocol for permitting approving function calls in the same transaction rely on <a href="./eip-5750.md">ERC-5750</a>.
+Unlike a few prior art (<a href="./eip-2612.md">ERC-2612</a> for <a href="./eip-20.md">ERC-20</a>, <code class="language-plaintext highlighter-rouge">ERC-4494</code> for <a href="./eip-721.md">ERC-721</a> that
+usually only permit for a single behavior (<code class="language-plaintext highlighter-rouge">transfer</code> for ERC-20 and <code class="language-plaintext highlighter-rouge">safeTransferFrom</code> for ERC-721) and a single approver in two transactions (first a <code class="language-plaintext highlighter-rouge">permit(...)</code> TX, then a <code class="language-plaintext highlighter-rouge">transfer</code>-like TX), this EIP provides a way to permit arbitrary behaviors and aggregating multiple approvals from arbitrary number of approvers in the same transaction, allowing for Multi-Sig or Threshold Signing behavior.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<ol>
+  <li>Support permit(approval) alongside a function call.</li>
+  <li>Support a second approval from another user.</li>
+  <li>Support pay-for-by another user</li>
+  <li>Support multi-sig</li>
+  <li>Support persons acting in concert by endorsements</li>
+  <li>Support accumulated voting</li>
+  <li>Support off-line signatures</li>
+</ol>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="interfaces">Interfaces</h3>
+
+<p>The interfaces and structure referenced here are as followed</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">ValidityBound</span> <span class="p">{</span>
+    <span class="kt">bytes32</span> <span class="n">functionParamStructHash</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">validSince</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">validBy</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">SingleEndorsementData</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="n">endorserAddress</span><span class="p">;</span> <span class="c1">// 32
+</span>    <span class="kt">bytes</span> <span class="n">sig</span><span class="p">;</span> <span class="c1">// dynamic = 65
+</span><span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">GeneralExtensionDataStruct</span> <span class="p">{</span>
+    <span class="kt">bytes32</span> <span class="n">erc5453MagicWord</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">erc5453Type</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">validSince</span><span class="p">;</span>
+    <span class="kt">uint256</span> <span class="n">validBy</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="n">endorsementPayload</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">IERC5453EndorsementCore</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">eip5453Nonce</span><span class="p">(</span><span class="kt">address</span> <span class="n">endorser</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+    <span class="k">function</span> <span class="n">isEligibleEndorser</span><span class="p">(</span><span class="kt">address</span> <span class="n">endorser</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">IERC5453EndorsementDigest</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">computeValidityDigest</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">_functionParamStructHash</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_validSince</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_validBy</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_nonce</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">computeFunctionParamHash</span><span class="p">(</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">_functionName</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_functionParamPacked</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">IERC5453EndorsementDataTypeA</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">computeExtensionDataTypeA</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">validSince</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">validBy</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">endorserAddress</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">sig</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="k">interface</span> <span class="n">IERC5453EndorsementDataTypeB</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">computeExtensionDataTypeB</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">validSince</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">validBy</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">endorserAddress</span><span class="p">,</span>
+        <span class="kt">bytes</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">sigs</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>See <a href="../assets/eip-5453/IERC5453.sol"><code class="language-plaintext highlighter-rouge">IERC5453.sol</code></a>.</p>
+
+<h3 id="behavior-specification">Behavior specification</h3>
+
+<p>As specified in <a href="./eip-5750.md">ERC-5750 General Extensibility for Method Behaviors</a>, any compliant method that has an <code class="language-plaintext highlighter-rouge">bytes extraData</code> as its
+last method designated for extending behaviors can conform to <a href="./eip-5453.md">ERC-5453</a> as the way to indicate a permit from certain user.</p>
+
+<ol>
+  <li>Any compliant method of this EIP MUST be a <a href="./eip-5750.md">ERC-5750</a> compliant method.</li>
+  <li>Caller MUST pass in the last parameter <code class="language-plaintext highlighter-rouge">bytes extraData</code> conforming a solidity memory encoded layout bytes of <code class="language-plaintext highlighter-rouge">GeneralExtensonDataStruct</code> specified in <em>Section Interfaces</em>. The following descriptions are based on when decoding <code class="language-plaintext highlighter-rouge">bytes extraData</code> into a <code class="language-plaintext highlighter-rouge">GeneralExtensonDataStruct</code></li>
+  <li>In the <code class="language-plaintext highlighter-rouge">GeneralExtensonDataStruct</code>-decoded <code class="language-plaintext highlighter-rouge">extraData</code>, caller MUST set the value of <code class="language-plaintext highlighter-rouge">GeneralExtensonDataStruct.erc5453MagicWord</code> to be the <code class="language-plaintext highlighter-rouge">keccak256("ERC5453-ENDORSEMENT")</code>.</li>
+  <li>Caller MUST set the value of <code class="language-plaintext highlighter-rouge">GeneralExtensonDataStruct.erc5453Type</code> to be one of the supported values.</li>
+</ol>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">uint256</span> <span class="k">constant</span> <span class="n">ERC5453_TYPE_A</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kt">uint256</span> <span class="k">constant</span> <span class="n">ERC5453_TYPE_B</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ol>
+  <li>When the value of <code class="language-plaintext highlighter-rouge">GeneralExtensonDataStruct.erc5453Type</code> is set to be <code class="language-plaintext highlighter-rouge">ERC5453_TYPE_A</code>, <code class="language-plaintext highlighter-rouge">GeneralExtensonDataStruct.endorsementPayload</code> MUST be abi encoded bytes of a <code class="language-plaintext highlighter-rouge">SingleEndorsementData</code>.</li>
+  <li>
+    <p>When the value of <code class="language-plaintext highlighter-rouge">GeneralExtensonDataStruct.erc5453Type</code> is set to be <code class="language-plaintext highlighter-rouge">ERC5453_TYPE_B</code>, <code class="language-plaintext highlighter-rouge">GeneralExtensonDataStruct.endorsementPayload</code> MUST be abi encoded bytes of <code class="language-plaintext highlighter-rouge">SingleEndorsementData[]</code> (a dynamic array).</p>
+  </li>
+  <li>
+    <p>Each <code class="language-plaintext highlighter-rouge">SingleEndorsementData</code> MUST have a <code class="language-plaintext highlighter-rouge">address endorserAddress;</code> and a 65-bytes <code class="language-plaintext highlighter-rouge">bytes sig</code> signature.</p>
+  </li>
+  <li>Each <code class="language-plaintext highlighter-rouge">bytes sig</code> MUST be an ECDSA (secp256k1) signature using private key of signer whose corresponding address is <code class="language-plaintext highlighter-rouge">endorserAddress</code> signing <code class="language-plaintext highlighter-rouge">validityDigest</code> which is the a hashTypeDataV4 of <a href="./eip-712.md">EIP-712</a> of hashStruct of <code class="language-plaintext highlighter-rouge">ValidityBound</code> data structure as followed:</li>
+</ol>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bytes32</span> <span class="n">validityDigest</span> <span class="o">=</span>
+    <span class="n">eip712HashTypedDataV4</span><span class="p">(</span>
+        <span class="nb">keccak256</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span>
+                <span class="nb">keccak256</span><span class="p">(</span>
+                    <span class="s">"ValidityBound(bytes32 functionParamStructHash,uint256 validSince,uint256 validBy,uint256 nonce)"</span>
+                <span class="p">),</span>
+                <span class="n">functionParamStructHash</span><span class="p">,</span>
+                <span class="n">_validSince</span><span class="p">,</span>
+                <span class="n">_validBy</span><span class="p">,</span>
+                <span class="n">_nonce</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">);</span>
+</code></pre></div></div>
+
+<ol>
+  <li>The <code class="language-plaintext highlighter-rouge">functionParamStructHash</code> MUST be computed as followed</li>
+</ol>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="kt">bytes32</span> <span class="n">functionParamStructHash</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span>
+                <span class="nb">keccak256</span><span class="p">(</span><span class="kt">bytes</span><span class="p">(</span><span class="n">_functionStructure</span><span class="p">)),</span>
+                <span class="n">_functionParamPacked</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+        <span class="k">return</span> <span class="n">functionParamStructHash</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>whereas</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_functionStructure</code> MUST be computed as <code class="language-plaintext highlighter-rouge">function methodName(type1 param1, type2 param2, ...)</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">_functionParamPacked</code> MUST be computed as <code class="language-plaintext highlighter-rouge">enc(param1) || enco(param2) ...</code></li>
+</ul>
+
+<ol>
+  <li>Upon validating that <code class="language-plaintext highlighter-rouge">endorserAddress == ecrecover(validityDigest, signature)</code> or <code class="language-plaintext highlighter-rouge">EIP1271(endorserAddress).isValidSignature(validityDigest, signature) == ERC1271.MAGICVALUE</code>, the single endorsement MUST be deemed valid.</li>
+  <li>
+    <p>Compliant method MAY choose to impose a threshold for a number of endorsements needs to be valid in the same <code class="language-plaintext highlighter-rouge">ERC5453_TYPE_B</code> kind of <code class="language-plaintext highlighter-rouge">endorsementPayload</code>.</p>
+  </li>
+  <li>The <code class="language-plaintext highlighter-rouge">validSince</code> and <code class="language-plaintext highlighter-rouge">validBy</code> are both inclusive. Implementer MAY choose to use blocknumber or timestamp. Implementor SHOULD find away to indicate whether <code class="language-plaintext highlighter-rouge">validSince</code> and <code class="language-plaintext highlighter-rouge">validBy</code> is blocknumber or timestamp.</li>
+</ol>
+
+<h2 id="rationale">Rationale</h2>
+
+<ol>
+  <li>
+    <p>We chose to have both <code class="language-plaintext highlighter-rouge">ERC5453_TYPE_A</code>(single-endorsement) and <code class="language-plaintext highlighter-rouge">ERC5453_TYPE_B</code>(multiple-endorsements, same nonce for entire contract) so we
+could balance a wider range of use cases. E.g. the same use cases of ERC-2612 and <code class="language-plaintext highlighter-rouge">ERC-4494</code> can be supported by <code class="language-plaintext highlighter-rouge">ERC5453_TYPE_A</code>. And threshold approvals can be done via <code class="language-plaintext highlighter-rouge">ERC5453_TYPE_B</code>. More complicated approval types can also be extended by defining new <code class="language-plaintext highlighter-rouge">ERC5453_TYPE_?</code></p>
+  </li>
+  <li>
+    <p>We chose to include both <code class="language-plaintext highlighter-rouge">validSince</code> and <code class="language-plaintext highlighter-rouge">validBy</code> to allow maximum flexibility in expiration. This can be also be supported by EVM natively at if adopted <code class="language-plaintext highlighter-rouge">ERC-5081</code> but <code class="language-plaintext highlighter-rouge">ERC-5081</code> will not be adopted anytime soon, we choose to add these two numbers in our protocol to allow
+smart contract level support.</p>
+  </li>
+</ol>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>The design assumes a <code class="language-plaintext highlighter-rouge">bytes calldata extraData</code> to maximize the flexibility of future extensions. This assumption is compatible with <a href="eip-721.md">ERC-721</a>, <a href="eip-1155.md">ERC-1155</a> and many other ERC-track EIPs. Those that aren’t, such as <a href="./eip-20.md">ERC-20</a>, can also be updated to support it, such as using a wrapper contract or proxy upgrade.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>In addition to the specified algorithm for validating endorser signatures, we also present the following reference implementations.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/cryptography/EIP712.sol"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"./IERC5453.sol"</span><span class="p">;</span>
+
+<span class="k">abstract</span> <span class="k">contract</span> <span class="n">AERC5453Endorsible</span> <span class="k">is</span> <span class="n">EIP712</span><span class="p">,</span>
+    <span class="n">IERC5453EndorsementCore</span><span class="p">,</span> <span class="n">IERC5453EndorsementDigest</span><span class="p">,</span> <span class="n">IERC5453EndorsementDataTypeA</span><span class="p">,</span> <span class="n">IERC5453EndorsementDataTypeB</span> <span class="p">{</span>
+    <span class="c1">// ...
+</span>
+    <span class="k">function</span> <span class="n">_validate</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">msgDigest</span><span class="p">,</span>
+        <span class="n">SingleEndorsementData</span> <span class="k">memory</span> <span class="n">endersement</span>
+    <span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">endersement</span><span class="p">.</span><span class="n">sig</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">65</span><span class="p">,</span>
+            <span class="s">"AERC5453Endorsible: wrong signature length"</span>
+        <span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span>
+            <span class="n">SignatureChecker</span><span class="p">.</span><span class="n">isValidSignatureNow</span><span class="p">(</span>
+                <span class="n">endersement</span><span class="p">.</span><span class="n">endorserAddress</span><span class="p">,</span>
+                <span class="n">msgDigest</span><span class="p">,</span>
+                <span class="n">endersement</span><span class="p">.</span><span class="n">sig</span>
+            <span class="p">),</span>
+            <span class="s">"AERC5453Endorsible: invalid signature"</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// ...
+</span>
+    <span class="k">modifier</span> <span class="n">onlyEndorsed</span><span class="p">(</span>
+        <span class="kt">bytes32</span> <span class="n">_functionParamStructHash</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_extensionData</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_isEndorsed</span><span class="p">(</span><span class="n">_functionParamStructHash</span><span class="p">,</span> <span class="n">_extensionData</span><span class="p">));</span>
+        <span class="n">_</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">computeExtensionDataTypeB</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">validSince</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">validBy</span><span class="p">,</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">endorserAddress</span><span class="p">,</span>
+        <span class="kt">bytes</span><span class="p">[]</span> <span class="k">calldata</span> <span class="n">sigs</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">endorserAddress</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="n">sigs</span><span class="p">.</span><span class="n">length</span><span class="p">);</span>
+        <span class="n">SingleEndorsementData</span><span class="p">[]</span>
+            <span class="k">memory</span> <span class="n">endorsements</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SingleEndorsementData</span><span class="p">[](</span>
+                <span class="n">endorserAddress</span><span class="p">.</span><span class="n">length</span>
+            <span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">endorserAddress</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">endorsements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">SingleEndorsementData</span><span class="p">(</span>
+                <span class="n">endorserAddress</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">sigs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span>
+            <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span>
+                <span class="n">GeneralExtensionDataStruct</span><span class="p">(</span>
+                    <span class="n">MAGIC_WORLD</span><span class="p">,</span>
+                    <span class="n">ERC5453_TYPE_B</span><span class="p">,</span>
+                    <span class="n">nonce</span><span class="p">,</span>
+                    <span class="n">validSince</span><span class="p">,</span>
+                    <span class="n">validBy</span><span class="p">,</span>
+                    <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">endorsements</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>See <a href="../assets/eip-5453/AERC5453.sol"><code class="language-plaintext highlighter-rouge">AERC5453.sol</code></a></p>
+
+<h3 id="reference-implementation-of-endorsableerc721">Reference Implementation of <code class="language-plaintext highlighter-rouge">EndorsableERC721</code></h3>
+
+<p>Here is a reference implementation of <code class="language-plaintext highlighter-rouge">EndorsableERC721</code> that achieves similar behavior of <code class="language-plaintext highlighter-rouge">ERC-4494</code>.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">EndorsableERC721</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">AERC5453Endorsible</span> <span class="p">{</span>
+    <span class="c1">//...
+</span>
+    <span class="k">function</span> <span class="n">mint</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_tokenId</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_extraData</span>
+    <span class="p">)</span>
+        <span class="k">external</span>
+        <span class="n">onlyEndorsed</span><span class="p">(</span>
+            <span class="n">_computeFunctionParamHash</span><span class="p">(</span>
+                <span class="s">"function mint(address _to,uint256 _tokenId)"</span><span class="p">,</span>
+                <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">_tokenId</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">_extraData</span>
+        <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_mint</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">_tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>See <a href="../assets/eip-5453/EndorsableERC721.sol"><code class="language-plaintext highlighter-rouge">EndorsableERC721.sol</code></a></p>
+
+<h3 id="reference-implementation-of-thresholdmultisigforwarder">Reference Implementation of <code class="language-plaintext highlighter-rouge">ThresholdMultiSigForwarder</code></h3>
+
+<p>Here is a reference implementation of ThresholdMultiSigForwarder that achieves similar behavior of multi-sig threshold approval
+remote contract call like a Gnosis-Safe wallet.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+
+<span class="k">contract</span> <span class="n">ThresholdMultiSigForwarder</span> <span class="k">is</span> <span class="n">AERC5453Endorsible</span> <span class="p">{</span>
+    <span class="c1">//...
+</span>    <span class="k">function</span> <span class="n">forward</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">_dest</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_value</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">_gasLimit</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_calldata</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">_extraData</span>
+    <span class="p">)</span>
+        <span class="k">external</span>
+        <span class="n">onlyEndorsed</span><span class="p">(</span>
+            <span class="n">_computeFunctionParamHash</span><span class="p">(</span>
+                <span class="s">"function forward(address _dest,uint256 _value,uint256 _gasLimit,bytes calldata _calldata)"</span><span class="p">,</span>
+                <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">_dest</span><span class="p">,</span> <span class="n">_value</span><span class="p">,</span> <span class="n">_gasLimit</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">_calldata</span><span class="p">))</span>
+            <span class="p">),</span>
+            <span class="n">_extraData</span>
+        <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">string</span> <span class="k">memory</span> <span class="n">errorMessage</span> <span class="o">=</span> <span class="s">"Fail to call remote contract"</span><span class="p">;</span>
+        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">returndata</span><span class="p">)</span> <span class="o">=</span> <span class="n">_dest</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">_value</span><span class="p">}(</span>
+            <span class="n">_calldata</span>
+        <span class="p">);</span>
+        <span class="n">Address</span><span class="p">.</span><span class="n">verifyCallResult</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">returndata</span><span class="p">,</span> <span class="n">errorMessage</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>See <a href="../assets/eip-5453/ThresholdMultiSigForwarder.sol"><code class="language-plaintext highlighter-rouge">ThresholdMultiSigForwarder.sol</code></a></p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="replay-attacks">Replay Attacks</h3>
+
+<p>A replay attack is a type of attack on cryptography authentication. In a narrow sense, it usually refers to a type of attack that circumvents the cryptographically signature verification by reusing an existing signature for a message being signed again. Any implementations relying on this EIP must realize that all smart endorsements described here are cryptographic signatures that are <em>public</em> and can be obtained by anyone. They must foresee the possibility of a replay of the transactions not only at the exact deployment of the same smart contract, but also other deployments of similar smart contracts, or of a version of the same contract on another <code class="language-plaintext highlighter-rouge">chainId</code>, or any other similar attack surfaces. The <code class="language-plaintext highlighter-rouge">nonce</code>, <code class="language-plaintext highlighter-rouge">validSince</code>, and <code class="language-plaintext highlighter-rouge">validBy</code> fields are meant to restrict the surface of attack but might not fully eliminate the risk of all such attacks, e.g. see the <a href="#phishing">Phishing</a> section.</p>
+
+<h3 id="phishing">Phishing</h3>
+
+<p>It’s worth pointing out a special form of replay attack by phishing. An adversary can design another smart contract in a way that the user be tricked into signing a smart endorsement for a seemingly legitimate purpose, but the data-to-designed matches the target application</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

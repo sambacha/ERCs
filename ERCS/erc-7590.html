@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>ERC-20 Holder Extension for NFTs | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="ERC-20 Holder Extension for NFTs | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7590" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7590" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">ERC-20 Holder Extension for NFTs</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal suggests an extension to <a href="./eip-721.md">ERC-721</a> to enable easy exchange of <a href="./eip-20.md">ERC-20</a> tokens. By enhancing <a href="./eip-721.md">ERC-721</a>, it allows unique tokens to manage and trade <a href="./eip-20.md">ERC-20</a> fungible tokens bundled in a single NFT. This is achieved by including methods to pull <a href="./eip-20.md">ERC-20</a> tokens into the NFT contract to a specific NFT, and transferring them out by the owner of such NFT. A transfer out nonce is included to prevent front-running issues.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>In the ever-evolving landscape of blockchain technology and decentralized ecosystems, interoperability between diverse token standards has become a paramount concern. By enhancing <a href="./eip-721.md">ERC-721</a> functionality, this proposal empowers non-fungible tokens (NFTs) to engage in complex transactions, facilitating the exchange of fungible tokens, unique assets, and multi-class assets within a single protocol.</p>
+
+<p>This ERC introduces new utilities in the following areas:</p>
+<ul>
+  <li>Expanded use cases</li>
+  <li>Facilitating composite transactions</li>
+  <li>Market liquidity and value creation</li>
+</ul>
+
+<h3 id="expanded-use-cases">Expanded Use Cases</h3>
+
+<p>Enabling <a href="./eip-721.md">ERC-721</a> tokens to handle various token types opens the door to a wide array of innovative use cases. From gaming and digital collectibles to decentralized finance (DeFi) and supply chain management, this extension enhances the potential of NFTs by allowing them to participate in complex, multi-token transactions.</p>
+
+<h3 id="facilitating-composite-transactions">Facilitating Composite Transactions</h3>
+
+<p>With this extension, composite transactions involving both fungible and non-fungible assets become easier. This functionality is particularly valuable for applications requiring intricate transactions, such as gaming ecosystems where in-game assets may include a combination of fungible and unique tokens.</p>
+
+<h3 id="market-liquidity-and-value-creation">Market Liquidity and Value Creation</h3>
+
+<p>By allowing <a href="./eip-721.md">ERC-721</a> tokens to hold and trade different types of tokens, it enhances liquidity for markets in all types of tokens.</p>
+
+<h2 id="specification">Specification</h2>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">interface</span> <span class="n">IERC7590</span> <span class="cm">/*is IERC165, IERC721*/</span>  <span class="p">{</span>
+    <span class="cm">/**
+     * @notice Used to notify listeners that the token received ERC-20 tokens.
+     * @param erc20Contract The address of the ERC-20 smart contract
+     * @param toTokenId The ID of the token receiving the ERC-20 tokens
+     * @param from The address of the account from which the tokens are being transferred
+     * @param amount The number of ERC-20 tokens received
+     */</span>
+    <span class="k">event</span> <span class="n">ReceivedERC20</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">erc20Contract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">toTokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to notify the listeners that the ERC-20 tokens have been transferred.
+     * @param erc20Contract The address of the ERC-20 smart contract
+     * @param fromTokenId The ID of the token from which the ERC-20 tokens have been transferred
+     * @param to The address receiving the ERC-20 tokens
+     * @param amount The number of ERC-20 tokens transferred
+     */</span>
+    <span class="k">event</span> <span class="n">TransferredERC20</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">erc20Contract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">fromTokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Used to retrieve the given token's specific ERC-20 balance
+     * @param erc20Contract The address of the ERC-20 smart contract
+     * @param tokenId The ID of the token being checked for ERC-20 balance
+     * @return The amount of the specified ERC-20 tokens owned by a given token
+     */</span>
+    <span class="k">function</span> <span class="n">balanceOfERC20</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">erc20Contract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Transfer ERC-20 tokens from a specific token.
+     * @dev The balance MUST be transferred from this smart contract.
+     * @dev MUST increase the transfer-out-nonce for the tokenId
+     * @dev MUST revert if the `msg.sender` is not the owner of the NFT or approved to manage it.
+     * @param erc20Contract The address of the ERC-20 smart contract
+     * @param tokenId The ID of the token to transfer the ERC-20 tokens from
+     * @param amount The number of ERC-20 tokens to transfer
+     * @param data Additional data with no specified format, to allow for custom logic
+     */</span>
+    <span class="k">function</span> <span class="n">transferHeldERC20FromToken</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">erc20Contract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Transfer ERC-20 tokens to a specific token.
+     * @dev The ERC-20 smart contract must have approval for this contract to transfer the ERC-20 tokens.
+     * @dev The balance MUST be transferred from the `msg.sender`.
+     * @param erc20Contract The address of the ERC-20 smart contract
+     * @param tokenId The ID of the token to transfer ERC-20 tokens to
+     * @param amount The number of ERC-20 tokens to transfer
+     * @param data Additional data with no specified format, to allow for custom logic
+     */</span>
+    <span class="k">function</span> <span class="n">transferERC20ToToken</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">erc20Contract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span>
+    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Nonce increased every time an ERC20 token is transferred out of a token
+     * @param tokenId The ID of the token to check the nonce for
+     * @return The nonce of the token
+     */</span>
+    <span class="k">function</span> <span class="n">erc20TransferOutNonce</span><span class="p">(</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="pull-mechanism">Pull Mechanism</h3>
+
+<p>We propose using a pull mechanism, where the contract transfers the token to itself, instead of receiving it via “safe transfer” for 2 reasons:</p>
+
+<ol>
+  <li>
+    <p>Customizability with Hooks. By initiating the process this way, smart contract developers have the flexibility to execute specific actions before and after transferring the tokens.</p>
+  </li>
+  <li>
+    <p>Lack of transfer with callback: <a href="./eip-20.md">ERC-20</a> tokens lack a standardized transfer with callback method, such as the “safeTransfer” on <a href="./eip-721.md">ERC-721</a>, which means there is no reliable way to notify the receiver of a successful transfer, nor to know which is the destination token is.</p>
+  </li>
+</ol>
+
+<p>This has the disadvantage of requiring approval of the token to be transferred before actually transferring it into an NFT.</p>
+
+<h3 id="granular-vs-generic">Granular vs Generic</h3>
+
+<p>We considered 2 ways of presenting the proposal:</p>
+<ol>
+  <li>A granular approach where there is an independent interface for each type of held token.</li>
+  <li>A universal token holder which could also hold and transfer <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a>.</li>
+</ol>
+
+<p>An implementation of the granular version is slightly cheaper in gas, and if you’re using just one or two types, it’s smaller in contract size. The generic version is smaller and has single methods to send or receive, but it also adds some complexity by always requiring Id and amount on transfer methods. Id not being necessary for <a href="./eip-20.md">ERC-20</a> and amount not being necessary for <a href="./eip-721.md">ERC-721</a>.</p>
+
+<p>We also considered that due to the existence of safe transfer methods on both <a href="./eip-721.md">ERC-721</a> and <a href="./eip-1155.md">ERC-1155</a>, and the commonly used interfaces of <code class="language-plaintext highlighter-rouge">IERC721Receiver</code> and <code class="language-plaintext highlighter-rouge">IERC1155Receiver</code>, there is not much need to declare an additional interface to manage such tokens. However, this is not the case for <a href="./eip-20.md">ERC-20</a>, which does not include a method with a callback to notify the receiver of the transfer.</p>
+
+<p>For the aforementioned reasons, we decided to go with a granular approach.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>No backward compatibility issues found.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Tests are included in <a href="../assets/eip-7590/test/erc7590.ts"><code class="language-plaintext highlighter-rouge">erc7590.ts</code></a>.</p>
+
+<p>To run them in terminal, you can use the following commands:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ../assets/eip-erc7590
+npm install
+npx hardhat test
+</code></pre></div></div>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>See <a href="../assets/eip-7590/contracts/ERC7590Mock.sol"><code class="language-plaintext highlighter-rouge">ERC7590Mock.sol</code></a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The same security considerations as with <a href="./eip-721.md">ERC-721</a> apply: hidden logic may be present in any of the functions, including burn, add resource, accept resource, and more.</p>
+
+<p>Caution is advised when dealing with non-audited contracts.</p>
+
+<p>Implementations MUST use the message sender as from parameter when they are transferring tokens into an NFT. Otherwise, since the current contract needs approval, it could potentially pull the external tokens into a different NFT.</p>
+
+<p>When transferring <a href="./eip-20.md">ERC-20</a> tokens in or out of an NFT, it could be the case that the amount transferred is not the same as the amount requested. This could happen if the <a href="./eip-20.md">ERC-20</a> contract has a fee on transfer. This could cause a bug on your Token Holder contract if you do not manage it properly. There are 2 ways to do it, both of which are valid:</p>
+<ol>
+  <li>Use the <code class="language-plaintext highlighter-rouge">IERC20</code> interface to check the balance of the contract before and after the transfer, and revert if the balance is not the expected one, hence not supporting tokens with fees on transfer.</li>
+  <li>Use the <code class="language-plaintext highlighter-rouge">IERC20</code> interface to check the balance of the contract before and after the transfer, and use the difference to calculate the amount of tokens that were actually transferred.</li>
+</ol>
+
+<p>To prevent a seller from front running the sale of an NFT holding <a href="./eip-20.md">ERC-20</a> tokens to transfer out such tokens before a sale is executed, marketplaces MUST beware of the <code class="language-plaintext highlighter-rouge">erc20TransferOutNonce</code> and revert if it has changed since listed.</p>
+
+<p><a href="./eip-20.md">ERC-20</a> tokens that are transferred directly to the NFT contract will be lost.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

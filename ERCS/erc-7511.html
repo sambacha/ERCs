@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Minimal Proxy Contract with PUSH0 | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Minimal Proxy Contract with PUSH0 | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-7511" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-7511" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Minimal Proxy Contract with PUSH0</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>With the <code class="language-plaintext highlighter-rouge">PUSH0</code> opcode (<a href="./eip-3855.md">EIP-3855</a>), introduced with the Shanghai upgrade, we optimized the previous Minimal Proxy Contract (<a href="./eip-1167.md">ERC-1167</a>) by 200 gas at deployment and 5 gas at runtime, while retaining the same functionality.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<ol>
+  <li>Reduce the contract bytecode size by <code class="language-plaintext highlighter-rouge">1</code> byte by removing a redundant <code class="language-plaintext highlighter-rouge">SWAP</code> opcode.</li>
+  <li>Reduce the runtime gas by replacing two <code class="language-plaintext highlighter-rouge">DUP</code> (cost <code class="language-plaintext highlighter-rouge">3</code> gas each) with two <code class="language-plaintext highlighter-rouge">PUSH0</code> (cost <code class="language-plaintext highlighter-rouge">2</code> gas each).</li>
+  <li>Increase the readability of the proxy contract by redesigning it from first principles with <code class="language-plaintext highlighter-rouge">PUSH0</code>.</li>
+</ol>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="standard-proxy-contract">Standard Proxy Contract</h3>
+
+<p>The exact runtime code for the minimal proxy contract with <code class="language-plaintext highlighter-rouge">PUSH0</code> is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>365f5f375f5f365f73bebebebebebebebebebebebebebebebebebebebe5af43d5f5f3e5f3d91602a57fd5bf3
+</code></pre></div></div>
+
+<p>where the bytes at indices 9 - 28 (inclusive) are replaced with the 20-byte address of the master implementation contract. The length of the runtime code is <code class="language-plaintext highlighter-rouge">44</code> bytes.</p>
+
+<p>The disassembly of the new minimal proxy contract code is:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>pc</th>
+      <th>op</th>
+      <th>opcode</th>
+      <th>stack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[00]</td>
+      <td>36</td>
+      <td>CALLDATASIZE</td>
+      <td>cds</td>
+    </tr>
+    <tr>
+      <td>[01]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 cds</td>
+    </tr>
+    <tr>
+      <td>[02]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 0 cds</td>
+    </tr>
+    <tr>
+      <td>[03]</td>
+      <td>37</td>
+      <td>CALLDATACOPY</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>[04]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>[05]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 0</td>
+    </tr>
+    <tr>
+      <td>[06]</td>
+      <td>36</td>
+      <td>CALLDATASIZE</td>
+      <td>cds 0 0</td>
+    </tr>
+    <tr>
+      <td>[07]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 cds 0 0</td>
+    </tr>
+    <tr>
+      <td>[08]</td>
+      <td>73bebe.</td>
+      <td>PUSH20 0xbebe.</td>
+      <td>0xbebe. 0 cds 0 0</td>
+    </tr>
+    <tr>
+      <td>[1d]</td>
+      <td>5a</td>
+      <td>GAS</td>
+      <td>gas 0xbebe. 0 cds 0 0</td>
+    </tr>
+    <tr>
+      <td>[1e]</td>
+      <td>f4</td>
+      <td>DELEGATECALL</td>
+      <td>suc</td>
+    </tr>
+    <tr>
+      <td>[1f]</td>
+      <td>3d</td>
+      <td>RETURNDATASIZE</td>
+      <td>rds suc</td>
+    </tr>
+    <tr>
+      <td>[20]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 rds suc</td>
+    </tr>
+    <tr>
+      <td>[21]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 0 rds suc</td>
+    </tr>
+    <tr>
+      <td>[22]</td>
+      <td>3e</td>
+      <td>RETURNDATACOPY</td>
+      <td>suc</td>
+    </tr>
+    <tr>
+      <td>[23]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 suc</td>
+    </tr>
+    <tr>
+      <td>[24]</td>
+      <td>3d</td>
+      <td>RETURNDATASIZE</td>
+      <td>rds 0 suc</td>
+    </tr>
+    <tr>
+      <td>[25]</td>
+      <td>91</td>
+      <td>SWAP2</td>
+      <td>suc 0 rds</td>
+    </tr>
+    <tr>
+      <td>[26]</td>
+      <td>602a</td>
+      <td>PUSH1 0x2a</td>
+      <td>0x2a suc 0 rds</td>
+    </tr>
+    <tr>
+      <td>[27]</td>
+      <td>57</td>
+      <td>JUMPI</td>
+      <td>0 rds</td>
+    </tr>
+    <tr>
+      <td>[29]</td>
+      <td>fd</td>
+      <td>REVERT</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>[2a]</td>
+      <td>5b</td>
+      <td>JUMPDEST</td>
+      <td>0 rds</td>
+    </tr>
+    <tr>
+      <td>[2b]</td>
+      <td>f3</td>
+      <td>RETURN</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="minimal-creation-code">Minimal Creation Code</h3>
+
+<p>The minimal creation code of the minimal proxy contract is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>602c8060095f395ff3365f5f375f5f365f73bebebebebebebebebebebebebebebebebebebebe5af43d5f5f3e5f3d91602a57fd5bf3
+</code></pre></div></div>
+
+<p>where the first 9 bytes are the initcode:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>602c8060095f395ff3
+</code></pre></div></div>
+
+<p>And the rest are runtime/contract code of the proxy. The length of the creation code is <code class="language-plaintext highlighter-rouge">53</code> bytes.</p>
+
+<h3 id="deploy-with-solidity">Deploy with Solidity</h3>
+
+<p>The minimal proxy contract can be deployed with Solidity using the following contract:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: CC0-1.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">// Note: this contract requires `PUSH0`, which is available in solidity &gt; 0.8.20 and EVM version &gt; Shanghai
+</span><span class="k">contract</span> <span class="n">Clone0Factory</span> <span class="p">{</span>
+    <span class="n">error</span> <span class="n">FailedCreateClone</span><span class="p">();</span>
+
+    <span class="k">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+
+    <span class="cm">/**
+     * @dev Deploys and returns the address of a clone0 (Minimal Proxy Contract with `PUSH0`) that mimics the behaviour of `implementation`.
+     *
+     * This function uses the create opcode, which should never revert.
+     */</span>
+    <span class="k">function</span> <span class="n">clone0</span><span class="p">(</span><span class="kt">address</span> <span class="n">impl</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// first 18 bytes of the creation code 
+</span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data1</span> <span class="o">=</span> <span class="s">hex"602c8060095f395ff3365f5f375f5f365f73"</span><span class="p">;</span>
+        <span class="c1">// last 15 bytes of the creation code
+</span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data2</span> <span class="o">=</span> <span class="s">hex"5af43d5f5f3e5f3d91602a57fd5bf3"</span><span class="p">;</span>
+        <span class="c1">// complete the creation code of Clone0
+</span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_code</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">impl</span><span class="p">,</span> <span class="n">data2</span><span class="p">);</span>
+
+        <span class="c1">// deploy with create op
+</span>        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="c1">// create(v, p, n)
+</span>            <span class="n">addr</span> <span class="o">:=</span> <span class="n">create</span><span class="p">(</span><span class="n">callvalue</span><span class="p">(),</span> <span class="n">add</span><span class="p">(</span><span class="n">_code</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">),</span> <span class="n">mload</span><span class="p">(</span><span class="n">_code</span><span class="p">))</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">addr</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nb">revert</span> <span class="n">FailedCreateClone</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The optimized contract is constructed with essential components of the proxy contract and incorporates the recently added <code class="language-plaintext highlighter-rouge">PUSH0</code> opcode. The core elements of the minimal proxy include:</p>
+
+<ol>
+  <li>Copy the calldata with <code class="language-plaintext highlighter-rouge">CALLDATACOPY</code>.</li>
+  <li>Forward the calldata to the implementation contract using <code class="language-plaintext highlighter-rouge">DELEGATECALL</code>.</li>
+  <li>Copy the returned data from the <code class="language-plaintext highlighter-rouge">DELEGATECALL</code>.</li>
+  <li>Return the results or revert the transaction based on whether the <code class="language-plaintext highlighter-rouge">DELEGATECALL</code> is successful.</li>
+</ol>
+
+<h3 id="step-1-copy-the-calldata">Step 1: Copy the Calldata</h3>
+
+<p>To copy the calldata, we need to provide the arguments for the <code class="language-plaintext highlighter-rouge">CALLDATACOPY</code> opcodes, which are <code class="language-plaintext highlighter-rouge">[0, 0, cds]</code>, where <code class="language-plaintext highlighter-rouge">cds</code> represents calldata size.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>pc</th>
+      <th>op</th>
+      <th>opcode</th>
+      <th>stack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[00]</td>
+      <td>36</td>
+      <td>CALLDATASIZE</td>
+      <td>cds</td>
+    </tr>
+    <tr>
+      <td>[01]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 cds</td>
+    </tr>
+    <tr>
+      <td>[02]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 0 cds</td>
+    </tr>
+    <tr>
+      <td>[03]</td>
+      <td>37</td>
+      <td>CALLDATACOPY</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="step-2-delegatecall">Step 2: Delegatecall</h3>
+
+<p>To forward the calldata to the delegate call, we need to prepare arguments for the <code class="language-plaintext highlighter-rouge">DELEGATECALL</code> opcodes, which are <code class="language-plaintext highlighter-rouge">[gas 0xbebe. 0 cds 0 0]</code>, where <code class="language-plaintext highlighter-rouge">gas</code> represents the remaining gas, <code class="language-plaintext highlighter-rouge">0xbebe.</code> represents the address of the implementation contract, and <code class="language-plaintext highlighter-rouge">suc</code> represents whether the delegatecall is successful.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>pc</th>
+      <th>op</th>
+      <th>opcode</th>
+      <th>stack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[04]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>[05]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 0</td>
+    </tr>
+    <tr>
+      <td>[06]</td>
+      <td>36</td>
+      <td>CALLDATASIZE</td>
+      <td>cds 0 0</td>
+    </tr>
+    <tr>
+      <td>[07]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 cds 0 0</td>
+    </tr>
+    <tr>
+      <td>[08]</td>
+      <td>73bebe.</td>
+      <td>PUSH20 0xbebe.</td>
+      <td>0xbebe. 0 cds 0 0</td>
+    </tr>
+    <tr>
+      <td>[1d]</td>
+      <td>5a</td>
+      <td>GAS</td>
+      <td>gas 0xbebe. 0 cds 0 0</td>
+    </tr>
+    <tr>
+      <td>[1e]</td>
+      <td>f4</td>
+      <td>DELEGATECALL</td>
+      <td>suc</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="step-3-copy-the-returned-data-from-the-delegatecall">Step 3: Copy the Returned Data from the <code class="language-plaintext highlighter-rouge">DELEGATECALL</code></h3>
+
+<p>To copy the returndata, we need to provide the arguments for the <code class="language-plaintext highlighter-rouge">RETURNDATACOPY</code> opcodes, which are <code class="language-plaintext highlighter-rouge">[0, 0, red]</code>, where <code class="language-plaintext highlighter-rouge">rds</code> represents size of returndata from the <code class="language-plaintext highlighter-rouge">DELEGATECALL</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>pc</th>
+      <th>op</th>
+      <th>opcode</th>
+      <th>stack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[1f]</td>
+      <td>3d</td>
+      <td>RETURNDATASIZE</td>
+      <td>rds suc</td>
+    </tr>
+    <tr>
+      <td>[20]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 rds suc</td>
+    </tr>
+    <tr>
+      <td>[21]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 0 rds suc</td>
+    </tr>
+    <tr>
+      <td>[22]</td>
+      <td>3e</td>
+      <td>RETURNDATACOPY</td>
+      <td>suc</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="step-4-return-or-revert">Step 4: Return or Revert</h3>
+
+<p>Lastly, we need to return the data or revert the transaction based on whether the <code class="language-plaintext highlighter-rouge">DELEGATECALL</code> is successful. There is no <code class="language-plaintext highlighter-rouge">if/else</code> in opcodes, so we need to use <code class="language-plaintext highlighter-rouge">JUMPI</code> and <code class="language-plaintext highlighter-rouge">JUMPDEST</code> instead. The arguments for <code class="language-plaintext highlighter-rouge">JUMPI</code> is <code class="language-plaintext highlighter-rouge">[0x2a, suc]</code>, where <code class="language-plaintext highlighter-rouge">0x2a</code> is the destination of the conditional jump.</p>
+
+<p>We also need to prepare the argument <code class="language-plaintext highlighter-rouge">[0, rds]</code> for <code class="language-plaintext highlighter-rouge">REVERT</code> and <code class="language-plaintext highlighter-rouge">RETURN</code> opcodes before the <code class="language-plaintext highlighter-rouge">JUMPI</code>, otherwise we have to prepare them twice. We cannot avoid the <code class="language-plaintext highlighter-rouge">SWAP</code> operation, because we can only get <code class="language-plaintext highlighter-rouge">rds</code> after the <code class="language-plaintext highlighter-rouge">DELEGATECALL</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>pc</th>
+      <th>op</th>
+      <th>opcode</th>
+      <th>stack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[23]</td>
+      <td>5f</td>
+      <td>PUSH0</td>
+      <td>0 suc</td>
+    </tr>
+    <tr>
+      <td>[24]</td>
+      <td>3d</td>
+      <td>RETURNDATASIZE</td>
+      <td>rds 0 suc</td>
+    </tr>
+    <tr>
+      <td>[25]</td>
+      <td>91</td>
+      <td>SWAP2</td>
+      <td>suc 0 rds</td>
+    </tr>
+    <tr>
+      <td>[26]</td>
+      <td>602a</td>
+      <td>PUSH1 0x2a</td>
+      <td>0x2a suc 0 rds</td>
+    </tr>
+    <tr>
+      <td>[27]</td>
+      <td>57</td>
+      <td>JUMPI</td>
+      <td>0 rds</td>
+    </tr>
+    <tr>
+      <td>[29]</td>
+      <td>fd</td>
+      <td>REVERT</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>[2a]</td>
+      <td>5b</td>
+      <td>JUMPDEST</td>
+      <td>0 rds</td>
+    </tr>
+    <tr>
+      <td>[2b]</td>
+      <td>f3</td>
+      <td>RETURN</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In the end, we arrived at the runtime code for Minimal Proxy Contract with <code class="language-plaintext highlighter-rouge">PUSH0</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>365f5f375f5f365f73bebebebebebebebebebebebebebebebebebebebe5af43d5f5f3e5f3d91602a57fd5bf3
+</code></pre></div></div>
+
+<p>The length of the runtime code is <code class="language-plaintext highlighter-rouge">44</code> bytes, which reduced <code class="language-plaintext highlighter-rouge">1</code> byte from the previous Minimal Proxy Contract. Moreover, it replaced the <code class="language-plaintext highlighter-rouge">RETURNDATASIZE</code> and <code class="language-plaintext highlighter-rouge">DUP</code> operations with <code class="language-plaintext highlighter-rouge">PUSH0</code>, which saves gas and increases the readability of the code. In summary, the new Minimal Proxy Contract reduces <code class="language-plaintext highlighter-rouge">200</code> gas at deployment and <code class="language-plaintext highlighter-rouge">5</code> gas at runtime, while remaining the same functionalities as the old one.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>Because the new minimal proxy contract uses <code class="language-plaintext highlighter-rouge">PUSH0</code> opcode, it can only be deployed after the Shanghai Upgrade. It behaves the same as the previous Minimal Proxy Contract.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>The new proxy contract standard is identical to the previous one (ERC-1167). Here are the security considerations when using minimal proxy contracts:</p>
+
+<ol>
+  <li>
+    <p><strong>Non-Upgradability</strong>: Minimal Proxy Contracts delegate their logic to another contract (often termed the “implementation” or “logic” contract). This delegation is fixed upon deployment, meaning you can’t change which implementation contract the proxy delegates to after its creation.</p>
+  </li>
+  <li>
+    <p><strong>Initialization Concerns</strong>: Proxy contracts lack constructors, so you need to use an initialization function after deployment. Skipping this step could leave the contract unsafe.</p>
+  </li>
+  <li>
+    <p><strong>Safety of Logic Contract</strong>: Vulnerabilities in the logic contract affect all associated proxy contracts.</p>
+  </li>
+  <li>
+    <p><strong>Transparency Issues</strong>: Because of its complexity, users might see the proxy as an empty contract, making it challenging to trace back to the actual logic contract.</p>
+  </li>
+</ol>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

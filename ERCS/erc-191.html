@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Signed Data Standard | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Signed Data Standard | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-191" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-191" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Signed Data Standard</h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="abstract">Abstract</h1>
+
+<p>This ERC proposes a specification about how to handle signed data in Ethereum contracts.</p>
+
+<h1 id="motivation">Motivation</h1>
+
+<p>Several multisignature wallet implementations have been created which accepts <code class="language-plaintext highlighter-rouge">presigned</code> transactions. A <code class="language-plaintext highlighter-rouge">presigned</code> transaction is a chunk of binary <code class="language-plaintext highlighter-rouge">signed_data</code>, along with signature (<code class="language-plaintext highlighter-rouge">r</code>, <code class="language-plaintext highlighter-rouge">s</code> and <code class="language-plaintext highlighter-rouge">v</code>). The interpretation of the <code class="language-plaintext highlighter-rouge">signed_data</code> has not been specified, leading to several problems:</p>
+
+<ul>
+  <li>Standard Ethereum transactions can be submitted as <code class="language-plaintext highlighter-rouge">signed_data</code>. An Ethereum transaction can be unpacked, into the following components: <code class="language-plaintext highlighter-rouge">RLP&lt;nonce, gasPrice, startGas, to, value, data&gt;</code> (hereby called <code class="language-plaintext highlighter-rouge">RLPdata</code>), <code class="language-plaintext highlighter-rouge">r</code>, <code class="language-plaintext highlighter-rouge">s</code> and <code class="language-plaintext highlighter-rouge">v</code>. If there are no syntactical constraints on <code class="language-plaintext highlighter-rouge">signed_data</code>, this means that <code class="language-plaintext highlighter-rouge">RLPdata</code> can be used as a syntactically valid <code class="language-plaintext highlighter-rouge">presigned</code> transaction.</li>
+  <li>Multisignature wallets have also had the problem that a <code class="language-plaintext highlighter-rouge">presigned</code> transaction has not been tied to a particular <code class="language-plaintext highlighter-rouge">validator</code>, i.e a specific wallet. Example:
+    <ol>
+      <li>Users <code class="language-plaintext highlighter-rouge">A</code>, <code class="language-plaintext highlighter-rouge">B</code> and <code class="language-plaintext highlighter-rouge">C</code> have the <code class="language-plaintext highlighter-rouge">2/3</code>-wallet <code class="language-plaintext highlighter-rouge">X</code></li>
+      <li>Users <code class="language-plaintext highlighter-rouge">A</code>, <code class="language-plaintext highlighter-rouge">B</code> and <code class="language-plaintext highlighter-rouge">D</code> have the <code class="language-plaintext highlighter-rouge">2/3</code>-wallet <code class="language-plaintext highlighter-rouge">Y</code></li>
+      <li>User <code class="language-plaintext highlighter-rouge">A</code> and <code class="language-plaintext highlighter-rouge">B</code> submit <code class="language-plaintext highlighter-rouge">presigned</code> transactions to <code class="language-plaintext highlighter-rouge">X</code>.</li>
+      <li>Attacker can now reuse their presigned transactions to <code class="language-plaintext highlighter-rouge">X</code>, and submit to <code class="language-plaintext highlighter-rouge">Y</code>.</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="specification">Specification</h2>
+
+<p>We propose the following format for <code class="language-plaintext highlighter-rouge">signed_data</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0x19 &lt;1 byte version&gt; &lt;version specific data&gt; &lt;data to sign&gt;.
+</code></pre></div></div>
+
+<p>The initial <code class="language-plaintext highlighter-rouge">0x19</code> byte is intended to ensure that the <code class="language-plaintext highlighter-rouge">signed_data</code> is not valid RLP.</p>
+
+<blockquote>
+  <p>For a single byte whose value is in the [0x00, 0x7f] range, that byte is its own RLP encoding.</p>
+</blockquote>
+
+<p>That means that any <code class="language-plaintext highlighter-rouge">signed_data</code> cannot be one RLP-structure, but a 1-byte <code class="language-plaintext highlighter-rouge">RLP</code> payload followed by something else. Thus, any EIP-191 <code class="language-plaintext highlighter-rouge">signed_data</code> can never be an Ethereum transaction.</p>
+
+<p>Additionally, <code class="language-plaintext highlighter-rouge">0x19</code> has been chosen because since ethereum/go-ethereum#2940 , the following is prepended before hashing in personal_sign:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"\x19Ethereum Signed Message:\n" + len(message).
+</code></pre></div></div>
+
+<p>Using <code class="language-plaintext highlighter-rouge">0x19</code> thus makes it possible to extend the scheme by defining a version <code class="language-plaintext highlighter-rouge">0x45</code> (<code class="language-plaintext highlighter-rouge">E</code>) to handle these kinds of signatures.</p>
+
+<h3 id="registry-of-version-bytes">Registry of version bytes</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Version byte</th>
+      <th>EIP</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x00</code></td>
+      <td><a href="./eip-191.md">191</a></td>
+      <td>Data with intended validator</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x01</code></td>
+      <td><a href="./eip-712.md">712</a></td>
+      <td>Structured data</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0x45</code></td>
+      <td><a href="./eip-191.md">191</a></td>
+      <td><code class="language-plaintext highlighter-rouge">personal_sign</code> messages</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="version-0x00">Version <code class="language-plaintext highlighter-rouge">0x00</code></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0x19 &lt;0x00&gt; &lt;intended validator address&gt; &lt;data to sign&gt;
+</code></pre></div></div>
+
+<p>The version <code class="language-plaintext highlighter-rouge">0x00</code> has <code class="language-plaintext highlighter-rouge">&lt;intended validator address&gt;</code> for the version specific data. In the case of a Multisig wallet that perform an execution based on a passed signature, the validator address is the address of the Multisig itself. The data to sign could be any arbitrary data.</p>
+
+<h4 id="version-0x01">Version <code class="language-plaintext highlighter-rouge">0x01</code></h4>
+
+<p>The version <code class="language-plaintext highlighter-rouge">0x01</code> is for structured data as defined in <a href="./eip-712.md">EIP-712</a></p>
+
+<h4 id="version-0x45-e">Version <code class="language-plaintext highlighter-rouge">0x45</code> (E)</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0x19 &lt;0x45 (E)&gt; &lt;thereum Signed Message:\n" + len(message)&gt; &lt;data to sign&gt;
+</code></pre></div></div>
+
+<p>The version <code class="language-plaintext highlighter-rouge">0x45</code> (E) has <code class="language-plaintext highlighter-rouge">&lt;thereum Signed Message:\n" + len(message)&gt;</code> for the version-specific data. The data to sign can be any arbitrary data.</p>
+
+<blockquote>
+  <p>NB: The <code class="language-plaintext highlighter-rouge">E</code> in <code class="language-plaintext highlighter-rouge">Ethereum Signed Message</code> refers to the version byte 0x45. The character <code class="language-plaintext highlighter-rouge">E</code> is <code class="language-plaintext highlighter-rouge">0x45</code> in hexadecimal which makes the remainder, <code class="language-plaintext highlighter-rouge">thereum Signed Message:\n + len(message)</code>, the version-specific data.</p>
+</blockquote>
+
+<h3 id="example">Example</h3>
+
+<p>The following snippets has been written in Solidity 0.8.0.</p>
+
+<h4 id="version-0x00-1">Version <code class="language-plaintext highlighter-rouge">0x00</code></h4>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">signatureBasedExecution</span><span class="p">(</span><span class="kt">address</span> <span class="n">target</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">nonce</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">payload</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">v</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">r</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">s</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+        
+    <span class="c1">// Arguments when calculating hash to validate
+</span>    <span class="c1">// 1: byte(0x19) - the initial 0x19 byte
+</span>    <span class="c1">// 2: byte(0) - the version byte
+</span>    <span class="c1">// 3: address(this) - the validator address
+</span>    <span class="c1">// 4-6 : Application specific data
+</span>
+    <span class="kt">bytes32</span> <span class="n">hash</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="p">.</span><span class="n">encodePacked</span><span class="p">(</span><span class="kt">byte</span><span class="p">(</span><span class="mh">0x19</span><span class="p">),</span> <span class="kt">byte</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="n">payload</span><span class="p">));</span>
+
+    <span class="c1">// recovering the signer from the hash and the signature
+</span>    <span class="n">addressRecovered</span> <span class="o">=</span> <span class="nb">ecrecover</span><span class="p">(</span><span class="n">hash</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+   
+    <span class="c1">// logic of the wallet
+</span>    <span class="c1">// if (addressRecovered == owner) executeOnTarget(target, payload);
+</span><span class="p">}</span>
+</code></pre></div></div>
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

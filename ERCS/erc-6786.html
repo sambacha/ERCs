@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Registry for royalties payment for NFTs | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Registry for royalties payment for NFTs | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6786" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6786" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Registry for royalties payment for NFTs</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard allows anyone to pay royalties for a certain NFT and also to keep track of the royalties amount paid. It will cumulate the value each time a payment is executed through it and make the information public.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>There are many marketplaces which do not enforce any royalty payment to the NFT creator every time the NFT is sold or re-sold and/or providing a way for doing it. There are some marketplaces which use specific system of royalties, however that system is applicable for the NFTs creates on their platform.</p>
+
+<p>In this context, there is a need of a way for paying royalties, as it is a strong incentive for creators to keep contributing to the NFTs ecosystem.</p>
+
+<p>Additionally, this standard will provide a way of computing the amount of royalties paid to a creator for a certain NFT. This could be useful in the context of categorising NFTs in terms of royalties. The term “debt“ is used because the standard aims to provide a way of knowing if there are any royalties left unpaid for the NFTs trades that took place in a marketplace that does not support them and, in that case, expose a way of paying them.</p>
+
+<p>With a lot of places made for trading NFTs dropping down the royalty payment or having a centralised approach, we want to provide a way for anyone to pay royalties to the creators.</p>
+
+<p>Not only the owner of it, but anyone could pay royalties for a certain NFT. This could be a way of supporting a creator for his work.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<p>Every contract compliant with <a href="./eip-6786.md">ERC-6786</a> MUST implement the interface defined as follows:</p>
+
+<h3 id="contract-interface">Contract Interface</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @title Royalty Debt Registry
+/// Note: the ERC-165 identifier for this interface is 0x253b27b0
+</span>
+<span class="k">interface</span> <span class="n">IERC6786</span> <span class="p">{</span>
+
+    <span class="c1">// Logged when royalties were paid for a NFT
+</span>    <span class="c1">/// @notice Emitted when royalties are paid for the NFT with address tokenAddress and id tokenId
+</span>    <span class="k">event</span> <span class="n">RoyaltiesPaid</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">tokenAddress</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+
+    <span class="c1">/// @notice sends msg.value to the creator of a NFT
+</span>    <span class="c1">/// @dev Reverts if there are no on-chain informations about the creator
+</span>    <span class="c1">/// @param tokenAddress The address of NFT contract
+</span>    <span class="c1">/// @param tokenId The NFT id
+</span>    <span class="k">function</span> <span class="n">payRoyalties</span><span class="p">(</span><span class="kt">address</span> <span class="n">tokenAddress</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="c1">/// @notice Get the amount of royalties which was paid for a NFT
+</span>    <span class="c1">/// @dev 
+</span>    <span class="c1">/// @param tokenAddress The address of NFT contract
+</span>    <span class="c1">/// @param tokenId The NFT id
+</span>    <span class="c1">/// @return The amount of royalties paid for the NFT
+</span>    <span class="k">function</span> <span class="n">getPaidRoyalties</span><span class="p">(</span><span class="kt">address</span> <span class="n">tokenAddress</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>All functions defined as view MAY be implemented as pure or view</p>
+
+<p>Function <code class="language-plaintext highlighter-rouge">payRoyalties</code>  MAY be implemented as public or external</p>
+
+<p>The event <code class="language-plaintext highlighter-rouge">RoyaltiesPaid</code> MUST be emitted when the payRoyalties function is called</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">supportsInterface</code> function MUST return true when called with <code class="language-plaintext highlighter-rouge">0x253b27b0</code></p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The payment can be made in native coins, so it is easy to aggregate the amount of paid royalties. We want this information to be public, so anyone could tell if a creator received royalties in case of under the table trading or in case of marketplaces which don’t support royalties.</p>
+
+<p>The function used for payment can be called by anyone (not only the NFTs owner) to support the creator at any time. There is a way of seeing the amount of paid royalties in any token, also available for anyone.</p>
+
+<p>For fetching creator on-chain data we will use <a href="./eip-2981.md">ERC-2981</a>, but any other on-chain method of getting the creator address is accepted.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This ERC is not introducing any backward incompatibilities.</p>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<p>Tests are included in <a href="../assets/eip-6786/test/ERC6786.test.js"><code class="language-plaintext highlighter-rouge">ERC6786.test.js</code></a>.</p>
+
+<p>To run them in terminal, you can use the following commands:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ../assets/eip-6786
+npm install
+npx hardhat test
+</code></pre></div></div>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>See <a href="../assets/eip-6786/contracts/ERC6786.sol"><code class="language-plaintext highlighter-rouge">ERC6786.sol</code></a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>There are no security considerations related directly to the implementation of this standard.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="../LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

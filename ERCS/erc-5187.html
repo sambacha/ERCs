@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Extend EIP-1155 with rentable usage rights | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Extend EIP-1155 with rentable usage rights | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5187" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5187" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Extend EIP-1155 with rentable usage rights</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This standard is an extension of <a href="./eip-1155.md">EIP-1155</a>. It proposes to introduce separable, rentable, and transferable usage rights (in the form of NFT-IDs), enabling the property owner (the only NFT holder) to rent out the NFT to multiple users (ID holders) at the same time for different terms, and be withdrawn by smart contract upon expiration.</p>
+
+<p>The property owner always retains ownership and is able to transfer the NFT to others during the lease.</p>
+
+<p>The proposal also supports the sublease and renewal of the rental so that users can freely transfer the usage rights among each other and extend the lease term. Early return of NFTs can also be achieved by subletting the usage rights back to the property owners.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The well-accepted <a href="./eip-721.md">EIP-721</a> and EIP-1155 standards focused on the ownership of unique assets, quite sensible in the time of NFTs being used primarily as arts and collectibles, or, you can say, as private property rights.</p>
+<h3 id="first-step-expirable-nfts">First Step: “Expirable” NFTs</h3>
+<p>The advent of private ownership in the real world has promoted the vigorous development of the modern economy, and we believe that the usage right will be the first detachable right widely applied in the blockchain ecosystem. As NFTs are increasingly applied in rights, finance, games, and the Metaverse, the value of NFT is no longer simply the proof of ownership, but with limitless practice use scenarios. For example, artists may wish to rent out their artworks to media or audiences within specific periods, and game guilds may wish to rent out game items to new players to reduce their entry costs.</p>
+
+<p>The lease/rental of NFTs in the crypto space is not a new topic, but the implementation of leasing has long relied on over-collateralization, centralized custody, or pure trust, which significantly limits the boom of the leasing market. Therefore, a new type of “expirable” NFTs that can be automatically withdrawn upon expiration through smart contract is proposed, at the technical level, to eliminate those bottlenecks. Based on that, a new leasing model that is decentralized, collateral-free, and operated purely “on-chain” may disrupt the way people trade and use NFTs. Thus, this EIP proposal is here to create “expirable” NFTs compatible with EIP-1155.</p>
+<h3 id="then-make-everything-transferable">Then, Make Everything Transferable</h3>
+<p>The way we achieve leasing is to separate ownership and usage rights, and beyond that, we focus more on making them freely priced and traded after separation, which is impossible to happen in the traditional financial field. Imagine the below scenarios: i) as a landlord, you can sell your house in rental to others without affecting the tenancy, and your tenants will then pay rent to the new landlord; ii) as a tenant, you can sublet the house to others without the consent of the landlord, and even the one sublets can continue subletting the house until the lease term is close the last tenant can apply for a renewal of the lease. All of this can happen in the blockchain world, and that’s the beauty of blockchain. Without permission, without trust, code is the law.</p>
+
+<p>Making ownership and usage rights transferable may further revolutionize the game rules in NFT’s field, both in capital allocation and NFT development. Buying NFT ownership is more like investing in stocks, and the price is determined by market expectations of the project; renting the usage right is less speculative, so the price is easier to determine based on supply and demand. The ownership market and the usage-right market will function to meet the needs of target participants and achieve a balance that is conducive to the long-term and stable development of NFT projects.
+Based on the above, we propose this EIP standard to complement the current EIP scopes and introduce those functions as new standards.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">///  Note: the ERC-165 identifier for this interface is 0x6938e358.
+</span> <span class="k">interface</span> <span class="n">IRental</span> <span class="cm">/* is IERC165,IERC1155 */</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @notice This emits when user rent NFT
+     * - `id` The id of the current token
+     * - `user` The address to rent the NFT usage rights
+     * - `amount` The amount of usage rights
+     * - `expire` The specified period of time to rent
+     **/</span>
+    <span class="k">event</span> <span class="n">Rented</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">id</span><span class="p">,</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">user</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">expire</span><span class="p">);</span>
+
+    <span class="cm">/**
+    * MUST trigger on any successful call to `renew(address user,uint256 id)`
+    *  - `id` The id of the current token
+    *  - `user` The user of the NFT
+    *  - `expire` The new specified period of time to rent
+    **/</span>
+    <span class="k">event</span> <span class="n">Renew</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">id</span><span class="p">,</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">user</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">expire</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *  MUST trigger on any successful call to `renew(address user,uint256 id,uint256 expire)`
+    *  - `id` The id of the current token
+    *  - `from` The current user of the NFT
+    *  - `to` The new user
+    **/</span>
+    <span class="k">event</span> <span class="n">Sublet</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">id</span><span class="p">,</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span><span class="kt">address</span> <span class="n">to</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice This emits when the NFT owner takes back the usage rights from the tenant (the `user`)
+     * - id The id of the current token
+     * - user The address to rent the NFT's usage rights
+     * - amount Amount of usage rights
+     **/</span>
+    <span class="k">event</span> <span class="n">TakeBack</span><span class="p">(</span><span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">id</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">user</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @notice Function to rent out usage rights
+     * - from The address to approve
+     * - to The address to rent the NFT usage rights
+     * - id The id of the current token
+     * - amount The amount of usage rights
+     * - expire The specified period of time to rent
+     **/</span>
+    <span class="k">function</span> <span class="n">safeRent</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">expire</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @notice Function to take back usage rights after the end of the tenancy
+     * - user The address to rent the NFT's usage rights
+     * - tokenId The id of the current token
+     **/</span>
+    <span class="k">function</span> <span class="n">takeBack</span><span class="p">(</span><span class="kt">address</span> <span class="n">user</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+    * @notice Return the NFT to the address of the NFT property right owner.
+    **/</span>
+    <span class="k">function</span> <span class="n">propertyRightOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+
+    <span class="cm">/**
+    * @notice Return the total supply amount of the current token
+    **/</span>
+    <span class="k">function</span> <span class="n">totalSupply</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    * @notice Return expire The specified period of time to rent
+    **/</span>
+    <span class="k">function</span> <span class="n">expireAt</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">,</span><span class="kt">address</span> <span class="n">user</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+    *   extended rental period
+    *  - `id` The id of the current token
+    *  - `user` The user of the NFT
+    *  - `expire` The new specified period of time to rent
+    **/</span>
+    <span class="k">function</span> <span class="n">renew</span><span class="p">(</span><span class="kt">address</span> <span class="n">user</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">expire</span><span class="p">)</span>  <span class="k">external</span><span class="p">;</span>
+
+    <span class="cm">/**
+    *  transfer of usage right
+    *  - `id` The id of the current token
+    *  - `user` The user of the NFT
+    *  - `expire` The new specified period of time to rent
+    **/</span>
+    <span class="k">function</span> <span class="n">sublet</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>Implementing the proposal to create rentable NFTs has two main benefits.</p>
+
+<p>One is that NFTs with multiple usage rights allow NFT property owners to perform the safeRent function and rent out usage rights to multiple users at the same time. For each usage right leased and expires, the property owner can perform the takeBack function to retrieve the usage right.</p>
+
+<p>Another benefit is that the transfer of usage rights can be quite flexible. The user can transfer the usage rights to other users by calling the Sublet function during the lease period, and can also extend the lease period of the usage rights by asking the property owner to perform the Renewal function. It is worth mentioning that if the user sublet the NFT to the property owner, it will realize the early return of NFT before the end of the lease period.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>As mentioned at the beginning, this is an extension of EIP-1155. Therefore, it is fully backward compatible with EIP-1155.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Needs discussion.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Disclaimer of copyright and related rights through <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

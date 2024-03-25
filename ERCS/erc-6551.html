@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Non-fungible Token Bound Accounts | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="Non-fungible Token Bound Accounts | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6551" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6551" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Non-fungible Token Bound Accounts</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>This proposal defines a system which assigns Ethereum accounts to all non-fungible tokens. These token bound accounts allow NFTs to own assets and interact with applications, without requiring changes to existing smart contracts or infrastructure.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The <a href="./eip-721.md">ERC-721</a> standard enabled an explosion of non-fungible token applications. Some notable use cases have included breedable cats, generative artwork, and exchange liquidity positions.</p>
+
+<p>However, NFTs cannot act as agents or associate with other on-chain assets. This limitation makes it difficult to represent many real-world non-fungible assets as NFTs. For example:</p>
+
+<ul>
+  <li>A character in a role-playing game that accumulates assets and abilities over time based on actions they have taken</li>
+  <li>An automobile composed of many fungible and non-fungible components</li>
+  <li>An investment portfolio composed of multiple fungible assets</li>
+  <li>A punch pass membership card granting access to an establishment and recording a history of past interactions</li>
+</ul>
+
+<p>This proposal aims to give every NFT the same rights as an Ethereum user. This includes the ability to self-custody assets, execute arbitrary operations, control multiple independent accounts, and use accounts across multiple chains. By doing so, this proposal allows complex real-world assets to be represented as NFTs using a common pattern that mirrors Etherem’s existing ownership model.</p>
+
+<p>This is accomplished by defining a singleton registry which assigns unique, deterministic smart contract account addresses to all existing and future NFTs. Each account is permanently bound to a single NFT, with control of the account granted to the holder of that NFT.</p>
+
+<p>The pattern defined in this proposal does not require any changes to existing NFT smart contracts. It is also compatible out of the box with nearly all existing infrastructure that supports Ethereum accounts, from on-chain protocols to off-chain indexers. Token bound accounts are compatible with every existing on-chain asset standard, and can be extended to support new asset standards created in the future.</p>
+
+<p>By giving every NFT the full capabilities of an Ethereum account, this proposal enables many novel use cases for existing and future NFTs.</p>
+
+<h2 id="specification">Specification</h2>
+
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+
+<h3 id="overview">Overview</h3>
+
+<p>The system outlined in this proposal has two main components:</p>
+
+<ul>
+  <li>A singleton registry for token bound accounts</li>
+  <li>A common interface for token bound account implementations</li>
+</ul>
+
+<p>The following diagram illustrates the relationship between NFTs, NFT holders, token bound accounts, and the Registry:
+<img src="../assets/eip-6551/diagram.png" alt="" /></p>
+
+<h3 id="registry">Registry</h3>
+
+<p>The registry is a singleton contract that serves as the entry point for all token bound account address queries. It has two functions:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">createAccount</code> - creates the token bound account for an NFT given an <code class="language-plaintext highlighter-rouge">implementation</code> address</li>
+  <li><code class="language-plaintext highlighter-rouge">account</code> - computes the token bound account address for an NFT given an <code class="language-plaintext highlighter-rouge">implementation</code> address</li>
+</ul>
+
+<p>The registry is permissionless, immutable, and has no owner. The complete source code for the registry can be found in the <a href="#registry-implementation">Registry Implementation</a> section. The registry MUST be deployed at address <code class="language-plaintext highlighter-rouge">0x000000006551c19487814612e58FE06813775758</code> using Nick’s Factory (<code class="language-plaintext highlighter-rouge">0x4e59b44847b379578588920cA78FbF26c0B4956C</code>) with salt <code class="language-plaintext highlighter-rouge">0x0000000000000000000000000000000000000000fd8eb4e1dca713016c518e31</code>.</p>
+
+<p>The registry can be deployed to any EVM-compatible chain using the following transaction:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+        "to": "0x4e59b44847b379578588920ca78fbf26c0b4956c",
+        "value": "0x0",
+        "data": "0x0000000000000000000000000000000000000000fd8eb4e1dca713016c518e31608060405234801561001057600080fd5b5061023b806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c8063246a00211461003b5780638a54c52f1461006a575b600080fd5b61004e6100493660046101b7565b61007d565b6040516001600160a01b03909116815260200160405180910390f35b61004e6100783660046101b7565b6100e1565b600060806024608c376e5af43d82803e903d91602b57fd5bf3606c5285605d52733d60ad80600a3d3981f3363d3d373d3d3d363d7360495260ff60005360b76055206035523060601b60015284601552605560002060601b60601c60005260206000f35b600060806024608c376e5af43d82803e903d91602b57fd5bf3606c5285605d52733d60ad80600a3d3981f3363d3d373d3d3d363d7360495260ff60005360b76055206035523060601b600152846015526055600020803b61018b578560b760556000f580610157576320188a596000526004601cfd5b80606c52508284887f79f19b3655ee38b1ce526556b7731a20c8f218fbda4a3990b6cc4172fdf887226060606ca46020606cf35b8060601b60601c60005260206000f35b80356001600160a01b03811681146101b257600080fd5b919050565b600080600080600060a086880312156101cf57600080fd5b6101d88661019b565b945060208601359350604086013592506101f46060870161019b565b94979396509194608001359291505056fea2646970667358221220ea2fe53af507453c64dd7c1db05549fa47a298dfb825d6d11e1689856135f16764736f6c63430008110033",
+}
+</code></pre></div></div>
+
+<p>The registry MUST deploy each token bound account as an <a href="./eip-1167.md">ERC-1167</a> minimal proxy with immutable constant data appended to the bytecode.</p>
+
+<p>The deployed bytecode of each token bound account MUST have the following structure:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ERC-1167 Header               (10 bytes)
+&lt;implementation (address)&gt;    (20 bytes)
+ERC-1167 Footer               (15 bytes)
+&lt;salt (bytes32)&gt;              (32 bytes)
+&lt;chainId (uint256)&gt;           (32 bytes)
+&lt;tokenContract (address)&gt;     (32 bytes)
+&lt;tokenId (uint256)&gt;           (32 bytes)
+</code></pre></div></div>
+
+<p>For example, the token bound account with implementation address <code class="language-plaintext highlighter-rouge">0xbebebebebebebebebebebebebebebebebebebebe</code>, salt <code class="language-plaintext highlighter-rouge">0</code>, chain ID <code class="language-plaintext highlighter-rouge">1</code>, token contract <code class="language-plaintext highlighter-rouge">0xcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcf</code> and token ID <code class="language-plaintext highlighter-rouge">123</code> would have the following deployed bytecode:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000cfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcfcf000000000000000000000000000000000000000000000000000000000000007b
+</code></pre></div></div>
+
+<p>Each token bound account proxy MUST delegate execution to a contract that implements the <code class="language-plaintext highlighter-rouge">IERC6551Account</code> interface.</p>
+
+<p>The registry MUST deploy all token bound accounts using the <code class="language-plaintext highlighter-rouge">create2</code> opcode so that each account address is deterministic. Each token bound account address SHALL be derived from the unique combination of its implementation address, token contract address, token ID, chain ID, and salt.</p>
+
+<p>The registry MUST implement the following interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IERC6551Registry</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev The registry MUST emit the ERC6551AccountCreated event upon successful account creation.
+     */</span>
+    <span class="k">event</span> <span class="n">ERC6551AccountCreated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">account</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">implementation</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">tokenContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev The registry MUST revert with AccountCreationFailed error if the create2 operation fails.
+     */</span>
+    <span class="n">error</span> <span class="n">AccountCreationFailed</span><span class="p">();</span>
+
+    <span class="cm">/**
+     * @dev Creates a token bound account for a non-fungible token.
+     *
+     * If account has already been created, returns the account address without calling create2.
+     *
+     * Emits ERC6551AccountCreated event.
+     *
+     * @return account The address of the token bound account
+     */</span>
+    <span class="k">function</span> <span class="n">createAccount</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">implementation</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">tokenContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the computed token bound account address for a non-fungible token.
+     *
+     * @return account The address of the token bound account
+     */</span>
+    <span class="k">function</span> <span class="n">account</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">implementation</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">tokenContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="account-interface">Account Interface</h3>
+
+<p>All token bound accounts SHOULD be created via the singleton registry.</p>
+
+<p>All token bound account implementations MUST implement <a href="./eip-165.md">ERC-165</a> interface detection.</p>
+
+<p>All token bound account implementations MUST implement <a href="./eip-1271.md">ERC-1271</a> signature validation.</p>
+
+<p>All token bound account implementations MUST implement the following interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev the ERC-165 identifier for this interface is `0x6faff5f1`
+</span><span class="k">interface</span> <span class="n">IERC6551Account</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Allows the account to receive Ether.
+     *
+     * Accounts MUST implement a `receive` function.
+     *
+     * Accounts MAY perform arbitrary logic to restrict conditions
+     * under which Ether can be received.
+     */</span>
+    <span class="k">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="cm">/**
+     * @dev Returns the identifier of the non-fungible token which owns the account.
+     *
+     * The return value of this function MUST be constant - it MUST NOT change over time.
+     *
+     * @return chainId       The chain ID of the chain the token exists on
+     * @return tokenContract The contract address of the token
+     * @return tokenId       The ID of the token
+     */</span>
+    <span class="k">function</span> <span class="n">token</span><span class="p">()</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">tokenContract</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns a value that SHOULD be modified each time the account changes state.
+     *
+     * @return The current account state
+     */</span>
+    <span class="k">function</span> <span class="n">state</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns a magic value indicating whether a given signer is authorized to act on behalf
+     * of the account.
+     *
+     * MUST return the bytes4 magic value 0x523e3260 if the given signer is valid.
+     *
+     * By default, the holder of the non-fungible token the account is bound to MUST be considered
+     * a valid signer.
+     *
+     * Accounts MAY implement additional authorization logic which invalidates the holder as a
+     * signer or grants signing permissions to other non-holder accounts.
+     *
+     * @param  signer     The address to check signing authorization for
+     * @param  context    Additional data used to determine whether the signer is valid
+     * @return magicValue Magic value indicating whether the signer is valid
+     */</span>
+    <span class="k">function</span> <span class="n">isValidSigner</span><span class="p">(</span><span class="kt">address</span> <span class="n">signer</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">context</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span> <span class="n">magicValue</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h3 id="execution-interface">Execution Interface</h3>
+
+<p>All token bound accounts MUST implement an execution interface which allows valid signers to execute arbitrary operations on behalf of the account. Support for an execution interface MUST be signaled by the account using ERC-165 interface detection.</p>
+
+<p>Token bound accounts MAY support the following execution interface:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// @dev the ERC-165 identifier for this interface is `0x51945447`
+</span><span class="k">interface</span> <span class="n">IERC6551Executable</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev Executes a low-level operation if the caller is a valid signer on the account.
+     *
+     * Reverts and bubbles up error if operation fails.
+     *
+     * Accounts implementing this interface MUST accept the following operation parameter values:
+     * - 0 = CALL
+     * - 1 = DELEGATECALL
+     * - 2 = CREATE
+     * - 3 = CREATE2
+     *
+     * Accounts implementing this interface MAY support additional operations or restrict a signer's
+     * ability to execute certain operations.
+     *
+     * @param to        The target address of the operation
+     * @param value     The Ether value to be sent to the target
+     * @param data      The encoded operation calldata
+     * @param operation A value indicating the type of operation to perform
+     * @return The result of the operation
+     */</span>
+    <span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">operation</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">payable</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="rationale">Rationale</h2>
+
+<h3 id="singleton-registry">Singleton Registry</h3>
+
+<p>This proposal specifies a single, canonical registry that can be permissionlessly deployed to any chain at a known address. It purposefully does not specify a common interface that can be implemented by multiple registry contracts. This approach enables several critical properties.</p>
+
+<h4 id="counterfactual-accounts">Counterfactual Accounts</h4>
+
+<p>All token bound accounts are created using the create2 opcode, enabling accounts to exist in a counterfactual state prior to their creation. This allows token bound accounts to receive assets prior to contract creation. A singleton account registry ensures a common addressing scheme is used for all token bound account addresses.</p>
+
+<h4 id="trustless-deployments">Trustless Deployments</h4>
+
+<p>A single ownerless registry ensures that the only trusted contract for any token bound account is the implementation. This guarantees the holder of a token access to all assets stored within a counterfactual account using a trusted implementation.</p>
+
+<p>Without a canonical registry, some token bound accounts may be deployed using an owned or upgradable registry. This may lead to loss of assets stored in counterfactual accounts, and increases the scope of the security model that applications supporting this proposal must consider.</p>
+
+<h4 id="cross-chain-compatibility">Cross-chain Compatibility</h4>
+
+<p>A singleton registry with a known address enables each token bound account to exist on multiple chains. The inclusion of <code class="language-plaintext highlighter-rouge">chainId</code> as a parameter to <code class="language-plaintext highlighter-rouge">createAccount</code> allows the contract for a token bound account to be deployed at the same address on any supported chain. Account implementations are therefore able to support cross-chain account execution, where an NFT on one chain can control its token bound account on another chain.</p>
+
+<h4 id="single-entry-point">Single Entry Point</h4>
+
+<p>A single entry point for querying account addresses and <code class="language-plaintext highlighter-rouge">AccountCreated</code> events simplifies the complex task of indexing token bound accounts in applications which support this proposal.</p>
+
+<h4 id="implementation-diversity">Implementation Diversity</h4>
+
+<p>A singleton registry allows diverse account implementations to share a common addressing scheme. This gives developers significant freedom to implement both account-specific features (e.g. delegation) as well as alternative account models (e.g. ephemeral accounts) in a way that can be easily supported by client applications.</p>
+
+<h3 id="registry-vs-factory">Registry vs Factory</h3>
+
+<p>The term “registry” was chosen instead of “factory” to highlight the canonical nature of the contract and emphasize the act of querying account addresses (which occurs regularly) over the creation of accounts (which occurs only once per account).</p>
+
+<h3 id="variable-execution-interface">Variable Execution Interface</h3>
+
+<p>This proposal does not require accounts to implement a specific execution interface in order to be compatible, so long as they signal support for at least one execution interface via ERC-165 interface detection. Allowing account developers to choose their own execution interface allows this proposal to support the wide variety of existing execution interfaces and maintain forward compatibility with likely future standardized interfaces.</p>
+
+<h3 id="account-ambiguity">Account Ambiguity</h3>
+
+<p>The specification proposed above allows NFTs to have multiple token bound accounts. During the development of this proposal, alternative architectures were considered which would have assigned a single token bound account to each NFT, making each token bound account address an unambiguous identifier.</p>
+
+<p>However, these alternatives present several trade offs.</p>
+
+<p>First, due to the permissionless nature of smart contracts, it is impossible to enforce a limit of one token bound account per NFT. Anyone wishing to utilize multiple token bound accounts per NFT could do so by deploying an additional registry contract.</p>
+
+<p>Second, limiting each NFT to a single token bound account would require a static, trusted account implementation to be included in this proposal. This implementation would inevitably impose specific constraints on the capabilities of token bound accounts. Given the number of unexplored use cases this proposal enables and the benefit that diverse account implementations could bring to the non-fungible token ecosystem, it is the authors’ opinion that defining a canonical and constrained implementation in this proposal is premature.</p>
+
+<p>Finally, this proposal seeks to grant NFTs the ability to act as agents on-chain. In current practice, on-chain agents often utilize multiple accounts. A common example is individuals who use a “hot” account for daily use and a “cold” account for storing valuables. If on-chain agents commonly use multiple accounts, it stands to reason that NFTs ought to inherit the same ability.</p>
+
+<h3 id="proxy-implementation">Proxy Implementation</h3>
+
+<p>ERC-1167 minimal proxies are well supported by existing infrastructure and are a common smart contract pattern. This proposal deploys each token bound account using a custom ERC-1167 proxy implementation that stores the salt, chain id, token contract address, and token ID as ABI-encoded constant data appended to the contract bytecode. This allows token bound account implementations to easily query this data while ensuring it remains constant. This approach was taken to maximize compatibility with existing infrastructure while also giving smart contract developers full flexibility when creating custom token bound account implementations.</p>
+
+<h3 id="chain-identifier">Chain Identifier</h3>
+
+<p>This proposal uses the chain ID to identify each NFT along with its contract address and token ID. Token identifiers are globally unique on a single Ethereum chain, but may not be unique across multiple Ethereum chains.</p>
+
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+
+<p>This proposal seeks to be maximally backwards compatible with existing non-fungible token contracts. As such, it does not extend the ERC-721 standard.</p>
+
+<p>Additionally, this proposal does not require the registry to perform an ERC-165 interface check for ERC-721 compatibility prior to account creation. This maximizes compatibility with non-fungible token contracts that pre-date the ERC-721 standard (such as CryptoKitties) or only implement a subset of the ERC-721 interface (such as ENS NameWrapper names). It also allows the system described in this proposal to be used with semi-fungible or fungible tokens, although these use cases are outside the scope of the proposal.</p>
+
+<p>Smart contract authors may optionally choose to enforce interface detection for ERC-721 in their account implementations.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<h3 id="example-account-implementation">Example Account Implementation</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/introspection/IERC165.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/IERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/interfaces/IERC1271.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol"</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC6551Account</span> <span class="p">{</span>
+    <span class="k">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">token</span><span class="p">()</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">tokenContract</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">state</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">isValidSigner</span><span class="p">(</span><span class="kt">address</span> <span class="n">signer</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">context</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span> <span class="n">magicValue</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">IERC6551Executable</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">operation</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">payable</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">ERC6551Account</span> <span class="k">is</span> <span class="n">IERC165</span><span class="p">,</span> <span class="n">IERC1271</span><span class="p">,</span> <span class="n">IERC6551Account</span><span class="p">,</span> <span class="n">IERC6551Executable</span> <span class="p">{</span>
+    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">state</span><span class="p">;</span>
+
+    <span class="k">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+
+    <span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">data</span><span class="p">,</span> <span class="kt">uint8</span> <span class="n">operation</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">payable</span>
+        <span class="k">virtual</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">result</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">_isValidSigner</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">),</span> <span class="s">"Invalid signer"</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">operation</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"Only call operations are supported"</span><span class="p">);</span>
+
+        <span class="o">++</span><span class="n">state</span><span class="p">;</span>
+
+        <span class="kt">bool</span> <span class="n">success</span><span class="p">;</span>
+        <span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="o">=</span> <span class="n">to</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">value</span><span class="p">}(</span><span class="n">data</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">assembly</span> <span class="p">{</span>
+                <span class="nb">revert</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">mload</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">isValidSigner</span><span class="p">(</span><span class="kt">address</span> <span class="n">signer</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">calldata</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_isValidSigner</span><span class="p">(</span><span class="n">signer</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IERC6551Account</span><span class="p">.</span><span class="n">isValidSigner</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kt">bytes4</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">isValidSignature</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">hash</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span>
+        <span class="k">external</span>
+        <span class="k">view</span>
+        <span class="k">virtual</span>
+        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span> <span class="n">magicValue</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">bool</span> <span class="n">isValid</span> <span class="o">=</span> <span class="n">SignatureChecker</span><span class="p">.</span><span class="n">isValidSignatureNow</span><span class="p">(</span><span class="n">owner</span><span class="p">(),</span> <span class="n">hash</span><span class="p">,</span> <span class="n">signature</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">isValid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IERC1271</span><span class="p">.</span><span class="n">isValidSignature</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kt">bytes4</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">interfaceId</span><span class="p">)</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC165</span><span class="p">).</span><span class="n">interfaceId</span>
+            <span class="o">||</span> <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC6551Account</span><span class="p">).</span><span class="n">interfaceId</span>
+            <span class="o">||</span> <span class="n">interfaceId</span> <span class="o">==</span> <span class="k">type</span><span class="p">(</span><span class="n">IERC6551Executable</span><span class="p">).</span><span class="n">interfaceId</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">token</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">footer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">bytes</span><span class="p">(</span><span class="mh">0x60</span><span class="p">);</span>
+
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="n">extcodecopy</span><span class="p">(</span><span class="kt">address</span><span class="p">(),</span> <span class="n">add</span><span class="p">(</span><span class="n">footer</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">),</span> <span class="mh">0x4d</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">abi</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">footer</span><span class="p">,</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">owner</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">(</span><span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">tokenContract</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="o">=</span> <span class="n">token</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">chainId</span> <span class="o">!=</span> <span class="n">block</span><span class="p">.</span><span class="n">chainid</span><span class="p">)</span> <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">IERC721</span><span class="p">(</span><span class="n">tokenContract</span><span class="p">).</span><span class="n">ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_isValidSigner</span><span class="p">(</span><span class="kt">address</span> <span class="n">signer</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">signer</span> <span class="o">==</span> <span class="n">owner</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="registry-implementation">Registry Implementation</h3>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SPDX-License-Identifier: MIT
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC6551Registry</span> <span class="p">{</span>
+    <span class="cm">/**
+     * @dev The registry MUST emit the ERC6551AccountCreated event upon successful account creation.
+     */</span>
+    <span class="k">event</span> <span class="n">ERC6551AccountCreated</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">account</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">implementation</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="k">indexed</span> <span class="n">tokenContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span>
+    <span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev The registry MUST revert with AccountCreationFailed error if the create2 operation fails.
+     */</span>
+    <span class="n">error</span> <span class="n">AccountCreationFailed</span><span class="p">();</span>
+
+    <span class="cm">/**
+     * @dev Creates a token bound account for a non-fungible token.
+     *
+     * If account has already been created, returns the account address without calling create2.
+     *
+     * Emits ERC6551AccountCreated event.
+     *
+     * @return account The address of the token bound account
+     */</span>
+    <span class="k">function</span> <span class="n">createAccount</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">implementation</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">tokenContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">);</span>
+
+    <span class="cm">/**
+     * @dev Returns the computed token bound account address for a non-fungible token.
+     *
+     * @return account The address of the token bound account
+     */</span>
+    <span class="k">function</span> <span class="n">account</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">implementation</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">tokenContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">ERC6551Registry</span> <span class="k">is</span> <span class="n">IERC6551Registry</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">createAccount</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">implementation</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">tokenContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="c1">// Memory Layout:
+</span>            <span class="c1">// ----
+</span>            <span class="c1">// 0x00   0xff                           (1 byte)
+</span>            <span class="c1">// 0x01   registry (address)             (20 bytes)
+</span>            <span class="c1">// 0x15   salt (bytes32)                 (32 bytes)
+</span>            <span class="c1">// 0x35   Bytecode Hash (bytes32)        (32 bytes)
+</span>            <span class="c1">// ----
+</span>            <span class="c1">// 0x55   ERC-1167 Constructor + Header  (20 bytes)
+</span>            <span class="c1">// 0x69   implementation (address)       (20 bytes)
+</span>            <span class="c1">// 0x5D   ERC-1167 Footer                (15 bytes)
+</span>            <span class="c1">// 0x8C   salt (uint256)                 (32 bytes)
+</span>            <span class="c1">// 0xAC   chainId (uint256)              (32 bytes)
+</span>            <span class="c1">// 0xCC   tokenContract (address)        (32 bytes)
+</span>            <span class="c1">// 0xEC   tokenId (uint256)              (32 bytes)
+</span>
+            <span class="c1">// Silence unused variable warnings
+</span>            <span class="n">pop</span><span class="p">(</span><span class="n">chainId</span><span class="p">)</span>
+
+            <span class="c1">// Copy bytecode + constant data to memory
+</span>            <span class="n">calldatacopy</span><span class="p">(</span><span class="mh">0x8c</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">)</span> <span class="c1">// salt, chainId, tokenContract, tokenId
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x6c</span><span class="p">,</span> <span class="mh">0x5af43d82803e903d91602b57fd5bf3</span><span class="p">)</span> <span class="c1">// ERC-1167 footer
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x5d</span><span class="p">,</span> <span class="n">implementation</span><span class="p">)</span> <span class="c1">// implementation
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x3d60ad80600a3d3981f3363d3d373d3d3d363d73</span><span class="p">)</span> <span class="c1">// ERC-1167 constructor + header
+</span>
+            <span class="c1">// Copy create2 computation data to memory
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x35</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="mh">0x55</span><span class="p">,</span> <span class="mh">0xb7</span><span class="p">))</span> <span class="c1">// keccak256(bytecode)
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x15</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span> <span class="c1">// salt
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x01</span><span class="p">,</span> <span class="n">shl</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="kt">address</span><span class="p">()))</span> <span class="c1">// registry address
+</span>            <span class="n">mstore8</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">)</span> <span class="c1">// 0xFF
+</span>
+            <span class="c1">// Compute account address
+</span>            <span class="kr">let</span> <span class="n">computed</span> <span class="o">:=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">)</span>
+
+            <span class="c1">// If the account has not yet been deployed
+</span>            <span class="k">if</span> <span class="n">iszero</span><span class="p">(</span><span class="n">extcodesize</span><span class="p">(</span><span class="n">computed</span><span class="p">))</span> <span class="p">{</span>
+                <span class="c1">// Deploy account contract
+</span>                <span class="kr">let</span> <span class="n">deployed</span> <span class="o">:=</span> <span class="n">create2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0xb7</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span>
+
+                <span class="c1">// Revert if the deployment fails
+</span>                <span class="k">if</span> <span class="n">iszero</span><span class="p">(</span><span class="n">deployed</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">mstore</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x20188a59</span><span class="p">)</span> <span class="c1">// `AccountCreationFailed()`
+</span>                    <span class="nb">revert</span><span class="p">(</span><span class="mh">0x1c</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">)</span>
+                <span class="p">}</span>
+
+                <span class="c1">// Store account address in memory before salt and chainId
+</span>                <span class="n">mstore</span><span class="p">(</span><span class="mh">0x6c</span><span class="p">,</span> <span class="n">deployed</span><span class="p">)</span>
+
+                <span class="c1">// Emit the ERC6551AccountCreated event
+</span>                <span class="n">log4</span><span class="p">(</span>
+                    <span class="mh">0x6c</span><span class="p">,</span>
+                    <span class="mh">0x60</span><span class="p">,</span>
+                    <span class="c1">// `ERC6551AccountCreated(address,address,bytes32,uint256,address,uint256)`
+</span>                    <span class="mh">0x79f19b3655ee38b1ce526556b7731a20c8f218fbda4a3990b6cc4172fdf88722</span><span class="p">,</span>
+                    <span class="n">implementation</span><span class="p">,</span>
+                    <span class="n">tokenContract</span><span class="p">,</span>
+                    <span class="n">tokenId</span>
+                <span class="p">)</span>
+
+                <span class="c1">// Return the account address
+</span>                <span class="k">return</span><span class="p">(</span><span class="mh">0x6c</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="c1">// Otherwise, return the computed account address
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">shr</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="n">shl</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="n">computed</span><span class="p">)))</span>
+            <span class="k">return</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">account</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">implementation</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">salt</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">chainId</span><span class="p">,</span>
+        <span class="kt">address</span> <span class="n">tokenContract</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">tokenId</span>
+    <span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">assembly</span> <span class="p">{</span>
+            <span class="c1">// Silence unused variable warnings
+</span>            <span class="n">pop</span><span class="p">(</span><span class="n">chainId</span><span class="p">)</span>
+            <span class="n">pop</span><span class="p">(</span><span class="n">tokenContract</span><span class="p">)</span>
+            <span class="n">pop</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)</span>
+
+            <span class="c1">// Copy bytecode + constant data to memory
+</span>            <span class="n">calldatacopy</span><span class="p">(</span><span class="mh">0x8c</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">)</span> <span class="c1">// salt, chainId, tokenContract, tokenId
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x6c</span><span class="p">,</span> <span class="mh">0x5af43d82803e903d91602b57fd5bf3</span><span class="p">)</span> <span class="c1">// ERC-1167 footer
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x5d</span><span class="p">,</span> <span class="n">implementation</span><span class="p">)</span> <span class="c1">// implementation
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x3d60ad80600a3d3981f3363d3d373d3d3d363d73</span><span class="p">)</span> <span class="c1">// ERC-1167 constructor + header
+</span>
+            <span class="c1">// Copy create2 computation data to memory
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x35</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="mh">0x55</span><span class="p">,</span> <span class="mh">0xb7</span><span class="p">))</span> <span class="c1">// keccak256(bytecode)
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x15</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span> <span class="c1">// salt
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x01</span><span class="p">,</span> <span class="n">shl</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="kt">address</span><span class="p">()))</span> <span class="c1">// registry address
+</span>            <span class="n">mstore8</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">)</span> <span class="c1">// 0xFF
+</span>
+            <span class="c1">// Store computed account address in memory
+</span>            <span class="n">mstore</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">shr</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="n">shl</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">))))</span>
+
+            <span class="c1">// Return computed account address
+</span>            <span class="k">return</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<h3 id="fraud-prevention">Fraud Prevention</h3>
+
+<p>In order to enable trustless sales of token bound accounts, decentralized marketplaces will need to implement safeguards against fraudulent behavior by malicious account owners.</p>
+
+<p>Consider the following potential scam:</p>
+
+<ul>
+  <li>Alice owns an ERC-721 token X, which owns token bound account Y.</li>
+  <li>Alice deposits 10ETH into account Y</li>
+  <li>Bob offers to purchase token X for 11ETH via a decentralized marketplace, assuming he will receive the 10ETH stored in account Y along with the token</li>
+  <li>Alice withdraws 10ETH from the token bound account, and immediately accepts Bob’s offer</li>
+  <li>Bob receives token X, but account Y is empty</li>
+</ul>
+
+<p>To mitigate fraudulent behavior by malicious account owners, decentralized marketplaces SHOULD implement protection against these sorts of scams at the marketplace level. Contracts which implement this EIP MAY also implement certain protections against fraudulent behavior.</p>
+
+<p>Here are a few mitigations strategies to be considered:</p>
+
+<ul>
+  <li>Attach the current token bound account state to the marketplace order. If the state of the account has changed since the order was placed, consider the offer void. This functionality would need to be supported at the marketplace level.</li>
+  <li>Attach a list of asset commitments to the marketplace order that are expected to remain in the token bound account when the order is fulfilled. If any of the committed assets have been removed from the account since the order was placed, consider the offer void. This would also need to be implemented by the marketplace.</li>
+  <li>Submit the order to the decentralized market via an external smart contract which performs the above logic before validating the order signature. This allows for safe transfers to be implemented without marketplace support.</li>
+  <li>Implement a locking mechanism on the token bound account implementation that prevents malicious owners from extracting assets from the account while locked</li>
+</ul>
+
+<p>Preventing fraud is outside the scope of this proposal.</p>
+
+<h3 id="ownership-cycles">Ownership Cycles</h3>
+
+<p>All assets held in a token bound account may be rendered inaccessible if an ownership cycle is created. The simplest example is the case of an ERC-721 token being transferred to its own token bound account. If this occurs, both the ERC-721 token and all of the assets stored in the token bound account would be permanently inaccessible, since the token bound account is incapable of executing a transaction which transfers the ERC-721 token.</p>
+
+<p>Ownership cycles can be introduced in any graph of n&gt;0 token bound accounts. On-chain prevention of cycles with depth&gt;1 is difficult to enforce given the infinite search space required, and as such is outside the scope of this proposal. Application clients and account implementations wishing to adopt this proposal are encouraged to implement measures that limit the possibility of ownership cycles.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

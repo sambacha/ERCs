@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>ERC Detection and Discovery | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="ERC Detection and Discovery | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-5269" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-5269" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">ERC Detection and Discovery</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>An interface for better identification and detection of ERC by numbers.
+It designates a field in which it’s called <code class="language-plaintext highlighter-rouge">majorERCIdentifier</code> which is normally known or referred to as “ERC number”. For example, <code class="language-plaintext highlighter-rouge">ERC-721</code> aka <a href="./eip-721.md">ERC-721</a> has a <code class="language-plaintext highlighter-rouge">majorERCIdentifier = 721</code>. This ERC has a <code class="language-plaintext highlighter-rouge">majorERCIdentifier = 5269</code>.</p>
+
+<p>Calling it a <code class="language-plaintext highlighter-rouge">majorERCIdentifier</code> instead of <code class="language-plaintext highlighter-rouge">ERCNumber</code> makes it future-proof: anticipating there is a possibility where future ERC is not numbered or if we want to incorporate other types of standards.</p>
+
+<p>It also proposes a new concept of <code class="language-plaintext highlighter-rouge">minorERCIdentifier</code> which is left for authors of
+individual ERC to define. For example, ERC-721’s author may define <code class="language-plaintext highlighter-rouge">ERC721Metadata</code>
+interface as <code class="language-plaintext highlighter-rouge">minorERCIdentifier= keccak256("ERC721Metadata")</code>.</p>
+
+<p>It also proposes an event to allow smart contracts to optionally declare the ERCs they support.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>This ERC is created as a competing standard for <a href="./eip-165.md">ERC-165</a>.</p>
+
+<p>Here are the major differences between this ERC and <a href="./eip-165.md">ERC-165</a>.</p>
+
+<ol>
+  <li><a href="./eip-165.md">ERC-165</a> uses the hash of a method’s signature which declares the existence of one method or multiple methods,
+therefore it requires at least one method to <em>exist</em> in the first place. In some cases, some ERCs interface does not have a method, such as some ERCs related to data format and signature schemes or the “Soul-Bound-ness” aka SBT which could just revert a transfer call without needing any specific method.</li>
+  <li><a href="./eip-165.md">ERC-165</a> doesn’t provide query ability based on the caller.
+The compliant contract of this ERC will respond to whether it supports certain ERC <em>based on</em> a given caller.</li>
+</ol>
+
+<p>Here is the motivation for this ERC given ERC-165 already exists:</p>
+
+<ol>
+  <li>
+    <p>Using ERC numbers improves human readability as well as make it easier to work with named contract such as ENS.</p>
+  </li>
+  <li>
+    <p>Instead of using an ERC-165 identifier, we have seen an increasing interest to use ERC numbers as the way to identify or specify an ERC. For example</p>
+  </li>
+</ol>
+
+<ul>
+  <li><a href="./eip-5267.md">ERC-5267</a> specifies <code class="language-plaintext highlighter-rouge">extensions</code> to be a list of ERC numbers.</li>
+  <li><a href="./eip-600.md">ERC-600</a>, and <a href="./eip-601.md">ERC-601</a> specify an <code class="language-plaintext highlighter-rouge">ERC</code> number in the <code class="language-plaintext highlighter-rouge">m / purpose' / subpurpose' / ERC' / wallet'</code> path.</li>
+  <li><a href="./eip-5568.md">ERC-5568</a> specifies <code class="language-plaintext highlighter-rouge">The instruction_id of an instruction defined by an ERC MUST be its ERC number unless there are exceptional circumstances (be reasonable)</code></li>
+  <li><a href="./eip-6120.md">ERC-6120</a> specifies <code class="language-plaintext highlighter-rouge">struct Token { uint eip; ..., }</code> where <code class="language-plaintext highlighter-rouge">uint eip</code> is an ERC number to identify ERCs.</li>
+  <li><code class="language-plaintext highlighter-rouge">ERC-867</code>(Stagnant) proposes to create <code class="language-plaintext highlighter-rouge">erpId: A string identifier for this ERP (likely the associated ERC number, e.g. “ERC-1234”).</code></li>
+</ul>
+
+<ol>
+  <li>
+    <p>Having an ERC/ERC number detection interface reduces the need for a lookup table in smart contract to
+convert a function method or whole interface in any ERC in the bytes4 ERC-165 identifier into its respective ERC number and massively simplifies the way to specify ERC for behavior expansion.</p>
+  </li>
+  <li>
+    <p>We also recognize a smart contract might have different behavior given different caller accounts. One of the most notable use cases is that when using Transparent Upgradable Pattern, a proxy contract gives an Admin account and Non-Admin account different treatment when they call.</p>
+  </li>
+</ol>
+
+<h2 id="specification">Specification</h2>
+
+<p>In the following description, we use ERC and ERC inter-exchangeably. This was because while most of the time the description applies to an ERC category of the Standards Track of ERC, the ERC number space is a subspace of ERC number space and we might sometimes encounter ERCs that aren’t recognized as ERCs but has behavior that’s worthy of a query.</p>
+
+<ol>
+  <li>Any compliant smart contract MUST implement the following interface</li>
+</ol>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// DRAFTv1
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="n">IERC5269</span> <span class="p">{</span>
+  <span class="k">event</span> <span class="n">OnSupportERC</span><span class="p">(</span>
+      <span class="kt">address</span> <span class="k">indexed</span> <span class="n">caller</span><span class="p">,</span> <span class="c1">// when emitted with `address(0x0)` means all callers.
+</span>      <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">majorERCIdentifier</span><span class="p">,</span>
+      <span class="kt">bytes32</span> <span class="k">indexed</span> <span class="n">minorERCIdentifier</span><span class="p">,</span> <span class="c1">// 0 means the entire ERC
+</span>      <span class="kt">bytes32</span> <span class="n">ercStatus</span><span class="p">,</span>
+      <span class="kt">bytes</span> <span class="n">extraData</span>
+  <span class="p">);</span>
+
+  <span class="c1">/// @dev The core method of ERC Interface Detection
+</span>  <span class="c1">/// @param caller, a `address` value of the address of a caller being queried whether the given ERC is supported.
+</span>  <span class="c1">/// @param majorERCIdentifier, a `uint256` value and SHOULD BE the ERC number being queried. Unless superseded by future ERC, such ERC number SHOULD BE less or equal to (0, 2^32-1]. For a function call to `supportERC`, any value outside of this range is deemed unspecified and open to implementation's choice or for future ERCs to specify.
+</span>  <span class="c1">/// @param minorERCIdentifier, a `bytes32` value reserved for authors of individual ERC to specify. For example the author of [ERC-721](/ERCS/eip-721) MAY specify `keccak256("ERC721Metadata")` or `keccak256("ERC721Metadata.tokenURI")` as `minorERCIdentifier` to be quired for support. Author could also use this minorERCIdentifier to specify different versions, such as ERC-712 has its V1-V4 with different behavior.
+</span>  <span class="c1">/// @param extraData, a `bytes` for [ERC-5750](/ERCS/eip-5750) for future extensions.
+</span>  <span class="c1">/// @return ercStatus, a `bytes32` indicating the status of ERC the contract supports.
+</span>  <span class="c1">///                    - For FINAL ERCs, it MUST return `keccak256("FINAL")`.
+</span>  <span class="c1">///                    - For non-FINAL ERCs, it SHOULD return `keccak256("DRAFT")`.
+</span>  <span class="c1">///                      During ERC procedure, ERC authors are allowed to specify their own
+</span>  <span class="c1">///                      ercStatus other than `FINAL` or `DRAFT` at their discretion such as `keccak256("DRAFTv1")`
+</span>  <span class="c1">///                      or `keccak256("DRAFT-option1")`and such value of ercStatus MUST be documented in the ERC body
+</span>  <span class="k">function</span> <span class="n">supportERC</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">caller</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">majorERCIdentifier</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">minorERCIdentifier</span><span class="p">,</span>
+    <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">extraData</span><span class="p">)</span>
+  <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">ercStatus</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In the following description, <code class="language-plaintext highlighter-rouge">ERC_5269_STATUS</code> is set to be <code class="language-plaintext highlighter-rouge">keccak256("DRAFTv1")</code>.</p>
+
+<p>In addition to the behavior specified in the comments of <code class="language-plaintext highlighter-rouge">IERC5269</code>:</p>
+
+<ol>
+  <li>Any <code class="language-plaintext highlighter-rouge">minorERCIdentifier=0</code> is reserved to be referring to the main behavior of the ERC being queried.</li>
+  <li>The Author of compliant ERC is RECOMMENDED to declare a list of <code class="language-plaintext highlighter-rouge">minorERCIdentifier</code> for their optional interfaces, behaviors and value range for future extension.</li>
+  <li>When this ERC is FINAL, any compliant contract MUST return an <code class="language-plaintext highlighter-rouge">ERC_5269_STATUS</code> for the call of <code class="language-plaintext highlighter-rouge">supportERC((any caller), 5269, 0, [])</code></li>
+</ol>
+
+<p><em>Note</em>: at the current snapshot, the <code class="language-plaintext highlighter-rouge">supportERC((any caller), 5269, 0, [])</code> MUST return <code class="language-plaintext highlighter-rouge">ERC_5269_STATUS</code>.</p>
+
+<ol>
+  <li>Any complying contract SHOULD emit an <code class="language-plaintext highlighter-rouge">OnSupportERC(address(0), 5269, 0, ERC_5269_STATUS, [])</code> event upon construction or upgrade.</li>
+  <li>Any complying contract MAY declare for easy discovery any ERC main behavior or sub-behaviors by emitting an event of <code class="language-plaintext highlighter-rouge">OnSupportERC</code> with relevant values and when the compliant contract changes whether the support an ERC or certain behavior for a certain caller or all callers.</li>
+  <li>For any <code class="language-plaintext highlighter-rouge">ERC-XXX</code> that is NOT in <code class="language-plaintext highlighter-rouge">Final</code> status, when querying the <code class="language-plaintext highlighter-rouge">supportERC((any caller), xxx, (any minor identifier), [])</code>, it MUST NOT return <code class="language-plaintext highlighter-rouge">keccak256("FINAL")</code>. It is RECOMMENDED to return <code class="language-plaintext highlighter-rouge">0</code> in this case but other values of <code class="language-plaintext highlighter-rouge">ercStatus</code> is allowed. Caller MUST treat any returned value other than <code class="language-plaintext highlighter-rouge">keccak256("FINAL")</code> as non-final, and MUST treat 0 as strictly “not supported”.</li>
+  <li>The function <code class="language-plaintext highlighter-rouge">supportERC</code> MUST be mutability <code class="language-plaintext highlighter-rouge">view</code>, i.e. it MUST NOT mutate any global state of EVM.</li>
+</ol>
+
+<h2 id="rationale">Rationale</h2>
+
+<ol>
+  <li>When data type <code class="language-plaintext highlighter-rouge">uint256 majorERCIdentifier</code>, there are other alternative options such as:</li>
+</ol>
+
+<ul>
+  <li>(1) using a hashed version of the ERC number,</li>
+  <li>(2) use a raw number, or</li>
+  <li>(3) use an ERC-165 identifier.</li>
+</ul>
+
+<p>The pros for (1) are that it automatically supports any evolvement of future ERC numbering/naming conventions.
+But the cons are it’s not backward readable: seeing a <code class="language-plaintext highlighter-rouge">hash(ERC-number)</code> one usually can’t easily guess what their ERC number is.</p>
+
+<p>We choose the (2) in the rationale laid out in motivation.</p>
+
+<ol>
+  <li>
+    <p>We have a <code class="language-plaintext highlighter-rouge">bytes32 minorERCIdentifier</code> in our design decision. Alternatively, it could be (1) a number, forcing all ERC authors to define its numbering for sub-behaviors so we go with a <code class="language-plaintext highlighter-rouge">bytes32</code> and ask the ERC authors to use a hash for a string name for their sub-behaviors which they are already doing by coming up with interface name or method name in their specification.</p>
+  </li>
+  <li>
+    <p>Alternatively, it’s possible we add extra data as a return value or an array of all ERC being supported but we are unsure how much value this complexity brings and whether the extra overhead is justified.</p>
+  </li>
+  <li>
+    <p>Compared to <a href="./eip-165.md">ERC-165</a>, we also add an additional input of <code class="language-plaintext highlighter-rouge">address caller</code>, given the increasing popularity of proxy patterns such as those enabled by <a href="./eip-1967.md">ERC-1967</a>. One may ask: why not simply use <code class="language-plaintext highlighter-rouge">msg.sender</code>? This is because we want to allow query them without transaction or a proxy contract to query whether interface ERC-<code class="language-plaintext highlighter-rouge">number</code> will be available to that particular sender.</p>
+  </li>
+  <li>
+    <p>We reserve the input <code class="language-plaintext highlighter-rouge">majorERCIdentifier</code> greater than or equals <code class="language-plaintext highlighter-rouge">2^32</code> in case we need to support other collections of standards which is not an ERC/ERC.</p>
+  </li>
+</ol>
+
+<h2 id="test-cases">Test Cases</h2>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nx">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERC5269</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">async</span> <span class="kd">function</span> <span class="nx">deployFixture</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">}</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Deployment</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should emit proper OnSupportERC events</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="p">{</span> <span class="nx">txDeployErc721</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loadFixture</span><span class="p">(</span><span class="nx">deployFixture</span><span class="p">);</span>
+      <span class="kd">let</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">txDeployErc721</span><span class="p">.</span><span class="nx">events</span><span class="p">?.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">event</span> <span class="o">=&gt;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">event</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">OnSupportERC</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">events</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">lengthOf</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+
+      <span class="kd">let</span> <span class="nx">ev5269</span> <span class="o">=</span> <span class="nx">events</span><span class="o">!</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span>
+        <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">majorERCIdentifier</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mi">5269</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev5269</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">lengthOf</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev5269</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">caller</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev5269</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">minorERCIdentifier</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev5269</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">ercStatus</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">DRAFTv1</span><span class="dl">"</span><span class="p">));</span>
+
+      <span class="kd">let</span> <span class="nx">ev721</span> <span class="o">=</span> <span class="nx">events</span><span class="o">!</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span>
+        <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">majorERCIdentifier</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mi">721</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev721</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">lengthOf</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev721</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">caller</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev721</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">minorERCIdentifier</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev721</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">ercStatus</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">FINAL</span><span class="dl">"</span><span class="p">));</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev721</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">caller</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev721</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">minorERCIdentifier</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERC721Metadata</span><span class="dl">"</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">ev721</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">args</span><span class="o">!</span><span class="p">.</span><span class="nx">ercStatus</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">FINAL</span><span class="dl">"</span><span class="p">));</span>
+
+      <span class="c1">// ...</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should return proper ercStatus value when called supportERC() for declared supported ERC/features</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="p">{</span> <span class="nx">erc721ForTesting</span><span class="p">,</span> <span class="nx">owner</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loadFixture</span><span class="p">(</span><span class="nx">deployFixture</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">erc721ForTesting</span><span class="p">.</span><span class="nx">supportERC</span><span class="p">(</span><span class="nx">owner</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="mi">5269</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">hexZeroPad</span><span class="p">(</span><span class="dl">"</span><span class="s2">0x00</span><span class="dl">"</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">[])).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">DRAFTv1</span><span class="dl">"</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">erc721ForTesting</span><span class="p">.</span><span class="nx">supportERC</span><span class="p">(</span><span class="nx">owner</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="mi">721</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">hexZeroPad</span><span class="p">(</span><span class="dl">"</span><span class="s2">0x00</span><span class="dl">"</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">[])).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">FINAL</span><span class="dl">"</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">erc721ForTesting</span><span class="p">.</span><span class="nx">supportERC</span><span class="p">(</span><span class="nx">owner</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="mi">721</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERC721Metadata</span><span class="dl">"</span><span class="p">),</span> <span class="p">[])).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">FINAL</span><span class="dl">"</span><span class="p">));</span>
+      <span class="c1">// ...</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">erc721ForTesting</span><span class="p">.</span><span class="nx">supportERC</span><span class="p">(</span><span class="nx">owner</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="mi">721</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">WRONG FEATURE</span><span class="dl">"</span><span class="p">),</span> <span class="p">[])).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">erc721ForTesting</span><span class="p">.</span><span class="nx">supportERC</span><span class="p">(</span><span class="nx">owner</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="mi">9999</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">hexZeroPad</span><span class="p">(</span><span class="dl">"</span><span class="s2">0x00</span><span class="dl">"</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">[])).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Should return zero as ercStatus value when called supportERC() for non declared ERC/features</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="p">{</span> <span class="nx">erc721ForTesting</span><span class="p">,</span> <span class="nx">owner</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loadFixture</span><span class="p">(</span><span class="nx">deployFixture</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">erc721ForTesting</span><span class="p">.</span><span class="nx">supportERC</span><span class="p">(</span><span class="nx">owner</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="mi">721</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">"</span><span class="s2">WRONG FEATURE</span><span class="dl">"</span><span class="p">),</span> <span class="p">[])).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="k">await</span> <span class="nx">erc721ForTesting</span><span class="p">.</span><span class="nx">supportERC</span><span class="p">(</span><span class="nx">owner</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="mi">9999</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">hexZeroPad</span><span class="p">(</span><span class="dl">"</span><span class="s2">0x00</span><span class="dl">"</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">[])).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>See <a href="../assets/eip-5269/test/TestERC5269.ts"><code class="language-plaintext highlighter-rouge">TestERC5269.ts</code></a>.</p>
+
+<h2 id="reference-implementation">Reference Implementation</h2>
+
+<p>Here is a reference implementation for this ERC:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">ERC5269</span> <span class="k">is</span> <span class="n">IERC5269</span> <span class="p">{</span>
+    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">ERC_STATUS</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"DRAFTv1"</span><span class="p">);</span>
+    <span class="k">constructor</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">emit</span> <span class="n">OnSupportERC</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0x0</span><span class="p">),</span> <span class="mi">5269</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ERC_STATUS</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">_supportERC</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="cm">/*caller*/</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">majorERCIdentifier</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">minorERCIdentifier</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="cm">/*extraData*/</span><span class="p">)</span>
+    <span class="k">internal</span> <span class="k">virtual</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">ercStatus</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">majorERCIdentifier</span> <span class="o">==</span> <span class="mi">5269</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">minorERCIdentifier</span> <span class="o">==</span> <span class="kt">bytes32</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">ERC_STATUS</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kt">bytes32</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">supportERC</span><span class="p">(</span>
+        <span class="kt">address</span> <span class="n">caller</span><span class="p">,</span>
+        <span class="kt">uint256</span> <span class="n">majorERCIdentifier</span><span class="p">,</span>
+        <span class="kt">bytes32</span> <span class="n">minorERCIdentifier</span><span class="p">,</span>
+        <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">extraData</span><span class="p">)</span>
+    <span class="k">external</span> <span class="k">virtual</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">ercStatus</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_supportERC</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span> <span class="n">majorERCIdentifier</span><span class="p">,</span> <span class="n">minorERCIdentifier</span><span class="p">,</span> <span class="n">extraData</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>See <a href="../assets/eip-5269/contracts/ERC5269.sol"><code class="language-plaintext highlighter-rouge">ERC5269.sol</code></a>.</p>
+
+<p>Here is an example where a contract of <a href="./eip-721.md">ERC-721</a> also implement this ERC to make it easier
+to detect and discover:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="s">"@openzeppelin/contracts/token/ERC721/ERC721.sol"</span><span class="p">;</span>
+<span class="k">import</span> <span class="s">"../ERC5269.sol"</span><span class="p">;</span>
+<span class="k">contract</span> <span class="n">ERC721ForTesting</span> <span class="k">is</span> <span class="n">ERC721</span><span class="p">,</span> <span class="n">ERC5269</span> <span class="p">{</span>
+
+    <span class="kt">bytes32</span> <span class="k">constant</span> <span class="k">public</span> <span class="n">ERC_FINAL</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"FINAL"</span><span class="p">);</span>
+    <span class="k">constructor</span><span class="p">()</span> <span class="n">ERC721</span><span class="p">(</span><span class="s">"ERC721ForTesting"</span><span class="p">,</span> <span class="s">"E721FT"</span><span class="p">)</span> <span class="n">ERC5269</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">_mint</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="k">emit</span> <span class="n">OnSupportERC</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0x0</span><span class="p">),</span> <span class="mi">721</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ERC_FINAL</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>
+        <span class="k">emit</span> <span class="n">OnSupportERC</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0x0</span><span class="p">),</span> <span class="mi">721</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"ERC721Metadata"</span><span class="p">),</span> <span class="n">ERC_FINAL</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>
+        <span class="k">emit</span> <span class="n">OnSupportERC</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0x0</span><span class="p">),</span> <span class="mi">721</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"ERC721Enumerable"</span><span class="p">),</span> <span class="n">ERC_FINAL</span><span class="p">,</span> <span class="s">""</span><span class="p">);</span>
+    <span class="p">}</span>
+
+  <span class="k">function</span> <span class="n">supportERC</span><span class="p">(</span>
+    <span class="kt">address</span> <span class="n">caller</span><span class="p">,</span>
+    <span class="kt">uint256</span> <span class="n">majorERCIdentifier</span><span class="p">,</span>
+    <span class="kt">bytes32</span> <span class="n">minorERCIdentifier</span><span class="p">,</span>
+    <span class="kt">bytes</span> <span class="k">calldata</span> <span class="n">extraData</span><span class="p">)</span>
+  <span class="k">external</span>
+  <span class="k">override</span>
+  <span class="k">view</span>
+  <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span> <span class="n">ercStatus</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">majorERCIdentifier</span> <span class="o">==</span> <span class="mi">721</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">minorERCIdentifier</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"FINAL"</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">minorERCIdentifier</span> <span class="o">==</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"ERC721Metadata"</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"FINAL"</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">minorERCIdentifier</span> <span class="o">==</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"ERC721Enumerable"</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">keccak256</span><span class="p">(</span><span class="s">"FINAL"</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">.</span><span class="n">_supportERC</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span> <span class="n">majorERCIdentifier</span><span class="p">,</span> <span class="n">minorERCIdentifier</span><span class="p">,</span> <span class="n">extraData</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>See <a href="../assets/eip-5269/contracts/testing/ERC721ForTesting.sol"><code class="language-plaintext highlighter-rouge">ERC721ForTesting.sol</code></a>.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>Similar to <a href="./eip-165.md">ERC-165</a> callers of the interface MUST assume the smart contract
+declaring they support such ERC interfaces doesn’t necessarily correctly support them.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>L2 Token List | Ethereum Improvement Proposals</title>
+    <meta
+      property="og:title"
+      content="L2 Token List | Ethereum Improvement Proposals"
+    />
+    <meta name="description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta property="og:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+    <meta name="twitter:description" content="Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards." />
+  
+  <meta name="generator" content="Jekyll" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="http://localhost:4000/ERCS/erc-6734" />
+  <meta property="og:url" content="http://localhost:4000/ERCS/erc-6734" />
+  <meta property="og:site_name" content="Ethereum Improvement Proposals" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "url": "http://localhost:4000",
+      "name": "Ethereum Improvement Proposals",
+      "description": "Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.",
+      "@context": "https://schema.org"
+    }
+  </script>
+  <link rel="stylesheet" href="/assets/css/style.css" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ethereum Improvement Proposals" /><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/override.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    });
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      loader: {
+        load: ['input/tex-base', 'output/chtml']
+      },
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: false,
+        processRefs: false
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js" integrity="sha384-/1zmJ1mBdfKIOnwPxpdG6yaRrxP6qu3eVYm0cz2nOx+AcL4d3AqEFrwcqGZVVroG" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/citation-js/0.6.7/citation.min.js" integrity="sha512-N+LDFMa9owHXGS+CyMrBvuxq2QuGl3fiB/7cys3aUEL7K6P1soHGqsS0sjHXZpwNd9Kz0m3R4IPy1HYRi6ROEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    addEventListener('DOMContentLoaded', async () => {
+      const Cite = window.require('citation-js');
+      const citationElements = document.querySelectorAll('.language-csl-json');
+      for (let citationElement of citationElements) {
+        try {
+          const citation = await Cite.async(citationElement);
+          const template = document.createElement('template');
+          template.innerHTML = citation.format('bibliography', {
+            format: 'html',
+            template: 'apa',
+            lang: 'en-US'
+          });
+          if (citationElement.parentElement && citationElement.parentElement.matches('pre')) {
+            citationElement.parentElement.replaceWith(template.content);
+          } else {
+            citationElement.replaceWith(template.content);
+          }
+        } catch (e) {
+          console.error("unable to render citation", e);
+        }
+      }
+    });
+  </script>
+</head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Ethereum Improvement Proposals</a><nav class="site-nav d-flex">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger row p-2"><a class="page-link col" href="/all">All</a><a class="page-link col" href="/core">Core</a><a class="page-link col" href="/networking">Networking</a><a class="page-link col" href="/interface">Interface</a><a class="page-link col" href="/erc">ERC</a><a class="page-link col" href="/meta">Meta</a><a class="page-link col" href="/informational">Informational</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">L2 Token List</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="abstract">Abstract</h2>
+
+<p>The document describes a JSON token list that ensures that two or more Layer 1, Layer 2, or Sidechains can identify tokens from a different Layer 1, Layer 2, or Sidechain.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>This particular work by the L2 WG of the EEA Communities Projects managed by OASIS, an open-source initiative, is motivated by a significant challenge around the definition and listing of tokens on Layer 1 (L1), Layer 2 (L2), and Sidechain systems. Note that for simplicity, this document we will collectively refer to L1, L2 and Sidechain systems as chains below since the challenge described below is valid across all such systems:</p>
+
+<ul>
+  <li>Consensus on the “canonical” token on chain B that corresponds to some token on chain A. When one wants to bridge token X from chain A to chain B, one must create some new representation of the token on chain B. It is worth noting that this problem is not limited to L2s – every chain connected via bridges must deal with the same issue.</li>
+</ul>
+
+<p>Related to the above challenge is the standardization around lists of bridges and their routes across different chains. This will be addressed in a separate document.</p>
+
+<p>Note that both of these issues are fundamental problems for the current multi-chain world.</p>
+
+<p>Therefore, the goal of this document is to help token users to operationalize and disambiguate the usage of a token in their systems.</p>
+
+<p>For lists of canonical tokens, L2s currently maintain their own customized versions of the Uniswap token list. For example, Arbitrum maintains a token list with various custom extensions. Optimism also maintains a custom token list, but with different extensions. It should be noted that both of these custom extensions refer to the bridge that these tokens can be carried through. However, these are not the only bridges that the tokens can be carried through, which means that bridges and token lists should be separated. Also note that currently, both Optimism and Arbitrum base “canonicity” on the token name + symbol pair.</p>
+
+<p>An example of an Arbitrum token entry is given below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+logoURI: "https://assets.coingecko.com/coins/images/13469/thumb/1inch-token.png?1608803028",
+chainId: 42161,
+address: "0x6314C31A7a1652cE482cffe247E9CB7c3f4BB9aF",
+name: "1INCH Token",
+symbol: "1INCH",
+decimals: 18,
+extensions: {
+  bridgeInfo: {
+    1: {
+    tokenAddress: "0x111111111117dc0aa78b770fa6a738034120c302",
+    originBridgeAddress: "0x09e9222e96e7b4ae2a407b98d48e330053351eee",
+    destBridgeAddress: "0xa3A7B6F88361F48403514059F1F16C8E78d60EeC"
+     }
+   }
+  }
+}
+</code></pre></div></div>
+
+<p>This standard will build upon the current framework and augment it with concepts from <a href="https://www.w3.org/TR/2022/REC-did-core-20220719/">Decentralized Identifiers (DIDs)</a> based on the JSON linked data model <a href="https://www.w3.org/TR/2020/REC-json-ld11-20200716/">JSON-LD</a> such as resolvable unique resource identifiers (URIs) and JSON-LD schemas which enable easier schema verification using existing tools.</p>
+
+<p>Note that a standard for defining tokens is beyond the scope of this document.</p>
+
+<h2 id="specification">Specification</h2>
+
+<h3 id="keywords">Keywords:</h3>
+
+<p>The keywords “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [<a href="https://www.rfc-editor.org/rfc/rfc2119">RFC2119</a>] when, and only when, they appear in all capitals, as shown here.</p>
+
+<h3 id="typographical-convention-requirement-ids">Typographical Convention: Requirement Ids</h3>
+
+<p>A requirement is uniquely identified by a unique ID composed of its requirement level followed by a requirement number, as per convention <strong>[RequirementLevelRequirementNumber]</strong>. 
+There are four requirement levels that are coded in requirement ids as per below convention:</p>
+
+<p><strong>[R]</strong> - The requirement level for requirements which IDs start with the letter <em>R</em> is to be interpreted as <strong>MUST</strong> as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC2119</a>. <br />
+<strong>[D]</strong> - The requirement level for requirements which IDs start with the letter <em>D</em> is to be interpreted as <strong>SHOULD</strong> as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC2119</a>. <br />
+<strong>[O]</strong> - The requirement level for requirements which IDs start with the letter <em>O</em> is to be interpreted as <strong>MAY</strong> as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC2119</a>.</p>
+
+<p>Note that requirements are uniquely numbered in ascending order within each requirement level.</p>
+
+<p>Example : It should be read that [R1] is an absolute requirement of the specification whereas [D1] is a recommendation and [O1] is truly optional.</p>
+
+<p><a name="r1"> <strong>[R1]</strong> </a>
+The following data elements MUST be present in a canonical token list:</p>
+
+<ul>
+  <li>type</li>
+  <li>tokenListId</li>
+  <li>name</li>
+  <li>createdAt</li>
+  <li>updatedAt</li>
+  <li>versions</li>
+  <li>tokens</li>
+</ul>
+
+<p>Note, that the detailed definition of the data elements in <a href="#r1">[R1]</a> along with descriptions and examples are given in the schema itself below.</p>
+
+<p><a href="#r1">[R1]</a> testability: See suggested test fixtures for the data schema below.</p>
+
+<p><a name="r2"> <strong>[R2]</strong> </a>
+The tokens data element is a composite which MUST minimally contain the following data elements:</p>
+
+<ul>
+  <li>chainId</li>
+  <li>chainURI</li>
+  <li>tokenId</li>
+  <li>tokenType</li>
+  <li>address</li>
+  <li>name</li>
+  <li>symbol</li>
+  <li>decimals</li>
+  <li>createdAt</li>
+  <li>updatedAt</li>
+</ul>
+
+<p>Note, that the detailed definition of the data elements in <a href="#r2">[R2]</a> along with descriptions and examples are given in the schema itself below.</p>
+
+<p><a href="#r2">[R2]</a> testability: See suggested test fixtures for this documents’ data schema below.</p>
+
+<p><a name="d1"> <strong>[D1]</strong> </a>
+All other data elements of the schema SHOULD be included in a representation of a canonical token list.</p>
+
+<p><a href="#d1">[D1]</a> testability: See suggested test fixtures for this documents’ data schema below.</p>
+
+<p><a name="cr1d1"> <strong>[CR1]&gt;[D1]</strong> </a> 
+If the extension data elements is used, the following data elements MUST be present in the schema representation:</p>
+
+<ul>
+  <li>rootChainId</li>
+  <li>rootChainURI</li>
+  <li>rootAddress</li>
+</ul>
+
+<p>Note, that the detailed definition of the data elements in <a href="#d1">[D1]</a> and <a href="#cr1d1">[CR1]&gt;[D1]</a> along with descriptions and examples are given in the schema itself below.</p>
+
+<p><a href="#cr1d1">[CR1]&gt;[D1]</a> testability: See suggested test fixtures for this documents’ data schema below.</p>
+
+<p><a name="r3"> <strong>[R3]</strong> </a>
+All properties in the schema identified in the description to be a Universal Resource Identifier (URI) MUST follow in their semantics <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a>.</p>
+
+<p><a href="#r3">[R3]</a> testability: All requirements for <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a> are testable.</p>
+
+<p><a name="r4"> <strong>[R4]</strong> </a>
+The chainId property utilized MUST allow for the requirements of the <a href="./eip-155.md">EIP-155</a> standard to be met.</p>
+
+<p>Namely, transaction replay protection on the network that is identified by the chainId property value. Note, that for replay protection to be guaranteed, the chainId should be unique. Ensuring a unique chainId is beyond the scope of this document.</p>
+
+<p><a href="#r4">[R4]</a> testability: EIP-155 requires that a transaction hash is derived from the keccak256 hash of the following nine RLP encoded elements <code class="language-plaintext highlighter-rouge">(nonce, gasprice, startgas, to, value, data, chainid, 0, 0)</code> which can be tested easily with existing cryptographic libraries. EIP-155 further requires that the <code class="language-plaintext highlighter-rouge">v</code> value of the secp256k1 signature must be set to <code class="language-plaintext highlighter-rouge">{0,1} + CHAIN_ID * 2 + 35</code> where <code class="language-plaintext highlighter-rouge">{0,1}</code> is the parity of the <code class="language-plaintext highlighter-rouge">y</code> value of the curve point for which the signature <code class="language-plaintext highlighter-rouge">r</code>-value is the <code class="language-plaintext highlighter-rouge">x</code>-value in the secp256k1 signing process. This requirement is testable with available open-source secp256k1 digital signature suites. Therefore, <a href="#r4">[R4]</a> is testable.</p>
+
+<p><a name="d2"> <strong>[D2]</strong> </a>
+The <code class="language-plaintext highlighter-rouge">chainId</code> property SHOULD follow <a href="./eip-3220.md">EIP-3220</a> draft standard.</p>
+
+<p><a href="#d2">[D2]</a> testability: The <a href="./eip-3220.md">EIP-3220</a> draft standard can be tested because the crosschain id is specified as a concatenation of well-defined strings, and using open source tooling can be used to parse and split a crosschain id, the obtained string segments can be compared against expected string lengths, and context dependent, the values for the strings specified in the standard. Consequently, <a href="#d2">[D2]</a> is testable.</p>
+
+<p><a name="o1"> <strong>[O1]</strong> </a>
+The <code class="language-plaintext highlighter-rouge">humanReadableTokenSymbol</code> property MAY be used.</p>
+
+<p><a href="#o1">[O1]</a> testability: A data property is always implementable in a schema.</p>
+
+<p><a name="cr2o1"> <strong>[CR2]&gt;[O1]</strong> </a>
+The <code class="language-plaintext highlighter-rouge">humanReadableTokenSymbol</code> property MUST be constructed as the hyphenated concatenation of first the <code class="language-plaintext highlighter-rouge">tokenSymbol</code> and then the <code class="language-plaintext highlighter-rouge">chainId</code>.</p>
+
+<p>An example would be:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"tokenSymbol" = ETH;
+"chainId" = 1;
+"humanReadableTokenSymbol" = ETH-1;
+</code></pre></div></div>
+
+<p><a href="#cr2o1">[CR2]&gt;[O1]</a> testability: <code class="language-plaintext highlighter-rouge">humanReadableTokenSymbol</code> can be parsed and split based on existing open source packages and the result compared to the <code class="language-plaintext highlighter-rouge">tokenSymbol</code> and <code class="language-plaintext highlighter-rouge">chainId</code> used in the data schema.</p>
+
+<p>The schema for a canonical token list is given below as follows and can be utilized as a JSON-LD schema if a JSON-LD context file is utilized (see <a href="https://www.w3.org/TR/2022/REC-did-core-20220719/">[W3C-DID]</a> for a concrete example in the context of a standard):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "$id": "https://github.com/eea-oasis/l2/schemas/CanonicalTokenList.json",
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "$comment": "{\"term\": \"CanonicalTokenList\", \"@id\": \"https://github.com/eea-oasis/l2#CanonicalTokenList\"}",
+    "title": "CanonicalTokenList",
+    "description": "Canonical Token List",
+    "type": "object",
+    "required": [
+        "type",
+        "tokenListId",
+        "name",
+        "createdAt",
+        "updatedAt",
+        "versions",
+        "tokens"
+        ],
+        "properties": {
+            "@context": {
+                "type": "array"
+            },
+            "type": {
+                "oneOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "type": "array"
+                    }
+                ],
+                "examples": ["CanonicalTokenList"]
+            },
+            "tokenListId": {
+                "$comment": "{\"term\": \"tokenListId\", \"@id\": \"https://schema.org/identifier\"}",
+                "title": "tokenListId",
+                "description": "A resolvable URI to the publicly accessible place where this list can be found following the RFC 3986 standard.",
+                "type": "string",
+                "examples": ["https://ipfs.io/ipns/k51qzi5uqu5dkkciu33khkzbcmxtyhn376i1e83tya8kuy7z9euedzyr5nhoew"]
+            },
+            "name": {
+                "$comment": "{\"term\": \"name\", \"@id\": \"https://schema.org/name\"}",
+                "title": "name",
+                "description": "Token List name",
+                "type": "string",
+                "examples": ["Aggregate Canonical Token List"]
+            },
+            "logoURI": {
+                "$comment": "{\"term\": \"logoURI\", \"@id\": \"https://schema.org/identifier\"}",
+                "title": "logoURI",
+                "description": "URI or URL of the token list logo following the RFC 3986 standard",
+                "type": "string",
+                "examples": ["https://ipfs.io/ipns/k51qzi5uqu5dh5kbbff1ucw3ksphpy3vxx4en4dbtfh90pvw4mzd8nfm5r5fnl"]
+            },
+            "keywords": {
+                "$comment": "{\"term\": \"keywords\", \"@id\": \"https://schema.org/DefinedTerm\"}",
+                "title": "keywords",
+                "description": "List of key words for the token list",
+                "type": "array",
+                "examples": [Aggregate Token List]
+            },
+            "createdAt": {
+                "$comment": "{\"term\": \"createdAt\", \"@id\": \"https://schema.org/datePublished\"}",
+                "title": "createdAt",
+                "description": "Date and time token list was created",
+                "type": "string",
+                "examples": ["2022-05-08"]
+            },
+            "updatedAt": {
+                "$comment": "{\"term\": \"updatedAt\", \"@id\": \"https://schema.org/dateModified\"}",
+                "title": "updatedAt",
+                "description": "Date and time token list was updated",
+                "type": "string",
+                 "examples": ["2022-05-09"]
+            },
+            "versions": {
+                "$comment": "{\"term\": \"versions\", \"@id\": \"https://schema.org/version\"}",
+                "title": "versions",
+                "description": "Versions of the canonical token list",
+                "type": "array",
+                 "items": {
+                    "type":"object",
+                    "required":[
+                        "major",
+                        "minor",
+                        "patch"
+                    ],
+                    "properties": {
+                        "major": {
+                            "$comment": "{\"term\": \"major\", \"@id\": \"https://schema.org/Number\"}",
+                            "title": "major",
+                            "description": "Major Version Number of the Token List",
+                            "type": "integer",
+                             "examples": [1]
+                        },
+                        "minor": {
+                            "$comment": "{\"term\": \"minor\", \"@id\": \"https://schema.org/Number\"}",
+                            "title": "minor",
+                            "description": "Minor Version Number of the Token List",
+                            "type": "integer",
+                             "examples": [1]
+                        },
+                        "patch": {
+                            "$comment": "{\"term\": \"patch\", \"@id\": \"https://schema.org/Number\"}",
+                            "title": "patch",
+                            "description": "Patch Number of the Token List",
+                            "type": "integer",
+                             "examples": [1]
+                        },
+                    }
+                }
+            },
+            "tokens": {
+                "title": "Listed Token Entry",
+                "description": "Listed Token Entry",
+                "type": "array",
+                 "items": {
+                    "type":"object",
+                    "required": [
+                        "chainId",
+                        "chainURI",
+                        "tokenId",
+                        "tokenType",
+                        "address",
+                        "name",
+                        "symbol",
+                        "decimals",
+                        "createdAt",
+                        "updatedAt"
+                    ],
+                    "properties": {
+                        "chainId": {
+                            "$comment": "{\"term\": \"chainId\", \"@id\": \"https://schema.org/identifier\"}",
+                            "title": "chainId",
+                            "description": "The typically used number identifier for the chain on which the token was issued.",
+                            "type": "number",
+                            "examples": [137]
+                        },
+                        "chainURI": {
+                            "$comment": "{\"term\": \"chainURI\", \"@id\": \"https://schema.org/identifier\"}",
+                            "title": "chainURI",
+                            "description": "A resolvable URI to the genesis block of the chain on which the token was issued following the RFC 3986 standard.",
+                            "type": "string"
+                             "examples": ["https://polygonscan.com/block/0"]
+                        },
+                        "genesisBlockHash": {
+                            "$comment": "{\"term\": \"genesisBlockHash\", \"@id\": \"https://schema.org/sha256\"}",
+                            "title": "genesisBlockHash",
+                            "description": "The hash of the genesis block of the chain on which the token was issued.",
+                            "type": "string",
+                            "examples": ["0xa9c28ce2141b56c474f1dc504bee9b01eb1bd7d1a507580d5519d4437a97de1b"]
+                        },
+                        "tokenIssuerId": {
+                            "$comment": "{\"term\": \"tokenIssuerId\", \"@id\": \"https://schema.org/identifier\"}",
+                            "title": "tokenIssuerId",
+                            "description": "A resolvable URI identifying the token issuer following the RFC 3986 standard.",
+                            "type": "string",
+                            "examples": ["https://polygonscan.com/address/0xa9c28ce2141b56c474f1dc504bee9b01eb1bd7d1a507580d5519d4437a97de1b"]
+                        },
+                        "tokenIssuerName": {
+                            "$comment": "{\"term\": \"tokenIssuerName\", \"@id\": \"https://schema.org/name\"}",
+                            "title": "tokenIssuerName",
+                            "description": "The name oof the token issuer.",
+                            "type": "string"
+                            "examples": ["Matic"]
+                        },
+                        "tokenId": {
+                            "$comment": "{\"term\": \"tokenId\", \"@id\": \"https://schema.org/identifier\"}",
+                            "title": "tokenId",
+                            "description": "A resolvable URI of the token following the RFC 3986 standard to for example the deployment transaction of the token, or a DID identifying the token and its issuer.",
+                            "type": "string",
+                            "example": ["https://polygonscan.com/address/0x0000000000000000000000000000000000001010"]
+                        },
+                        "tokenType": {
+                            "$comment": "{\"term\": \"tokenType\", \"@id\": \https://schema.org/StructuredValue\"}",
+                            "title": "tokenType",
+                            "description": "Describes the type of token.",
+                            "type": "array"
+                            "examples"[["fungible","transferable"]]
+                        },
+                        "tokenDesc": {
+                            "$comment": "{\"term\": \"tokenDesc\", \"@id\": \"https://schema.org/description\"}",
+                            "title": "tokenDesc",
+                            "description": "Brief description of the token and its functionality.",
+                            "type": "string",
+                            "examples": ["Protocol Token for the Matic Network"]
+                        },
+                        "standard": {
+                            "$comment": "{\"term\": \"standard\", \"@id\": \"https://schema.org/citation\"}",
+                            "title": "standard",
+                            "description": "A resolvable URI to the description of the token standard.",
+                            "type": "string",
+                            "examples": ["https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md"]
+                        },
+                        "address": {
+                            "$comment": "{\"term\": \"address\", \"@id\": \"https://schema.org/identifier\"}",
+                            "title": "address",
+                            "description": "Address of the token smart contract.",
+                            "type": "string",
+                            "examples": ["0x0000000000000000000000000000000000001010"]
+                        },
+                        "addressType": {
+                            "$comment": "{\"term\": \"address\", \"@id\": \"https://schema.org/Intangible\"}",
+                            "title": "addressType",
+                            "description": "AddressType of the token smart contract.",
+                            "type": "string",
+                            "examples": ["MaticNameSpace"]
+                        },
+                        "addressAlg": {
+                            "$comment": "{\"term\": \"addressAlg\", \"@id\": \"https://schema.org/algorithm\"}",
+                            "title": "addressAlg",
+                            "description": "Algorithm used to create the address e.g. CREATE2 or the standard ethereum address construction which is the last 40 characters/20 bytes of the Keccak-256 hash of a secp256k1 public key.",
+                            "type": "string",
+                            "examples": ["CREATE2"]
+                        },
+                        "name": {
+                            "$comment": "{\"term\": \"name\", \"@id\": \"https://schema.org/name\"}",
+                            "title": "name",
+                            "description": "Token name.",
+                            "type": "string",
+                            "examples": ["Matic"]
+                        },
+                        "symbol": {
+                            "$comment": "{\"term\": \"symbol\", \"@id\": \"https://schema.org/currency\"}",
+                            "title": "symbol",
+                            "description": "Token symbol e.g. ETH.",
+                            "type": "string",
+                            "examples": ["MATIC"]
+                        },
+                        "humanReadableTokenSymbol": {
+                            "$comment": "{\"term\": \"humanReadableTokenSymbol\", \"@id\": \"https://schema.org/currency\"}",
+                            "title": "humanReadableTokenSymbol",
+                            "description": "A Token symbol e.g. ETH, concatenated with the `chainId` the token was issued on or bridged to, e.g. ETH-1",
+                            "type": "string",
+                            "examples": ["MATIC-137"]
+                        },
+                        "decimals": {
+                            "$comment": "{\"term\": \"decimals\", \"@id\": \"https://schema.org/Number\"}",
+                            "title": "decimals",
+                            "description": "Allowed number of decimals for the listed token. This property may be named differently by token standards e.g. granularity for ERC-777",
+                            "type": "integer",
+                            "examples": [18]
+                        },
+                        "logoURI": {
+                            "$comment": "{\"term\": \"logoURI\", \"@id\": \"https://schema.org/identifier\"}",
+                            "title": "logoURI",
+                            "description": "URI or URL of the token logo following the RFC 3986 standard.",
+                            "type": "string"
+                            "examples": ["https://polygonscan.com/token/images/matic_32.png"]
+                        },
+                        "createdAt": {
+                            "$comment": "{\"term\": \"createdAt\", \"@id\": \"https://schema.org/datePublished\"}",
+                            "title": "createdAt",
+                            "description": "Date and time token was created",
+                            "type": "string",
+                            "examples": ["2020-05-31"]
+                        },
+                        "updatedAt": {
+                            "$comment": "{\"term\": \"updatedAt\", \"@id\": \"https://schema.org/dateModified\"}",
+                            "title": "updatedAt",
+                            "description": "Date and time token was updated",
+                            "type": "string"
+                            "examples": ["2020-05-31"]
+                        },
+                        "extensions": {
+                            "title": "extensions",
+                            "description": "Extension to the token list entry to specify an origin chain if the token entry refers to another chain other than the origin chain of the token",
+                            "type": "array",
+                            "items": {
+                                "type":"object",
+                                "required": [
+                                    "rootChainId",
+                                    "rootChainURI",
+                                    "rootAddress",
+                                ],
+                                "properties": {
+                                    "rootChainId": {
+                                        "$comment": "{\"term\": \"rootChainId\", \"@id\": \"https://schema.org/identifier\"}",
+                                        "title": "rootChainId",
+                                        "description": "The typically used number identifier for the root chain on which the token was originally issued.",
+                                        "type": "number",
+                                        "examples": [137]
+                                    },
+                                    "rootChainURI": {
+                                        "$comment": "{\"term\": \"rootChainURI\", \"@id\": \"https://schema.org/identifier\"}",
+                                        "title": "rootChainURI",
+                                        "description": "A resolvable URI to the genesis block of the root chain on which the token was originally issued following the RFC 3986 standard.",
+                                        "type": "string",
+                                        "examples": ["https://polygonscan.com/block/0"]
+                                    },
+                                    "rootAddress": {
+                                        "$comment": "{\"term\": \"rootAddress\", \"@id\": \"https://schema.org/identifier\"}",
+                                        "title": "rootAddress",
+                                        "description": "Root address of the token smart contract.",
+                                        "type": "string",
+                                        "examples": ["0x0000000000000000000000000000000000001010"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+    "additionalProperties": false,
+}
+</code></pre></div></div>
+
+<p>Data Schema Testability: As the above data schema follows a JSON/JSON-LD schema format, and since such formats are known to be testable for schema conformance (see for example the W3C CCG Traceability Work Item), the above data schema is testable.</p>
+
+<h3 id="conformance">Conformance</h3>
+
+<p>This section describes the conformance clauses and tests required to achieve an implementation that is provably conformant with the requirements in this document.</p>
+
+<h4 id="conformance-targets">Conformance Targets</h4>
+
+<p>This document does not yet define a standardized set of test-fixtures with test inputs for all MUST, SHOULD, and MAY requirements with conditional MUST or SHOULD requirements.</p>
+
+<p>A standardized set of test-fixtures with test inputs for all MUST, SHOULD, and MAY requirements with conditional MUST or SHOULD requirements is intended to be published with the next version of the standard.</p>
+
+<h4 id="conformance-levels">Conformance Levels</h4>
+
+<p>This section specifies the conformance levels of this standard. The conformance levels offer implementers several levels of conformance. These can be used to establish competitive differentiation.</p>
+
+<p>This document defines the conformance levels of a canonical token list as follows:</p>
+
+<ul>
+  <li><strong>Level 1:</strong> All MUST requirements are fulfilled by a specific implementation as proven by a test report that proves in an easily understandable manner the implementation’s conformance with each requirement based on implementation-specific test-fixtures with implementation-specific test-fixture inputs.</li>
+  <li><strong>Level 2:</strong> All MUST and SHOULD requirements are fulfilled by a specific implementation as proven by a test report that proves in an easily understandable manner the implementation’s conformance with each requirement based on implementation-specific test-fixtures with implementation-specific test-fixture inputs.</li>
+  <li><strong>Level 3:</strong> All MUST, SHOULD, and MAY requirements with conditional MUST or SHOULD requirements are fulfilled by a specific implementation as proven by a test report that proves in an easily understandable manner the implementation’s conformance with each requirement based on implementation-specific test-fixtures with implementation-specific test-fixture inputs.</li>
+</ul>
+
+<p><a name="d3"> <strong>[D3]</strong> </a> 
+A claim that a canonical token list implementation conforms to this specification SHOULD describe a testing procedure carried out for each requirement to which conformance is claimed, that justifies the claim with respect to that requirement.</p>
+
+<p><a href="#d3">[D3]</a> testability: Since each of the non-conformance-target requirements in this documents is testable, so must be the totality of the requirements in this document. Therefore, conformance tests for all requirements can exist, and can be described as required in <a href="#d3">[D3]</a>.</p>
+
+<p><a name="r5"> <strong>[R5]</strong> </a> 
+A claim that a canonical token list implementation conforms to this specification at <strong>Level 2</strong> or higher MUST describe the testing procedure carried out for each requirement at <strong>Level 2</strong> or higher, that justifies the claim to that requirement.</p>
+
+<p><a href="#r5">[R5]</a> testability: Since each of the non-conformance-target requirements in this documents is testable, so must be the totality of the requirements in this document. Therefore, conformance tests for all requirements can exist, be described, be built and implemented and results can be recorded as required in <a href="#r5">[R5]</a>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>This specification is extending and clarifying current custom lists such as from Arbitrum and Optimism as referenced in the <a href="#motivation">Motivation</a> or the Uniswap Tokenlist Project to improve clarity, security and encourage adoption by non-Web3 native entities.</p>
+
+<p>The specification is utilizing the current JSON-LD standard to describe a token list to allow for easy integrations with Self-Sovereign-Identity frameworks such as W3C DID and W3C Verifiable Credential standards that allow for interoperability across L2s, Sidechains and L1s when identifying token list relevant entities such as Token Issuers. In addition, being compatible to W3C utilized frameworks allows implementers to use existing tooling around JSON-LD, W3C DIDs and W3C Verifiable Credentials. The choice of referencing known data property definitions from schema.org further disambiguates the meaning and usage of terms.</p>
+
+<h2 id="security-considerations">Security Considerations</h2>
+
+<p>There are no additional security requirements apart from the warnings that URIs utilized in implementations of this standard might be direct to malicious resources such as websites, and that implementers should ensure that data utilized for a canonical token list is secure and correct. Since this standard is focused on a data schema and its data properties there are no additional security considerations from for example homoglyph attacks (see <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-42574">CVE-2021-42574 (2021-10-25T12:38:28)</a>).</p>
+
+<h3 id="security-considerations-data-privacy">Security Considerations: Data Privacy</h3>
+
+<p>The standard does not set any requirements for compliance to jurisdiction legislation/regulations. It is the responsibility of the implementer to comply with applicable data privacy laws.</p>
+
+<h3 id="security-considerations-production-readiness">Security Considerations: Production Readiness</h3>
+
+<p>The standard does not set any requirements for the use of specific applications/tools/libraries etc. The implementer should perform due diligence when selecting specific applications/tools/libraries.</p>
+
+<h3 id="security-considerations-internationalization-and-localization">Security Considerations: Internationalization and Localization</h3>
+
+<p>The standard encourages implementers to follow the <a href="https://www.w3.org/TR/2022/DNOTE-string-meta-20220804/">W3C “Strings on the Web: Language and Direction Metadata” best practices guide</a> for identifying language and base direction for strings used on the Web wherever appropriate.</p>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright and related rights waived via <a href="/LICENSE">CC0</a>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ethereum Improvement Proposals</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ethereum Improvement Proposals</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/ethereum/EIPs"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">ethereum/EIPs</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum platform, including core protocol specifications, client APIs, and contract standards.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
